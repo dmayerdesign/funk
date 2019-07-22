@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "funk-eb310"
+    "default": "funk-eb310",
+    "funk-development": "funk-eb310"
   }
 }
