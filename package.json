@@ -21,6 +21,8 @@
     "@angular/platform-server": "~8.1.2",
     "@angular/router": "~8.1.2",
     "core-js": "^2.5.4",
+    "firebase-admin": "^8.0.0",
+    "firebase-functions": "^3.1.0",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
