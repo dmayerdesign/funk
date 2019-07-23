@@ -4,12 +4,10 @@
     "indexes": "firestore.indexes.json"
   },
   "functions": {
-    "predeploy": [
-      "tsc"
-    ]
+    "predeploy": "npm run functions::build"
   },
   "hosting": {
-    "public": "dist/web",
+    "public": "ui/web/dist/web-browser",
     "ignore": [
       "firebase.json",
       "**/.*",

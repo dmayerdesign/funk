@@ -1,13 +1,15 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+dist/
+tmp/
+out-tsc/
 /functions/lib
+/functions/**/*.js
+/functions/**/*.js.map
 
 # dependencies
-/node_modules
+node_modules/
 
 # IDEs and editors
 /.idea
@@ -33,6 +35,7 @@
 npm-debug.log
 yarn-error.log
 testem.log
+firebase-debug.log
 /typings
 
 # System Files

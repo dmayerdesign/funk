@@ -2,12 +2,21 @@
   "name": "funk",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "build": "npm run ui::build && npm run functions::build",
+    "deploy": "firebase deploy",
+    "ui::build": "ng build --prod --configuration=production; ng run web:server --configuration=production",
+    "ui::deploy": "firebase deploy --only hosting",
+    "ui::web::start": "ng serve --project=web",
+    "ui::web::build": "ng build --project=web",
+    "ui::web::test": "ng test --project=web",
+    "ui::web::lint": "ng lint --project=web",
+    "ui::web::e2e": "ng e2e --project=web",
+    "functions::build": "tsc --project functions/tsconfig.json",
+    "functions::serve": "npm run functions::build && firebase serve --only functions",
+    "functions::deploy": "firebase deploy --only functions",
+    "functions::start": "npm run functions::build && firebase functions:shell",
+    "functions::logs": "firebase functions:log",
+    "ng": "ng"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +30,6 @@
     "@angular/platform-server": "~8.1.2",
     "@angular/router": "~8.1.2",
     "core-js": "^2.5.4",
-    "firebase-admin": "^8.0.0",
-    "firebase-functions": "^3.1.0",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

@@ -38,7 +38,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/web",
+            "outputPath": "ui/web/dist/web-browser",
             "index": "ui/web/src/index.html",
             "main": "ui/web/src/main.ts",
             "polyfills": "ui/web/src/polyfills.ts",
@@ -58,7 +58,7 @@
               "fileReplacements": [
                 {
                   "replace": "ui/web/src/environments/environment.ts",
-                  "with": "ui/web/src/environments/environment.prod.ts"
+                  "with": "ui/web/src/environments/environment.production.ts"
                 }
               ],
               "optimization": true,
@@ -100,7 +100,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/web-server",
+            "outputPath": "ui/web/dist/web-server",
             "main": "ui/web/src/main.server.ts",
             "tsConfig": "ui/web/tsconfig.server.json"
           },
@@ -109,7 +109,7 @@
               "fileReplacements": [
                 {
                   "replace": "ui/web/src/environments/environment.ts",
-                  "with": "ui/web/src/environments/environment.prod.ts"
+                  "with": "ui/web/src/environments/environment.production.ts"
                 }
               ],
               "sourceMap": false,
