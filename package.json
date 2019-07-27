@@ -11,7 +11,7 @@
     "ui::web::test": "ng test --project=web",
     "ui::web::lint": "ng lint --project=web",
     "ui::web::e2e": "ng e2e --project=web",
-    "functions::build": "tsc --project functions/tsconfig.json",
+    "functions::build": "tsc --project functions/tsconfig.json; go-tspath -config=./functions/tsconfig.json; node functions::postbuild",
     "functions::serve": "npm run functions::build && firebase serve --only functions",
     "functions::deploy": "firebase deploy --only functions",
     "functions::start": "npm run functions::build && firebase functions:shell",
@@ -56,8 +56,11 @@
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.4.0",
+    "ts-loader": "6.0.4",
     "ts-node": "~7.0.0",
+    "tsconfig-paths-webpack-plugin": "3.2.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.4.5"
+    "typescript": "~3.4.5",
+    "webpack-cli": "3.3.6"
   }
 }

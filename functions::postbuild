@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+const { writeFileSync } = require('fs')
+const { resolve } = require('path')
+
+const contents = `\
+module.exports = require('./functions/src')
+`
+
+writeFileSync(resolve(__dirname, 'functions/lib/index.js'), contents)
