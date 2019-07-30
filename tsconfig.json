@@ -18,7 +18,9 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "noImplicitReturns": true,
+    "noUnusedLocals": true
   },
   "exclude": [
     "/functions/**/*.ts"
