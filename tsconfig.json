@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compileOnSave": false,
   "compilerOptions": {
     "downlevelIteration": true,
@@ -20,7 +19,14 @@
       "dom"
     ],
     "noImplicitReturns": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "baseUrl": ".",
+    "paths": {
+      "@funk/config": [ "./config.ts" ],
+      "@funk/shared/*": [ "./shared/*" ],
+      "@funk/ui/web/*": [ "./ui/web/src/app/modules/*" ],
+      "@funk/ui/helpers/*": [ "./ui/helpers/*" ]
+    }
   },
   "exclude": [
     "/functions/**/*.ts"

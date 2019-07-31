@@ -12,10 +12,9 @@ Cloud Functions.
 - **Developer experience:** Using Funk should be dead simple and super fun.
 
 ## Features
+
 - **TypeScript:** Native support by both Google Cloud Functions and Angular is a plus, but
-  it's TypeScript's amazing feature set, including
-  [strict null checking](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
-  and [structural subtyping](https://www.typescriptlang.org/docs/handbook/type-compatibility.html),
-  that make it a winner for enterprise-level full-stack development.
+  it's TypeScript's amazing feature set that make it a winner for enterprise-level full-
+  stack development.
 - **Serverless:** By integrating with Google Cloud Firestore and Cloud Functions, Funk
   lets you build and deploy an app with minimal configuration and minimal cost.

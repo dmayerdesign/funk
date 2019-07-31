@@ -46,10 +46,11 @@
             "aot": false,
             "assets": [
               "ui/web/src/favicon.ico",
-              "ui/web/src/assets"
+              "ui/web/src/assets",
+              "ui/web/src/manifest.webmanifest"
             ],
             "styles": [
-              "ui/web/src/styles.scss"
+              "ui/web/src/styles/styles.scss"
             ],
             "scripts": []
           },
@@ -76,7 +77,9 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ui/web/ngsw-config.json"
             }
           }
         },

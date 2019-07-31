@@ -12,7 +12,7 @@
     "baseUrl": ".",
     "paths": {
       "@funk/config": [ "../config" ],
-      "@funk/shared": [ "../shared/*" ]
+      "@funk/shared/*": [ "../shared/*" ]
     }
   },
   "files": [

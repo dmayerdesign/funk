@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@funk/config": [ "./config.ts" ],
-      "@funk/shared": [ "./shared/*" ]
-    }
-  }
-}
