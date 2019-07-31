@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { ServerModule } from '@angular/platform-server'
 import { RouterModule, Routes } from '@angular/router'
 import { AppShellComponent } from './app-shell/app-shell.component'
@@ -11,6 +12,7 @@ const routes: Routes = [ { path: 'shell', component: AppShellComponent }]
   imports: [
     AppModule,
     ServerModule,
+    NoopAnimationsModule,
     RouterModule.forRoot(routes),
   ],
   bootstrap: [AppComponent],
