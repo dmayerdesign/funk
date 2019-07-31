@@ -7,3 +7,6 @@ export default https.onRequest((request, response) => {
     bar: HELLO_WORLD
   })
 })
+
+// Front end, back end—who cares? I just want to build stuff!
+// Funk aims to be a well-organized, well-optimized starting point for writing software.

@@ -22,23 +22,3 @@ readdirSync(resolve(__dirname, FUNCTIONS_FOLDER)).forEach(file => { // list file
 `
 
 writeFileSync(resolve(__dirname, 'functions/lib/index.js'), contents)
-
-// module.exports = require('./functions/src')
-
-/*
-const { readdirSync } = require('fs')
-const { camelCase } = require('lodash')
-const { resolve } = require('path')
-
-require('./functions/src/bootstrap')
-
-const FUNCTIONS_FOLDER = './functions/src'
-readdirSync(resolve(__dirname, FUNCTIONS_FOLDER)).forEach(file => { // list files in the folder.
-  if (file.endsWith('.js')) {
-    const fileBaseName = file.slice(0, -3) // Remove the '.js' extension
-    if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === fileBaseName) {
-      exports[camelCase(fileBaseName)] = require(\`\${FUNCTIONS_FOLDER}/\${fileBaseName}\`).default
-    }
-  }
-})
-*/
