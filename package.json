@@ -4,8 +4,7 @@
   "scripts": {
     "build": "npm run ui::build && npm run functions::build",
     "deploy": "firebase deploy",
-    "serve": "npm run ui::serve",
-    "start": "npm run serve",
+    "start": "npm run ui::serve",
     "ui::build": "ng build --prod --configuration=production; ng run web:server --configuration=production",
     "ui::deploy": "npm run ui::web::deploy",
     "ui::serve": "npm run ui::web::serve",
