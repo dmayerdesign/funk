@@ -1,6 +1,0 @@
-{
-  "/functions": {
-    "target": "http://localhost:5200/funk-e24ed/us-central1",
-    "secure": false
-  }
-}

@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  functionsUrl: 'https://us-central1-funk-e24ed.cloudfunctions.net'
 }
