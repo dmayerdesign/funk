@@ -1,33 +1,40 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { HomeComponent } from './home/component'
+import { MaterialModule } from '../material.module'
+import { HomeComponent } from './home/home.component'
 import { ShopComponent } from './shop.component'
 
 const routes: Routes = [
   {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'prefix',
-  }
+    component: ShopComponent,
+    children: [
+      {
+        path: 'home',
+        component: HomeComponent,
+      },
+    ],
+  },
+  // {
+  //   path: '',
+  //   redirectTo: 'home',
+  //   pathMatch: 'prefix',
+  // }
 ]
 
 @NgModule({
-  declarations: [
-    ShopComponent,
-    HomeComponent
-  ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MaterialModule,
+  ],
+  declarations: [
+    ShopComponent,
+    HomeComponent,
   ],
   exports: [
-    RouterModule
+    RouterModule,
   ],
-  bootstrap: [ ShopComponent ]
 })
 export class ShopModule { }

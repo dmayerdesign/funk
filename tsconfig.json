@@ -29,6 +29,6 @@
     }
   },
   "exclude": [
-    "/functions/**/*.ts"
+    "/functions"
   ]
 }

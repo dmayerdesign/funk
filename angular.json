@@ -43,7 +43,7 @@
             "main": "ui/web/src/main.ts",
             "polyfills": "ui/web/src/polyfills.ts",
             "tsConfig": "ui/web/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "ui/web/src/favicon.ico",
               "ui/web/src/assets",
@@ -86,7 +86,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "web:build"
+            "browserTarget": "web:build",
+            "proxyConfig": "proxy.config.json"
           },
           "configurations": {
             "production": {
