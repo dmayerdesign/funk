@@ -16,11 +16,6 @@ const routes: Routes = [
       },
     ],
   },
-  // {
-  //   path: '',
-  //   redirectTo: 'home',
-  //   pathMatch: 'prefix',
-  // }
 ]
 
 @NgModule({
@@ -32,9 +27,6 @@ const routes: Routes = [
   declarations: [
     ShopComponent,
     HomeComponent,
-  ],
-  exports: [
-    RouterModule,
   ],
 })
 export class ShopModule { }

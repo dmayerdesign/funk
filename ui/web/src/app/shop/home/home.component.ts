@@ -1,34 +1,41 @@
-import { Component } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Component, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
+import { environment } from 'ui/web/src/environments/environment'
+import { HEIGHT_PX } from '../shop-navigation.config'
 
 @Component({
   template: `
     <div id="home-inner"
-      fxLayout="row"
-      fxLayout.lt-sm="column"
+      fxLayout="column"
       fxFlexFill>
 
-      <div class="home-banner">
+      <div class="home-banner"
+        [ngStyle]="{
+          height: 'calc(100vh -' + navbarHeight + ')',
+          backgroundColor: 'blue'
+        }">
 
-      </div>
+        <p [style.color]="'white'">
+          {{ text$ | async }}
+        </p>
 
-      <div class=""
-        fxFlex="15"
-        fxFlex.lt-sm="55">
-        first-section
-      </div>
-      <div class=""
-        fxFlex="30">
-        second-section
-      </div>
-      <div class=""
-        fxFlex="55"
-        fxFlex.lt-sm="15">
-        third-section
       </div>
 
     </div>
   `
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  public navbarHeight = HEIGHT_PX + 'px'
+  public text$: Observable<string>
 
+  constructor(
+    private _httpClient: HttpClient
+  ) {
+    console.log(environment)
+  }
+
+  public ngOnInit(): void {
+    this.text$ = this._httpClient.get<string>(`${environment.functionsUrl}/helloWorld`)
+  }
 }
