@@ -2,8 +2,9 @@
 
 const { writeFileSync } = require('fs')
 const { resolve } = require('path')
+const { exec } = require('shelljs')
 
-const contents = `\
+const indexJsContents = `\
 const { readdirSync } = require('fs')
 const { camelCase } = require('lodash')
 const { resolve } = require('path')
@@ -21,4 +22,5 @@ readdirSync(resolve(__dirname, FUNCTIONS_FOLDER)).forEach(file => { // list file
 })
 `
 
-writeFileSync(resolve(__dirname, 'functions/lib/index.js'), contents)
+exec('tscpaths -p ./functions/tsconfig.json -s . -o ./functions/lib')
+writeFileSync(resolve(__dirname, 'functions/lib/index.js'), indexJsContents)
