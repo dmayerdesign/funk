@@ -1,12 +1,25 @@
 # Funk
 
-Serverless progressive web app written with Angular to run on Google's Cloud Firestore and
-Cloud Functions.
+Funk aims to be a well-organized, well-optimized starting point for writing web-based
+software. With just a bit of configuration, you get a
+[serverless](https://en.wikipedia.org/wiki/Serverless_computing)
+[progressive web app](https://en.wikipedia.org/wiki/Progressive_web_applications)
+written with [Angular](https://angular.io) to run on
+[Firebase](https://firebase.google.com).
+
+## What's serverless?
+
+Managing a server and database—even if that means combining managed solutions for
+each—gives me, a front end developer, far more control (and opportunity to mess up) than
+I want. A fully-managed back end, like Firebase, takes care of all your infrastructure, so
+you can focus on writing code.
 
 ## Design goals
 
-- **Cost-effectiveness:** Funk aims to read and write data from Cloud Firestore as
-  efficiently as possible.
+- **Zero to app in 10 minutes:** Funk aims to lower the barrier of entry for full-stack
+  development, allowing you to deploy a functioning app in almost no time.
+- **Cost-effectiveness:** Costly behaviors like reads and writes from Firestore should
+  perform as efficiently as possible out of the box.
 - **Performance:** Offline support and pre-rendering make sure users get a fast, modern
   experience.
 - **Developer experience:** Using Funk should be dead simple and super fun.

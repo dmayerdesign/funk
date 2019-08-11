@@ -1,26 +1,10 @@
 #!/usr/bin/env node
 
-const { writeFileSync } = require('fs')
-const { resolve } = require('path')
 const { exec } = require('shelljs')
+const writeFunctionsIndex = require('./code-gen/scripts/write-functions-index')
 
-const indexJsContents = `\
-const { readdirSync } = require('fs')
-const { camelCase } = require('lodash')
-const { resolve } = require('path')
-
-require('./functions/src/bootstrap')
-
-const FUNCTIONS_FOLDER = './functions/src'
-readdirSync(resolve(__dirname, FUNCTIONS_FOLDER)).forEach(file => { // list files in the folder.
-  if (file.endsWith('.js') && !file.endsWith('index.js')) {
-    const fileBaseName = file.slice(0, -3) // Remove the '.js' extension
-    if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === fileBaseName) {
-      exports[camelCase(fileBaseName)] = require(\`\${FUNCTIONS_FOLDER}/\${fileBaseName}\`).default
-    }
-  }
-})
-`
-
+// Apply tsconfig.json's `paths` to compiled JS.
 exec('tscpaths -p ./functions/tsconfig.json -s . -o ./functions/lib')
-writeFileSync(resolve(__dirname, 'functions/lib/index.js'), indexJsContents)
+
+// Generate index.js for our functions.
+writeFunctionsIndex()

@@ -28,12 +28,11 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private _httpClient: HttpClient
-  ) {
-    console.log(environment)
-  }
+  ) { }
 
   public ngOnInit(): void {
-    this.text$ = this._httpClient.get<{ text: string }>(`${environment.functionsUrl}/helloWorld`)
+    this.text$ = this._httpClient
+      .get<{ text: string }>(`${environment.functionsUrl}/helloWorld`)
       .pipe(map(({ text }) => text))
   }
 }

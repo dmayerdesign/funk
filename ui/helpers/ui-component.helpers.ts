@@ -22,8 +22,8 @@ export function MortalityAware(): ClassDecorator {
 }
 
 export const forLifeOf = <ValueType>(instance: any) => {
-  // Check to make sure the class is a component class.
-  // http://prideparrot.com/blog/archive/2018/7/extending_component_decorator_angular_6
+  // TODO: Check to make sure the class is a component class.
+  // (http://prideparrot.com/blog/archive/2018/7/extending_component_decorator_angular_6)
   // Check to make sure the class has the @MortalityAwareComponent decorator.
   const isMortalityAware = !!instance.qb__onDestroy$
 
