@@ -1,28 +1,37 @@
 import { AuthenticationRequest } from '@funk/shared/contracts/data-access/authentication-request'
+import { StatusCode, StatusCodeMessage } from '@funk/shared/contracts/http/status-code'
 import { NextFunction, Response } from 'express'
 import { auth } from 'firebase-admin'
 
-// Inspired by https://github.com/firebase/functions-samples/blob/6c284a689c484ac4395fde1a8e8d6c2731705b55/authorized-https-endpoint/functions/index.js
-// Express middleware that validates a Firebase ID Tokens passed in the Authorization HTTP
-// header or in the "__session" cookie.
-// An Authorization header should look like this:
-// `Authorization: Bearer <Firebase ID Token>`.
-// When decoded successfully, the ID Token's content will be added as `req.user`.
-export async function isAuthenticated(
+// Thanks to firebase/functions-samples for guidance:
+// https://github.com/firebase/functions-samples/blob/6c284a689c484ac4395fde1a8e8d6c2731705b55/authorized-https-endpoint/functions/index.js
+/**
+ * Express middleware that checks whether the request contains a user in the form of a
+ * Firebase ID Token. The token may be passed in the `Authorization` header or in the
+ * "__session" cookie. The value of the `Authorization` header should look like this:
+ *
+ * `Bearer <Firebase ID Token>`
+ *
+ * If decoded successfully, the ID Token's content will be assigned to the `user` property
+ * of `request`.
+ */
+export async function authenticate(
   request: AuthenticationRequest,
   { status, send }: Response,
   next: NextFunction
-): Promise<void> {
+): Promise<boolean> {
   try {
     const encodedIdToken = getEncodedIdTokenOrThrow()
     const decodedIdToken = await auth().verifyIdToken(encodedIdToken)
     request.user = decodedIdToken
     next()
+    return true
   }
   catch (error) {
     console.error(error)
-    status(403)
-    send('UNAUTHORIZED')
+    status(StatusCode.UNAUTHORIZED)
+    send(StatusCodeMessage[StatusCode.UNAUTHORIZED])
+    return false
   }
 
   function getEncodedIdTokenOrThrow(): string {

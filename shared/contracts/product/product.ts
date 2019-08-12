@@ -1,65 +1,49 @@
-import { AttributeValue } from '../attribute-value/attribute-value'
-import { Attribute } from '../attribute/attribute'
-import { Entity } from '../data-access/entity'
+import { AttributeValue } from '../attribute/attribute-value'
+import { DatabaseDocument } from '../data-access/database-document'
+import { PrimaryKey } from '../data-access/primary-key'
 import { Dimensions } from '../dimensions/dimensions'
-import { Image } from '../image/image'
+import { ImageGroup } from '../image/image-group'
 import { Price } from '../price/price'
-import { SimpleAttributeValue } from '../simple-attribute-value/simple-attribute-value'
-import { TaxonomyTerm } from '../taxonomy-term/taxonomy-term'
-import { Units } from '../units/units'
+import { TaxonomyTerm } from '../taxonomy/taxonomy-term'
 import { Weight } from '../weight/weight'
+import { ProductRelationType } from './product-relation-type'
 
-export interface Product extends Entity {
-    // Aesthetic.
-    name: string
-    slug: string
-    description: string
-    featuredImages: Image[]
-    images: Image[]
+export interface Product extends DatabaseDocument {
+  // Aesthetic.
+  name: string
+  slug: string
+  description: string
+  imageGroups: ImageGroup[]
+  defaultImageGroupId: PrimaryKey
 
-    // Organizational.
-    sku: string
-    isStandalone: boolean
-    isParent: boolean
-    parentSku: string
-    parent: Product
+  // Financial.
+  price: Price
+  salePrice: Price
 
-    // Financial.
-    price: Price
-    priceRange: Price[]
-    salePrice: Price
-    salePriceRange: Price[]
-    isOnSale: boolean
-    variationSkus: string[]
-    variations: Product[]
-    isVariation: boolean
-    isDefaultVariation: boolean
+  // Organizational.
+  sku: string
+  relationType: ProductRelationType
+  isDefaultVariation: boolean
+  variations: Product[]
 
-    // Attributes.
-    /// Own attributes.
-    attributeValues: AttributeValue[]
-    simpleAttributeValues: SimpleAttributeValue[]
-    /// Variation attributes.
-    variableProperties: string[]
-    variableAttributes: Attribute[]
-    variableAttributeValues: AttributeValue[]
-    variableSimpleAttributeValues: SimpleAttributeValue[]
+  /** A Product may have one AttributeValue per Attribute. */
+  attributeValues: {
+    [attributeId: string]: AttributeValue
+  }
 
-    // Taxonomy.
-    taxonomyTerms: TaxonomyTerm[]
-    taxonomyTermSlugs: string[] // TODO: remove (used for convenience in HyzerShop migration for building image urls)
+  /** A Product may have multiple TaxonomyTerms per Taxonomy. */
+  taxonomyTerms: TaxonomyTerm[]
 
-    // Shipping.
-    units: Units
-    dimensions: Dimensions
-    shippingWeight: Weight
-    netWeight: Weight
+  // Shipping.
+  dimensions: Dimensions
+  shippingWeight: Weight
+  netWeight: Weight
 
-    // Additional tax.
-    additionalTax: number
+  /** Product-specific */
+  additionalTax: Price
 
-    // Sales.
-    stockQuantity: number
-    totalSales: number
-    existsInStripe: boolean
+  // Sales.
+  stockQuantity: number
+  totalSales: number
+  existsInStripe: boolean
 }

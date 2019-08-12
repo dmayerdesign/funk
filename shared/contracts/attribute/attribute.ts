@@ -1,8 +1,8 @@
-import { Entity } from '../data-access/entity'
+import { DatabaseDocument } from '../data-access/database-document'
+import { AttributeType } from './attribute-type'
 
-export interface Attribute extends Entity {
+export interface Attribute extends DatabaseDocument {
+  type: AttributeType
+  name: string
   slug: string
-  singularName?: string
-  pluralName?: string
-  description?: string
 }

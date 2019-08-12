@@ -1,5 +1,8 @@
+import { LengthUnit } from '../units/length-unit'
+
 export interface Dimensions {
-    length: number
-    width: number
-    height: number
+  unit: LengthUnit
+  x: number
+  y: number
+  z?: number
 }

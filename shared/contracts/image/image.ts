@@ -1,7 +1,6 @@
-import { Entity } from '../data-access/entity'
+import { ImageResolution } from './image-resolution'
 
-export interface Image extends Entity {
-    large?: string
-    medium?: string
-    thumbnail?: string
+export interface Image {
+  url: string
+  resolution?: ImageResolution
 }

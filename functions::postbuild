@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-
 const { exec } = require('shelljs')
 const writeFunctionsIndex = require('./code-gen/scripts/write-functions-index')
 
-// Apply tsconfig.json's `paths` to compiled JS.
-exec('tscpaths -p ./functions/tsconfig.json -s . -o ./functions/lib')
-
 // Generate index.js for our functions.
 writeFunctionsIndex()
+
+// Apply tsconfig.json's `paths` to compiled JS.
+exec('tscpaths -p ./functions/tsconfig.json -s . -o ./functions/lib')

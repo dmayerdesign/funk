@@ -15,8 +15,9 @@
       "@funk/shared/*": [ "../shared/*" ]
     }
   },
-  "files": [
-    "./src/index.ts"
+  "include": [
+    "./src/**/*.ts",
+    "../shared/**/*.ts"
   ],
   "exclude": [
     "node_modules"

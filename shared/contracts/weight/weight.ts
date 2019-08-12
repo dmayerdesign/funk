@@ -1,4 +1,4 @@
-import { WeightUnit } from '../units/units'
+import { WeightUnit } from '../units/weight-unit'
 
 export interface Weight {
     amount: number

@@ -1,7 +1,9 @@
+import { DatabaseDocument } from '../data-access/database-document'
 import { Product } from '../product/product'
-import { User } from '../user/user'
 
-export interface Wishlist {
-    user: User
-    products: Product[]
+export interface Wishlist extends DatabaseDocument {
+  userId: string
+  name: string
+  isDefault: boolean
+  products: Product[]
 }

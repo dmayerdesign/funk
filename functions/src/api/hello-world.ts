@@ -1,12 +1,9 @@
-import * as initCors from 'cors'
 import { https } from 'firebase-functions'
+import { createCorsApp } from '../helpers/create-cors-app'
 
-const cors = initCors({
-  origin: true,
+const app = createCorsApp(true)
+app.get('/', ({ query }, { send }) => {
+  send(`Hello from Firebase! Here's your query: ${query}`)
 })
 
-export default https.onRequest((request, response) => cors(request, response, () => {
-  response.json({
-    text: `Hello from Firebase!!! Here's your query: ${JSON.stringify(request.query)}`,
-  })
-}))
+export default https.onRequest(app)
