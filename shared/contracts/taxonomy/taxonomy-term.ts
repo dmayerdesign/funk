@@ -8,4 +8,5 @@ export interface TaxonomyTerm extends DatabaseDocument {
     slug: string
     description: string
     children: TaxonomyTerm[]
+    forInternalUseOnly: boolean
 }

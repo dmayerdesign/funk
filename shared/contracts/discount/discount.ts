@@ -14,11 +14,11 @@ export interface Discount extends DatabaseDocument {
   total?: Price
   /** A positive percentage is deducted from the Product's price. */
   percentage?: number
-  code?: string
   /** A positive amount is deducted from an order's shipping cost. */
   totalShipping?: Price
   /** A positive percentage is deducted from an order's shipping cost. */
   percentageShipping?: number
+  code?: string
   includes: DiscountRules
   excludes?: DiscountRules
   startAt?: Timestamp
