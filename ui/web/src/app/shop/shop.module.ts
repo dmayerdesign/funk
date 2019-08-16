@@ -25,7 +25,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,
-    StateModule.forRoot<ShopState>(shopInitialState)
+    StateModule.forRoot<ShopState>(shopInitialState),
   ],
   declarations: [
     ShopComponent,

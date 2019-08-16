@@ -1,6 +1,14 @@
-import { Component } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Component, OnInit } from '@angular/core'
+import { Product } from '@funk/shared/contracts/product/product'
+import { Observable } from 'rxjs'
+import { filter, map, mapTo } from 'rxjs/operators'
+import { StateManager } from 'ui/state/state-manager'
+import { environment } from '../../environments/environment'
 import { HEIGHT_PX } from './shop-navigation.config'
+import { ShopAction, ShopState } from './shop.actions'
 
+// Here we implement whatever interface we want to consume and expose data and stuff.
 @Component({
   template: `
     <nav class="mat-elevation-z10">
@@ -20,8 +28,68 @@ import { HEIGHT_PX } from './shop-navigation.config'
       overflow: visible;
       white-space: normal;
     }
-  `]
+  `],
 })
-export class ShopComponent {
+export class ShopComponent implements OnInit {
+  public products$: Observable<Product[]>
 
+  constructor(
+    // Corresponds to the StateModule we imported in shop.module.
+    public manager: StateManager<ShopState>,
+    private _httpClient: HttpClient,
+  ) {
+    this.products$ = this.manager.resultOf(ShopAction.GET_PRODUCTS).pipe(
+      map(({ state }) => state.cart.products)
+    )
+  }
+
+  public ngOnInit(): void {
+    // Side effects (should go first).
+    this.manager.resultOf(ShopAction.LOAD_CART)
+      .pipe(filter(({ error }) => !error))
+      .subscribe(
+        (data) => console.log('got success :D', data),
+      )
+
+    this.loadCart('order=0')
+    this.loadCart('order=1')
+    this.loadCart('order=2')
+    this.loadCart('order=3')
+    this.failToLoadCart()
+    this.loadCart('order=4')
+    this.doSomething()
+  }
+
+  public loadCart(query: string): void {
+    return this.manager.dispatch({
+      type: ShopAction.LOAD_CART,
+      execute: (state: ShopState) => this._httpClient.get(environment.functionsUrl + '/helloWorld?' + query).pipe(
+          mapTo({
+            ...state,
+            cart: { products: [] }
+          })
+        )
+        .toPromise()
+    })
+  }
+
+  public failToLoadCart(): void {
+    return this.manager.dispatch({
+      type: ShopAction.LOAD_CART,
+      execute: (state: ShopState) => this._httpClient.get('/thisWillFail').pipe(
+          mapTo(state)
+        )
+        .toPromise()
+    })
+  }
+
+  public doSomething(): void {
+    return this.manager.dispatch({
+      type: ShopAction.GET_PRODUCTS,
+      execute: (state: ShopState) => Promise.resolve({
+        ...state,
+        foo: 'fooooo'
+      })
+    })
+  }
 }

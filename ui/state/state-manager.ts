@@ -1,63 +1,68 @@
-import { ModuleWithProviders, NgModule } from '@angular/core'
-import { BehaviorSubject, Observable, Subject } from 'rxjs'
-import { filter, map, switchMap } from 'rxjs/operators'
+import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core'
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs'
+import { filter, flatMap, share } from 'rxjs/operators'
 import { Action } from './action'
 
 export class StateManager<StateType> {
   public state$: Observable<StateType>
   private _state$: BehaviorSubject<StateType>
-  private _dispatch$ = new Subject<Action<StateType>>()
+  private _dispatch$ = new ReplaySubject<Action<StateType>>(1)
+
+  // One cool thing about this is that we can audit and even fine-tune this stream, like
+  // using `concatMap` instead of `flatMap` to throttle requests.
   private _execution$ = this._dispatch$.pipe(
-    switchMap(async (behavior) => {
+    flatMap(async (action) => {
       try {
         this._state$.next(
-          await behavior.execute(this._state$.getValue())
+          await action.execute(this._state$.getValue())
         )
-        return { behavior, stateSnapshot: this._state$.getValue() }
+        return { action, state: this._state$.getValue() }
       }
       catch (error) {
-        return { behavior, error }
+        return { action, error }
       }
-    })
+    }),
+    share(),
   )
 
   constructor(initialState: StateType) {
+    // Init state.
     this._state$ = new BehaviorSubject(initialState)
     this.state$ = this._state$.asObservable()
+
+    // Start multicasting the execution stream.
+    this._execution$.subscribe()
   }
 
-  public dispatch(behavior: Action<StateType>): void {
-    this._dispatch$.next(behavior)
+  public dispatch(action: Action<StateType>): void {
+    return this._dispatch$.next(action)
   }
 
-  public onDispatchOf<BehaviorType>(
-    behaviorType: string
-  ): Observable<BehaviorType> {
-    return this._dispatch$.pipe<BehaviorType>(
-      filter<any>(({ type }) => type === behaviorType)
+  public dispatchOf<ActionType>(
+    ...actionTypes: string[]
+  ): Observable<ActionType> {
+    return this._dispatch$.pipe(
+      // @ts-ignore
+      filter(({ type }: ActionType) => actionTypes.some((actionType) => type === actionType)),
+      share(),
     )
   }
 
-  public onSuccessOf(
-    behaviorType: string
-  ): Observable<StateType> {
+  public resultOf(
+    ...actionTypes: string[]
+  ): Observable<{ action: Action<StateType>, state?: StateType, error?: Error}> {
     return this._execution$.pipe(
-      filter(({ behavior }) => behavior.type === behaviorType),
-      filter(({ error }) => !error),
-      map(({ stateSnapshot }) => stateSnapshot)
-    )
-  }
-
-  public onFailureOf(
-    behaviorType: string
-  ): Observable<any> {
-    return this._execution$.pipe(
-      filter(({ behavior }) => behavior.type === behaviorType),
-      filter(({ error }) => !!error),
-      map(({ error }) => error)
+      filter(({ action }) => actionTypes.some((actionType) => action.type === actionType)),
+      share(),
     )
   }
 }
+
+export function createStateManager(initialState: any): StateManager<any> {
+  return new StateManager(initialState)
+}
+
+export const INITIAL_STATE = new InjectionToken<any>('INITIAL_STATE')
 
 @NgModule()
 export class StateModule {
@@ -65,7 +70,15 @@ export class StateModule {
     return {
       ngModule: StateModule,
       providers: [
-        { provide: StateManager, useValue: new StateManager(initialState) }
+        {
+          provide: INITIAL_STATE,
+          useValue: initialState
+        },
+        {
+          provide: StateManager,
+          useFactory: createStateManager,
+          deps: [ INITIAL_STATE ]
+        }
       ]
     }
   }

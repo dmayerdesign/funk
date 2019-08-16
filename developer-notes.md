@@ -48,3 +48,15 @@ exports.aggregate = functions.firestore
 
 - **Pre-rendering:** Make sure `AppShellComponent` contains a nice, one-page static
 facade for the site.
+
+## Misc
+
+Store actions:
+
+- loadWishlist
+- checkout
+- createWishlist
+- listProducts
+- listWishlists
+- updateProductQuantityInCart
+- updateProductQuantityInWishlist
