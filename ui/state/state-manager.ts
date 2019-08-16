@@ -1,12 +1,12 @@
 import { ModuleWithProviders, NgModule } from '@angular/core'
 import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { filter, map, switchMap } from 'rxjs/operators'
-import { Behavior } from './behavior'
+import { Action } from './action'
 
-export class BehaviorManager<StateType> {
-  private _state$: BehaviorSubject<StateType>
+export class StateManager<StateType> {
   public state$: Observable<StateType>
-  private _dispatch$ = new Subject<Behavior<StateType>>()
+  private _state$: BehaviorSubject<StateType>
+  private _dispatch$ = new Subject<Action<StateType>>()
   private _execution$ = this._dispatch$.pipe(
     switchMap(async (behavior) => {
       try {
@@ -26,7 +26,7 @@ export class BehaviorManager<StateType> {
     this.state$ = this._state$.asObservable()
   }
 
-  public dispatch(behavior: Behavior<StateType>): void {
+  public dispatch(behavior: Action<StateType>): void {
     this._dispatch$.next(behavior)
   }
 
@@ -60,12 +60,12 @@ export class BehaviorManager<StateType> {
 }
 
 @NgModule()
-export class BehaviorModule {
+export class StateModule {
   public static forRoot<StateType = unknown>(initialState: StateType): ModuleWithProviders {
     return {
-      ngModule: BehaviorModule,
+      ngModule: StateModule,
       providers: [
-        { provide: BehaviorManager, useValue: new BehaviorManager(initialState) }
+        { provide: StateManager, useValue: new StateManager(initialState) }
       ]
     }
   }

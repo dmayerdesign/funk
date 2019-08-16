@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { BehaviorModule } from 'ui/behavior/behavior-manager'
+import { StateModule } from 'ui/state/state-manager'
 import { MaterialModule } from '../material.module'
 import { HomeComponent } from './home/home.component'
-import { ShopState } from './shop.behaviors'
+import { shopInitialState, ShopState } from './shop.actions'
 import { ShopComponent } from './shop.component'
 
 const routes: Routes = [
@@ -25,9 +25,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,
-    BehaviorModule.forRoot<ShopState>({
-      cart: {}
-    })
+    StateModule.forRoot<ShopState>(shopInitialState)
   ],
   declarations: [
     ShopComponent,
