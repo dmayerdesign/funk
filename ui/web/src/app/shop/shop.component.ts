@@ -3,12 +3,11 @@ import { Component, OnInit } from '@angular/core'
 import { Product } from '@funk/shared/contracts/product/product'
 import { Observable } from 'rxjs'
 import { filter, map, mapTo } from 'rxjs/operators'
-import { StateManager } from 'ui/state/state-manager'
+import { Vex } from 'ui/state/vex'
 import { environment } from '../../environments/environment'
 import { HEIGHT_PX } from './shop-navigation.config'
 import { ShopAction, ShopState } from './shop.actions'
 
-// Here we implement whatever interface we want to consume and expose data and stuff.
 @Component({
   template: `
     <nav class="mat-elevation-z10">
@@ -35,7 +34,7 @@ export class ShopComponent implements OnInit {
 
   constructor(
     // Corresponds to the StateModule we imported in shop.module.
-    public manager: StateManager<ShopState>,
+    public manager: Vex<ShopState>,
     private _httpClient: HttpClient,
   ) {
     this.products$ = this.manager.resultOf(ShopAction.GET_PRODUCTS).pipe(
@@ -63,7 +62,8 @@ export class ShopComponent implements OnInit {
   public loadCart(query: string): void {
     return this.manager.dispatch({
       type: ShopAction.LOAD_CART,
-      execute: (state: ShopState) => this._httpClient.get(environment.functionsUrl + '/helloWorld?' + query).pipe(
+      // resolve: () => new Promise((resolve) => setTimeout(resolve, 1000))
+      resolve: (state: ShopState) => this._httpClient.get(environment.functionsUrl + '/helloWorld?' + query).pipe(
           mapTo({
             ...state,
             cart: { products: [] }
@@ -76,7 +76,7 @@ export class ShopComponent implements OnInit {
   public failToLoadCart(): void {
     return this.manager.dispatch({
       type: ShopAction.LOAD_CART,
-      execute: (state: ShopState) => this._httpClient.get('/thisWillFail').pipe(
+      resolve: (state: ShopState) => this._httpClient.get('/thisWillFail').pipe(
           mapTo(state)
         )
         .toPromise()
@@ -86,7 +86,7 @@ export class ShopComponent implements OnInit {
   public doSomething(): void {
     return this.manager.dispatch({
       type: ShopAction.GET_PRODUCTS,
-      execute: (state: ShopState) => Promise.resolve({
+      resolve: (state: ShopState) => Promise.resolve({
         ...state,
         foo: 'fooooo'
       })

@@ -28,6 +28,9 @@
       "@funk/ui/helpers/*": [ "./ui/helpers/*" ]
     }
   },
+  "include": [
+    "./**/*.ts"
+  ],
   "exclude": [
     "/functions"
   ]
