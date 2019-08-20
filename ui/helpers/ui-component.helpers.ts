@@ -1,5 +1,6 @@
+import { DataSource } from '@angular/cdk/table'
 import { Ease, TweenLite } from 'gsap'
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
 export function MortalityAware(): ClassDecorator {
@@ -68,4 +69,12 @@ export function animateTo(options: AnimateOptions): Animation {
   const animation = new Animation(options)
   animation.start()
   return animation
+}
+
+export class CollectionSource<DataType> extends DataSource<DataType> {
+  constructor(
+    public data$: Observable<DataType[]>,
+  ) { super() }
+  public connect = () => this.data$
+  public disconnect = () => { }
 }

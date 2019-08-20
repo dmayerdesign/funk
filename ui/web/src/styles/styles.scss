@@ -3,9 +3,8 @@
 @import './typography';
 @import './material-theme';
 
-body {
-  margin: 0;
-}
+html, body { height: 100%; }
+body { margin: 0; }
 
 button {
   word-wrap: break-word;
@@ -13,3 +12,4 @@ button {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
