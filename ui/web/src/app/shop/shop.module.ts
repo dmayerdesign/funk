@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { VexModule } from 'ui/state/vex.module'
+import { VexModule } from '@dannymayer/vex'
 import { MaterialModule } from '../material.module'
 import { HomeComponent } from './home/home.component'
-import { shopInitialState, ShopState } from './shop.actions'
+import { ShopApi } from './shop.api'
 import { ShopComponent } from './shop.component'
+import { shopInitialState, ShopState } from './shop.model'
 
 const routes: Routes = [
   {
@@ -30,6 +31,9 @@ const routes: Routes = [
   declarations: [
     ShopComponent,
     HomeComponent,
+  ],
+  providers: [
+    ShopApi,
   ],
 })
 export class ShopModule { }

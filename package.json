@@ -37,6 +37,7 @@
     "@angular/pwa": "0.801.3",
     "@angular/router": "~8.1.2",
     "@angular/service-worker": "~8.1.2",
+    "@dannymayer/vex": "0.1.3",
     "cookie-parser": "1.4.4",
     "core-js": "^2.5.4",
     "express": "4.17.1",
