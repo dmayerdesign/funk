@@ -3,15 +3,15 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { VexModule } from '@dannymayer/vex'
 import { MaterialModule } from '../material.module'
-import { HomeComponent } from './home/home.component'
-import { ShopApi } from './shop.api'
-import { ShopComponent } from './shop.component'
-import { shopInitialState, ShopState } from './shop.model'
+import { Api } from './api'
+import { ShopContainer } from './container'
+import { HomeComponent } from './home/component'
+import { shopInitialState, ShopState } from './model'
 
 const routes: Routes = [
   {
     path: '',
-    component: ShopComponent,
+    component: ShopContainer,
     children: [
       {
         path: 'home',
@@ -29,11 +29,11 @@ const routes: Routes = [
     VexModule.forRoot<ShopState>(shopInitialState),
   ],
   declarations: [
-    ShopComponent,
+    ShopContainer,
     HomeComponent,
   ],
   providers: [
-    ShopApi,
+    Api,
   ],
 })
 export class ShopModule { }

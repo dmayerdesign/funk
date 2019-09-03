@@ -8,16 +8,16 @@ import { RouterModule, Routes } from '@angular/router'
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
 import { MaterialModule } from './material.module'
-import { NotFoundComponent } from './not-found/not-found.component'
+import { NotFoundComponent } from './not-found/component'
 
 const routes: Routes = [
   {
     path: 'shop',
-    loadChildren: () => import('./shop/shop.module').then((mod) => mod.ShopModule),
+    loadChildren: () => import('./shop/module').then((mod) => mod.ShopModule),
   },
   {
     path: 'account',
-    loadChildren: () => import('./account-management/account-management.module')
+    loadChildren: () => import('./account-management/module')
       .then((mod) => mod.AccountManagementModule),
     ...canActivate(redirectUnauthorizedTo(['login'])),
   },

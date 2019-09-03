@@ -1,7 +1,8 @@
 import { DataSource } from '@angular/cdk/table'
+import { ActionResult } from '@dannymayer/vex'
 import { Ease, TweenLite } from 'gsap'
-import { Observable, Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { pipe, Observable, Subject, UnaryFunction } from 'rxjs'
+import { map, takeUntil } from 'rxjs/operators'
 
 export function MortalityAware(): ClassDecorator {
   return (target: any) => {
@@ -77,4 +78,16 @@ export class CollectionSource<DataType> extends DataSource<DataType> {
   ) { super() }
   public connect = () => this.data$
   public disconnect = () => { }
+}
+
+// TODO: Get this working as an overload.
+export function mapResultToState<StateType>(slice?: keyof StateType):
+  UnaryFunction<Observable<ActionResult<StateType>>, Observable<StateType & StateType[keyof StateType]>>
+{
+  return pipe(
+    map(({ state }) => !!slice ? state[slice] : state)
+  ) as UnaryFunction<
+    Observable<ActionResult<StateType>>,
+    Observable<StateType & StateType[keyof StateType]>
+  >
 }

@@ -3,9 +3,11 @@
 ## Cost optimization
 
 - **Configure budget alerts.**
-- **Reads: always multicast if you can** when creating an Observable of a Firestore read.
+- **Reads: always multicast** when creating an Observable of a Firestore read.
 - **Reads: [use aggregation](https://firebase.google.com/docs/firestore/solutions/aggregation)**
-- **Reads: [user cursors](https://firebase.google.com/docs/firestore/query-data/query-cursors) for pagination.**
+- **Reads: [use cursors](https://firebase.google.com/docs/firestore/query-data/query-cursors) for pagination.**
+- **Reads: fetch once per session** when you can, e.g. for data that can be considered part
+of the "current version" of the app, like organization-level data that doesn't get updated much.
 - **Reads and writes: always use either [transactions or batching](https://firebase.google.com/docs/firestore/manage-data/transactions).**
 Transactions are the most generally useful, but batches should be used when deleting, or
 for similarly aggressive operations that we're able to "fire and forget".

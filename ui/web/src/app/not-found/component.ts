@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 
 @Component({
-  selector: 'app-not-found',
+  selector: 'not-found',
   template: `
     <h1>Not Found</h1>
     <button mat-raised-button color="accent">Go back</button>

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { environment } from 'ui/web/src/environments/environment'
-import { HEIGHT_PX } from '../shop-navigation.config'
+import { HEIGHT_PX } from '../config'
 
 @Component({
   template: `

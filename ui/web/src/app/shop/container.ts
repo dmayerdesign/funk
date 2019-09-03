@@ -1,11 +1,11 @@
 import { Component, NgZone, OnInit } from '@angular/core'
 import { setUpDevTools, Manager } from '@dannymayer/vex'
-import { CollectionSource } from '@funk/ui/helpers/ui-component.helpers'
+import { mapResultToState, CollectionSource } from '@funk/ui/helpers/ui-component.helpers'
 import { map } from 'rxjs/operators'
-import { environment } from '../../environments/environment';
-import { HEIGHT_PX } from './shop-navigation.config'
-import { ShopApi } from './shop.api'
-import { ShopAction, ShopState } from './shop.model'
+import { environment } from '../../environments/environment'
+import { Api } from './api'
+import { HEIGHT_PX } from './config'
+import { ShopAction, ShopState } from './model'
 
 @Component({
   template: `
@@ -28,25 +28,26 @@ import { ShopAction, ShopState } from './shop.model'
     }
   `],
 })
-export class ShopComponent implements OnInit {
-  public productsSource = new CollectionSource(this.manager
+export class ShopContainer implements OnInit {
+  public productsSource = new CollectionSource(this._manager
     .results(ShopAction.GET_PRODUCTS)
-    .pipe(map(({ state }) => state.cart.products)))
+    .pipe(
+      mapResultToState('cart'),
+      map(({ products }) => products),
+    ))
 
   constructor(
-    public manager: Manager<ShopState>,
-    public api: ShopApi,
     private _ngZone: NgZone,
+    private _manager: Manager<ShopState>,
+    public api: Api,
   ) { }
 
   public ngOnInit(): void {
     if (!environment.production) {
       this._ngZone.run(() => setUpDevTools())
     }
-    this.api.loadCart()
-    this.api.failToLoadCart()
-    this.manager.results(ShopAction.LOAD_CART).subscribe(
-      (data) => console.log('got something!', data),
-    )
+
+    this.api.initShop()
+    this.api.initCart()
   }
 }

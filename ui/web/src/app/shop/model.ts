@@ -13,4 +13,5 @@ export const shopInitialState: ShopState = {
 export const enum ShopAction {
   GET_PRODUCTS = 'GET_PRODUCTS',
   LOAD_CART = 'LOAD_CART',
+  LOAD_SHOP = 'LOAD_SHOP',
 }

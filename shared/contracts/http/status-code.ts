@@ -327,7 +327,7 @@ export const enum StatusCode {
   USE_PROXY = 305,
 }
 
-export enum StatusCodeMessage {
+export const enum StatusCodeMessage {
   'Accepted' = 202,
   'Bad Gateway' = 502,
   'Bad Request' = 400,
