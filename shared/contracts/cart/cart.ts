@@ -1,7 +1,7 @@
 import { Discount } from '../discount/discount'
-import { Product } from '../product/product'
+import { ProductCollection, ProductCollectionType } from '../product/product-collection'
 
-export interface Cart {
-  products: Product[]
+export interface Cart extends ProductCollection {
+  type?: ProductCollectionType.CART
   discounts?: Discount[]
 }

@@ -7,7 +7,7 @@ software. With just a bit of configuration, you get a
 written with [Angular](https://angular.io) to run on
 [Firebase](https://firebase.google.com).
 
-## What's serverless?
+## What's "serverless"?
 
 Managing a server and database—even if that means combining managed solutions for
 each—gives me, a front end developer, far more control (and opportunity to mess up) than

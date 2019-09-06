@@ -12,6 +12,7 @@ export const shopInitialState: ShopState = {
 
 export const enum ShopAction {
   GET_PRODUCTS = 'GET_PRODUCTS',
-  LOAD_CART = 'LOAD_CART',
-  LOAD_SHOP = 'LOAD_SHOP',
+  INIT_SHOP = 'INIT_SHOP',
+  ADD_TO_CART = 'ADD_TO_CART',
+  SUBMIT_ORDER = 'SUBMIT_ORDER',
 }

@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { AngularFireModule } from '@angular/fire'
+import { AngularFireAuthModule } from '@angular/fire/auth'
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
 import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { BrowserModule } from '@angular/platform-browser'
@@ -39,6 +40,7 @@ const routes: Routes = [
     HttpClientModule,
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
   ],
   declarations: [

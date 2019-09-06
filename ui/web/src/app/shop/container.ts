@@ -3,7 +3,7 @@ import { setUpDevTools, Manager } from '@dannymayer/vex'
 import { mapResultToState, CollectionSource } from '@funk/ui/helpers/ui-component.helpers'
 import { map } from 'rxjs/operators'
 import { environment } from '../../environments/environment'
-import { Api } from './api'
+import { ShopApi } from './api'
 import { HEIGHT_PX } from './config'
 import { ShopAction, ShopState } from './model'
 
@@ -39,7 +39,7 @@ export class ShopContainer implements OnInit {
   constructor(
     private _ngZone: NgZone,
     private _manager: Manager<ShopState>,
-    public api: Api,
+    public api: ShopApi,
   ) { }
 
   public ngOnInit(): void {
@@ -48,6 +48,5 @@ export class ShopContainer implements OnInit {
     }
 
     this.api.initShop()
-    this.api.initCart()
   }
 }
