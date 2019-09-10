@@ -4,7 +4,7 @@ import { ActionResult, Manager } from '@dannymayer/vex'
 import { Cart } from '@funk/shared/contracts/cart/cart'
 import { Order } from '@funk/shared/contracts/order/order'
 import { Observable } from 'rxjs'
-import { distinctUntilKeyChanged, map } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 import { IdentityApi } from '../identity/api'
 import { ShopAction, ShopState } from './model'
 
@@ -18,7 +18,6 @@ export class ShopApi {
     private _identityApi: IdentityApi,
   ) {
     this._identityApi.user$
-      .pipe(distinctUntilKeyChanged('id'))
       .subscribe(
         (user) => {
           this._firestore.collection('carts')
@@ -45,7 +44,7 @@ export class ShopApi {
   public submitOrder(_order: Partial<Order>): Observable<ActionResult<ShopState>> {
     return this._manager.once({
       type: ShopAction.SUBMIT_ORDER,
-      reduce: state => state,
+      resolve: state$ => state$,
     })
   }
 }
