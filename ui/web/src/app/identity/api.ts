@@ -21,8 +21,8 @@ export class IdentityApi {
     private _firestore: AngularFirestore,
   ) { }
 
-  public async init(): Promise<auth.UserCredential> {
-    return this._fireAuth.auth.signInAnonymously()
+  public async init(): Promise<void> {
+    await this._fireAuth.auth.signInAnonymously()
   }
 
   public async createUserWithEmailAndPassword(email: string, password: string): Promise<auth.UserCredential> {

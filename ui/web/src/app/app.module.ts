@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http'
-import { NgModule } from '@angular/core'
+import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
@@ -8,6 +8,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule, Routes } from '@angular/router'
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
+import { appInitializer } from './app.initializer'
+import { IdentityApi } from './identity/api';
 import { MaterialModule } from './material.module'
 import { NotFoundComponent } from './not-found/component'
 
@@ -46,6 +48,14 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     NotFoundComponent
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializer,
+      deps: [ IdentityApi ],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
