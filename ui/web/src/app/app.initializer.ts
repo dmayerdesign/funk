@@ -1,5 +1,7 @@
 import { IdentityApi } from './identity/api'
 
-export async function appInitializer(identityApi: IdentityApi): Promise<void> {
-  await identityApi.init()
+export function createAppInitializer(identityApi: IdentityApi): () => Promise<void> {
+  return async function appInitializer(): Promise<void> {
+    await identityApi.init()
+  }
 }

@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { ActionResult, Manager } from '@dannymayer/vex'
 import { Cart } from '@funk/shared/contracts/cart/cart'
 import { Order } from '@funk/shared/contracts/order/order'
+import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { IdentityApi } from '../identity/api'
@@ -18,8 +19,10 @@ export class ShopApi {
     private _identityApi: IdentityApi,
   ) {
     this._identityApi.user$
+      .pipe(ignoreNullish())
       .subscribe(
         (user) => {
+          console.log('got a user!', user)
           this._firestore.collection('carts')
             .doc<Cart>(user.id)
             .valueChanges()

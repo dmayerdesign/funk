@@ -1,15 +1,13 @@
 import { HttpClientModule } from '@angular/common/http'
 import { APP_INITIALIZER, NgModule } from '@angular/core'
-import { AngularFireModule } from '@angular/fire'
-import { AngularFireAuthModule } from '@angular/fire/auth'
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
-import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule, Routes } from '@angular/router'
-import { environment } from '../environments/environment'
 import { AppComponent } from './app.component'
-import { appInitializer } from './app.initializer'
-import { IdentityApi } from './identity/api';
+import { createAppInitializer } from './app.initializer'
+import { FireModule } from './fire.module'
+import { IdentityApi } from './identity/api'
+import { IdentityModule } from './identity/module'
 import { MaterialModule } from './material.module'
 import { NotFoundComponent } from './not-found/component'
 
@@ -20,9 +18,10 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    loadChildren: () => import('./account-management/module')
-      .then((mod) => mod.AccountManagementModule),
-    ...canActivate(redirectUnauthorizedTo(['login'])),
+    loadChildren: () => import('./account-management/module').then(
+      (mod) => mod.AccountManagementModule
+    ),
+    ...canActivate(redirectUnauthorizedTo(['/'])),
   },
   {
     path: '',
@@ -41,9 +40,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     MaterialModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFireDatabaseModule,
+    FireModule,
+    IdentityModule,
   ],
   declarations: [
     AppComponent,
@@ -52,9 +50,9 @@ const routes: Routes = [
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: appInitializer,
+      useFactory: createAppInitializer,
       deps: [ IdentityApi ],
-      multi: true
+      multi: true,
     }
   ],
   bootstrap: [AppComponent]
