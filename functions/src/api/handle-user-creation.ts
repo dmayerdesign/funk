@@ -5,21 +5,22 @@ import { auth } from 'firebase-functions'
 import 'firebase-functions'
 
 export default auth.user().onCreate(async (user) => {
-  console.log('handle user creation!')
   const firestore = new Firestore({ projectId: 'funk-e24ed' })
 
-  const newUserConfig: UserConfig = {
-    id: user.uid,
-    displayName: user.displayName,
-    email: user.email,
-  }
-  const newCart: Cart = {
-    // Exclude `type` to save space.
-    products: []
-  }
+  if (user.email) {
+    const newUserConfig: UserConfig = {
+      id: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+    }
+    const newCart: Cart = {
+      // Exclude `type` to save space.
+      products: []
+    }
 
-  return Promise.all([
-    firestore.collection(USER_CONFIGS).doc(user.uid).set(newUserConfig),
-    firestore.collection('carts').doc(user.uid).set(newCart),
-  ])
+    return Promise.all([
+      firestore.collection(USER_CONFIGS).doc(user.uid).set(newUserConfig),
+      firestore.collection('carts').doc(user.uid).set(newCart),
+    ])
+  }
 })

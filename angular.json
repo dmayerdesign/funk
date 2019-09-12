@@ -36,6 +36,20 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "ui/web/src/environments/environment.ts",
+                  "with": "ui/web/src/environments/environment.development.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "aot": true,
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "ngswConfigPath": "ui/web/ngsw-config.json"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -70,6 +84,9 @@
             "browserTarget": "web:build"
           },
           "configurations": {
+            "development": {
+              "browserTarget": "web:build:development"
+            },
             "production": {
               "browserTarget": "web:build:production"
             }
@@ -89,6 +106,18 @@
             "tsConfig": "ui/web/tsconfig.server.json"
           },
           "configurations": {
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "ui/web/src/environments/environment.ts",
+                  "with": "ui/web/src/environments/environment.development.ts"
+                }
+              ],
+              "optimization": {
+                "scripts": false,
+                "styles": true
+              }
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -112,6 +141,10 @@
             "route": "shell"
           },
           "configurations": {
+            "development": {
+              "browserTarget": "web:build:development",
+              "serverTarget": "web:server:development"
+            },
             "production": {
               "browserTarget": "web:build:production",
               "serverTarget": "web:server:production"
