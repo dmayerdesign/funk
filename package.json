@@ -16,7 +16,7 @@
     "functions::build::prod": "node functions-prebuild -c production && tsc --project functions/tsconfig.json && node functions-postbuild",
     "functions::build::watch": "node functions-prebuild && tsc-watch --project functions/tsconfig.json --onSuccess \"node functions-postbuild\"",
     "functions::deploy": "firebase deploy --only functions",
-    "functions::serve": "firebase serve --only functions --port 5200",
+    "functions::serve": "firebase serve --only functions,firestore --port 5200",
     "functions::shell": "npm run functions::build && firebase functions:shell",
     "functions::logs": "firebase functions:log",
     "ng": "ng"

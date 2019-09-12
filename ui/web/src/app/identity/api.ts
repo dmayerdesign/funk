@@ -30,9 +30,12 @@ export class IdentityApi {
   }
 
   public async createUserWithEmailAndPassword(
-    email: string, password: string
+    email: string, password: string, userConfig?: Partial<UserConfig>
   ): Promise<auth.UserCredential> {
-    return this._fireAuth.auth.createUserWithEmailAndPassword(email, password)
+    const userCredential = await this._fireAuth.auth.createUserWithEmailAndPassword(
+      email, password
+    )
+    return userCredential
   }
 
   public async signInWithEmailAndPassword(

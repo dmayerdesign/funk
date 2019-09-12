@@ -5,10 +5,10 @@ import { https } from 'firebase-functions'
 import { createCorsApp } from '../helpers/create-cors-app'
 
 const app = createCorsApp(true)
-app.post('/', (request: RequestWithBody<Order>, { send }) => {
+app.post('/', (request: RequestWithBody<Order>, response) => {
   const { body: order } = request
   // TODO: Calculate tax using Avalara free API. https://www.npmjs.com/package/avatax
-  send(order.products.map(({ computedPrice }) => computedPrice
+  response.send(order.products.map(({ computedPrice }) => computedPrice
     ? {
       amount: computedPrice.amount * 0.06,
       currency: computedPrice.currency,

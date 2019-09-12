@@ -1,9 +1,10 @@
 import { HttpClientModule } from '@angular/common/http'
-import { APP_INITIALIZER, NgModule } from '@angular/core'
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core'
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule, Routes } from '@angular/router'
 import { AppComponent } from './app.component'
+import { AppErrorHandler } from './app.error-handler'
 import { createAppInitializer } from './app.initializer'
 import { FireModule } from './fire.module'
 import { IdentityApi } from './identity/api'
@@ -53,7 +54,11 @@ const routes: Routes = [
       useFactory: createAppInitializer,
       deps: [ IdentityApi ],
       multi: true,
-    }
+    },
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler,
+    },
   ],
   bootstrap: [AppComponent]
 })

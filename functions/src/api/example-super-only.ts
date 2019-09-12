@@ -8,9 +8,9 @@ import { createCorsApp } from '../helpers/create-cors-app'
 const app = createCorsApp(true)
 app.use(cookieParser())
 app.use(authenticateForRole(UserRole.SUPER))
-app.get('/', (request, { send }) => {
+app.get('/', (request, response) => {
   const { user } = request as AuthenticatedRequest
-  send(`Hello ${user.name}`)
+  response.send(`Hello ${user.name}`)
 })
 
 export default https.onRequest(app)

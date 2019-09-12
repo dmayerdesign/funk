@@ -47,6 +47,6 @@ export class ShopContainer implements OnInit {
       this._ngZone.run(() => setUpDevTools())
     }
 
-    this.api.initShop()
+    this.api.init()
   }
 }

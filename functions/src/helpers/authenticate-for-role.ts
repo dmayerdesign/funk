@@ -10,7 +10,6 @@ import { authenticate } from './authenticate'
 export function authenticateForRole(role: UserRole): RequestHandler {
   return function(request: AuthenticationRequest, response: Response, next: NextFunction): Promise<boolean> {
     return authenticate(request, response, async function(): Promise<boolean> {
-      const { status, send } = response
       const { user: idToken } = request as AuthenticatedRequest
       const user = await auth().getUser(idToken.uid)
       const claims = user.customClaims as CustomClaims
@@ -19,8 +18,8 @@ export function authenticateForRole(role: UserRole): RequestHandler {
         return true
       }
       else {
-        status(StatusCode.FORBIDDEN)
-        send(StatusCodeMessage[StatusCode.FORBIDDEN])
+        response.status(StatusCode.FORBIDDEN)
+        response.send(StatusCodeMessage[StatusCode.FORBIDDEN])
         return false
       }
     })

@@ -17,7 +17,7 @@ import { auth } from 'firebase-admin'
  */
 export async function authenticate(
   request: AuthenticationRequest,
-  { status, send }: Response,
+  response: Response,
   next: NextFunction
 ): Promise<boolean> {
   try {
@@ -29,8 +29,8 @@ export async function authenticate(
   }
   catch (error) {
     console.error(error)
-    status(StatusCode.UNAUTHORIZED)
-    send(StatusCodeMessage[StatusCode.UNAUTHORIZED])
+    response.status(StatusCode.UNAUTHORIZED)
+    response.send(StatusCodeMessage[StatusCode.UNAUTHORIZED])
     return false
   }
 
