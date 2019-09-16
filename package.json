@@ -9,7 +9,7 @@
     "ui::build": "ng build --configuration=development; ng run web:server --configuration=development",
     "ui::build::prod": "ng build --configuration=production; ng run web:server --configuration=production",
     "ui::deploy": "firebase deploy --only hosting",
-    "ui::develop": "ng serve --project=web",
+    "ui::develop": "ng serve --project=web --configuration=local",
     "ui::start": "npx angular-http-server --path ui/web/dist/web-browser -p 4200",
     "ui::lint": "ng lint --project=web",
     "functions::build": "node functions-prebuild && tsc --project functions/tsconfig.json && node functions-postbuild",
@@ -19,6 +19,7 @@
     "functions::serve": "firebase serve --only functions,firestore --port 5200",
     "functions::shell": "npm run functions::build && firebase functions:shell",
     "functions::logs": "firebase functions:log",
+    "bootstrap-project": "node bootstrap-project",
     "ng": "ng"
   },
   "private": true,

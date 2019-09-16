@@ -22,7 +22,7 @@
     "noUnusedLocals": true,
     "baseUrl": ".",
     "paths": {
-      "@funk/config": [ "./config.ts" ],
+      "@funk/config": [ "./config/config.ts" ],
       "@funk/shared/*": [ "./shared/*" ],
       "@funk/ui/web/*": [ "./ui/web/src/app/modules/*" ],
       "@funk/ui/helpers/*": [ "./ui/helpers/*" ]

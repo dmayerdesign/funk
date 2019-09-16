@@ -36,6 +36,14 @@
             "scripts": []
           },
           "configurations": {
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "ui/web/src/environments/environment.ts",
+                  "with": "ui/web/src/environments/environment.local.ts"
+                }
+              ]
+            },
             "development": {
               "fileReplacements": [
                 {
@@ -84,6 +92,9 @@
             "browserTarget": "web:build"
           },
           "configurations": {
+            "local": {
+              "browserTarget": "web:build:local"
+            },
             "development": {
               "browserTarget": "web:build:development"
             },
@@ -106,6 +117,14 @@
             "tsConfig": "ui/web/tsconfig.server.json"
           },
           "configurations": {
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "ui/web/src/environments/environment.ts",
+                  "with": "ui/web/src/environments/environment.local.ts"
+                }
+              ]
+            },
             "development": {
               "fileReplacements": [
                 {
@@ -141,6 +160,10 @@
             "route": "shell"
           },
           "configurations": {
+            "local": {
+              "browserTarget": "web:build:local",
+              "serverTarget": "web:server:local"
+            },
             "development": {
               "browserTarget": "web:build:development",
               "serverTarget": "web:server:development"

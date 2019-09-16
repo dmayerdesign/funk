@@ -1,6 +1,18 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function getRole() {
+      return get(/databases/$(database)/documents/user-configs/$(request.auth.uid)).data.role;
+    }
+    function isSuper() {
+      return getRole() === "SUPER";
+    }
+    function isSuperOrOwner() {
+      return isSuper() || getRole() === "OWNER";
+    }
 
     match /sandbox/{document=**} {
       allow read;
@@ -8,14 +20,25 @@ service cloud.firestore {
     }
 
     match /products/{product}/{document=**} {
-      allow get;
-      allow list;
+      allow read;
     }
     match /products/{product}/{document=**} {
-      allow create;
-      allow update;
-      allow delete;
+      allow write: if isSignedIn() && isSuperOrOwner();
     }
 
+    match /carts/{uid}/{document=**} {
+      allow write: if isSignedIn() && isSuperOrOwner();
+    }
+
+    match /user-configs/{uid}/{document=**} {
+      function isAllowed() {
+        return request.resource.data.id == request.auth.uid
+          || isSuperOrOwner()
+      }
+
+      allow read: if isSignedIn() && isAllowed();
+      allow create: if resource == null && isSignedIn() && isAllowed();
+      allow update, delete: if isSignedIn() && isAllowed();
+    }
   }
 }

@@ -1,7 +1,9 @@
 {
   "public": {
-    "configuration": "development",
-    "fire_project_id": "funk-e24ed",
-    "gcp_region": "us-east1"
+    "configuration": "local",
+    "secrets_bucket_name": "vault-local",
+    "gcp_region": "us-east1",
+    "us-east1": "FIRE_PROJECT_ID",
+    "fire_project_id": "funk-e24ed"
   }
 }

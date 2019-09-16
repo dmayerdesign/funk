@@ -1,47 +1,22 @@
 #!/usr/bin/env node
-const { readFileSync, writeFileSync } = require('fs')
 const { resolve } = require('path')
 const { exec } = require('shelljs')
 const program = require('commander')
-const stripComments = require('strip-comments')
-const { chunk } = require('lodash')
+const { configToJson } = require('./config/helpers/config-to-json')
 
-const DEVELOPMENT = 'development'
-
-// Copy the contents of `config.ts` to `functions/.runtimeconfig.json`
 program.option('-c, --configuration', 'e.g. production')
 program.parse(process.argv)
 
-const { configuration = DEVELOPMENT } = program.opts()
-const pathToRuntimeConfig = resolve(__dirname, 'functions/.runtimeconfig.json')
-const configFilename = configuration === DEVELOPMENT
-  ? 'config.ts'
-  : `config.${configuration}.ts`
-const configFile = readFileSync(resolve(__dirname, configFilename), { encoding: 'utf8' })
-const configRawString = stripComments(
-    configFile.replace('\n', ';')
-      .replace(/export [a-z]+/g, '')
-  )
-  .replace(/\=/g, '[SPLIT]')
-  .replace(/\; /g, '[SPLIT]')
-  .replace(/(?<!\\)['"`]/g, '')
+// Translate `config[.*].ts` to JSON.
+const { configuration = 'local' } = program.opts()
+const configJson = configToJson(configuration)
 
-const configMap = chunk(
-    configRawString.split('[SPLIT]').map((element) => element.trim()),
-    2,
-  )
-  .reduce(
-    (configObject, pair) => {
-      configObject[pair[0].toLowerCase()] = pair[1]
-      return configObject
-    },
-    { configuration }
-  )
-const configString = JSON.stringify(configMap, null, 2) + '\n'
-const configJson = JSON.parse(configString)
-
+// Set each key/value as a config pair.
 Object.keys(configJson).forEach((key) => {
-  exec(`firebase functions:config:set public.${key}=${configJson[key]}`)
+  console.log('SETTING:', `public.${key.toLowerCase()}=${configJson[key]}`)
+  exec(`firebase functions:config:set public.${key.toLowerCase()}=${configJson[key]}`)
 })
 
+// Copy the result of `functions:config:get` to `functions/.runtimeconfig.json`
+const pathToRuntimeConfig = resolve(__dirname, 'functions/.runtimeconfig.json')
 exec(`firebase functions:config:get > ${pathToRuntimeConfig}`)
