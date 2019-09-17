@@ -1,11 +1,11 @@
-import { Cart } from '@funk/shared/contracts/cart/cart'
+import { Cart, CARTS } from '@funk/shared/contracts/cart/cart'
 import { UserConfig, USER_CONFIGS } from '@funk/shared/contracts/user/user-config'
 import { Firestore } from '@google-cloud/firestore'
-import { auth } from 'firebase-functions'
+import { auth, config } from 'firebase-functions'
 import 'firebase-functions'
 
-export default auth.user().onCreate(async (user) => {
-  const firestore = new Firestore({ projectId: 'funk-e24ed' })
+export default auth.user().onCreate(async function(user): Promise<any> {
+  const firestore = new Firestore({ projectId: config().public.fire_project_id })
 
   if (user.email) {
     const newUserConfig: UserConfig = {
@@ -20,7 +20,7 @@ export default auth.user().onCreate(async (user) => {
 
     return Promise.all([
       firestore.collection(USER_CONFIGS).doc(user.uid).set(newUserConfig),
-      firestore.collection('carts').doc(user.uid).set(newCart),
+      firestore.collection(CARTS).doc(user.uid).set(newCart),
     ])
   }
 })

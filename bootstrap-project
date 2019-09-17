@@ -6,18 +6,20 @@ const { configToJson } = require('./config/helpers/config-to-json')
 program.option('-c, --configuration', 'e.g. production')
 program.parse(process.argv)
 
-// Translate `config[.*].ts` to JSON.
+// Translate `config[.<configuration>].ts` to JSON.
 const { configuration = 'local' } = program.opts()
 const configJson = configToJson(configuration)
 
-// TODO: Install `berglas`.
+// TODO: Install `berglas` here rather than including it in source.
 exec(`
   export PROJECT_ID=${configJson.FIRE_PROJECT_ID}
-  export BUCKET_ID=${configJson.SECRETS_BUCKET_NAME}
+  export BUCKET_ID=vault
+
   gcloud services enable --project $PROJECT_ID \
     cloudkms.googleapis.com \
     storage-api.googleapis.com \
     storage-component.googleapis.com
+
   chmod +x ./berglas
   ./berglas bootstrap --project $PROJECT_ID --bucket $BUCKET_ID
 `)

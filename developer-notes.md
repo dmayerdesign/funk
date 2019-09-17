@@ -2,7 +2,7 @@
 
 ## Cost optimization
 
-- **Configure budget alerts.**
+- **Billing: Configure a spending limit and budget alerts.**
 - **Reads: always multicast** when creating an Observable of a Firestore read.
 - **Reads: [use aggregation](https://firebase.google.com/docs/firestore/solutions/aggregation)**
 - **Reads: [use cursors](https://firebase.google.com/docs/firestore/query-data/query-cursors) for pagination.**

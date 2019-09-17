@@ -5,3 +5,5 @@ export interface Cart extends ProductCollection {
   type?: ProductCollectionType.CART
   discounts?: Discount[]
 }
+
+export const CARTS = 'carts'

@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "funk-e24ed",
-    "funk-development": "funk-e24ed"
+    "default": "funk-development",
+    "development": "funk-development"
   }
 }
