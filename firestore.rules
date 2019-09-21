@@ -8,10 +8,10 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/user-configs/$(request.auth.uid)).data.role;
     }
     function isSuper() {
-      return getRole() === "SUPER";
+      return getRole() == "SUPER";
     }
     function isSuperOrOwner() {
-      return isSuper() || getRole() === "OWNER";
+      return isSuper() || getRole() == "OWNER";
     }
 
     match /sandbox/{document=**} {
@@ -27,12 +27,17 @@ service cloud.firestore {
     }
 
     match /carts/{uid}/{document=**} {
-      allow write: if isSignedIn() && isSuperOrOwner();
+      function isAllowed() {
+        return uid == request.auth.uid
+          || isSuperOrOwner()
+      }
+
+      allow write: if isSignedIn() && isAllowed();
     }
 
     match /user-configs/{uid}/{document=**} {
       function isAllowed() {
-        return request.resource.data.id == request.auth.uid
+        return uid == request.auth.uid
           || isSuperOrOwner()
       }
 

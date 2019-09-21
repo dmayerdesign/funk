@@ -7,7 +7,7 @@ module.exports.configToJson = function (configuration) {
   const configFileName = `config.${configuration || 'local'}.ts`
   const configFile = readFileSync(
     resolve(__dirname, '../../config', configFileName),
-    { encoding: 'utf8' }
+    { encoding: 'utf-8' }
   )
   const configRawString = stripComments(
       configFile.replace(/export /g, '')

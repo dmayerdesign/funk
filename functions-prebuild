@@ -4,10 +4,10 @@ const { exec } = require('shelljs')
 const program = require('commander')
 const { configToJson } = require('./config/helpers/config-to-json')
 
-program.option('-c, --configuration', 'e.g. production')
+program.option('-c, --configuration <configuration>', 'e.g. production')
 program.parse(process.argv)
 
-// Translate `config[.*].ts` to JSON.
+// Translate `config.*.ts` to JSON.
 const { configuration = 'local' } = program.opts()
 const configJson = configToJson(configuration)
 

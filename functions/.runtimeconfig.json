@@ -1,7 +1,7 @@
 {
   "public": {
-    "configuration": "local",
+    "fire_project_id": "funk-development",
     "gcp_region": "us-east1",
-    "fire_project_id": "funk-e24ed"
+    "configuration": "local"
   }
 }

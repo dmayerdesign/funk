@@ -3,23 +3,32 @@ const { exec } = require('shelljs')
 const program = require('commander')
 const { configToJson } = require('./config/helpers/config-to-json')
 
-program.option('-c, --configuration', 'e.g. production')
+program.option('-c, --configuration <configuration>', 'e.g. production')
 program.parse(process.argv)
 
 // Translate `config[.<configuration>].ts` to JSON.
 const { configuration = 'local' } = program.opts()
 const configJson = configToJson(configuration)
 
-// TODO: Install `berglas` here rather than including it in source.
 exec(`
+  echo "Installing dependencies..."
+  npm i
+
+  # TODO: Install Berglas here rather than including it in source.
+  echo "Setting up Berglas to manage secrets..."
   export PROJECT_ID=${configJson.FIRE_PROJECT_ID}
   export BUCKET_ID=vault
 
+  # Enable services required for Berglas.
   gcloud services enable --project $PROJECT_ID \
     cloudkms.googleapis.com \
     storage-api.googleapis.com \
     storage-component.googleapis.com
 
+  # Bootstrap Berglas.
   chmod +x ./berglas
   ./berglas bootstrap --project $PROJECT_ID --bucket $BUCKET_ID
+
+  # Set up the firestore emulator.
+  firebase setup:emulators:firestore
 `)
