@@ -4,6 +4,6 @@ const writeConfig = require('./code-gen/scripts/write-config')
 
 program.option('-c, --configuration <configuration>', 'e.g. production')
 program.parse(process.argv)
-const { configuration = 'local' } = program.opts()
+const { configuration } = program.opts()
 
 writeConfig(configuration)

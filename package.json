@@ -21,7 +21,6 @@
     "functions::build::production": "node functions-prebuild -c production && tsc --project functions/tsconfig.json && node functions-postbuild",
     "functions::build::watch": "node functions-prebuild -c local && tsc-watch --project functions/tsconfig.json --onSuccess \"node functions-postbuild\"",
     "serverless::develop": "firebase use development && firebase serve --only firestore,functions",
-    "bootstrap-project::local": "node bootstrap-project -c local",
     "bootstrap-project::development": "node bootstrap-project -c development",
     "bootstrap-project::production": "node bootstrap-project -c production",
     "ng": "ng"

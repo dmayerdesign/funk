@@ -12,6 +12,8 @@
   ],
   "include": [
     "ui/web/src/**/*.spec.ts",
-    "functions/src/api/**/*.spec.ts"
+    "ui/web/src/**/spec.ts",
+    "functions/src/api/**/*.spec.ts",
+    "functions/src/api/**/spec.ts"
   ]
 }

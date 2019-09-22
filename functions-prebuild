@@ -8,7 +8,7 @@ program.option('-c, --configuration <configuration>', 'e.g. production')
 program.parse(process.argv)
 
 // Translate `config.*.ts` to JSON.
-const { configuration = 'local' } = program.opts()
+const { configuration } = program.opts()
 const configJson = configToJson(configuration)
 
 // Set each key/value as a config pair.

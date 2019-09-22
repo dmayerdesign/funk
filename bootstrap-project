@@ -7,7 +7,7 @@ program.option('-c, --configuration <configuration>', 'e.g. production')
 program.parse(process.argv)
 
 // Translate `config[.<configuration>].ts` to JSON.
-const { configuration = 'local' } = program.opts()
+const { configuration } = program.opts()
 const configJson = configToJson(configuration)
 
 exec(`
@@ -17,9 +17,10 @@ exec(`
   # TODO: Install Berglas here rather than including it in source.
   echo "Setting up Berglas to manage secrets..."
   export PROJECT_ID=${configJson.FIRE_PROJECT_ID}
-  export BUCKET_ID=vault
+  export BUCKET_ID=${configJson.FIRE_PROJECT_ID}-vault
 
   # Enable services required for Berglas.
+  gcloud config set project $PROJECT_ID
   gcloud services enable --project $PROJECT_ID \
     cloudkms.googleapis.com \
     storage-api.googleapis.com \

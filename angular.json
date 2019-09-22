@@ -178,7 +178,7 @@
           "builder": "@angular-builders/jest:run",
           "options": {
             "configPath": "../../jest.config.js",
-            "tsConfig": "tsconfig.spec.json",
+            "tsConfig": "../../tsconfig.spec.json",
             "assets": [
               "ui/web/src/favicon.ico",
               "ui/web/src/assets"
