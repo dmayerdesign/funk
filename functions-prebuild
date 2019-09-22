@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { sync: delSync } = require('del')
 const { resolve } = require('path')
 const { exec } = require('shelljs')
 const program = require('commander')
@@ -20,3 +21,6 @@ Object.keys(configJson).forEach((key) => {
 // Copy the result of `functions:config:get` to `functions/.runtimeconfig.json`
 const pathToRuntimeConfig = resolve(__dirname, 'functions/.runtimeconfig.json')
 exec(`firebase functions:config:get > ${pathToRuntimeConfig}`)
+
+// Delete the existing built output.
+delSync(resolve(__dirname, 'functions/lib') + '/**')

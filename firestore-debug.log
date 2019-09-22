@@ -6,9 +6,9 @@ If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment
 
 Dev App Server is now running.
 
-Sep 21, 2019 7:53:17 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Sep 22, 2019 2:47:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Sep 21, 2019 7:53:18 PM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
+Sep 22, 2019 2:47:01 AM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
 WARNING: An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
 java.io.IOException: Connection reset by peer
 	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)

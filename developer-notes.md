@@ -53,7 +53,7 @@ facade for the site.
 
 ## Secrets
 
-### Berglas
+### [Berglas](https://github.com/GoogleCloudPlatform/berglas)
 
 **Bucket:** funk-{configuration}-vault
 

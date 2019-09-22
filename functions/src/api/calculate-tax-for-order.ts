@@ -10,7 +10,7 @@ app.post('/', (request: RequestWithBody<Order>, response) => {
   // TODO: Calculate tax using Avalara free API. https://www.npmjs.com/package/avatax
   response.send(order.products.map(({ computedPrice }) => computedPrice
     ? {
-      amount: computedPrice.amount * 0.06,
+      amount: computedPrice.amount * (1 + (6 / 100)),
       currency: computedPrice.currency,
     }
     : {

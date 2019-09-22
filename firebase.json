@@ -3,9 +3,6 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "functions": {
-    "predeploy": "npm run functions::build"
-  },
   "hosting": {
     "public": "ui/web/dist/web-browser",
     "ignore": [

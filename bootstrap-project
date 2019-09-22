@@ -5,10 +5,14 @@ const { configToJson } = require('./config/helpers/config-to-json')
 
 program.option('-c, --configuration <configuration>', 'e.g. production')
 program.parse(process.argv)
-
-// Translate `config[.<configuration>].ts` to JSON.
 const { configuration } = program.opts()
 const configJson = configToJson(configuration)
+
+// TODO:
+// - do a full firebase init
+// - enable anonymous, email/password, and google sign-in methods
+// - create easy way to set app secrets
+// - initial deploy
 
 exec(`
   echo "Installing dependencies..."
