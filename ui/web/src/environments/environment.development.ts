@@ -2,13 +2,13 @@ export const environment = {
   production: false,
   functionsUrl: 'https://us-central1-funk-development.cloudfunctions.net',
   firebaseConfig: {
-    apiKey: 'AIzaSyAq7sB8Nmt-BY7wOVjsbt_2tK5s_oqpico',
+    apiKey: 'AIzaSyAwYuwt4i2GJeAga_auP8Mw0E_sn9kvQ6c',
     authDomain: 'funk-development.firebaseapp.com',
     databaseURL: 'https://funk-development.firebaseio.com',
     projectId: 'funk-development',
     storageBucket: 'funk-development.appspot.com',
-    messagingSenderId: '438977829602',
-    appId: '1:438977829602:web:7b6a5d89f9c36a46',
+    messagingSenderId: '568649519522',
+    appId: '1:568649519522:web:ba86789de3edbb007ae2fb',
   },
 }
 

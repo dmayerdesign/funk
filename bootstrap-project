@@ -10,6 +10,7 @@ const configJson = configToJson(configuration)
 
 // TODO:
 // - do a full firebase init
+// - enable billing (https://cloud.google.com/billing/v1/libraries)
 // - enable anonymous, email/password, and google sign-in methods
 // - create easy way to set app secrets
 // - initial deploy
