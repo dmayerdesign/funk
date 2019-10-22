@@ -2,7 +2,7 @@ import { RequestWithBody } from '@funk/shared/contracts/data-access/request-with
 import { Order } from '@funk/shared/contracts/order/order'
 import { CurrencyCode } from '@funk/shared/contracts/price/currency-code'
 import { https } from 'firebase-functions'
-import { createCorsApp } from '../helpers/create-cors-app'
+import createCorsApp from '../helpers/create-cors-app'
 
 const app = createCorsApp(true)
 app.post('/', (request: RequestWithBody<Order>, response) => {

@@ -5,9 +5,9 @@ import { AuthenticationRequest } from '@funk/shared/contracts/data-access/authen
 import { StatusCode, StatusCodeMessage } from '@funk/shared/contracts/http/status-code'
 import { NextFunction, RequestHandler, Response } from 'express'
 import { auth } from 'firebase-admin'
-import { authenticate } from './authenticate'
+import authenticate from './authenticate'
 
-export function authenticateForRole(role: UserRole): RequestHandler {
+export default function(role: UserRole): RequestHandler {
   return function(request: AuthenticationRequest, response: Response, next: NextFunction): Promise<boolean> {
     return authenticate(request, response, async function(): Promise<boolean> {
       const { user: idToken } = request as AuthenticatedRequest

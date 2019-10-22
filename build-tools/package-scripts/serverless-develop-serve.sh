@@ -1,1 +1,2 @@
-firebase use development && firebase serve --only firestore,functions
+firebase use development && \
+firebase serve --only firestore,functions

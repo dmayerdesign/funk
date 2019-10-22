@@ -1,7 +1,7 @@
 import { AuthenticatedRequest } from '@funk/shared/contracts/data-access/authenticated-request'
 import * as cookieParser from 'cookie-parser'
 import { https } from 'firebase-functions'
-import { createCorsApp } from '../helpers/create-cors-app'
+import createCorsApp from '../helpers/create-cors-app'
 
 const app = createCorsApp(true)
 app.use(cookieParser())

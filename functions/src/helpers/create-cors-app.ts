@@ -1,8 +1,8 @@
 import * as cors from 'cors'
 import * as express from 'express'
-import { createApp } from './create-app'
+import createApp from './create-app'
 
-export function createCorsApp(
+export default function(
   origin: string | RegExp | string[] | RegExp[] | boolean,
   app?: express.Application
 ): express.Application {

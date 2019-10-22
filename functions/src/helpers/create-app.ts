@@ -1,7 +1,7 @@
 import * as express from 'express'
-import { handleError } from './handle-error'
+import handleError from './handle-error'
 
-export function createApp(): express.Application {
+export default function(): express.Application {
   const app = express()
   app.use(handleError)
   return app

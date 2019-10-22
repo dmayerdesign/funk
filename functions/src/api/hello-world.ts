@@ -1,12 +1,9 @@
 import { https } from 'firebase-functions'
-import { createCorsApp } from '../helpers/create-cors-app'
+import createCorsFunction from '../helpers/create-cors-function'
 
-const app = createCorsApp(true)
-app.get('/', (request, response) => {
+export default https.onRequest(createCorsFunction(true, (request, response) => {
   const delay = Math.random() * 3000
   setTimeout(() => {
     response.send([`Hello from Firebase! Here's your query: ${JSON.stringify(request.query)}`])
   }, delay)
-})
-
-export default https.onRequest(app)
+}))

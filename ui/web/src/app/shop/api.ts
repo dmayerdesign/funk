@@ -51,8 +51,8 @@ export class ShopApi {
       .pipe(ignoreNullish())
       .subscribe((cart) => this._updateCart(cart))
 
-      throwPresentableError(new Error('moo!'))
-    }
+    throwPresentableError(new Error('moo!'))
+  }
 
   public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>> {
     return this._manager.once({

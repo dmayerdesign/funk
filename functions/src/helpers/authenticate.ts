@@ -15,7 +15,7 @@ import { auth } from 'firebase-admin'
  * If decoded successfully, the ID Token's content will be assigned to the `user` property
  * of `request`.
  */
-export async function authenticate(
+export default async function(
   request: AuthenticationRequest,
   response: Response,
   next: NextFunction

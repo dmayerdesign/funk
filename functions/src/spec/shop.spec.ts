@@ -8,7 +8,7 @@ const supertest = Supertest(
 
 describe('shop', () => {
   it('should calculate tax for an order', () => supertest
-    .post('/calculateTaxForOrder')
+    .post('/orderCalculateTax')
     .send({
       products: [
         { computedPrice: { amount: 1000, currency: 'USD' } }
