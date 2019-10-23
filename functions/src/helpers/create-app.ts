@@ -1,8 +1,15 @@
+import * as cookieParser from 'cookie-parser'
+import * as cors from 'cors'
 import * as express from 'express'
 import handleError from './handle-error'
 
-export default function(): express.Application {
-  const app = express()
-  app.use(handleError)
-  return app
+export interface CreateAppOptions {
+  corsOptions?: cors.CorsOptions
+}
+
+export default function({ corsOptions }: CreateAppOptions = {}): express.Application {
+  return express()
+    .use(cookieParser())
+    .use(handleError)
+    .use(cors({ origin: '*', ...corsOptions }))
 }

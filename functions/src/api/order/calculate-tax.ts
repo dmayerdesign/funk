@@ -2,9 +2,9 @@ import { RequestWithBody } from '@funk/shared/contracts/data-access/request-with
 import { Order } from '@funk/shared/contracts/order/order'
 import { CurrencyCode } from '@funk/shared/contracts/price/currency-code'
 import { https } from 'firebase-functions'
-import createCorsApp from '../helpers/create-cors-app'
+import createApp from '../../helpers/create-app'
 
-const app = createCorsApp(true)
+const app = createApp()
 app.post('/', (request: RequestWithBody<Order>, response) => {
   const { body: order } = request
   // TODO: Calculate tax using Avalara free API. https://www.npmjs.com/package/avatax

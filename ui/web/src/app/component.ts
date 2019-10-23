@@ -4,8 +4,17 @@ import { IdentityApi } from './identity/api'
 @Component({
   selector: 'app-root',
   template: `
-    <button (click)="createUser()">Create User</button>
-    <router-outlet></router-outlet>
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav role="navigation">
+        <!--this is a place for us to add side-nav code-->
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <!--in here all the content must reside. We will add a navigation header as well-->
+        <main>
+          <router-outlet></router-outlet>
+        </main>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   `
 })
 export class AppComponent {

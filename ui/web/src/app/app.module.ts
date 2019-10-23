@@ -3,13 +3,13 @@ import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core'
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule, Routes } from '@angular/router'
-import { AppComponent } from './app.component'
-import { AppErrorHandler } from './app.error-handler'
-import { createAppInitializer } from './app.initializer'
-import { FireModule } from './fire.module'
+import { AppComponent } from './component'
+import { AppErrorHandler } from './error-handler'
+import { AppFireModule } from './fire.module'
 import { IdentityApi } from './identity/api'
 import { IdentityModule } from './identity/module'
-import { MaterialModule } from './material.module'
+import { createAppInitializer } from './initializer'
+import { AppMaterialModule } from './material.module'
 import { NotFoundComponent } from './not-found/component'
 
 const routes: Routes = [
@@ -40,8 +40,8 @@ const routes: Routes = [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     RouterModule.forRoot(routes),
     HttpClientModule,
-    MaterialModule,
-    FireModule,
+    AppMaterialModule,
+    AppFireModule,
     IdentityModule,
   ],
   declarations: [

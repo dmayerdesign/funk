@@ -7,7 +7,8 @@
     "express": "4.17.1",
     "firebase-admin": "^8.0.0",
     "firebase-functions": "^3.1.0",
-    "lodash": "4.17.15"
+    "lodash": "4.17.15",
+    "recursive-readdir-sync": "1.0.6"
   },
   "main": "lib/index.js",
   "engines": {

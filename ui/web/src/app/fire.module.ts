@@ -20,4 +20,4 @@ import { environment } from '../environments/environment'
     AngularFireAuth,
   ],
 })
-export class FireModule { }
+export class AppFireModule { }
