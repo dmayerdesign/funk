@@ -1,14 +1,11 @@
 import { RequestWithBody } from '@funk/shared/contracts/data-access/request-with-body'
 import { Order } from '@funk/shared/contracts/order/order'
 import { CurrencyCode } from '@funk/shared/contracts/price/currency-code'
-import { https } from 'firebase-functions'
-import createApp from '../../helpers/create-app'
+import createFunction from '../../helpers/create-function'
 
-const app = createApp()
-app.post('/', (request: RequestWithBody<Order>, response) => {
-  const { body: order } = request
+export default createFunction((request: RequestWithBody<Order>) => {
   // TODO: Calculate tax using Avalara free API. https://www.npmjs.com/package/avatax
-  response.send(order.products.map(({ computedPrice }) => computedPrice
+  return request.body.products.map(({ computedPrice }) => computedPrice
     ? {
       amount: computedPrice.amount * (1 + (6 / 100)),
       currency: computedPrice.currency,
@@ -17,7 +14,5 @@ app.post('/', (request: RequestWithBody<Order>, response) => {
       amount: 0,
       currency: CurrencyCode.USD
     }
-  ))
+  )
 })
-
-export default https.onRequest(app)

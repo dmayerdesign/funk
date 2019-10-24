@@ -1,16 +1,14 @@
 import { UserRole } from '@funk/shared/contracts/auth/user-role'
-import * as express from 'express'
-import { https, HttpsFunction } from 'firebase-functions'
+import { RequestHandler as ExpressRequestHandler } from 'express'
+import { HttpsFunction } from 'firebase-functions'
 import authenticateForRole from './authenticate-for-role'
-import createApp from './create-app'
+import createFunction from './create-function'
+import { RequestHandler } from './handle-request'
 
 export default function(
   role: UserRole,
-  handler: express.RequestHandler,
-  app?: express.Application
+  handler: RequestHandler,
+  ...middlewares: ExpressRequestHandler[]
 ): HttpsFunction {
-  const _app = app || createApp()
-  _app.get('/', handler)
-  _app.use(authenticateForRole(role))
-  return https.onRequest(_app)
+  return createFunction(handler, authenticateForRole(role), ...middlewares)
 }
