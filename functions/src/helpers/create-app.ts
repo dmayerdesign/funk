@@ -8,8 +8,9 @@ export interface CreateAppOptions {
 }
 
 export default function({ corsOptions }: CreateAppOptions = {}): express.Application {
-  return express()
-    .use(cookieParser())
-    .use(handleError)
-    .use(cors({ origin: '*', ...corsOptions }))
+  return express().use(
+    cookieParser(),
+    handleError,
+    cors({ origin: '*', ...corsOptions }),
+  )
 }

@@ -1,17 +1,12 @@
-import { RequestHandler as ExpressRequestHandler } from 'express'
+import { RequestHandler } from 'express'
 import { https, HttpsFunction } from 'firebase-functions'
-import createApp from './create-app'
-import handleRequest, { RequestHandler } from './handle-request'
+import app from './create-app'
+import handleRequest from './handle-request'
 
 export default function(
-  handler: RequestHandler,
-  ...middlewares: ExpressRequestHandler[]
+  ...handlers: RequestHandler[]
 ): HttpsFunction {
-  const _app = createApp()
-
-  middlewares.forEach((middleware) => _app.use(middleware))
-
-  _app.post('/', handleRequest(handler))
-
-  return https.onRequest(_app)
+  return https.onRequest(app().post('/',
+    ...handlers.map((handler) => handleRequest(handler))
+  ))
 }

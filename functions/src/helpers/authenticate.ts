@@ -3,8 +3,6 @@ import { StatusCode, StatusCodeMessage } from '@funk/shared/contracts/http/statu
 import { NextFunction, Response } from 'express'
 import { auth } from 'firebase-admin'
 
-// Thanks to firebase/functions-samples for guidance:
-// https://github.com/firebase/functions-samples/blob/6c284a689c484ac4395fde1a8e8d6c2731705b55/authorized-https-endpoint/functions/index.js
 /**
  * Express middleware that checks whether the request contains a user in the form of a
  * Firebase ID Token. The token may be passed in the `Authorization` header or in the

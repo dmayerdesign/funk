@@ -23,4 +23,6 @@ export default auth.user().onCreate(async function(user): Promise<any> {
       firestore.collection(CARTS).doc(user.uid).set(newCart),
     ])
   }
+
+
 })

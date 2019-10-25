@@ -5,7 +5,8 @@ const handler: express.ErrorRequestHandler = (error, _request, response, next) =
   if (response.headersSent) {
     return next(error)
   }
-  response.status(StatusCode.INTERNAL_SERVER_ERROR)
-  response.send({ error })
+  response
+    .status(StatusCode.INTERNAL_SERVER_ERROR)
+    .send({ error })
 }
 export default handler
