@@ -7,7 +7,7 @@ import { CollectionSource } from '@funk/ui/helpers/angular.helpers'
   template: ``
 })
 export class ProductListComponent {
-  @Input() public source: CollectionSource<Product>
+  @Input() public source?: CollectionSource<Product>
 }
 
 /*

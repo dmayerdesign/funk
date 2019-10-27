@@ -24,7 +24,7 @@ import { NAVBAR_HEIGHT_PX } from '../config'
 })
 export class HomeComponent implements OnInit {
   public navbarHeight = NAVBAR_HEIGHT_PX + 'px'
-  public text$: Observable<string>
+  public text$?: Observable<string>
 
   constructor(
     private _httpClient: HttpClient

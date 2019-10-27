@@ -1,6 +1,6 @@
-import { pipe, Observable } from 'rxjs'
+import { pipe } from 'rxjs'
 import { filter } from 'rxjs/operators'
 
-export const ignoreNullish = <T>() => pipe<Observable<T>, Observable<T>>(
-  filter<T>((value) => value != null)
+export const ignoreNullish = <ValueType>() => pipe(
+  filter<ValueType>((value) => value != null)
 )

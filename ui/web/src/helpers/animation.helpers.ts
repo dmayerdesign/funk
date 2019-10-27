@@ -10,7 +10,7 @@ export interface AnimateOptions {
 }
 
 export class Animation {
-  private _tween: TweenLite
+  private _tween?: TweenLite
 
   constructor (
     private _animateOptions: AnimateOptions

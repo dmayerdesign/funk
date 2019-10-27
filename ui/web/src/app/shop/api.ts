@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { ActionResult, Manager } from '@dannymayer/vex'
+import throwPresentableError from '@funk/helpers/throw-presentable-error'
 import { Cart } from '@funk/model/commerce/cart/cart'
 import { Order } from '@funk/model/commerce/order/order'
 import { UserConfig } from '@funk/model/user/user-config'
-import throwPresentableError from '@funk/helpers/throw-presentable-error'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { Observable, Subscription } from 'rxjs'
@@ -17,7 +17,7 @@ import { ShopAction, ShopState } from './model'
 @Injectable()
 export class ShopApi implements ModuleApi {
   public cart$ = this._manager.state$.pipe(map(({ cart }) => cart))
-  private _cartSubscription: Subscription
+  private _cartSubscription?: Subscription
 
   constructor(
     private _httpClient: HttpClient,
@@ -37,7 +37,7 @@ export class ShopApi implements ModuleApi {
     // Create a new `cart` subscription.
     this._identityApi.user$
       .pipe(ignoreNullish())
-      .subscribe((user) => this.initCart(user))
+      .subscribe((user) => this.initCart(user as UserConfig))
   }
 
   public initCart(user: UserConfig): void {
@@ -54,7 +54,7 @@ export class ShopApi implements ModuleApi {
       .doc<Cart>(user.id)
       .valueChanges()
       .pipe(ignoreNullish())
-      .subscribe((cart) => this._updateCart(cart))
+      .subscribe((cart) => this._updateCart(cart as Cart))
   }
 
   public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>> {

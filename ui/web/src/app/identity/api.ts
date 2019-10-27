@@ -3,14 +3,17 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { UserConfig } from '@funk/model/user/user-config'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
-import { auth } from 'firebase'
-import { of } from 'rxjs'
+import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
+import { auth, User } from 'firebase'
+import { of, Observable } from 'rxjs'
 import { distinctUntilKeyChanged, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class IdentityApi implements ModuleApi {
-  public user$ = this._fireAuth.user.pipe(
-    distinctUntilKeyChanged('uid'),
+  private _nonNullAuthUser$ = this._fireAuth.user as Observable<User>
+  public user$ = this._nonNullAuthUser$.pipe(
+    ignoreNullish(),
+    distinctUntilKeyChanged<User>('uid'),
     switchMap((user) => {
       if (user.isAnonymous) {
         return of<UserConfig>({ id: '1', displayName: 'Guest' })
