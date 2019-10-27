@@ -88,11 +88,11 @@ module.exports.testFirestoreRules = function(...tests)/*: Promise<void>*/ {
       return { successCount, failureCount }
     }, { successCount: 0, failureCount: 0 })
 
-    console.log(chalk.green('Passed: ', totals.successCount))
+    console.log(chalk.green(`Passed: ${totals.successCount}`))
     if (totals.failureCount > 0) {
-      console.log(chalk.red('Failed: ', totals.failureCount))
+      console.log(chalk.red(`Failed: ${totals.failureCount}`))
     } else {
-      console.log(chalk.hex('#999999')('Failed: ', totals.failureCount))
+      console.log(chalk.hex('#999999')('Failed: 0'))
     }
 
     if (totals.failureCount > 0) throw new Error('One or more tests failed.')

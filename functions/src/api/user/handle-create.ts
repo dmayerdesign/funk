@@ -1,5 +1,5 @@
-import { Cart, CARTS } from '@funk/shared/contracts/cart/cart'
-import { UserConfig, USER_CONFIGS } from '@funk/shared/contracts/user/user-config'
+import { Cart, CARTS } from '@funk/model/commerce/cart/cart'
+import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
 import { Firestore } from '@google-cloud/firestore'
 import { auth, config } from 'firebase-functions'
 import 'firebase-functions'

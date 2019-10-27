@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "esModuleInterop": true,
     "downlevelIteration": true,
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
@@ -18,12 +19,16 @@
       "es2018",
       "dom"
     ],
+    "strict": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "baseUrl": ".",
     "paths": {
       "@funk/config": [ "./config/config.ts" ],
-      "@funk/shared/*": [ "./shared/*" ],
+      "@funk/copy/*": [ "./copy/*" ],
+      "@funk/helpers/*": [ "./helpers/*" ],
+      "@funk/model/*": [ "./model/*" ],
+      "@funk/testing/config": [ "./config/config.development.ts" ],
       "@funk/ui/web/*": [ "./ui/web/src/app/modules/*" ],
       "@funk/ui/helpers/*": [ "./ui/helpers/*" ]
     }

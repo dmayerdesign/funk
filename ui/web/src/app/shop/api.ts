@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { ActionResult, Manager } from '@dannymayer/vex'
-import { Cart } from '@funk/shared/contracts/cart/cart'
-import { Order } from '@funk/shared/contracts/order/order'
-import { UserConfig } from '@funk/shared/contracts/user/user-config'
-import throwPresentableError from '@funk/shared/helpers/throw-presentable-error'
+import { Cart } from '@funk/model/commerce/cart/cart'
+import { Order } from '@funk/model/commerce/order/order'
+import { UserConfig } from '@funk/model/user/user-config'
+import throwPresentableError from '@funk/helpers/throw-presentable-error'
+import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { Observable, Subscription } from 'rxjs'
 import { map, withLatestFrom } from 'rxjs/operators'
@@ -14,7 +15,7 @@ import { IdentityApi } from '../identity/api'
 import { ShopAction, ShopState } from './model'
 
 @Injectable()
-export class ShopApi {
+export class ShopApi implements ModuleApi {
   public cart$ = this._manager.state$.pipe(map(({ cart }) => cart))
   private _cartSubscription: Subscription
 
@@ -40,9 +41,13 @@ export class ShopApi {
   }
 
   public initCart(user: UserConfig): void {
+
+    // TESTING
     this.submitOrder({}).subscribe(
       (x) => console.log('submitted order', x),
     )
+    throwPresentableError(new Error('moo!'))
+    // [END] TESTING
 
     if (this._cartSubscription) this._cartSubscription.unsubscribe()
     this._cartSubscription = this._firestore.collection('carts')
@@ -50,8 +55,6 @@ export class ShopApi {
       .valueChanges()
       .pipe(ignoreNullish())
       .subscribe((cart) => this._updateCart(cart))
-
-    throwPresentableError(new Error('moo!'))
   }
 
   public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>> {

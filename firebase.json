@@ -28,7 +28,7 @@
         "source": "**",
         "headers": [{
           "key": "Content-Security-Policy",
-          "value": "default-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com; style-src 'unsafe-inline'"
+          "value": "default-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com; style-src *"
         }]
       }
     ]

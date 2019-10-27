@@ -1,4 +1,4 @@
-import { Cart } from '@funk/shared/contracts/cart/cart'
+import { Cart } from '@funk/model/commerce/cart/cart'
 
 export interface ShopState {
   cart: Cart

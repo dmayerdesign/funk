@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { environment } from 'ui/web/src/environments/environment'
-import { HEIGHT_PX } from '../config'
+import { NAVBAR_HEIGHT_PX } from '../config'
 
 @Component({
   template: `
@@ -23,7 +23,7 @@ import { HEIGHT_PX } from '../config'
   `
 })
 export class HomeComponent implements OnInit {
-  public navbarHeight = HEIGHT_PX + 'px'
+  public navbarHeight = NAVBAR_HEIGHT_PX + 'px'
   public text$: Observable<string>
 
   constructor(

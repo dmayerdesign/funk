@@ -1,4 +1,4 @@
-import { StatusCode } from '@funk/shared/contracts/http/status-code'
+import { StatusCode } from '@funk/model/http/status-code'
 import * as express from 'express'
 
 const handler: express.ErrorRequestHandler = (error, _request, response, next) => {

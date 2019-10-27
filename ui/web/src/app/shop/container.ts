@@ -1,10 +1,11 @@
 import { Component, NgZone, OnInit } from '@angular/core'
 import { setUpDevTools, Manager } from '@dannymayer/vex'
-import { mapResultToState, CollectionSource } from '@funk/ui/helpers/ui-component.helpers'
+import { CollectionSource } from '@funk/ui/helpers/angular.helpers'
+import { mapResultToState } from '@funk/ui/helpers/vex.helpers'
 import { map } from 'rxjs/operators'
 import { environment } from '../../environments/environment'
 import { ShopApi } from './api'
-import { HEIGHT_PX } from './config'
+import { NAVBAR_HEIGHT_PX } from './config'
 import { ShopAction, ShopState } from './model'
 
 @Component({
@@ -20,9 +21,9 @@ import { ShopAction, ShopState } from './model'
   `,
   styles: [`
     nav button {
-      padding-top: ${HEIGHT_PX / 3}px;
-      padding-bottom: ${HEIGHT_PX / 3}px;
-      line-height: ${HEIGHT_PX / 3}px;
+      padding-top: ${NAVBAR_HEIGHT_PX / 3}px;
+      padding-bottom: ${NAVBAR_HEIGHT_PX / 3}px;
+      line-height: ${NAVBAR_HEIGHT_PX / 3}px;
       overflow: visible;
       white-space: normal;
     }

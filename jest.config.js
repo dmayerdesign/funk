@@ -3,6 +3,6 @@ module.exports = {
     "<rootDir>/functions/src"
   ],
   transform: {
-    '^.+\\.ts$': 'ts-jest'
+    '^.+\\.ts$': 'ts-jest',
   },
 }

@@ -6,4 +6,4 @@ const writeFunctionsIndex = require('./build-tools/code-gen/scripts/write-functi
 writeFunctionsIndex()
 
 // Apply tsconfig.json's `paths` to compiled JS.
-exec('tscpaths -p ./functions/tsconfig.json -s . -o ./functions/lib')
+exec('tscpaths -p ./functions/tsconfig.build.json -s . -o ./functions/lib')

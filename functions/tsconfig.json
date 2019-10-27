@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "module": "commonjs",
     "outDir": "lib",
     "sourceMap": true,
@@ -11,11 +12,16 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@funk/shared/*": [ "../shared/*" ]
+      "@funk/config": [ "../config/config.ts" ],
+      "@funk/copy/*": [ "../copy/*" ],
+      "@funk/functions/*": [ "./src/*" ],
+      "@funk/helpers/*": [ "../helpers/*" ],
+      "@funk/model/*": [ "../model/*" ],
+      "@funk/testing/config": [ "../config/config.development.ts" ]
     }
   },
   "include": [
-    "./src/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules"

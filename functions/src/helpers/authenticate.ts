@@ -1,5 +1,5 @@
-import { AuthenticationRequest } from '@funk/shared/contracts/data-access/authentication-request'
-import { StatusCode, StatusCodeMessage } from '@funk/shared/contracts/http/status-code'
+import { AuthenticationRequest } from '@funk/model/data-access/authentication-request'
+import { StatusCode, StatusCodeMessage } from '@funk/model/http/status-code'
 import { NextFunction, Response } from 'express'
 import { auth } from 'firebase-admin'
 

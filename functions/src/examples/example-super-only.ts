@@ -1,5 +1,5 @@
-import { UserRole } from '@funk/shared/contracts/auth/user-role'
-import { AuthenticatedRequest } from '@funk/shared/contracts/data-access/authenticated-request'
+import { UserRole } from '@funk/model/auth/user-role'
+import { AuthenticatedRequest } from '@funk/model/data-access/authenticated-request'
 import createGuardedFunction from '../helpers/create-guarded-function'
 
 export default createGuardedFunction(

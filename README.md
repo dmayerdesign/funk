@@ -17,14 +17,15 @@ you can focus on writing code.
 ## Design goals
 
 - **Zero to app in 10 minutes:** Funk aims to lower the barrier of entry for full-stack
-  development, allowing you to deploy a functioning app in almost no time.
+  development, allowing you to deploy a production-ready app in almost no time.
 - **Cost-effectiveness:** Costly behaviors like reads and writes from Firestore should
   perform as efficiently as possible out of the box.
 - **Performance:** Offline support and pre-rendering make sure users get a fast, modern
   experience.
-- **Developer experience:** Using Funk should be dead simple and super fun.
+- **Developer experience:** Using Funk should be dead simple and super fun. Funk strives
+  for convention over configuration
 
-## Features
+## Design features
 
 - **TypeScript:** Native support by both Google Cloud Functions and Angular is a plus, but
   it's TypeScript's amazing feature set that make it a winner for enterprise-level full-

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
-import { Product } from '@funk/shared/contracts/product/product'
-import { CollectionSource } from 'ui/helpers/ui-component.helpers'
+import { Product } from '@funk/model/commerce/product/product'
+import { CollectionSource } from '@funk/ui/helpers/angular.helpers'
 
 @Component({
   selector: 'product-list',

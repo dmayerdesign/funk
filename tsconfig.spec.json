@@ -7,13 +7,15 @@
       "node"
     ]
   },
-  "files": [
-    "ui/web/src/polyfills.ts"
-  ],
   "include": [
+    "config/**/*.ts",
+    "ui/web/src/polyfills.ts",
     "ui/web/src/**/*.spec.ts",
     "ui/web/src/**/spec.ts",
     "functions/src/api/**/*.spec.ts",
     "functions/src/api/**/spec.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

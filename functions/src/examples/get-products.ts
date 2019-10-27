@@ -1,4 +1,4 @@
-import { Product } from '@funk/shared/contracts/product/product'
+import { Product } from '@funk/model/commerce/product/product'
 import { Firestore } from '@google-cloud/firestore'
 import * as functions from 'firebase-functions'
 import 'firebase-functions'

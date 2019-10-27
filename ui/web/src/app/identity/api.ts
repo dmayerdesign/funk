@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore } from '@angular/fire/firestore'
-import { UserConfig } from '@funk/shared/contracts/user/user-config'
+import { UserConfig } from '@funk/model/user/user-config'
+import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import { auth } from 'firebase'
 import { of } from 'rxjs'
 import { distinctUntilKeyChanged, switchMap } from 'rxjs/operators'
 
 @Injectable()
-export class IdentityApi {
+export class IdentityApi implements ModuleApi {
   public user$ = this._fireAuth.user.pipe(
     distinctUntilKeyChanged('uid'),
     switchMap((user) => {
