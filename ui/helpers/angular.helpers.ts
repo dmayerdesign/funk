@@ -1,5 +1,5 @@
-import { DataSource } from '@angular/cdk/table'
-import { Observable, Subject } from 'rxjs'
+import { OnDestroy, OnInit } from '@angular/core'
+import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
 export function MortalityAware(): ClassDecorator {
@@ -33,14 +33,23 @@ export const forLifeOf = <ValueType>(instance: any) => {
   return takeUntil<ValueType>(instance.qb__onDestroy$)
 }
 
-export class CollectionSource<DataType> extends DataSource<DataType> {
-  constructor(
-    public data$: Observable<DataType[]>,
-  ) { super() }
-  public connect = () => this.data$
-  public disconnect = () => { }
-}
-
 export interface ModuleApi {
   init: () => any
+  destroy?: () => any
+}
+
+export abstract class ModuleContainer implements OnInit, OnDestroy {
+  constructor(
+    public api: ModuleApi
+  ) { }
+
+  public ngOnInit(): void {
+    this.api.init()
+  }
+
+  public ngOnDestroy(): void {
+    if (this.api.destroy) {
+      this.api.destroy()
+    }
+  }
 }

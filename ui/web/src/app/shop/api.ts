@@ -5,10 +5,13 @@ import { ActionResult, Manager } from '@dannymayer/vex'
 import throwPresentableError from '@funk/helpers/throw-presentable-error'
 import { Cart } from '@funk/model/commerce/cart/cart'
 import { Order } from '@funk/model/commerce/order/order'
+import { Product } from '@funk/model/commerce/product/product'
 import { UserConfig } from '@funk/model/user/user-config'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
+import FirestoreCollectionSource from '@funk/ui/helpers/data-access/firestore-collection-source'
+import FirestoreDocumentSource from '@funk/ui/helpers/data-access/firestore-document-source'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
-import { Observable, Subscription } from 'rxjs'
+import { Observable } from 'rxjs'
 import { map, withLatestFrom } from 'rxjs/operators'
 import { environment } from '../../environments/environment'
 import { IdentityApi } from '../identity/api'
@@ -16,8 +19,11 @@ import { ShopAction, ShopState } from './model'
 
 @Injectable()
 export class ShopApi implements ModuleApi {
-  public cart$ = this._manager.state$.pipe(map(({ cart }) => cart))
-  private _cartSubscription?: Subscription
+  private _cartSource?: FirestoreDocumentSource<Cart>
+  public cart$?: Observable<Cart>
+  public productsSource = new FirestoreCollectionSource<Product>(
+    this._firestore.collection('products')
+  )
 
   constructor(
     private _httpClient: HttpClient,
@@ -28,19 +34,28 @@ export class ShopApi implements ModuleApi {
 
   public init(): void {
     // Get shop settings.
-    // Cache attribute values, taxonomies, etc.
+    // TODO: Cache attribute values, taxonomies, etc.
     this._manager.once({
       type: ShopAction.INIT_SHOP,
       reduce: state => state
     })
 
-    // Create a new `cart` subscription.
     this._identityApi.user$
       .pipe(ignoreNullish())
-      .subscribe((user) => this.initCart(user as UserConfig))
+      .subscribe((user) => this.initCart(user))
   }
 
   public initCart(user: UserConfig): void {
+    if (this._cartSource) this._cartSource.disconnect()
+
+    this._cartSource = new FirestoreDocumentSource<Cart>(
+      this._firestore.collection('carts').doc(user.id),
+      (cart) => cart && this._manager.dispatch({
+        type: ShopAction.CART_CHANGE_FROM_DB,
+        reduce: (state) => ({ ...state, cart }),
+      })
+    )
+    this.cart$ = this._cartSource.connect().pipe(ignoreNullish())
 
     // TESTING
     this.submitOrder({}).subscribe(
@@ -48,13 +63,6 @@ export class ShopApi implements ModuleApi {
     )
     throwPresentableError(new Error('moo!'))
     // [END] TESTING
-
-    if (this._cartSubscription) this._cartSubscription.unsubscribe()
-    this._cartSubscription = this._firestore.collection('carts')
-      .doc<Cart>(user.id)
-      .valueChanges()
-      .pipe(ignoreNullish())
-      .subscribe((cart) => this._updateCart(cart as Cart))
   }
 
   public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>> {
@@ -66,13 +74,6 @@ export class ShopApi implements ModuleApi {
           withLatestFrom(state$),
           map(([ _response, state ]) => state),
         )
-    })
-  }
-
-  private _updateCart(cart: Cart): void {
-    this._manager.dispatch({
-      type: 'CART_CHANGE_IN_DB',
-      reduce: (state) => ({ ...state, cart }),
     })
   }
 }

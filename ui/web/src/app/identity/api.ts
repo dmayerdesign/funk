@@ -13,7 +13,7 @@ export class IdentityApi implements ModuleApi {
   private _nonNullAuthUser$ = this._fireAuth.user as Observable<User>
   public user$ = this._nonNullAuthUser$.pipe(
     ignoreNullish(),
-    distinctUntilKeyChanged<User>('uid'),
+    distinctUntilKeyChanged('uid'),
     switchMap((user) => {
       if (user.isAnonymous) {
         return of<UserConfig>({ id: '1', displayName: 'Guest' })

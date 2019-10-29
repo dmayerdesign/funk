@@ -1,4 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
+import { setUpDevTools } from '@dannymayer/vex'
+import { environment } from '../environments/environment'
 import { IdentityApi } from './identity/api'
 
 @Component({
@@ -17,12 +19,19 @@ import { IdentityApi } from './identity/api'
     </mat-sidenav-container>
   `
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public title = 'web'
 
   constructor(
-    private _identityApi: IdentityApi
+    private _ngZone: NgZone,
+    private _identityApi: IdentityApi,
   ) { }
+
+  public ngOnInit(): void {
+    if (!environment.production) {
+      setTimeout(() => this._ngZone.run(() => setUpDevTools()))
+    }
+  }
 
   public createUser(): void {
     this._identityApi.createUserWithEmailAndPassword(

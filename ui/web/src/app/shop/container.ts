@@ -1,12 +1,7 @@
-import { Component, NgZone, OnInit } from '@angular/core'
-import { setUpDevTools, Manager } from '@dannymayer/vex'
-import { CollectionSource } from '@funk/ui/helpers/angular.helpers'
-import { mapResultToState } from '@funk/ui/helpers/vex.helpers'
-import { map } from 'rxjs/operators'
-import { environment } from '../../environments/environment'
+import { Component } from '@angular/core'
+import { ModuleContainer } from '@funk/ui/helpers/angular.helpers'
 import { ShopApi } from './api'
 import { NAVBAR_HEIGHT_PX } from './config'
-import { ShopAction, ShopState } from './model'
 
 @Component({
   template: `
@@ -29,25 +24,10 @@ import { ShopAction, ShopState } from './model'
     }
   `],
 })
-export class ShopContainer implements OnInit {
-  public productsSource = new CollectionSource(this._manager
-    .results(ShopAction.GET_PRODUCTS)
-    .pipe(
-      mapResultToState('cart'),
-      map(({ products }) => products),
-    ))
-
+export class ShopContainer extends ModuleContainer {
   constructor(
-    private _ngZone: NgZone,
-    private _manager: Manager<ShopState>,
     public api: ShopApi,
-  ) { }
-
-  public ngOnInit(): void {
-    if (!environment.production) {
-      this._ngZone.run(() => setUpDevTools())
-    }
-
-    this.api.init()
+  ) {
+    super(api)
   }
 }

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   public text$?: Observable<string>
 
   constructor(
-    private _httpClient: HttpClient
+    private _httpClient: HttpClient,
   ) { }
 
   public ngOnInit(): void {
