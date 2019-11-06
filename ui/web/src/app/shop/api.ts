@@ -12,7 +12,7 @@ import FirestoreCollectionSource from '@funk/ui/helpers/data-access/firestore-co
 import FirestoreDocumentSource from '@funk/ui/helpers/data-access/firestore-document-source'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { Observable } from 'rxjs'
-import { map, withLatestFrom } from 'rxjs/operators'
+import { switchMap } from 'rxjs/operators'
 import { environment } from '../../environments/environment'
 import { IdentityApi } from '../identity/api'
 import { ShopAction, ShopState } from './model'
@@ -33,11 +33,10 @@ export class ShopApi implements ModuleApi {
   ) { }
 
   public init(): void {
-    // Get shop settings.
-    // TODO: Cache attribute values, taxonomies, etc.
     this._manager.once({
       type: ShopAction.INIT_SHOP,
-      reduce: state => state
+      // TODO: Get shop settings. Cache attribute values, taxonomies, etc.
+      resolve: state$ => state$,
     })
 
     this._identityApi.user$
@@ -70,10 +69,7 @@ export class ShopApi implements ModuleApi {
       type: ShopAction.SUBMIT_ORDER,
       resolve: (state$) => this._httpClient
         .post(`${environment.functionsUrl}/submitOrder`, order)
-        .pipe(
-          withLatestFrom(state$),
-          map(([ _response, state ]) => state),
-        )
+        .pipe(switchMap(() => state$))
     })
   }
 }

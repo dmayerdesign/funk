@@ -5,7 +5,7 @@ import { Observable, PartialObserver, Subject } from 'rxjs'
 import { shareReplay, takeUntil } from 'rxjs/operators'
 
 export default class FirestoreCollectionSource<DataType>
-  implements DataSource<DataType>, DataConsumer<DataType[]> {
+  implements DataConsumer<DataType[]>, DataSource<DataType> {
 
   public data$: Observable<DataType[]>
   private _disconnect$ = new Subject<void>()

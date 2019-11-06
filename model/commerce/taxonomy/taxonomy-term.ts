@@ -1,8 +1,8 @@
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { Taxonomy } from './taxonomy'
+import { PrimaryKey } from '@funk/model/data-access/primary-key'
 
 export interface TaxonomyTerm extends DatabaseDocument {
-    taxonomy: Taxonomy
+    taxonomyId: PrimaryKey
     singularName: string
     pluralName: string
     slug: string

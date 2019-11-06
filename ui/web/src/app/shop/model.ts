@@ -1,13 +1,16 @@
+import { AttributeValue } from '@funk/model/commerce/attribute/attribute-value'
 import { Cart } from '@funk/model/commerce/cart/cart'
 
 export interface ShopState {
   cart: Cart
+  attributeValues: AttributeValue[]
 }
 
 export const shopInitialState: ShopState = {
   cart: {
-    products: []
-  }
+    products: [],
+  },
+  attributeValues: [],
 }
 
 export const enum ShopAction {
