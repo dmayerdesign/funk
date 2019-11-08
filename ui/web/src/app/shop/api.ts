@@ -68,7 +68,7 @@ export class ShopApi implements ModuleApi {
     return this._manager.once({
       type: ShopAction.SUBMIT_ORDER,
       resolve: (state$) => this._httpClient
-        .post(`${environment.functionsUrl}/submitOrder`, order)
+        .post(`${environment.functionsUrl}/orderSubmit`, order)
         .pipe(switchMap(() => state$))
     })
   }

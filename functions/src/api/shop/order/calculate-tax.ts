@@ -1,7 +1,7 @@
-import createFunction from '@funk/functions/helpers/create-function'
 import { Order } from '@funk/model/commerce/order/order'
 import { CurrencyCode } from '@funk/model/commerce/price/currency-code'
 import { RequestWithBody } from '@funk/model/data-access/request-with-body'
+import createFunction from '../../../helpers/create-function'
 
 export default createFunction((request: RequestWithBody<Order>) => {
   // TODO: Calculate tax using Avalara free API. https://www.npmjs.com/package/avatax

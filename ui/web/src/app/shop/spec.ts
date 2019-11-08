@@ -1,10 +1,10 @@
 /*
 
 product
-  - 1-* SKUs
-  - 1-* attribute key-value pairs
+  - 1-∞ SKUs
+  - 1-∞ attribute key-value pairs
     { [attributeId]: { scalarValue: any; attributeValueId: PrimaryKey } }
-  - 1-* taxonomy terms
+  - 1-∞ taxonomy terms
     TaxonomyTerm[]
 
 attribute
