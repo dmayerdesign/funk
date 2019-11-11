@@ -1,5 +1,6 @@
-import createFunction from '@funk/functions/helpers/create-function'
+import createFunction from '@funk/functions/helpers/http/create-function'
 
-export default createFunction(() => {
+export default createFunction(() =>
+{
   return { foo: 'bar' }
 })

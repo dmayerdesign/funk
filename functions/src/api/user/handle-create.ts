@@ -4,10 +4,12 @@ import { Firestore } from '@google-cloud/firestore'
 import { auth, config } from 'firebase-functions'
 import 'firebase-functions'
 
-export default auth.user().onCreate(async function(user): Promise<any> {
+export default auth.user().onCreate(async function(user): Promise<any>
+{
   const firestore = new Firestore({ projectId: config().public.fire_project_id })
 
-  if (user.email) {
+  if (user.email)
+  {
     const newUserConfig: UserConfig = {
       id: user.uid,
       displayName: user.displayName,
@@ -23,6 +25,5 @@ export default auth.user().onCreate(async function(user): Promise<any> {
       firestore.collection(CARTS).doc(user.uid).set(newCart),
     ])
   }
-
 
 })

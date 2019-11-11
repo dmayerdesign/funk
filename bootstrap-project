@@ -3,38 +3,56 @@ const { exec } = require('shelljs')
 const program = require('commander')
 const { configToJson } = require('./config/helpers/config-to-json')
 
-program.option('-c, --configuration <configuration>', 'e.g. production')
-program.parse(process.argv)
-const { configuration } = program.opts()
-const configJson = configToJson(configuration)
 
-// TODO:
-// - do a full firebase init
-// - enable billing (https://cloud.google.com/billing/v1/libraries)
-// - enable anonymous, email/password, and google sign-in methods
-// - create easy way to set app secrets
-// - initial deploy
+(async () => {
 
-exec(`
-  echo "Installing dependencies..."
-  npm i
+  // TODO: collect secrets from the user using 'readline'.
+  // e.g.:
+  // const { createInterface } = require('readline')
+  // const { once } = require('events')
+  //
+  // const readline = createInterface({
+  //   input: process.stdin,
+  //   output: process.stdout,
+  //   terminal: false,
+  // })
+  // readline.question(`Enter your Avalara license key`, (answer) => {
+  //   readline.question(`Enter your Avalara product ID `)
+  //   const licenseKey
+  // })
+  // await once(readline, 'close')
+  //
+  // @see https://admin.avalara.com
 
-  # TODO: Install Berglas here rather than including it in source.
-  echo "Setting up Berglas to manage secrets..."
-  export PROJECT_ID=${configJson.FIRE_PROJECT_ID}
-  export BUCKET_ID=${configJson.FIRE_PROJECT_ID}-vault
+  program.option('-c, --configuration <configuration>', 'e.g. production')
+  program.parse(process.argv)
+  const { configuration } = program.opts()
+  const configJson = configToJson(configuration)
 
-  # Enable services required for Berglas.
-  gcloud config set project $PROJECT_ID
-  gcloud services enable --project $PROJECT_ID \
-    cloudkms.googleapis.com \
-    storage-api.googleapis.com \
-    storage-component.googleapis.com
+  // TODO:
+  // - do a full firebase init
+  // - enable billing (https://cloud.google.com/billing/v1/libraries)
+  // - enable anonymous, email/password, and google sign-in methods
+  // - create easy way to set app secrets
+  //   - avalara api key
+  // - initial deploy
 
-  # Bootstrap Berglas.
-  chmod +x ./berglas
-  ./berglas bootstrap --project $PROJECT_ID --bucket $BUCKET_ID
+  exec(`
+    # Install.
+    echo "Installing dependencies..."
+    npm i
 
-  # Set up the firestore emulator.
-  firebase setup:emulators:firestore
-`)
+    # TODO: Install Berglas here rather than including it in source.
+    echo "Setting up Berglas to manage secrets..."
+    export PROJECT_ID=${configJson.FIRE_PROJECT_ID}
+    export BUCKET_ID=${configJson.FIRE_PROJECT_ID}-vault
+
+    # Enable services required for Berglas.
+    gcloud config set project $PROJECT_ID
+    gcloud services enable --project $PROJECT_ID \
+      cloudkms.googleapis.com
+
+    # Set up the firestore emulator.
+    firebase setup:emulators:firestore
+  `)
+})()

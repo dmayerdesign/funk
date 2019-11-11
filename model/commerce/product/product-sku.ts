@@ -12,7 +12,7 @@ import { Weight } from '@funk/model/weight/weight'
  * @see https://support.google.com/merchants/answer/7052112?hl=en&ref_topic=6324338
  */
 export interface ProductSku extends DatabaseDocument {
-  title: string
+  name: string
   description: string
   /** `id` of the parent `Product`. */
   productId: PrimaryKey

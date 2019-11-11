@@ -8,6 +8,8 @@ import { Duration } from '@funk/model/time/duration'
 
 /** https://support.google.com/merchants/answer/7052112?hl=en&ref_topic=6324338 */
 export interface ProductSubscription extends DatabaseDocument {
+  name: string
+  description: string
   productSkuIds: PrimaryKey[]
   imageGroups?: ImageGroup[]
   defaultImageGroupId?: PrimaryKey
@@ -26,6 +28,4 @@ export interface ProductSubscription extends DatabaseDocument {
    * and which do not apply to all sibling `ProductSkus`.
    */
   taxonomyTerms: TaxonomyTerm[]
-  title: string
-  description: string
 }

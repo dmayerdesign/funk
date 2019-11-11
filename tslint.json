@@ -2,8 +2,17 @@
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "extends": "tslint-eslint-rules",
   "rules": {
     "arrow-return-shorthand": true,
+    "brace-style": [
+      true,
+      "allman",
+      {
+        "allowSingleLine": true
+      }
+    ],
     "callable-types": false,
     "class-name": true,
     "comment-format": [

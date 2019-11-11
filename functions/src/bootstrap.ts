@@ -1,4 +1,4 @@
-import { FIRE_PROJECT_ID } from '@funk/config'
 import { initializeApp } from 'firebase-admin'
+import * as functions from 'firebase-functions'
 
-initializeApp({ projectId: FIRE_PROJECT_ID })
+initializeApp({ projectId: functions.config().public.fire_project_id })

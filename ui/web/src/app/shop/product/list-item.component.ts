@@ -5,7 +5,7 @@ import { Product } from '@funk/model/commerce/product/product'
   selector: 'product-list-item',
   template: `
     <div>
-      <strong>{{ product?.title }}</strong>
+      <strong>{{ product?.name }}</strong>
     </div>
   `
 })

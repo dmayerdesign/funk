@@ -1,4 +1,4 @@
-import createFunction from '@funk/functions/helpers/create-function'
+import createFunction from '@funk/functions/helpers/http/create-function'
 import computePriceForProductSku from '@funk/helpers/commerce/compute-price-for-product-sku'
 import CurrencyMismatchError from '@funk/helpers/commerce/currency-mismatch-error'
 import { Order } from '@funk/model/commerce/order/order'
@@ -10,7 +10,8 @@ import { firestore } from 'firebase-admin'
 import { from, zip } from 'rxjs'
 import { first, flatMap, map } from 'rxjs/operators'
 
-export default createFunction((request: RequestWithBody<Order>): Promise<Price> => {
+export default createFunction((request: RequestWithBody<Order>): Promise<Price> =>
+{
   const skus = request.body.productSkus
   const discounts = request.body.discounts
 
@@ -36,7 +37,8 @@ export default createFunction((request: RequestWithBody<Order>): Promise<Price> 
     ))
     .pipe(
       map((pricesAfterTax) => pricesAfterTax.reduce(
-        (totalPrice, price) => {
+        (totalPrice, price) =>
+        {
           if (totalPrice.currency !== price.currency) throw new CurrencyMismatchError()
           return {
             ...totalPrice,
