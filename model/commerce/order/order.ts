@@ -2,9 +2,9 @@ import { Discount } from '@funk/model/commerce/discount/discount'
 import { EasypostRate } from '@funk/model/commerce/easypost-rate/easypost-rate'
 import { OrderCustomer } from '@funk/model/commerce/order-customer/order-customer'
 import { Price } from '@funk/model/commerce/price/price'
-import { Product } from '@funk/model/commerce/product/product'
 import { StripeCardToken } from '@funk/model/commerce/stripe-card-token/stripe-card-token'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { ProductSku } from '../product/product-sku'
 
 export enum OrderStatus {
   PRE_SUBMIT_INVALID = 'Invalid',
@@ -19,7 +19,7 @@ export enum OrderStatus {
 }
 
 export interface Order extends DatabaseDocument {
-  products: Product[]
+  productSkus: ProductSku[]
   subTotal: Price
   total: Price
   taxPercent: number

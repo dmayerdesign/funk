@@ -5,27 +5,42 @@ import { Timestamp } from '@funk/model/data-access/timestamp'
 
 export interface DiscountRules {
   all?: boolean
-  products?: PrimaryKey[]
+  productSkus?: PrimaryKey[]
   taxonomyTerms?: PrimaryKey[]
 }
 
-export interface Discount extends DatabaseDocument {
-  /** A positive amount is deducted from the Product's price. */
+interface BaseDiscount extends DatabaseDocument {
+  /** A positive amount is deducted from the `Order` total or `Product` price. */
   total?: Price
-  /** A positive percentage is deducted from the Product's price. */
+  /** A positive percentage is deducted from the `Order` total or `Product` price. */
   percentage?: number
-  /** A positive amount is deducted from an order's shipping cost. */
+  isCompoundable?: boolean
+  includes: DiscountRules
+  /** An optional list of exclusion rules. These will always override `includes`. */
+  excludes?: DiscountRules
+  startAt: Timestamp
+  endAt?: Timestamp
+  /** The discount will not apply to products priced below this amount. */
+  preDiscountProductPriceThreshold?: Price
+}
+
+export interface ProductDiscount extends BaseDiscount {
+  /** A 'product' discount is a sale; an 'order' discount is a coupon. */
+  type: 'product'
+}
+
+export interface OrderDiscount extends BaseDiscount {
+  /** A 'product' discount is a sale; an 'order' discount is a coupon. */
+  type: 'order'
+  /** A positive amount is deducted from an `Order`'s shipping cost. */
   totalShipping?: Price
-  /** A positive percentage is deducted from an order's shipping cost. */
+  /** A positive percentage is deducted from an `Order`'s shipping cost. */
   percentageShipping?: number
   code?: string
-  includes: DiscountRules
-  excludes?: DiscountRules
-  startAt?: Timestamp
-  endAt?: Timestamp
   orderTotalUpperLimit?: Price
   orderTotalLowerLimit?: Price
   productCountLimit?: number
   preDiscountProductCountThreshold?: number
-  preDiscountProductPriceThreshold?: number
 }
+
+export type Discount = ProductDiscount | OrderDiscount

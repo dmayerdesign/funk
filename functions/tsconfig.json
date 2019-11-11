@@ -14,6 +14,7 @@
     "paths": {
       "@funk/config": [ "../config/config.ts" ],
       "@funk/copy/*": [ "../copy/*" ],
+      "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
       "@funk/testing/config": [ "../config/config.development.ts" ]

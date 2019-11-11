@@ -1,57 +1,65 @@
-import { AttributeValue } from '@funk/model/commerce/attribute/attribute-value'
+import { AttributeValues } from '@funk/model/commerce/attribute/attribute-value'
 import { Price } from '@funk/model/commerce/price/price'
-import { Review } from '@funk/model/commerce/review/review'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { PrimaryKey } from '@funk/model/data-access/primary-key'
 import { Dimensions } from '@funk/model/dimensions/dimensions'
 import { ImageGroup } from '@funk/model/image/image-group'
-import { Organization } from '@funk/model/organization/organization'
+import { Duration } from '@funk/model/time/duration'
 import { Weight } from '@funk/model/weight/weight'
-import { TaxonomyTerm } from '../taxonomy/taxonomy-term'
 
+/**
+ * This schema is largely based on Google's product data spec.
+ * @see https://support.google.com/merchants/answer/7052112?hl=en&ref_topic=6324338
+ */
 export interface ProductSku extends DatabaseDocument {
-  // Aesthetic.
-  name: string
-  description?: string
+  title: string
+  description: string
+  /** `id` of the parent `Product`. */
+  productId: PrimaryKey
+  price: Price
   imageGroups?: ImageGroup[]
   defaultImageGroupId?: PrimaryKey
-
-  // Financial.
-  price: Price
-  salePrice: Price
-  computedPrice?: Price
-
-  // Organizational.
-  productId: PrimaryKey
-  isDefaultSku: boolean
+  isDefaultSku?: boolean
+  stockQuantity: number
+  isAvailableForPreorder?: boolean
+  existsInStripe?: boolean
   /** A `ProductSku` may have exactly one `AttributeValue` per `Attribute`. */
-  attributeValues: {
-    [attributeId: string]: AttributeValue
-  }
+  attributeValues: AttributeValues
   /**
    * A `ProductSku` may have multiple `TaxonomyTerms` per `Taxonomy`.
    * This field should only store terms which are not present in the associated `Product`
    * and which do not apply to all sibling `ProductSkus`.
    */
-  taxonomyTerms: TaxonomyTerm[]
-
-  // Shipping.
-  dimensions: Dimensions
-  shippingWeight: Weight
-  netWeight: Weight
-
-  // Sales.
-  stockQuantity: number
-  totalSales: number
-  existsInStripe: boolean
-
-  // Legal.
+  taxonomyTerms: PrimaryKey[]
+  costOfGoodsSold?: Price
+  netWeight?: Weight
+  unitPricingBaseMeasure?: Weight
+  /** Global Trade Item Number */
   gtin?: string
+  /** Manufacturer Part Number */
   mpn?: string
-  nsn?: string
+  condition?: string
+  adult?: boolean
+  multipack?: number
+  isBundle?: boolean
+  /** e.g. `A++` */
+  energyEfficiencyClass?: string
+  shippingLabel?: 'perishable'|'oversized'|'fragile'
+  shippingWeight?: Weight
+  shippingDimensions?: Dimensions
+  maxHandlingTime?: Duration
+  minHandlingTime?: Duration
+  // shipping?: string // e.g. `US:CA:Overnight:16.00 USD`
+  // tax?: Price
+  // taxCategory?: string
 
-  // Misc.
-  brand?: Organization
-  releaseDate?: string
-  reviews?: Review[]
+  // TODO: The following should be seeded as default `Attributes` and `AttributeValues`.
+  // ageGroup?: 'newborn'|'infant'|'toddler'|'kids'|'adult'
+  // color?: string
+  // gender?: 'M'|'F'|'A'
+  // material?: string
+  // pattern?: string
+  // size?: string // e.g. 'XL'
+  // sizeType?: 'regular'|'petite'|'plus'|'big and tall'|'maternity'
+  // sizeSystem?: string
 }

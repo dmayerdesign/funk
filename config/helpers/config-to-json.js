@@ -12,13 +12,13 @@ module.exports.configToJson = function (configuration) {
   const configRawString = stripComments(
       configFile.replace(/export /g, '')
     )
-    .replace(/\=/g, '[SPLIT]')
-    .replace(/(var|const|let)/g, '[SPLIT]')
-    .replace(/^\[SPLIT\]/, '')
+    .replace(/\=/g, '[__SPLIT__]')
+    .replace(/(var|const|let)/g, '[__SPLIT__]')
+    .replace(/^\[__SPLIT__\]/, '')
     .replace(/(?<!\\)['"`]/g, '')
   
   const configMap = chunk(
-      configRawString.split('[SPLIT]').map((element) => element.trim()),
+      configRawString.split('[__SPLIT__]').map((element) => element.trim()),
       2,
     )
     .reduce(

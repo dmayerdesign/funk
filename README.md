@@ -1,8 +1,9 @@
 # Funk
 
-Funk aims to be a well-organized, well-optimized starting point for writing web-based
-software. With just a bit of configuration, you get a
-[serverless](https://en.wikipedia.org/wiki/Serverless_computing)
+Funk aims to be a
+[clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html),
+well-optimized starting point for writing web-based software. With just a bit of
+configuration, you get a [serverless](https://en.wikipedia.org/wiki/Serverless_computing)
 [progressive web app](https://en.wikipedia.org/wiki/Progressive_web_applications)
 written with [Angular](https://angular.io) to run on
 [Firebase](https://firebase.google.com).
@@ -25,10 +26,17 @@ you can focus on writing code.
 - **Developer experience:** Using Funk should be dead simple and super fun. Funk strives
   for convention over configuration
 
-## Design features
+## Technologies
 
 - **TypeScript:** Native support by both Google Cloud Functions and Angular is a plus, but
-  it's TypeScript's amazing feature set that make it a winner for enterprise-level full-
+  it's TypeScript's amazing feature set that makes it a winner for enterprise-level full-
   stack development.
 - **Serverless:** By integrating with Google Cloud Firestore and Cloud Functions, Funk
   lets you build and deploy an app with minimal configuration and minimal cost.
+
+## Philosophy
+
+The philosophy underlying Funk is simple: what we're trying to do as developers is
+**build [clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) software**.
+The overarching goal of Funk is to make the pursuit of clean code **easier** and
+**more fun**.
