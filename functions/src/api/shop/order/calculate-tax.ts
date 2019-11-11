@@ -43,7 +43,7 @@ export default createFunction((request: RequestWithBody<Order>): Promise<Price> 
             amount: totalPrice.amount + price.amount,
           }
         },
-        { amount: 0 } as Price
+        { amount: 0 } as Price,
       )),
       first(),
     )
