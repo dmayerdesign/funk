@@ -13,14 +13,21 @@ const { configuration } = program.opts()
 const configJson = configToJson(configuration)
 
 // Set each key/value as a config pair.
-Object.keys(configJson).forEach((key) => {
+Object.keys(configJson).forEach((key) =>
+{
   console.log('SETTING:', `public.${key.toLowerCase()}=${configJson[key]}`)
   exec(`firebase functions:config:set public.${key.toLowerCase()}=${configJson[key]}`)
 })
 
-// Copy the result of `functions:config:get` to `functions/.runtimeconfig.json`
+// Copy the result of `functions:config:get` to `functions/.runtimeconfig.json`.
 const pathToRuntimeConfig = resolve(__dirname, 'functions/.runtimeconfig.json')
 exec(`firebase functions:config:get > ${pathToRuntimeConfig}`)
 
 // Delete the existing built output.
 delSync(resolve(__dirname, 'functions/lib') + '/**')
+
+// Delete `node_modules` if it exists.
+try
+{ delSync(resolve(__dirname, 'functions/node_modules') + '/**') }
+catch
+{ /* Do nothing. */ }

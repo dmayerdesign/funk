@@ -12,12 +12,12 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@funk/config": [ "../config/config.ts" ],
+      "@funk/config": [ "../config/config" ],
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
-      "@funk/testing/config": [ "../config/config.development.ts" ]
+      "@funk/testing/config": [ "../config/config.development" ]
     }
   },
   "include": [

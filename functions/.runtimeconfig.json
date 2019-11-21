@@ -1,8 +1,0 @@
-{
-  "public": {
-    "gcp_region": "us-east1",
-    "functions_region": "us-central1",
-    "fire_project_id": "funk-development",
-    "configuration": "development"
-  }
-}

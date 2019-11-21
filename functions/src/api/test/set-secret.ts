@@ -1,5 +1,5 @@
+import { FIRE_PROJECT_ID } from '@funk/config'
 import createFunction from '@funk/functions/helpers/http/create-function'
-import { FIRE_PROJECT_ID } from '@funk/testing/config'
 import * as kms from '@google-cloud/kms'
 
 // ***************** vvv IMPORTANT vvv *******************
@@ -16,8 +16,12 @@ export default createFunction(async () =>
   async function getKeyRing(name: string): Promise<kms.v1.KeyRing | undefined>
   {
     const parent = client.locationPath(FIRE_PROJECT_ID, locationId)
+    console.log(JSON.stringify(
+      await client.listKeyRings({ parent })
+    ))
+
     const keyRing = await client.listKeyRings({ parent }).then(
-      (keyRings) => keyRings.find((_keyRing) => _keyRing.name === name)
+      ([ keyRings ]) => keyRings.find((_keyRing) => _keyRing.name === name)
     )
     if (keyRing) return keyRing
     else

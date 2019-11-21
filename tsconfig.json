@@ -24,11 +24,11 @@
     "noUnusedLocals": true,
     "baseUrl": ".",
     "paths": {
-      "@funk/config": [ "./config/config.ts" ],
+      "@funk/config": [ "./config/config" ],
       "@funk/copy/*": [ "./copy/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
-      "@funk/testing/config": [ "./config/config.development.ts" ],
+      "@funk/testing/config": [ "./config/config.development" ],
       "@funk/ui/web/*": [ "./ui/web/src/app/modules/*" ],
       "@funk/ui/helpers/*": [ "./ui/helpers/*" ]
     }
