@@ -40,6 +40,7 @@ yarn-error.log
 testem.log
 firebase-debug.log
 /typings
+.tmp
 
 # System Files
 .DS_Store

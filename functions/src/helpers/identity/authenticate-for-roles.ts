@@ -7,7 +7,7 @@ import { NextFunction, RequestHandler, Response } from 'express'
 import { auth } from 'firebase-admin'
 import authenticate from './authenticate'
 
-export default function(role: UserRole): RequestHandler
+export default function(roles: UserRole[]): RequestHandler
 {
   return function(
     request: AuthenticationRequest,
@@ -20,7 +20,7 @@ export default function(role: UserRole): RequestHandler
       const { user } = request as AuthenticatedRequest
       const claims = (await auth().getUser(user.uid)).customClaims as CustomClaims
 
-      if (claims && claims.role && claims.role === role)
+      if (claims && claims.role && roles.some((role) => claims.role === role))
       {
         next(); return true
       }

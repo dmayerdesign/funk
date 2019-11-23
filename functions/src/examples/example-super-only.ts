@@ -3,7 +3,7 @@ import { AuthenticatedRequest } from '@funk/model/data-access/authenticated-requ
 import createGuardedFunction from '../helpers/http/create-guarded-function'
 
 export default createGuardedFunction(
-  UserRole.SUPER,
+  [ UserRole.SUPER ],
   (request, response) =>
   {
     const { user } = request as unknown as AuthenticatedRequest
