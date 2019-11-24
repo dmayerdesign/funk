@@ -21,6 +21,8 @@ export default function(roles: UserRole[]): RequestHandler
       const claims = (await auth().getUser(user.uid))
         .customClaims as CustomClaims | undefined
 
+      console.log('got claims for user', JSON.stringify(claims))
+
       if (claims && claims.role && roles.some((role) => claims.role === role))
       {
         next(); return true

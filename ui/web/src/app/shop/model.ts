@@ -6,13 +6,6 @@ export interface ShopState {
   attributeValues: AttributeValue[]
 }
 
-export const shopInitialState: ShopState = {
-  cart: {
-    products: [],
-  },
-  attributeValues: [],
-}
-
 export const enum ShopAction {
   GET_PRODUCTS = 'GET_PRODUCTS',
   INIT_SHOP = 'INIT_SHOP',

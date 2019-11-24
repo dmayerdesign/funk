@@ -18,11 +18,18 @@ const routes: Routes = [
     loadChildren: () => import('./shop/module').then((mod) => mod.ShopModule),
   },
   {
+    path: 'admin',
+    loadChildren: () => import('./admin/module').then(
+      (mod) => mod.AdminModule
+    ),
+    // ...canActivate(() => redirectUnauthorizedTo(['/'])),
+  },
+  {
     path: 'account',
     loadChildren: () => import('./account-management/module').then(
       (mod) => mod.AccountManagementModule
     ),
-    ...canActivate(redirectUnauthorizedTo(['/'])),
+    ...canActivate(() => redirectUnauthorizedTo(['/'])),
   },
   {
     path: '',
