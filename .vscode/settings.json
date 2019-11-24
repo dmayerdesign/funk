@@ -1,5 +1,6 @@
 {
   "editor.tabSize": 2,
   "files.autoSaveDelay": 60000,
-  "editor.codeLens": false
+  "editor.codeLens": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

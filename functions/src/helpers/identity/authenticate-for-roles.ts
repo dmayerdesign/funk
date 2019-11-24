@@ -18,7 +18,8 @@ export default function(roles: UserRole[]): RequestHandler
     return authenticate(request, response, async function(): Promise<boolean>
     {
       const { user } = request as AuthenticatedRequest
-      const claims = (await auth().getUser(user.uid)).customClaims as CustomClaims
+      const claims = (await auth().getUser(user.uid))
+        .customClaims as CustomClaims | undefined
 
       if (claims && claims.role && roles.some((role) => claims.role === role))
       {

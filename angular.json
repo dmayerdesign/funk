@@ -37,6 +37,12 @@
           },
           "configurations": {
             "local": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "ui/web/src/environments/environment.ts",
@@ -45,6 +51,12 @@
               ]
             },
             "development": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "ui/web/src/environments/environment.ts",
@@ -53,7 +65,6 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "aot": true,
               "buildOptimizer": true,
               "serviceWorker": true,
               "ngswConfigPath": "ui/web/ngsw-config.json"
@@ -70,7 +81,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -79,6 +89,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ],
               "serviceWorker": true,
@@ -124,7 +138,8 @@
                   "with": "ui/web/src/environments/environment.local.ts"
                 }
               ]
-            },
+            ,              "optimization": true
+},
             "development": {
               "fileReplacements": [
                 {
@@ -132,10 +147,7 @@
                   "with": "ui/web/src/environments/environment.development.ts"
                 }
               ],
-              "optimization": {
-                "scripts": false,
-                "styles": true
-              }
+              "optimization": true
             },
             "production": {
               "fileReplacements": [
@@ -145,10 +157,7 @@
                 }
               ],
               "sourceMap": false,
-              "optimization": {
-                "scripts": false,
-                "styles": true
-              }
+              "optimization": true
             }
           }
         },
@@ -177,8 +186,8 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "configPath": "../../jest.config.js",
-            "tsConfig": "../../tsconfig.spec.json",
+            "configPath": "jest.config.js",
+            "tsConfig": "ui/web/tsconfig.spec.json",
             "assets": [
               "ui/web/src/favicon.ico",
               "ui/web/src/assets"
