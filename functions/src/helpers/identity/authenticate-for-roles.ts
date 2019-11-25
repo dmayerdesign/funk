@@ -13,9 +13,9 @@ export default function(roles: UserRole[]): RequestHandler
     request: AuthenticationRequest,
     response: Response,
     next: NextFunction,
-  ): Promise<boolean>
+  ): Promise<NextFunction | false>
   {
-    return authenticate(request, response, async function(): Promise<boolean>
+    return authenticate(request, response, async function(): Promise<NextFunction | false>
     {
       const { user } = request as AuthenticatedRequest
       const claims = (await auth().getUser(user.uid))
@@ -25,7 +25,7 @@ export default function(roles: UserRole[]): RequestHandler
 
       if (claims && claims.role && roles.some((role) => claims.role === role))
       {
-        next(); return true
+        return next
       }
       else
       {

@@ -17,15 +17,14 @@ export default async function(
   request: AuthenticationRequest,
   response: Response,
   next: NextFunction
-): Promise<boolean>
+): Promise<NextFunction | false>
 {
   try
   {
     const encodedIdToken = getEncodedIdTokenOrThrow()
     const decodedIdToken = await auth().verifyIdToken(encodedIdToken)
     request.user = decodedIdToken
-    next()
-    return true
+    return next
   }
   catch (error)
   {
