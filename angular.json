@@ -138,16 +138,14 @@
                   "with": "ui/web/src/environments/environment.local.ts"
                 }
               ]
-            ,              "optimization": true
-},
+            },
             "development": {
               "fileReplacements": [
                 {
                   "replace": "ui/web/src/environments/environment.ts",
                   "with": "ui/web/src/environments/environment.development.ts"
                 }
-              ],
-              "optimization": true
+              ]
             },
             "production": {
               "fileReplacements": [

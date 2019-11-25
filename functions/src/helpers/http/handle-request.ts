@@ -11,8 +11,15 @@ export default function(
     {
       const handlerResult = handler(request, response, next)
       if (response.headersSent) return
+      // If a function is returned, assume it's a `next` function, and call it.
+      else if (typeof handlerResult === 'function') handlerResult()
+      // Otherwise, assume the return value is intended to be the response.
       else if (typeof handlerResult.then === 'function') (handlerResult as Promise<any>)
-        .then((value) => response.send(value))
+        .then((value) =>
+        {
+          if (response.headersSent) next()
+          else response.send(value)
+        })
         .catch(next)
       else response.send(handlerResult)
     }

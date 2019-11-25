@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http'
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core'
-import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
+// import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule, Routes } from '@angular/router'
 import { AppComponent } from './component'
@@ -14,22 +14,20 @@ import { NotFoundComponent } from './not-found/component'
 
 const routes: Routes = [
   {
-    path: 'shop',
-    loadChildren: () => import('./shop/module').then((mod) => mod.ShopModule),
+    path: 'admin',
+    loadChildren: () => import('./admin/module').then((mod) => mod.AdminModule),
+    // ...canActivate(() => redirectUnauthorizedTo(['/'])),
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./admin/module').then(
-      (mod) => mod.AdminModule
-    ),
-    // ...canActivate(() => redirectUnauthorizedTo(['/'])),
+    path: 'shop',
+    loadChildren: () => import('./shop/module').then((mod) => mod.ShopModule),
   },
   {
     path: 'account',
     loadChildren: () => import('./account-management/module').then(
       (mod) => mod.AccountManagementModule
     ),
-    ...canActivate(() => redirectUnauthorizedTo(['/'])),
+    // ...canActivate(() => redirectUnauthorizedTo(['/'])),
   },
   {
     path: '',

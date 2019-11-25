@@ -3,14 +3,16 @@ import { DataConsumer } from '@funk/model/data-access/data-consumer'
 import { Observable, PartialObserver, Subject } from 'rxjs'
 import { shareReplay, takeUntil } from 'rxjs/operators'
 
-export default class FirestoreDocumentSource<DataType> implements DataConsumer<DataType> {
+export default class FirestoreDocumentSource<DataType> implements DataConsumer<DataType>
+{
   public data$: Observable<DataType | undefined>
   private _disconnect$ = new Subject<void>()
 
   constructor(
     collection: AngularFirestoreDocument<DataType>,
     observerOrSuccessHandler?: PartialObserver<DataType> | ((value: DataType | undefined) => any)
-  ) {
+  )
+  {
     this.data$ = collection.valueChanges().pipe(
       takeUntil(this._disconnect$),
       shareReplay(1),

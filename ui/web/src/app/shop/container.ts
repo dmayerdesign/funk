@@ -4,6 +4,7 @@ import { ShopApi } from './api'
 import { NAVBAR_HEIGHT_PX } from './config'
 
 @Component({
+  selector: 'shop',
   template: `
     <nav class="mat-elevation-z10">
       <button mat-button [matMenuTriggerFor]="menu">Menu</button>
@@ -27,7 +28,8 @@ import { NAVBAR_HEIGHT_PX } from './config'
 export class ShopContainer extends ModuleContainer {
   constructor(
     public api: ShopApi,
-  ) {
+  )
+  {
     super(api)
   }
 }

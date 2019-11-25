@@ -7,11 +7,12 @@ import { AccountManagementComponent } from './component'
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: '', component: AccountManagementComponent }
-    ])
+      { path: '', component: AccountManagementComponent },
+    ]),
   ],
   declarations: [
-    AccountManagementComponent
-  ]
+    AccountManagementComponent,
+  ],
 })
-export class AccountManagementModule { }
+export class AccountManagementModule
+{ }

@@ -26,4 +26,5 @@ const routes: Routes = [
     AdminContainer,
   ],
 })
-export class AdminModule { }
+export class AdminModule
+{ }

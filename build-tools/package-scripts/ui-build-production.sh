@@ -1,3 +1,3 @@
-node ui-prebuild -c "production" && \
+node prebuild -c "production" && \
 ng build -c "production" && \
 ng run web:server -c "production"

@@ -29,8 +29,11 @@ export default function(roles: UserRole[]): RequestHandler
       }
       else
       {
-        response.status(StatusCode.FORBIDDEN)
-        response.send(StatusCodeMessage[StatusCode.FORBIDDEN])
+        if (!response.headersSent)
+        {
+          response.status(StatusCode.FORBIDDEN)
+          response.send(StatusCodeMessage[StatusCode.FORBIDDEN])
+        }
         return false
       }
     })

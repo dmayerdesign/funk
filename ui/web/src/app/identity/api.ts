@@ -14,8 +14,10 @@ export class IdentityApi implements ModuleApi {
   public user$ = this._nonNullAuthUser$.pipe(
     ignoreNullish(),
     distinctUntilKeyChanged('uid'),
-    switchMap((user) => {
-      if (user.isAnonymous) {
+    switchMap((user) =>
+    {
+      if (user.isAnonymous)
+      {
         return of<UserConfig>({ id: '1', displayName: 'Guest' })
       }
       return this._firestore.collection('user-configs')
@@ -23,13 +25,18 @@ export class IdentityApi implements ModuleApi {
         .valueChanges()
     })
   )
+  public firebaseIdToken$: Observable<string> = this._nonNullAuthUser$.pipe(
+    ignoreNullish(),
+    switchMap((user) => user.getIdToken())
+  )
 
   constructor(
     private _fireAuth: AngularFireAuth,
     private _firestore: AngularFirestore,
   ) { }
 
-  public async init(): Promise<void> {
+  public async init(): Promise<void>
+  {
     await this._fireAuth.auth.signInAnonymously()
   }
 

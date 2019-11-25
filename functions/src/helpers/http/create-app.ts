@@ -1,3 +1,4 @@
+import { TRUSTED_ORIGINS } from '@funk/config'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express from 'express'
@@ -13,6 +14,9 @@ export default function({ corsOptions }: CreateAppOptions = {}): express.Applica
   return express().use(
     cookieParser(),
     handleError,
-    cors({ origin: '*', ...corsOptions }),
+    cors({
+      origin: TRUSTED_ORIGINS.split(','),
+      ...corsOptions,
+    }),
   )
 }

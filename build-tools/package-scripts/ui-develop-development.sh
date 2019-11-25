@@ -1,2 +1,2 @@
-node ui-prebuild -c "development" && \
-ng serve web -c "development"
+node prebuild -c "development" && \
+ng serve web -c "development" --optimization=false

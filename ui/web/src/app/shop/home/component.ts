@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
-import { AngularFireAuth } from '@angular/fire/auth'
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { environment } from 'ui/web/src/environments/environment'
+import { IdentityApi } from '../../identity/api'
 import { NAVBAR_HEIGHT_PX } from '../config'
 
 @Component({
@@ -21,16 +21,10 @@ import { NAVBAR_HEIGHT_PX } from '../config'
           {{ text$ | async | json }}
         </p>
         <form [formGroup]="loginFormGroup"
-          (ngSubmit)="handleLoginSubmit()">
-          <input formControlName="email" type="email">
-          <input formControlName="password" type="password">
-          <input type="submit" style="visibility: hidden" />
-        </form>
-
-        <form [formGroup]="loginFormGroup"
-          (ngSubmit)="handleLoginSubmit()">
-          <input formControlName="email" type="email">
-          <input formControlName="password" type="password">
+          (ngSubmit)="handleLoginSubmit()"
+          fxLayout fxLayoutGap="10px">
+          <input formControlName="email" placeholder="email" type="email" />
+          <input formControlName="password" placeholder="password" type="password" />
           <input type="submit" style="visibility: hidden" />
         </form>
       </div>
@@ -48,7 +42,7 @@ export class HomeComponent implements OnInit
 
   constructor(
     private _httpClient: HttpClient,
-    private _auth: AngularFireAuth,
+    private _identityApi: IdentityApi,
   )
   { }
 
@@ -61,7 +55,7 @@ export class HomeComponent implements OnInit
 
   public async handleLoginSubmit(): Promise<void>
   {
-    console.log(await this._auth.auth.signInWithEmailAndPassword(
+    console.log(await this._identityApi.signInWithEmailAndPassword(
       this.loginFormGroup.get('email')!.value,
       this.loginFormGroup.get('password')!.value,
     ))

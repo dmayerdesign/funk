@@ -4,4 +4,5 @@ import { Component } from '@angular/core'
   selector: 'account-management',
   template: `<h1>Manage Your Account</h1>`
 })
-export class AccountManagementComponent { }
+export class AccountManagementComponent
+{ }
