@@ -16,11 +16,11 @@ import { IdentityApi } from '../identity/api'
         fxLayoutGap="10px">
         <input type="text"
           placeholder="Key"
-          formControlName="key"
+          formControlName="secretKey"
         />
         <input type="password"
           placeholder="Value"
-          formControlName="value"
+          formControlName="secretValue"
         />
         <input type="submit"
           [style.visibility]="'hidden'"
@@ -35,7 +35,7 @@ import { IdentityApi } from '../identity/api'
         fxLayoutGap="10px">
         <input type="text"
           placeholder="Key"
-          formControlName="key"
+          formControlName="secretKey"
         />
         <input type="submit"
           [style.visibility]="'hidden'"
@@ -66,6 +66,7 @@ export class AdminContainer
 
   public async setSecret(): Promise<void>
   {
+    console.log('FORM GROUP', this.setSecretFormGroup)
     await this._httpClient
       .post(
         `${environment.functionsUrl}/adminSetSecret`,
@@ -86,7 +87,7 @@ export class AdminContainer
     this.secretShowing = await this._httpClient
       .post<string>(
         `${environment.functionsUrl}/adminGetSecret`,
-        this.setSecretFormGroup.value,
+        this.getSecretFormGroup.value,
         {
           headers: {
             authorization: await this._identityApi.firebaseIdToken$

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const { sync: delSync } = require('del')
 const { resolve } = require('path')
+const { mkdirSync, readFileSync, writeFileSync } = require('fs')
 const { exec } = require('shelljs')
 const program = require('commander')
 const { configToJson } = require('./config/helpers/config-to-json')
@@ -11,23 +12,49 @@ program.parse(process.argv)
 // Translate `config.*.ts` to JSON.
 const { configuration } = program.opts()
 const configJson = configToJson(configuration)
+const serializedConfig = Buffer.from(JSON.stringify(configJson)).toString('base64')
 
-// Set each key/value as a config pair.
-Object.keys(configJson).forEach((key) =>
+// Check the cache. If nothing's changed, skip the functions:config step.
+const cachePath = resolve(__dirname, '.funk/.cache/functions-prebuild')
+const configJsonCachePath = `${cachePath}/configJson`
+mkdirSync(cachePath, { recursive: true })
+const cacheConfig = () =>
 {
-  console.log('SETTING:', `public.${key.toLowerCase()}=${configJson[key]}`)
-  exec(`firebase functions:config:set public.${key.toLowerCase()}=${configJson[key]}`)
-})
+  writeFileSync(configJsonCachePath, serializedConfig)
+}
+const getCache = () =>
+{
+  try
+  { return readFileSync(configJsonCachePath, 'utf8') }
+  catch (_)
+  { return '' }
+}
+const configHasChanged = getCache() !== serializedConfig
+if (configHasChanged)
+{
+  // Write `configJson` to the cache.
+  cacheConfig()
 
-// Copy the result of `functions:config:get` to `functions/.runtimeconfig.json`.
-const pathToRuntimeConfig = resolve(__dirname, 'functions/.runtimeconfig.json')
-exec(`firebase functions:config:get > ${pathToRuntimeConfig}`)
+  // Set each key/value as a config pair.
+  Object.keys(configJson).forEach((key) =>
+  {
+    console.log('SETTING:', `public.${key.toLowerCase()}=${configJson[key]}`)
+    exec(`firebase functions:config:set public.${key.toLowerCase()}=${configJson[key]}`)
+  })
 
-// Delete the existing built output.
-delSync(resolve(__dirname, 'functions/lib') + '/**')
+  // Copy the result of `functions:config:get` to `functions/.runtimeconfig.json`.
+  const pathToRuntimeConfig = resolve(__dirname, 'functions/.runtimeconfig.json')
+  exec(`firebase functions:config:get > ${pathToRuntimeConfig}`)
+}
+
+// Delete any existing built output.
+try
+{ delSync(resolve(__dirname, 'functions/lib') + '/**') }
+catch (_)
+{ /* Do nothing. */ }
 
 // Delete `node_modules` if it exists.
 try
 { delSync(resolve(__dirname, 'functions/node_modules') + '/**') }
-catch
+catch (_)
 { /* Do nothing. */ }

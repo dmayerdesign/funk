@@ -41,6 +41,8 @@ testem.log
 firebase-debug.log
 /typings
 .tmp
+.cache
+/.funk/
 
 # System Files
 .DS_Store

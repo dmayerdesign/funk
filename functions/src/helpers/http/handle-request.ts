@@ -6,6 +6,7 @@ export type ResponseTypes =
   | Boolean | Promise<Boolean>
   | object | Promise<object>
   | undefined | Promise<undefined>
+  | void | Promise<void>
 
 export type RequestHandler<ResponseType extends ResponseTypes = undefined> =
   (request: Request, response: Response, next: NextFunction) => ResponseType
@@ -19,25 +20,39 @@ export default function<ResponseType extends ResponseTypes = undefined>(
     try
     {
       const handlerResult = handler(request, response, next)
-      if (response.headersSent) return
+      if (response.headersSent)
+      {
+        return next()
+      }
       // If a function is returned, assume it's a `next` function, and call it.
       else if (typeof handlerResult === 'function')
       {
         handlerResult()
       }
       // Otherwise, assume the return value is intended to be the response.
-      else if (typeof handlerResult === 'object' &&
-        typeof (handlerResult as Promise<any>).then === 'function')
+      else if (
+        typeof handlerResult === 'object'
+        && typeof (handlerResult as Promise<any>)['then'] === 'function')
       {
         (handlerResult as Promise<any>)
           .then((value) =>
           {
-            if (response.headersSent) next()
-            else response.send(value)
+            if (typeof value === 'function')
+            {
+              value()
+            }
+            else
+            {
+              if (response.headersSent) next()
+              else response.send(value)
+            }
           })
           .catch(next)
       }
-      else response.send(handlerResult)
+      else
+      {
+        response.send(handlerResult)
+      }
     }
     catch (error)
     {
