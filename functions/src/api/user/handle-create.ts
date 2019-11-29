@@ -1,12 +1,12 @@
+import { FIRE_PROJECT_ID } from '@funk/config'
 import { Cart, CARTS } from '@funk/model/commerce/cart/cart'
 import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
 import { Firestore } from '@google-cloud/firestore'
-import { auth, config } from 'firebase-functions'
-import 'firebase-functions'
+import { auth } from 'firebase-functions'
 
 export default auth.user().onCreate(async function(user): Promise<any>
 {
-  const firestore = new Firestore({ projectId: config().public.fire_project_id })
+  const firestore = new Firestore({ projectId: FIRE_PROJECT_ID })
 
   if (user.email)
   {

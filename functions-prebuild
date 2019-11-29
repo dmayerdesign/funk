@@ -14,7 +14,7 @@ const { configuration } = program.opts()
 const configJson = configToJson(configuration)
 const serializedConfig = Buffer.from(JSON.stringify(configJson)).toString('base64')
 
-// Check the cache. If nothing's changed, skip the functions:config step.
+// Check the cache. If nothing's changed, skip caching.
 const cachePath = resolve(__dirname, '.funk/.cache/functions-prebuild')
 const configJsonCachePath = `${cachePath}/configJson`
 mkdirSync(cachePath, { recursive: true })
@@ -34,18 +34,14 @@ if (configHasChanged)
 {
   // Write `configJson` to the cache.
   cacheConfig()
-
-  // Set each key/value as a config pair.
-  Object.keys(configJson).forEach((key) =>
-  {
-    console.log('SETTING:', `public.${key.toLowerCase()}=${configJson[key]}`)
-    exec(`firebase functions:config:set public.${key.toLowerCase()}=${configJson[key]}`)
-  })
-
-  // Copy the result of `functions:config:get` to `functions/.runtimeconfig.json`.
-  const pathToRuntimeConfig = resolve(__dirname, 'functions/.runtimeconfig.json')
-  exec(`firebase functions:config:get > ${pathToRuntimeConfig}`)
 }
+
+// Set the service account data as a config variable.
+const { PATH_TO_SERVICE_ACCOUNT_JSON } = configJson
+const serviceAccountJson = require(PATH_TO_SERVICE_ACCOUNT_JSON)
+const serviceAccountBase64 = Buffer.from(JSON.stringify(serviceAccountJson))
+  .toString('base64')
+exec(`firebase functions:config:set admin.serializedcredentials=` + serviceAccountBase64)
 
 // Delete any existing built output.
 try

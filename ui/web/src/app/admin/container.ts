@@ -45,6 +45,7 @@ import { IdentityApi } from '../identity/api'
     <div>
       <code>{{ secretShowing }}</code>
     </div>
+    <button (click)="grantSuperRole()">Grant</button>
   `,
 })
 export class AdminContainer
@@ -66,7 +67,6 @@ export class AdminContainer
 
   public async setSecret(): Promise<void>
   {
-    console.log('FORM GROUP', this.setSecretFormGroup)
     await this._httpClient
       .post(
         `${environment.functionsUrl}/adminSetSecret`,
@@ -96,6 +96,13 @@ export class AdminContainer
           },
         },
       )
+      .toPromise()
+  }
+
+  public async grantSuperRole(): Promise<void>
+  {
+    await this._httpClient
+      .post(`${environment.functionsUrl}/adminGrantSuperRole`, {})
       .toPromise()
   }
 }

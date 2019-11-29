@@ -20,7 +20,8 @@ const { configToJson } = require('./config/helpers/config-to-json')
   // - do a full firebase init
   // - enable billing (https://cloud.google.com/billing/v1/libraries)
   // - enable anonymous, email/password, and google sign-in methods
-  // - create keychain in each configuration
+  // - create keyring in each configuration
+  // - grant "use for encryption" permission to keyring
   // - set app secrets
   //   - avalara api key (see https://admin.avalara.com)
   // - initial deploy

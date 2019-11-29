@@ -13,29 +13,29 @@ export default function(roles: UserRole[]): RequestHandler
     request: AuthenticationRequest,
     response: Response,
     next: NextFunction,
-  ): Promise<NextFunction | false>
+  ): Promise<void>
   {
-    return authenticate(request, response, async function(): Promise<NextFunction | false>
-    {
-      const { user } = request as AuthenticatedRequest
-      const claims = (await auth().getUser(user.uid))
-        .customClaims as CustomClaims | undefined
-
-      console.log('got claims for user', JSON.stringify(claims))
-
-      if (claims && claims.role && roles.some((role) => claims.role === role))
+    return authenticate(
+      request,
+      response,
+      async function(): Promise<void>
       {
-        return next
-      }
-      else
-      {
-        if (!response.headersSent)
+        const { uid } = (request as AuthenticatedRequest).user
+        const user = await auth().getUser(uid)
+        const claims = user.customClaims as CustomClaims | undefined
+
+        if (claims && claims.role && roles.some((role) => claims.role === role))
         {
-          response.status(StatusCode.FORBIDDEN)
-          response.send(StatusCodeMessage[StatusCode.FORBIDDEN])
+          return next()
         }
-        return false
-      }
-    })
+        else
+        {
+          if (!response.headersSent)
+          {
+            response.status(StatusCode.FORBIDDEN)
+            response.send(StatusCodeMessage[StatusCode.FORBIDDEN])
+          }
+        }
+      })
   }
 }

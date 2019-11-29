@@ -7,5 +7,5 @@ export default createGuardedFunction<string>(
   async ({ body }): Promise<string> =>
   {
     const secretKey: string = body['secretKey']
-    return getSecret(secretKey)
+    return await getSecret(secretKey)
   })

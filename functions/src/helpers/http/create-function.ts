@@ -6,7 +6,11 @@ export default function<ResponseType extends ResponseTypes = undefined>(
   ...handlers: RequestHandler<ResponseType>[]
 ): HttpsFunction
 {
+  const _handlers = [ ...handlers ]
+  const handler = _handlers.pop()!
+  const middlewares = _handlers
   return https.onRequest(app().post('/',
-    ...handlers.map((handler) => handleRequest<ResponseType>(handler))
+    ...middlewares,
+    handleRequest<ResponseType>(handler)
   ))
 }

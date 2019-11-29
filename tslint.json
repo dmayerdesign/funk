@@ -98,7 +98,10 @@
       true,
       "never"
     ],
-    "trailing-comma": true,
+    "trailing-comma": [
+      true,
+      "always"
+    ],
     "triple-equals": [
       true,
       "allow-null-check"

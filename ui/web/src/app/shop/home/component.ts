@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit
   )
   { }
 
-  public ngOnInit(): void
+  public async ngOnInit(): Promise<void>
   {
     this.text$ = this._httpClient
       .get<{ text: string }>(`${environment.functionsUrl}/helloWorld`)

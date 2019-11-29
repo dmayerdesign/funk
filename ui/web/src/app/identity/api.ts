@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { UserConfig } from '@funk/model/user/user-config'
+import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { auth, User } from 'firebase'
-import { of, Observable } from 'rxjs'
-import { distinctUntilKeyChanged, switchMap } from 'rxjs/operators'
+import { from, of, Observable } from 'rxjs'
+import { distinctUntilKeyChanged, map, switchMap, withLatestFrom } from 'rxjs/operators'
 
 @Injectable()
 export class IdentityApi implements ModuleApi {
@@ -14,7 +15,7 @@ export class IdentityApi implements ModuleApi {
   public user$ = this._nonNullAuthUser$.pipe(
     ignoreNullish(),
     distinctUntilKeyChanged('uid'),
-    switchMap((user) =>
+    switchMap<User, Observable<UserHydrated>>((user) =>
     {
       if (user.isAnonymous)
       {
@@ -23,7 +24,14 @@ export class IdentityApi implements ModuleApi {
       return this._firestore.collection('user-configs')
         .doc<UserConfig>(user.uid)
         .valueChanges()
-    })
+        .pipe(
+          withLatestFrom(from(user.getIdTokenResult(true))),
+          map(([ userConfig, _user ]) => ({
+            ...userConfig,
+            claims: _user.claims
+          }))
+        )
+    }),
   )
   public firebaseIdToken$: Observable<string> = this._nonNullAuthUser$.pipe(
     ignoreNullish(),
@@ -37,12 +45,21 @@ export class IdentityApi implements ModuleApi {
 
   public async init(): Promise<void>
   {
-    await this._fireAuth.auth.signInAnonymously()
+    this._fireAuth.authState
+      .pipe(
+        switchMap((userOrNull) => userOrNull === null
+          ? this._fireAuth.auth.signInAnonymously()
+          : of(userOrNull))
+      )
+      .subscribe(console.log)
+
+    this.user$.subscribe(console.log)
   }
 
   public async createUserWithEmailAndPassword(
-    email: string, password: string, userConfig?: Partial<UserConfig>
-  ): Promise<auth.UserCredential> {
+    email: string, password: string
+  ): Promise<auth.UserCredential>
+  {
     const userCredential = await this._fireAuth.auth.createUserWithEmailAndPassword(
       email, password
     )

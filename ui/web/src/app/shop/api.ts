@@ -6,7 +6,7 @@ import throwPresentableError from '@funk/helpers/throw-presentable-error'
 import { Cart } from '@funk/model/commerce/cart/cart'
 import { Order } from '@funk/model/commerce/order/order'
 import { Product } from '@funk/model/commerce/product/product'
-import { UserConfig } from '@funk/model/user/user-config'
+import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import FirestoreCollectionSource from '@funk/ui/helpers/data-access/firestore-collection-source'
 import FirestoreDocumentSource from '@funk/ui/helpers/data-access/firestore-document-source'
@@ -44,7 +44,7 @@ export class ShopApi implements ModuleApi {
       .subscribe((user) => this.initCart(user))
   }
 
-  public initCart(user: UserConfig): void {
+  public initCart(user: UserHydrated): void {
     if (this._cartSource) this._cartSource.disconnect()
 
     this._cartSource = new FirestoreDocumentSource<Cart>(

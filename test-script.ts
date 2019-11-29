@@ -1,4 +1,24 @@
 import { NextFunction, Request, RequestHandler as ExpressRequestHandler, Response } from 'express'
+import express from 'express'
+
+async function helper(): Promise<string>
+{
+  await new Promise(resolve => setTimeout(resolve, 500))
+  return 'some string'
+}
+
+const handlers = [
+  async (): Promise<string> =>
+  {
+    return await helper()
+  },
+]
+
+express()
+  .get('/',
+    ...handlers.map((handler) => handleRequest<ResponseType>(handler))
+  )
+  .listen(3000)
 
 export type ResponseTypes =
   | String | Promise<String>
@@ -10,7 +30,7 @@ export type ResponseTypes =
 export type RequestHandler<ResponseType extends ResponseTypes = undefined> =
   (request: Request, response: Response, next: NextFunction) => ResponseType
 
-export default function<ResponseType extends ResponseTypes = undefined>(
+export function handleRequest<ResponseType extends ResponseTypes = undefined>(
   handler: RequestHandler<ResponseType>
 ): ExpressRequestHandler
 {

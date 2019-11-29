@@ -1,5 +1,6 @@
 import { FIRE_PROJECT_ID } from '@funk/config'
 import createGuardedFunction from '@funk/functions/helpers/http/create-guarded-function'
+import getConfig from '@funk/functions/helpers/runtime/get-config'
 import { UserRole } from '@funk/model/auth/user-role'
 import { EncryptedSecret } from '@funk/model/secret/encrypted-secret'
 import { v1 } from '@google-cloud/kms'
@@ -12,7 +13,16 @@ export default createGuardedFunction(
     const secretKey: string = body['secretKey']
     const secretValue: string = body['secretValue']
 
-    const client = new v1.KeyManagementServiceClient()
+    const { client_email, private_key } = JSON.parse(
+      Buffer.from(getConfig().admin.serializedcredentials, 'base64')
+        .toString('utf8')
+    )
+    const client = new v1.KeyManagementServiceClient({
+      credentials: {
+        client_email,
+        private_key,
+      }
+    })
     const keyName = client.cryptoKeyPath(
       FIRE_PROJECT_ID,
       'global',
@@ -26,7 +36,7 @@ export default createGuardedFunction(
     })
 
     const encryptedSecret: EncryptedSecret = {
-      value: encryptResponse.ciphertext.toString('utf8'),
+      value: encryptResponse.ciphertext.toString('base64'),
     }
 
     await firestore().doc(`/vault/${secretKey}`).set(encryptedSecret)
