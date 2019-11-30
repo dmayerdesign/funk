@@ -27,6 +27,7 @@ export interface Order extends DatabaseDocument
   taxPercent: number
   paymentMethod: string
   status: OrderStatus
+  customer: OrderCustomer
   discounts?: Discount[]
   shippingCost?: Price
   shippingRates?: EasypostRate[]
@@ -42,5 +43,4 @@ export interface Order extends DatabaseDocument
   stripeOrderId?: string
   stripeSource?: string
   stripeToken?: StripeCardToken
-  customer?: OrderCustomer
 }

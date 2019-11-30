@@ -14,16 +14,10 @@ import { Weight } from '@funk/model/weight/weight'
 export interface ProductSku extends DatabaseDocument
 {
   name: string
-  description: string
   /** `id` of the parent `Product`. */
   productId: PrimaryKey
   price: Price
-  imageGroups?: ImageGroup[]
-  defaultImageGroupId?: PrimaryKey
-  isDefaultSku?: boolean
   stockQuantity: number
-  isAvailableForPreorder?: boolean
-  existsInStripe?: boolean
   /** A `ProductSku` may have exactly one `AttributeValue` per `Attribute`. */
   attributeValues: AttributeValues
   /**
@@ -32,6 +26,12 @@ export interface ProductSku extends DatabaseDocument
    * and which do not apply to all sibling `ProductSkus`.
    */
   taxonomyTerms: PrimaryKey[]
+  description?: string
+  imageGroups?: ImageGroup[]
+  defaultImageGroupId?: PrimaryKey
+  isDefaultSku?: boolean
+  isAvailableForPreorder?: boolean
+  existsInStripe?: boolean
   costOfGoodsSold?: Price
   netWeight?: Weight
   unitPricingBaseMeasure?: Weight

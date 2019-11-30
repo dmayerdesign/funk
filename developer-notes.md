@@ -51,28 +51,6 @@ exports.aggregate = functions.firestore
 - **Pre-rendering:** Make sure `AppShellComponent` contains a nice, one-page static
 facade for the site.
 
-## Secrets
-
-### [Berglas](https://github.com/GoogleCloudPlatform/berglas)
-
-**Bucket:** funk-{configuration}-vault
-
-**KMS key:** projects/funk-{configuration}/locations/global/keyRings/berglas/cryptoKeys/berglas-key
-
-To create a secret:
-
-```
-berglas create funk-{configuration}-vault/my-secret abcd1234 \
-  --key projects/funk-{configuration}/locations/global/keyRings/berglas/cryptoKeys/berglas-key
-```
-
-To grant access to that secret:
-
-```
-  berglas grant funk-{configuration}-vault/my-secret \
-    --member user:jane.doe@mycompany.com
-```
-
 ## Misc
 
 Store actions:

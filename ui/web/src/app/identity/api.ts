@@ -29,14 +29,14 @@ export class IdentityApi implements ModuleApi
           withLatestFrom(from(user.getIdTokenResult(true))),
           map(([ userConfig, _user ]) => ({
             ...userConfig,
-            claims: _user.claims
-          }))
+            claims: _user.claims,
+          })),
         )
     }),
   )
   public firebaseIdToken$: Observable<string> = this._nonNullAuthUser$.pipe(
     ignoreNullish(),
-    switchMap((user) => user.getIdToken())
+    switchMap((user) => user.getIdToken()),
   )
 
   constructor(
@@ -51,25 +51,27 @@ export class IdentityApi implements ModuleApi
       .pipe(
         switchMap((userOrNull) => userOrNull === null
           ? this._fireAuth.auth.signInAnonymously()
-          : of(userOrNull))
+          : of(userOrNull)),
       )
-      .subscribe(console.log)
-
-    this.user$.subscribe(console.log)
+      .subscribe(
+        // () => this._fireAuth.auth.currentUser!.getIdToken(true).then(
+        //   (value) => console.log(JSON.stringify([ value ])),
+        // ),
+      )
   }
 
   public async createUserWithEmailAndPassword(
-    email: string, password: string
+    email: string, password: string,
   ): Promise<auth.UserCredential>
   {
     const userCredential = await this._fireAuth.auth.createUserWithEmailAndPassword(
-      email, password
+      email, password,
     )
     return userCredential
   }
 
   public async signInWithEmailAndPassword(
-    email: string, password: string
+    email: string, password: string,
   ): Promise<auth.UserCredential>
   {
     return this._fireAuth.auth.signInWithEmailAndPassword(email, password)

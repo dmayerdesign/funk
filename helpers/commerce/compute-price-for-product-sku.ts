@@ -16,7 +16,8 @@ export default function(
   productSku: ProductSku,
   parentProduct: Product,
   activeDiscounts: Discount[] = [],
-): Price {
+): Price
+{
   /**
    * Creates a subset of the provided `activeDiscounts` which
    * - are of type 'product' AND
@@ -24,44 +25,55 @@ export default function(
    * - do not exclude the associated `TaxonomyTerms` AND
    * - include this `ProductSku` OR include an associated `TaxonomyTerm`.
    */
-  let applicableDiscounts = activeDiscounts.filter((discount) => {
-    if (discount.type === 'order') {
+  let applicableDiscounts = activeDiscounts.filter((discount) =>
+  {
+    if (discount.type === 'order')
+    {
       return false
     }
-    if (!!discount.excludes) {
+    if (!!discount.excludes)
+    {
       if (discount.excludes.all) return false
-      if (!!discount.excludes.productSkus) {
-        if (discount.excludes.productSkus.indexOf(productSku.id) > -1) {
+      if (!!discount.excludes.productSkus)
+      {
+        if (discount.excludes.productSkus.indexOf(productSku.id) > -1)
+        {
           return false
         }
       }
-      if (!!discount.excludes.taxonomyTerms) {
+      if (!!discount.excludes.taxonomyTerms)
+      {
         if (!!discount.excludes.taxonomyTerms.find(
           (excludedTerm) => !!productSku.taxonomyTerms.find(
-            (term) => term === excludedTerm
-          )
-        )) {
+            (term) => term === excludedTerm,
+          ),
+        ))
+        {
           return false
         }
       }
     }
     if (discount.includes.all) return true
-    if (!!discount.includes.productSkus) {
+    if (!!discount.includes.productSkus)
+    {
       if (discount.includes.productSkus.indexOf(productSku.id) > -1) return true
     }
-    if (!!discount.includes.taxonomyTerms) {
+    if (!!discount.includes.taxonomyTerms)
+    {
       if (!!discount.includes.taxonomyTerms.find(
         (includedTerm) => !!productSku.taxonomyTerms.find(
-          (term) => term === includedTerm
-        )
-      )) {
+          (term) => term === includedTerm,
+        ),
+      ))
+      {
         return true
       }
       if (!!discount.includes.taxonomyTerms.find(
         (includedTerm) => !!parentProduct.taxonomyTerms.find(
-          (term) => term === includedTerm
-        )
-      )) {
+          (term) => term === includedTerm,
+        ),
+      ))
+      {
         return true
       }
     }
@@ -71,22 +83,28 @@ export default function(
   // Only allow a single discount to be applied, unless one or more are compoundable.
   // Compoundable discounts will always override non-compoundable discounts.
   // All else being equal, more-recently-started discount(s) will be favored.
-  if (applicableDiscounts.length > 1) {
-    if (applicableDiscounts.some(({ isCompoundable }) => isCompoundable)) {
+  if (applicableDiscounts.length > 1)
+  {
+    if (applicableDiscounts.some(({ isCompoundable }) => isCompoundable))
+    {
       applicableDiscounts = applicableDiscounts.filter(
-        ({ isCompoundable }) => isCompoundable
+        ({ isCompoundable }) => isCompoundable,
       )
     }
-    else {
+    else
+    {
       applicableDiscounts = applicableDiscounts
         .sort((a, b) => a.startAt <= b.startAt ? -1 : 1)
         .slice(0, 1)
     }
   }
 
-  return applicableDiscounts.reduce<Price>((calculatedPrice, discount) => {
-    if (!!discount.total) {
-      if (calculatedPrice.currency !== discount.total.currency) {
+  return applicableDiscounts.reduce<Price>((calculatedPrice, discount) =>
+  {
+    if (!!discount.total)
+    {
+      if (calculatedPrice.currency !== discount.total.currency)
+      {
         throw new CurrencyMismatchError()
       }
       return {
@@ -94,8 +112,10 @@ export default function(
         amount: calculatedPrice.amount - discount.total.amount,
       }
     }
-    else {
-      if (!discount.percentage) {
+    else
+    {
+      if (!discount.percentage)
+      {
         discount.percentage = 0
       }
       return {

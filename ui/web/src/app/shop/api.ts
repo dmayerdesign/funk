@@ -22,7 +22,7 @@ export class ShopApi implements ModuleApi {
   private _cartSource?: FirestoreDocumentSource<Cart>
   public cart$?: Observable<Cart>
   public productsSource = new FirestoreCollectionSource<Product>(
-    this._firestore.collection('products')
+    this._firestore.collection('products'),
   )
 
   constructor(
@@ -44,7 +44,8 @@ export class ShopApi implements ModuleApi {
       .subscribe((user) => this.initCart(user))
   }
 
-  public initCart(user: UserHydrated): void {
+  public initCart(user: UserHydrated): void
+  {
     if (this._cartSource) this._cartSource.disconnect()
 
     this._cartSource = new FirestoreDocumentSource<Cart>(
@@ -52,7 +53,7 @@ export class ShopApi implements ModuleApi {
       (cart) => cart && this._manager.dispatch({
         type: ShopAction.CART_CHANGE_FROM_DB,
         reduce: (state) => ({ ...state, cart }),
-      })
+      }),
     )
     this.cart$ = this._cartSource.connect().pipe(ignoreNullish())
 
@@ -64,12 +65,38 @@ export class ShopApi implements ModuleApi {
     // [END] TESTING
   }
 
-  public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>> {
+  public testCalculateTax(): void
+  {
+    const testJson = {
+      productSkus: [{
+        name: 'Test SKU',
+        productId: 'test-product-id',
+        price: { amount: 12, currency: 'USD' },
+        stockQuantity: 1,
+        attributeValues: [],
+        taxonomyTerms: [],
+      }],
+      discounts: [],
+      customer: {
+        billingAddress: {
+          zip: '48324',
+        },
+      },
+    }
+
+    this._httpClient.post(`${environment.functionsUrl}/orderCalculateTax`, testJson)
+      .subscribe()
+  }
+
+  public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>>
+  {
+    this.testCalculateTax()
+
     return this._manager.once({
       type: ShopAction.SUBMIT_ORDER,
       resolve: (state$) => this._httpClient
         .post(`${environment.functionsUrl}/orderSubmit`, order)
-        .pipe(switchMap(() => state$))
+        .pipe(switchMap(() => state$)),
     })
   }
 }

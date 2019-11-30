@@ -1,0 +1,1 @@
+export const AVATAX_LICENSE_KEY = 'AVATAX_LICENSE_KEY'
