@@ -1,9 +1,5 @@
-import { HttpClient } from '@angular/common/http'
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
-import { environment } from 'ui/web/src/environments/environment'
 import { IdentityApi } from '../../identity/api'
 import { NAVBAR_HEIGHT_PX } from '../config'
 
@@ -14,12 +10,8 @@ import { NAVBAR_HEIGHT_PX } from '../config'
       fxFlexFill>
       <div class="home-banner"
         [ngStyle]="{
-          height: 'calc(100vh - ' + navbarHeight + ')',
-          backgroundColor: 'blue'
+          height: 'calc(100vh - ' + navbarHeight + ')'
         }">
-        <p [style.color]="'white'">
-          {{ text$ | async | json }}
-        </p>
         <form [formGroup]="loginFormGroup"
           (ngSubmit)="handleLoginSubmit()"
           fxLayout fxLayoutGap="10px">
@@ -31,27 +23,18 @@ import { NAVBAR_HEIGHT_PX } from '../config'
     </div>
   `
 })
-export class HomeComponent implements OnInit
+export class HomeComponent
 {
   public navbarHeight = NAVBAR_HEIGHT_PX + 'px'
-  public text$?: Observable<string>
   public loginFormGroup = new FormGroup({
     email: new FormControl(),
     password: new FormControl(),
   })
 
   constructor(
-    private _httpClient: HttpClient,
     private _identityApi: IdentityApi,
   )
   { }
-
-  public async ngOnInit(): Promise<void>
-  {
-    this.text$ = this._httpClient
-      .get<{ text: string }>(`${environment.functionsUrl}/helloWorld`)
-      .pipe(map(({ text }) => text))
-  }
 
   public async handleLoginSubmit(): Promise<void>
   {

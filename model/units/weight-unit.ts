@@ -1,4 +1,5 @@
-export const enum WeightUnit {
+export const enum WeightUnit
+{
   Grams = 'g',
   Kilograms = 'kg',
   Ounces = 'oz',

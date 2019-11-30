@@ -1,4 +1,5 @@
-export const enum LengthUnit {
+export const enum LengthUnit
+{
   Inches = 'in',
   Centimeters = 'cm',
   Millimeters = 'mm',

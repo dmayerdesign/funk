@@ -7,7 +7,8 @@ import { ImageGroup } from '@funk/model/image/image-group'
  * Only structured values are stored using this schema.
  * Scalar values are stored in `Product.attributeValues[attributeId]`.
  */
-export interface AttributeValue extends DatabaseDocument {
+export interface AttributeValue extends DatabaseDocument
+{
   attributeId: PrimaryKey
   displayValue: string
   displayDescription?: string
@@ -15,20 +16,24 @@ export interface AttributeValue extends DatabaseDocument {
   displayColor?: [number, number, number]
 }
 
-export interface AttributeValues {
+export interface AttributeValues
+{
   [attributeId: string]: OneOf<
     AttributeRefValue, AttributeStringValue, AttributeNumberValue
   >
 }
 
-interface AttributeNumberValue {
+interface AttributeNumberValue
+{
   numberValue: number
 }
 
-interface AttributeStringValue {
+interface AttributeStringValue
+{
   stringValue: number
 }
 
-interface AttributeRefValue {
+interface AttributeRefValue
+{
   attributeValueId: PrimaryKey
 }

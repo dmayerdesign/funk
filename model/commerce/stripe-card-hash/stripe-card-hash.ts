@@ -1,4 +1,5 @@
-export interface StripeCardHash {
+export interface StripeCardHash
+{
     id: string
     object: string
     number: number

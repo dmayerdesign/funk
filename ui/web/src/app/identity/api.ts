@@ -10,7 +10,8 @@ import { from, of, Observable } from 'rxjs'
 import { distinctUntilKeyChanged, map, switchMap, withLatestFrom } from 'rxjs/operators'
 
 @Injectable()
-export class IdentityApi implements ModuleApi {
+export class IdentityApi implements ModuleApi
+{
   private _nonNullAuthUser$ = this._fireAuth.user as Observable<User>
   public user$ = this._nonNullAuthUser$.pipe(
     ignoreNullish(),
@@ -41,7 +42,8 @@ export class IdentityApi implements ModuleApi {
   constructor(
     private _fireAuth: AngularFireAuth,
     private _firestore: AngularFirestore,
-  ) { }
+  )
+  { }
 
   public async init(): Promise<void>
   {
@@ -68,7 +70,13 @@ export class IdentityApi implements ModuleApi {
 
   public async signInWithEmailAndPassword(
     email: string, password: string
-  ): Promise<auth.UserCredential> {
+  ): Promise<auth.UserCredential>
+  {
     return this._fireAuth.auth.signInWithEmailAndPassword(email, password)
+  }
+
+  public async signOut(): Promise<void>
+  {
+    this._fireAuth.auth.signOut()
   }
 }

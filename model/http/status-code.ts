@@ -1,5 +1,6 @@
 // Taken from https://www.npmjs.com/package/http-status-codes
-export const enum StatusCode {
+export const enum StatusCode
+{
   /**
    * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.3
    *
@@ -327,7 +328,8 @@ export const enum StatusCode {
   USE_PROXY = 305,
 }
 
-export enum StatusCodeMessage {
+export enum StatusCodeMessage
+{
   'Accepted' = 202,
   'Bad Gateway' = 502,
   'Bad Request' = 400,

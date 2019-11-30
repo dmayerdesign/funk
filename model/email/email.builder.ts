@@ -1,6 +1,7 @@
 import { EmailOptions, EmailStyleOptions } from './email-options'
 
-export class EmailBuilder {
+export class EmailBuilder
+{
 
     private _baseOptions?: Partial<EmailOptions>
     private _html?: string
@@ -12,17 +13,20 @@ export class EmailBuilder {
         innerBgColor: '#fdfdfd',
     }
 
-    public setOptions(options?: Partial<EmailOptions>): this {
+    public setOptions(options?: Partial<EmailOptions>): this
+    {
         this._baseOptions = options
         return this
     }
 
-    public setData(data: any): this {
+    public setData(data: any): this
+    {
         this._data = data
         return this
     }
 
-    public setHtml(pugModule: (options: EmailOptions) => string): this {
+    public setHtml(pugModule: (options: EmailOptions) => string): this
+    {
         this._html = pugModule({
             ...this._baseOptions,
             ...this._styles,
@@ -31,12 +35,14 @@ export class EmailBuilder {
         return this
     }
 
-    public patchStyles(styles: EmailStyleOptions): this {
+    public patchStyles(styles: EmailStyleOptions): this
+    {
         this._styles = { ...this._styles, ...styles }
         return this
     }
 
-    public get sendEmailOptions(): EmailOptions {
+    public get sendEmailOptions(): EmailOptions
+    {
         return {
             ...this._baseOptions,
             html: this._html,

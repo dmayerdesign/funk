@@ -1,4 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { setUpDevTools } from '@dannymayer/vex'
 import { environment } from '../environments/environment'
 import { IdentityApi } from './identity/api'
@@ -12,6 +13,10 @@ import { IdentityApi } from './identity/api'
       </mat-sidenav>
       <mat-sidenav-content>
         <!--in here all the content must reside. We will add a navigation header as well-->
+        <div fxLayout="row">
+          <button (click)="router.navigate(['/shop', 'home'])">Sign in</button>
+          <button (click)="signOut()">Sign out</button>
+        </div>
         <main>
           <router-outlet></router-outlet>
         </main>
@@ -19,24 +24,35 @@ import { IdentityApi } from './identity/api'
     </mat-sidenav-container>
   `
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit
+{
   public title = 'web'
 
   constructor(
     private _ngZone: NgZone,
     private _identityApi: IdentityApi,
-  ) { }
+    public router: Router,
+  )
+  { }
 
-  public ngOnInit(): void {
-    if (!environment.production) {
+  public ngOnInit(): void
+  {
+    if (!environment.production)
+    {
       setTimeout(() => this._ngZone.run(() => setUpDevTools()))
     }
   }
 
-  public createUser(): void {
-    this._identityApi.createUserWithEmailAndPassword(
+  public async createUser(): Promise<void>
+  {
+    await this._identityApi.createUserWithEmailAndPassword(
       `test_${Date.now()}@sharklasers.com`,
       'Tester01!'
     )
+  }
+
+  public async signOut(): Promise<void>
+  {
+    await this._identityApi.signOut()
   }
 }

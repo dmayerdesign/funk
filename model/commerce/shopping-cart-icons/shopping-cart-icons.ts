@@ -1,4 +1,5 @@
-export interface ShoppingCartIcons {
+export interface ShoppingCartIcons
+{
     empty: string
     1: string
     2: string

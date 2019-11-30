@@ -3,13 +3,15 @@ import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { PrimaryKey } from '@funk/model/data-access/primary-key'
 import { Timestamp } from '@funk/model/data-access/timestamp'
 
-export interface DiscountRules {
+export interface DiscountRules
+{
   all?: boolean
   productSkus?: PrimaryKey[]
   taxonomyTerms?: PrimaryKey[]
 }
 
-interface BaseDiscount extends DatabaseDocument {
+interface BaseDiscount extends DatabaseDocument
+{
   /** A positive amount is deducted from the `Order` total or `Product` price. */
   total?: Price
   /** A positive percentage is deducted from the `Order` total or `Product` price. */
@@ -24,12 +26,14 @@ interface BaseDiscount extends DatabaseDocument {
   preDiscountProductPriceThreshold?: Price
 }
 
-export interface ProductDiscount extends BaseDiscount {
+export interface ProductDiscount extends BaseDiscount
+{
   /** A 'product' discount is a sale; an 'order' discount is a coupon. */
   type: 'product'
 }
 
-export interface OrderDiscount extends BaseDiscount {
+export interface OrderDiscount extends BaseDiscount
+{
   /** A 'product' discount is a sale; an 'order' discount is a coupon. */
   type: 'order'
   /** A positive amount is deducted from an `Order`'s shipping cost. */

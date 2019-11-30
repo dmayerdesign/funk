@@ -6,7 +6,8 @@ import { StripeCardToken } from '@funk/model/commerce/stripe-card-token/stripe-c
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { ProductSku } from '../product/product-sku'
 
-export enum OrderStatus {
+export enum OrderStatus
+{
   PRE_SUBMIT_INVALID = 'Invalid',
   PRE_SUBMIT_VALID = 'Valid',
   PENDING = 'Pending',
@@ -18,7 +19,8 @@ export enum OrderStatus {
   RETURNED = 'Returned',
 }
 
-export interface Order extends DatabaseDocument {
+export interface Order extends DatabaseDocument
+{
   productSkus: ProductSku[]
   subTotal: Price
   total: Price

@@ -1,4 +1,5 @@
-export interface EasypostRate {
+export interface EasypostRate
+{
   created_at: string
   updated_at: string
   /** "test" or "production". */

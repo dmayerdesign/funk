@@ -1,3 +1,4 @@
-export interface DatabaseDocument {
+export interface DatabaseDocument
+{
   id?: any
 }

@@ -11,7 +11,8 @@ import { Weight } from '@funk/model/weight/weight'
  * This schema is largely based on Google's product data spec.
  * @see https://support.google.com/merchants/answer/7052112?hl=en&ref_topic=6324338
  */
-export interface ProductSku extends DatabaseDocument {
+export interface ProductSku extends DatabaseDocument
+{
   name: string
   description: string
   /** `id` of the parent `Product`. */

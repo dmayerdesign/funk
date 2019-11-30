@@ -1,4 +1,5 @@
-export const enum RequestMethod {
+export const enum RequestMethod
+{
   POST = 'POST',
   PUT = 'PUT',
   PATCH = 'PATCH',

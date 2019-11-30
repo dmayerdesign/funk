@@ -1,6 +1,7 @@
 import { StripeCardHash } from '@funk/model/commerce/stripe-card-hash/stripe-card-hash'
 
-export interface StripeCardToken {
+export interface StripeCardToken
+{
     object: string
     id: string
     client_ip: string

@@ -1,4 +1,5 @@
-export interface ReviewRating {
+export interface ReviewRating
+{
   bestRating: number
   ratingExplanation?: string
   ratingValue: number

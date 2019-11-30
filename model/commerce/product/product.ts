@@ -7,7 +7,8 @@ import { Organization } from '@funk/model/organization/organization'
 
 export const PRODUCTS = 'products'
 
-export interface Product extends DatabaseDocument {
+export interface Product extends DatabaseDocument
+{
   name: string
   slug: string
   description?: string

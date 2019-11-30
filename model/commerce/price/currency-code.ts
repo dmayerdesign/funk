@@ -1,5 +1,6 @@
 // https://gist.github.com/Aquazus/1a26a55ba7c38ed0363e0068d389cf30
-export const enum CurrencyCode {
+export const enum CurrencyCode
+{
   /** United Arab Emirates Dirham */ AED = 'AED',
   /** Afghanistan Afghani */ AFN = 'AFN',
   /** Albania Lek */ ALL = 'ALL',

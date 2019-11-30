@@ -1,8 +1,10 @@
-export interface OrganizationBrandingColors {
+export interface OrganizationBrandingColors
+{
     primary: string
 }
 
-export interface OrganizationBranding {
+export interface OrganizationBranding
+{
     displayName: string
     logo: string
     colors: OrganizationBrandingColors

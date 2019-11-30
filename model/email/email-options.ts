@@ -1,13 +1,15 @@
 import { Organization } from '@funk/model/organization/organization'
 
-export interface EmailStyleOptions {
+export interface EmailStyleOptions
+{
   mastheadBgColor: string
   accentColor: string
   fontFamily: string
   innerBgColor: string
 }
 
-export interface EmailOptions {
+export interface EmailOptions
+{
   fromName: string
   fromEmail: string
   toName?: string

@@ -1,4 +1,5 @@
-export interface NavigationItem {
+export interface NavigationItem
+{
   text: string
   routerLink: string[]
   children?: NavigationItem[]

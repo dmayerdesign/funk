@@ -27,7 +27,7 @@
     "indent": [
       true,
       "spaces",
-      4
+      2
     ],
     "interface-over-type-literal": true,
     "label-position": true,
@@ -100,7 +100,10 @@
     ],
     "trailing-comma": [
       true,
-      "always"
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
     ],
     "triple-equals": [
       true,

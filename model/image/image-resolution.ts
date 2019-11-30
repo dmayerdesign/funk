@@ -1,4 +1,5 @@
-export interface ImageResolution {
+export interface ImageResolution
+{
   /** Unit is pixels. */
   width: number
   /** Unit is pixels. */
