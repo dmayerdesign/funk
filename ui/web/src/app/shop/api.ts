@@ -18,7 +18,8 @@ import { IdentityApi } from '../identity/api'
 import { ShopAction, ShopState } from './model'
 
 @Injectable()
-export class ShopApi implements ModuleApi {
+export class ShopApi implements ModuleApi
+{
   private _cartSource?: FirestoreDocumentSource<Cart>
   public cart$?: Observable<Cart>
   public productsSource = new FirestoreCollectionSource<Product>(
@@ -30,9 +31,11 @@ export class ShopApi implements ModuleApi {
     private _manager: Manager<ShopState>,
     private _firestore: AngularFirestore,
     private _identityApi: IdentityApi,
-  ) { }
+  )
+  { }
 
-  public init(): void {
+  public init(): void
+  {
     this._manager.once({
       type: ShopAction.INIT_SHOP,
       // TODO: Get shop settings. Cache attribute values, taxonomies, etc.
@@ -58,21 +61,23 @@ export class ShopApi implements ModuleApi {
     this.cart$ = this._cartSource.connect().pipe(ignoreNullish())
 
     // TESTING
-    this.submitOrder({}).subscribe(
-      (x) => console.log('submitted order', x),
-    )
+    // this.submitOrder({}).subscribe(
+    //   (x) => console.log('submitted order', x),
+    // )
     throwPresentableError(new Error('moo!'))
     // [END] TESTING
   }
 
-  public testCalculateTax(): void
+  public testGetTax(): void
   {
     const testJson = {
-      productSkus: [{
+      skus: [{
         name: 'Test SKU',
         productId: 'test-product-id',
         price: { amount: 12, currency: 'USD' },
-        stockQuantity: 1,
+        inventory: {
+          type: 'infinite',
+        },
         attributeValues: [],
         taxonomyTerms: [],
       }],
@@ -84,13 +89,13 @@ export class ShopApi implements ModuleApi {
       },
     }
 
-    this._httpClient.post(`${environment.functionsUrl}/orderCalculateTax`, testJson)
+    this._httpClient.post(`${environment.functionsUrl}/orderGetTax`, testJson)
       .subscribe()
   }
 
   public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>>
   {
-    this.testCalculateTax()
+    this.testGetTax()
 
     return this._manager.once({
       type: ShopAction.SUBMIT_ORDER,

@@ -1,21 +1,21 @@
 import { Product } from './product'
 
-export enum ProductCollectionType
+export enum CollectionType
 {
   CART = 'CART',
   WISHLIST = 'WISHLIST',
   CUSTOM = 'CUSTOM',
 }
 
-export interface ProductCollection
+export interface Collection
 {
   products: Product[]
   userId?: string
-  type?: ProductCollectionType
+  type?: CollectionType
   displayName?: string
 }
 
 export interface ProductCollections
 {
-  [uid: string]: ProductCollection[]
+  [uid: string]: Collection[]
 }

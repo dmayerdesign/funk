@@ -55,7 +55,7 @@
     "lodash": "~4.17.15",
     "ng-click-outside": "~5.1.1",
     "rxjs": "6.5.3",
-    "stripe": "~7.13.1",
+    "stripe": "7.13.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },

@@ -1,12 +1,11 @@
 import { Discount } from '@funk/model/commerce/discount/discount'
 import { EasypostRate } from '@funk/model/commerce/easypost-rate/easypost-rate'
-import { OrderCustomer } from '@funk/model/commerce/order-customer/order-customer'
+import { Customer } from '@funk/model/commerce/order/customer'
 import { Price } from '@funk/model/commerce/price/price'
-import { StripeCardToken } from '@funk/model/commerce/stripe-card-token/stripe-card-token'
+import { Sku } from '@funk/model/commerce/product/sku/sku'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { ProductSku } from '../product/product-sku'
 
-export enum OrderStatus
+export enum Status
 {
   PRE_SUBMIT_INVALID = 'Invalid',
   PRE_SUBMIT_VALID = 'Valid',
@@ -21,13 +20,13 @@ export enum OrderStatus
 
 export interface Order extends DatabaseDocument
 {
-  productSkus: ProductSku[]
+  skus: Sku[]
   subTotal: Price
   total: Price
   taxPercent: number
   paymentMethod: string
-  status: OrderStatus
-  customer: OrderCustomer
+  status: Status
+  customer: Customer
   discounts?: Discount[]
   shippingCost?: Price
   shippingRates?: EasypostRate[]
@@ -39,8 +38,5 @@ export interface Order extends DatabaseDocument
   postageLabelUrl?: string
   savePaymentInfo?: boolean
   shipmentId?: string
-  stripeCardId?: string
-  stripeOrderId?: string
-  stripeSource?: string
-  stripeToken?: StripeCardToken
+  paymentServiceProviderData?: any
 }

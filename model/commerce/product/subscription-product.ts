@@ -7,11 +7,11 @@ import { ImageGroup } from '@funk/model/image/image-group'
 import { Duration } from '@funk/model/time/duration'
 
 /** https://support.google.com/merchants/answer/7052112?hl=en&ref_topic=6324338 */
-export interface ProductSubscription extends DatabaseDocument
+export interface SubscriptionProduct extends DatabaseDocument
 {
   name: string
   description: string
-  productSkuIds: PrimaryKey[]
+  skuIds: PrimaryKey[]
   imageGroups?: ImageGroup[]
   defaultImageGroupId?: PrimaryKey
   price?: Price
@@ -20,13 +20,13 @@ export interface ProductSubscription extends DatabaseDocument
   period?: 'month'|'year'
   periodLength?: number
   totalSales: number
-  existsInStripe: boolean
   releaseDate?: Timestamp
   reviews?: PrimaryKey[]
   /**
-   * A `ProductSku` may have multiple `TaxonomyTerms` per `Taxonomy`.
+   * A `Sku` may have multiple `TaxonomyTerms` per `Taxonomy`.
    * This field should only store terms which are not present in the associated `Product`
-   * and which do not apply to all sibling `ProductSkus`.
+   * and which do not apply to all sibling `Skus`.
    */
   taxonomyTerms: TaxonomyTerm[]
+  paymentServiceProviderData: any
 }

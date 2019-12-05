@@ -7,7 +7,7 @@ import { ResponseTypes } from './handle-request'
 
 export default function<ResponseType extends ResponseTypes = undefined>(
   roles: UserRole[],
-  ...handlers: RequestHandler[]
+  ...handlers: RequestHandler[],
 ): HttpsFunction
 {
   return createFunction<ResponseType>(

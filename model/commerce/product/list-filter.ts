@@ -1,4 +1,4 @@
-export enum ProductListFilterType
+export enum ListFilterType
 {
   Property = 'property',
   AttributeValue = 'attribute-value',
@@ -6,13 +6,13 @@ export enum ProductListFilterType
   TaxonomyTerm = 'taxonomy-term',
 }
 
-export interface ProductListFilter
+export interface ListFilter
 {
-  type: ProductListFilterType
+  type: ListFilterType
   key?: string
   values?: any[]
   range?: {
     min: number
-    max: number;
+    max: number
   }
 }

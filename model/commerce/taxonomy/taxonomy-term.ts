@@ -6,7 +6,6 @@ export interface TaxonomyTerm extends DatabaseDocument
     taxonomyId: PrimaryKey
     singularName: string
     pluralName: string
-    slug: string
     description: string
     children: TaxonomyTerm[]
     forInternalUseOnly: boolean

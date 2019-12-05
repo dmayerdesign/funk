@@ -6,7 +6,7 @@ import { Timestamp } from '@funk/model/data-access/timestamp'
 export interface DiscountRules
 {
   all?: boolean
-  productSkus?: PrimaryKey[]
+  skus?: PrimaryKey[]
   taxonomyTerms?: PrimaryKey[]
 }
 

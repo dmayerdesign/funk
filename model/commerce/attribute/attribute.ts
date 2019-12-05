@@ -4,7 +4,6 @@ import { AttributeDisplayType } from './attribute-display-type'
 export interface Attribute extends DatabaseDocument
 {
   name: string
-  slug: string
   displayType: AttributeDisplayType
   isScalar: boolean
 }

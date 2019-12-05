@@ -101,7 +101,14 @@
     "trailing-comma": [
       true,
       {
-        "multiline": "always",
+        "multiline": {
+          "arrays": "always",
+          "objects": "always",
+          "functions": "ignore",
+          "imports": "always",
+          "exports": "always",
+          "typeLiterals": "ignore"
+        },
         "singleline": "never"
       }
     ],

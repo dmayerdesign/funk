@@ -1,9 +1,9 @@
 import { Discount } from '@funk/model/commerce/discount/discount'
-import { ProductCollection, ProductCollectionType } from '@funk/model/commerce/product/product-collection'
+import { Collection, CollectionType } from '@funk/model/commerce/product/collection'
 
-export interface Cart extends ProductCollection
+export interface Cart extends Collection
 {
-  type?: ProductCollectionType.CART
+  type?: CollectionType.CART
   discounts?: Discount[]
 }
 

@@ -10,16 +10,13 @@ export const PRODUCTS = 'products'
 export interface Product extends DatabaseDocument
 {
   name: string
-  slug: string
   description?: string
   imageGroups?: ImageGroup[]
   defaultImageGroupId?: PrimaryKey
   /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. */
   taxonomyTerms: PrimaryKey[]
-  stockQuantity: number
-  totalSales: number
-  existsInStripe: boolean
   brand?: Organization
   releaseDate?: Timestamp
   reviews?: Review[]
+  paymentServiceProviderData: any
 }

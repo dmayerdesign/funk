@@ -30,7 +30,7 @@ interface AttributeNumberValue
 
 interface AttributeStringValue
 {
-  stringValue: number
+  stringValue: string
 }
 
 interface AttributeRefValue

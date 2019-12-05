@@ -2,18 +2,18 @@ import CurrencyMismatchError from '@funk/helpers/commerce/currency-mismatch-erro
 import { Discount } from '@funk/model/commerce/discount/discount'
 import { Price } from '@funk/model/commerce/price/price'
 import { Product } from '@funk/model/commerce/product/product'
-import { ProductSku } from '@funk/model/commerce/product/product-sku'
+import { Sku } from '@funk/model/commerce/product/sku/sku'
 
 /**
- * Computes a `ProductSku`'s actual price given all active discounts. Will only apply
- * discounts of type 'product', as this is a `ProductSku`-level operation.
+ * Computes a `Sku`'s actual price given all active discounts. Will only apply
+ * discounts of type 'product', as this is a `Sku`-level operation.
  *
  * @param activeDiscounts All discounts with a `startAt` less than, and an `endAt` greater
  * than, today's date, or any subset thereof. That filtering must be done before invoking
  * this function; it will not check `startAt` and `endAt` values.
  */
 export default function(
-  productSku: ProductSku,
+  sku: Sku,
   parentProduct: Product,
   activeDiscounts: Discount[] = [],
 ): Price
@@ -21,9 +21,9 @@ export default function(
   /**
    * Creates a subset of the provided `activeDiscounts` which
    * - are of type 'product' AND
-   * - do not exclude this `ProductSku` AND
+   * - do not exclude this `Sku` AND
    * - do not exclude the associated `TaxonomyTerms` AND
-   * - include this `ProductSku` OR include an associated `TaxonomyTerm`.
+   * - include this `Sku` OR include an associated `TaxonomyTerm`.
    */
   let applicableDiscounts = activeDiscounts.filter((discount) =>
   {
@@ -34,9 +34,9 @@ export default function(
     if (!!discount.excludes)
     {
       if (discount.excludes.all) return false
-      if (!!discount.excludes.productSkus)
+      if (!!discount.excludes.skus)
       {
-        if (discount.excludes.productSkus.indexOf(productSku.id) > -1)
+        if (discount.excludes.skus.indexOf(sku.id) > -1)
         {
           return false
         }
@@ -44,7 +44,7 @@ export default function(
       if (!!discount.excludes.taxonomyTerms)
       {
         if (!!discount.excludes.taxonomyTerms.find(
-          (excludedTerm) => !!productSku.taxonomyTerms.find(
+          (excludedTerm) => !!sku.taxonomyTerms.find(
             (term) => term === excludedTerm,
           ),
         ))
@@ -54,14 +54,14 @@ export default function(
       }
     }
     if (discount.includes.all) return true
-    if (!!discount.includes.productSkus)
+    if (!!discount.includes.skus)
     {
-      if (discount.includes.productSkus.indexOf(productSku.id) > -1) return true
+      if (discount.includes.skus.indexOf(sku.id) > -1) return true
     }
     if (!!discount.includes.taxonomyTerms)
     {
       if (!!discount.includes.taxonomyTerms.find(
-        (includedTerm) => !!productSku.taxonomyTerms.find(
+        (includedTerm) => !!sku.taxonomyTerms.find(
           (term) => term === includedTerm,
         ),
       ))
@@ -123,5 +123,5 @@ export default function(
         amount: calculatedPrice.amount - (calculatedPrice.amount * discount.percentage),
       }
     }
-  }, productSku.price)
+  }, sku.price)
 }
