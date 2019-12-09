@@ -32,7 +32,6 @@ export default function<ResponseType extends ResponseTypes = undefined>(
             if (response.headersSent) next()
             else
             {
-              console.log('====> send 1', value)
               response.send(value)
             }
           })

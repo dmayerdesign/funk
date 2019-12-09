@@ -23,7 +23,7 @@
     "eofline": true,
     "forin": false,
     "import-blacklist": false,
-    "import-spacing": true,
+    "import-spacing": false,
     "indent": [
       true,
       "spaces",

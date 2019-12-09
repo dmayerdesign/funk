@@ -20,7 +20,7 @@ export default function(
     price: amount,
     product: product.id, // Must be a product of type 'good'.
     active: true,
-    /** TODO: Make human-readable */
+    // TODO: Make human-readable
     attributes: Object.keys(sku.attributeValues).reduce(
       (attributes, attributeKey) =>
       {

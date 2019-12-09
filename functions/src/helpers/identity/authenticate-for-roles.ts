@@ -1,14 +1,23 @@
+import { AuthenticatedRequest } from
+  '@funk/functions/model/request-response/authenticated-request'
+import { AuthenticationRequest } from
+  '@funk/functions/model/request-response/authentication-request'
 import { CustomClaims } from '@funk/model/auth/custom-claims'
 import { UserRole } from '@funk/model/auth/user-role'
-import { AuthenticatedRequest } from '@funk/model/data-access/authenticated-request'
-import { AuthenticationRequest } from '@funk/model/data-access/authentication-request'
 import { StatusCode, StatusCodeMessage } from '@funk/model/http/status-code'
 import { NextFunction, RequestHandler, Response } from 'express'
 import { auth } from 'firebase-admin'
 import authenticate from './authenticate'
 
+/**
+ * Creates a `RequestHandler` which calls `next` if the user has AT LEAST ONE of the
+ * `roles`, and sends a `403 Forbidden` response if not.
+ */
 export default function(roles: UserRole[]): RequestHandler
 {
+  // TODO: `request` is really an `AuthenticatedRequest`, and should be typed as such.
+  // Currently using `AuthenticationRequest` here, and a type assertion below, to appease
+  // the compiler.
   return function(
     request: AuthenticationRequest,
     response: Response,

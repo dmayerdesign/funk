@@ -1,16 +1,20 @@
-import CurrencyMismatchError from '@funk/helpers/commerce/currency-mismatch-error'
 import { Discount } from '@funk/model/commerce/discount/discount'
 import { Price } from '@funk/model/commerce/price/price'
+import { validateBeforeMath } from '@funk/model/commerce/price/validation'
 import { Product } from '@funk/model/commerce/product/product'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 
 /**
- * Computes a `Sku`'s actual price given all active discounts. Will only apply
- * discounts of type 'product', as this is a `Sku`-level operation.
+ * Computes a `Sku`'s actual price given all active discounts. Will only apply discounts
+ * of type 'sku', as this is a `Sku`-level, not an `Order`-level, operation.
  *
  * @param activeDiscounts All discounts with a `startAt` less than, and an `endAt` greater
  * than, today's date, or any subset thereof. That filtering must be done before invoking
  * this function; it will not check `startAt` and `endAt` values.
+ *
+ * Only one discount may be applied, unless one or more are `compoundable`.
+ * Compoundable discounts will always override non-compoundable discounts.
+ * All else being equal, more-recently-started discount(s) will be favored.
  */
 export default function(
   sku: Sku,
@@ -18,13 +22,6 @@ export default function(
   activeDiscounts: Discount[] = [],
 ): Price
 {
-  /**
-   * Creates a subset of the provided `activeDiscounts` which
-   * - are of type 'product' AND
-   * - do not exclude this `Sku` AND
-   * - do not exclude the associated `TaxonomyTerms` AND
-   * - include this `Sku` OR include an associated `TaxonomyTerm`.
-   */
   let applicableDiscounts = activeDiscounts.filter((discount) =>
   {
     if (discount.type === 'order')
@@ -80,9 +77,7 @@ export default function(
     return false
   })
 
-  // Only allow a single discount to be applied, unless one or more are compoundable.
-  // Compoundable discounts will always override non-compoundable discounts.
-  // All else being equal, more-recently-started discount(s) will be favored.
+  // Only allow a single discount to be applied.
   if (applicableDiscounts.length > 1)
   {
     if (applicableDiscounts.some(({ isCompoundable }) => isCompoundable))
@@ -103,10 +98,7 @@ export default function(
   {
     if (!!discount.total)
     {
-      if (calculatedPrice.currency !== discount.total.currency)
-      {
-        throw new CurrencyMismatchError()
-      }
+      validateBeforeMath(calculatedPrice, discount.total)
       return {
         ...calculatedPrice,
         amount: calculatedPrice.amount - discount.total.amount,

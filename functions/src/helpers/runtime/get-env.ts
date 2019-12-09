@@ -1,4 +1,5 @@
-export interface FunctionsEnvironment {
+export interface FunctionsEnvironment
+{
   GCLOUD_PROJECT: string
   FIREBASE_CONFIG: string
 }

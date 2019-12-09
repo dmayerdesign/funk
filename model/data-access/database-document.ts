@@ -1,5 +1,5 @@
 export interface DatabaseDocument
 {
-  id?: any
+  id: string
   slug: string
 }

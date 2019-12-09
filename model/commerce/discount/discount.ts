@@ -26,15 +26,15 @@ interface BaseDiscount extends DatabaseDocument
   preDiscountProductPriceThreshold?: Price
 }
 
-export interface ProductDiscount extends BaseDiscount
+export interface SkuDiscount extends BaseDiscount
 {
-  /** A 'product' discount is a sale; an 'order' discount is a coupon. */
-  type: 'product'
+  /** A 'sku' discount is a sale; an 'order' discount is a coupon. */
+  type: 'sku'
 }
 
 export interface OrderDiscount extends BaseDiscount
 {
-  /** A 'product' discount is a sale; an 'order' discount is a coupon. */
+  /** A 'sku' discount is a sale; an 'order' discount is a coupon. */
   type: 'order'
   /** A positive amount is deducted from an `Order`'s shipping cost. */
   totalShipping?: Price
@@ -47,4 +47,4 @@ export interface OrderDiscount extends BaseDiscount
   preDiscountProductCountThreshold?: number
 }
 
-export type Discount = ProductDiscount | OrderDiscount
+export type Discount = SkuDiscount | OrderDiscount

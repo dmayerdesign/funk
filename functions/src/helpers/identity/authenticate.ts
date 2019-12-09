@@ -1,4 +1,4 @@
-import { AuthenticationRequest } from '@funk/model/data-access/authentication-request'
+import { AuthenticationRequest } from '@funk/functions/model/request-response/authentication-request'
 import { StatusCode, StatusCodeMessage } from '@funk/model/http/status-code'
 import { NextFunction, Response } from 'express'
 import { auth } from 'firebase-admin'

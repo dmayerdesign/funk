@@ -1,4 +1,4 @@
+import { UserConfig } from '@funk/model/user/user-config'
 import { auth } from 'firebase'
-import { UserConfig } from './user-config'
 
 export type UserHydrated = Partial<auth.IdTokenResult> & Partial<UserConfig>

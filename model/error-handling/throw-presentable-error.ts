@@ -1,4 +1,5 @@
-export default function(error: Error): Error {
+export default function(error: Error): Error
+{
   if (error.message) {
     error.message = '[funk] ' + error.message
   }

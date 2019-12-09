@@ -1,4 +1,4 @@
 export enum FieldError {
-  EMAIL = 'Invalid email.',
-  REQUIRED = 'This field is required.',
+  INVALID_EMAIL = 'Invalid email.',
+  MISSING_REQUIRED = 'This field is required.',
 }

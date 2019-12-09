@@ -24,7 +24,7 @@
     "noUnusedLocals": true,
     "baseUrl": ".",
     "paths": {
-      "@funk/config": [ "./config/config" ],
+      "@funk/config": [ "./.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
