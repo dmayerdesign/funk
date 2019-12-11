@@ -12,7 +12,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
+      "@funk/config": [ "../.funk/build-pipeline-output/config/config" ],
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],

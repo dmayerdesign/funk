@@ -25,7 +25,8 @@ import { NAVBAR_HEIGHT_PX } from './config'
     }
   `],
 })
-export class ShopContainer extends ModuleContainer {
+export class ShopContainer extends ModuleContainer
+{
   constructor(
     public api: ShopApi,
   )

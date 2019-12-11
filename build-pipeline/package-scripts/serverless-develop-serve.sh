@@ -1,2 +1,2 @@
-firebase use development && \
+firebase use funk-development && \
 firebase serve --only firestore,functions

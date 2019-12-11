@@ -1,4 +1,5 @@
-export const enum UserRole {
+export const enum UserRole
+{
   /** Super users may read and write to the database and infrastructure. */
   SUPER = 'SUPER',
   /**

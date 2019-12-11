@@ -8,6 +8,7 @@ import { AppComponent } from './component'
     BrowserAnimationsModule,
     AppModule,
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
 })
-export class AppBrowserModule { }
+export class AppBrowserModule
+{ }

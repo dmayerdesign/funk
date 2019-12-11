@@ -4,7 +4,7 @@ import { Component } from '@angular/core'
   template: `
     <nav></nav>
     <router-outlet></router-outlet>
-  `
+  `,
 })
-export class BlogContainer {
-}
+export class BlogContainer
+{ }

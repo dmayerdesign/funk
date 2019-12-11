@@ -7,7 +7,7 @@ import { AppModule } from './app.module'
 import { AppComponent } from './component'
 
 const routes: Routes = [
-  { path: 'shell', component: AppShellComponent }
+  { path: 'shell', component: AppShellComponent },
 ]
 
 @NgModule({
@@ -20,4 +20,5 @@ const routes: Routes = [
   bootstrap: [AppComponent],
   declarations: [AppShellComponent],
 })
-export class AppServerModule {}
+export class AppServerModule
+{ }

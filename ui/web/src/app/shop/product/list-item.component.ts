@@ -7,8 +7,9 @@ import { Product } from '@funk/model/commerce/product/product'
     <div>
       <strong>{{ product?.name }}</strong>
     </div>
-  `
+  `,
 })
-export class ProductListItemComponent {
+export class ProductListItemComponent
+{
   @Input() public product?: Product
 }

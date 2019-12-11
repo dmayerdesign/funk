@@ -1,6 +1,7 @@
 import { Discount } from '@funk/model/commerce/discount/discount'
 import { CurrencyCode } from '@funk/model/commerce/price/currency-code'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
+import { DbDocumentInput } from '@funk/model/data-access/database-document'
 import { FIRE_PROJECT_ID, FUNCTIONS_REGION } from '@funk/testing/config'
 import * as assert from 'assert'
 import Supertest from 'supertest'
@@ -27,7 +28,7 @@ describe('shop', () =>
 
       discounts: [
         {
-          type: 'product',
+          type: 'sku',
           total: { amount: 10, currency: CurrencyCode.USD },
           includes: {
             skus: [ 'test_sku_id_2', 'test_sku_id_3', 'test_sku_id_4' ],
@@ -37,8 +38,10 @@ describe('shop', () =>
             skus: [ 'test_sku_id_2' ],
             taxonomyTerms: [ 'tax_term_id_3' ],
           },
+          startAt: Date.now() - 60000000,
+          endAt: Date.now() + 60000000,
         },
-      ] as Discount[],
+      ] as DbDocumentInput<Discount>[],
     })
     .expect(200)
     .then((response) => assert.deepEqual(

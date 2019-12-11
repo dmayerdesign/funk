@@ -1,7 +1,8 @@
 const { resolve } = require('path')
 const { mkdirpSync, readFileSync, writeFileSync } = require('fs-extra')
 
-module.exports = function(configuration) {
+module.exports = function(configuration)
+{
   const configPathForEnv = resolve(
     __dirname, `../../../config/config.${configuration}.ts`
   )
@@ -12,6 +13,6 @@ module.exports = function(configuration) {
     + `script.\n\n`
     + readFileSync(configPathForEnv, { encoding: 'utf-8' })
 
-  mkdirpSync(configPath)
+  mkdirpSync(configDirPath)
   writeFileSync(resolve(configDirPath, 'config.ts'), configFile)
 }

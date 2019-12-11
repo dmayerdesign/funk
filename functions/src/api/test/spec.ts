@@ -10,9 +10,5 @@ describe('shop', () =>
     .post('/testSetSecret')
     .send({})
     .expect(200)
-    // .then((response) => assert.deepEqual(
-    //   response.body,
-    //   [{ amount: 300, currency: 'USD' }]
-    // ))
   )
 })

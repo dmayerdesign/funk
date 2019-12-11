@@ -32,14 +32,14 @@ export default function<ResponseType extends ResponseTypes = undefined>(
             if (response.headersSent) next()
             else
             {
-              response.send(value)
+              send(response, value)
             }
           })
           .catch(next)
       }
       else
       {
-        response.send(handlerResult)
+        send(response, handlerResult)
       }
     }
     catch (error)
@@ -47,4 +47,10 @@ export default function<ResponseType extends ResponseTypes = undefined>(
       next(error)
     }
   }
+}
+
+function send(response: Response, value: any): Response
+{
+  // TODO: Add conditional auditing of RPC responses here.
+  return response.send(value)
 }

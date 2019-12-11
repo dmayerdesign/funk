@@ -51,7 +51,7 @@ const routes: Routes = [
   ],
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   providers: [
     {
@@ -65,6 +65,7 @@ const routes: Routes = [
       useClass: AppErrorHandler,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule
+{ }

@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core'
     <button mat-raised-button color="accent">Go back</button>
   `,
 })
-export class NotFoundComponent implements OnInit {
+export class NotFoundComponent implements OnInit
+{
   public ngOnInit(): void {
   }
 }

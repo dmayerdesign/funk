@@ -3,7 +3,8 @@ const { resolve } = require('path')
 const stripComments = require('strip-comments')
 const { chunk } = require('lodash')
 
-module.exports.configToJson = function (configuration) {
+module.exports.configToJson = function (configuration)
+{
   const configFileName = `config.${configuration || 'local'}.ts`
   const configFile = readFileSync(
     resolve(__dirname, '../../config', configFileName),

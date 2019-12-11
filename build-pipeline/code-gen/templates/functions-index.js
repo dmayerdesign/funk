@@ -5,7 +5,8 @@ const recursiveReaddir = require('recursive-readdir-sync')
 const FUNCTIONS_FOLDER = './functions/src/api'
 require('./functions/src/bootstrap')
 
-recursiveReaddir(resolve(__dirname, FUNCTIONS_FOLDER)).forEach((file) => {
+recursiveReaddir(resolve(__dirname, FUNCTIONS_FOLDER)).forEach((file) =>
+{
   if (file.endsWith('.js')
      && !file.endsWith('index.js')
      && !file.match(/(\/|\.)spec.js/gi)) {
@@ -14,14 +15,16 @@ recursiveReaddir(resolve(__dirname, FUNCTIONS_FOLDER)).forEach((file) => {
     const fileBaseNameSansExt = fileBaseName.substring(0, fileBaseName.length - 3)
     let filePathFromApi = file.split('/api/')[1]
     let fileDirname = dirname(file).split('/').pop()
-    if (fileDirname === 'api') {
+    if (fileDirname === 'api')
+    {
       fileDirname = ''
     }
     const functionName = camelCase(
       `${fileDirname ? fileDirname + '-' : ''}${fileBaseNameSansExt}`
     )
 
-    if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === functionName) {
+    if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === functionName)
+    {
       exports[functionName] = require(`${FUNCTIONS_FOLDER}/${filePathFromApi}`).default
     }
   }

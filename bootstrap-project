@@ -9,7 +9,7 @@ const { configToJson } = require('./config/helpers/config-to-json')
   program.parse(process.argv)
   const { configuration } = program.opts()
   const {
-    FIRE_PROJECT_ID
+    FIRE_PROJECT_ID,
   } = configToJson(configuration)
 
   const KMS_LOCATION = 'global'

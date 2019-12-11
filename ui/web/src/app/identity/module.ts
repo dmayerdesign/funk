@@ -4,6 +4,7 @@ import { IdentityApi } from './api'
 
 @NgModule({
   imports: [ AppFireModule ],
-  providers: [ IdentityApi ]
+  providers: [ IdentityApi ],
 })
-export class IdentityModule { }
+export class IdentityModule
+{ }

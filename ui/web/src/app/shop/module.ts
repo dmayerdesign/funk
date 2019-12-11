@@ -48,4 +48,5 @@ export const shopInitialState: ShopState = {
     ShopApi,
   ],
 })
-export class ShopModule { }
+export class ShopModule
+{ }

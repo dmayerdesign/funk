@@ -1,4 +1,5 @@
-export interface Address {
+export interface Address
+{
     name?: string
     company?: string
     street1: string

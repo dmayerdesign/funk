@@ -12,7 +12,8 @@ import { Observable } from 'rxjs'
     </ng-container>
   `,
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit
+{
   @Input() public source?: FirestoreCollectionSource<Product>
   @Output() public filtersChange = new EventEmitter<ListFilter[]>()
   public products$?: Observable<Product[]>
