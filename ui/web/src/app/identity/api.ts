@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore } from '@angular/fire/firestore'
-import { UserConfig } from '@funk/model/user/user-config'
+import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
 import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
@@ -22,7 +22,7 @@ export class IdentityApi implements ModuleApi
       {
         return of<UserConfig>({ id: '1', displayName: 'Guest' })
       }
-      return this._firestore.collection('user-configs')
+      return this._firestore.collection(USER_CONFIGS)
         .doc<UserConfig>(user.uid)
         .valueChanges()
         .pipe(

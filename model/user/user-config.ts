@@ -1,6 +1,6 @@
 import { UserRole } from '@funk/model/auth/user-role'
 
-export const USER_CONFIGS = 'user-configs'
+export const USER_CONFIGS = 'identity.user-configs'
 
 export interface UserConfig
 {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const { exec } = require('shelljs')
 const program = require('commander')
-const { configToJson } = require('./config/helpers/config-to-json')
+const { configToJson } = require('../../config/helpers/config-to-json')
 
 (async () =>
 {

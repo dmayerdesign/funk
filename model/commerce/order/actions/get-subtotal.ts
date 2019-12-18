@@ -9,7 +9,6 @@ import { first, map, switchMap } from 'rxjs/operators'
 export interface Input
 {
   order: PopulatedOrder
-  taxRate: number
   getProduct: (sku: Sku) => Promise<Product>
 }
 
@@ -17,7 +16,7 @@ export type Output = Price
 
 export default function(input: Input): Promise<Output>
 {
-  const { order, getProduct, taxRate } = input
+  const { order, getProduct } = input
   const skus = order.skus
   const discounts = order.discounts
 
@@ -30,14 +29,10 @@ export default function(input: Input): Promise<Output>
           discounts,
         ),
       ),
-      map((computedPrice) => ({
-        amount: computedPrice.amount * taxRate,
-        currency: computedPrice.currency,
-      })),
     ))
     .pipe(
-      map((pricesAfterTax) =>
-        pricesAfterTax.reduce(
+      map((actualPrices) =>
+        actualPrices.reduce(
           (totalPrice, price) => ({
             ...totalPrice,
             amount: totalPrice.amount + price.amount,

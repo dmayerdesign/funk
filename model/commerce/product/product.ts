@@ -5,7 +5,7 @@ import { Timestamp } from '@funk/model/data-access/timestamp'
 import { ImageGroup } from '@funk/model/image/image-group'
 import { Organization } from '@funk/model/organization/organization'
 
-export const PRODUCTS = 'products'
+export const PRODUCTS = 'commerce.products'
 
 export interface Product extends DatabaseDocument
 {

@@ -4,6 +4,9 @@ import { Customer } from '@funk/model/commerce/order/customer'
 import { Price } from '@funk/model/commerce/price/price'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { PrimaryKey } from '@funk/model/data-access/primary-key'
+
+export const ORDERS = 'commerce.orders'
 
 export enum Status
 {
@@ -18,16 +21,14 @@ export enum Status
   RETURNED = 'Returned',
 }
 
-export interface Order extends DatabaseDocument
+interface BaseOrder extends DatabaseDocument
 {
-  skus: Sku[]
+  customer: Customer
   subTotal: Price
   total: Price
   taxPercent: number
   paymentMethod: string
   status: Status
-  customer: Customer
-  discounts?: Discount[]
   shippingCost?: Price
   shippingRates?: EasypostRate[]
   selectedShippingRateId?: string
@@ -39,4 +40,19 @@ export interface Order extends DatabaseDocument
   savePaymentInfo?: boolean
   shipmentId?: string
   paymentServiceProviderData?: any
+  idempotencyKey?: string
 }
+
+export interface PopulatedOrder extends BaseOrder
+{
+  skus: Sku[]
+  discounts?: Discount[]
+}
+
+export interface MarshalledOrder extends BaseOrder
+{
+  skus: PrimaryKey[]
+  discounts?: PrimaryKey[]
+}
+
+export type Order = PopulatedOrder | MarshalledOrder

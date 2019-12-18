@@ -1,2 +1,3 @@
-firebase use funk-development && \
-firebase serve --only firestore,functions
+# firebase setup:emulators:firestore && \
+cd functions/lib
+firebase serve --only functions

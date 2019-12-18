@@ -4,7 +4,7 @@ const { resolve } = require('path')
 const { mkdirSync, readFileSync, writeFileSync } = require('fs')
 const { exec } = require('shelljs')
 const program = require('commander')
-const { configToJson } = require('./config/helpers/config-to-json')
+const { configToJson } = require('../../config/helpers/config-to-json')
 
 program.option('-c, --configuration <configuration>', 'e.g. production')
 program.parse(process.argv)
@@ -15,7 +15,7 @@ const configJson = configToJson(configuration)
 const serializedConfig = Buffer.from(JSON.stringify(configJson)).toString('base64')
 
 // Check the cache. If nothing's changed, skip caching.
-const cachePath = resolve(__dirname, '.funk/.cache/functions-prebuild')
+const cachePath = resolve(__dirname, '../../', '.funk/.cache/functions-prebuild')
 const configJsonCachePath = `${cachePath}/configJson`
 mkdirSync(cachePath, { recursive: true })
 const cacheConfig = () =>
@@ -45,12 +45,12 @@ exec(`firebase functions:config:set admin.serializedcredentials=` + serviceAccou
 
 // Delete any existing built output.
 try
-{ delSync(resolve(__dirname, 'functions/lib') + '/**') }
+{ delSync(resolve(__dirname, '../../', 'functions/lib') + '/**') }
 catch (_)
 { /* Do nothing. */ }
 
 // Delete `node_modules` if it exists.
 try
-{ delSync(resolve(__dirname, 'functions/node_modules') + '/**') }
+{ delSync(resolve(__dirname, '../../', 'functions/node_modules') + '/**') }
 catch (_)
 { /* Do nothing. */ }

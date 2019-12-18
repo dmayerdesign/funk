@@ -2,7 +2,7 @@ const { apps, initializeAdminApp, initializeTestApp, loadFirestoreRules } = requ
 const { readFileSync } = require('fs')
 const { resolve } = require('path')
 const chalk = require('chalk')
-const USER_CONFIGS = 'user-configs'
+const USER_CONFIGS = 'identity.user-configs'
 
 /*
 interface TestResultTotals {

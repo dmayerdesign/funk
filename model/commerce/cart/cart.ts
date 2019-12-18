@@ -7,4 +7,4 @@ export interface Cart extends Collection
   discounts?: Discount[]
 }
 
-export const CARTS = 'carts'
+export const CARTS = 'commerce.carts'

@@ -1,4 +1,4 @@
-node prebuild -c "local" && \
-node functions-prebuild -c "local" && \
+node ./build-pipeline/package-scripts/prebuild -c "local" && \
+node ./build-pipeline/package-scripts/functions-prebuild -c "local" && \
 tsc --project functions/tsconfig.build.json && \
-node functions-postbuild
+node ./build-pipeline/package-scripts/functions-postbuild

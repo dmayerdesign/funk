@@ -1,4 +1,4 @@
-import { PopulatedOrder } from '@funk/model/commerce/order/order'
+import { Order, PopulatedOrder } from '@funk/model/commerce/order/order'
 import { Price } from '@funk/model/commerce/price/price'
 import { Product } from '@funk/model/commerce/product/product'
 import getActualPrice from '@funk/model/commerce/product/sku/actions/get-actual-price'

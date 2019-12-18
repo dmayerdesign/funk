@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { ActionResult, Manager } from '@dannymayer/vex'
-import { Cart } from '@funk/model/commerce/cart/cart'
+import { Cart, CARTS } from '@funk/model/commerce/cart/cart'
 import { Order } from '@funk/model/commerce/order/order'
-import { Product } from '@funk/model/commerce/product/product'
+import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
 import throwPresentableError from '@funk/model/error-handling/throw-presentable-error'
 import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
@@ -23,7 +23,7 @@ export class ShopApi implements ModuleApi
   private _cartSource?: FirestoreDocumentSource<Cart>
   public cart$?: Observable<Cart>
   public productsSource = new FirestoreCollectionSource<Product>(
-    this._firestore.collection('products'),
+    this._firestore.collection(PRODUCTS),
   )
 
   constructor(
@@ -52,7 +52,7 @@ export class ShopApi implements ModuleApi
     if (this._cartSource) this._cartSource.disconnect()
 
     this._cartSource = new FirestoreDocumentSource<Cart>(
-      this._firestore.collection('carts').doc(user.id),
+      this._firestore.collection(CARTS).doc(user.id),
       (cart) => cart && this._manager.dispatch({
         type: ShopAction.CART_CHANGE_FROM_DB,
         reduce: (state) => ({ ...state, cart }),

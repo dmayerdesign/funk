@@ -8,6 +8,8 @@ import { ImageGroup } from '@funk/model/image/image-group'
 import { Duration } from '@funk/model/time/duration'
 import { Weight } from '@funk/model/weight/weight'
 
+export const SKUS = 'commerce.skus'
+
 /**
  * This schema is largely based on Google's product data spec.
  * @see https://support.google.com/merchants/answer/7052112?hl=en&ref_topic=6324338

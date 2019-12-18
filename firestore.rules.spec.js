@@ -1,6 +1,6 @@
 const { assertFails, assertSucceeds } = require('@firebase/testing')
 const { testUserUid, forbiddenUserUid, testFirestoreRules, it } = require('./test/test.helpers')
-const USER_CONFIGS = 'user-configs'
+const USER_CONFIGS = 'identity.user-configs'
 
 testFirestoreRules(
   // Test.

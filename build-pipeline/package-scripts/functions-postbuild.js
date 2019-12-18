@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { exec } = require('shelljs')
-const writeFunctionsIndex = require('./build-pipeline/code-gen/scripts/write-functions-index')
+const writeFunctionsIndex = require('../code-gen/scripts/write-functions-index')
 
 // Generate index.js for our functions.
 writeFunctionsIndex()

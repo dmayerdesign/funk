@@ -19,14 +19,14 @@ service cloud.firestore {
       allow write;
     }
 
-    match /products/{product}/{document=**} {
+    match /commerce.products/{product}/{document=**} {
       allow read;
     }
-    match /products/{product}/{document=**} {
+    match /commerce.products/{product}/{document=**} {
       allow write: if isSignedIn() && isSuperOrOwner();
     }
 
-    match /carts/{uid}/{document=**} {
+    match /commerce.carts/{uid}/{document=**} {
       function isAllowed() {
         return uid == request.auth.uid
           || isSuperOrOwner()

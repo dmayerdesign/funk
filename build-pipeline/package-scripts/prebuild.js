@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const program = require('commander')
-const writeConfig = require('./build-pipeline/code-gen/scripts/write-config')
+const writeConfig = require('../code-gen/scripts/write-config')
 
 program.option('-c, --configuration <configuration>', 'e.g. production')
 program.parse(process.argv)

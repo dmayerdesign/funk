@@ -1,4 +1,4 @@
-node prebuild -c "development" && \
-node functions-prebuild -c "development" && \
+node ./build-pipeline/package-scripts/prebuild.js -c "development" && \
+node ./build-pipeline/package-scripts/functions-prebuild.js -c "development" && \
 tsc --project functions/tsconfig.build.json && \
-node functions-postbuild
+node ./build-pipeline/package-scripts/functions-postbuild.js
