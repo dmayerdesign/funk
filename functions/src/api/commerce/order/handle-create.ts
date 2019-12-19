@@ -29,6 +29,9 @@ export default createCreateHandler(ORDERS,
     const order = await populate(snapshot.data() as MarshalledOrder)
     const idempotencyKey = createUid()
 
+    console.log('===== creating a payment intent... =====')
+    console.log(ORDERS, params.id, idempotencyKey)
+
     // Create an initial `PaymentIntent` with whatever data we can gather.
     loudlyLog('creating a payment intent...', ORDERS, params.id, idempotencyKey)
     const { paymentIntent } = await upsertPaymentIntent({
@@ -46,6 +49,9 @@ export default createCreateHandler(ORDERS,
       idempotencyKey,
     })
     loudlyLog('created a payment intent', paymentIntent, ORDERS, params.id, idempotencyKey)
+
+    console.log('===== created a payment intent =====')
+    console.log(paymentIntent, ORDERS, params.id, idempotencyKey)
 
     const paymentIntentIdUpdatePath: [keyof Order, keyof OrderData] = [
       'paymentData',

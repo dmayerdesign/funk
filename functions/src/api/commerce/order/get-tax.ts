@@ -16,7 +16,9 @@ export default createFunction(
       { key: 'skus', collectionPath: SKUS },
       { key: 'discounts', collectionPath: DISCOUNTS },
     ])
-    const postalCode = order.customer.billingAddress.zip
+    // TODO: Validate that order.customer.billingAddress.zip exists.
+    const postalCode = order.customer && order.customer.billingAddress &&
+      order.customer.billingAddress.zip || ''
     const input: GetTaxInput = {
       order,
       taxRate: await getTaxRateForPostalCode({ postalCode }),
