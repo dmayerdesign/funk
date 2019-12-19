@@ -16,7 +16,14 @@ export default async function<PopulatedType, MarshalledType = any>(
   const _populatedDoc = { ...marshalledDoc } as unknown as PopulatedType
   for (const { collectionPath, key, relationship } of options)
   {
-    if (relationship === 'one-to-one')
+    if (
+      !marshalledDoc[key]
+      || !(marshalledDoc[key] as unknown as (string | any[])).length
+    )
+    {
+      continue
+    }
+    else if (relationship === 'one-to-one')
     {
       _populatedDoc[key] = await firestore().collection(collectionPath)
         .where('id', '==', marshalledDoc[key])

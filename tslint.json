@@ -22,7 +22,10 @@
     "curly": false,
     "eofline": true,
     "forin": false,
-    "import-blacklist": false,
+    "import-blacklist": [
+      true,
+      "^.+plugins\\/src(\\/.+)?$"
+    ],
     "import-spacing": false,
     "indent": [
       true,

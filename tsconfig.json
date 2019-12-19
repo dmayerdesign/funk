@@ -28,7 +28,7 @@
       "@funk/copy/*": [ "./copy/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
-      "@funk/plugins/*": [ "./plugins/*" ],
+      "@funk/plugins/*": [ "./plugins/interface/*" ],
       "@funk/testing/config": [ "./config/config.development" ],
       "@funk/ui/web/*": [ "./ui/web/src/app/modules/*" ],
       "@funk/ui/helpers/*": [ "./ui/helpers/*" ]

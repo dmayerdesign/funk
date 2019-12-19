@@ -18,5 +18,5 @@ export interface Product extends DatabaseDocument
   brand?: Organization
   releaseDate?: Timestamp
   reviews?: Review[]
-  paymentServiceProviderData: any
+  paymentData: any
 }

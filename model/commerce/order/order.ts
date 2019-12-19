@@ -39,7 +39,7 @@ interface BaseOrder extends DatabaseDocument
   postageLabelUrl?: string
   savePaymentInfo?: boolean
   shipmentId?: string
-  paymentServiceProviderData?: any
+  paymentData?: any
   idempotencyKey?: string
 }
 

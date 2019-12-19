@@ -17,7 +17,7 @@
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
-      "@funk/plugins/*": [ "../plugins/*" ],
+      "@funk/plugins/*": [ "../plugins/interface/*" ],
       "@funk/testing/config": [ "../config/config.development" ]
     }
   },

@@ -7,5 +7,17 @@
     "**/spec.ts",
     "**/*.spec.ts",
     "node_modules"
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@funk/config": [ "../.funk/build-pipeline-output/config/config" ],
+      "@funk/copy/*": [ "../copy/*" ],
+      "@funk/functions/*": [ "./src/*" ],
+      "@funk/helpers/*": [ "../helpers/*" ],
+      "@funk/model/*": [ "../model/*" ],
+      "@funk/plugins/*": [ "../plugins/src/*" ],
+      "@funk/testing/config": [ "../config/config.development" ]
+    }
+  }
 }

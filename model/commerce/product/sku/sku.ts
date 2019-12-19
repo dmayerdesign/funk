@@ -52,7 +52,7 @@ export interface Sku extends DatabaseDocument
   shippingDimensions?: Dimensions
   maxHandlingTime?: Duration
   minHandlingTime?: Duration
-  paymentServiceProviderData?: any
+  paymentData?: any
   // shipping?: string // e.g. `US:CA:Overnight:16.00 USD`
   // tax?: Price
   // taxCategory?: string

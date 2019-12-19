@@ -4,7 +4,7 @@ const uuid = require('uuid/v4')
 
 export interface CreateInput
 {
-  stripeSecretKey: string
+  paymentSecretKey: string
   price: Price
   customerId?: string
   paymentMethodId?: string
@@ -12,7 +12,7 @@ export interface CreateInput
 }
 export interface UpdateInput {
   paymentIntentId: string
-  stripeSecretKey: string
+  paymentSecretKey: string
   idempotencyKey: string
   price?: Price
   customerId?: string
@@ -31,7 +31,7 @@ export default async function(input: Input): Promise<Output>
 {
   const {
     paymentIntentId,
-    stripeSecretKey: stripeApiKey,
+    paymentSecretKey: stripeApiKey,
     price,
     customerId,
     paymentMethodId,

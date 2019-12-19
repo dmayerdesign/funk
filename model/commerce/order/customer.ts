@@ -9,5 +9,5 @@ export interface Customer
   shippingAddress: Address
   billingAddress: Address
   savePaymentInfo: boolean
-  idForPaymentServiceProvider: string
+  idForPayment: string
 }

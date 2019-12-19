@@ -4,8 +4,8 @@ import getTotal from '@funk/model/commerce/order/actions/get-total'
 import { MarshalledOrder, Order, ORDERS } from '@funk/model/commerce/order/order'
 import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
 import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from '@funk/model/secret/keys'
-import upsertPaymentIntent from '@funk/plugins/stripe/actions/upsert-payment-intent'
-import { OrderData } from '@funk/plugins/stripe/order-data'
+import upsertPaymentIntent from '@funk/plugins/payment/actions/upsert-payment-intent'
+import { OrderData } from '@funk/plugins/payment/order-data'
 import { firestore as db } from 'firebase-admin'
 import { firestore } from 'firebase-functions'
 const uuid = require('uuid/v4')
@@ -24,9 +24,12 @@ export default firestore.document(`${ORDERS}/{id}`).onCreate(
     const order = await populate(change.data() as MarshalledOrder)
     const idempotencyKey = uuid()
 
+    console.log('===== creating a payment intent... =====')
+    console.log(ORDERS, params.id, idempotencyKey)
+
     // Create an initial `PaymentIntent` with whatever data we can gather.
     const { paymentIntent } = await upsertPaymentIntent({
-      stripeSecretKey: await getSecret({ secretKey: PAYMENT_SERVICE_PROVIDER_SECRET_KEY }),
+      paymentSecretKey: await getSecret({ secretKey: PAYMENT_SERVICE_PROVIDER_SECRET_KEY }),
       price: await getTotal({
         order,
         taxRate: 0,
@@ -36,15 +39,19 @@ export default firestore.document(`${ORDERS}/{id}`).onCreate(
           .then((snapshot) => snapshot.docs[0].data() as Product),
       }),
       savePaymentMethod: false,
-      customerId: order.customer && order.customer.idForPaymentServiceProvider,
+      customerId: order.customer && order.customer.idForPayment,
       idempotencyKey,
     })
 
+    console.log('===== created a payment intent =====')
+    console.log(paymentIntent, ORDERS, params.id, idempotencyKey)
+
     const paymentIntentIdUpdatePath: [keyof Order, keyof OrderData] = [
-      'paymentServiceProviderData',
+      'paymentData',
       'paymentIntentId',
     ]
-    await db().collection(ORDERS).doc(params.id)
+    await db().collection(ORDERS)
+      .doc(params.id)
       .update({
         idempotencyKey,
         [paymentIntentIdUpdatePath.join('.')]: paymentIntent.id,
