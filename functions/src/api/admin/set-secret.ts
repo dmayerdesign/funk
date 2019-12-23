@@ -29,7 +29,7 @@ export default createGuardedFunction(
     const keyName = client.cryptoKeyPath(
       FIRE_PROJECT_ID,
       'global',
-      FIRE_PROJECT_ID,
+      FIRE_PROJECT_ID, // TODO: Rename key ring to 'primary'.
       'master'
     )
 

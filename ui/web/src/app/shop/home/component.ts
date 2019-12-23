@@ -21,7 +21,7 @@ import { NAVBAR_HEIGHT_PX } from '../config'
         </form>
       </div>
     </div>
-  `
+  `,
 })
 export class HomeComponent
 {

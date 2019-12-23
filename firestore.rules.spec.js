@@ -3,11 +3,6 @@ const { testUserUid, forbiddenUserUid, testFirestoreRules, it } = require('./tes
 const USER_CONFIGS = 'identity.user-configs'
 
 testFirestoreRules(
-  // Test.
-  // it('should fail this test', async (app) => {
-  //   return assertSucceeds(app.firestore().collection(USER_CONFIGS).doc(forbiddenUserUid).get())
-  // }),
-
   it('should not allow a regular user to see another user config', async (app) => {
     return assertFails(app.firestore().collection(USER_CONFIGS).doc(forbiddenUserUid).get())
   }),

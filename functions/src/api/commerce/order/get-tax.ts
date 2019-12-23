@@ -7,7 +7,7 @@ import getTax, { Input as GetTaxInput } from '@funk/model/commerce/order/actions
 import { MarshalledOrder, PopulatedOrder } from '@funk/model/commerce/order/order'
 import { Price } from '@funk/model/commerce/price/price'
 import { SKUS } from '@funk/model/commerce/product/sku/sku'
-import getTaxRateForPostalCode from '@funk/plugins/tax/get-tax-rate-for-postal-code'
+import getTaxRateForPostalCode from '@funk/plugins/tax/actions/get-tax-rate-for-postal-code'
 
 export default createFunction(
   async (request: RequestWithBody<MarshalledOrder>): Promise<Price> =>
@@ -23,4 +23,5 @@ export default createFunction(
       getProduct: getProductForSku,
     }
     return getTax(input)
-  })
+  }
+)

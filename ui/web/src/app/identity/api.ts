@@ -12,9 +12,8 @@ import { distinctUntilKeyChanged, map, switchMap, withLatestFrom } from 'rxjs/op
 @Injectable()
 export class IdentityApi implements ModuleApi
 {
-  private _nonNullAuthUser$ = this._fireAuth.user as Observable<User>
+  private _nonNullAuthUser$ = this._fireAuth.user.pipe(ignoreNullish()) as Observable<User>
   public user$ = this._nonNullAuthUser$.pipe(
-    ignoreNullish(),
     distinctUntilKeyChanged('uid'),
     switchMap<User, Observable<UserHydrated>>((user) =>
     {
@@ -35,7 +34,6 @@ export class IdentityApi implements ModuleApi
     }),
   )
   public firebaseIdToken$: Observable<string> = this._nonNullAuthUser$.pipe(
-    ignoreNullish(),
     switchMap((user) => user.getIdToken()),
   )
 

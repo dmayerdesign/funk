@@ -39,8 +39,7 @@ if (configHasChanged)
 // Set the service account data as a config variable.
 const { PATH_TO_SERVICE_ACCOUNT_JSON } = configJson
 const serviceAccountJson = require(PATH_TO_SERVICE_ACCOUNT_JSON)
-const serviceAccountBase64 = Buffer.from(JSON.stringify(serviceAccountJson))
-  .toString('base64')
+const serviceAccountBase64 = Buffer.from(JSON.stringify(serviceAccountJson)).toString('base64')
 exec(`firebase functions:config:set admin.serializedcredentials=` + serviceAccountBase64)
 
 // Delete any existing built output.

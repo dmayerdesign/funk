@@ -56,4 +56,5 @@ export default firestore.document(`${ORDERS}/{id}`).onCreate(
         idempotencyKey,
         [paymentIntentIdUpdatePath.join('.')]: paymentIntent.id,
       })
-  })
+  }
+)

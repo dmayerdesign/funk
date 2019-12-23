@@ -75,7 +75,7 @@ export class AdminContainer
           headers: {
             authorization: await this._identityApi.firebaseIdToken$
               .pipe(map((token) => `Bearer ${token}`), first())
-              .toPromise()
+              .toPromise(),
           },
         },
       )
@@ -92,7 +92,7 @@ export class AdminContainer
           headers: {
             authorization: await this._identityApi.firebaseIdToken$
               .pipe(map((token) => `Bearer ${token}`), first())
-              .toPromise()
+              .toPromise(),
           },
         },
       )

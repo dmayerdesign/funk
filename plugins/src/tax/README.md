@@ -1,3 +1,3 @@
 # Avatax
 
-This is the Avatax plugin for `funk`'s `tax`.
+This is the Avatax plugin for `tax`.
