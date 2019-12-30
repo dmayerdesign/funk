@@ -1,56 +1,57 @@
 import getSecret from '@funk/functions/helpers/admin/get-secret'
 import populate from '@funk/functions/helpers/commerce/order/populate'
+import createCreateHandler from '@funk/functions/helpers/listen/create-create-handler'
+import loudlyLog from '@funk/helpers/loudly-log'
 import getTotal from '@funk/model/commerce/order/actions/get-total'
 import { MarshalledOrder, Order, ORDERS } from '@funk/model/commerce/order/order'
 import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
 import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from '@funk/model/secret/keys'
+import { store } from '@funk/plugins/db/store'
 import upsertPaymentIntent from '@funk/plugins/payment/actions/upsert-payment-intent'
 import { OrderData } from '@funk/plugins/payment/order-data'
-import { firestore as db } from 'firebase-admin'
-import { firestore } from 'firebase-functions'
 const uuid = require('uuid/v4')
 
 /**
- * Given an order being created early in the funnel,
- * and that the postal code of the buyer is most likely unknown,
+ * Given
+ *   an order being created early in the funnel, and
+ *   that the postal code of the buyer is most likely unknown,
  *
- * when it is created,
- * then the app must persist the user's intent to pay
- * and it must persist an idempotency key to be used throughout the lifespan of this order.
+ * when
+ *   it is created,
+ *
+ * then
+ *   the app must persist the user's intent to pay, and
+ *   it must persist an idempotency key to be used throughout the lifespan of this order.
  */
-export default firestore.document(`${ORDERS}/{id}`).onCreate(
-  async (change, { params }) =>
+export default createCreateHandler(ORDERS,
+  async (snapshot, { params }) =>
   {
-    const order = await populate(change.data() as MarshalledOrder)
+    const order = await populate(snapshot.data() as MarshalledOrder)
     const idempotencyKey = uuid()
 
-    console.log('===== creating a payment intent... =====')
-    console.log(ORDERS, params.id, idempotencyKey)
-
     // Create an initial `PaymentIntent` with whatever data we can gather.
+    loudlyLog('creating a payment intent...', ORDERS, params.id, idempotencyKey)
     const { paymentIntent } = await upsertPaymentIntent({
       paymentSecretKey: await getSecret({ secretKey: PAYMENT_SERVICE_PROVIDER_SECRET_KEY }),
       price: await getTotal({
         order,
         taxRate: 0,
-        getProduct: (sku) => db().collection(PRODUCTS)
+        getProduct: (sku) => store().collection(PRODUCTS)
           .where('id', '==', sku.productId)
           .get()
-          .then((snapshot) => snapshot.docs[0].data() as Product),
+          .then((_snapshot) => _snapshot.docs[0].data() as Product),
       }),
       savePaymentMethod: false,
       customerId: order.customer && order.customer.idForPayment,
       idempotencyKey,
     })
-
-    console.log('===== created a payment intent =====')
-    console.log(paymentIntent, ORDERS, params.id, idempotencyKey)
+    loudlyLog('created a payment intent', paymentIntent, ORDERS, params.id, idempotencyKey)
 
     const paymentIntentIdUpdatePath: [keyof Order, keyof OrderData] = [
       'paymentData',
       'paymentIntentId',
     ]
-    await db().collection(ORDERS)
+    await store().collection(ORDERS)
       .doc(params.id)
       .update({
         idempotencyKey,

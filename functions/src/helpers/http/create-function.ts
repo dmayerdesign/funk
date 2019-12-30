@@ -10,7 +10,6 @@ export default function<ResponseType extends ResponseTypes = undefined>(
   const handler = _handlers.pop()!
   const middlewares = _handlers
   return https.onRequest(createApp().post('/',
-    // TODO: Add conditional auditing of RPC requests here.
     ...middlewares,
     handleRequest<ResponseType>(handler)
   ))

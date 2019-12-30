@@ -9,11 +9,11 @@ const { configToJson } = require('../../config/helpers/config-to-json')
   program.parse(process.argv)
   const { configuration } = program.opts()
   const {
-    FIRE_PROJECT_ID,
+    CLOUD_PROJECT_ID,
   } = configToJson(configuration)
 
   const KMS_LOCATION = 'global'
-  const KEY_RING_ID = FIRE_PROJECT_ID
+  const KEY_RING_ID = CLOUD_PROJECT_ID
   const KEY_ID = 'master'
 
   // TODO:
@@ -37,11 +37,11 @@ const { configToJson } = require('../../config/helpers/config-to-json')
 
     # Configure.
     ./google-cloud-sdk/bin/gcloud init
-    ./google-cloud-sdk/bin/gcloud config set project ${FIRE_PROJECT_ID}
-    firebase use ${FIRE_PROJECT_ID}
+    ./google-cloud-sdk/bin/gcloud config set project ${CLOUD_PROJECT_ID}
+    firebase use ${CLOUD_PROJECT_ID}
 
     # Enable services.
-    ./google-cloud-sdk/bin/gcloud services enable --project ${FIRE_PROJECT_ID} \
+    ./google-cloud-sdk/bin/gcloud services enable --project ${CLOUD_PROJECT_ID} \
       cloudkms.googleapis.com
 
     # Set up KMS for data encryption.

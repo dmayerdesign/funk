@@ -1,9 +1,9 @@
-import { FIRE_PROJECT_ID } from '@funk/config'
+import { CLOUD_PROJECT_ID } from '@funk/config'
 import getConfig from '@funk/functions/helpers/runtime/get-config'
 import { EncryptedSecret } from '@funk/model/secret/encrypted-secret'
 import { GetSecretInput } from '@funk/model/secret/get-secret-input'
+import { store } from '@funk/plugins/db/store'
 import { v1 } from '@google-cloud/kms'
-import { firestore } from 'firebase-admin'
 
 export default async function ({ secretKey }: GetSecretInput): Promise<string>
 {
@@ -18,12 +18,12 @@ export default async function ({ secretKey }: GetSecretInput): Promise<string>
     },
   })
   const keyName = client.cryptoKeyPath(
-    FIRE_PROJECT_ID,
+    CLOUD_PROJECT_ID,
     'global',
-    FIRE_PROJECT_ID,
+    CLOUD_PROJECT_ID,
     'master',
   )
-  const encryptedSecret = (await firestore()
+  const encryptedSecret = (await store()
     .doc(`/vault/${secretKey}`)
     .get())
     .data() as EncryptedSecret | undefined

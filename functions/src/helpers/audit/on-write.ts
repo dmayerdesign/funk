@@ -1,7 +1,7 @@
 import { Mutation } from '@funk/model/audit/mutation'
 import { DatabaseDocument, DbDocumentInput } from '@funk/model/data-access/database-document'
-import { firestore as db} from 'firebase-admin'
-import { Change, EventContext } from 'firebase-functions'
+import { Change, ChangeContext } from '@funk/plugins/db/change'
+import { store } from '@funk/plugins/db/store'
 import diff from './diff'
 
 export default function<DocumentType extends DatabaseDocument>(
@@ -9,8 +9,8 @@ export default function<DocumentType extends DatabaseDocument>(
 ): any
 {
   return async function(
-    change: Change<db.DocumentSnapshot>,
-    { params }: EventContext
+    change: Change<DatabaseDocument>,
+    { params }: ChangeContext
   ): Promise<void>
   {
     const { id } = params
@@ -44,7 +44,7 @@ export default function<DocumentType extends DatabaseDocument>(
           return c
         }),
       }
-      await db()
+      await store()
         .doc(`${dbPath}/${timestampId}`)
         .set(mutation)
     }

@@ -1,4 +1,4 @@
-import { firestore } from 'firebase-admin'
+import { store } from '@funk/plugins/db/store'
 
 export interface PopulateFieldOptions<DocumentType>
 {
@@ -25,7 +25,7 @@ export default async function<PopulatedType, MarshalledType = any>(
     }
     else if (relationship === 'one-to-one')
     {
-      _populatedDoc[key] = await firestore().collection(collectionPath)
+      _populatedDoc[key] = await store().collection(collectionPath)
         .where('id', '==', marshalledDoc[key])
         .get()
         .then((snapshot) => snapshot.docs[0]
@@ -33,7 +33,7 @@ export default async function<PopulatedType, MarshalledType = any>(
     }
     else
     {
-      _populatedDoc[key] = await firestore().collection(collectionPath)
+      _populatedDoc[key] = await store().collection(collectionPath)
         .where('id', 'in', marshalledDoc[key])
         .get()
         .then((snapshot) => snapshot.docs

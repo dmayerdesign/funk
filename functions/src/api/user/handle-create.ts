@@ -1,4 +1,4 @@
-import { FIRE_PROJECT_ID } from '@funk/config'
+import { CLOUD_PROJECT_ID } from '@funk/config'
 import { UserRole } from '@funk/model/auth/user-role'
 import { Cart, CARTS } from '@funk/model/commerce/cart/cart'
 import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
@@ -8,7 +8,7 @@ import { auth } from 'firebase-functions'
 
 export default auth.user().onCreate(async function(user): Promise<any>
 {
-  const firestore = new Firestore({ projectId: FIRE_PROJECT_ID })
+  const firestore = new Firestore({ projectId: CLOUD_PROJECT_ID })
 
   await adminAuth().setCustomUserClaims(user.uid, { role: UserRole.ANONYMOUS })
 
@@ -21,7 +21,7 @@ export default auth.user().onCreate(async function(user): Promise<any>
     }
     const newCart: Cart = {
       // Exclude `type` to save space.
-      products: []
+      products: [],
     }
 
     return Promise.all([
