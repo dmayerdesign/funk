@@ -5,6 +5,7 @@ import getActualPrice from '@funk/model/commerce/product/sku/actions/get-actual-
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 import { from, zip } from 'rxjs'
 import { first, map, switchMap } from 'rxjs/operators'
+import { validateBeforeMath } from '../../price/validation'
 
 export interface Input
 {
@@ -45,6 +46,18 @@ export default function(input: Input): Promise<Output>
           { amount: 0 } as Price,
         ),
       ),
+      map((tax) =>
+      {
+        if (order.additionalTaxAmount)
+        {
+          validateBeforeMath(tax, order.additionalTaxAmount)
+          return {
+            amount: tax.amount + order.additionalTaxAmount.amount,
+            currency: tax.currency,
+          }
+        }
+        return tax
+      }),
       first(),
     )
     .toPromise()

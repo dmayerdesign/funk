@@ -1,5 +1,5 @@
+import createUid from '@funk/helpers/create-uid'
 import Stripe, { customers } from 'stripe'
-const uuid = require('uuid/v4')
 
 export interface CreateInput
 {
@@ -26,7 +26,7 @@ export default async function({
 }: Input): Promise<Output>
 {
   const stripe = new Stripe(stripeApiKey)
-  const idempotencyKey = uuid()
+  const idempotencyKey = createUid()
   let customer: customers.ICustomer
 
   if (!!id)

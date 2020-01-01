@@ -11,7 +11,7 @@ class InvalidPriceError extends Error
   }
 }
 
-export class CurrencyMismatchError extends Error
+class CurrencyMismatchError extends Error
 {
   constructor()
   {

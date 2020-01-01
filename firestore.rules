@@ -26,15 +26,6 @@ service cloud.firestore {
       allow write: if isSignedIn() && isSuperOrOwner();
     }
 
-    match /commerce.carts/{uid}/{document=**} {
-      function isAllowed() {
-        return uid == request.auth.uid
-          || isSuperOrOwner()
-      }
-
-      allow write: if isSignedIn() && isAllowed();
-    }
-
     match /user-configs/{uid}/{document=**} {
       function isAllowed() {
         return uid == request.auth.uid

@@ -1,9 +1,7 @@
-export interface ChangeContext
-{
-  params: {
-    [option: string]: any
-  }
-}
+import { Context } from './event/context'
+
+export interface ChangeContext extends Context
+{ }
 
 export interface Change<DataType>
 {

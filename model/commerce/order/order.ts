@@ -1,45 +1,39 @@
 import { Discount } from '@funk/model/commerce/discount/discount'
-import { EasypostRate } from '@funk/model/commerce/easypost-rate/easypost-rate'
-import { Customer } from '@funk/model/commerce/order/customer'
+import { Customer } from '@funk/model/commerce/order/customer/customer'
 import { Price } from '@funk/model/commerce/price/price'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { PrimaryKey } from '@funk/model/data-access/primary-key'
+import { OrderData } from '@funk/plugins/payment/order-data'
+import { Postage } from '@funk/plugins/postage/postage'
 
 export const ORDERS = 'commerce.orders'
 
 export enum Status
 {
-  PRE_SUBMIT_INVALID = 'Invalid',
-  PRE_SUBMIT_VALID = 'Valid',
-  PENDING = 'Pending',
+  CART = 'Cart',
+  PAYMENT_PENDING = 'Payment pending',
   PAID = 'Paid',
   SHIPPED = 'Shipped',
-  RECEIVED = 'Received',
+  DELIVERED = 'Delivered',
   CANCELLED = 'Cancelled',
-  REFUNDED = 'Refunded',
+  CANCELLED_REFUNDED = 'Refunded due to cancellation',
   RETURNED = 'Returned',
+  RETURNED_REFUNDED = 'Refunded upon return',
 }
 
 interface BaseOrder extends DatabaseDocument
 {
-  customer: Customer
-  subTotal: Price
-  total: Price
-  taxPercent: number
-  paymentMethod: string
+  customer: Partial<Customer>
   status: Status
-  shippingCost?: Price
-  shippingRates?: EasypostRate[]
-  selectedShippingRateId?: string
-  shippingInsuranceAmt?: number
-  carrier?: string
-  trackingCode?: string
-  estDeliveryDays?: number
+  taxPercent?: number
+  additionalTaxAmount?: Price
+  postageOptions?: Postage[]
+  selectedPostageOption?: Postage
   postageLabelUrl?: string
   savePaymentInfo?: boolean
   shipmentId?: string
-  paymentData?: any
+  paymentData?: OrderData
   idempotencyKey?: string
 }
 

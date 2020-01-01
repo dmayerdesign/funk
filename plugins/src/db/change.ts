@@ -1,6 +1,6 @@
-import { Change, EventContext } from 'firebase-functions'
+import { Change } from 'firebase-functions'
+import { EventContext } from './event/context'
 
-export {
-  Change,
-  EventContext as ChangeContext,
-}
+export interface ChangeContext extends EventContext
+{ }
+export { Change }

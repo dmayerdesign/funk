@@ -1,6 +1,6 @@
+import createUid from '@funk/helpers/create-uid'
 import { Price } from '@funk/model/commerce/price/price'
 import Stripe, { paymentIntents } from 'stripe'
-const uuid = require('uuid/v4')
 
 export interface CreateInput
 {
@@ -62,7 +62,7 @@ export default async function(input: Input): Promise<Output>
   }
   else
   {
-    _idempotencyKey = uuid()
+    _idempotencyKey = createUid()
     paymentIntent = await stripe.paymentIntents.create(
       {
         amount: price.amount,

@@ -1,32 +1,31 @@
 import { CLOUD_PROJECT_ID } from '@funk/config'
 import { UserRole } from '@funk/model/auth/user-role'
-import { Cart, CARTS } from '@funk/model/commerce/cart/cart'
+import createOrderForCustomer from '@funk/model/commerce/order/actions/create-order-for-customer'
+import { ORDERS } from '@funk/model/commerce/order/order'
 import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
+import { authAdmin } from '@funk/plugins/auth/auth-admin'
+import { authEvents } from '@funk/plugins/auth/auth-events'
 import { Firestore } from '@google-cloud/firestore'
-import { auth as adminAuth } from 'firebase-admin'
-import { auth } from 'firebase-functions'
 
-export default auth.user().onCreate(async function(user): Promise<any>
+export default authEvents().user().onCreate(async function(user): Promise<any>
 {
-  const firestore = new Firestore({ projectId: CLOUD_PROJECT_ID })
-
-  await adminAuth().setCustomUserClaims(user.uid, { role: UserRole.ANONYMOUS })
+  await authAdmin().setCustomUserClaims(user.uid, { role: UserRole.ANONYMOUS })
 
   if (user.email)
   {
+    const firestore = new Firestore({ projectId: CLOUD_PROJECT_ID })
     const newUserConfig: UserConfig = {
       id: user.uid,
       displayName: user.displayName,
       email: user.email,
     }
-    const newCart: Cart = {
-      // Exclude `type` to save space.
-      products: [],
-    }
+    const newOrder = createOrderForCustomer({
+      uid: user.uid,
+    })
 
     return Promise.all([
-      firestore.collection(USER_CONFIGS).doc(user.uid).set(newUserConfig),
-      firestore.collection(CARTS).doc(user.uid).set(newCart),
+      firestore.collection(USER_CONFIGS).doc(newUserConfig.id).set(newUserConfig),
+      firestore.collection(ORDERS).doc(newOrder.id).set(newOrder),
     ])
   }
 

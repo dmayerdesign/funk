@@ -1,6 +1,7 @@
 import getSecret from '@funk/functions/helpers/admin/get-secret'
 import populate from '@funk/functions/helpers/commerce/order/populate'
 import createCreateHandler from '@funk/functions/helpers/listen/create-create-handler'
+import createUid from '@funk/helpers/create-uid'
 import loudlyLog from '@funk/helpers/loudly-log'
 import getTotal from '@funk/model/commerce/order/actions/get-total'
 import { MarshalledOrder, Order, ORDERS } from '@funk/model/commerce/order/order'
@@ -9,7 +10,6 @@ import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from '@funk/model/secret/keys'
 import { store } from '@funk/plugins/db/store'
 import upsertPaymentIntent from '@funk/plugins/payment/actions/upsert-payment-intent'
 import { OrderData } from '@funk/plugins/payment/order-data'
-const uuid = require('uuid/v4')
 
 /**
  * Given
@@ -27,7 +27,7 @@ export default createCreateHandler(ORDERS,
   async (snapshot, { params }) =>
   {
     const order = await populate(snapshot.data() as MarshalledOrder)
-    const idempotencyKey = uuid()
+    const idempotencyKey = createUid()
 
     // Create an initial `PaymentIntent` with whatever data we can gather.
     loudlyLog('creating a payment intent...', ORDERS, params.id, idempotencyKey)

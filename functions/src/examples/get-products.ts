@@ -1,12 +1,10 @@
-import { CLOUD_PROJECT_ID } from '@funk/config'
+import createFunction from '@funk/functions/helpers/http/create-function'
 import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
-import { Firestore } from '@google-cloud/firestore'
-import * as functions from 'firebase-functions'
+import { store } from '@funk/plugins/db/store'
 
-export default functions.https.onRequest(async (_request, response) =>
+export default createFunction(async (_request, response) =>
 {
-  const firestore = new Firestore({ projectId: CLOUD_PROJECT_ID })
-  const products = await firestore.collection(PRODUCTS).get()
+  const products = await store().collection(PRODUCTS).get()
     .then(({ docs }) => docs) as Product[]
   return response.json(products)
 })

@@ -1,7 +1,7 @@
 import { AuthenticationRequest } from '@funk/functions/model/request-response/authentication-request'
 import { StatusCode, StatusCodeMessage } from '@funk/model/http/status-code'
+import { authAdmin } from '@funk/plugins/auth/auth-admin'
 import { NextFunction, Response } from 'express'
-import { auth } from 'firebase-admin'
 
 /**
  * Express middleware that checks whether the request contains a user in the form of a
@@ -22,7 +22,7 @@ export default async function(
   try
   {
     const encodedIdToken = getEncodedIdTokenOrThrow()
-    const decodedIdToken = await auth().verifyIdToken(encodedIdToken)
+    const decodedIdToken = await authAdmin().verifyIdToken(encodedIdToken)
     request.user = decodedIdToken
     return next()
   }

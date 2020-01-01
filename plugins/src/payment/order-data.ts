@@ -1,4 +1,1 @@
-export interface OrderData
-{
-  paymentIntentId: string
-}
+export { OrderData } from '../../interface/payment/order-data'

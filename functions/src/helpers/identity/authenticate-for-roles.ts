@@ -5,13 +5,13 @@ import { AuthenticationRequest } from
 import { CustomClaims } from '@funk/model/auth/custom-claims'
 import { UserRole } from '@funk/model/auth/user-role'
 import { StatusCode, StatusCodeMessage } from '@funk/model/http/status-code'
+import { authAdmin } from '@funk/plugins/auth/auth-admin'
 import { NextFunction, RequestHandler, Response } from 'express'
-import { auth } from 'firebase-admin'
 import authenticate from './authenticate'
 
 /**
- * Creates a `RequestHandler` which calls `next` if the user has AT LEAST ONE of the
- * `roles`, and sends a `403 Forbidden` response if not.
+ * Creates a `RequestHandler` which either calls `next` if the user has AT LEAST ONE of the
+ * `roles`, or sends a `403 Forbidden` response if not.
  */
 export default function(roles: UserRole[]): RequestHandler
 {
@@ -30,7 +30,7 @@ export default function(roles: UserRole[]): RequestHandler
       async function(): Promise<void>
       {
         const { uid } = (request as AuthenticatedRequest).user
-        const user = await auth().getUser(uid)
+        const user = await authAdmin().getUser(uid)
         const claims = user.customClaims as CustomClaims | undefined
 
         if (claims && claims.role && roles.some((role) => claims.role === role))

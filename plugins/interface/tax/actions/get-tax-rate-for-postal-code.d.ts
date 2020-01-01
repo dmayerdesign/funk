@@ -2,6 +2,6 @@ export interface Input {
   postalCode: string
 }
 
-export type Output = number
+export type Output = Promise<number>
 
-export default function({ postalCode }: Input): Promise<number>
+export default function({ postalCode }: Input): Output

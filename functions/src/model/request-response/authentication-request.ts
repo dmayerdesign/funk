@@ -1,10 +1,10 @@
+import { DecodedIdToken } from '@funk/plugins/auth/decoded-id-token'
 import { Request } from 'express'
-import { auth } from 'firebase-admin'
 import { IncomingHttpHeaders } from 'http'
 
 export interface AuthenticationRequest extends Request
 {
-  user?: auth.DecodedIdToken
+  user?: DecodedIdToken
   cookies: {
     __session?: string;
   }
