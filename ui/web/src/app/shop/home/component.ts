@@ -52,6 +52,10 @@ export class HomeComponent
 
   public async seedOrder(): Promise<void>
   {
+    this._firestore.collection(ORDERS).valueChanges()
+      .pipe(first())
+      .subscribe(console.log)
+
     await this._firestore.doc(`${ORDERS}/1`).set({
       id: '1', // docRef.id,
       customer: {
@@ -66,7 +70,7 @@ export class HomeComponent
       },
       paymentMethod: '',
       skus: [ 'test-sku-1' ],
-      status: Status.PENDING,
+      status: Status.PAYMENT_PENDING,
       subTotal: {
         amount: 0,
         currency: 'USD',
@@ -77,8 +81,5 @@ export class HomeComponent
         currency: 'USD',
       },
     } as Order)
-    this._firestore.collection(ORDERS).valueChanges()
-      .pipe(first())
-      .subscribe(console.log)
   }
 }

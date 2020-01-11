@@ -9,11 +9,11 @@ export default class FirestoreDocumentSource<DataType> implements DataConsumer<D
   private _disconnect$ = new Subject<void>()
 
   constructor(
-    collection: AngularFirestoreDocument<DataType>,
+    doc: AngularFirestoreDocument<DataType>,
     observerOrSuccessHandler?: PartialObserver<DataType> | ((value: DataType | undefined) => any)
   )
   {
-    this.data$ = collection.valueChanges().pipe(
+    this.data$ = doc.valueChanges().pipe(
       takeUntil(this._disconnect$),
       shareReplay(1),
     )

@@ -3,12 +3,12 @@ import populate from '@funk/functions/helpers/commerce/order/populate'
 import createCreateHandler from '@funk/functions/helpers/listen/create-create-handler'
 import createUid from '@funk/helpers/create-uid'
 import loudlyLog from '@funk/helpers/loudly-log'
-import getTotal from '@funk/model/commerce/order/actions/get-total'
+import getTotalBeforeTax from '@funk/model/commerce/order/actions/get-total-before-tax'
 import { MarshalledOrder, Order, ORDERS } from '@funk/model/commerce/order/order'
 import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
 import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from '@funk/model/secret/keys'
 import { store } from '@funk/plugins/db/store'
-import upsertPaymentIntent from '@funk/plugins/payment/actions/upsert-payment-intent'
+import upsertPaymentIntent, { CreateInput } from '@funk/plugins/payment/actions/upsert-payment-intent'
 import { OrderData } from '@funk/plugins/payment/order-data'
 
 /**
@@ -33,21 +33,21 @@ export default createCreateHandler(ORDERS,
     console.log(ORDERS, params.id, idempotencyKey)
 
     // Create an initial `PaymentIntent` with whatever data we can gather.
+    // TODO: Use geolocation data if present to add sales tax.
     loudlyLog('creating a payment intent...', ORDERS, params.id, idempotencyKey)
     const { paymentIntent } = await upsertPaymentIntent({
       paymentSecretKey: await getSecret({ secretKey: PAYMENT_SERVICE_PROVIDER_SECRET_KEY }),
-      price: await getTotal({
-        order,
-        taxRate: 0,
-        getProduct: (sku) => store().collection(PRODUCTS)
-          .where('id', '==', sku.productId)
-          .get()
-          .then((_snapshot) => _snapshot.docs[0].data() as Product),
-      }),
+      price: await getTotalBeforeTax({
+          order,
+          getProductForSku: (sku) => store().collection(PRODUCTS)
+            .where('id', '==', sku.productId)
+            .get()
+            .then((_snapshot) => _snapshot.docs[0].data() as Product),
+        }),
       savePaymentMethod: false,
       customerId: order.customer && order.customer.idForPayment,
       idempotencyKey,
-    })
+    } as CreateInput)
     loudlyLog('created a payment intent', paymentIntent, ORDERS, params.id, idempotencyKey)
 
     console.log('===== created a payment intent =====')

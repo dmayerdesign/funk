@@ -25,7 +25,8 @@ const routes: Routes = [
 
 export const shopInitialState: ShopState = {
   cart: {
-    products: [],
+    skus: [],
+    customer: {},
   },
   attributeValues: [],
 }

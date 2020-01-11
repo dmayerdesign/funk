@@ -20,10 +20,10 @@ export default authEvents().user().onCreate(async function(user): Promise<any>
       email: user.email,
     }
     const newOrder = createOrderForCustomer({
-      uid: user.uid,
+      userId: user.uid,
     })
 
-    return Promise.all([
+    await Promise.all([
       firestore.collection(USER_CONFIGS).doc(newUserConfig.id).set(newUserConfig),
       firestore.collection(ORDERS).doc(newOrder.id).set(newOrder),
     ])

@@ -16,12 +16,13 @@ import { Sku } from '@funk/model/commerce/product/sku/sku'
  * Compoundable discounts will always override non-compoundable discounts.
  * All else being equal, more-recently-started discount(s) will be favored.
  */
-export default function(
+export default function(input: {
   sku: Sku,
-  parentProduct: Product,
-  activeDiscounts: Discount[] = [],
-): Price
+  product: Product,
+  activeDiscounts?: Discount[],
+}): Price
 {
+  const { sku, product, activeDiscounts = [] } = input
   let applicableDiscounts = activeDiscounts.filter((discount) =>
   {
     if (discount.type === 'order')
@@ -66,7 +67,7 @@ export default function(
         return true
       }
       if (!!discount.includes.taxonomyTerms.find(
-        (includedTerm) => !!parentProduct.taxonomyTerms.find(
+        (includedTerm) => !!product.taxonomyTerms.find(
           (term) => term === includedTerm,
         ),
       ))

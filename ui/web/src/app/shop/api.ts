@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { ActionResult, Manager } from '@dannymayer/vex'
-import { Cart, CARTS } from '@funk/model/commerce/cart/cart'
-import { Order } from '@funk/model/commerce/order/order'
+import createDocPath from '@funk/helpers/create-doc-path'
+import { Customer } from '@funk/model/commerce/order/customer/customer'
+import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
 import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
-import throwPresentableError from '@funk/model/error-handling/throw-presentable-error'
 import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import FirestoreCollectionSource from '@funk/ui/helpers/data-access/firestore-collection-source'
@@ -20,8 +20,8 @@ import { ShopAction, ShopState } from './model'
 @Injectable()
 export class ShopApi implements ModuleApi
 {
-  private _cartSource?: FirestoreDocumentSource<Cart>
-  public cart$?: Observable<Cart>
+  private _cartSource?: FirestoreDocumentSource<Order>
+  public cart$?: Observable<Order>
   public productsSource = new FirestoreCollectionSource<Product>(
     this._firestore.collection(PRODUCTS),
   )
@@ -47,12 +47,20 @@ export class ShopApi implements ModuleApi
       .subscribe((user) => this.initCart(user))
   }
 
-  public initCart(user: UserHydrated): void
+  public async initCart(user: UserHydrated): Promise<void>
   {
     if (this._cartSource) this._cartSource.disconnect()
 
-    this._cartSource = new FirestoreDocumentSource<Cart>(
-      this._firestore.collection(CARTS).doc(user.id),
+    const cartsQuery = this._firestore
+      .collection<Order>(ORDERS)
+      .ref
+      .where(createDocPath<Order, Customer>('customer', 'userId'), '==', user.id)
+      .where('status', '==', Status.CART)
+      .limit(1)
+    const docPath = await cartsQuery.get()
+      .then(querySnapshot => querySnapshot.docs[0].ref.path)
+    this._cartSource = new FirestoreDocumentSource<Order>(
+      this._firestore.doc(docPath),
       (cart) => cart && this._manager.dispatch({
         type: ShopAction.CART_CHANGE_FROM_DB,
         reduce: (state) => ({ ...state, cart }),
@@ -64,39 +72,12 @@ export class ShopApi implements ModuleApi
     // this.submitOrder({}).subscribe(
     //   (x) => console.log('submitted order', x),
     // )
-    throwPresentableError(new Error('moo!'))
+    // throwPresentableError(new Error('moo!'))
     // [END] TESTING
-  }
-
-  public testGetTax(): void
-  {
-    const testJson = {
-      skus: [{
-        name: 'Test SKU',
-        productId: 'test-product-id',
-        price: { amount: 12, currency: 'USD' },
-        inventory: {
-          type: 'infinite',
-        },
-        attributeValues: [],
-        taxonomyTerms: [],
-      }],
-      discounts: [],
-      customer: {
-        billingAddress: {
-          zip: '48324',
-        },
-      },
-    }
-
-    this._httpClient.post(`${environment.functionsUrl}/orderGetTax`, testJson)
-      .subscribe()
   }
 
   public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>>
   {
-    this.testGetTax()
-
     return this._manager.once({
       type: ShopAction.SUBMIT_ORDER,
       resolve: (state$) => this._httpClient

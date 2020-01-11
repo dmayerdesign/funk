@@ -1,9 +1,9 @@
 import { AttributeValue } from '@funk/model/commerce/attribute/attribute-value'
-import { Cart } from '@funk/model/commerce/cart/cart'
+import { Order } from '@funk/model/commerce/order/order'
 
 export interface ShopState
 {
-  cart: Cart
+  cart: Partial<Order>
   attributeValues: AttributeValue[]
 }
 
