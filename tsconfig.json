@@ -29,9 +29,10 @@
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
       "@funk/plugins/*": [ "./plugins/interface/*" ],
+      "@funk/ui/web/*": [ "./ui/web/src/*" ],
+      "@funk/ui/helpers/*": [ "./ui/helpers/*" ],
       "@funk/testing/config": [ "./config/config.development" ],
-      "@funk/ui/web/*": [ "./ui/web/src/app/modules/*" ],
-      "@funk/ui/helpers/*": [ "./ui/helpers/*" ]
+      "@funk/test/*": [ "./test/*" ]
     }
   },
   "include": [

@@ -4,12 +4,13 @@ import { NULL_PRICE, Price } from '@funk/model/commerce/price/price'
 import { Product } from '@funk/model/commerce/product/product'
 import getActualPrice from '@funk/model/commerce/product/sku/actions/get-actual-price'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
+import { DbDocumentInput } from '@funk/model/data-access/database-document'
 import { from, zip } from 'rxjs'
 import { first, map, switchMap } from 'rxjs/operators'
 
 export interface Input
 {
-  order: PopulatedOrder
+  order: DbDocumentInput<PopulatedOrder>
   getProductForSku: (sku: Sku) => Promise<Product>
 }
 

@@ -9,7 +9,7 @@ recursiveReaddir(resolve(__dirname, FUNCTIONS_FOLDER)).forEach((file) =>
 {
   if (file.endsWith('.js')
      && !file.endsWith('index.js')
-     && !file.match(/(\/|\.)spec.js/gi)) {
+     && !file.match(/(\/|\.)spec.[jt]s/gi)) {
 
     const fileBaseName = basename(file)
     const fileBaseNameSansExt = fileBaseName.substring(0, fileBaseName.length - 3)

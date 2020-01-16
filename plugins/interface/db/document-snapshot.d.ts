@@ -13,8 +13,7 @@ import { DatabaseDocument } from '@funk/model/data-access/database-document'
  * access will return 'undefined'. You can use the `exists` property to
  * explicitly verify a document's existence.
  */
-export class DocumentSnapshot<DocumentType extends { [key: string]: any } = DatabaseDocument> {
-  protected constructor()
+export interface DocumentSnapshot<DocumentType extends { [key: string]: any } = DatabaseDocument> {
 
   /** True if the document exists. */
   readonly exists: boolean

@@ -1,10 +1,17 @@
+import { first } from 'rxjs/operators'
+import { createDefaultShopApiStub, CART_STUB } from './stubs'
+
 describe('shop', () =>
 {
-  const deps = [
-
-  ]
-  it('should work', () =>
+  it('should instantiate successfully', () =>
   {
-    expect(true).toBe(true)
+    expect(createDefaultShopApiStub()).toBeTruthy()
+  })
+
+  it('should emit a cart', async (done) =>
+  {
+    const api = createDefaultShopApiStub()
+    expect(await api.cart$.pipe(first()).toPromise()).toEqual(CART_STUB)
+    done()
   })
 })

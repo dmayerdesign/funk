@@ -6,13 +6,13 @@ import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { auth, User } from 'firebase'
-import { from, of, Observable } from 'rxjs'
-import { distinctUntilKeyChanged, map, switchMap, withLatestFrom } from 'rxjs/operators'
+import { combineLatest, of, Observable } from 'rxjs'
+import { distinctUntilKeyChanged, map, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class IdentityApi implements ModuleApi
 {
-  private _nonNullAuthUser$ = this._fireAuth.user.pipe(ignoreNullish()) as Observable<User>
+  private _nonNullAuthUser$ = this._auth.user.pipe(ignoreNullish()) as Observable<User>
   public user$ = this._nonNullAuthUser$.pipe(
     distinctUntilKeyChanged('uid'),
     switchMap<User, Observable<UserHydrated>>((user) =>
@@ -21,11 +21,13 @@ export class IdentityApi implements ModuleApi
       {
         return of<UserConfig>({ id: '1', displayName: 'Guest' })
       }
-      return this._firestore.collection(USER_CONFIGS)
-        .doc<UserConfig>(user.uid)
-        .valueChanges()
+      return combineLatest(
+          this._store.collection(USER_CONFIGS)
+            .doc<UserConfig>(user.uid)
+            .valueChanges(),
+          user.getIdTokenResult(true),
+        )
         .pipe(
-          withLatestFrom(from(user.getIdTokenResult(true))),
           map(([ userConfig, _user ]) => ({
             ...userConfig,
             claims: _user.claims,
@@ -33,50 +35,52 @@ export class IdentityApi implements ModuleApi
         )
     }),
   )
-  public firebaseIdToken$: Observable<string> = this._nonNullAuthUser$.pipe(
+  public userIdToken$: Observable<string> = this._nonNullAuthUser$.pipe(
     switchMap((user) => user.getIdToken()),
   )
 
   constructor(
-    private _fireAuth: AngularFireAuth,
-    private _firestore: AngularFirestore,
+    private _auth: AngularFireAuth,
+    private _store: AngularFirestore,
   )
   { }
 
   public async init(): Promise<void>
   {
-    this._fireAuth.authState
+    this._auth.authState
       .pipe(
         switchMap((userOrNull) => userOrNull === null
-          ? this._fireAuth.auth.signInAnonymously()
+          ? this._auth.auth.signInAnonymously()
           : of(userOrNull)),
       )
       .subscribe(
-        // () => this._fireAuth.auth.currentUser!.getIdToken(true).then(
-        //   (value) => console.log(JSON.stringify([ value ])),
-        // ),
+        () => this._auth.auth.currentUser!.getIdToken(true).then(
+          (value) => console.log(value),
+        ),
       )
   }
 
   public async createUserWithEmailAndPassword(
-    email: string, password: string,
+    email: string,
+    password: string,
   ): Promise<auth.UserCredential>
   {
-    const userCredential = await this._fireAuth.auth.createUserWithEmailAndPassword(
+    const userCredential = await this._auth.auth.createUserWithEmailAndPassword(
       email, password,
     )
     return userCredential
   }
 
   public async signInWithEmailAndPassword(
-    email: string, password: string,
+    email: string,
+    password: string,
   ): Promise<auth.UserCredential>
   {
-    return this._fireAuth.auth.signInWithEmailAndPassword(email, password)
+    return this._auth.auth.signInWithEmailAndPassword(email, password)
   }
 
   public async signOut(): Promise<void>
   {
-    this._fireAuth.auth.signOut()
+    this._auth.auth.signOut()
   }
 }

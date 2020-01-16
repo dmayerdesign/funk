@@ -1,14 +1,7 @@
-import { CloudFunction } from '../cloud-function/cloud-function'
-import { Context } from '../db/event/context'
-import { UserRecord } from './user-record'
+import { auth } from 'firebase-functions'
+import { UserBuilder } from 'firebase-functions/lib/providers/auth'
 
-export declare function authEvents():
+export function authEvents(): { user(): UserBuilder }
 {
-  user(): {
-    onCreate(handler: (user: UserRecord, context: Context) =>
-      PromiseLike<any> | any): CloudFunction<UserRecord>;
-    /** Respond to the deletion of a Firebase Auth user. */
-    onDelete(handler: (user: UserRecord, context: Context) =>
-      PromiseLike<any> | any): CloudFunction<UserRecord>;
-  }
+  return auth
 }

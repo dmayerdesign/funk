@@ -6,22 +6,46 @@ import createDocPath from '@funk/helpers/create-doc-path'
 import { Customer } from '@funk/model/commerce/order/customer/customer'
 import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
 import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
-import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import FirestoreCollectionSource from '@funk/ui/helpers/data-access/firestore-collection-source'
 import FirestoreDocumentSource from '@funk/ui/helpers/data-access/firestore-document-source'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
+import { IdentityApi } from '@funk/ui/web/app/identity/api'
+import { ShopAction, ShopState } from '@funk/ui/web/app/shop/model'
+import { environment } from '@funk/ui/web/environments/environment'
 import { Observable } from 'rxjs'
-import { switchMap } from 'rxjs/operators'
-import { environment } from '../../environments/environment'
-import { IdentityApi } from '../identity/api'
-import { ShopAction, ShopState } from './model'
+import { map, scan, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class ShopApi implements ModuleApi
 {
-  private _cartSource?: FirestoreDocumentSource<Order>
-  public cart$?: Observable<Order>
+  public cart$ = this._identityApi.user$.pipe(
+    ignoreNullish(),
+    switchMap((user) => this._firestore
+      .collection<Order>(ORDERS)
+      .ref
+      .where(createDocPath<Order, Customer>('customer', 'userId'), '==', user.id)
+      .where(createDocPath<Order>('status'), '==', Status.CART)
+      .limit(1)
+      .get()),
+    map((querySnapshot) => querySnapshot.docs[0].ref.path),
+    scan((previousSource, docPath) =>
+    {
+      if (previousSource)
+      {
+        previousSource.disconnect()
+      }
+      return new FirestoreDocumentSource<Order>(
+        this._firestore.doc(docPath),
+        (cart) => cart && this._manager.dispatch({
+          type: ShopAction.CART_CHANGE_FROM_DB,
+          reduce: (state) => ({ ...state, cart }),
+        }),
+      )
+    }, undefined as FirestoreDocumentSource<Order> | undefined),
+    ignoreNullish(),
+    switchMap((cartSource) => cartSource.connect().pipe(ignoreNullish())),
+  )
   public productsSource = new FirestoreCollectionSource<Product>(
     this._firestore.collection(PRODUCTS),
   )
@@ -41,39 +65,6 @@ export class ShopApi implements ModuleApi
       // TODO: Get shop settings. Cache attribute values, taxonomies, etc.
       resolve: state$ => state$,
     })
-
-    this._identityApi.user$
-      .pipe(ignoreNullish())
-      .subscribe((user) => this.initCart(user))
-  }
-
-  public async initCart(user: UserHydrated): Promise<void>
-  {
-    if (this._cartSource) this._cartSource.disconnect()
-
-    const cartsQuery = this._firestore
-      .collection<Order>(ORDERS)
-      .ref
-      .where(createDocPath<Order, Customer>('customer', 'userId'), '==', user.id)
-      .where('status', '==', Status.CART)
-      .limit(1)
-    const docPath = await cartsQuery.get()
-      .then(querySnapshot => querySnapshot.docs[0].ref.path)
-    this._cartSource = new FirestoreDocumentSource<Order>(
-      this._firestore.doc(docPath),
-      (cart) => cart && this._manager.dispatch({
-        type: ShopAction.CART_CHANGE_FROM_DB,
-        reduce: (state) => ({ ...state, cart }),
-      }),
-    )
-    this.cart$ = this._cartSource.connect().pipe(ignoreNullish())
-
-    // TESTING
-    // this.submitOrder({}).subscribe(
-    //   (x) => console.log('submitted order', x),
-    // )
-    // throwPresentableError(new Error('moo!'))
-    // [END] TESTING
   }
 
   public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>>

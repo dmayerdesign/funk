@@ -73,7 +73,7 @@ export class AdminContainer
         this.setSecretFormGroup.value,
         {
           headers: {
-            authorization: await this._identityApi.firebaseIdToken$
+            authorization: await this._identityApi.userIdToken$
               .pipe(map((token) => `Bearer ${token}`), first())
               .toPromise(),
           },
@@ -90,7 +90,7 @@ export class AdminContainer
         this.getSecretFormGroup.value,
         {
           headers: {
-            authorization: await this._identityApi.firebaseIdToken$
+            authorization: await this._identityApi.userIdToken$
               .pipe(map((token) => `Bearer ${token}`), first())
               .toPromise(),
           },

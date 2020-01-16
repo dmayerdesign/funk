@@ -26,10 +26,11 @@ import { OrderData } from '@funk/plugins/payment/order-data'
 export default createCreateHandler(ORDERS,
   async (snapshot, { params }) =>
   {
+    console.log('===== creating a payment intent... =====')
+
     const order = await populate(snapshot.data() as MarshalledOrder)
     const idempotencyKey = createUid()
 
-    console.log('===== creating a payment intent... =====')
     console.log(ORDERS, params.id, idempotencyKey)
 
     // Create an initial `PaymentIntent` with whatever data we can gather.

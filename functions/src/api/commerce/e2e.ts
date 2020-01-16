@@ -1,4 +1,5 @@
 import { Discount } from '@funk/model/commerce/discount/discount'
+import { PopulatedOrder } from '@funk/model/commerce/order/order'
 import { CurrencyCode } from '@funk/model/commerce/price/currency-code'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 import { DbDocumentInput } from '@funk/model/data-access/database-document'
@@ -51,8 +52,14 @@ describe('shop', () =>
           startAt: Date.now() - 60000000,
           endAt: Date.now() + 60000000,
         },
-      ] as DbDocumentInput<Discount>[],
-    })
+      ] as Discount[],
+
+      customer: {
+        billingAddress: {
+          zip: '32805',
+        },
+      },
+    } as DbDocumentInput<PopulatedOrder>)
     .expect(200)
     .then((response) => assert.deepEqual(
       response.body,

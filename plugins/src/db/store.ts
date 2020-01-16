@@ -1,1 +1,1 @@
-export { firestore } from 'firebase-admin'
+export { firestore as store } from 'firebase-admin'

@@ -1,4 +1,10 @@
-import { NextFunction, Request, RequestHandler as ExpressRequestHandler, Response } from 'express'
+import { NextFunction, Request as ExpressRequest, RequestHandler as ExpressRequestHandler,
+  Response } from 'express'
+
+export interface Request<BodyType = any> extends ExpressRequest
+{
+  body: BodyType
+}
 
 export type ResponseTypes =
   | String | Promise<String>
@@ -7,11 +13,17 @@ export type ResponseTypes =
   | undefined | Promise<undefined>
   | void | Promise<void>
 
-export type RequestHandler<ResponseType extends ResponseTypes = undefined> =
-  (request: Request, response: Response, next: NextFunction) => ResponseType
+export type RequestHandler<
+    ResponseType extends ResponseTypes = undefined,
+    RequestBodyType = any,
+  > = (request: Request<RequestBodyType>, response: Response, next: NextFunction) =>
+    ResponseType
 
-export default function<ResponseType extends ResponseTypes = undefined>(
-  handler: RequestHandler<ResponseType>
+export default function<
+  ResponseType extends ResponseTypes = undefined,
+  RequestBodyType = any,
+  >(
+  handler: RequestHandler<ResponseType, RequestBodyType>
 ): ExpressRequestHandler
 {
   return function(request, response, next): void

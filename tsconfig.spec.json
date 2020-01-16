@@ -5,7 +5,18 @@
     "types": [
       "jest",
       "node"
-    ]
+    ],
+    "paths": {
+      "@funk/config": [ "./.funk/build-pipeline-output/config/config" ],
+      "@funk/copy/*": [ "./copy/*" ],
+      "@funk/helpers/*": [ "./helpers/*" ],
+      "@funk/model/*": [ "./model/*" ],
+      "@funk/plugins/*": [ "./plugins/src/*" ],
+      "@funk/testing/config": [ "./config/config.development" ],
+      "@funk/test/*": [ "./test/*" ],
+      "@funk/ui/web/*": [ "./ui/web/src/*" ],
+      "@funk/ui/helpers/*": [ "./ui/helpers/*" ]
+    }
   },
   "include": [
     "config/**/*.ts",

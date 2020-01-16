@@ -4,6 +4,7 @@
     "src/**/*.ts"
   ],
   "exclude": [
+    "**/e2e.ts",
     "**/spec.ts",
     "**/*.spec.ts",
     "node_modules"
@@ -16,8 +17,7 @@
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
-      "@funk/plugins/*": [ "../plugins/src/*" ],
-      "@funk/testing/config": [ "../config/config.development" ]
+      "@funk/plugins/*": [ "../plugins/src/*" ]
     }
   }
 }

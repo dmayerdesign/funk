@@ -1,6 +1,6 @@
 export default function<
     DataType,
-    NestedDataType1 extends DataType[keyof DataType],
+    NestedDataType1 extends DataType[keyof DataType] | undefined = undefined,
   >(
   pathSegment1: keyof DataType,
   pathSegment2?: keyof NestedDataType1,

@@ -9,14 +9,19 @@ export interface CreateAppOptions
   corsOptions?: cors.CorsOptions
 }
 
-export default function({ corsOptions }: CreateAppOptions = {}): express.Application
+export const construct = (app = express()) =>
 {
-  return express().use(
-    cookieParser(),
-    handleError,
-    cors({
-      origin: TRUSTED_ORIGINS.split(','),
-      ...corsOptions,
-    }),
-  )
+  return function({ corsOptions }: CreateAppOptions = {}): express.Application
+  {
+    return app.use(
+      cookieParser(),
+      handleError,
+      cors({
+        origin: TRUSTED_ORIGINS.split(','),
+        ...corsOptions,
+      }),
+    )
+  }
 }
+
+export default construct()

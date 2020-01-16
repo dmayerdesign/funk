@@ -180,20 +180,6 @@
               "serverTarget": "web:server:production"
             }
           }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "configPath": "jest.config.js",
-            "tsConfig": "ui/web/tsconfig.spec.json",
-            "assets": [
-              "ui/web/src/favicon.ico",
-              "ui/web/src/assets"
-            ],
-            "styles": [
-              "ui/web/src/styles.scss"
-            ]
-          }
         }
       }
     }
