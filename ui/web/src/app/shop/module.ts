@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from '@angular/router'
 import { VexModule } from '@dannymayer/vex'
-import { AppFireModule } from '../fire.module'
-import { AppMaterialModule } from '../material.module'
-import { ShopApi } from './api'
-import { ShopContainer } from './container'
-import { HomeComponent } from './home/component'
-import { ShopState } from './model'
+import { AppFireModule } from '@funk/ui/web/app/fire.module'
+import { AppMaterialModule } from '@funk/ui/web/app/material.module'
+import { ShopApi } from '@funk/ui/web/app/shop/api'
+import { ShopContainer } from '@funk/ui/web/app/shop/container'
+import { HomeContainer } from '@funk/ui/web/app/shop/home/container'
+import { ShopState } from '@funk/ui/web/app/shop/model'
 
 const routes: Routes = [
   {
@@ -17,7 +17,7 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        component: HomeComponent,
+        component: HomeContainer,
       },
     ],
   },
@@ -43,7 +43,7 @@ export const shopInitialState: ShopState = {
   ],
   declarations: [
     ShopContainer,
-    HomeComponent,
+    HomeContainer,
   ],
   providers: [
     ShopApi,

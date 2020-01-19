@@ -1,4 +1,4 @@
-import { Price } from './price'
+import { Price } from '@funk/model/commerce/price/price'
 
 class InvalidPriceError extends Error
 {

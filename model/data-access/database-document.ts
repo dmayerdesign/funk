@@ -1,4 +1,4 @@
-import { Timestamp } from './timestamp'
+import { Timestamp } from '@funk/model/data-access/timestamp'
 
 export interface DatabaseDocument
 {

@@ -3,10 +3,10 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import createUid from '@funk/helpers/create-uid'
 import { UserRole } from '@funk/model/auth/user-role'
 import { UserConfig } from '@funk/model/user/user-config'
+import { IdentityApi } from '@funk/ui/web/app/identity/api'
 import { User } from 'firebase'
 import { of, BehaviorSubject } from 'rxjs'
 import { shareReplay } from 'rxjs/operators'
-import { IdentityApi } from './api'
 
 const USER_UID = createUid()
 

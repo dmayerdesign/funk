@@ -1,4 +1,4 @@
-import { UserRecord as IUserRecord } from '../../interface/auth/user-record'
+import { UserRecord as IUserRecord } from '@funk/plugins/auth/user-record'
 
 export interface UserRecord extends IUserRecord
 { }

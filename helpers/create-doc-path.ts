@@ -1,9 +1,9 @@
 export default function<
     DataType,
-    NestedDataType1 extends DataType[keyof DataType] | undefined = undefined,
+    NestedDataType1 extends DataType[keyof DataType] | never = never,
   >(
   pathSegment1: keyof DataType,
-  pathSegment2?: keyof NestedDataType1,
+  pathSegment2?: keyof NestedDataType1 | never,
 ): string
 {
   if (pathSegment2)

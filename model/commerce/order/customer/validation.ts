@@ -1,5 +1,5 @@
-import { InvalidOrderError } from '../validation'
-import { Customer } from './customer'
+import { Customer } from '@funk/model/commerce/order/customer/customer'
+import { InvalidOrderError } from '@funk/model/commerce/order/validation'
 
 /** @throws InvalidOrderError */
 export function validateForOrder(customer: Customer): void

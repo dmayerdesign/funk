@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { ProductListItemComponent } from './list-item.component'
-import { ProductListComponent } from './list.component'
+import { ProductListItemComponent } from '@funk/ui/web/app/shop/product/list-item.component'
+import { ProductListComponent } from '@funk/ui/web/app/shop/product/list.component'
 
 @NgModule({
   imports: [ CommonModule ],

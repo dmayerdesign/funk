@@ -1,3 +1,4 @@
+import authenticate from '@funk/functions/helpers/identity/authenticate'
 import { AuthenticatedRequest } from
   '@funk/functions/model/request-response/authenticated-request'
 import { AuthenticationRequest } from
@@ -7,7 +8,6 @@ import { UserRole } from '@funk/model/auth/user-role'
 import { StatusCode, StatusCodeMessage } from '@funk/model/http/status-code'
 import { authAdmin } from '@funk/plugins/auth/auth-admin'
 import { NextFunction, RequestHandler, Response } from 'express'
-import authenticate from './authenticate'
 
 /**
  * Creates a `RequestHandler` which either calls `next` if the user has AT LEAST ONE of the

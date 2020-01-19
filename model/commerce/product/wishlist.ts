@@ -1,4 +1,4 @@
-import { Product } from './product'
+import { Product } from '@funk/model/commerce/product/product'
 
 export interface Wishlist
 {

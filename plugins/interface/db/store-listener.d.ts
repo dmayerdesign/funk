@@ -1,5 +1,5 @@
-import { Change, ChangeContext } from './change'
-import { DocumentSnapshot } from './document-snapshot'
+import { Change, ChangeContext } from '@funk/plugins/db/change'
+import { DocumentSnapshot } from '@funk/plugins/db/document-snapshot'
 import { CloudFunction } from 'firebase-functions'
 
 export declare namespace storeListener {

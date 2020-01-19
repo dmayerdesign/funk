@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { ModuleContainer } from '@funk/ui/helpers/angular.helpers'
-import { ShopApi } from './api'
-import { NAVBAR_HEIGHT_PX } from './config'
+import { ShopApi } from '@funk/ui/web/app/shop/api'
+import { NAVBAR_HEIGHT_PX } from '@funk/ui/web/app/shop/config'
 
 @Component({
   selector: 'shop',

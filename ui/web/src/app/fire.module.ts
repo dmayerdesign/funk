@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore'
-import { environment } from '../environments/environment'
+import { environment } from '@funk/ui/web/environments/environment'
 
 @NgModule({
   imports: [

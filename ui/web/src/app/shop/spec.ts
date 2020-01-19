@@ -1,5 +1,5 @@
+import { createDefaultShopApiStub, CART_STUB } from '@funk/ui/web/app/shop/stubs'
 import { first } from 'rxjs/operators'
-import { createDefaultShopApiStub, CART_STUB } from './stubs'
 
 describe('shop', () =>
 {

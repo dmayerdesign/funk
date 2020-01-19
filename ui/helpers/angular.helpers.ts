@@ -14,8 +14,10 @@ export function MortalityAware(): ClassDecorator
 
       target.prototype.qb__onDestroy$ = new Subject<true>()
 
-      target.prototype.ngOnDestroy = function(): void {
-        if (originalOnDestroy) {
+      target.prototype.ngOnDestroy = function(): void
+      {
+        if (originalOnDestroy)
+        {
           originalOnDestroy()
         }
         target.prototype.qb__onDestroy$.next(true)

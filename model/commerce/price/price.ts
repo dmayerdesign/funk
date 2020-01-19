@@ -1,4 +1,4 @@
-import { CurrencyCode } from './currency-code'
+import { CurrencyCode } from '@funk/model/commerce/price/currency-code'
 
 export interface Price
 {

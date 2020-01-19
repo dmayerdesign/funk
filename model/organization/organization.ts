@@ -1,6 +1,6 @@
 import { OrganizationRetailSettings } from '@funk/model/commerce/organization/organization-retail-settings'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { OrganizationBranding } from './organization-branding'
+import { OrganizationBranding } from '@funk/model/organization/organization-branding'
 
 export const enum OrganizationType
 {

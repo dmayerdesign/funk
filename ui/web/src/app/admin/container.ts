@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
+import { IdentityApi } from '@funk/ui/web/app/identity/api'
+import { environment } from '@funk/ui/web/environments/environment'
 import { first, map } from 'rxjs/operators'
-import { environment } from '../../environments/environment'
-import { IdentityApi } from '../identity/api'
 
 @Component({
   selector: 'admin',

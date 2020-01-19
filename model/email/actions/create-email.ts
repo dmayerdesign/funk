@@ -1,6 +1,6 @@
+import { CreateEmailOptions } from '@funk/model/email/email-options'
 import { readFileSync } from 'fs-extra'
 import { compile } from 'handlebars'
-import { CreateEmailOptions } from '../email-options'
 
 export default function(
   options: CreateEmailOptions & { [key: string]: any },

@@ -1,3 +1,4 @@
+import getTotalBeforeTax from '@funk/model/commerce/order/actions/get-total-before-tax'
 import { PopulatedOrder } from '@funk/model/commerce/order/order'
 import add from '@funk/model/commerce/price/actions/add'
 import { NULL_PRICE, Price } from '@funk/model/commerce/price/price'
@@ -5,7 +6,6 @@ import { Product } from '@funk/model/commerce/product/product'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 import { DbDocumentInput } from '@funk/model/data-access/database-document'
 import getTaxRateForPostalCode from '@funk/plugins/tax/actions/get-tax-rate-for-postal-code'
-import getTotalBeforeTax from './get-total-before-tax'
 
 export interface Input
 {
@@ -14,11 +14,11 @@ export interface Input
   getProductForSku: (sku: Sku) => Promise<Product>
 }
 
-export type Output = Price
+export type Output = Promise<Price>
 
 export const construct = (_getTaxRateForPostalCode = getTaxRateForPostalCode) =>
 {
-  return async function(input: Input): Promise<Output>
+  return async function(input: Input): Output
   {
     const { order, getProductForSku, postalCode } = input
     const taxRate = await _getTaxRateForPostalCode({ postalCode })

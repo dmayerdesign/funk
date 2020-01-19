@@ -1,4 +1,4 @@
-import { Context } from './event/context'
+import { Context } from '@funk/plugins/db/event/context'
 
 export interface ChangeContext extends Context
 { }

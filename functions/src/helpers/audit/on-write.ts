@@ -1,8 +1,8 @@
+import diff from '@funk/functions/helpers/audit/diff'
 import { Mutation } from '@funk/model/audit/mutation'
 import { DatabaseDocument, DbDocumentInput } from '@funk/model/data-access/database-document'
 import { Change, ChangeContext } from '@funk/plugins/db/change'
 import { store } from '@funk/plugins/db/store'
-import diff from './diff'
 
 export default function<DocumentType extends DatabaseDocument>(
   dbPath: string

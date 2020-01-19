@@ -1,8 +1,8 @@
-import { Component, NgZone, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { setUpDevTools } from '@dannymayer/vex'
-import { environment } from '../environments/environment'
-import { IdentityApi } from './identity/api'
+import { IdentityApi } from '@funk/ui/web/app/identity/api'
+import { environment } from '@funk/ui/web/environments/environment'
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,7 @@ import { IdentityApi } from './identity/api'
         </main>
       </mat-sidenav-content>
     </mat-sidenav-container>
-  `
+  `,
 })
 export class AppComponent implements OnInit
 {
@@ -31,9 +31,12 @@ export class AppComponent implements OnInit
   constructor(
     private _ngZone: NgZone,
     private _identityApi: IdentityApi,
+    private _changeDetectorRef: ChangeDetectorRef,
     public router: Router,
   )
-  { }
+  {
+    this.router.events.subscribe(() => this._changeDetectorRef.detectChanges())
+  }
 
   public ngOnInit(): void
   {

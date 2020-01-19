@@ -1,6 +1,6 @@
+import createApp from '@funk/functions/helpers/http/create-app'
+import handleRequest, { RequestHandler, ResponseTypes } from '@funk/functions/helpers/http/handle-request'
 import { https, HttpsFunction } from 'firebase-functions'
-import createApp from './create-app'
-import handleRequest, { RequestHandler, ResponseTypes } from './handle-request'
 
 export const construct = <
   ResponseType extends ResponseTypes = undefined,

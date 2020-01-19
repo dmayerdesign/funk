@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from '@angular/router'
-import { AppFireModule } from '../fire.module'
-import { AppMaterialModule } from '../material.module'
-import { AdminContainer } from './container'
+import { AdminContainer } from '@funk/ui/web/app/admin/container'
+import { AppFireModule } from '@funk/ui/web/app/fire.module'
+import { AppMaterialModule } from '@funk/ui/web/app/material.module'
 
 const routes: Routes = [
   {

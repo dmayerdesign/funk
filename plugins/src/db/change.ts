@@ -1,6 +1,6 @@
-import { DocumentSnapshot } from '@funk/plugins/db/document-snapshot'
 import { Change as FirebaseChange } from 'firebase-functions'
-import { Context } from './event/context'
+import { DocumentSnapshot } from '../../interface/db/document-snapshot'
+import { Context } from '../../interface/db/event/context'
 
 export interface ChangeContext extends Context
 { }
