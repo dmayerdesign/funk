@@ -50,3 +50,5 @@ exports.aggregate = functions.firestore
 
 - **Pre-rendering:** Make sure `AppShellComponent` contains a nice, one-page static
 facade for the site.
+
+This change is to test the search API.
