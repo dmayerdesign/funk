@@ -16,7 +16,7 @@ describe('shop', () =>
       getProductForSku: async (_sku: Sku) => ({} as Product),
     })
 
-    expect(isEqual(tax, { amount: 300, currency: 'USD' }))
+    expect(isEqual(tax, { amount: 300, currency: 'USD' })).toBe(true)
 
     done()
   })
