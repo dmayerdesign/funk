@@ -1,6 +1,5 @@
 import { HttpClientModule } from '@angular/common/http'
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core'
-import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule, Routes } from '@angular/router'
 import { AppComponent } from '@funk/ui/web/app/component'
@@ -11,12 +10,13 @@ import { IdentityModule } from '@funk/ui/web/app/identity/module'
 import { createAppInitializer } from '@funk/ui/web/app/initializer'
 import { AppMaterialModule } from '@funk/ui/web/app/material.module'
 import { NotFoundComponent } from '@funk/ui/web/app/not-found/component'
+import { AnonymousGuard } from './identity/anonymous-guard'
 
 const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./admin/module').then((mod) => mod.AdminModule),
-    ...canActivate(() => redirectUnauthorizedTo(['/'])),
+    canActivate: [ AnonymousGuard ],
   },
   {
     path: 'shop',
@@ -24,9 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    loadChildren: () => import('./account-management/module').then(
-      (mod) => mod.AccountManagementModule
-    ),
+    loadChildren: () => import('./account-management/module')
+      .then((mod) => mod.AccountManagementModule),
     // ...canActivate(() => redirectUnauthorizedTo(['/'])),
   },
   {
@@ -46,7 +45,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     AppMaterialModule,
-    AppFireModule,
+    AppFireModule.withProviders(),
     IdentityModule,
   ],
   declarations: [
@@ -65,7 +64,7 @@ const routes: Routes = [
       useClass: AppErrorHandler,
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [ AppComponent ],
 })
 export class AppModule
 { }

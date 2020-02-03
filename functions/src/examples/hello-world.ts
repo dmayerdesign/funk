@@ -1,6 +1,6 @@
-import createFunction from '@funk/functions/helpers/http/create-function'
+import createRpcFunction from '@funk/functions/helpers/http/create-rpc-function'
 
-export default createFunction(async () =>
+export default createRpcFunction(async () =>
 {
   return new Promise((resolve) =>
   {

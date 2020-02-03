@@ -1,6 +1,6 @@
 import { enableProdMode } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
-import { AppBrowserModule } from '@funk/ui/web/app/app.browser.module'
+import { BrowserModule } from '@funk/ui/web/app/browser.module'
 import { environment } from '@funk/ui/web/environments/environment'
 import 'hammerjs'
 
@@ -23,7 +23,7 @@ if (environment.production)
 
 document.addEventListener('DOMContentLoaded', () =>
 {
-  platformBrowserDynamic().bootstrapModule(AppBrowserModule)
+  platformBrowserDynamic().bootstrapModule(BrowserModule)
     .then(() => console.log('bootstrapped successfully'))
     .catch(err => console.error(err))
 })

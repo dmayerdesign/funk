@@ -32,6 +32,7 @@ export default function(roles: UserRole[]): RequestHandler
         const { uid } = (request as AuthenticatedRequest).user
         const user = await authAdmin().getUser(uid)
         const claims = user.customClaims as CustomClaims | undefined
+        console.log('Got claims for user.', JSON.stringify(claims))
 
         if (claims && claims.role && roles.some((role) => claims.role === role))
         {

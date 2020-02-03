@@ -6,5 +6,5 @@ export interface ChangeContext extends Context
 { }
 
 export interface Change<DocumentType>
-  extends FirebaseChange<DocumentSnapshot<DocumentType>>
+  extends FirebaseChange<DocumentSnapshot<Partial<DocumentType>>>
 { }

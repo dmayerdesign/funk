@@ -1,5 +1,10 @@
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
 
+interface DocumentSnapshotExtras {
+  ref: any
+  readTime: any
+}
+
 /**
  * Copied from {@link @google-cloud/types/firestore/firestore.d.ts}
  * and modified slightly.
@@ -13,7 +18,11 @@ import { DatabaseDocument } from '@funk/model/data-access/database-document'
  * access will return 'undefined'. You can use the `exists` property to
  * explicitly verify a document's existence.
  */
-export interface DocumentSnapshot<DocumentType extends { [key: string]: any } = DatabaseDocument> {
+export interface DocumentSnapshot<
+    DocumentType extends { [key: string]: any } = DatabaseDocument
+  >
+  extends DocumentSnapshotExtras
+{
 
   /** True if the document exists. */
   readonly exists: boolean

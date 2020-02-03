@@ -6,7 +6,7 @@ export interface Request<BodyType = any> extends ExpressRequest
   body: BodyType
 }
 
-export type ResponseTypes =
+export type HandlerReturnTypes =
   | String | Promise<String>
   | Boolean | Promise<Boolean>
   | object | Promise<object>
@@ -14,16 +14,23 @@ export type ResponseTypes =
   | void | Promise<void>
 
 export type RequestHandler<
-    ResponseType extends ResponseTypes = undefined,
+    HandlerReturnType extends HandlerReturnTypes = undefined,
     RequestBodyType = any,
   > = (request: Request<RequestBodyType>, response: Response, next: NextFunction) =>
-    ResponseType
+    HandlerReturnType
+
+export type RequestHandlers =
+  [ RequestHandler<any> ]
+  | [
+    RequestHandler<any>,
+    ...RequestHandler<any>[]
+  ]
 
 export default function<
-  ResponseType extends ResponseTypes = undefined,
+  HandlerReturnType extends HandlerReturnTypes = undefined,
   RequestBodyType = any,
   >(
-  handler: RequestHandler<ResponseType, RequestBodyType>
+  handler: RequestHandler<HandlerReturnType, RequestBodyType>
 ): ExpressRequestHandler
 {
   return function(request, response, next): void

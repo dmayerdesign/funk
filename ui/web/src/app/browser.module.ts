@@ -10,5 +10,5 @@ import { AppComponent } from '@funk/ui/web/app/component'
   ],
   bootstrap: [ AppComponent ],
 })
-export class AppBrowserModule
+export class BrowserModule
 { }

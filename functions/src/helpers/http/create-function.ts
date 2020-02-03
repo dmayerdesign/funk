@@ -1,35 +1,12 @@
-import createApp from '@funk/functions/helpers/http/create-app'
-import handleRequest, { RequestHandler, ResponseTypes } from '@funk/functions/helpers/http/handle-request'
+import { Application } from 'express'
 import { https, HttpsFunction } from 'firebase-functions'
 
-export const construct = <
-  ResponseType extends ResponseTypes = undefined,
-  RequestBodyType = any
-  >() =>
+export const construct = () =>
   {
-    return function(
-      ...handlers: [RequestHandler<ResponseType>, ...RequestHandler<ResponseType>[]]
-    ): HttpsFunction
+    return function(app: Application): HttpsFunction
     {
-      const _handlers = [ ...handlers ]
-      const handler = _handlers.pop()!
-      const middlewares = _handlers
-      return https.onRequest(createApp().post('/',
-        ...middlewares,
-        handleRequest<ResponseType, RequestBodyType>(handler)
-      ))
+      return https.onRequest(app)
     }
   }
 
-export default function<
-  ResponseType extends ResponseTypes = undefined,
-  RequestBodyType = any,
-  >(
-  ...handlers: [
-    RequestHandler<ResponseType, RequestBodyType>,
-    ...RequestHandler<ResponseType, RequestBodyType>[],
-  ]
-): HttpsFunction
-{
-  return construct<ResponseType, RequestBodyType>()(...handlers)
-}
+export default construct()

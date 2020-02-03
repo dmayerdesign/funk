@@ -3,9 +3,9 @@ import { AvataxResponse } from '@funk/model/commerce/tax-rate/avatax-response'
 import { EncryptedSecret } from '@funk/model/secret/encrypted-secret'
 import { TAX_SERVICE_PROVIDER_SECRET_KEY } from '@funk/model/secret/keys'
 import { store } from '@funk/plugins/db/store'
-import getTaxRateForPostalCode, { Input, Output } from
-  '@funk/plugins/tax/actions/get-tax-rate-for-postal-code'
 import axios, { AxiosResponse } from 'axios'
+import getTaxRateForPostalCode, { Input, Output } from
+  '../../../interface/tax/actions/get-tax-rate-for-postal-code'
 
 const getTaxRateForPostalCodeImpl: typeof getTaxRateForPostalCode =
   async function({ postalCode }: Input): Output

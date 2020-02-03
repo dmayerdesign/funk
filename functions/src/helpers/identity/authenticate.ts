@@ -24,6 +24,7 @@ export default async function(
     const encodedIdToken = getEncodedIdTokenOrThrow()
     const decodedIdToken = await authAdmin().verifyIdToken(encodedIdToken)
     request.user = decodedIdToken
+    console.log('ID token verified.')
     return next()
   }
   catch (error)
@@ -39,7 +40,7 @@ export default async function(
     const authHeader = request.headers.authorization as string | undefined
     if (authHeader && authHeader.startsWith('Bearer '))
     {
-      console.log(`Found "Authorization" header.`)
+      console.log(`Found "Authorization" header!`)
       return authHeader.split('Bearer ')[1]
     }
     else if (request.cookies && request.cookies.__session)

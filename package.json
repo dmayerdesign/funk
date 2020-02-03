@@ -45,7 +45,7 @@
     "@google-cloud/kms": "1.5.3",
     "axios": "^0.19.0",
     "cookie-parser": "~1.4.4",
-    "core-js": "^3.4.2",
+    "core-js": "3.6.4",
     "diff-json": "2.0.0",
     "express": "~5.0.0-alpha.7",
     "firebase": "~7.5.0",

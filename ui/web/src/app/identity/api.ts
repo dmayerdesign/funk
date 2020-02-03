@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore } from '@angular/fire/firestore'
+import loudlyLog from '@funk/helpers/loudly-log'
 import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
 import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
@@ -50,13 +51,12 @@ export class IdentityApi implements ModuleApi
     this._auth.authState
       .pipe(
         switchMap((userOrNull) => userOrNull === null
-          ? this._auth.auth.signInAnonymously()
+          ? this._auth.auth.signInAnonymously().then(({ user }) => user)
           : of(userOrNull)),
+        ignoreNullish(),
       )
       .subscribe(
-        () => this._auth.auth.currentUser!.getIdToken(true).then(
-          (value) => console.log(value),
-        ),
+        (user) => loudlyLog('user', user)
       )
   }
 

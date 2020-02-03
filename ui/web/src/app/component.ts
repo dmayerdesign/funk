@@ -14,7 +14,6 @@ import { environment } from '@funk/ui/web/environments/environment'
       <mat-sidenav-content>
         <!--in here all the content must reside. We will add a navigation header as well-->
         <div fxLayout="row">
-          <button (click)="router.navigate(['/shop', 'home'])">Sign in</button>
           <button (click)="signOut()">Sign out</button>
         </div>
         <main>
@@ -44,14 +43,6 @@ export class AppComponent implements OnInit
     {
       setTimeout(() => this._ngZone.run(() => setUpDevTools()))
     }
-  }
-
-  public async createUser(): Promise<void>
-  {
-    await this._identityApi.createUserWithEmailAndPassword(
-      `test_${Date.now()}@sharklasers.com`,
-      'Tester01!'
-    )
   }
 
   public async signOut(): Promise<void>

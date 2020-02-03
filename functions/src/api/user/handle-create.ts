@@ -1,4 +1,5 @@
 import { CLOUD_PROJECT_ID } from '@funk/config'
+import loudlyLog from '@funk/helpers/loudly-log'
 import { UserRole } from '@funk/model/auth/user-role'
 import createOrderForCustomer from '@funk/model/commerce/order/actions/create-order-for-customer'
 import { ORDERS } from '@funk/model/commerce/order/order'
@@ -9,6 +10,8 @@ import { Firestore } from '@google-cloud/firestore'
 
 export default authEvents().user().onCreate(async function(user): Promise<any>
 {
+  loudlyLog('user', user)
+
   await authAdmin().setCustomUserClaims(user.uid, { role: UserRole.ANONYMOUS })
 
   if (user.email)

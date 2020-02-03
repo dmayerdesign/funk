@@ -1,31 +1,36 @@
 const { camelCase } = require('lodash')
-const { basename, dirname, resolve } = require('path')
+const { resolve } = require('path')
 const recursiveReaddir = require('recursive-readdir-sync')
 
-const FUNCTIONS_FOLDER = './functions/src/api'
 require('./functions/src/bootstrap')
 
-recursiveReaddir(resolve(__dirname, FUNCTIONS_FOLDER)).forEach((file) =>
-{
-  if (file.endsWith('.js')
-     && !file.endsWith('index.js')
-     && !file.match(/(\/|\.)spec.[jt]s/gi)) {
+const API_PATH_RELATIVE = './functions/src/api'
+const API_PATH_ABSOLUTE = resolve(__dirname, API_PATH_RELATIVE)
+const functionNameFromEnv = process.env.FUNCTION_NAME
 
-    const fileBaseName = basename(file)
-    const fileBaseNameSansExt = fileBaseName.substring(0, fileBaseName.length - 3)
-    let filePathFromApi = file.split('/api/')[1]
-    let fileDirname = dirname(file).split('/').pop()
-    if (fileDirname === 'api')
-    {
-      fileDirname = ''
-    }
+recursiveReaddir(API_PATH_ABSOLUTE).forEach((file) =>
+{
+  console.log('---------------------------------')
+  console.log('1 - filename:', file)
+  console.log('2 - process.env.FUNCTION_NAME', functionNameFromEnv)
+  if (
+    (!functionNameFromEnv || functionNameFromEnv === functionName)
+    && file.endsWith('.js')
+    && !file.endsWith('index.js')
+    && !file.match(/(\/|\.)spec\.(js|ts)/gi)) {
+
+    const filePathFromParentDir = file.split(API_PATH_ABSOLUTE)[1] || ''
+    const filePathFromParentDirSansExt = filePathFromParentDir.substring(
+      0,
+      filePathFromParentDir.lastIndexOf('.')
+    )
     const functionName = camelCase(
-      `${fileDirname ? fileDirname + '-' : ''}${fileBaseNameSansExt}`
+      filePathFromParentDirSansExt
     )
 
-    if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === functionName)
-    {
-      exports[functionName] = require(`${FUNCTIONS_FOLDER}/${filePathFromApi}`).default
-    }
+    console.log('3 - fn name', functionName)
+    console.log('4 - api path', filePathFromParentDir)
+
+    exports[functionName] = require(`${API_PATH_ABSOLUTE}/${filePathFromParentDir}`).default
   }
 })

@@ -102,7 +102,17 @@ export class AdminContainer
   public async grantSuperRole(): Promise<void>
   {
     await this._httpClient
-      .post(`${environment.functionsUrl}/adminGrantSuperRole`, {})
+      .post<string>(
+        `${environment.functionsUrl}/adminGrantSuperRoleToMe`,
+        {},
+        {
+          headers: {
+            authorization: await this._identityApi.userIdToken$
+              .pipe(map((token) => `Bearer ${token}`), first())
+              .toPromise(),
+          },
+        },
+      )
       .toPromise()
   }
 }

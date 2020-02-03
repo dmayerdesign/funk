@@ -7,7 +7,14 @@ export default function(message: string, ...data: any[]): void
     data.forEach((toLog) =>
     {
       console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
-      console.log(`${toLog}`)
+      try
+      {
+        console.log(JSON.stringify(toLog))
+      }
+      catch
+      {
+        console.log(`${toLog}`)
+      }
     })
   }
   console.log('==============================')

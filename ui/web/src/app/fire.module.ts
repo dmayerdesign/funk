@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { ModuleWithProviders, NgModule } from '@angular/core'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore'
@@ -15,10 +15,17 @@ import { environment } from '@funk/ui/web/environments/environment'
     AngularFireAuthModule,
     AngularFirestoreModule,
   ],
-  providers: [
-    AngularFirestore,
-    AngularFireAuth,
-  ],
 })
 export class AppFireModule
-{ }
+{
+  public static withProviders(): ModuleWithProviders
+  {
+    return {
+      ngModule: AppFireModule,
+      providers: [
+        AngularFirestore,
+        AngularFireAuth,
+      ],
+    }
+  }
+}

@@ -8,4 +8,5 @@ export const enum RequestMethod
   HEAD = 'HEAD',
   JSONP = 'JSONP',
   OPTIONS = 'OPTIONS',
+  UNDEFINED = 'UNDEFINED',
 }
