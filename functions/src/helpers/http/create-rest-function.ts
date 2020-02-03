@@ -14,13 +14,12 @@ export interface CrudHandlerMap
   update?: RequestHandlers
   delete?: RequestHandlers
   upsertMany?: RequestHandlers
-  help?: RequestHandlers
 }
 
 export type CrudMethod = keyof CrudHandlerMap
 
 export const construct = <
-  ResponseType extends HandlerReturnTypes = HandlerReturnTypes,
+  LastHandlerReturnType extends HandlerReturnTypes = HandlerReturnTypes,
   RequestBodyType = any
 >() =>
 {
@@ -43,7 +42,7 @@ export const construct = <
       (app[requestMethodFnName] as IRouterMatcher<any>)(
         getPathForCrudMethod(crudMethod),
         ...middlewares,
-        handleRequest<ResponseType, RequestBodyType>(handler),
+        handleRequest<LastHandlerReturnType, RequestBodyType>(handler),
       )
     })
 
@@ -66,8 +65,6 @@ function getRequestMethodForCrudMethod(crudMethod: CrudMethod): RequestMethod
       return RequestMethod.DELETE
     case 'upsertMany':
       return RequestMethod.PATCH
-    case 'help':
-      return RequestMethod.OPTIONS
     default:
       return RequestMethod.UNDEFINED
   }
@@ -85,9 +82,9 @@ function getPathForCrudMethod(crudMethod: CrudMethod): string
 }
 
 export default function<
-  ResponseType extends HandlerReturnTypes = HandlerReturnTypes,
+  LastHandlerReturnType extends HandlerReturnTypes = HandlerReturnTypes,
   RequestBodyType = any,
 >(handlerMap: CrudHandlerMap): HttpsFunction
 {
-  return construct<ResponseType, RequestBodyType>()(handlerMap)
+  return construct<LastHandlerReturnType, RequestBodyType>()(handlerMap)
 }

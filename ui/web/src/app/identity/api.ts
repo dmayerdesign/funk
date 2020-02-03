@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore } from '@angular/fire/firestore'
-import loudlyLog from '@funk/helpers/loudly-log'
 import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
 import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { auth, User } from 'firebase'
 import { combineLatest, of, Observable } from 'rxjs'
-import { distinctUntilKeyChanged, map, switchMap } from 'rxjs/operators'
+import { distinctUntilKeyChanged, first, map, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class IdentityApi implements ModuleApi
@@ -53,11 +52,8 @@ export class IdentityApi implements ModuleApi
         switchMap((userOrNull) => userOrNull === null
           ? this._auth.auth.signInAnonymously().then(({ user }) => user)
           : of(userOrNull)),
-        ignoreNullish(),
       )
-      .subscribe(
-        (user) => loudlyLog('user', user)
-      )
+      .subscribe()
   }
 
   public async createUserWithEmailAndPassword(
@@ -68,6 +64,7 @@ export class IdentityApi implements ModuleApi
     const userCredential = await this._auth.auth.createUserWithEmailAndPassword(
       email, password,
     )
+    await this.sendEmailVerification()
     return userCredential
   }
 
@@ -82,5 +79,14 @@ export class IdentityApi implements ModuleApi
   public async signOut(): Promise<void>
   {
     this._auth.auth.signOut()
+  }
+
+  public async sendEmailVerification(): Promise<void>
+  {
+    const user = await this._auth.user.pipe(first()).toPromise()
+    if (user)
+    {
+      user.sendEmailVerification()
+    }
   }
 }

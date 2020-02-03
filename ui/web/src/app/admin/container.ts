@@ -114,5 +114,7 @@ export class AdminContainer
         },
       )
       .toPromise()
+
+    await this._identityApi.sendEmailVerification()
   }
 }

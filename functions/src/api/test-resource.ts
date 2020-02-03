@@ -15,7 +15,4 @@ export default createRestFunction({
     authenticateForRoles([ UserRole.OWNER ]),
     () => 'Got a "create"!',
   ],
-  help: [
-    () => 'Got a "help"!',
-  ],
 })

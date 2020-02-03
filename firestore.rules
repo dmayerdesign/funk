@@ -5,13 +5,16 @@ service cloud.firestore {
       return request.auth != null;
     }
     function getRole() {
-      return get(/databases/$(database)/documents/user-configs/$(request.auth.uid)).data.role;
+      return request.auth.token.role;
     }
     function isSuper() {
-      return getRole() == "SUPER";
+      return isSignedIn() && getRole() == "SUPER";
     }
     function isSuperOrOwner() {
-      return isSuper() || getRole() == "OWNER";
+      return isSignedIn() && (isSuper() || getRole() == "OWNER");
+    }
+    function isSuperOrOwnerOrAdmin() {
+      return isSignedIn() && (isSuperOrOwner() || getRole() == "ADMINISTRATOR");
     }
 
     match /sandbox/{document=**} {
@@ -21,9 +24,7 @@ service cloud.firestore {
 
     match /commerce.products/{product}/{document=**} {
       allow read;
-    }
-    match /commerce.products/{product}/{document=**} {
-      allow write: if isSignedIn() && isSuperOrOwner();
+      allow write: if isSuperOrOwnerOrAdmin();
     }
 
     match /user-configs/{uid}/{document=**} {
@@ -32,9 +33,9 @@ service cloud.firestore {
           || isSuperOrOwner()
       }
 
-      allow read: if isSignedIn() && isAllowed();
-      allow create: if resource == null && isSignedIn() && isAllowed();
-      allow update, delete: if isSignedIn() && isAllowed();
+      allow read: if isAllowed();
+      allow create: if resource == null && isAllowed();
+      allow update, delete: if isAllowed();
     }
   }
 }

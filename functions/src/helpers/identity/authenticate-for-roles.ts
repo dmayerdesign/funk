@@ -3,6 +3,7 @@ import { AuthenticatedRequest } from
   '@funk/functions/model/request-response/authenticated-request'
 import { AuthenticationRequest } from
   '@funk/functions/model/request-response/authentication-request'
+import getVerifiedRole from '@funk/model/auth/actions/get-verified-role'
 import { CustomClaims } from '@funk/model/auth/custom-claims'
 import { UserRole } from '@funk/model/auth/user-role'
 import { StatusCode, StatusCodeMessage } from '@funk/model/http/status-code'
@@ -32,9 +33,8 @@ export default function(roles: UserRole[]): RequestHandler
         const { uid } = (request as AuthenticatedRequest).user
         const user = await authAdmin().getUser(uid)
         const claims = user.customClaims as CustomClaims | undefined
-        console.log('Got claims for user.', JSON.stringify(claims))
 
-        if (claims && claims.role && roles.some((role) => claims.role === role))
+        if (roles.some((role) => getVerifiedRole(user, claims) === role))
         {
           return next()
         }

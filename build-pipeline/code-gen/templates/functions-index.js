@@ -10,14 +10,11 @@ const functionNameFromEnv = process.env.FUNCTION_NAME
 
 recursiveReaddir(API_PATH_ABSOLUTE).forEach((file) =>
 {
-  console.log('---------------------------------')
-  console.log('1 - filename:', file)
-  console.log('2 - process.env.FUNCTION_NAME', functionNameFromEnv)
   if (
     (!functionNameFromEnv || functionNameFromEnv === functionName)
-    && file.endsWith('.js')
-    && !file.endsWith('index.js')
-    && !file.match(/(\/|\.)spec\.(js|ts)/gi)) {
+    && !!file.match(/\.js$/gi)
+    && !file.match(/\/index.js$/gi)
+    && !file.match(/(\/|\.)spec\.js$/gi)) {
 
     const filePathFromParentDir = file.split(API_PATH_ABSOLUTE)[1] || ''
     const filePathFromParentDirSansExt = filePathFromParentDir.substring(
@@ -27,9 +24,6 @@ recursiveReaddir(API_PATH_ABSOLUTE).forEach((file) =>
     const functionName = camelCase(
       filePathFromParentDirSansExt
     )
-
-    console.log('3 - fn name', functionName)
-    console.log('4 - api path', filePathFromParentDir)
 
     exports[functionName] = require(`${API_PATH_ABSOLUTE}/${filePathFromParentDir}`).default
   }

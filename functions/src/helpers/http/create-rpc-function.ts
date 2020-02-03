@@ -5,7 +5,7 @@ import { HttpsFunction } from '@funk/plugins/cloud-function/https-function'
 import createFunction from './create-function'
 
 export const construct = <
-  ResponseType extends HandlerReturnTypes = undefined,
+  HandlerReturnType extends HandlerReturnTypes = undefined,
   RequestBodyType = any
 >() =>
 {
@@ -18,15 +18,15 @@ export const construct = <
     const middlewares = _handlers
     return createFunction(createApp().post('/',
       ...middlewares,
-      handleRequest<ResponseType, RequestBodyType>(handler)
+      handleRequest<HandlerReturnType, RequestBodyType>(handler)
     ))
   }
 }
 
 export default function<
-  ResponseType extends HandlerReturnTypes = undefined,
+  HandlerReturnType extends HandlerReturnTypes = undefined,
   RequestBodyType = any,
 >(...handlers: RequestHandlers): HttpsFunction
 {
-  return construct<ResponseType, RequestBodyType>()(...handlers)
+  return construct<HandlerReturnType, RequestBodyType>()(...handlers)
 }
