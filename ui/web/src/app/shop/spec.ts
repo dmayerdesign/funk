@@ -1,16 +1,16 @@
-import { createDefaultShopApiStub, CART_STUB } from '@funk/ui/web/app/shop/stubs'
+import { createDefaultShopApiStub as createStubbedShopApi, CART_STUB } from '@funk/ui/web/app/shop/stubs'
 import { first } from 'rxjs/operators'
 
 describe('shop', () =>
 {
   it('should instantiate successfully', () =>
   {
-    expect(createDefaultShopApiStub()).toBeTruthy()
+    expect(createStubbedShopApi()).toBeTruthy()
   })
 
   it('should emit a cart', async (done) =>
   {
-    const api = createDefaultShopApiStub()
+    const api = createStubbedShopApi()
     expect(await api.cart$.pipe(first()).toPromise()).toEqual(CART_STUB)
     done()
   })

@@ -159,6 +159,7 @@
     "directive-class-suffix": false,
     "no-access-missing-member": true,
     "templates-use-public": true,
-    "invoke-injectable": true
+    "invoke-injectable": true,
+    "prefer-mapped-imports": true
   }
 }

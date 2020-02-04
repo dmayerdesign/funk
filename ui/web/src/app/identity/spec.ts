@@ -36,23 +36,28 @@ describe('IdentityApi', () =>
   it('should create a user', async (done) =>
   {
     const TEST_EMAIL = 'test-create-user@test.com'
-    const api = new IdentityApi(createAuthStub(), createStoreStub())
+    const authUserStub = createAuthUserStub()
+    const api = new IdentityApi(createAuthStub(authUserStub), createStoreStub())
     const userCredentialStubSerialized = JSON.stringify(
-      createUserCredentialStub(TEST_EMAIL)
+      createUserCredentialStub(authUserStub)
     )
+    spyOn(authUserStub, 'sendEmailVerification')
+
     const createUserResultSerialized = JSON.stringify(
       await api.createUserWithEmailAndPassword(TEST_EMAIL, 'test')
     )
     expect(createUserResultSerialized).toEqual(userCredentialStubSerialized)
+    expect(authUserStub.sendEmailVerification).toHaveBeenCalledTimes(1)
     done()
   })
 
   it('should sign in a user', async (done) =>
   {
     const TEST_EMAIL = 'test-create-user@test.com'
-    const api = new IdentityApi(createAuthStub(), createStoreStub())
+    const authUserStub = createAuthUserStub()
+    const api = new IdentityApi(createAuthStub(authUserStub), createStoreStub())
     const userCredentialStubSerialized = JSON.stringify(
-      createUserCredentialStub(TEST_EMAIL)
+      createUserCredentialStub(authUserStub)
     )
     const signInResultSerialized = JSON.stringify(
       await api.signInWithEmailAndPassword(TEST_EMAIL, 'test')

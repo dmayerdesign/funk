@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { AngularFirestore } from '@angular/fire/firestore'
 import createUid from '@funk/helpers/create-uid'
 import { Order, Status } from '@funk/model/commerce/order/order'
-import { createDefaultIdentityApiStub } from '@funk/ui/web/app/identity/stubs'
+import { createStubbedIdentityApi } from '@funk/ui/web/app/identity/stubs'
 import { ShopApi } from '@funk/ui/web/app/shop/api'
 import { createStateManagerStub } from '@funk/ui/web/app/stubs'
 import { of } from 'rxjs'
@@ -42,5 +42,5 @@ export const createDefaultShopApiStub = () =>
     createHttpClientStub(),
     createStateManagerStub(),
     createStoreStub(),
-    createDefaultIdentityApiStub(),
+    createStubbedIdentityApi(),
   )

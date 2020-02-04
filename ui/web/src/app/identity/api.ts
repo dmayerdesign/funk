@@ -54,6 +54,8 @@ export class IdentityApi implements ModuleApi
           : of(userOrNull)),
       )
       .subscribe()
+
+    this.userIdToken$.subscribe()
   }
 
   public async createUserWithEmailAndPassword(
