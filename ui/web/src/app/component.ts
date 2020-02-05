@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { setUpDevTools } from '@dannymayer/vex'
-import { IdentityApi } from '@funk/ui/web/app/identity/api'
+import { IdentityApi } from '@funk/ui/core/identity/api'
 import { environment } from '@funk/ui/web/environments/environment'
 
 @Component({

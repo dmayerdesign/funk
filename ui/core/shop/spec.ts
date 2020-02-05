@@ -1,4 +1,4 @@
-import { createDefaultShopApiStub as createStubbedShopApi, CART_STUB } from '@funk/ui/web/app/shop/stubs'
+import { createDefaultShopApiStub as createStubbedShopApi, CART_STUB } from '@funk/ui/core/shop/stubs'
 import { first } from 'rxjs/operators'
 
 describe('shop', () =>

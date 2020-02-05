@@ -6,18 +6,18 @@ import createDocPath from '@funk/helpers/create-doc-path'
 import { Customer } from '@funk/model/commerce/order/customer/customer'
 import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
 import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
-import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
+import { IdentityApi } from '@funk/ui/core/identity/api'
+import { ShopAction, ShopState } from '@funk/ui/core/shop/model'
+import { Initializer } from '@funk/ui/helpers/angular.helpers'
 import FirestoreCollectionSource from '@funk/ui/helpers/data-access/firestore-collection-source'
 import FirestoreDocumentSource from '@funk/ui/helpers/data-access/firestore-document-source'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
-import { IdentityApi } from '@funk/ui/web/app/identity/api'
-import { ShopAction, ShopState } from '@funk/ui/web/app/shop/model'
 import { environment } from '@funk/ui/web/environments/environment'
 import { Observable } from 'rxjs'
 import { map, scan, switchMap } from 'rxjs/operators'
 
 @Injectable()
-export class ShopApi implements ModuleApi
+export class ShopApi implements Initializer
 {
   public cart$ = this._identityApi.user$.pipe(
     ignoreNullish(),
@@ -56,10 +56,13 @@ export class ShopApi implements ModuleApi
     private _firestore: AngularFirestore,
     private _identityApi: IdentityApi,
   )
-  { }
-
-  public init(): void
   {
+    this.init()
+  }
+
+  public async init(): Promise<void>
+  {
+    console.log('init shop')
     this._manager.once({
       type: ShopAction.INIT_SHOP,
       // TODO: Get shop settings. Cache attribute values, taxonomies, etc.

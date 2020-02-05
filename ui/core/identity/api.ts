@@ -3,14 +3,14 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
 import { UserHydrated } from '@funk/model/user/user-hydrated'
-import { ModuleApi } from '@funk/ui/helpers/angular.helpers'
+import { Initializer } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { auth, User } from 'firebase'
 import { combineLatest, of, Observable } from 'rxjs'
 import { distinctUntilKeyChanged, first, map, switchMap } from 'rxjs/operators'
 
 @Injectable()
-export class IdentityApi implements ModuleApi
+export class IdentityApi implements Initializer
 {
   private _nonNullAuthUser$ = this._auth.user.pipe(ignoreNullish()) as Observable<User>
   public user$ = this._nonNullAuthUser$.pipe(
@@ -47,6 +47,7 @@ export class IdentityApi implements ModuleApi
 
   public async init(): Promise<void>
   {
+    console.log('init identity')
     this._auth.authState
       .pipe(
         switchMap((userOrNull) => userOrNull === null

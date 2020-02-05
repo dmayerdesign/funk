@@ -10,6 +10,7 @@
       "@funk/model/*": [ "../../model/*" ],
       "@funk/plugins/*": [ "../../plugins/src/*" ],
       "@funk/ui/web/*": [ "./src/*" ],
+      "@funk/ui/core/*": [ "../core/*" ],
       "@funk/ui/helpers/*": [ "../helpers/*" ]
     }
   },

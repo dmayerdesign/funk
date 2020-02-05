@@ -1,9 +1,9 @@
-import { IdentityApi } from '@funk/ui/web/app/identity/api'
+import { Initializer } from '@funk/ui/helpers/angular.helpers'
 
-export function createAppInitializer(identityApi: IdentityApi): () => Promise<void>
+export function createAppInitializer(...initializers: Initializer[]): () => Promise<void>
 {
-  return async function appInitializer(): Promise<void>
+  return async function(): Promise<void>
   {
-    await identityApi.init()
+    await Promise.all(initializers.map((initializer) => initializer.init()))
   }
 }

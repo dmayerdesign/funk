@@ -1,6 +1,6 @@
-import { IdentityApi } from '@funk/ui/web/app/identity/api'
+import { IdentityApi } from '@funk/ui/core/identity/api'
 import { createAuthStub, createAuthUserStub, createStoreStub, createUserCredentialStub,
-  createUserStub, ID_TOKEN_STUB } from '@funk/ui/web/app/identity/stubs'
+  createUserStub, ID_TOKEN_STUB } from '@funk/ui/core/identity/stubs'
 import { first } from 'rxjs/operators'
 
 describe('IdentityApi', () =>

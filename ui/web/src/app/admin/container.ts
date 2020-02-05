@@ -1,17 +1,13 @@
-import { HttpClient } from '@angular/common/http'
 import { Component } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
-import { IdentityApi } from '@funk/ui/web/app/identity/api'
-import { environment } from '@funk/ui/web/environments/environment'
-import { first, map } from 'rxjs/operators'
+import { AdminApi } from '@funk/ui/core/admin/api'
 
 @Component({
   selector: 'admin',
   template: `
     <div>
       <h1>Set secret</h1>
-      <form [formGroup]="setSecretFormGroup"
-        (ngSubmit)="setSecret()"
+      <form [formGroup]="adminApi.setSecretFormGroup"
+        (ngSubmit)="adminApi.setSecret()"
         fxLayout="row"
         fxLayoutGap="10px">
         <input type="text"
@@ -29,8 +25,8 @@ import { first, map } from 'rxjs/operators'
     </div>
     <div>
       <h1>Get secret</h1>
-      <form [formGroup]="getSecretFormGroup"
-        (ngSubmit)="getSecret()"
+      <form [formGroup]="adminApi.getSecretFormGroup"
+        (ngSubmit)="adminApi.getSecret()"
         fxLayout="row"
         fxLayoutGap="10px">
         <input type="text"
@@ -43,78 +39,16 @@ import { first, map } from 'rxjs/operators'
       </form>
     </div>
     <div>
-      <code>{{ secretShowing }}</code>
+      <code>{{ adminApi.secretShowing }}</code>
     </div>
-    <button (click)="grantSuperRole()">Grant</button>
+    <button (click)="adminApi.grantSuperRole()">Grant</button>
   `,
+  providers: [ AdminApi ],
 })
 export class AdminContainer
 {
-  public secretShowing = ''
-  public setSecretFormGroup = new FormGroup({
-    secretKey: new FormControl(),
-    secretValue: new FormControl(),
-  })
-  public getSecretFormGroup = new FormGroup({
-    secretKey: new FormControl(),
-  })
-
   constructor(
-    private _httpClient: HttpClient,
-    private _identityApi: IdentityApi,
+    public adminApi: AdminApi
   )
   { }
-
-  public async setSecret(): Promise<void>
-  {
-    await this._httpClient
-      .post(
-        `${environment.functionsUrl}/adminSetSecret`,
-        this.setSecretFormGroup.value,
-        {
-          headers: {
-            authorization: await this._identityApi.userIdToken$
-              .pipe(map((token) => `Bearer ${token}`), first())
-              .toPromise(),
-          },
-        },
-      )
-      .toPromise()
-  }
-
-  public async getSecret(): Promise<void>
-  {
-    this.secretShowing = await this._httpClient
-      .post<string>(
-        `${environment.functionsUrl}/adminGetSecret`,
-        this.getSecretFormGroup.value,
-        {
-          headers: {
-            authorization: await this._identityApi.userIdToken$
-              .pipe(map((token) => `Bearer ${token}`), first())
-              .toPromise(),
-          },
-        },
-      )
-      .toPromise()
-  }
-
-  public async grantSuperRole(): Promise<void>
-  {
-    await this._httpClient
-      .post<string>(
-        `${environment.functionsUrl}/adminGrantSuperRoleToMe`,
-        {},
-        {
-          headers: {
-            authorization: await this._identityApi.userIdToken$
-              .pipe(map((token) => `Bearer ${token}`), first())
-              .toPromise(),
-          },
-        },
-      )
-      .toPromise()
-
-    await this._identityApi.sendEmailVerification()
-  }
 }

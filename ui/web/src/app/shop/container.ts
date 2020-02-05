@@ -1,7 +1,6 @@
 import { Component } from '@angular/core'
-import { ModuleContainer } from '@funk/ui/helpers/angular.helpers'
-import { ShopApi } from '@funk/ui/web/app/shop/api'
-import { NAVBAR_HEIGHT_PX } from '@funk/ui/web/app/shop/config'
+import { ShopApi } from '@funk/ui/core/shop/api'
+import { NAVBAR_HEIGHT_PX } from '@funk/ui/core/shop/config'
 
 @Component({
   selector: 'shop',
@@ -25,12 +24,10 @@ import { NAVBAR_HEIGHT_PX } from '@funk/ui/web/app/shop/config'
     }
   `],
 })
-export class ShopContainer extends ModuleContainer
+export class ShopContainer
 {
   constructor(
     public api: ShopApi,
   )
-  {
-    super(api)
-  }
+  { }
 }

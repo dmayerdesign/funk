@@ -1,4 +1,3 @@
-import { OnDestroy, OnInit } from '@angular/core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
@@ -33,38 +32,14 @@ export const forLifeOf = <ValueType>(instance: any) =>
   // Check to make sure the class has the @MortalityAwareComponent decorator.
   const isMortalityAware = !!instance.qb__onDestroy$
 
-  if (!isMortalityAware) {
+  if (!isMortalityAware)
+  {
     throw new Error(`Tried to use forLifeOf inside ${instance.constructor.name}, which is not a @MortalityAwareComponent.`)
   }
   return takeUntil<ValueType>(instance.qb__onDestroy$)
 }
 
-export interface ModuleApi
+export interface Initializer
 {
-  init: () => any
-  destroy?: () => any
-}
-
-export abstract class ModuleContainer implements OnInit, OnDestroy
-{
-  constructor(
-    public api: ModuleApi
-  )
-  { }
-
-  public ngOnInit(): void
-  {
-    if (this.api)
-    {
-      this.api.init()
-    }
-  }
-
-  public ngOnDestroy(): void
-  {
-    if (this.api && this.api.destroy)
-    {
-      this.api.destroy()
-    }
-  }
+  init: () => Promise<any>
 }

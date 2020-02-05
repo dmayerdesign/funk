@@ -16,6 +16,7 @@
       "@funk/testing/config": [ "./config/config.development" ],
       "@funk/test/*": [ "./test/*" ],
       "@funk/ui/web/*": [ "./ui/web/src/*" ],
+      "@funk/ui/core/*": [ "./ui/core/*" ],
       "@funk/ui/helpers/*": [ "./ui/helpers/*" ]
     }
   },
