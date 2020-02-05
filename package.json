@@ -43,6 +43,7 @@
     "@angular/service-worker": "~9.0.0-rc.3",
     "@dannymayer/vex": "~0.3.3",
     "@google-cloud/kms": "1.6.2",
+    "@ionic/angular": "4.11.10",
     "axios": "^0.19.2",
     "cookie-parser": "~1.4.4",
     "core-js": "3.6.4",
@@ -100,6 +101,7 @@
     "tslint": "~6.0.0",
     "tslint-eslint-rules": "5.4.0",
     "typescript": "3.6.5",
-    "webpack-cli": "~3.3.10"
+    "webpack-cli": "~3.3.10",
+    "@ionic/angular-toolkit": "latest"
   }
 }

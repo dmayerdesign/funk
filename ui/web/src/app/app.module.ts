@@ -8,7 +8,8 @@ import { AppFireModule } from '@funk/ui/web/app/fire.module'
 import { IdentityModule } from '@funk/ui/web/app/identity/module'
 import { AppMaterialModule } from '@funk/ui/web/app/material.module'
 import { NotFoundComponent } from '@funk/ui/web/app/not-found/component'
-import routes from '@funk/ui/web/app/routes'
+import routes from '@funk/ui/web/app/routes';
+import { IonicModule } from '@ionic/angular'
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import routes from '@funk/ui/web/app/routes'
     AppMaterialModule,
     AppFireModule.withProviders(),
     IdentityModule,
+    IonicModule.forRoot(),
   ],
   declarations: [
     AppComponent,
