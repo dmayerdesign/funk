@@ -1,28 +1,14 @@
 import { Component } from '@angular/core'
 import { ShopApi } from '@funk/ui/core/shop/api'
-import { NAVBAR_HEIGHT_PX } from '@funk/ui/core/shop/config'
 
 @Component({
   selector: 'shop',
   template: `
-    <nav class="mat-elevation-z10">
-      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-      </mat-menu>
-    </nav>
+    <ion-toolbar>
+      <ion-title>Shop</ion-title>
+    </ion-toolbar>
     <router-outlet></router-outlet>
   `,
-  styles: [`
-    nav button {
-      padding-top: ${NAVBAR_HEIGHT_PX / 3}px;
-      padding-bottom: ${NAVBAR_HEIGHT_PX / 3}px;
-      line-height: ${NAVBAR_HEIGHT_PX / 3}px;
-      overflow: visible;
-      white-space: normal;
-    }
-  `],
 })
 export class ShopContainer
 {

@@ -2,29 +2,27 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from '@angular/router'
-import { AdminContainer } from '@funk/ui/web/app/admin/container'
 import { AppFireModule } from '@funk/ui/web/app/fire.module'
-import { IonicModule } from '@ionic/angular'
+import { SignUpComponent } from './component'
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminContainer,
+    component: SignUpComponent,
   },
 ]
 
 @NgModule({
   imports: [
     CommonModule,
+    AppFireModule,
     FormsModule,
     ReactiveFormsModule,
-    IonicModule,
     RouterModule.forChild(routes),
-    AppFireModule,
   ],
   declarations: [
-    AdminContainer,
+    SignUpComponent,
   ],
 })
-export class AdminModule
+export class SignUpModule
 { }

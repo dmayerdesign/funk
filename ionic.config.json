@@ -1,0 +1,11 @@
+{
+  "defaultProject": "web",
+  "projects": {
+    "ionic-web": {
+      "name": "Ionic Web App",
+      "integrations": {},
+      "type": "angular",
+      "root": "ui/ionic-web"
+    }
+  }
+}

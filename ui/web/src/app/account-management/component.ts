@@ -2,7 +2,11 @@ import { Component } from '@angular/core'
 
 @Component({
   selector: 'account-management',
-  template: `<h1>Manage Your Account</h1>`,
+  template: `
+    <ion-toolbar>
+      <ion-title>Manage Your Account</ion-title>
+    </ion-toolbar>
+  `,
 })
 export class AccountManagementComponent
 { }

@@ -28,14 +28,14 @@ service cloud.firestore {
     }
 
     match /user-configs/{uid}/{document=**} {
-      function isAllowed() {
-        return uid == request.auth.uid
+      function isIdAllowed(id) {
+        return id == request.auth.uid
           || isSuperOrOwner()
       }
 
-      allow read: if isAllowed();
-      allow create: if resource == null && isAllowed();
-      allow update, delete: if isAllowed();
+      allow read: if isIdAllowed(uid);
+      allow create: if resource == null && isIdAllowed(uid);
+      allow update, delete: if isIdAllowed(uid);
     }
   }
 }
