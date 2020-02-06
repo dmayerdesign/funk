@@ -1,21 +1,22 @@
 import createUid from '@funk/helpers/create-uid'
-import Stripe, { customers } from 'stripe'
+import Stripe from 'stripe'
+import getPaymentProvider from './get-payment-provider'
 
 export interface CreateInput
 {
   stripeApiKey: string
-  customerData: customers.ICustomerCreationOptions
+  customerData: Stripe.CustomerCreateParams
 }
 export interface UpdateInput {
   stripeApiKey: string
   id: string
-  customerData: customers.ICustomerUpdateOptions
+  customerData: Stripe.CustomerUpdateParams
 }
 export type Input = CreateInput & UpdateInput
 
 export interface Output
 {
-  customer: customers.ICustomer
+  customer: Stripe.Customer
   idempotencyKey: string
 }
 
@@ -25,9 +26,9 @@ export default async function({
   id,
 }: Input): Promise<Output>
 {
-  const stripe = new Stripe(stripeApiKey)
+  const stripe = getPaymentProvider(stripeApiKey)
   const idempotencyKey = createUid()
-  let customer: customers.ICustomer
+  let customer: Stripe.Customer
 
   if (!!id)
   {

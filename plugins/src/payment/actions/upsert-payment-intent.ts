@@ -1,6 +1,7 @@
 import createUid from '@funk/helpers/create-uid'
 import { Price } from '@funk/model/commerce/price/price'
-import Stripe, { paymentIntents } from 'stripe'
+import Stripe from 'stripe'
+import getPaymentProvider from './get-payment-provider'
 
 export interface CreateInput
 {
@@ -23,7 +24,7 @@ export type Input = CreateInput | UpdateInput
 
 export interface Output
 {
-  paymentIntent: paymentIntents.IPaymentIntent
+  paymentIntent: Stripe.PaymentIntent
   idempotencyKey: string
 }
 
@@ -31,15 +32,15 @@ export default async function(input: Input): Promise<Output>
 {
   const {
     paymentIntentId,
-    paymentSecretKey: stripeApiKey,
+    paymentSecretKey,
     price,
     customerId,
     paymentMethodId,
     savePaymentMethod,
     idempotencyKey,
   } = input as CreateInput & UpdateInput
-  const stripe = new Stripe(stripeApiKey)
-  let paymentIntent: paymentIntents.IPaymentIntent
+  const stripe = getPaymentProvider(paymentSecretKey)
+  let paymentIntent: Stripe.PaymentIntent
   let _idempotencyKey = idempotencyKey
 
   if (!!paymentIntentId)
@@ -56,7 +57,7 @@ export default async function(input: Input): Promise<Output>
         setup_future_usage: savePaymentMethod ? 'off_session' : undefined,
       },
       {
-        idempotency_key: _idempotencyKey,
+        idempotencyKey: _idempotencyKey,
       }
     )
   }

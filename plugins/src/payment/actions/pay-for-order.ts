@@ -1,6 +1,6 @@
-import { orders } from 'stripe'
+import Stripe from 'stripe'
 
 export interface Output
 {
-  order: orders.IOrder
+  order: Stripe.Order
 }
