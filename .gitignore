@@ -42,6 +42,7 @@ firebase-debug.log
 .tmp
 .cache
 /.funk/
+/.firebase/
 
 # System Files
 .DS_Store

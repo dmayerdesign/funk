@@ -22,19 +22,19 @@ service cloud.firestore {
       allow write;
     }
 
-    match /commerce.products/{product}/{document=**} {
+    match /commerce.products/{id}/{document=**} {
       allow read;
       allow write: if isSuperOrOwnerOrAdmin();
     }
 
-    match /user-configs/{uid}/{document=**} {
+    match /identity.user-configs/{uid}/{document=**} {
       function isIdAllowed(id) {
         return id == request.auth.uid
           || isSuperOrOwner()
       }
 
       allow read: if isIdAllowed(uid);
-      allow create: if resource == null && isIdAllowed(uid);
+      allow create: if request.resource == null && isIdAllowed(uid);
       allow update, delete: if isIdAllowed(uid);
     }
   }

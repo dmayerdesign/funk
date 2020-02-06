@@ -6,8 +6,8 @@ import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { Initializer } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { auth, User } from 'firebase'
-import { combineLatest, defer, of, Observable } from 'rxjs'
-import { distinctUntilKeyChanged, first, map, shareReplay, switchMap, tap } from 'rxjs/operators'
+import { combineLatest, of, Observable } from 'rxjs'
+import { distinctUntilKeyChanged, first, map, shareReplay, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class IdentityApi implements Initializer
@@ -24,22 +24,21 @@ export class IdentityApi implements Initializer
       {
         return of<UserConfig>({ id: '1', displayName: 'Guest' })
       }
-      console.log('1 ==>', user)
       return combineLatest(
-          defer(() => this._store.collection(USER_CONFIGS)
+        this._store.collection(USER_CONFIGS)
             .doc<UserConfig>(user.uid)
-            .valueChanges()),
-          user.getIdTokenResult(true),
-        )
-        .pipe(
-          map(([ userConfig, _user ]) => ({
-            ...userConfig,
-            claims: _user.claims,
-          })),
-        )
+            .valueChanges(),
+        user.getIdTokenResult(true),
+      )
+      .pipe(
+        map(([ userConfig, _user ]) => ({
+          ...userConfig,
+          claims: _user.claims,
+        })),
+        shareReplay(1),
+      )
     }),
     shareReplay(1),
-    tap(x => console.log('USER', JSON.stringify(x))),
   )
   public userIdToken$: Observable<string> = this._nonNullAuthUser$.pipe(
     switchMap((user) => user.getIdToken()),
@@ -54,31 +53,9 @@ export class IdentityApi implements Initializer
 
   public async init(): Promise<void>
   {
-    this._auth.authState
-      .pipe(
-        switchMap((userOrNull) => userOrNull === null
-          ? this._auth.auth.signInAnonymously().then(({ user }) => user)
-          : of(userOrNull)),
-      )
-      .subscribe()
-
-    // this._nonNullAuthUser$.subscribe()
     this.user$.subscribe()
     this.userIdToken$.subscribe()
-
-    const doc = this._store.collection(USER_CONFIGS).doc<UserConfig>('ArSkuvU2l8fbIphhNeyzhjSNyDx1')
-    doc.valueChanges().subscribe(x => console.log('value changed', x))
-
-    // try
-    // {
-    //   console.log(await doc.get().pipe(first()).toPromise())
-    // }
-    // catch (error)
-    // {
-    //   console.log(error)
-    // }
-    doc.valueChanges()
-      .subscribe(x => console.log('value changed', x))
+    this._signInAnonymouslyIfUserIsNull()
   }
 
   public async createUserWithEmailAndPassword(
@@ -113,5 +90,16 @@ export class IdentityApi implements Initializer
     {
       user.sendEmailVerification()
     }
+  }
+
+  private _signInAnonymouslyIfUserIsNull(): void
+  {
+    this._auth.authState
+      .pipe(
+        switchMap((userOrNull) => userOrNull === null
+          ? this._auth.auth.signInAnonymously().then(({ user }) => user)
+          : of(userOrNull)),
+      )
+      .subscribe()
   }
 }

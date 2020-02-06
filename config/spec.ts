@@ -1,11 +1,11 @@
 import { assertFails, assertSucceeds, loadFirestoreRules } from '@firebase/testing'
 import { UserRole } from '@funk/model/auth/user-role'
 import { USER_CONFIGS } from '@funk/model/user/user-config'
+import { createAdminApp, createDefaultApp, forbiddenUserUid, projectId, testOwnerUid,
+  testUserUid } from '@funk/test/test.helpers'
 import { app } from 'firebase'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-import { createAdminApp, createDefaultApp, forbiddenUserUid, projectId, testOwnerUid,
-  testUserUid } from '../test/test.helpers'
 
 describe('Firestore access control rules', () =>
 {
