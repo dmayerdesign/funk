@@ -4,7 +4,10 @@ import { map } from 'rxjs/operators'
 
 // TODO: Convert to an overload signature.
 export function mapResultToState<StateType>(slice?: keyof StateType):
-  UnaryFunction<Observable<ActionResult<StateType>>, Observable<StateType & StateType[keyof StateType]>>
+  UnaryFunction<
+    Observable<ActionResult<StateType>>,
+    Observable<StateType & StateType[keyof StateType]>
+  >
 {
   return pipe(
     map(({ state }) => !!slice ? state[slice] : state),

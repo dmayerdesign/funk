@@ -22,6 +22,10 @@ export default function(input: Input): Output
   const skus = order.skus
   const activeDiscounts = order.discounts
 
+  if (!skus || !skus.length)
+  {
+    return Promise.resolve(NULL_PRICE)
+  }
   return zip(
     from(skus).pipe(
       switchMap(async (sku) =>

@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core'
+import { Injectable, OnDestroy } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
 import { UserHydrated } from '@funk/model/user/user-hydrated'
-import { Initializer } from '@funk/ui/helpers/angular.helpers'
+import { forLifeOf, Initializer, MortalityAware } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { auth, User } from 'firebase'
 import { combineLatest, of, Observable } from 'rxjs'
 import { distinctUntilKeyChanged, first, map, shareReplay, switchMap } from 'rxjs/operators'
 
+@MortalityAware()
 @Injectable()
-export class IdentityApi implements Initializer
+export class IdentityApi implements Initializer, OnDestroy
 {
   private _nonNullAuthUser$ = this._auth.user.pipe(
     ignoreNullish(),
@@ -50,6 +51,8 @@ export class IdentityApi implements Initializer
     private _store: AngularFirestore,
   )
   { }
+
+  public ngOnDestroy(): void { }
 
   public async init(): Promise<void>
   {
@@ -96,6 +99,7 @@ export class IdentityApi implements Initializer
   {
     this._auth.authState
       .pipe(
+        forLifeOf(this),
         switchMap((userOrNull) => userOrNull === null
           ? this._auth.auth.signInAnonymously().then(({ user }) => user)
           : of(userOrNull)),
