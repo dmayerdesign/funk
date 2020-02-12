@@ -25,6 +25,7 @@ const { configToJson } = require('../../config/helpers/config-to-json')
   // - set app secrets
   //   - avalara api key (see https://admin.avalara.com)
   // - initial deploy
+  // - npm i -g cordova
 
   exec(`
     # Install.

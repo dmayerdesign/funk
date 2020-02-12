@@ -44,8 +44,10 @@
     "@dannymayer/vex": "~0.3.3",
     "@google-cloud/kms": "~1.6.2",
     "@ionic/angular": "~4.11.10",
+    "@ionic/storage": "2.2.0",
     "axios": "^0.19.2",
     "cookie-parser": "~1.4.4",
+    "cordova-sqlite-storage": "4.0.0",
     "core-js": "~3.6.4",
     "diff-json": "~2.0.0",
     "express": "~5.0.0-alpha.7",
@@ -103,5 +105,10 @@
     "typescript": "~3.6.5",
     "webpack-cli": "~3.3.10",
     "@ionic/angular-toolkit": "latest"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-sqlite-storage": {}
+    }
   }
 }

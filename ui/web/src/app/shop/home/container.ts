@@ -2,7 +2,6 @@ import { Component } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { Address } from '@funk/model/address/address'
 import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
-import { first } from 'rxjs/operators'
 
 @Component({
   template: `
@@ -29,8 +28,11 @@ import { first } from 'rxjs/operators'
     </ion-content>
     -->
 
-    <h3>Home</h3>
-    <button (click)="seedOrder()">Seed order</button>
+    <ion-text>
+      <h3>Home</h3>
+    </ion-text>
+    <ion-button (click)="seedOrder()">Seed order</ion-button>
+    <ion-button (click)="seedOrder()">Seed order</ion-button>
   `,
 })
 export class HomeContainer
@@ -40,14 +42,15 @@ export class HomeContainer
   )
   { }
 
+  public async updateCart(): Promise<void>
+  {
+  }
+
   public async seedOrder(): Promise<void>
   {
-    this._firestore.collection(ORDERS).valueChanges()
-      .pipe(first())
-      .subscribe(console.log)
-
-    await this._firestore.doc(`${ORDERS}/1`).set({
-      id: '1',
+    const id = Date.now().toString()
+    await this._firestore.doc(`${ORDERS}/${id}`).set({
+      id,
       customer: {
         id: 'test-customer',
         email: '',

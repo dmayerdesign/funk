@@ -17,13 +17,13 @@ export class IdentityApi implements Initializer, OnDestroy
     ignoreNullish(),
     shareReplay(1),
   )
-  public user$ = this._nonNullAuthUser$.pipe(
+  public user$: Observable<UserHydrated> = this._nonNullAuthUser$.pipe(
     distinctUntilKeyChanged('uid'),
     switchMap<User, Observable<UserHydrated>>((user) =>
     {
       if (user.isAnonymous)
       {
-        return of<UserConfig>({ id: '1', displayName: 'Guest' })
+        return of<UserConfig>({ id: user.uid, displayName: 'Guest' })
       }
       return combineLatest(
         this._store.collection(USER_CONFIGS)

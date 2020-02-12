@@ -12,7 +12,7 @@
       "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
-      "@funk/plugins/*": [ "./plugins/src/*" ],
+      "@funk/plugins/*": [ "./funk-plugins/src/*" ],
       "@funk/testing/config": [ "./config/config.development" ],
       "@funk/test/*": [ "./test/*" ],
       "@funk/ui/web/*": [ "./ui/web/src/*" ],

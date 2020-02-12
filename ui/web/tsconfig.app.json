@@ -8,7 +8,7 @@
       "@funk/copy/*": [ "../../copy/*" ],
       "@funk/helpers/*": [ "../../helpers/*" ],
       "@funk/model/*": [ "../../model/*" ],
-      "@funk/plugins/*": [ "../../plugins/src/*" ],
+      "@funk/plugins/*": [ "../../funk-plugins/src/*" ],
       "@funk/ui/web/*": [ "./src/*" ],
       "@funk/ui/core/*": [ "../core/*" ],
       "@funk/ui/helpers/*": [ "../helpers/*" ]

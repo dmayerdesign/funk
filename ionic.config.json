@@ -3,9 +3,11 @@
   "projects": {
     "web": {
       "name": "Ionic Web App",
-      "integrations": {},
+      "integrations": {
+        "cordova": {}
+      },
       "type": "angular",
-      "root": "ui/web"
+      "root": ""
     }
   }
 }
