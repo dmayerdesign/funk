@@ -1,8 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
-import { AngularFirestore } from '@angular/fire/firestore'
+import { CustomClaims } from '@funk/model/auth/custom-claims'
+import roleHasAdminPrivilegeOrGreater from '@funk/model/auth/helpers/role-has-admin-privilege-or-greater'
 import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
 import { UserHydrated } from '@funk/model/user/user-hydrated'
+import { StoreApi } from '@funk/ui/core/store/api'
 import { forLifeOf, Initializer, MortalityAware } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { auth, User } from 'firebase'
@@ -26,15 +28,13 @@ export class IdentityApi implements Initializer, OnDestroy
         return of<UserConfig>({ id: user.uid, displayName: 'Guest' })
       }
       return combineLatest(
-        this._store.collection(USER_CONFIGS)
-            .doc<UserConfig>(user.uid)
-            .valueChanges(),
+        this._store.getDocumentValueChanges<UserConfig>(USER_CONFIGS, user.uid),
         user.getIdTokenResult(true),
       )
       .pipe(
         map(([ userConfig, _user ]) => ({
-          ...userConfig,
-          claims: _user.claims,
+          ...(userConfig || {}),
+          claims: _user.claims as CustomClaims,
         })),
         shareReplay(1),
       )
@@ -45,10 +45,16 @@ export class IdentityApi implements Initializer, OnDestroy
     switchMap((user) => user.getIdToken()),
     shareReplay(1),
   )
+  public userRole$ = this.user$.pipe(
+    map(({ claims }) => claims && claims.role),
+  )
+  public hasAdminPrivilegeOrGreater$ = this.userRole$.pipe(
+    map((role) => role && roleHasAdminPrivilegeOrGreater(role)),
+  )
 
   constructor(
     private _auth: AngularFireAuth,
-    private _store: AngularFirestore,
+    private _store: StoreApi,
   )
   { }
 

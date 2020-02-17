@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core'
-import { Order, ORDERS } from '@funk/model/commerce/order/order'
+import { AngularFirestore } from '@angular/fire/firestore'
+import createOrderForCustomer
+  from '@funk/model/commerce/order/actions/create-order-for-customer'
+import { ORDERS } from '@funk/model/commerce/order/order'
 import { UserHydrated } from '@funk/model/user/user-hydrated'
 import { DeviceStorageApi } from '@funk/ui/core/device-storage/api'
 
@@ -7,12 +10,13 @@ import { DeviceStorageApi } from '@funk/ui/core/device-storage/api'
 export class OrderApi
 {
   constructor(
-    private _deviceStorageApi: DeviceStorageApi
+    private _deviceStorageApi: DeviceStorageApi,
+    private _store: AngularFirestore
   ) { }
 
   public createOrderForUser({ email, id }: UserHydrated): void
   {
-    const order = {} as Order
+    const order = createOrderForCustomer({ email, userId: id })
 
     if (!email)
     {
@@ -20,7 +24,9 @@ export class OrderApi
     }
     else
     {
-      console.log('should persist the order to the database')
+      this._store.collection(ORDERS)
+        .doc(order.id)
+        .set(order)
     }
   }
 }

@@ -1,5 +1,4 @@
 import { AngularFireAuth } from '@angular/fire/auth'
-import { AngularFirestore } from '@angular/fire/firestore'
 import { Router, UrlTree } from '@angular/router'
 import createUid from '@funk/helpers/create-uid'
 import { UserRole } from '@funk/model/auth/user-role'
@@ -8,6 +7,7 @@ import { IdentityApi } from '@funk/ui/core/identity/api'
 import { auth, User } from 'firebase'
 import { of, BehaviorSubject } from 'rxjs'
 import { shareReplay } from 'rxjs/operators'
+import { StoreApi } from '../store/api'
 import { AdministratorGuard } from './administrator-guard'
 import { AnonymousGuard } from './anonymous-guard'
 
@@ -60,13 +60,9 @@ export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
 }) as unknown as AngularFireAuth
 
 export const createStoreStub = (email = 'test@test.com') => ({
-  collection: (..._collectionArgs: any[]) => ({
-    doc: (..._docArgs: any[]) => ({
-      valueChanges: (..._valueChangesArgs: any[]) => of(createUserConfigStub(email))
-        .pipe(shareReplay(1)),
-    }),
-  }),
-}) as AngularFirestore
+  getDocumentValueChanges: (..._valueChangesArgs: any[]) => of(createUserConfigStub(email))
+    .pipe(shareReplay(1)),
+}) as StoreApi
 
 export const createStubbedIdentityApi = () =>
   new IdentityApi(createAuthStub(), createStoreStub())
