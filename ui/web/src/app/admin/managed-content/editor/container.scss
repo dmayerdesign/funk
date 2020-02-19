@@ -1,0 +1,60 @@
+$animation-duration: 500ms;
+$drawer-height: 200px;
+
+@mixin animate-in-out($height: 200px) {
+  @keyframes animate-in {
+    from {
+      transform: translateY($height);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes animate-out {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY($height);
+    }
+  }
+
+  .animate-in,
+  .animate-out {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: $height;
+  }
+
+  .animate-in {
+    animation: animate-in $animation-duration cubic-bezier(0, 0.6, 0.2, 1);
+  }
+  .animate-out {
+    animation: animate-out $animation-duration cubic-bezier(0.3, 0.8, 0.3, 1);
+    transform: translateY($height);
+  }
+}
+
+@include animate-in-out($drawer-height);
+
+ion-card {
+  margin: 0;
+  transform: translateY(10px);
+  padding-bottom: 10px;
+  width: 100%;
+  height: $drawer-height;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    height: $drawer-height;
+
+    .drawer-card-actions {
+      display: flex;
+      padding: 10px;
+      justify-content: flex-start;
+    }
+  }
+}

@@ -7,15 +7,14 @@ import { environment } from '@funk/ui/web/environments/environment'
 @Component({
   selector: 'app-root',
   template: `
-    <main>
+    <main class="admin-edit-mode-is-on">
       <router-outlet></router-outlet>
+      <managed-content-editor></managed-content-editor>
     </main>
   `,
 })
 export class AppComponent implements OnInit
 {
-  public title = 'web'
-
   constructor(
     private _ngZone: NgZone,
     private _identityApi: IdentityApi,

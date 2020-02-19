@@ -22,6 +22,11 @@ service cloud.firestore {
       allow write;
     }
 
+    match /admin.contents/{document=**} {
+      allow read;
+      allow write: if isSuperOrOwnerOrAdmin();
+    }
+
     match /commerce.products/{id}/{document=**} {
       allow read;
       allow write: if isSuperOrOwnerOrAdmin();

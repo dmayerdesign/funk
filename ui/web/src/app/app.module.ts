@@ -11,6 +11,7 @@ import { NotFoundComponent } from '@funk/ui/web/app/not-found/component'
 import routes from '@funk/ui/web/app/routes'
 import { IonicModule } from '@ionic/angular'
 import { IonicStorageModule } from '@ionic/storage'
+import { ManagedContentModule } from './admin/managed-content/module'
 import { IonicDeviceStorageApi } from './device-storage/api'
 
 @NgModule({
@@ -22,6 +23,7 @@ import { IonicDeviceStorageApi } from './device-storage/api'
     IonicStorageModule.forRoot(),
     AppFireModule.withProviders(),
     IdentityModule,
+    ManagedContentModule.withProviders(),
   ],
   declarations: [
     AppComponent,

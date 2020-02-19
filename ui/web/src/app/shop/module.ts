@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { VexModule } from '@dannymayer/vex'
 import { ShopApi } from '@funk/ui/core/shop/api'
 import { ShopState } from '@funk/ui/core/shop/model'
+import { ManagedContentModule } from '@funk/ui/web/app/admin/managed-content/module'
 import { AppFireModule } from '@funk/ui/web/app/fire.module'
 import { ShopContainer } from '@funk/ui/web/app/shop/container'
 import { HomeContainer } from '@funk/ui/web/app/shop/home/container'
@@ -40,6 +41,7 @@ export const shopInitialState: ShopState = {
     IonicModule,
     AppFireModule,
     VexModule.forRoot<ShopState>(shopInitialState),
+    ManagedContentModule,
   ],
   declarations: [
     ShopContainer,

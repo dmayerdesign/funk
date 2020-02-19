@@ -4,6 +4,12 @@ import { NotFoundComponent } from '@funk/ui/web/app/not-found/component'
 
 const routes: Routes = [
   {
+    path: 'sink',
+    loadChildren: () => import('@funk/ui/web/app/kitchen-sink/module')
+      .then((mod) => mod.KitchenSinkModule),
+    canActivate: [ AnonymousGuard ],
+  },
+  {
     path: 'admin',
     loadChildren: () => import('@funk/ui/web/app/admin/module')
       .then((mod) => mod.AdminModule),
@@ -27,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/shop',
+    redirectTo: '/sign-up',
     pathMatch: 'full',
   },
   {

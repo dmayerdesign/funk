@@ -14,7 +14,7 @@ export class AppErrorHandler implements ErrorHandler
       this._toastController.create({
         message: presentableMessage,
         duration: 5000,
-        closeButtonText: 'Got it',
+        // closeButtonText: 'Got it',
         color: 'danger',
       })
     }
