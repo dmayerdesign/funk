@@ -7,6 +7,7 @@ import { ShopApi } from '@funk/ui/core/shop/api'
 import { ShopState } from '@funk/ui/core/shop/model'
 import { ManagedContentModule } from '@funk/ui/web/app/admin/managed-content/module'
 import { AppFireModule } from '@funk/ui/web/app/fire.module'
+import { createModuleInitializer, INITIALIZE_CONTAINER } from '@funk/ui/web/app/initializer'
 import { ShopContainer } from '@funk/ui/web/app/shop/container'
 import { HomeContainer } from '@funk/ui/web/app/shop/home/container'
 import { IonicModule } from '@ionic/angular'
@@ -49,6 +50,11 @@ export const shopInitialState: ShopState = {
   ],
   providers: [
     ShopApi,
+    {
+      provide: INITIALIZE_CONTAINER,
+      useFactory: createModuleInitializer,
+      deps: [ ShopApi ],
+    },
   ],
 })
 export class ShopModule

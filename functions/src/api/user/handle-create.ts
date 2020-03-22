@@ -1,6 +1,6 @@
 import loudlyLog from '@funk/helpers/loudly-log'
 import { UserRole } from '@funk/model/auth/user-role'
-import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
+import { UserConfig, USER_CONFIGS } from '@funk/model/identity/user-config'
 import { authAdmin } from '@funk/plugins/auth/auth-admin'
 import { authEvents } from '@funk/plugins/auth/auth-events'
 import { store } from '@funk/plugins/db/store'

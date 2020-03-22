@@ -1,19 +1,20 @@
-import { Injectable, OnDestroy } from '@angular/core'
+import { Inject, Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { CustomClaims } from '@funk/model/auth/custom-claims'
 import roleHasAdminPrivilegeOrGreater from '@funk/model/auth/helpers/role-has-admin-privilege-or-greater'
-import { UserConfig, USER_CONFIGS } from '@funk/model/user/user-config'
-import { UserHydrated } from '@funk/model/user/user-hydrated'
-import { StoreApi } from '@funk/ui/core/store/api'
-import { forLifeOf, Initializer, MortalityAware } from '@funk/ui/helpers/angular.helpers'
+import { UserConfig, USER_CONFIGS } from '@funk/model/identity/user-config'
+import { UserHydrated } from '@funk/model/identity/user-hydrated'
+import { UserState, USER_STATES } from '@funk/model/identity/user-state'
+import { Identity } from '@funk/ui/core/identity/interface'
+import { PersistenceApi } from '@funk/ui/core/persistence/api'
+import { Persistence } from '@funk/ui/core/persistence/interface'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { auth, User } from 'firebase'
 import { combineLatest, of, Observable } from 'rxjs'
 import { distinctUntilKeyChanged, first, map, shareReplay, switchMap } from 'rxjs/operators'
 
-@MortalityAware()
-@Injectable()
-export class IdentityApi implements Initializer, OnDestroy
+@Injectable({ providedIn: 'root' })
+export class IdentityApi implements Identity
 {
   private _nonNullAuthUser$ = this._auth.user.pipe(
     ignoreNullish(),
@@ -28,18 +29,22 @@ export class IdentityApi implements Initializer, OnDestroy
         return of<UserConfig>({ id: user.uid, displayName: 'Guest' })
       }
       return combineLatest(
-        this._store.getDocumentValueChanges<UserConfig>(USER_CONFIGS, user.uid),
+        this._persistenceApi.listenById<UserConfig>(USER_CONFIGS, user.uid),
         user.getIdTokenResult(true),
       )
       .pipe(
         map(([ userConfig, _user ]) => ({
           ...(userConfig || {}),
+          id: user.uid,
           claims: _user.claims as CustomClaims,
         })),
         shareReplay(1),
       )
     }),
     shareReplay(1),
+  )
+  public userId$: Observable<string> = this.user$.pipe(
+    map(({ id }) => id as string),
   )
   public userIdToken$: Observable<string> = this._nonNullAuthUser$.pipe(
     switchMap((user) => user.getIdToken()),
@@ -51,14 +56,21 @@ export class IdentityApi implements Initializer, OnDestroy
   public hasAdminPrivilegeOrGreater$ = this.userRole$.pipe(
     map((role) => role && roleHasAdminPrivilegeOrGreater(role)),
   )
+  public userState$ = this._nonNullAuthUser$.pipe(
+    distinctUntilKeyChanged('uid'),
+    switchMap<User, Observable<UserState | undefined>>((user) =>
+    {
+      if (user.isAnonymous) return of({ id: user.uid })
+      return this._persistenceApi.listenById<UserState>(USER_STATES, user.uid)
+    }),
+    shareReplay(1),
+  )
 
   constructor(
     private _auth: AngularFireAuth,
-    private _store: StoreApi,
+    @Inject(PersistenceApi) private _persistenceApi: Persistence,
   )
   { }
-
-  public ngOnDestroy(): void { }
 
   public async init(): Promise<void>
   {
@@ -105,7 +117,6 @@ export class IdentityApi implements Initializer, OnDestroy
   {
     this._auth.authState
       .pipe(
-        forLifeOf(this),
         switchMap((userOrNull) => userOrNull === null
           ? this._auth.auth.signInAnonymously().then(({ user }) => user)
           : of(userOrNull)),

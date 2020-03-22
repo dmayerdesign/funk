@@ -4,14 +4,21 @@ import {
 } from '@funk/ui/web/app/admin/managed-content/editor/service'
 import { IonTextarea } from '@ionic/angular'
 import { merge, of, ReplaySubject } from 'rxjs'
-import { delay, map, startWith, switchMap, tap, throttleTime } from 'rxjs/operators'
+import { delay, startWith, switchMap, tap, throttleTime } from 'rxjs/operators'
 
 const ANIMATION_DURATION_MS = 500
 
 @Component({
   selector: 'managed-content-editor',
   template: `
-    <ng-container *ngIf="maybeFormGroup | async">
+    <div class="managed-content-editor-wrapper">
+      <div *ngIf="hasPreview | async">
+        You are looking at a preview
+        <button (click)="maybeSaveAndPublish()">Publish</button>
+      </div>
+      <ng-content></ng-content>
+    </div>
+    <ng-container *ngIf="maybeFormControl | async">
       <div
         [ngClass]="{
           'animate-in': !(cssAnimatingOut | async),
@@ -19,15 +26,15 @@ const ANIMATION_DURATION_MS = 500
         }"
         (clickOutside)="cancelEdit()">
         <ion-card>
-          <form [formGroup]="maybeFormGroup | async">
-            <ion-textarea #contentValueInput
-              [formControl]="maybeFormControl | async">
-            </ion-textarea>
-            <div class="drawer-card-actions">
-              <ion-button type="button" (click)="saveEdit()">Save</ion-button>
-              <ion-button [fill]="'outline'" type="button" (click)="cancelEdit()">Cancel</ion-button>
-            </div>
-          </form>
+          <ion-textarea #contentValueInput
+            [formControl]="maybeFormControl | async">
+          </ion-textarea>
+          <div class="drawer-card-actions">
+            <ion-button type="button" (click)="saveEdit()">Save</ion-button>
+            <ion-button [fill]="'outline'" type="button" (click)="cancelEdit()">
+              Cancel
+            </ion-button>
+          </div>
         </ion-card>
       </div>
     </ng-container>
@@ -38,10 +45,8 @@ export class ManagedContentEditorContainer implements OnInit
 {
   @ViewChild('contentValueInput') public contentValueInput!: IonTextarea
   private _cssAnimatingOut = new ReplaySubject<boolean>(1)
-  public maybeFormGroup = this._editorService.activeContentControl
-  public maybeFormControl = this.maybeFormGroup.pipe(
-    map((formGroupOrUndefined) => formGroupOrUndefined?.get('value'))
-  )
+  public maybeFormControl = this._editorService.activeContentValueControl
+  public hasPreview = this._editorService.hasPreview
   public cssAnimatingOut = this._cssAnimatingOut.pipe(
     startWith(false),
     throttleTime(ANIMATION_DURATION_MS),
@@ -64,14 +69,13 @@ export class ManagedContentEditorContainer implements OnInit
 
   public ngOnInit(): void
   {
-    this.maybeFormGroup.subscribe(() =>
+    this.maybeFormControl.subscribe(() =>
     {
       setTimeout(
         () => this.contentValueInput.setFocus(),
         100,
       )
     })
-    this.maybeFormControl.subscribe(console.log)
   }
 
   public animateOut(): void
@@ -81,11 +85,17 @@ export class ManagedContentEditorContainer implements OnInit
 
   public async saveEdit(): Promise<void>
   {
-    await this._editorService.save()
+    await this._editorService.saveAndClearIfEditing()
   }
 
   public async cancelEdit(): Promise<void>
   {
     this.animateOut()
+  }
+
+  public async maybeSaveAndPublish(): Promise<void>
+  {
+    await this.saveEdit()
+    await this._editorService.maybePublish()
   }
 }

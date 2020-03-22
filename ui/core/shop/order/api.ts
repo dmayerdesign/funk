@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import createOrderForCustomer
   from '@funk/model/commerce/order/actions/create-order-for-customer'
 import { ORDERS } from '@funk/model/commerce/order/order'
-import { UserHydrated } from '@funk/model/user/user-hydrated'
+import { UserHydrated } from '@funk/model/identity/user-hydrated'
 import { DeviceStorageApi } from '@funk/ui/core/device-storage/api'
 
 @Injectable({ providedIn: 'root' })

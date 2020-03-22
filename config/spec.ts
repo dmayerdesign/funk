@@ -1,6 +1,6 @@
 import { assertFails, assertSucceeds, loadFirestoreRules } from '@firebase/testing'
 import { UserRole } from '@funk/model/auth/user-role'
-import { USER_CONFIGS } from '@funk/model/user/user-config'
+import { USER_CONFIGS } from '@funk/model/identity/user-config'
 import { createAdminApp, createDefaultApp, forbiddenUserUid, projectId, testOwnerUid,
   testUserUid } from '@funk/test/test.helpers'
 import { app } from 'firebase'

@@ -1,73 +1,76 @@
-import { Component, HostListener, Input } from '@angular/core'
-import { ManagedContentType } from '@funk/model/managed-content/managed-content'
+import { Component, HostListener, Inject, Input, OnDestroy, OnInit } from '@angular/core'
+import { CONTENTS } from '@funk/model/admin/content/content'
+import { ManagedContent, ManagedContentType } from '@funk/model/managed-content/managed-content'
 import { IdentityApi } from '@funk/ui/core/identity/api'
+import { Identity } from '@funk/ui/core/identity/interface'
+import { PersistenceApi } from '@funk/ui/core/persistence/api'
+import { Persistence } from '@funk/ui/core/persistence/interface'
+import { MortalityAware } from '@funk/ui/helpers/angular.helpers'
+import { ManagedContentEditorService } from '@funk/ui/web/app/admin/managed-content/editor/service'
 import { Platform } from '@ionic/angular'
-import { first } from 'rxjs/operators'
-import { ManagedContentEditorService } from './editor/service'
+import { Observable } from 'rxjs'
+import { first, map, shareReplay } from 'rxjs/operators'
 
+@MortalityAware()
 @Component({
   selector: 'managed-content',
-  template: `
-    <ng-content></ng-content>
-  `,
+  template: `{{ contentValue$ | async }}`,
 })
-export class ManagedContentComponent
+export class ManagedContentComponent implements OnInit, OnDestroy
 {
-  @Input() public collectionPath!: string
-  @Input() public documentPath!: string
+  @Input() public contentId!: string
   @Input() public type: ManagedContentType = ManagedContentType.TEXT
 
   public isDesktop = this._platform.platforms().includes('desktop')
+  public content$!: Observable<ManagedContent | undefined>
+  public contentValue$!: Observable<string | undefined>
 
   constructor(
     private _platform: Platform,
-    private _identityApi: IdentityApi,
+    @Inject(IdentityApi) private _identityApi: Identity,
+    @Inject(PersistenceApi) private _persistenceApi: Persistence,
     private _managedContentEditorService: ManagedContentEditorService,
   ) { }
+
+  public async ngOnInit(): Promise<void>
+  {
+    if (await this._canManageContent())
+    {
+      this.content$ = this._managedContentEditorService
+        .listenForPreviewOrLiveContent(this.contentId)
+        .pipe(
+          shareReplay(1)
+        )
+    }
+    else
+    {
+      this.content$ = this._persistenceApi.listenById<ManagedContent>(
+        CONTENTS,
+        this.contentId,
+      )
+    }
+
+    this.contentValue$ = this.content$.pipe(
+      map((content) => content?.value)
+    )
+  }
+
+  public ngOnDestroy(): void
+  { }
 
   @HostListener('click')
   public async handleEditClick(): Promise<void>
   {
-    this._identityApi.hasAdminPrivilegeOrGreater$
-      .pipe(first())
-      .subscribe((isAdmin) =>
-      {
-        if (this.isDesktop && isAdmin)
-        {
-          this._managedContentEditorService.manageContent(
-            this.collectionPath,
-            this.documentPath,
-          )
-        }
-      })
+    if (await this._canManageContent())
+    {
+      this._managedContentEditorService.manageContent(this.contentId)
+    }
   }
 
-  // private _appendEditButton(): void
-  // {
-  //   setTimeout(() =>
-  //   {
-  //     if (this.isDesktop && this._elementRef.nativeElement
-  //       && typeof this._elementRef.nativeElement.querySelector === 'function')
-  //     {
-  //       const editButton = this._createEditButton()
-  //       this._renderer.appendChild(
-  //         this._elementRef.nativeElement.querySelector('*'),
-  //         editButton,
-  //       )
-  //     }
-  //   })
-  // }
-  // private _createEditButton(): any
-  // {
-  //   const editButton = this._renderer.createElement('button') as ElementRef
-  //   this._renderer.setProperty(editButton, 'id', this._getEditButtonId())
-  //   this._renderer.setProperty(editButton, 'className', 'mc--edit-button')
-  //   this._renderer.setProperty(editButton, 'innerText', 'Edit')
-  //   this._renderer.listen(editButton, 'click', () => { this._handleEditButtonClick() })
-  //   return editButton
-  // }
-  // private _getEditButtonId(): string
-  // {
-  //   return this.managerId + '--edit-button'
-  // }
+  private async _canManageContent(): Promise<boolean>
+  {
+    return this.isDesktop
+      && await this._identityApi.hasAdminPrivilegeOrGreater$
+        .pipe(first()).toPromise().then((hasAdminPrivilege) => !!hasAdminPrivilege)
+  }
 }

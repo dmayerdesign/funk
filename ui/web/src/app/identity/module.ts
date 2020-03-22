@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { IdentityApi } from '@funk/ui/core/identity/api'
 import { AppFireModule } from '@funk/ui/web/app/fire.module'
-import { createAppInitializer } from '@funk/ui/web/app/initializer'
+import { createModuleInitializer } from '@funk/ui/web/app/initializer'
 
 @NgModule({
   imports: [ AppFireModule ],
@@ -9,7 +9,7 @@ import { createAppInitializer } from '@funk/ui/web/app/initializer'
     IdentityApi,
     {
       provide: APP_INITIALIZER,
-      useFactory: createAppInitializer,
+      useFactory: createModuleInitializer,
       deps: [ IdentityApi ],
       multi: true,
     },

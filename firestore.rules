@@ -42,5 +42,16 @@ service cloud.firestore {
       allow create: if request.resource == null && isIdAllowed(uid);
       allow update, delete: if isIdAllowed(uid);
     }
+
+    match /identity.user-states/{uid}/{document=**} {
+      function isIdAllowed(id) {
+        return id == request.auth.uid
+          || isSuperOrOwner()
+      }
+
+      allow read: if isIdAllowed(uid);
+      allow create: if request.resource == null && isIdAllowed(uid);
+      allow update, delete: if isIdAllowed(uid);
+    }
   }
 }

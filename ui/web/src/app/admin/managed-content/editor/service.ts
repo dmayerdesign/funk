@@ -1,101 +1,131 @@
-import { Injectable } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
+import { Inject, Injectable } from '@angular/core'
+import { FormControl } from '@angular/forms'
+import { CONTENTS } from '@funk/model/admin/content/content'
+import { UserState, USER_STATES } from '@funk/model/identity/user-state'
 import { ManagedContent } from '@funk/model/managed-content/managed-content'
-import { StoreApi } from '@funk/ui/core/store/api'
-import { combineLatest, of, BehaviorSubject, Observable } from 'rxjs'
-import { first, shareReplay, switchMap } from 'rxjs/operators'
+import { IdentityApi } from '@funk/ui/core/identity/api'
+import { Identity } from '@funk/ui/core/identity/interface'
+import { PersistenceApi } from '@funk/ui/core/persistence/api'
+import { Persistence } from '@funk/ui/core/persistence/interface'
+import { ignoreNullish, mapToKey } from '@funk/ui/helpers/rxjs-shims'
+import { combineLatest, from, of, BehaviorSubject, Observable } from 'rxjs'
+import { catchError, first, map, shareReplay, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class ManagedContentEditorService
 {
-  // Control keys are the full document path.
-  // Control values are the `ManagedContent` documents.
-  private _managedContents = new FormGroup({})
-  private _activeContentPath =
-    new BehaviorSubject<[string, string] | undefined>(undefined)
-  public activeContentControl: Observable<FormGroup | undefined> = this._activeContentPath.pipe(
-    switchMap((activeContentPath) =>
-    {
-      if (!activeContentPath)
-      {
-        return of(undefined)
-      }
-      else
-      {
-        const [ collectionPath, contentDocumentPath ] = activeContentPath
-        const activeContentFullPath = this._getFullPath(
-          collectionPath,
-          contentDocumentPath,
+  private _maybeActiveContentId =
+    new BehaviorSubject<string | undefined>(undefined)
+  public saving = new BehaviorSubject<boolean>(false)
+  public activeContentValueControl = this._maybeActiveContentId
+    .pipe(
+      switchMap((contentId) => !contentId
+        ? of(undefined)
+        : this.listenForPreviewOrLiveContent(contentId)
+          .pipe(
+            ignoreNullish(),
+            first(),
+            mapToKey('value'),
+            map((value) => new FormControl(value)),
+          )
+      ),
+      shareReplay(1),
+    )
+  public hasPreview = this._identityApi.userId$.pipe(
+    ignoreNullish(),
+    switchMap((userId) =>
+      from(this._persistenceApi.listenById<UserState>(
+        USER_STATES,
+        userId,
+        ))
+        .pipe(
+          mapToKey('contentPreviews'),
+          catchError(() => of(undefined)),
         )
-        if (!this._managedContents.controls[activeContentFullPath])
-        {
-          return this._storeApi
-            .getById<ManagedContent>(
-              collectionPath,
-              contentDocumentPath,
-            )
-            .then((managedContent) =>
-            {
-              this._managedContents.addControl(
-                activeContentFullPath,
-                new FormGroup(
-                  managedContent
-                    ? Object.keys(managedContent)
-                      .reduce(
-                        (controls, controlName) =>
-                        {
-                          controls[controlName] = new FormControl(
-                            managedContent[controlName as keyof ManagedContent]
-                          )
-                          return controls
-                        },
-                        {} as { [key: string]: FormControl },
-                      )
-                    : {}
-                ),
-              )
-              return this._managedContents.controls[activeContentFullPath] as FormGroup
-            })
-        }
-        return of(this._managedContents.controls[activeContentFullPath] as FormGroup)
-      }
-    }),
+    ),
+    map((maybeContentPreviews) => maybeContentPreviews
+      && Object.keys(maybeContentPreviews).length),
     shareReplay(1),
   )
 
   constructor(
-    private _storeApi: StoreApi,
-  ) { }
+    @Inject(PersistenceApi) private _persistenceApi: Persistence,
+    @Inject(IdentityApi) private _identityApi: Identity,
+  )
+  { }
 
-  public async manageContent(
-    collectionPath: string,
-    contentDocumentPath: string,
-  ): Promise<void>
+  public manageContent(contentId: string): void
   {
-    this._activeContentPath.next([ collectionPath, contentDocumentPath ])
+    this._maybeActiveContentId.next(contentId)
   }
 
-  public async save(): Promise<void>
+  public async saveAndClearIfEditing(): Promise<void>
   {
-    const [ control, dbPath ] = await combineLatest(
-        this.activeContentControl,
-        this._activeContentPath,
-      )
-      .pipe(first())
-      .toPromise()
-    const [ collectionPath, documentPath ] = dbPath || []
-
-    if (
-      control
-      && control.value
-      && dbPath
-      && collectionPath && documentPath
-    )
+    const control = await this.activeContentValueControl.pipe(first()).toPromise()
+    if (control)
     {
-      await this._storeApi.updateById(collectionPath, documentPath, control.value)
+      this.saving.next(true)
+      const userId = await this._identityApi.userId$.pipe(first()).toPromise()
+      const contentId = await this._maybeActiveContentId
+        .pipe(first()).toPromise() as string
+      await this._persistenceApi.setById<UserState>(
+        USER_STATES,
+        userId,
+        {
+          contentPreviews: {
+            [contentId]: { value: control.value } as ManagedContent,
+          },
+        } as UserState,
+      )
+      this.saving.next(false)
+      this._clear()
     }
+  }
 
-    this._clear()
+  public async maybePublish(): Promise<void>
+  {
+    const userId = await this._identityApi.userId$.pipe(first()).toPromise()
+    const userState = await this._persistenceApi.getById<UserState>(
+      USER_STATES,
+      userId,
+    )
+    if (userState?.contentPreviews)
+    {
+      console.log('attempting update?', userState.contentPreviews)
+      for (const contentId of Object.keys(userState.contentPreviews))
+      {
+        console.log('setting live', contentId)
+        try
+        {
+          await this._persistenceApi.setById(
+            CONTENTS,
+            contentId,
+            userState.contentPreviews[contentId],
+          )
+        }
+        catch (error)
+        {
+          console.log(error)
+          continue
+        }
+        console.log(`we're live!`)
+        const newContentPreviews = { ...userState.contentPreviews }
+        delete newContentPreviews[contentId]
+        console.log('attempting update...')
+        await this._persistenceApi.updateById<UserState>(
+          USER_STATES,
+          userId,
+          {
+            contentPreviews: newContentPreviews,
+          },
+        )
+        console.log('updated!', contentId)
+      }
+    }
+    else
+    {
+      console.log(`Couldn't find a preview to publish.`)
+    }
   }
 
   public cancel(): void
@@ -103,13 +133,38 @@ export class ManagedContentEditorService
     this._clear()
   }
 
-  private _clear(): void
+  public listenForPreviewOrLiveContent(contentId: string):
+    Observable<ManagedContent | undefined>
   {
-    this._activeContentPath.next(undefined)
+    return this._identityApi.userId$
+      .pipe(
+        ignoreNullish(),
+        switchMap((userId) =>
+          combineLatest(
+              from(this._persistenceApi.listenById<UserState>(
+                USER_STATES,
+                userId,
+                ))
+                .pipe(
+                  mapToKey('contentPreviews'),
+                  mapToKey(contentId),
+                  catchError(() => of(undefined)),
+                ),
+              from(this._persistenceApi.listenById<ManagedContent>(
+                CONTENTS,
+                contentId,
+                ))
+                .pipe(catchError(() => of(undefined))),
+            )
+            .pipe(
+              map(([ preview, content ]) => preview || content),
+            )
+          ),
+      )
   }
 
-  private _getFullPath(collectionPath: string, documentPath: string): string
+  private _clear(): void
   {
-    return collectionPath + '/' + documentPath
+    this._maybeActiveContentId.next(undefined)
   }
 }

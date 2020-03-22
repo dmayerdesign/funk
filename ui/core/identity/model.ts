@@ -1,4 +1,4 @@
-import { UserConfig } from '@funk/model/user/user-config'
+import { UserConfig } from '@funk/model/identity/user-config'
 
 export interface IdentityState
 {

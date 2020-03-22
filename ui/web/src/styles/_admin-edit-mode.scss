@@ -1,0 +1,12 @@
+.admin-edit-mode-is-on {
+  managed-content {
+    *:first-child {
+      cursor: pointer;
+      text-decoration: underline dotted rgba(var(--ion-color-warning-rgb), 0.7);
+
+      &:hover {
+        text-decoration: underline dotted rgb(var(--ion-color-warning-rgb));
+      }
+    }
+  }
+}

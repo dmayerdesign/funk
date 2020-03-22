@@ -33,8 +33,7 @@
               }
             ],
             "styles": [
-              "ui/web/src/styles/global.scss",
-              "ui/web/src/theme/variables.scss"
+              "ui/web/src/styles/global.scss"
             ],
             "scripts": []
           },

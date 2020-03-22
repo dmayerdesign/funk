@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Inject, Injectable } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { IdentityApi } from '@funk/ui/core/identity/api'
+import { Identity } from '@funk/ui/core/identity/interface'
 import { environment } from '@funk/ui/web/environments/environment'
 import { first, map } from 'rxjs/operators'
 
@@ -19,7 +20,7 @@ export class AdminApi
 
   constructor(
     private _httpClient: HttpClient,
-    private _identityApi: IdentityApi,
+    @Inject(IdentityApi) private _identityApi: Identity,
   )
   { }
 

@@ -1,23 +1,25 @@
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, Inject, NgZone, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { setUpDevTools } from '@dannymayer/vex'
 import { IdentityApi } from '@funk/ui/core/identity/api'
+import { Identity } from '@funk/ui/core/identity/interface'
 import { environment } from '@funk/ui/web/environments/environment'
 
 @Component({
   selector: 'app-root',
   template: `
+  <managed-content-editor>
     <main class="admin-edit-mode-is-on">
       <router-outlet></router-outlet>
-      <managed-content-editor></managed-content-editor>
     </main>
+  </managed-content-editor>
   `,
 })
 export class AppComponent implements OnInit
 {
   constructor(
     private _ngZone: NgZone,
-    private _identityApi: IdentityApi,
+    @Inject(IdentityApi) private _identityApi: Identity,
     private _changeDetectorRef: ChangeDetectorRef,
     public router: Router,
   )

@@ -1,31 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { ListFilter } from '@funk/model/commerce/product/list-filter'
 import { Product } from '@funk/model/commerce/product/product'
-import FirestoreCollectionSource from '@funk/ui/helpers/data-access/firestore-collection-source'
 import { Observable } from 'rxjs'
 
 @Component({
   selector: 'product-list',
   template: `
-    <ng-container *ngFor="let product of products$ | async">
+    <ng-container *ngFor="let product of products | async">
       <product-list-item [product]="product"></product-list-item>
     </ng-container>
   `,
 })
-export class ProductListComponent implements OnInit
+export class ProductListComponent
 {
-  @Input() public source?: FirestoreCollectionSource<Product>
+  @Input() public products!: Observable<Product>
   @Output() public filtersChange = new EventEmitter<ListFilter[]>()
   public products$?: Observable<Product[]>
   private _filters = new Map<string, ListFilter>()
-
-  public ngOnInit(): void
-  {
-    if (this.source)
-    {
-      this.products$ = this.source.connect()
-    }
-  }
 
   public addFilter(key: string, filter: ListFilter): void
   {

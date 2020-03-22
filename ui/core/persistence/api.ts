@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core'
 import { AngularFirestore, CollectionReference, Query } from '@angular/fire/firestore'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { Persistence } from '@funk/ui/core/persistence/interface'
 import { Observable } from 'rxjs'
 import { first, map } from 'rxjs/operators'
 
 @Injectable({ providedIn: 'root' })
-export class StoreApi
+export class PersistenceApi implements Persistence
 {
   public collection = this._store.collection
   public document = this._store.doc
@@ -14,15 +15,31 @@ export class StoreApi
     private _store: AngularFirestore
   ) { }
 
-  public getCollectionValueChanges<DocumentType extends DatabaseDocument = DatabaseDocument>(
+  public list<DocumentType extends DatabaseDocument = DatabaseDocument>(
     collectionPath: string,
-  ): Observable<DocumentType[]>
+    paginationOptions?: {
+      orderBy: (keyof DocumentType & string)
+      orderByDirection: 'asc' | 'desc'
+      startAt: DocumentType[keyof DocumentType]
+    },
+  ): Promise<DocumentType[]>
   {
+    if (paginationOptions)
+    {
+      return this._store.collection<DocumentType>(collectionPath)
+        .ref
+        .orderBy(paginationOptions.orderBy, paginationOptions.orderByDirection)
+        .startAt(paginationOptions.startAt)
+        .get()
+        .then((snapshot) => snapshot.docs) as Promise<DocumentType[]>
+    }
     return this._store.collection<DocumentType>(collectionPath)
-      .valueChanges()
+      .ref
+      .get()
+      .then((snapshot) => snapshot.docs) as Promise<DocumentType[]>
   }
 
-  public getDocumentValueChanges<DocumentType extends DatabaseDocument = DatabaseDocument>(
+  public listenById<DocumentType extends object = DatabaseDocument>(
     collectionPath: string,
     documentPath: string,
   ): Observable<DocumentType | undefined>
@@ -32,7 +49,7 @@ export class StoreApi
       .valueChanges()
   }
 
-  public async getById<DocumentType extends DatabaseDocument = DatabaseDocument>(
+  public async getById<DocumentType extends object = DatabaseDocument>(
     collectionPath: string,
     documentPath: string,
   ): Promise<DocumentType | undefined>
@@ -47,15 +64,16 @@ export class StoreApi
       .toPromise()
   }
 
-  public async setById<DocumentType extends DatabaseDocument = DatabaseDocument>(
+  public async setById<DocumentType extends object = DatabaseDocument>(
     collectionPath: string,
     documentPath: string,
     documentData: DocumentType,
+    options?: { overwrite?: boolean },
   ): Promise<void>
   {
     await this._store.collection(collectionPath)
       .doc<DocumentType>(documentPath)
-      .set(documentData)
+      .set(documentData, { merge: !options?.overwrite })
   }
 
   public async updateById<DocumentType extends DatabaseDocument = DatabaseDocument>(
@@ -81,13 +99,13 @@ export class StoreApi
     .then((snapshot) => snapshot.docs.map((doc) => doc.data())) as Promise<DocumentType[]>
   }
 
-  public queryCollectionForMetadata<DocumentType extends DatabaseDocument = DatabaseDocument>(
+  public queryCollectionForMetadata(
     collectionPath: string,
     selector: (collectionReference: CollectionReference) => Query
   ): Promise<{ path: string }[]>
   {
     return selector(
-      this._store.collection<DocumentType>(collectionPath).ref
+      this._store.collection(collectionPath).ref
     )
     .get()
     .then((snapshot) => snapshot.docs.map((doc) => ({

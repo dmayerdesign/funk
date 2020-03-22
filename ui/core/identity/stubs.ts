@@ -1,26 +1,28 @@
 import { AngularFireAuth } from '@angular/fire/auth'
 import { Router, UrlTree } from '@angular/router'
-import createUid from '@funk/helpers/create-uid'
+import { CustomClaims } from '@funk/model/auth/custom-claims'
+import roleHasAdminPrivilegeOrGreater from '@funk/model/auth/helpers/role-has-admin-privilege-or-greater'
 import { UserRole } from '@funk/model/auth/user-role'
-import { UserConfig } from '@funk/model/user/user-config'
+import { UserConfig } from '@funk/model/identity/user-config'
+import { UserState } from '@funk/model/identity/user-state'
+import { AdministratorGuard } from '@funk/ui/core/identity/administrator-guard'
+import { AnonymousGuard } from '@funk/ui/core/identity/anonymous-guard'
 import { IdentityApi } from '@funk/ui/core/identity/api'
+import { Identity } from '@funk/ui/core/identity/interface'
+import { PersistenceApi } from '@funk/ui/core/persistence/api'
 import { auth, User } from 'firebase'
 import { of, BehaviorSubject } from 'rxjs'
 import { shareReplay } from 'rxjs/operators'
-import { StoreApi } from '../store/api'
-import { AdministratorGuard } from './administrator-guard'
-import { AnonymousGuard } from './anonymous-guard'
 
-const USER_UID = createUid()
-
+export const USER_UID_STUB = 'user-1'
 export const ID_TOKEN_STUB = 'test-token'
 
 export const createIdTokenResultStub = (role = UserRole.ANONYMOUS) => ({
-  claims: { role },
-}) as unknown as auth.IdTokenResult
+  claims: { role } as CustomClaims,
+})
 
 export const createUserConfigStub = (email = 'test@test.com') => ({
-  id: USER_UID,
+  id: USER_UID_STUB,
   displayName: 'Test',
   email,
 }) as UserConfig
@@ -31,7 +33,7 @@ export const createUserStub = (role = UserRole.ANONYMOUS, email?: string) => ({
 })
 
 export const createAuthUserStub = (role = UserRole.ANONYMOUS) => ({
-  uid: USER_UID,
+  uid: USER_UID_STUB,
   getIdToken: async (..._args: any[]) => ID_TOKEN_STUB,
   getIdTokenResult: async (..._args: any[]) => createIdTokenResultStub(role),
   sendEmailVerification: async (..._args: any[]) => { },
@@ -60,9 +62,9 @@ export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
 }) as unknown as AngularFireAuth
 
 export const createStoreStub = (email = 'test@test.com') => ({
-  getDocumentValueChanges: (..._valueChangesArgs: any[]) => of(createUserConfigStub(email))
+  listenById: (..._valueChangesArgs: any[]) => of(createUserConfigStub(email))
     .pipe(shareReplay(1)),
-}) as StoreApi
+}) as PersistenceApi
 
 export const createStubbedIdentityApi = () =>
   new IdentityApi(createAuthStub(), createStoreStub())
@@ -84,3 +86,43 @@ export const createStubbedAnonymousGuard = (userStubRole = UserRole.ANONYMOUS) =
     createAuthStub(createAuthUserStub(userStubRole)),
     createRouterStub()
   )
+
+export class IdentityApiStub implements Identity
+{
+  public user$ = of(createUserStub(this._stubOptions.userRole)).pipe(shareReplay(1))
+  public userId$ = of(USER_UID_STUB).pipe(shareReplay(1))
+  public userIdToken$ = of(ID_TOKEN_STUB).pipe(shareReplay(1))
+  public userRole$ = of(this._stubOptions.userRole).pipe(shareReplay(1))
+  public hasAdminPrivilegeOrGreater$ = of(roleHasAdminPrivilegeOrGreater(
+    this._stubOptions.userRole
+  )).pipe(shareReplay(1))
+  public userState$ = of(this._stubOptions.userState).pipe(shareReplay(1))
+
+  constructor(private _stubOptions = {
+    userId: USER_UID_STUB,
+    userRole: UserRole.PUBLIC,
+    userState: { id: USER_UID_STUB } as UserState,
+  })
+  { }
+
+  public async init(): Promise<void>
+  { }
+  public async createUserWithEmailAndPassword(
+    email: string,
+    password: string,
+  ): Promise<auth.UserCredential>
+  {
+    return {} as auth.UserCredential
+  }
+  public async signInWithEmailAndPassword(
+    email: string,
+    password: string,
+  ): Promise<auth.UserCredential>
+  {
+    return {} as auth.UserCredential
+  }
+  public async signOut(): Promise<void>
+  { }
+  public async sendEmailVerification(): Promise<void>
+  { }
+}
