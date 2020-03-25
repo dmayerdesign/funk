@@ -1,7 +1,8 @@
-import { Component } from '@angular/core'
-import { AngularFirestore } from '@angular/fire/firestore'
+import { Component, Inject } from '@angular/core'
 import { Address } from '@funk/model/address/address'
 import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
+import { PersistenceApi } from '@funk/ui/core/persistence/api'
+import { Persistence } from '@funk/ui/core/persistence/interface'
 
 @Component({
   selector: 'kitchen-sink',
@@ -63,7 +64,7 @@ import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
 export class KitchenSinkComponent
 {
   constructor(
-    private _firestore: AngularFirestore,
+    @Inject(PersistenceApi) private _persistenceApi: Persistence
   )
   { }
 
@@ -74,9 +75,10 @@ export class KitchenSinkComponent
   public async seedOrder(): Promise<void>
   {
     const id = Date.now().toString()
-    await this._firestore.doc(`${ORDERS}/${id}`).set({
+    await this._persistenceApi.setById<Order>(ORDERS, id, {
       id,
       customer: {
+        userId: 'ArSkuvU2l8fbIphhNeyzhjSNyDx1',
         id: 'test-customer',
         email: '',
         firstName: '',
@@ -88,7 +90,7 @@ export class KitchenSinkComponent
       },
       paymentMethod: '',
       skus: [ 'test-sku-1' ],
-      status: Status.PAYMENT_PENDING,
+      status: Status.CART,
       subTotal: {
         amount: 0,
         currency: 'USD',

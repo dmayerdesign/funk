@@ -63,14 +63,6 @@ export class PersistenceApiStub implements Persistence
   ): Promise<void>
   { }
 
-  public queryCollection<DocumentType extends DatabaseDocument = DatabaseDocument>(
-    collectionPath: string,
-    selector: (collectionReference: CollectionReference) => CollectionReference
-  ): Promise<DocumentType[]>
-  {
-    return Promise.resolve([])
-  }
-
   public queryCollectionForMetadata(
     collectionPath: string,
     selector: (collectionReference: CollectionReference) => Query

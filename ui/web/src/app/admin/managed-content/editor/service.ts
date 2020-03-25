@@ -91,10 +91,8 @@ export class ManagedContentEditorService
     )
     if (userState?.contentPreviews)
     {
-      console.log('attempting update?', userState.contentPreviews)
       for (const contentId of Object.keys(userState.contentPreviews))
       {
-        console.log('setting live', contentId)
         try
         {
           await this._persistenceApi.setById(
@@ -105,13 +103,11 @@ export class ManagedContentEditorService
         }
         catch (error)
         {
-          console.log(error)
+          console.error(error)
           continue
         }
-        console.log(`we're live!`)
         const newContentPreviews = { ...userState.contentPreviews }
         delete newContentPreviews[contentId]
-        console.log('attempting update...')
         await this._persistenceApi.updateById<UserState>(
           USER_STATES,
           userId,
@@ -119,7 +115,6 @@ export class ManagedContentEditorService
             contentPreviews: newContentPreviews,
           },
         )
-        console.log('updated!', contentId)
       }
     }
     else

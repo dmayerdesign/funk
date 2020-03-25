@@ -32,6 +32,11 @@ service cloud.firestore {
       allow write: if isSuperOrOwnerOrAdmin();
     }
 
+    match /commerce.orders/{id}/{document=**} {
+      allow read;
+      allow write;
+    }
+
     match /identity.user-configs/{uid}/{document=**} {
       function isIdAllowed(id) {
         return id == request.auth.uid

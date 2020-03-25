@@ -13,7 +13,7 @@ import { Initializer } from '@funk/ui/helpers/angular.helpers'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { environment } from '@funk/ui/web/environments/environment'
 import { Observable } from 'rxjs'
-import { map, switchMap } from 'rxjs/operators'
+import { map, shareReplay, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class ShopApi implements Initializer
@@ -26,10 +26,19 @@ export class ShopApi implements Initializer
         .where(createDocPath<Order>('status'), '==', Status.CART)
         .limit(1)
       )),
-    map((metadata) => metadata[0].path),
-    switchMap((docPath) =>
-      this._persistenceApi.document(docPath).valueChanges(),
+    map(([ metadata ]) =>
+    {
+      const fullPath = metadata.path
+      const firstIndexOfSlash = fullPath.indexOf('/')
+      return [
+        fullPath.substring(0, firstIndexOfSlash),
+        fullPath.substring(firstIndexOfSlash),
+      ]
+    }),
+    switchMap(([ collectionPath, documentPath ]) =>
+      this._persistenceApi.listenById(collectionPath, documentPath)
     ),
+    shareReplay(1),
   )
 
   constructor(
@@ -47,6 +56,7 @@ export class ShopApi implements Initializer
       // TODO: Get shop settings. Cache attribute values, taxonomies, etc.
       resolve: state$ => state$,
     })
+    this.cart$.subscribe(console.log)
   }
 
   public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>>

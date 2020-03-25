@@ -1,13 +1,9 @@
-import { AngularFirestoreCollection, AngularFirestoreDocument,
-  CollectionReference, Query, QueryFn } from '@angular/fire/firestore'
+import { CollectionReference, Query } from '@angular/fire/firestore'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { Observable } from 'rxjs'
 
 export interface Persistence
 {
-  collection: <T>(path: string, queryFn?: QueryFn | undefined) => AngularFirestoreCollection<T>
-  document: <T>(path: string) => AngularFirestoreDocument<T>
-
   list<DocumentType extends DatabaseDocument = DatabaseDocument>(
     collectionPath: string,
     paginationOptions?: {
@@ -39,11 +35,6 @@ export interface Persistence
     documentPath: string,
     documentData: Partial<DocumentType>,
   ): Promise<void>
-
-  queryCollection<DocumentType extends DatabaseDocument = DatabaseDocument>(
-    collectionPath: string,
-    selector: (collectionReference: CollectionReference) => CollectionReference
-  ): Promise<DocumentType[]>
 
   queryCollectionForMetadata(
     collectionPath: string,

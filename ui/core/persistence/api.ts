@@ -8,9 +8,6 @@ import { first, map } from 'rxjs/operators'
 @Injectable({ providedIn: 'root' })
 export class PersistenceApi implements Persistence
 {
-  public collection = this._store.collection
-  public document = this._store.doc
-
   constructor(
     private _store: AngularFirestore
   ) { }
@@ -18,7 +15,7 @@ export class PersistenceApi implements Persistence
   public list<DocumentType extends DatabaseDocument = DatabaseDocument>(
     collectionPath: string,
     paginationOptions?: {
-      orderBy: (keyof DocumentType & string)
+      orderBy: keyof DocumentType & string
       orderByDirection: 'asc' | 'desc'
       startAt: DocumentType[keyof DocumentType]
     },
@@ -85,18 +82,6 @@ export class PersistenceApi implements Persistence
     await this._store.collection(collectionPath)
       .doc<DocumentType>(documentPath)
       .update(documentData)
-  }
-
-  public queryCollection<DocumentType extends DatabaseDocument = DatabaseDocument>(
-    collectionPath: string,
-    selector: (collectionReference: CollectionReference) => CollectionReference
-  ): Promise<DocumentType[]>
-  {
-    return selector(
-      this._store.collection<DocumentType>(collectionPath).ref
-    )
-    .get()
-    .then((snapshot) => snapshot.docs.map((doc) => doc.data())) as Promise<DocumentType[]>
   }
 
   public queryCollectionForMetadata(
