@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs'
       <ion-toolbar>
         <ion-title>Shop</ion-title>
       </ion-toolbar>
-      <router-outlet></router-outlet>
+      <ion-router-outlet></ion-router-outlet>
     </ng-container>
   `,
 })

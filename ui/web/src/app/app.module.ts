@@ -3,7 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router'
 import { DeviceStorageApi } from '@funk/ui/core/device-storage/api'
+import { ManagedContentModule } from '@funk/ui/web/app/admin/managed-content/module'
+import { AppCommonModule } from '@funk/ui/web/app/common.module'
 import { AppComponent } from '@funk/ui/web/app/component'
+import { IonicDeviceStorageApi } from '@funk/ui/web/app/device-storage/api'
 import { AppErrorHandler } from '@funk/ui/web/app/error-handler'
 import { AppFireModule } from '@funk/ui/web/app/fire.module'
 import { IdentityModule } from '@funk/ui/web/app/identity/module'
@@ -11,8 +14,6 @@ import { NotFoundComponent } from '@funk/ui/web/app/not-found/component'
 import routes from '@funk/ui/web/app/routes'
 import { IonicModule } from '@ionic/angular'
 import { IonicStorageModule } from '@ionic/storage'
-import { ManagedContentModule } from './admin/managed-content/module'
-import { IonicDeviceStorageApi } from './device-storage/api'
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { IonicDeviceStorageApi } from './device-storage/api'
     AppFireModule.withProviders(),
     IdentityModule,
     ManagedContentModule.withProviders(),
+    AppCommonModule,
   ],
   declarations: [
     AppComponent,

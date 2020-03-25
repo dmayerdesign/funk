@@ -26,16 +26,8 @@ export class ShopApi implements Initializer
         .where(createDocPath<Order>('status'), '==', Status.CART)
         .limit(1)
       )),
-    map(([ metadata ]) =>
-    {
-      const fullPath = metadata.path
-      const firstIndexOfSlash = fullPath.indexOf('/')
-      return [
-        fullPath.substring(0, firstIndexOfSlash),
-        fullPath.substring(firstIndexOfSlash),
-      ]
-    }),
-    switchMap(([ collectionPath, documentPath ]) =>
+    map(([ metadata ]) => metadata),
+    switchMap(({ collectionPath, documentPath }) =>
       this._persistenceApi.listenById(collectionPath, documentPath)
     ),
     shareReplay(1),

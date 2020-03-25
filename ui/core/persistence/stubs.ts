@@ -1,6 +1,6 @@
 import { AngularFirestoreCollection, AngularFirestoreDocument,
   CollectionReference, Query, QueryFn } from '@angular/fire/firestore'
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
 import { Persistence } from '@funk/ui/core/persistence/interface'
 import { get } from 'lodash'
 import { of, Observable } from 'rxjs'
@@ -66,8 +66,11 @@ export class PersistenceApiStub implements Persistence
   public queryCollectionForMetadata(
     collectionPath: string,
     selector: (collectionReference: CollectionReference) => Query
-  ): Promise<{ path: string }[]>
+  ): Promise<DbDocumentMetadata[]>
   {
-    return Promise.resolve([{ path: '' }])
+    return Promise.resolve([{
+      collectionPath: 'test.collection',
+      documentPath: 'test-doc',
+    }])
   }
 }

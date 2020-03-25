@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { AngularFirestore, CollectionReference, Query } from '@angular/fire/firestore'
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
 import { Persistence } from '@funk/ui/core/persistence/interface'
 import { Observable } from 'rxjs'
 import { first, map } from 'rxjs/operators'
@@ -10,7 +10,8 @@ export class PersistenceApi implements Persistence
 {
   constructor(
     private _store: AngularFirestore
-  ) { }
+  )
+  { }
 
   public list<DocumentType extends DatabaseDocument = DatabaseDocument>(
     collectionPath: string,
@@ -87,14 +88,20 @@ export class PersistenceApi implements Persistence
   public queryCollectionForMetadata(
     collectionPath: string,
     selector: (collectionReference: CollectionReference) => Query
-  ): Promise<{ path: string }[]>
+  ): Promise<DbDocumentMetadata[]>
   {
     return selector(
       this._store.collection(collectionPath).ref
     )
     .get()
-    .then((snapshot) => snapshot.docs.map((doc) => ({
-      path: doc.ref.path,
-    })))
+    .then((snapshot) => snapshot.docs.map((doc) =>
+    {
+      const fullPath = doc.ref.path
+      const firstIndexOfSlash = fullPath.indexOf('/')
+      return {
+        collectionPath: fullPath.substring(0, firstIndexOfSlash),
+        documentPath: fullPath.substring(firstIndexOfSlash),
+      }
+    }))
   }
 }

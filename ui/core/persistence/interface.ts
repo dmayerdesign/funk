@@ -1,5 +1,5 @@
 import { CollectionReference, Query } from '@angular/fire/firestore'
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
 import { Observable } from 'rxjs'
 
 export interface Persistence
@@ -39,5 +39,5 @@ export interface Persistence
   queryCollectionForMetadata(
     collectionPath: string,
     selector: (collectionReference: CollectionReference) => Query
-  ): Promise<{ path: string }[]>
+  ): Promise<DbDocumentMetadata[]>
 }

@@ -10,7 +10,7 @@ import { environment } from '@funk/ui/web/environments/environment'
   template: `
   <managed-content-editor>
     <main class="admin-edit-mode-is-on">
-      <router-outlet></router-outlet>
+      <ion-router-outlet></ion-router-outlet>
     </main>
   </managed-content-editor>
   `,

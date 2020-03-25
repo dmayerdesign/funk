@@ -10,3 +10,9 @@ export interface DatabaseDocument
 
 export type DbDocumentInput<DocumentType extends DatabaseDocument> =
   Omit<DocumentType, 'id'>
+
+export interface DbDocumentMetadata
+{
+  collectionPath: string
+  documentPath: string
+}

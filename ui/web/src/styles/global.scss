@@ -10,3 +10,45 @@
 
 @import './admin-edit-mode';
 @import './themes/default/variables-light-mode';
+
+ion-card {
+  &.flat {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+  .card-media-max-height {
+    max-height: 400px;
+    overflow: hidden;
+  }
+  img, video {
+    width: 100%;
+  }
+}
+
+ion-progress-bar {
+  position: absolute;
+  z-index: 1000;
+}
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+}
+
+.full-width {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+// transparent-header-container
+.header-md {
+  &::after {
+    transition: opacity 200ms;
+  }
+  &.no-box-shadow::after {
+    opacity: 0;
+  }
+}

@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 
 @Component({
   template: `
-    <router-outlet></router-outlet>
+    <ion-router-outlet></ion-router-outlet>
   `,
 })
 export class BlogContainer
