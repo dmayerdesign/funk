@@ -1,23 +1,23 @@
+import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { Change, ChangeContext } from '@funk/plugins/db/change'
 import { DocumentSnapshot } from '@funk/plugins/db/document-snapshot'
 import { CloudFunction } from 'firebase-functions'
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
 
 export declare namespace storeListener {
-  export function document(path: string): DocumentBuilder;
+  export function document(path: string): DocumentBuilder
 
   export class DocumentBuilder {
     /** Respond to all document writes (creates, updates, or deletes). */
-    onWrite(handler: (change: Change<DatabaseDocument>, context: ChangeContext) =>
-      PromiseLike<any> | any): CloudFunction<Change<DatabaseDocument>>;
+    public onWrite(handler: (change: Change<DatabaseDocument>, context: ChangeContext) =>
+      PromiseLike<any> | any): CloudFunction<Change<DatabaseDocument>>
     /** Respond only to document updates. */
-    onUpdate(handler: (change: Change<DatabaseDocument>, context: ChangeContext) =>
-      PromiseLike<any> | any): CloudFunction<Change<DatabaseDocument>>;
+    public onUpdate(handler: (change: Change<DatabaseDocument>, context: ChangeContext) =>
+      PromiseLike<any> | any): CloudFunction<Change<DatabaseDocument>>
     /** Respond only to document creations. */
-    onCreate(handler: (snapshot: DocumentSnapshot, context: ChangeContext) =>
-      PromiseLike<any> | any): CloudFunction<DocumentSnapshot>;
+    public onCreate(handler: (snapshot: DocumentSnapshot, context: ChangeContext) =>
+      PromiseLike<any> | any): CloudFunction<DocumentSnapshot>
     /** Respond only to document deletions. */
-    onDelete(handler: (snapshot: DocumentSnapshot, context: ChangeContext) =>
-      PromiseLike<any> | any): CloudFunction<DocumentSnapshot>;
+    public onDelete(handler: (snapshot: DocumentSnapshot, context: ChangeContext) =>
+      PromiseLike<any> | any): CloudFunction<DocumentSnapshot>
   }
 }

@@ -2,7 +2,8 @@ import { enableProdMode } from '@angular/core'
 
 import { environment } from '@funk/ui/web/environments/environment'
 
-if (environment.production) {
+if (environment.production)
+{
   enableProdMode()
 }
 

@@ -1,5 +1,5 @@
-import { Context } from '@funk/plugins/db/event/context'
 import { DocumentSnapshot } from '@funk/plugins/db/document-snapshot'
+import { Context } from '@funk/plugins/db/event/context'
 
 export interface ChangeContext extends Context
 { }

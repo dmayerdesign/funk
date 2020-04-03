@@ -9,7 +9,7 @@ interface DocumentSnapshotExtras {
  * Copied from {@link @google-cloud/types/firestore/firestore.d.ts}
  * and modified slightly.
  *
- * 
+ *
  * A `DocumentSnapshot` contains data read from a document in your Firestore
  * database. The data can be extracted with `.data()` or `.get(<field>)` to
  * get a specific field.

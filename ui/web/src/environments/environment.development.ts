@@ -13,5 +13,3 @@ export const environment = {
     appId: '1:568649519522:web:ba86789de3edbb007ae2fb',
   },
 }
-
-// import 'zone.js/dist/zone-error'

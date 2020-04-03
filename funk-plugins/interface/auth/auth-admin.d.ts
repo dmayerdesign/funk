@@ -1,6 +1,6 @@
 import { CustomClaims } from '@funk/model/auth/custom-claims'
-import { UserRecord } from '@funk/plugins/auth/user-record'
 import { DecodedIdToken } from '@funk/plugins/auth/decoded-id-token'
+import { UserRecord } from '@funk/plugins/auth/user-record'
 
 export declare function authAdmin():
 {
