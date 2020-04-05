@@ -33,7 +33,7 @@
               }
             ],
             "styles": [
-              "ui/web/src/styles/global.scss"
+              "ui/web/src/styles/main.scss"
             ],
             "scripts": []
           },

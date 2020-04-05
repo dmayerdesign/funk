@@ -6,7 +6,9 @@ export class AppErrorHandler implements ErrorHandler
 {
   constructor(
     private _toastController: ToastController,
-  ) { }
+  )
+  { }
+
   public handleError(error: Error): void
   {
     if (error.message && error.message.indexOf('[funk] ') === 0)

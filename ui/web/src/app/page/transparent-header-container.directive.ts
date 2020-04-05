@@ -9,7 +9,8 @@ export interface TransparentHeaderContainerContext
 @Directive({
   selector: '[transparent-header-container]',
 })
-export class TransparentHeaderContainerDirective implements AfterViewInit, OnInit {
+export class TransparentHeaderContainerDirective implements AfterViewInit, OnInit
+{
   private _headerElement?: HTMLIonHeaderElement
 
   constructor(

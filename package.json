@@ -90,7 +90,6 @@
     "commander": "~4.1.1",
     "del": "~5.1.0",
     "firebase-tools": "~7.13.0",
-    "gts": "1.1.2",
     "jest": "~25.1.0",
     "jest-express": "~1.11.0",
     "recursive-readdir-sync": "~1.0.6",

@@ -1,0 +1,16 @@
+ion-progress-bar {
+  position: absolute;
+  z-index: 1000;
+}
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+}
+
+.full-width {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}

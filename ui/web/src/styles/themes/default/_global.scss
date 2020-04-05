@@ -1,0 +1,91 @@
+// Header.
+// [transparent-header-container]
+.header-md {
+  &::after {
+    transition: opacity 300ms;
+  }
+  &.no-box-shadow::after {
+    opacity: 0;
+  }
+}
+ion-title {
+  @media screen and (min-width: #{$content-max-width-px}px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// Card.
+ion-card {
+  .card-media {
+    max-height: 400px;
+    overflow: hidden;
+  }
+  img, video {
+    width: 100%;
+  }
+
+  &.flat {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+  &.hero {
+    margin-top: 0;
+    padding-top: 0;
+
+    .card-media {
+      position: absolute;
+      width: 100%;
+    }
+
+    ion-card-header,
+    ion-card-content {
+      @media screen and (min-width: #{$content-max-width-px}px) {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+    ion-card-header {
+      padding-top: 100px;
+    }
+    ion-card-content {
+      padding-bottom: 50px;
+    }
+    ion-card-title {
+      @media screen and (min-width: 768px) {
+        font-size: #{$hero-title-font-size-above-md-px}px;
+      }
+      @media screen and (max-width: 767px) {
+        font-size: #{$hero-title-font-size-below-md-px}px;
+      }
+    }
+    ion-card-title[color="light"] {
+      color: $hero-title-color-light;
+    }
+    ion-card-title[color="dark"] {
+      color: $hero-title-color-dark;
+    }
+    ion-card-subtitle {
+      @media screen and (min-width: 768px) {
+        font-size: #{$hero-subtitle-font-size-above-md-px}px;
+      }
+      @media screen and (max-width: 767px) {
+        font-size: #{$hero-subtitle-font-size-below-md-px}px;
+      }
+    }
+    ion-card-subtitle[color="light"] {
+      color: $hero-subtitle-color-light;
+    }
+    ion-card-subtitle[color="dark"] {
+      color: $hero-subtitle-color-dark;
+    }
+  }
+}
+
+// Container.
+.max-width-container {
+  max-width: #{$content-max-width-px}px;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -3,8 +3,7 @@ import { UserRecord } from '@funk/plugins/auth/user-record'
 import { CloudFunction } from '@funk/plugins/cloud-function/cloud-function'
 import { Context } from '@funk/plugins/db/event/context'
 
-export declare function authEvents():
-{
+export declare function authEvents(): {
   user(): {
     onCreate(handler: (user: UserRecord, context: Context) =>
       PromiseLike<any> | any): CloudFunction<UserRecord>;

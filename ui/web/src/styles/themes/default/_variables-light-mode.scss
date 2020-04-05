@@ -82,3 +82,9 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 }
+
+/** Funk SCSS Variables **/
+$hero-title-color-light: var(--ion-color-dark-contrast);
+$hero-subtitle-color-light: var(--ion-color-dark-contrast);
+$hero-title-color-dark: var(--ion-color-dark);
+$hero-subtitle-color-dark: var(--ion-color-dark);

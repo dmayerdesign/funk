@@ -1,8 +1,4 @@
-/*
- * Dark Colors
- * -------------------------------------------
- */
-
+/** Ionic CSS Variables **/
 body.dark {
   --ion-color-primary: #428cff;
   --ion-color-primary-rgb: 66,140,255;
@@ -68,11 +64,7 @@ body.dark {
   --ion-color-light-tint: #383a3e;
 }
 
-/*
- * iOS Dark Theme
- * -------------------------------------------
- */
-
+/** iOS Dark Theme */
 .ios body.dark {
   --ion-background-color: #000000;
   --ion-background-color-rgb: 0,0,0;
@@ -106,12 +98,7 @@ body.dark {
   --ion-item-background-activated: #313131;
 }
 
-
-/*
- * Material Design Dark Theme
- * -------------------------------------------
- */
-
+/** Material Design Dark Theme */
 .md body.dark {
   --ion-background-color: #121212;
   --ion-background-color-rgb: 18,18,18;
@@ -143,3 +130,9 @@ body.dark {
 
   --ion-item-background: #1A1B1E;
 }
+
+/** Funk SCSS Variables **/
+$hero-title-color-light: var(--ion-color-dark-shade);
+$hero-subtitle-color-light: var(--ion-color-dark-shade);
+$hero-title-color-dark: var(--ion-color-light);
+$hero-subtitle-color-dark: var(--ion-color-light);

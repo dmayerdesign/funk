@@ -1,7 +1,6 @@
 // tslint:disable:max-line-length
 // Taken from https://www.npmjs.com/package/http-status-codes
-export const enum StatusCode
-{
+export const enum StatusCode {
   /**
    * Official Documentation @ https://tools.ietf.org/html/rfc7231#section-6.3.3
    *

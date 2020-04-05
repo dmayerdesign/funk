@@ -12,12 +12,15 @@ import { KitchenSinkState } from './state'
 @Component({
   selector: 'kitchen-sink',
   template: `
-    <ng-template transparent-header-container
+    <ng-template
+      transparent-header-container
       let-handleContentScroll>
 
       <ion-header>
         <ion-toolbar>
-          <ion-title>Kitchen Sink</ion-title>
+          <div class="max-width-container">
+            <ion-title>Kitchen Sink</ion-title>
+          </div>
         </ion-toolbar>
       </ion-header>
 
@@ -27,34 +30,36 @@ import { KitchenSinkState } from './state'
 
       <!--<ion-content class="ion-padding">-->
       <ion-content
+        class="page-content"
         [scrollEvents]="true"
         (ionScroll)="handleContentScroll($event)">
+
+        <ion-card class="full-width flat hero">
+
+          <div class="card-media">
+            <img
+              src="https://images.pexels.com/photos/1784578/pexels-photo-1784578.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+            />
+          </div>
+
+          <ion-card-header class="max-width-container">
+            <ion-card-subtitle color="light">Card Subtitle</ion-card-subtitle>
+            <ion-card-title color="light">Card Title</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content class="max-width-container">
+            Keep close to Nature's heart...and break clear away, once in awhile,
+            and climb a mountain or spend a week in the woods. Wash your spirit clean.
+          </ion-card-content>
+
+        </ion-card>
+
         <ion-grid class="full-width">
           <ion-row>
-            <ion-col class="full-width" size="12">
-              <ion-card class="flat full-width" ripple-container>
-                <div class="card-media-max-height">
-                  <img
-                    src="https://images.pexels.com/photos/1784578/pexels-photo-1784578.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                  />
-                </div>
 
-                <ion-card-header>
-                  <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-                  <ion-card-title>Card Title</ion-card-title>
-                </ion-card-header>
-
-                <ion-card-content>
-                  Keep close to Nature's heart...and break clear away, once in awhile,
-                  and climb a mountain or spend a week in the woods. Wash your spirit clean.
-                </ion-card-content>
-
-                <ion-ripple-effect></ion-ripple-effect>
-              </ion-card>
-            </ion-col>
             <ion-col size="4">
-              <ion-card>
-                <div class="card-media-max-height">
+              <ion-card ripple-container>
+                <div class="card-media">
                   <video
                     src="https://player.vimeo.com/external/390846066.sd.mp4?s=75e4e5934d8187c25e9c8c61edbf89a6d3cbf470&profile_id=139&oauth2_token_id=57447761"
                     autoplay="true"
@@ -71,61 +76,36 @@ import { KitchenSinkState } from './state'
                   Keep close to Nature's heart...and break clear away, once in awhile,
                   and climb a mountain or spend a week in the woods. Wash your spirit clean.
                 </ion-card-content>
+
+                <ion-ripple-effect></ion-ripple-effect>
+              </ion-card>
+
+              <ion-card>
+
+                <ion-item>
+                  <ion-icon name="pin" slot="start"></ion-icon>
+                  <ion-label>ion-item in a card, icon left, button right</ion-label>
+                  <ion-button fill="outline" slot="end">View</ion-button>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="pin" slot="start"></ion-icon>
+                  <ion-label>ion-item in a card, icon left, button right</ion-label>
+                  <ion-button fill="outline" slot="end">View</ion-button>
+                </ion-item>
+
+                <ion-card-content>
+                  This is content, without any paragraph or header tags,
+                  within an ion-card-content element.
+                  This is content, without any paragraph or header tags,
+                  within an ion-card-content element.
+                </ion-card-content>
+
               </ion-card>
             </ion-col>
+
           </ion-row>
         </ion-grid>
-
-        <!-- Filler to test scrolling. -->
-        <ion-card>
-          <ion-item>
-            <ion-icon name="pin" slot="start"></ion-icon>
-            <ion-label>ion-item in a card, icon left, button right</ion-label>
-            <ion-button fill="outline" slot="end">View</ion-button>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="pin" slot="start"></ion-icon>
-            <ion-label>ion-item in a card, icon left, button right</ion-label>
-            <ion-button fill="outline" slot="end">View</ion-button>
-          </ion-item>
-
-          <ion-card-content>
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-          </ion-card-content>
-          <ion-card-content>
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-          </ion-card-content>
-          <ion-card-content>
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-          </ion-card-content>
-          <ion-card-content>
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-          </ion-card-content>
-          <ion-card-content>
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-          </ion-card-content>
-          <ion-card-content>
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-          </ion-card-content>
-        </ion-card>
 
         <!--<ion-button (click)="seedOrder()">Seed order</ion-button>-->
 
@@ -140,7 +120,7 @@ export class KitchenSinkContainer implements OnInit
   constructor(
     protected _renderer: Renderer2,
     @Inject(PersistenceApi) private _persistenceApi: Persistence,
-    private _manager: Manager<KitchenSinkState>
+    private _manager: Manager<KitchenSinkState>,
   )
   { }
 
