@@ -48,7 +48,7 @@ export class ShopApi implements Initializer
       // TODO: Get shop settings. Cache attribute values, taxonomies, etc.
       resolve: state$ => state$,
     })
-    this.cart$.subscribe(console.log)
+    this.cart$.subscribe()
   }
 
   public submitOrder(order: Partial<Order>): Observable<ActionResult<ShopState>>

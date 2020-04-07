@@ -37,9 +37,6 @@ export class RippleContainerDirective implements OnInit
   private _removeRipple(ripple: HTMLElement): void
   {
     ripple.classList.add('fade-out')
-    setTimeout(
-      () => ripple.remove(),
-      200,
-    )
+    setTimeout(() => ripple.remove(), 200)
   }
 }

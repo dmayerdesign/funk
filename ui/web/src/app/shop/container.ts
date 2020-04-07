@@ -6,10 +6,8 @@ import { BehaviorSubject } from 'rxjs'
   selector: 'shop',
   template: `
     <ng-container *ngIf="init | async">
-      <ion-toolbar>
-        <ion-title>Shop</ion-title>
-      </ion-toolbar>
-      <ion-router-outlet></ion-router-outlet>
+      <h1>Shop</h1>
+      <router-outlet></router-outlet>
     </ng-container>
   `,
 })

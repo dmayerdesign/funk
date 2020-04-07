@@ -28,9 +28,11 @@ import { KitchenSinkState } from './state'
         <ion-progress-bar type="indeterminate"></ion-progress-bar>
       </ng-container>
 
-      <!--<ion-content class="ion-padding">-->
       <ion-content
-        class="page-content"
+        [ngClass]="{
+          'page-content': true,
+          'ion-padding': false
+        }"
         [scrollEvents]="true"
         (ionScroll)="handleContentScroll($event)">
 

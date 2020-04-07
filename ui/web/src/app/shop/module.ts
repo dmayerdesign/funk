@@ -10,6 +10,7 @@ import { AppFireModule } from '@funk/ui/web/app/fire.module'
 import { createModuleInitializer, INITIALIZE_CONTAINER } from '@funk/ui/web/app/initializer'
 import { ShopContainer } from '@funk/ui/web/app/shop/container'
 import { HomeContainer } from '@funk/ui/web/app/shop/home/container'
+import { ProductModule } from '@funk/ui/web/app/shop/product/module'
 import { IonicModule } from '@ionic/angular'
 
 const routes: Routes = [
@@ -43,6 +44,7 @@ export const shopInitialState: ShopState = {
     AppFireModule,
     VexModule.forRoot<ShopState>(shopInitialState),
     ManagedContentModule,
+    ProductModule,
   ],
   declarations: [
     ShopContainer,
