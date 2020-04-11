@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core'
-import { Initializer } from '@funk/ui/helpers/angular.helpers'
+import { Initializer } from '@funk/ui/helpers/initializer'
 
 export interface InitializerFunction
 {

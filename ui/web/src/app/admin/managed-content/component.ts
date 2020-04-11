@@ -5,11 +5,12 @@ import { IdentityApi } from '@funk/ui/core/identity/api'
 import { Identity } from '@funk/ui/core/identity/interface'
 import { PersistenceApi } from '@funk/ui/core/persistence/api'
 import { Persistence } from '@funk/ui/core/persistence/interface'
-import { MortalityAware } from '@funk/ui/helpers/angular.helpers'
+import forLifeOf from '@funk/ui/helpers/for-life-of'
+import MortalityAware from '@funk/ui/helpers/mortality-aware'
 import { ManagedContentEditorService } from '@funk/ui/web/app/admin/managed-content/editor/service'
 import { Platform } from '@ionic/angular'
-import { Observable } from 'rxjs'
-import { first, map, shareReplay } from 'rxjs/operators'
+import { defer, from, Observable } from 'rxjs'
+import { first, map, shareReplay, switchMap } from 'rxjs/operators'
 
 @MortalityAware()
 @Component({
@@ -22,8 +23,21 @@ export class ManagedContentComponent implements OnInit, OnDestroy
   @Input() public type: ManagedContentType = ManagedContentType.TEXT
 
   public isDesktop = this._platform.platforms().includes('desktop')
-  public content$!: Observable<ManagedContent | undefined>
-  public contentValue$!: Observable<string | undefined>
+  public content$: Observable<ManagedContent | undefined> =
+    defer(() => from(this._canManageContent()))
+      .pipe(
+        switchMap((canManageContent) => canManageContent
+          ? this._managedContentEditorService
+            .listenForPreviewOrLiveContent(this.contentId)
+          : this._persistenceApi
+            .listenById<ManagedContent>(CONTENTS, this.contentId)
+        ),
+        forLifeOf(this),
+        shareReplay(1),
+      )
+  public contentValue$: Observable<string | undefined> = this.content$.pipe(
+    map((content) => content?.value)
+  )
 
   constructor(
     private _platform: Platform,
@@ -34,25 +48,8 @@ export class ManagedContentComponent implements OnInit, OnDestroy
 
   public async ngOnInit(): Promise<void>
   {
-    if (await this._canManageContent())
-    {
-      this.content$ = this._managedContentEditorService
-        .listenForPreviewOrLiveContent(this.contentId)
-        .pipe(
-          shareReplay(1)
-        )
-    }
-    else
-    {
-      this.content$ = this._persistenceApi.listenById<ManagedContent>(
-        CONTENTS,
-        this.contentId,
-      )
-    }
-
-    this.contentValue$ = this.content$.pipe(
-      map((content) => content?.value)
-    )
+    this.content$.subscribe()
+    this.contentValue$.subscribe()
   }
 
   public ngOnDestroy(): void

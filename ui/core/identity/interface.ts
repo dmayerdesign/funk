@@ -1,7 +1,7 @@
 import { UserRole } from '@funk/model/auth/user-role'
 import { UserHydrated } from '@funk/model/identity/user-hydrated'
 import { UserState } from '@funk/model/identity/user-state'
-import { Initializer } from '@funk/ui/helpers/angular.helpers'
+import { Initializer } from '@funk/ui/helpers/initializer'
 import { auth } from 'firebase'
 import { Observable } from 'rxjs'
 

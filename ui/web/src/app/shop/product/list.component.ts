@@ -2,13 +2,12 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@a
 import { FormArray, FormControl, FormGroup } from '@angular/forms'
 import { ListFilter } from '@funk/model/commerce/product/list-filter'
 import { Product } from '@funk/model/commerce/product/product'
-import { MortalityAware, ReactiveInputs } from '@funk/ui/helpers/angular.helpers'
+import MortalityAware from '@funk/ui/helpers/mortality-aware'
+import ReactiveInputs from '@funk/ui/helpers/reactive-inputs'
 import { defer, Observable } from 'rxjs'
 import { map, shareReplay } from 'rxjs/operators'
 
-@ReactiveInputs<ProductListComponent>([
-  [ 'initialFilters', 'filters' ],
-])
+@ReactiveInputs<ProductListComponent>([[ 'initialFilters', 'filters' ]])
 @MortalityAware()
 @Component({
   selector: 'product-list',

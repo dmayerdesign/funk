@@ -18,12 +18,12 @@ export class HomeContainer implements OnInit
   public initialFilters = timer(0, 2000).pipe(
     map((n) => ([
       {
-        type: n % 5
+        type: n % 2
           ? ListFilterType.AttributeValue
-          : n % 4
-          ? ListFilterType.Property
-          : n % 3
-          ? ListFilterType.SimpleAttributeValue
+          // : n % 4
+          // ? ListFilterType.Property
+          // : n % 3
+          // ? ListFilterType.SimpleAttributeValue
           : ListFilterType.TaxonomyTerm,
       },
     ])),

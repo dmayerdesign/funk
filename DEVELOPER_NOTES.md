@@ -50,3 +50,18 @@ exports.aggregate = functions.firestore
 
 - **Pre-rendering:** Make sure `AppShellComponent` contains a nice, one-page static
 facade for the site.
+
+## Philosophy
+
+### The file system is part of your code
+
+You already named the file; if a file exports only one thing, why repeat yourself? Using
+default exports makes refactoring easier, so use them whenever it makes sense.
+
+### Why practice extreme cleanliness?
+
+- Everything is easily tree-shakeable and only as big as it needs to be.
+- Everything that can be tested is easily testable; confidence in quality can be high.
+- Runtime exceptions are less likely when the compiler is strict.
+- Every part of the system is easy to read and understand.
+- Everything is composable: components can be swapped in and out.
