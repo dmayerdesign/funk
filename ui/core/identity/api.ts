@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { AngularFireAuth } from '@angular/fire/auth'
+import { AngularFireAuth } from '@angular/fire/auth/auth'
 import { CustomClaims } from '@funk/model/auth/custom-claims'
 import roleHasAdminPrivilegeOrGreater from '@funk/model/auth/helpers/role-has-admin-privilege-or-greater'
 import { UserConfig, USER_CONFIGS } from '@funk/model/identity/user-config'
@@ -84,7 +84,7 @@ export class IdentityApi implements Identity
     password: string,
   ): Promise<auth.UserCredential>
   {
-    const userCredential = await this._auth.auth.createUserWithEmailAndPassword(
+    const userCredential = await this._auth.createUserWithEmailAndPassword(
       email, password,
     )
     await this.sendEmailVerification()
@@ -96,12 +96,12 @@ export class IdentityApi implements Identity
     password: string,
   ): Promise<auth.UserCredential>
   {
-    return this._auth.auth.signInWithEmailAndPassword(email, password)
+    return this._auth.signInWithEmailAndPassword(email, password)
   }
 
   public async signOut(): Promise<void>
   {
-    this._auth.auth.signOut()
+    this._auth.signOut()
   }
 
   public async sendEmailVerification(): Promise<void>
@@ -118,7 +118,7 @@ export class IdentityApi implements Identity
     this._auth.authState
       .pipe(
         switchMap((userOrNull) => userOrNull === null
-          ? this._auth.auth.signInAnonymously().then(({ user }) => user)
+          ? this._auth.signInAnonymously().then(({ user }) => user)
           : of(userOrNull)),
       )
       .subscribe()

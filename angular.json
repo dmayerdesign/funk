@@ -34,8 +34,7 @@
             ],
             "styles": [
               "ui/web/src/styles/main.scss"
-            ],
-            "scripts": []
+            ]
           },
           "configurations": {
             "local": {

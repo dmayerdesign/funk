@@ -1,8 +1,9 @@
-import { FUNCTIONS_BASE_URL } from '@funk/config'
+// import { FUNCTIONS_BASE_URL } from '@funk/config'
 
 export const environment = {
   production: false,
-  functionsUrl: FUNCTIONS_BASE_URL,
+  // functionsUrl: FUNCTIONS_BASE_URL,
+  functionsUrl: `https://us-central1-funk-development.cloudfunctions.net`,
   firebaseConfig: {
     apiKey: 'AIzaSyAwYuwt4i2GJeAga_auP8Mw0E_sn9kvQ6c',
     authDomain: 'funk-development.firebaseapp.com',

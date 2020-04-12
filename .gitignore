@@ -41,7 +41,6 @@ firebase-debug.log
 /typings
 .tmp
 .cache
-/.funk/
 /.firebase/
 
 # System Files

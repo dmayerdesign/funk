@@ -2,9 +2,7 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from '@angular/router'
-import { VexModule } from '@dannymayer/vex'
 import { ShopApi } from '@funk/ui/core/shop/api'
-import { ShopState } from '@funk/ui/core/shop/model'
 import { ManagedContentModule } from '@funk/ui/web/app/admin/managed-content/module'
 import { AppFireModule } from '@funk/ui/web/app/fire.module'
 import { createModuleInitializer, INITIALIZE_CONTAINER } from '@funk/ui/web/app/initializer'
@@ -26,14 +24,6 @@ const routes: Routes = [
   },
 ]
 
-export const shopInitialState: ShopState = {
-  cart: {
-    skus: [],
-    customer: {},
-  },
-  attributeValues: [],
-}
-
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +32,6 @@ export const shopInitialState: ShopState = {
     RouterModule.forChild(routes),
     IonicModule,
     AppFireModule,
-    VexModule.forRoot<ShopState>(shopInitialState),
     ManagedContentModule,
     ProductModule,
   ],

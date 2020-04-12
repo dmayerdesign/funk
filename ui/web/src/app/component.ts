@@ -1,9 +1,7 @@
-import { ChangeDetectorRef, Component, Inject, NgZone, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { setUpDevTools } from '@dannymayer/vex'
 import { IdentityApi } from '@funk/ui/core/identity/api'
 import { Identity } from '@funk/ui/core/identity/interface'
-import { environment } from '@funk/ui/web/environments/environment'
 
 @Component({
   selector: 'app-root',
@@ -18,7 +16,6 @@ import { environment } from '@funk/ui/web/environments/environment'
 export class AppComponent implements OnInit
 {
   constructor(
-    private _ngZone: NgZone,
     @Inject(IdentityApi) private _identityApi: Identity,
     private _changeDetectorRef: ChangeDetectorRef,
     public router: Router,
@@ -28,12 +25,7 @@ export class AppComponent implements OnInit
   }
 
   public ngOnInit(): void
-  {
-    if (!environment.production)
-    {
-      setTimeout(() => this._ngZone.run(() => setUpDevTools()))
-    }
-  }
+  { }
 
   public async signOut(): Promise<void>
   {

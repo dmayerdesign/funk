@@ -2,6 +2,7 @@ import { enableProdMode } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { BrowserModule } from '@funk/ui/web/app/browser.module'
 import { environment } from '@funk/ui/web/environments/environment'
+import { defineCustomElements } from '@ionic/pwa-elements/loader'
 import 'hammerjs'
 
 if (!environment.production)
@@ -24,6 +25,9 @@ if (environment.production)
 document.addEventListener('DOMContentLoaded', () =>
 {
   platformBrowserDynamic().bootstrapModule(BrowserModule)
-    .then(() => console.log('bootstrapped successfully'))
+    .then(() =>
+    {
+      defineCustomElements(window)
+    })
     .catch(err => console.error(err))
 })

@@ -4,7 +4,7 @@
     "web": {
       "name": "Ionic Web App",
       "integrations": {
-        "cordova": {}
+        "capacitor": {}
       },
       "type": "angular",
       "root": ""

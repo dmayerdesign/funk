@@ -4,7 +4,6 @@ import { Order, Status } from '@funk/model/commerce/order/order'
 import { createStubbedIdentityApi } from '@funk/ui/core/identity/stubs'
 import { PersistenceApiStub } from '@funk/ui/core/persistence/stubs'
 import { ShopApi } from '@funk/ui/core/shop/api'
-import { createStateManagerStub } from '@funk/ui/web/app/stubs'
 import { of } from 'rxjs'
 
 export const CART_STUB: Partial<Order> = {
@@ -21,7 +20,6 @@ const createHttpClientStub = () => ({
 export const createDefaultShopApiStub = () =>
   new ShopApi(
     createHttpClientStub(),
-    createStateManagerStub(),
     new PersistenceApiStub({}),
     createStubbedIdentityApi(),
   )

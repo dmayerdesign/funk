@@ -1,13 +1,9 @@
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core'
-import { Manager } from '@dannymayer/vex'
 import { Address } from '@funk/model/address/address'
 import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
 import { PersistenceApi } from '@funk/ui/core/persistence/api'
 import { Persistence } from '@funk/ui/core/persistence/interface'
-import { mapToKey } from '@funk/ui/helpers/rxjs-shims'
-import { timer } from 'rxjs'
-import { map, switchMap } from 'rxjs/operators'
-import { KitchenSinkState } from './state'
+import { timer, BehaviorSubject } from 'rxjs'
 
 @Component({
   selector: 'kitchen-sink',
@@ -117,36 +113,17 @@ import { KitchenSinkState } from './state'
 })
 export class KitchenSinkContainer implements OnInit
 {
-  public someDataLoading = this._manager.state$.pipe(mapToKey('someDataLoading'))
+  public someDataLoading = new BehaviorSubject(true)
 
   constructor(
     protected _renderer: Renderer2,
     @Inject(PersistenceApi) private _persistenceApi: Persistence,
-    private _manager: Manager<KitchenSinkState>,
   )
   { }
 
   public ngOnInit(): void
   {
-    this._manager.dispatch({
-      type: 'KITCHEN_SINK_INIT',
-      reduce: () => ({
-        someData: undefined,
-        someDataLoading: true,
-      }),
-    })
-
-    this._manager.dispatch({
-      type: 'KITCHEN_SINK_LOAD',
-      resolve: (state$) => timer(2000).pipe(
-        switchMap(() => state$),
-        map((state) => ({
-          ...state,
-          someData: [],
-          someDataLoading: false,
-        }))
-      ),
-    })
+    timer(2000).subscribe(() => this.someDataLoading.next(false))
   }
 
   public async updateCart(): Promise<void>
