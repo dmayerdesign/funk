@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { AngularFireAuth } from '@angular/fire/auth/auth'
+import { AngularFireAuth } from '@angular/fire/auth'
 import { CustomClaims } from '@funk/model/auth/custom-claims'
 import roleHasAdminPrivilegeOrGreater from '@funk/model/auth/helpers/role-has-admin-privilege-or-greater'
 import { UserConfig, USER_CONFIGS } from '@funk/model/identity/user-config'

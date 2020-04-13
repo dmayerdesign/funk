@@ -12,11 +12,11 @@ import { map, shareReplay } from 'rxjs/operators'
 @Component({
   selector: 'product-list',
   template: `
-    <ng-container *ngFor="let product of products | async">
+    <ng-container *ngFor="let product of products">
       <product-list-item [product]="product"></product-list-item>
     </ng-container>
 
-    <div *ngFor="let filter of (filtersForm | async).controls">
+    <div *ngFor="let filter of (filtersForm | async)?.controls">
       <strong>Filter {{ filter?.value | json }}</strong>
       <ng-container [formGroup]="filter">
         <ion-input formControlName="type"></ion-input>
