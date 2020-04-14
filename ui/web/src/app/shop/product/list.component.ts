@@ -1,13 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core'
 import { FormArray, FormControl, FormGroup } from '@angular/forms'
 import { ListFilter } from '@funk/model/commerce/product/list-filter'
 import { Product } from '@funk/model/commerce/product/product'
 import MortalityAware from '@funk/ui/helpers/mortality-aware'
-import ReactiveInputs from '@funk/ui/helpers/reactive-inputs'
-import { defer, Observable } from 'rxjs'
-import { map, shareReplay } from 'rxjs/operators'
+import { of, ReplaySubject } from 'rxjs'
+import { catchError, map, shareReplay } from 'rxjs/operators'
 
-@ReactiveInputs<ProductListComponent>([[ 'initialFilters', 'filters' ]])
 @MortalityAware()
 @Component({
   selector: 'product-list',
@@ -31,21 +29,33 @@ export class ProductListComponent implements OnChanges, OnDestroy
   @Input() public initialFilters!: ListFilter[]
   @Output() public filtersChange = new EventEmitter<ListFilter[]>()
 
-  public filters!: Observable<ListFilter[]>
-  public filtersForm = defer(() => this.filters).pipe(
+  public filters = new ReplaySubject<ListFilter[]>(1)
+  public filtersForm = this.filters.pipe(
     map((filters) =>
       new FormArray(filters.map((filter) =>
-        new FormGroup(
+      {
+        return new FormGroup(
           Object.keys(filter).reduce(
             (groupDef, key) => ({
               ...groupDef,
               [key]: new FormControl(filter[key as keyof ListFilter]),
             }),
             {} as { [key: string]: FormControl },
-          ))))),
+          ))
+      }))),
+    catchError(() => of(undefined)),
     shareReplay(1),
   )
 
-  public ngOnChanges(): void { }
+  public ngOnChanges(changes: SimpleChanges): void
+  {
+    const INITIAL_FILTERS: keyof this = 'initialFilters'
+    const initialFiltersChange = changes[INITIAL_FILTERS as string]
+    const initialFilters: ListFilter[] | undefined = initialFiltersChange.currentValue
+    if (initialFilters)
+    {
+      this.filters.next(initialFilters)
+    }
+  }
   public ngOnDestroy(): void { }
 }

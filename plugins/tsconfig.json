@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
+      "@funk/copy/*": [ "../copy/*" ],
+      "@funk/functions/*": [ "../functions/src/*" ],
+      "@funk/functions-client/*": [ "../functions/src/client/*" ],
+      "@funk/plugins-interface/*": [ "./interface/*" ],
+      "@funk/helpers/*": [ "../helpers/*" ],
+      "@funk/model/*": [ "../model/*" ],
+      "@funk/ui/web/*": [ "../ui/web/src/*" ],
+      "@funk/ui/core/*": [ "../ui/core/*" ],
+      "@funk/ui/helpers/*": [ "../ui/helpers/*" ],
+      "@funk/testing/config": [ "../config/config.development.ts" ],
+      "@funk/test/*": [ "../test/*" ]
+    }
+  }
+}

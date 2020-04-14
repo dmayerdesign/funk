@@ -12,12 +12,13 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@funk/config": [ "../.funk/build-pipeline-output/config/config" ],
+      "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
-      "@funk/plugins/*": [ "../funk-plugins/interface/*" ]
+      "@funk/plugins/*": [ "../plugins/interface/*" ],
+      "@funk/testing/config": [ "../config/config.development.ts" ]
     }
   },
   "include": [

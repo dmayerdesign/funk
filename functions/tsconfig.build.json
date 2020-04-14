@@ -12,12 +12,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@funk/config": [ "../.funk/build-pipeline-output/config/config" ],
+      "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
-      "@funk/plugins/*": [ "../funk-plugins/src/*" ]
+      "@funk/plugins/*": [ "../plugins/src/*" ]
     }
   }
 }

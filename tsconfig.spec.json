@@ -7,13 +7,13 @@
       "node"
     ],
     "paths": {
-      "@funk/config": [ "./.funk/build-pipeline-output/config/config" ],
+      "@funk/config": [ "./.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
       "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
-      "@funk/plugins/*": [ "./funk-plugins/src/*" ],
-      "@funk/testing/config": [ "./config/config.development" ],
+      "@funk/plugins/*": [ "./plugins/src/*" ],
+      "@funk/testing/config": [ "./config/config.development.ts" ],
       "@funk/test/*": [ "./test/*" ],
       "@funk/ui/web/*": [ "./ui/web/src/*" ],
       "@funk/ui/core/*": [ "./ui/core/*" ],

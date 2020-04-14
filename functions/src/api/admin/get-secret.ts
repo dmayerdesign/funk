@@ -7,7 +7,7 @@ import { GetSecretInput } from '@funk/model/secret/get-secret-input'
 
 export default createRpcFunction<Promise<string>>(
   authenticateForRoles([ UserRole.SUPER ]),
-  async ({ body }: RequestWithBody<GetSecretInput>): Promise<string> =>
+  async ({ body }: RequestWithBody<GetSecretInput>): Promise<string | undefined> =>
   {
     return await getSecret({ secretKey: body.secretKey })
   }

@@ -5,11 +5,10 @@ import { GetSecretInput } from '@funk/model/secret/get-secret-input'
 import { store } from '@funk/plugins/db/store'
 import { v1 } from '@google-cloud/kms'
 
-export default async function ({ secretKey }: GetSecretInput): Promise<string>
+export default async function ({ secretKey }: GetSecretInput): Promise<string | undefined>
 {
   const { client_email, private_key } = JSON.parse(
-    Buffer.from(getConfig().admin.serializedcredentials, 'base64')
-      .toString('utf8'),
+    Buffer.from(getConfig().admin.serializedcredentials, 'base64').toString('utf8'),
   )
   const client = new v1.KeyManagementServiceClient({
     credentials: {
@@ -35,8 +34,8 @@ export default async function ({ secretKey }: GetSecretInput): Promise<string>
       name: keyName,
       ciphertext: encryptedSecretBuffer,
     })
-    return result.plaintext.toString('utf8')
+    return result.plaintext?.toString()
   }
 
-  return ''
+  return undefined
 }
