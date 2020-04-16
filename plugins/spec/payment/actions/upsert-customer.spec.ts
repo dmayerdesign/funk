@@ -10,6 +10,7 @@ describe('upsertCustomer', () =>
     const customerData = { address: {} } as any
     const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
     const upsertCustomer = construct({ getPaymentProvider })
+
     spyOn(pspInstance.customers, 'create')
     spyOn(pspInstance.customers, 'update')
 
@@ -30,6 +31,7 @@ describe('upsertCustomer', () =>
     const customerData = { id, address: {} } as any
     const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
     const upsertCustomer = construct({ getPaymentProvider })
+
     spyOn(pspInstance.customers, 'update')
     spyOn(pspInstance.customers, 'create')
 

@@ -30,6 +30,7 @@ export const createUserConfigStub = (email = 'test@test.com') => ({
 export const createUserStub = (role = UserRole.ANONYMOUS, email?: string) => ({
   ...createUserConfigStub(email),
   ...createIdTokenResultStub(role),
+  isAnonymous: false,
 })
 
 export const createAuthUserStub = (role = UserRole.ANONYMOUS) => ({
@@ -38,6 +39,7 @@ export const createAuthUserStub = (role = UserRole.ANONYMOUS) => ({
   getIdTokenResult: async (..._args: any[]) => createIdTokenResultStub(role),
   sendEmailVerification: async (..._args: any[]) => { },
   emailVerified: true,
+  isAnonymous: false,
 }) as unknown as User
 
 export const createUserCredentialStub = (
@@ -49,15 +51,13 @@ export const createUserCredentialStub = (
 
 export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
   user: new BehaviorSubject(authUserStub),
-  auth: {
-    createUserWithEmailAndPassword: async (..._args: any[]) =>
-      createUserCredentialStub(authUserStub),
-    signInWithEmailAndPassword: async (..._args: any[]) =>
-      createUserCredentialStub(authUserStub),
-    signOut: async () => { },
-    signInAnonymously: () => { },
-    currentUser: authUserStub,
-  },
+  createUserWithEmailAndPassword: async (..._args: any[]) =>
+    createUserCredentialStub(authUserStub),
+  signInWithEmailAndPassword: async (..._args: any[]) =>
+    createUserCredentialStub(authUserStub),
+  signOut: async () => { },
+  signInAnonymously: () => { },
+  currentUser: authUserStub,
   authState: new BehaviorSubject(authUserStub),
 }) as unknown as AngularFireAuth
 
@@ -66,8 +66,8 @@ export const createStoreStub = (email = 'test@test.com') => ({
     .pipe(shareReplay(1)),
 }) as PersistenceApi
 
-export const createStubbedIdentityApi = () =>
-  new IdentityApi(createAuthStub(), createStoreStub())
+export const createStubbedIdentityApi = (userStubRole = UserRole.ANONYMOUS) =>
+  new IdentityApi(createAuthStub(createAuthUserStub(userStubRole)), createStoreStub())
 
 export const createRouterStub = () => (
   {
@@ -83,7 +83,7 @@ export const createStubbedAdministratorGuard = (userStubRole = UserRole.ANONYMOU
 
 export const createStubbedAnonymousGuard = (userStubRole = UserRole.ANONYMOUS) =>
   new AnonymousGuard(
-    createAuthStub(createAuthUserStub(userStubRole)),
+    createStubbedIdentityApi(userStubRole),
     createRouterStub()
   )
 
@@ -108,15 +108,15 @@ export class IdentityApiStub implements Identity
   public async init(): Promise<void>
   { }
   public async createUserWithEmailAndPassword(
-    email: string,
-    password: string,
+    _email: string,
+    _password: string,
   ): Promise<auth.UserCredential>
   {
     return {} as auth.UserCredential
   }
   public async signInWithEmailAndPassword(
-    email: string,
-    password: string,
+    _email: string,
+    _password: string,
   ): Promise<auth.UserCredential>
   {
     return {} as auth.UserCredential

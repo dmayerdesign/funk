@@ -33,6 +33,7 @@
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
       "@funk/plugins/*": [ "./plugins/interface/*" ],
+      "@funk/plugins-interface/*": [ "./plugins/interface/*" ],
       "@funk/ui/web/*": [ "./ui/web/src/*" ],
       "@funk/ui/core/*": [ "./ui/core/*" ],
       "@funk/ui/helpers/*": [ "./ui/helpers/*" ],

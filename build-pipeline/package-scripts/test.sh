@@ -1,2 +1,2 @@
 firebase emulators:exec --only firestore \
-  "node ./node_modules/.bin/jest --passWithNoTests --runInBand --detectOpenHandles"
+  "node_modules/.bin/jest --ci"

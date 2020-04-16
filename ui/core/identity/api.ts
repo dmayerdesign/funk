@@ -26,7 +26,7 @@ export class IdentityApi implements Identity
     {
       if (user.isAnonymous)
       {
-        return of<UserConfig>({ id: user.uid, displayName: 'Guest' })
+        return of<UserConfig>({ id: user.uid, displayName: 'Guest', isAnonymous: true })
       }
       return combineLatest(
         this._persistenceApi.listenById<UserConfig>(USER_CONFIGS, user.uid),
@@ -37,6 +37,7 @@ export class IdentityApi implements Identity
           ...(userConfig || {}),
           id: user.uid,
           claims: _user.claims as CustomClaims,
+          isAnonymous: false,
         })),
         shareReplay(1),
       )
