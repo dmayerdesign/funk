@@ -9,6 +9,7 @@
     "paths": {
       "@funk/config": [ "./.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
+      "@funk/plugins-interface/*": [ "./plugins/interface/*" ],
       "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],

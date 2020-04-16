@@ -1,12 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core'
 import { FormArray, FormControl, FormGroup } from '@angular/forms'
 import { ListFilter } from '@funk/model/commerce/product/list-filter'
 import { Product } from '@funk/model/commerce/product/product'
-import MortalityAware from '@funk/ui/helpers/mortality-aware'
 import { of, ReplaySubject } from 'rxjs'
 import { catchError, map, shareReplay } from 'rxjs/operators'
 
-@MortalityAware()
 @Component({
   selector: 'product-list',
   template: `
@@ -23,7 +21,7 @@ import { catchError, map, shareReplay } from 'rxjs/operators'
     </div>
   `,
 })
-export class ProductListComponent implements OnChanges, OnDestroy
+export class ProductListComponent implements OnChanges
 {
   @Input() public products!: Product[]
   @Input() public initialFilters!: ListFilter[]
@@ -57,5 +55,4 @@ export class ProductListComponent implements OnChanges, OnDestroy
       this.filters.next(initialFilters)
     }
   }
-  public ngOnDestroy(): void { }
 }

@@ -69,9 +69,9 @@ describe('IdentityApi', () =>
   it('should sign a user out', async (done) =>
   {
     const authStub = createAuthStub()
-    spyOn(authStub.auth, 'signOut')
+    spyOn(authStub, 'signOut')
     await new IdentityApi(authStub, createStoreStub()).signOut()
-    expect(authStub.auth.signOut).toHaveBeenCalledTimes(1)
+    expect(authStub.signOut).toHaveBeenCalledTimes(1)
     done()
   })
 })

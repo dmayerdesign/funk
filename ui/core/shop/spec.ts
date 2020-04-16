@@ -1,5 +1,4 @@
 import { createDefaultShopApiStub as createStubbedShopApi } from '@funk/ui/core/shop/stubs'
-import { first } from 'rxjs/operators'
 
 describe('shop', () =>
 {
@@ -11,7 +10,15 @@ describe('shop', () =>
   it('should emit a cart', async (done) =>
   {
     const api = createStubbedShopApi()
-    expect(await api.cart$.pipe(first()).toPromise()).toBeTruthy()
-    done()
+    const cartObserverSpy = jasmine.createSpy()
+
+    api.init()
+
+    api.cart$.subscribe(cartObserverSpy)
+    api.cart$.subscribe(() =>
+    {
+      expect(cartObserverSpy).toHaveBeenCalledTimes(1)
+      done()
+    })
   })
 })

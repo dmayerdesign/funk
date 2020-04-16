@@ -5,14 +5,13 @@ import { IdentityApi } from '@funk/ui/core/identity/api'
 import { Identity } from '@funk/ui/core/identity/interface'
 import { PersistenceApi } from '@funk/ui/core/persistence/api'
 import { Persistence } from '@funk/ui/core/persistence/interface'
-import forLifeOf from '@funk/ui/helpers/for-life-of'
-import MortalityAware from '@funk/ui/helpers/mortality-aware'
 import { ManagedContentEditorService } from '@funk/ui/web/app/admin/managed-content/editor/service'
 import { Platform } from '@ionic/angular'
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy'
 import { defer, from, Observable } from 'rxjs'
 import { first, map, shareReplay, switchMap } from 'rxjs/operators'
 
-@MortalityAware()
+@UntilDestroy()
 @Component({
   selector: 'managed-content',
   template: `{{ contentValue$ | async }}`,
@@ -32,7 +31,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy
           : this._persistenceApi
             .listenById<ManagedContent>(CONTENTS, this.contentId)
         ),
-        forLifeOf(this),
+        untilDestroyed(this),
         shareReplay(1),
       )
   public contentValue$: Observable<string | undefined> = this.content$.pipe(
@@ -52,8 +51,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy
     this.contentValue$.subscribe()
   }
 
-  public ngOnDestroy(): void
-  { }
+  public ngOnDestroy(): void { }
 
   @HostListener('click')
   public async handleEditClick(): Promise<void>

@@ -11,13 +11,14 @@ import { Initializer } from '@funk/ui/helpers/initializer'
 import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { environment } from '@funk/ui/web/environments/environment'
 import { Observable } from 'rxjs'
-import { map, shareReplay, switchMap } from 'rxjs/operators'
+import { map, shareReplay, switchMap, tap } from 'rxjs/operators'
 
 @Injectable()
 export class ShopApi implements Initializer
 {
   public cart$ = this._identityApi.user$.pipe(
     ignoreNullish(),
+    tap(x => console.log('got here 1', x)),
     switchMap((user) => this._persistenceApi
       .queryCollectionForMetadata(ORDERS, (collectionRef) => collectionRef
         .where(createDocPath<Order, Customer>('customer', 'userId'), '==', user.id)
@@ -28,6 +29,7 @@ export class ShopApi implements Initializer
     switchMap(({ collectionPath, documentPath }) =>
       this._persistenceApi.listenById(collectionPath, documentPath)
     ),
+    tap(x => console.log('got here 2', x)),
     shareReplay(1),
   )
 
