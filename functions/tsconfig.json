@@ -18,7 +18,6 @@
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
       "@funk/plugins/*": [ "../plugins/interface/*" ],
-      "@funk/testing/config": [ "../config/config.development.ts" ]
     }
   },
   "include": [

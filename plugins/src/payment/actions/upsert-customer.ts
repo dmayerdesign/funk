@@ -1,18 +1,18 @@
 import createUid from '@funk/helpers/create-uid'
 import Stripe from 'stripe'
-import getPaymentProvider from './get-payment-provider'
+import getPaymentProviderImpl from './get-payment-provider'
 
 export interface CreateInput
 {
-  stripeApiKey: string
+  paymentProviderSecret: string
   customerData: Stripe.CustomerCreateParams
 }
 export interface UpdateInput {
-  stripeApiKey: string
+  paymentProviderSecret: string
   id: string
   customerData: Stripe.CustomerUpdateParams
 }
-export type Input = CreateInput & UpdateInput
+export type Input = CreateInput | UpdateInput
 
 export interface Output
 {
@@ -20,37 +20,40 @@ export interface Output
   idempotencyKey: string
 }
 
-export default async function({
-  stripeApiKey,
-  customerData,
-  id,
-}: Input): Promise<Output>
-{
-  const stripe = getPaymentProvider(stripeApiKey)
-  const idempotencyKey = createUid()
-  let customer: Stripe.Customer
+export const construct = ({
+  getPaymentProvider = getPaymentProviderImpl,
+} = {}) =>
+  async function(input: Input): Promise<Output>
+  {
+    const { paymentProviderSecret, customerData } = input
+    const { id } = input as UpdateInput
+    const stripe = getPaymentProvider(paymentProviderSecret)
+    const idempotencyKey = createUid()
+    let customer: Stripe.Customer
 
-  if (!!id)
-  {
-    customer = await stripe.customers.update(
-      id,
-      customerData,
-      {
-        idempotency_key: idempotencyKey,
-      }
-    )
+    if (!!id)
+    {
+      customer = await stripe.customers.update(
+        id,
+        customerData,
+        {
+          idempotency_key: idempotencyKey,
+        }
+      )
+    }
+    else
+    {
+      customer = await stripe.customers.create(
+        customerData,
+        {
+          idempotency_key: idempotencyKey,
+        }
+      )
+    }
+    return {
+      customer,
+      idempotencyKey,
+    }
   }
-  else
-  {
-    customer = await stripe.customers.create(
-      customerData,
-      {
-        idempotency_key: idempotencyKey,
-      }
-    )
-  }
-  return {
-    customer,
-    idempotencyKey,
-  }
-}
+
+export default construct()

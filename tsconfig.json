@@ -36,7 +36,6 @@
       "@funk/ui/web/*": [ "./ui/web/src/*" ],
       "@funk/ui/core/*": [ "./ui/core/*" ],
       "@funk/ui/helpers/*": [ "./ui/helpers/*" ],
-      "@funk/testing/config": [ "./config/config.development.ts" ],
       "@funk/test/*": [ "./test/*" ]
     }
   },
