@@ -1,1 +1,4 @@
-export { OrderData } from '@funk/plugins-interface/payment/order-data'
+export interface OrderData
+{
+  paymentIntentId: string
+}

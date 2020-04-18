@@ -40,8 +40,7 @@ export default createRpcFunction(
     })
 
     const encryptedSecret: DbDocumentInput<EncryptedSecret> = {
-      value: encryptResponse.ciphertext.toString('base64'),
+      value: Buffer.from(encryptResponse.ciphertext!)?.toString('base64'),
     }
-
     await store().doc(`/vault/${secretKey}`).set(encryptedSecret)
   })

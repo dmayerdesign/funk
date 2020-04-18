@@ -17,6 +17,7 @@ export default authEvents().user().onCreate(async function(user): Promise<any>
       id: user.uid,
       displayName: user.displayName,
       email: user.email,
+      isAnonymous: false,
     }
 
     await store().collection(USER_CONFIGS)

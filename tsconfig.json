@@ -30,6 +30,7 @@
     "paths": {
       "@funk/config": [ "./.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
+      "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
       "@funk/plugins/*": [ "./plugins/interface/*" ],

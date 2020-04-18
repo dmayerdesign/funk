@@ -9,6 +9,7 @@
       "@funk/helpers/*": [ "../../helpers/*" ],
       "@funk/model/*": [ "../../model/*" ],
       "@funk/plugins/*": [ "../../plugins/src/*" ],
+      "@funk/plugins-interface/*": [ "../../plugins/interface/*" ],
       "@funk/ui/web/*": [ "./src/*" ],
       "@funk/ui/core/*": [ "../core/*" ],
       "@funk/ui/helpers/*": [ "../helpers/*" ]
