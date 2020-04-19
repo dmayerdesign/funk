@@ -1,3 +1,4 @@
+import { SkuDiscount } from '@funk/model/commerce/discount/discount'
 import { PopulatedOrder } from '@funk/model/commerce/order/order'
 import add from '@funk/model/commerce/price/actions/add'
 import { NULL_PRICE, Price } from '@funk/model/commerce/price/price'
@@ -32,7 +33,7 @@ export default function(input: Input): Output
         getActualPrice({
           sku,
           product: await getProductForSku(sku),
-          activeDiscounts,
+          activeDiscounts: activeDiscounts as SkuDiscount[],
         }),
       ),
     )

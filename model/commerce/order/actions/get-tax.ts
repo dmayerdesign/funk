@@ -26,7 +26,7 @@ export const construct = (_getTaxRateForPostalCode = getTaxRateForPostalCode) =>
 
     return add(
       {
-        amount: total.amount * taxRate,
+        amount: Math.ceil(total.amount * taxRate),
         currency: total.currency,
       },
       getAdditionalTaxPrice()

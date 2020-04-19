@@ -1,6 +1,8 @@
-import { Discount } from '@funk/model/commerce/discount/discount'
+import getApplicableDiscountsForSkuImpl from
+  '@funk/model/commerce/discount/actions/get-applicable-discounts-for-sku'
+import { SkuDiscount } from '@funk/model/commerce/discount/discount'
+import subtract from '@funk/model/commerce/price/actions/subtract'
 import { Price } from '@funk/model/commerce/price/price'
-import { validateBeforeMath } from '@funk/model/commerce/price/validation'
 import { Product } from '@funk/model/commerce/product/product'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 
@@ -11,110 +13,48 @@ import { Sku } from '@funk/model/commerce/product/sku/sku'
  * @param activeDiscounts All discounts with a `startAt` less than, and an `endAt` greater
  * than, today's date, or any subset thereof. That filtering must be done before invoking
  * this function; it will not check `startAt` and `endAt` values.
- *
- * Only one discount may be applied, unless one or more are `compoundable`.
- * Compoundable discounts will always override non-compoundable discounts.
- * All else being equal, more-recently-started discount(s) will be favored.
  */
-export default function(input: {
+export function construct({
+  getApplicableDiscountsForSku = getApplicableDiscountsForSkuImpl,
+}: {
+  getApplicableDiscountsForSku?: typeof getApplicableDiscountsForSkuImpl
+}): (input: {
   sku: Sku,
   product: Product,
-  activeDiscounts?: Discount[],
-}): Price
+  activeDiscounts?: SkuDiscount[],
+}) => Price
 {
-  const { sku, product, activeDiscounts = [] } = input
-  let applicableDiscounts = activeDiscounts.filter((discount) =>
+  return function(input: {
+    sku: Sku,
+    product: Product,
+    activeDiscounts?: SkuDiscount[],
+  }): Price
   {
-    if (discount.type === 'order')
-    {
-      return false
-    }
-    if (!!discount.excludes)
-    {
-      if (discount.excludes.all) return false
-      if (!!discount.excludes.skus)
-      {
-        if (discount.excludes.skus.indexOf(sku.id) > -1)
-        {
-          return false
-        }
-      }
-      if (!!discount.excludes.taxonomyTerms)
-      {
-        if (!!discount.excludes.taxonomyTerms.find(
-          (excludedTerm) => !!sku.taxonomyTerms.find(
-            (term) => term === excludedTerm,
-          ),
-        ))
-        {
-          return false
-        }
-      }
-    }
-    if (discount.includes.all) return true
-    if (!!discount.includes.skus)
-    {
-      if (discount.includes.skus.indexOf(sku.id) > -1) return true
-    }
-    if (!!discount.includes.taxonomyTerms)
-    {
-      if (!!discount.includes.taxonomyTerms.find(
-        (includedTerm) => !!sku.taxonomyTerms.find(
-          (term) => term === includedTerm,
-        ),
-      ))
-      {
-        return true
-      }
-      if (!!discount.includes.taxonomyTerms.find(
-        (includedTerm) => !!product.taxonomyTerms.find(
-          (term) => term === includedTerm,
-        ),
-      ))
-      {
-        return true
-      }
-    }
-    return false
-  })
-
-  // Only allow a single discount to be applied.
-  if (applicableDiscounts.length > 1)
-  {
-    if (applicableDiscounts.some(({ isCompoundable }) => isCompoundable))
-    {
-      applicableDiscounts = applicableDiscounts.filter(
-        ({ isCompoundable }) => isCompoundable,
-      )
-    }
-    else
-    {
-      applicableDiscounts = applicableDiscounts
-        .sort((a, b) => a.startAt <= b.startAt ? -1 : 1)
-        .slice(0, 1)
-    }
+    const { sku, product, activeDiscounts = [] } = input
+    const applicableDiscounts = getApplicableDiscountsForSku(sku, product, activeDiscounts)
+    return getSkuPriceAfterDiscounts(sku, applicableDiscounts)
   }
+}
 
-  return applicableDiscounts.reduce<Price>((calculatedPrice, discount) =>
+function getSkuPriceAfterDiscounts(sku: Sku, discounts: SkuDiscount[]): Price
+{
+  return discounts.reduce<Price>((calculatedPrice, discount) =>
   {
     if (!!discount.total)
     {
-      validateBeforeMath(calculatedPrice, discount.total)
-      return {
-        ...calculatedPrice,
-        amount: calculatedPrice.amount - discount.total.amount,
-      }
+      return subtract(calculatedPrice, discount.total)
     }
-    else
+    else if (!!discount.percentage)
     {
-      if (!discount.percentage)
-      {
-        discount.percentage = 0
-      }
-      return {
-        ...calculatedPrice,
-        amount: calculatedPrice.amount - (calculatedPrice.amount * discount.percentage),
-      }
+      return subtract(
+        calculatedPrice,
+        {
+          ...calculatedPrice,
+          amount: calculatedPrice.amount * discount.percentage,
+        })
     }
+    return calculatedPrice
   }, sku.price)
 }
+
+export default construct({})

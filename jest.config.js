@@ -3,14 +3,6 @@ const { compilerOptions } = require('./tsconfig.spec');
 
 module.exports = {
   testRegex: '((\\.|/)(test|spec))\\.[jt]sx?$',
-  roots: [
-    '<rootDir>/config',
-    '<rootDir>/functions',
-    '<rootDir>/helpers',
-    '<rootDir>/model',
-    '<rootDir>/plugins',
-    '<rootDir>/ui',
-  ],
   globals: {
     'ts-jest': {
       tsConfig: 'tsconfig.spec.json',

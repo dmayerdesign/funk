@@ -1,3 +1,4 @@
+import { DISCOUNT_END_DATE, DISCOUNT_START_DATE } from '@funk/model/commerce/discount/actions/spec'
 import { Discount } from '@funk/model/commerce/discount/discount'
 import { PopulatedOrder, Status } from '@funk/model/commerce/order/order'
 import { CurrencyCode } from '@funk/model/commerce/price/currency-code'
@@ -44,8 +45,8 @@ export function createOrder(): DbDocumentInput<PopulatedOrder>
             'tax_term_id_TO_EXCLUDE',
           ],
         },
-        startAt: Date.now() - 60000000,
-        endAt: Date.now() + 60000000,
+        startAt: DISCOUNT_START_DATE,
+        endAt: DISCOUNT_END_DATE,
       },
     ] as Discount[],
 

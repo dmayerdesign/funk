@@ -29,4 +29,7 @@ export interface HttpClient
   patch<T = any, R = Response<T>>(url: string, data?: any, config?: RequestConfig): Promise<R>
 }
 
+// Never throw an HTTP error response.
+axios.defaults.validateStatus = () => true
+
 export default axios as HttpClient

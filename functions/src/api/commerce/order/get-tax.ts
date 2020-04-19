@@ -1,5 +1,7 @@
+import { ORDER_GET_TAX_MISSING_POSTAL_CODE } from '@funk/copy/error-messages'
 import getProductForSku from '@funk/functions/helpers/commerce/product/get-product-for-sku'
 import populate from '@funk/functions/helpers/data-access/populate'
+import { BadRequestError } from '@funk/functions/helpers/http/bad-request-exception'
 import createRpcFunction from '@funk/functions/helpers/http/create-rpc-function'
 import { RequestWithBody } from '@funk/functions/model/request-response/request-with-body'
 import { DISCOUNTS } from '@funk/model/commerce/discount/discount'
@@ -15,14 +17,13 @@ export default createRpcFunction(
       { key: 'skus', collectionPath: SKUS },
       { key: 'discounts', collectionPath: DISCOUNTS },
     ])
-    // TODO: Validate that order.customer.billingAddress.zip exists.
-    const postalCode = order.customer && order.customer.billingAddress &&
-      order.customer.billingAddress.zip || ''
+    const postalCode = order.customer?.billingAddress?.zip
 
-    return getTax({
-      order,
-      postalCode,
-      getProductForSku,
-    })
+    if (postalCode == null)
+    {
+      throw new BadRequestError(ORDER_GET_TAX_MISSING_POSTAL_CODE)
+    }
+
+    return getTax({ order, postalCode, getProductForSku })
   }
 )

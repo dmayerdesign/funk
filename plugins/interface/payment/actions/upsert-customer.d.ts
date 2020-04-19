@@ -1,14 +1,16 @@
+import GetPaymentProvider from '@funk/plugins/payment/actions/get-payment-provider'
+
 export interface CreateInput
 {
-  paymentApiKey: string
+  paymentProviderSecret: string
   customerData: any
 }
 export interface UpdateInput {
-  paymentApiKey: string
+  paymentProviderSecret: string
   id: string
   customerData: any
 }
-export type Input = CreateInput & UpdateInput
+export type Input = CreateInput | UpdateInput
 
 export interface Output
 {
@@ -16,8 +18,10 @@ export interface Output
   idempotencyKey: string
 }
 
-export default function({
-  paymentApiKey,
-  customerData,
-  id,
-}: Input): Promise<Output>
+export function construct(deps: {
+  getPaymentProvider: GetPaymentProvider,
+}): (input: Input) => Promise<Output>
+
+declare function upsertCustomer(input: Input): Promise<Output>
+
+export default upsertCustomer

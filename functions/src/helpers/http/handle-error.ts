@@ -1,3 +1,4 @@
+import { ErrorWithStatusCode } from '@funk/functions/helpers/http/error-with-status-code'
 import { StatusCode } from '@funk/model/http/status-code'
 import * as express from 'express'
 
@@ -8,7 +9,12 @@ const handler: express.ErrorRequestHandler = (error, _request, response, next) =
     return next(error)
   }
   response
-    .status(StatusCode.INTERNAL_SERVER_ERROR)
+    .status(getStatusCodeForError(error))
     .send({ error })
 }
 export default handler
+
+function getStatusCodeForError(error?: Error | ErrorWithStatusCode): StatusCode
+{
+  return (error as ErrorWithStatusCode)?.statusCode ?? StatusCode.INTERNAL_SERVER_ERROR
+}
