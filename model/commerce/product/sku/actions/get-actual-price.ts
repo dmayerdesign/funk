@@ -50,7 +50,7 @@ function getSkuPriceAfterDiscounts(sku: Sku, discounts: SkuDiscount[]): Price
         calculatedPrice,
         {
           ...calculatedPrice,
-          amount: calculatedPrice.amount * discount.percentage,
+          amount: calculatedPrice.amount * (discount.percentage / 100),
         })
     }
     return calculatedPrice

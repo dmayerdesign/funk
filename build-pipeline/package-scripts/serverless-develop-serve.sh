@@ -1,3 +1,2 @@
-# firebase setup:emulators:firestore && \
-cd functions/lib
-firebase serve --only functions
+npm run serverless::develop::build && \
+node_modules/.bin/firebase emulators:start --only functions,firestore

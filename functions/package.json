@@ -2,27 +2,27 @@
   "name": "functions",
   "private": true,
   "dependencies": {
-    "@google-cloud/kms": "1.5.1",
-    "axios": "^0.19.0",
-    "cookie-parser": "1.4.4",
+    "@google-cloud/kms": "2.0.0",
+    "axios": "0.19.2",
+    "cookie-parser": "1.4.5",
     "cors": "2.8.5",
     "diff-json": "2.0.0",
-    "express": "~4.17.1",
-    "firebase-admin": "^8.0.0",
-    "firebase-functions": "^3.1.0",
-    "fs-extra": "8.1.0",
-    "handlebars": "4.5.3",
+    "express": "4.17.1",
+    "firebase-admin": "8.10.0",
+    "firebase-functions": "3.6.0",
+    "fs-extra": "9.0.0",
+    "handlebars": "4.7.6",
     "lodash": "4.17.15",
     "recursive-readdir-sync": "1.0.6",
-    "rxjs": "~6.5.3",
-    "stripe": "7.13.1"
+    "rxjs": "6.5.5",
+    "stripe": "8.44.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "8.0.1",
-    "@types/express": "~4.17.0"
+    "@types/express": "4.17.6",
+    "@types/fs-extra": "8.0.1"
   },
   "main": "lib/index.js",
   "engines": {
-    "node": "10"
+    "node": "12"
   }
 }

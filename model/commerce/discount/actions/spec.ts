@@ -85,16 +85,19 @@ export const DISCOUNT_START_DATE = Date.now() - 60000000
 export const DISCOUNT_END_DATE = Date.now() + 60000000
 export const createSku = (idSuffix = '0') => ({
   id: `test_sku_id_${idSuffix}`,
+  productId: `test_product_id_${idSuffix}`,
   price: { amount: 1000, currency: 'USD' },
   taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
 }) as Sku
 export const createSkuExcludedById = (idSuffix = '0') => ({
   id: `test_sku_id_EXCLUDE_FROM_DISCOUNT`,
+  productId: `test_product_id_${idSuffix}`,
   price: { amount: 1000, currency: 'USD' },
   taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
 }) as Sku
 export const createSkuExcludedByTaxTerm = (idSuffix = '0') => ({
   id: `test_sku_id_${idSuffix}`,
+  productId: `test_product_id_${idSuffix}`,
   price: { amount: 1000, currency: 'USD' },
   taxonomyTerms: [ `tax_term_id_EXCLUDE_FROM_DISCOUNT` ],
 }) as Sku

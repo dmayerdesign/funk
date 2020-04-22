@@ -1,5 +1,5 @@
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
-const { compilerOptions } = require('./tsconfig.spec');
+const { compilerOptions } = require('../tsconfig.spec.json')
+const { pathsToModuleNameMapper } = require('ts-jest/utils')
 
 module.exports = {
   testRegex: '((\\.|/)(test|spec))\\.[jt]sx?$',
@@ -17,4 +17,4 @@ module.exports = {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
-};
+}

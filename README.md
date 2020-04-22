@@ -78,7 +78,7 @@ probably want to do this while you're editing code.
 ```sh
 # The first window builds the front end (an Angular app) and
 # watches for file changes. It serves the web app at the URL
-# http://localhost:4200.
+# http://localhost:8100.
 
 npm run ui::develop::local
 

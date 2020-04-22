@@ -1,12 +1,12 @@
 {
   "public": {
-    "service_account_key_id": "cc85796e797e516806d467d4595fed0e7e7e0d3e",
+    "local_path_to_service_account_key": "/Users/danielmayer/.secrets/funk-development/funk-development-cc85796e797e.json",
     "functions_region": "us-central1",
-    "fire_project_id": "funk-development",
-    "trusted_origins": "http://localhost:4200,https://funk-development.firebaseapp.com",
-    "gcp_region": "us-east1",
+    "service_account_key_id": "cc85796e797e516806d467d4595fed0e7e7e0d3e",
     "configuration": "development",
-    "local_path_to_service_account_key": "/Users/danielmayer/.secrets/funk-development/funk-development-cc85796e797e.json"
+    "fire_project_id": "funk-development",
+    "gcp_region": "us-east1",
+    "trusted_origins": "http://localhost:4200,https://funk-development.firebaseapp.com"
   },
   "admin": {
     "serviceaccount": "client_email:functions@funk-development.iam.gserviceaccount.com",

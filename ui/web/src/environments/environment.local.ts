@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  functionsUrl: 'http://localhost:5000/funk-development/us-central1',
+  functionsUrl: 'http://localhost:5001/funk-development/us-central1',
   firebaseConfig: {
     apiKey: 'AIzaSyAwYuwt4i2GJeAga_auP8Mw0E_sn9kvQ6c',
     authDomain: 'funk-development.firebaseapp.com',

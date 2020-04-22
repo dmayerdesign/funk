@@ -15,9 +15,9 @@ export interface Input
   getProductForSku: (sku: Sku) => Promise<Product>
 }
 
-export type Output = Promise<Price>
+export type Output = Price
 
-export default function(input: Input): Output
+export default function(input: Input): Promise<Output>
 {
   const { order, getProductForSku } = input
   const skus = order.skus

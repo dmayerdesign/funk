@@ -33,6 +33,11 @@ export default async function<PopulatedType, MarshalledType = any>(
     }
     else
     {
+      if (Array.isArray(marshalledDoc[key])
+        && (marshalledDoc[key] as unknown as any[]).some((x) => typeof x !== 'string'))
+      {
+        continue
+      }
       _populatedDoc[key] = await store().collection(collectionPath)
         .where('id', 'in', marshalledDoc[key])
         .get()

@@ -1,11 +1,12 @@
-import getTotalBeforeTax from '@funk/model/commerce/order/actions/get-total-before-tax'
+import loudlyLog from '@funk/helpers/loudly-log'
+import getTotalBeforeTaxImpl from '@funk/model/commerce/order/actions/get-total-before-tax'
 import { PopulatedOrder } from '@funk/model/commerce/order/order'
 import add from '@funk/model/commerce/price/actions/add'
 import { NULL_PRICE, Price } from '@funk/model/commerce/price/price'
 import { Product } from '@funk/model/commerce/product/product'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 import { DbDocumentInput } from '@funk/model/data-access/database-document'
-import getTaxRateForPostalCode from '@funk/plugins/tax/actions/get-tax-rate-for-postal-code'
+import getTaxRateForPostalCodeImpl from '@funk/plugins/tax/actions/get-tax-rate-for-postal-code'
 
 export interface Input
 {
@@ -16,12 +17,15 @@ export interface Input
 
 export type Output = Promise<Price>
 
-export const construct = (_getTaxRateForPostalCode = getTaxRateForPostalCode) =>
+export const construct = ({
+  getTotalBeforeTax = getTotalBeforeTaxImpl,
+  getTaxRateForPostalCode = getTaxRateForPostalCodeImpl,
+} = {}) =>
 {
   return async function(input: Input): Output
   {
     const { order, getProductForSku, postalCode } = input
-    const taxRate = await _getTaxRateForPostalCode({ postalCode })
+    const taxRate = await getTaxRateForPostalCode({ postalCode })
     const total = await getTotalBeforeTax({ order, getProductForSku })
 
     return add(
@@ -29,14 +33,8 @@ export const construct = (_getTaxRateForPostalCode = getTaxRateForPostalCode) =>
         amount: Math.ceil(total.amount * taxRate),
         currency: total.currency,
       },
-      getAdditionalTaxPrice()
+      order.additionalTaxAmount ?? NULL_PRICE,
     )
-
-    function getAdditionalTaxPrice(): Price
-    {
-      if (order.additionalTaxAmount) return order.additionalTaxAmount
-      return NULL_PRICE
-    }
   }
 }
 

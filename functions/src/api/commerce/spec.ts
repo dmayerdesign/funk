@@ -1,5 +1,4 @@
-import { FUNCTIONS_BASE_URL } from '@funk/config'
-import httpClient from '@funk/functions/helpers/http/client'
+import callHttpsFunction from '@funk/functions/test/call-https-function'
 import { createAllInclusiveTenPercentDiscount, createSku } from
   '@funk/model/commerce/discount/actions/spec'
 import { PopulatedOrder } from '@funk/model/commerce/order/order'
@@ -10,31 +9,35 @@ import { customerWithBadPostalCode, customerWithGoodPostalCode } from
 
 describe('shop', () =>
 {
-  it('should return a BadRequestError ', async (done) =>
+  xit('should get the tax amount for an order, after discounts', async (done) =>
   {
-    const response = await httpClient
-      .post(`${FUNCTIONS_BASE_URL}/commerceOrderGetTax`, {
-        skus: [ createSku() ],
-        customer: customerWithBadPostalCode(),
-      } as DbDocumentInput<PopulatedOrder>)
-    expect(response.status).toBe(StatusCode.BAD_REQUEST)
-    done()
-  })
-  it('should get the tax amount for an order, after discounts', async (done) =>
-  {
-    const response = await httpClient
-      .post(`${FUNCTIONS_BASE_URL}/commerceOrderGetTax`, {
-        skus: [ createSku() ],
-        customer: customerWithGoodPostalCode(),
-        discounts: [
-          createAllInclusiveTenPercentDiscount({}),
-        ],
-      } as DbDocumentInput<PopulatedOrder>)
+    const request = {
+      skus: [ createSku() ],
+      customer: customerWithGoodPostalCode(),
+      discounts: [
+        createAllInclusiveTenPercentDiscount({}),
+      ],
+    } as DbDocumentInput<PopulatedOrder>
+    const response = await callHttpsFunction(
+      'commerceOrderGetTax', request)
 
     expect(response.status).toBe(StatusCode.OK)
-    expect(response.data).toEqual(
-      { amount: Math.ceil((1000 - 100) * (6 / 100)), currency: 'USD' }
-    )
+    expect(response.data).toEqual({
+      amount: Math.ceil((1000 - 100) * (6 / 100)),
+      currency: 'USD',
+    })
+    done()
+  })
+  it('should return a BadRequestError if no zip is provided', async (done) =>
+  {
+    const request = {
+      skus: [ createSku() ],
+      customer: customerWithBadPostalCode(),
+    } as DbDocumentInput<PopulatedOrder>
+    const response = await callHttpsFunction(
+      'commerceOrderGetTax', request)
+
+    expect(response.status).toBe(StatusCode.BAD_REQUEST)
     done()
   })
 })
