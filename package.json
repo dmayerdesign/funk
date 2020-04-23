@@ -20,8 +20,7 @@
     "functions::build::local": "sh ./build-pipeline/package-scripts/functions-build-local.sh",
     "functions::build::development": "sh ./build-pipeline/package-scripts/functions-build-development.sh",
     "functions::build::production": "sh ./build-pipeline/package-scripts/functions-build-production.sh",
-    "serverless::develop::build": "sh ./build-pipeline/package-scripts/serverless-develop-build.sh",
-    "serverless::develop::serve": "sh ./build-pipeline/package-scripts/serverless-develop-serve.sh",
+    "serverless::develop::local": "sh ./build-pipeline/package-scripts/serverless-develop-local.sh",
     "bootstrap-project::development": "node bootstrap-project -c development",
     "bootstrap-project::production": "node bootstrap-project -c production",
     "ng": "./node_modules/.bin/ng"

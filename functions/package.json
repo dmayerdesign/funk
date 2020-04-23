@@ -23,6 +23,6 @@
   },
   "main": "lib/index.js",
   "engines": {
-    "node": "12"
+    "node": "10"
   }
 }

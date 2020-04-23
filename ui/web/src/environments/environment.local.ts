@@ -4,7 +4,7 @@ export const environment = {
   firebaseConfig: {
     apiKey: 'AIzaSyAwYuwt4i2GJeAga_auP8Mw0E_sn9kvQ6c',
     authDomain: 'funk-development.firebaseapp.com',
-    databaseURL: 'https://funk-development.firebaseio.com',
+    databaseURL: 'http://localhost:8080',
     projectId: 'funk-development',
     storageBucket: 'funk-development.appspot.com',
     messagingSenderId: '568649519522',

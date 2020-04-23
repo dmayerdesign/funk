@@ -1,4 +1,3 @@
-import loudlyLog from '@funk/helpers/loudly-log'
 import getTotalBeforeTaxImpl from '@funk/model/commerce/order/actions/get-total-before-tax'
 import { PopulatedOrder } from '@funk/model/commerce/order/order'
 import add from '@funk/model/commerce/price/actions/add'

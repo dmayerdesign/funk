@@ -41,7 +41,7 @@ const { PATH_TO_SERVICE_ACCOUNT_JSON } = configJson
 const serviceAccountJson = require(PATH_TO_SERVICE_ACCOUNT_JSON)
 const serviceAccountBase64 = Buffer.from(JSON.stringify(serviceAccountJson)).toString('base64')
 exec(`firebase functions:config:set admin.serializedcredentials=${serviceAccountBase64}`)
-exec(`firebase functions:config:get > .runtimeconfig.json`)
+exec(`firebase functions:config:get > functions/.runtimeconfig.json`)
 
 // Delete any existing built output.
 try
