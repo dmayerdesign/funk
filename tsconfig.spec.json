@@ -7,7 +7,7 @@
       "node"
     ],
     "paths": {
-      "@funk/config": [ "./config/config.local.ts" ],
+      "@funk/config": [ "./config/config.development.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
       "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
       "@funk/functions/*": [ "./functions/src/*" ],
