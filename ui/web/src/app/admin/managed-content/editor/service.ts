@@ -7,9 +7,9 @@ import { IdentityApi } from '@funk/ui/core/identity/api'
 import { Identity } from '@funk/ui/core/identity/interface'
 import { PersistenceApi } from '@funk/ui/core/persistence/api'
 import { Persistence } from '@funk/ui/core/persistence/interface'
-import { ignoreNullish, mapToKey } from '@funk/ui/helpers/rxjs-shims'
+import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { combineLatest, from, of, BehaviorSubject, Observable } from 'rxjs'
-import { catchError, first, map, shareReplay, switchMap } from 'rxjs/operators'
+import { catchError, first, map, pluck, shareReplay, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class ManagedContentEditorService
@@ -25,7 +25,7 @@ export class ManagedContentEditorService
           .pipe(
             ignoreNullish(),
             first(),
-            mapToKey('value'),
+            pluck('value'),
             map((value) => new FormControl(value)),
           )
       ),
@@ -39,7 +39,7 @@ export class ManagedContentEditorService
         userId,
         ))
         .pipe(
-          mapToKey('contentPreviews'),
+          pluck<UserState | undefined, UserState['contentPreviews']>('contentPreviews'),
           catchError(() => of(undefined)),
         )
     ),
@@ -136,25 +136,26 @@ export class ManagedContentEditorService
         ignoreNullish(),
         switchMap((userId) =>
           combineLatest(
-              from(this._persistenceApi.listenById<UserState>(
-                USER_STATES,
-                userId,
-                ))
-                .pipe(
-                  mapToKey('contentPreviews'),
-                  mapToKey(contentId),
-                  catchError(() => of(undefined)),
-                ),
-              from(this._persistenceApi.listenById<ManagedContent>(
-                CONTENTS,
-                contentId,
-                ))
-                .pipe(catchError(() => of(undefined))),
+            from(this._persistenceApi.listenById<UserState>(
+              USER_STATES,
+              userId,
+              ))
+              .pipe(
+                map((user) => user?.contentPreviews?.[contentId]),
+                catchError(() => of(undefined)),
+              ),
+            from(this._persistenceApi.listenById<ManagedContent>(
+              CONTENTS,
+              contentId,
+              ))
+              .pipe(
+                catchError(() => of(undefined))
+              ),
             )
             .pipe(
               map(([ preview, content ]) => preview || content),
-            )
-          ),
+            ),
+        ),
       )
   }
 

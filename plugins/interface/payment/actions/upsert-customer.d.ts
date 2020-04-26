@@ -10,18 +10,11 @@ export interface UpdateInput {
   id: string
   customerData: any
 }
-export type Input = CreateInput | UpdateInput
-
-export interface Output
-{
-  customer: any
-  idempotencyKey: string
-}
 
 export function construct(deps: {
-  getPaymentProvider: GetPaymentProvider,
-}): (input: Input) => Promise<Output>
+  getPaymentProvider: GetPaymentProvider
+}): (input: CreateInput | UpdateInput) => Promise<any>
 
-declare function upsertCustomer(input: Input): Promise<Output>
+declare function upsertCustomer(input: CreateInput | UpdateInput): Promise<any>
 
 export default upsertCustomer

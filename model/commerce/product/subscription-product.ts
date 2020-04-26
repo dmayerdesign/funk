@@ -28,5 +28,4 @@ export interface SubscriptionProduct extends DatabaseDocument
    * and which do not apply to all sibling `Skus`.
    */
   taxonomyTerms: TaxonomyTerm[]
-  paymentData: any
 }

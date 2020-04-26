@@ -19,8 +19,7 @@ export default createRpcFunction(
 
     const { client_email, private_key } = JSON.parse(
       Buffer.from(getConfig().admin.serializedcredentials, 'base64')
-        .toString('utf8')
-    )
+        .toString('utf8'))
     const client = new v1.KeyManagementServiceClient({
       credentials: {
         client_email,

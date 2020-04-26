@@ -1,13 +1,13 @@
 import { FormControl } from '@angular/forms'
 import { CONTENTS } from '@funk/model/admin/content/content'
 import { USER_STATES } from '@funk/model/identity/user-state'
-import { IdentityApiStub, USER_UID_STUB } from '@funk/ui/core/identity/stubs'
-import { PersistenceApiStub } from '@funk/ui/core/persistence/stubs'
+import { IdentityStub, USER_UID_STUB } from '@funk/ui/core/identity/stubs'
+import { PersistenceStub } from '@funk/ui/core/persistence/stubs'
 import { ManagedContentEditorService } from '@funk/ui/web/app/admin/managed-content/editor/service'
 import { first } from 'rxjs/operators'
 
 const createPersistenceApiStub = (withPreviews = false) =>
-  new PersistenceApiStub({
+  new PersistenceStub({
     [CONTENTS]: {
       'content-1': {
         value: 'Test 1',
@@ -38,7 +38,7 @@ describe('ManagedContentEditorService', () =>
   {
     const service = new ManagedContentEditorService(
       createPersistenceApiStub(),
-      new IdentityApiStub(),
+      new IdentityStub(),
     )
 
     service.manageContent('content-2')
@@ -55,7 +55,7 @@ describe('ManagedContentEditorService', () =>
   {
     const service = new ManagedContentEditorService(
       createPersistenceApiStub(true),
-      new IdentityApiStub(),
+      new IdentityStub(),
     )
 
     service.manageContent('content-1')
@@ -72,7 +72,7 @@ describe('ManagedContentEditorService', () =>
     const persistenceApiStub = createPersistenceApiStub(true)
     const service = new ManagedContentEditorService(
       persistenceApiStub,
-      new IdentityApiStub(),
+      new IdentityStub(),
     )
     spyOn(persistenceApiStub, 'setById').and.callThrough()
 
@@ -101,7 +101,7 @@ describe('ManagedContentEditorService', () =>
     const persistenceApiStub = createPersistenceApiStub(true)
     const service = new ManagedContentEditorService(
       persistenceApiStub,
-      new IdentityApiStub(),
+      new IdentityStub(),
     )
     spyOn(persistenceApiStub, 'setById').and.callThrough()
     spyOn(persistenceApiStub, 'updateById').and.callThrough()

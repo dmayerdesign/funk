@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import createUid from '@funk/helpers/create-uid'
 import { Order, Status } from '@funk/model/commerce/order/order'
 import { createStubbedIdentityApi } from '@funk/ui/core/identity/stubs'
-import { PersistenceApiStub } from '@funk/ui/core/persistence/stubs'
+import { PersistenceStub } from '@funk/ui/core/persistence/stubs'
 import { ShopApi } from '@funk/ui/core/shop/api'
 import { of } from 'rxjs'
 
@@ -20,6 +20,6 @@ const createHttpClientStub = () => ({
 export const createDefaultShopApiStub = () =>
   new ShopApi(
     createHttpClientStub(),
-    new PersistenceApiStub({}),
+    new PersistenceStub({}),
     createStubbedIdentityApi(),
   )

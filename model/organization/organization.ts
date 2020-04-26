@@ -1,20 +1,13 @@
-import { OrganizationRetailSettings } from '@funk/model/commerce/organization/organization-retail-settings'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { PrimaryKey } from '@funk/model/data-access/primary-key'
 import { OrganizationBranding } from '@funk/model/organization/organization-branding'
 
-export const enum OrganizationType
-{
-  BUSINESS = 'BUSINESS',
-  NONPROFIT = 'NONPROFIT',
-}
-
-export interface Organization extends DatabaseDocument
-{
-  id: any
+export interface Organization extends DatabaseDocument {
+  id: PrimaryKey
+  type: 'enterprise'|'nonprofit'
   name: string
-  retailSettings: OrganizationRetailSettings
   branding: OrganizationBranding
   publicWebsiteUrl: string
-  type?: OrganizationType
   dbaNames?: string[]
+  enterprises?: PrimaryKey[]
 }

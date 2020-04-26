@@ -5,7 +5,7 @@ import { Persistence } from '@funk/ui/core/persistence/interface'
 import { get } from 'lodash'
 import { of, Observable } from 'rxjs'
 
-export class PersistenceApiStub implements Persistence
+export class PersistenceStub implements Persistence
 {
   public collection: <T>(path: string, queryFn?: QueryFn | undefined) =>
     AngularFirestoreCollection<T> = (path) => ({

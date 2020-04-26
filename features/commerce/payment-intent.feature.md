@@ -1,6 +1,6 @@
 # Feature: Signal intent to pay
 
-## Rule: One order to one payment intent.
+## Rule: Orders and payment intents must have a one-to-one relationship.
 
 ### Example: When an Order is created, an intent to pay is created.
 
@@ -12,13 +12,12 @@
 
 ## Rule: Functions associated with payment must be idempotent.
 
-### Example: When an Order is created, an idempotency key is persisted.
+### Example: When an Order is created, an idempotency key is persisted for convenience.
 
   Given a user named Annie
   And a payment service provider named Stripe
   When Annie's order is created
-  Then the app must send an idempotency key to Stripe
-  And persist the idempotency key on Annie's order
+  Then the app must persist the idempotency key on Annie's order
 
 ### Example: Payment is submitted for an Order when its status changes from "Cart" to "Payment Pending"
 

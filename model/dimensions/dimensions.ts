@@ -1,7 +1,6 @@
 import { LengthUnit } from '@funk/model/units/length-unit'
 
-export interface Dimensions
-{
+export interface Dimensions {
   unit: LengthUnit
   /** Length */
   x: number

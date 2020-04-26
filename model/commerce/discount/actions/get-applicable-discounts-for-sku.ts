@@ -2,6 +2,7 @@ import { Discount, SkuDiscount } from '@funk/model/commerce/discount/discount'
 import { Product } from '@funk/model/commerce/product/product'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 import { sortBy } from 'lodash'
+import ApplicableDiscountsBuilder from './applicable-discounts-builder'
 
 /**
  * Only one discount may be applied, unless one or more are `compoundable`.
@@ -9,9 +10,11 @@ import { sortBy } from 'lodash'
  * Percentage discounts are always applied before amount discounts.
  * All else being equal, more-recently-started discount(s) will be favored.
  */
-export default function(sku: Sku, product: Product, discounts: SkuDiscount[]): SkuDiscount[]
+export default function(
+  discounts: SkuDiscount[],
+  { sku, product }: { sku: Sku, product: Product }): SkuDiscount[]
 {
-  return new ApplicableDiscountsBuilder(sku, product, discounts)
+  return new ApplicableDiscountsForSkuBuilder(sku, product, discounts)
     .onlyAllowSkuDiscounts()
     .removeDiscountsThatExcludeThisProductOrSku()
     .removeDiscountsThatDoNotIncludeThisProductOrSku()
@@ -21,8 +24,7 @@ export default function(sku: Sku, product: Product, discounts: SkuDiscount[]): S
     .build()
 }
 
-class ApplicableDiscountsBuilder {
-  private _applicableDiscounts: SkuDiscount[] = []
+class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder {
 
   constructor(
     private _sku: Sku,
@@ -30,12 +32,7 @@ class ApplicableDiscountsBuilder {
     discounts: SkuDiscount[],
   )
   {
-    this._setInitialDiscounts(discounts)
-  }
-
-  private _setInitialDiscounts(discounts: SkuDiscount[]): void
-  {
-    this._applicableDiscounts = [ ...discounts ]
+    super(discounts)
   }
 
   public onlyAllowSkuDiscounts(): this
@@ -151,10 +148,5 @@ class ApplicableDiscountsBuilder {
       return discounts.slice(0, 1)
     })()
     return this
-  }
-
-  public build(): SkuDiscount[]
-  {
-    return this._applicableDiscounts
   }
 }

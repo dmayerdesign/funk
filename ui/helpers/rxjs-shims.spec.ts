@@ -1,4 +1,4 @@
-import { ignoreNullish, mapToKey } from '@funk/ui/helpers/rxjs-shims'
+import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
 import { of, BehaviorSubject, Observable } from 'rxjs'
 import { first, shareReplay } from 'rxjs/operators'
 
@@ -54,18 +54,6 @@ describe('rxjs-shims', () =>
       const justEmptyString = subject.pipe(ignoreNullish())
       expect(await justEmptyString.pipe(first()).toPromise())
         .toBe('')
-      done()
-    })
-  })
-
-  // TODO: wrap `pluck`.
-  describe('mapToKey', () =>
-  {
-    it(`should map an object to a property`, async (done) =>
-    {
-      const subject = new BehaviorSubject<any>({ foo: 'bar' })
-      expect(await subject.pipe(first(), mapToKey('foo')).toPromise())
-        .toBe('bar')
       done()
     })
   })

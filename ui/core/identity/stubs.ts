@@ -87,26 +87,17 @@ export const createStubbedAnonymousGuard = (userStubRole = UserRole.ANONYMOUS) =
     createRouterStub()
   )
 
-export class IdentityApiStub implements Identity
+export class IdentityStub implements Identity
 {
-  public user$ = of(createUserStub(this._stubOptions.userRole)).pipe(shareReplay(1))
+  public user$ = of(createUserStub(UserRole.PUBLIC)).pipe(shareReplay(1))
   public userId$ = of(USER_UID_STUB).pipe(shareReplay(1))
   public userIdToken$ = of(ID_TOKEN_STUB).pipe(shareReplay(1))
-  public userRole$ = of(this._stubOptions.userRole).pipe(shareReplay(1))
+  public userRole$ = of(UserRole.PUBLIC).pipe(shareReplay(1))
   public hasAdminPrivilegeOrGreater$ = of(roleHasAdminPrivilegeOrGreater(
-    this._stubOptions.userRole
+    UserRole.PUBLIC
   )).pipe(shareReplay(1))
-  public userState$ = of(this._stubOptions.userState).pipe(shareReplay(1))
-
-  constructor(private _stubOptions = {
-    userId: USER_UID_STUB,
-    userRole: UserRole.PUBLIC,
-    userState: { id: USER_UID_STUB } as UserState,
-  })
-  { }
-
-  public async init(): Promise<void>
-  { }
+  public userState$ = of({ id: USER_UID_STUB } as UserState).pipe(shareReplay(1))
+  public async init(): Promise<void> { }
   public async createUserWithEmailAndPassword(
     _email: string,
     _password: string,
@@ -121,8 +112,6 @@ export class IdentityApiStub implements Identity
   {
     return {} as auth.UserCredential
   }
-  public async signOut(): Promise<void>
-  { }
-  public async sendEmailVerification(): Promise<void>
-  { }
+  public async signOut(): Promise<void> { }
+  public async sendEmailVerification(): Promise<void> { }
 }

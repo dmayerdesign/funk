@@ -7,7 +7,7 @@ import { app } from 'firebase'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
-describe('Firestore access control rules', () =>
+xdescribe('Firestore access control rules', () =>
 {
   let adminApp: app.App
   let defaultApp: app.App

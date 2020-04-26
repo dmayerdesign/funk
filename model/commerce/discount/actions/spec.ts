@@ -12,10 +12,11 @@ describe('getApplicableDiscountsForSku', () =>
       createAllInclusiveTenPercentDiscount({ isCompoundable: true }),
       createAllInclusiveTenPercentDiscount({ isCompoundable: true }),
     ]
-    expect(getApplicableDiscountsForSku(
-      createSku(),
-      createProduct(),
-      originalDiscounts))
+    expect(
+      getApplicableDiscountsForSku(
+        originalDiscounts,
+        { sku: createSku(), product: createProduct() }
+      ))
       .toEqual(originalDiscounts)
   })
   it('should only allow one non-compoundable discount', () =>
@@ -24,10 +25,11 @@ describe('getApplicableDiscountsForSku', () =>
       createAllInclusiveTenPercentDiscount({ isCompoundable: false }),
       createAllInclusiveTenPercentDiscount({ isCompoundable: false }),
     ]
-    expect(getApplicableDiscountsForSku(
-      createSku(),
-      createProduct(),
-      originalDiscounts))
+    expect(
+      getApplicableDiscountsForSku(
+        originalDiscounts,
+        { sku: createSku(), product: createProduct() }
+      ))
       .toEqual([
         createAllInclusiveTenPercentDiscount({ isCompoundable: false }),
       ])
@@ -38,10 +40,11 @@ describe('getApplicableDiscountsForSku', () =>
       createAllInclusiveTenPercentDiscount({}),
       createExclusiveAmountDiscount({}),
     ]
-    expect(getApplicableDiscountsForSku(
-      createSkuExcludedById(),
-      createProduct(),
-      originalDiscounts))
+    expect(
+      getApplicableDiscountsForSku(
+        originalDiscounts,
+        { sku: createSkuExcludedById(), product: createProduct() }
+      ))
       .toEqual([
         createAllInclusiveTenPercentDiscount({}),
       ])
@@ -51,10 +54,11 @@ describe('getApplicableDiscountsForSku', () =>
     const originalDiscounts = [
       createExclusiveAmountDiscount({}),
     ]
-    expect(getApplicableDiscountsForSku(
-      createSku(),
-      createProductExcludedById(),
-      originalDiscounts))
+    expect(
+      getApplicableDiscountsForSku(
+        originalDiscounts,
+        { sku: createSku(), product: createProductExcludedById() }
+      ))
       .toEqual([])
   })
   it('should filter out discounts which exclude the SKU by taxonomy term', () =>
@@ -62,10 +66,11 @@ describe('getApplicableDiscountsForSku', () =>
     const originalDiscounts = [
       createExclusiveAmountDiscount({}),
     ]
-    expect(getApplicableDiscountsForSku(
-      createSkuExcludedByTaxTerm(),
-      createProduct(),
-      originalDiscounts))
+    expect(
+      getApplicableDiscountsForSku(
+        originalDiscounts,
+        { sku: createSkuExcludedByTaxTerm(), product: createProduct() }
+      ))
       .toEqual([])
   })
   it('should filter out discounts which exclude the product by taxonomy term', () =>
@@ -73,10 +78,11 @@ describe('getApplicableDiscountsForSku', () =>
     const originalDiscounts = [
       createExclusiveAmountDiscount({}),
     ]
-    expect(getApplicableDiscountsForSku(
-      createSku(),
-      createProductExcludedByTaxTerm(),
-      originalDiscounts))
+    expect(
+      getApplicableDiscountsForSku(
+        originalDiscounts,
+        { sku: createSku(), product: createProductExcludedByTaxTerm() }
+      ))
       .toEqual([])
   })
 })

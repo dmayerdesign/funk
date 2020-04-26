@@ -1,4 +1,5 @@
 import diff from '@funk/functions/helpers/audit/diff'
+import omitNullish from '@funk/helpers/omit-nullish'
 import { Mutation } from '@funk/model/audit/mutation'
 import { DatabaseDocument, DbDocumentInput } from '@funk/model/data-access/database-document'
 import { Change, ChangeContext } from '@funk/plugins/db/change'
@@ -25,24 +26,10 @@ export default function<DocumentType extends DatabaseDocument>(
 
     if (changes.length)
     {
-      // Get rid of the misleading 'remove' change when a new document is inserted.
-      if (beforeData === undefined
-        && changes.length === 2
-        && changes[0].key === '$root' && changes[1].key === '$root'
-        && changes[0].type === 'remove' && changes[0].value === undefined)
-      {
-        changes.shift()
-      }
       const mutation: DbDocumentInput<Mutation<DocumentType>> = {
         existingDocumentId: id,
         createdAt: timestamp,
-        changes: changes.map((_change) =>
-        {
-          const c = _change
-          if (c.value == null) { delete c.value }
-          if (c.oldValue == null) { delete c.oldValue }
-          return c
-        }),
+        changes: changes.map(omitNullish),
       }
       await store()
         .doc(`${dbPath}/${timestampId}`)

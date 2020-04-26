@@ -41,7 +41,7 @@ describe('getTaxRateForPostalCode', () =>
       getSecret: getSecretSpy,
       httpClient: httpClientStub,
     })
-    const returnValue = await getTaxRateForPostalCode({ postalCode: POSTAL_CODE })
+    const returnValue = await getTaxRateForPostalCode(POSTAL_CODE)
 
     expect(getSecretSpy).toHaveBeenCalledTimes(1)
     expect(getSecretSpy).toHaveBeenCalledWith(

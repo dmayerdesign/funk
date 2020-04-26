@@ -4,13 +4,10 @@ import { Price } from '@funk/model/commerce/price/price'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { PrimaryKey } from '@funk/model/data-access/primary-key'
-import { OrderData } from '@funk/plugins/payment/order-data'
-import { Postage } from '@funk/plugins/postage/postage'
 
 export const ORDERS = 'commerce.orders'
 
-export enum Status
-{
+export enum Status {
   CART = 'Cart',
   PAYMENT_PENDING = 'Payment pending',
   PAID = 'Paid',
@@ -22,23 +19,27 @@ export enum Status
   RETURNED_REFUNDED = 'Refunded upon return',
 }
 
-interface BaseOrder extends DatabaseDocument
-{
-  customer: Partial<Customer>
+interface BaseOrder extends DatabaseDocument {
   status: Status
+  customer: Partial<Customer>
+  // Tax.
   taxPercent?: number
   additionalTaxAmount?: Price
-  postageOptions?: Postage[]
-  selectedPostageOption?: Postage
-  postageLabelUrl?: string
-  savePaymentInfo?: boolean
-  shipmentId?: string
-  paymentData?: OrderData
+  // Payment.
+  paymentIntentId?: string
   idempotencyKey?: string
+  savePaymentInfo?: boolean
+  // Shipment.
+  shipmentId?: string
+  shipmentTrackingCode?: string
+  shipmentCarrier?: string
+  /** The actual price of the shipment associated with this Order. */
+  shipmentPrice?: Price
+  /** The "shipping cost" shown to the customer at checkout. */
+  shippingCostCharged?: Price
 }
 
-export interface PopulatedOrder extends BaseOrder
-{
+export interface PopulatedOrder extends BaseOrder {
   skus: Sku[]
   discounts?: Discount[]
 }

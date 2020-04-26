@@ -1,12 +1,11 @@
-import getPaymentProvider from '@funk/plugins/payment/actions/get-payment-provider'
-
 export const constructGetPaymentProviderStub = (pspCtor = PaymentProviderStub) =>
 {
   const pspInstance = new pspCtor()
-  const getPaymentProviderStub: typeof getPaymentProvider =
-    (_secret: string, _options: any = {}) => pspInstance as any
+  const getPaymentProvider = jasmine
+      .createSpy('getPaymentProvider', () => pspInstance as any)
+      .and.callThrough()
   return ({
-    getPaymentProvider: getPaymentProviderStub,
+    getPaymentProvider,
     pspInstance,
   })
 }

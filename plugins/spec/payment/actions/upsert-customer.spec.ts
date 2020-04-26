@@ -16,11 +16,10 @@ describe('upsertCustomer', () =>
 
     await upsertCustomer({ paymentProviderSecret, customerData })
 
+    expect(getPaymentProvider).toHaveBeenCalledWith(paymentProviderSecret)
     expect(pspInstance.customers.update).not.toHaveBeenCalled()
     expect(pspInstance.customers.create).toHaveBeenCalledTimes(1)
-    expect(pspInstance.customers.create).toHaveBeenCalledWith(
-      customerData, expect.objectContaining({ idempotency_key: expect.any(String) })
-    )
+    expect(pspInstance.customers.create).toHaveBeenCalledWith(customerData)
 
     done()
   })
@@ -37,11 +36,10 @@ describe('upsertCustomer', () =>
 
     await upsertCustomer({ paymentProviderSecret, customerData, id })
 
+    expect(getPaymentProvider).toHaveBeenCalledWith(paymentProviderSecret)
     expect(pspInstance.customers.create).not.toHaveBeenCalled()
     expect(pspInstance.customers.update).toHaveBeenCalledTimes(1)
-    expect(pspInstance.customers.update).toHaveBeenCalledWith(
-      id, customerData, expect.objectContaining({ idempotency_key: expect.any(String) })
-    )
+    expect(pspInstance.customers.update).toHaveBeenCalledWith(id, customerData)
 
     done()
   })

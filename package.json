@@ -6,6 +6,8 @@
     "start": "npm run ui::start",
     "ui::start": "npx angular-http-server --path ui/web/dist/web-browser -p 4200",
     "test": "sh ./build-pipeline/package-scripts/test.sh",
+    "test::browser": "sh ./build-pipeline/package-scripts/test-browser.sh",
+    "test::server": "sh ./build-pipeline/package-scripts/test-server.sh",
     "format": "sh ./build-pipeline/package-scripts/lint-fix.sh",
     "build::local": "sh ./build-pipeline/package-scripts/build-local.sh",
     "build::development": "sh ./build-pipeline/package-scripts/build-development.sh",
@@ -20,7 +22,7 @@
     "functions::build::local": "sh ./build-pipeline/package-scripts/functions-build-local.sh",
     "functions::build::development": "sh ./build-pipeline/package-scripts/functions-build-development.sh",
     "functions::build::production": "sh ./build-pipeline/package-scripts/functions-build-production.sh",
-    "serverless::develop::local": "sh ./build-pipeline/package-scripts/serverless-develop-local.sh",
+    "functions::develop::local": "sh ./build-pipeline/package-scripts/functions-develop-local.sh",
     "bootstrap-project::development": "node bootstrap-project -c development",
     "bootstrap-project::production": "node bootstrap-project -c production",
     "ng": "./node_modules/.bin/ng"

@@ -3,7 +3,6 @@ import { Price } from '@funk/model/commerce/price/price'
 import { Inventory } from '@funk/model/commerce/product/sku/inventory'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { PrimaryKey } from '@funk/model/data-access/primary-key'
-import { Dimensions } from '@funk/model/dimensions/dimensions'
 import { ImageGroup } from '@funk/model/image/image-group'
 import { Duration } from '@funk/model/time/duration'
 import { Weight } from '@funk/model/weight/weight'
@@ -14,8 +13,7 @@ export const SKUS = 'commerce.skus'
  * This schema is largely based on Google's product data spec.
  * @see https://support.google.com/merchants/answer/7052112?hl=en&ref_topic=6324338
  */
-export interface Sku extends DatabaseDocument
-{
+export interface Sku extends DatabaseDocument {
   name: string
   /** `id` of the parent `Product`. */
   productId: PrimaryKey
@@ -41,18 +39,12 @@ export interface Sku extends DatabaseDocument
   gtin?: string
   /** Manufacturer Part Number */
   mpn?: string
-  condition?: string
   adult?: boolean
   multipack?: number
   isBundle?: boolean
-  /** e.g. `A++` */
-  energyEfficiencyClass?: string
   shippingLabel?: 'perishable'|'oversized'|'fragile'
-  shippingWeight?: Weight
-  shippingDimensions?: Dimensions
   maxHandlingTime?: Duration
   minHandlingTime?: Duration
-  paymentData?: any
   // shipping?: string // e.g. `US:CA:Overnight:16.00 USD`
   // tax?: Price
   // taxCategory?: string
@@ -66,4 +58,7 @@ export interface Sku extends DatabaseDocument
   // size?: string // e.g. 'XL'
   // sizeType?: 'regular'|'petite'|'plus'|'big and tall'|'maternity'
   // sizeSystem?: string
+  // /** e.g. `A++` */
+  // energyEfficiencyClass?: 'A++'|'A+'|'A'|'A-'|'B+'...
+  // condition?: 'new'|'refurbished'|'used'
 }

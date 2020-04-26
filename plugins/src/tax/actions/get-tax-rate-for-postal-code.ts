@@ -4,17 +4,12 @@ import httpClientImpl, { Response } from '@funk/functions/helpers/http/client'
 import { AvataxResponse } from '@funk/model/commerce/tax-rate/avatax-response'
 import { TAX_SERVICE_PROVIDER_SECRET_KEY } from '@funk/model/secret/keys'
 
-export interface Input {
-  postalCode: string
-}
-export type Output = number
-
 export const construct = ({
   getSecret = getSecretImpl,
   httpClient = httpClientImpl,
 } = {}) =>
 {
-  return async function({ postalCode }: Input): Promise<Output>
+  return async function(postalCode: string): Promise<number>
   {
     const avataxLicenseKey = await getSecret(
       { secretKey: TAX_SERVICE_PROVIDER_SECRET_KEY }
