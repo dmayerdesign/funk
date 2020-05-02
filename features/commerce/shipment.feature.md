@@ -2,6 +2,8 @@
 
 ## Rule: The Enterprise's shipping cost strategy must be persisted (flat rate or by weight).
 
+## Rule: A customer's shipping address must be verified before shipping rates are fetched.
+
 ## Rule: A customer must see options for shipping rates before submitting an Order.
 
 ### Example: Sam the shopper has a choice of by-weight shipping rates at checkout.

@@ -3,6 +3,7 @@ import { SkuDiscount } from '@funk/model/commerce/discount/discount'
 import { CurrencyCode } from '@funk/model/commerce/price/currency-code'
 import { Product } from '@funk/model/commerce/product/product'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
+import { createFakeSku } from '@funk/model/commerce/product/sku/spec'
 
 describe('getApplicableDiscountsForSku', () =>
 {
@@ -15,7 +16,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createSku(), product: createProduct() }
+        { sku: createFakeSku(), product: createProduct() }
       ))
       .toEqual(originalDiscounts)
   })
@@ -28,7 +29,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createSku(), product: createProduct() }
+        { sku: createFakeSku(), product: createProduct() }
       ))
       .toEqual([
         createAllInclusiveTenPercentDiscount({ isCompoundable: false }),
@@ -57,7 +58,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createSku(), product: createProductExcludedById() }
+        { sku: createFakeSku(), product: createProductExcludedById() }
       ))
       .toEqual([])
   })
@@ -81,7 +82,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createSku(), product: createProductExcludedByTaxTerm() }
+        { sku: createFakeSku(), product: createProductExcludedByTaxTerm() }
       ))
       .toEqual([])
   })
@@ -89,12 +90,6 @@ describe('getApplicableDiscountsForSku', () =>
 
 export const DISCOUNT_START_DATE = Date.now() - 60000000
 export const DISCOUNT_END_DATE = Date.now() + 60000000
-export const createSku = (idSuffix = '0') => ({
-  id: `test_sku_id_${idSuffix}`,
-  productId: `test_product_id_${idSuffix}`,
-  price: { amount: 1000, currency: 'USD' },
-  taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
-}) as Sku
 export const createSkuExcludedById = (idSuffix = '0') => ({
   id: `test_sku_id_EXCLUDE_FROM_DISCOUNT`,
   productId: `test_product_id_${idSuffix}`,

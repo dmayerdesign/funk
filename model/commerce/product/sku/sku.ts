@@ -19,6 +19,7 @@ export interface Sku extends DatabaseDocument {
   productId: PrimaryKey
   price: Price
   inventory: Inventory
+  netWeight: Weight
   /** A `Sku` may have exactly one `AttributeValue` per `Attribute`. */
   attributeValues: AttributeValues
   /**
@@ -33,7 +34,6 @@ export interface Sku extends DatabaseDocument {
   isDefaultSku?: boolean
   isAvailableForPreorder?: boolean
   costOfGoodsSold?: Price
-  netWeight?: Weight
   unitPricingBaseMeasure?: Weight
   /** Global Trade Item Number */
   gtin?: string

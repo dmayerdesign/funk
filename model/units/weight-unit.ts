@@ -1,7 +1,8 @@
 export const enum WeightUnit
 {
-  Grams = 'g',
-  Kilograms = 'kg',
-  Ounces = 'oz',
-  Pounds = 'lb',
+  GRAMS = 'g',
+  KILOGRAMS = 'kg',
+  OUNCES = 'oz',
+  POUNDS = 'lb',
+  UNKNOWN = '(unknown unit)',
 }

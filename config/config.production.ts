@@ -1,3 +1,4 @@
+export const IS_PRODUCTION = true
 export const CLOUD_PROJECT_ID = 'funk-production'
 export const CLOUD_PROJECT_REGION = 'us-east1'
 export const FUNCTIONS_REGION = 'us-central1'
