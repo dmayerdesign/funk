@@ -21,8 +21,8 @@ export const constructGetShipmentProviderStub = () =>
   }
   const sspInstance = new ShipmentProviderStub()
   const getShipmentProvider = jasmine
-      .createSpy('getShipmentProvider', () => sspInstance as any)
-      .and.callThrough()
+    .createSpy('getShipmentProvider', () => sspInstance as any)
+    .and.callThrough()
   return ({
     getShipmentProvider,
     sspInstance,

@@ -1,0 +1,17 @@
+{
+  "test-org-primary": {
+    "id": "test-org-primary",
+    "slug": "funky-business",
+    "type": "enterprise",
+    "isPrimary": true,
+    "shippingFromAddress": {
+      "company": "Funky Business",
+      "street1": "500 S State St",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "zip": "48109"
+    },
+    "shippingCostStrategy": "WEIGHT",
+    "__collections__": {}
+  }
+}

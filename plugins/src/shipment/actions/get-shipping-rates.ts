@@ -13,11 +13,11 @@ export interface Options {
 }
 
 export const construct = ({
-  getShipmentProvider,
-  shippingProviderSecret,
+  getShipmentProvider = getShipmentProviderImpl,
+  shipmentProviderSecret,
 }: {
   getShipmentProvider: typeof getShipmentProviderImpl
-  shippingProviderSecret: string
+  shipmentProviderSecret: string
 }) =>
   async function({
     order,
@@ -26,7 +26,7 @@ export const construct = ({
   {
     const weight = getNetWeight(order)
     const weightInOz = weight.amount // TODO: Convert to ounces before getting rates.
-    const shipmentApi = getShipmentProvider(shippingProviderSecret)
+    const shipmentApi = getShipmentProvider(shipmentProviderSecret)
 
     // This should be an already-verified address.
     const from_address = new shipmentApi.Address(enterprise.shippingFromAddress)

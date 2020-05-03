@@ -1,0 +1,10 @@
+{
+  "admin-set-secret-heading": {
+    "value": "Set Secret",
+    "__collections__": {}
+  },
+  "admin-title": {
+    "value": "Admin",
+    "__collections__": {}
+  }
+}

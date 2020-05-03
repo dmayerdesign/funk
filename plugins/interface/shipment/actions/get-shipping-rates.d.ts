@@ -9,6 +9,6 @@ export interface Options {
 }
 
 export declare const construct: (deps: {
-  shippingProviderSecret: string
+  shipmentProviderSecret: string
   getShipmentProvider: GetShipmentProvider
 }) => (options: Options) => Promise<SimpleRate[]>

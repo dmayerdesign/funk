@@ -13,7 +13,7 @@ describe('getShippingRates for by-weight shipping cost strategy', () =>
     const {
       ORDER,
       ENTERPRISE,
-      shippingProviderSecret,
+      shipmentProviderSecret,
       getShipmentProvider,
       sspInstance,
       saveShipment,
@@ -33,7 +33,7 @@ describe('getShippingRates for by-weight shipping cost strategy', () =>
 
     const rates = await getShippingRates({ order: ORDER, enterprise: ENTERPRISE })
 
-    expect(getShipmentProvider).toHaveBeenCalledWith(shippingProviderSecret)
+    expect(getShipmentProvider).toHaveBeenCalledWith(shipmentProviderSecret)
     expect(sspInstance.Address).toHaveBeenCalledTimes(2)
     expect(sspInstance.Address).toHaveBeenCalledWith(ENTERPRISE.shippingFromAddress)
     expect(sspInstance.Address).toHaveBeenCalledWith(ORDER.customer.shippingAddress)
@@ -55,7 +55,7 @@ describe('getShippingRates for flat-rate shipping cost strategy', () =>
     const {
       ORDER,
       ENTERPRISE,
-      shippingProviderSecret,
+      shipmentProviderSecret,
       getShipmentProvider,
       sspInstance,
       saveShipment,
@@ -75,7 +75,7 @@ describe('getShippingRates for flat-rate shipping cost strategy', () =>
 
     const rates = await getShippingRates({ order: ORDER, enterprise: ENTERPRISE })
 
-    expect(getShipmentProvider).toHaveBeenCalledWith(shippingProviderSecret)
+    expect(getShipmentProvider).toHaveBeenCalledWith(shipmentProviderSecret)
     expect(sspInstance.Address).toHaveBeenCalledTimes(2)
     expect(sspInstance.Address).toHaveBeenCalledWith(ENTERPRISE.shippingFromAddress)
     expect(sspInstance.Address).toHaveBeenCalledWith(ORDER.customer.shippingAddress)
@@ -106,14 +106,14 @@ const setUp = (shippingCostStrategy: ShippingCostStrategy) =>
     shippingCarrierDefault: 'TEST_CARRIER',
     shippingFlatRate: { amount: 500, currency: CurrencyCode.USD },
   } as Enterprise
-  const shippingProviderSecret = 'TEST_SSP_SECRET'
+  const shipmentProviderSecret = 'TEST_SSP_SECRET'
   const {
     getShipmentProvider,
     saveShipment,
     sspInstance,
   } = constructGetShipmentProviderStub()
   const getShippingRates = construct({
-    shippingProviderSecret,
+    shipmentProviderSecret,
     getShipmentProvider,
   })
   saveShipment.and.callFake(async () => ({
@@ -131,7 +131,7 @@ const setUp = (shippingCostStrategy: ShippingCostStrategy) =>
   return {
     ORDER,
     ENTERPRISE,
-    shippingProviderSecret,
+    shipmentProviderSecret,
     sspInstance,
     saveShipment,
     getShipmentProvider,
