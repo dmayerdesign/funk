@@ -20,15 +20,14 @@ export const construct = ({
     const { paymentProviderSecret, customerData } = input,
           { id } = input as UpdateInput
     const stripe = getPaymentProvider(paymentProviderSecret)
-    let customer: Stripe.Customer
 
     if (!!id)
     {
-      return customer = await stripe.customers.update(id, customerData)
+      return await stripe.customers.update(id, customerData)
     }
     else
     {
-      return customer = await stripe.customers.create(customerData)
+      return await stripe.customers.create(customerData)
     }
   }
 

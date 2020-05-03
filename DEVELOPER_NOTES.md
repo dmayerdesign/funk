@@ -51,17 +51,31 @@ exports.aggregate = functions.firestore
 - **Pre-rendering:** Make sure `AppShellComponent` contains a nice, one-page static
 facade for the site.
 
-## Philosophy
 
-### The file system is part of your code
+## Ideas that I think are good
 
-You already named the file; if a file exports only one thing, why repeat yourself? Using
-default exports makes refactoring easier, so use them whenever it makes sense.
+### Source-controlled development database
 
-### Why practice extreme cleanliness?
+Source-controlling a JSON copy of the development database eliminates the need for
+database surgery and makes changes to development data highly visible and reproducible.
 
-- Everything is easily tree-shakeable and only as big as it needs to be.
-- Everything that can be tested is easily testable; confidence in quality can be high.
-- Runtime exceptions are less likely when the compiler is strict.
-- Every part of the system is easy to read and understand.
-- Everything is composable: components can be swapped in and out.
+### The file system is part of the code
+
+I already named the file; if a file exports only one thing, why repeat myself? Using
+default exports makes refactoring easier, so I use them whenever it makes sense. Sure,
+IDEs are great at that kind of stuff, but I like to help them (and my source control) out
+by minimizing how many things need to change in any given commit.
+
+### Writing super-clean, test-driven code
+
+- Take the SOLID principles (aka object-oriented design) seriously.
+- Take testing seriously.
+- Take type safety and code correctness seriously.
+
+### Performance pitfalls should be avoided, but so should micro-optimization.
+
+- **Example of avoiding pitfalls:** Anything that runs in resource-constrained
+  environments should be easily tree-shakeable and only as big as it needs to be.
+- **Example of avoiding micro-optimization:** Writing code that does things like direct DOM
+  manipulation should be avoided if possible, even if it provides a small performance
+  boost, since platform-specific concerns should be delegated to the framework.

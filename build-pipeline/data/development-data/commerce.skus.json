@@ -1,0 +1,21 @@
+{
+  "sku-1-1": {
+    "id": "sku-1-1",
+    "slug": "sku-1-1-slug",
+    "name": "Test Sku 1-1",
+    "productId": "product-1",
+    "price": {
+      "amount": 2500,
+      "currency": "USD"
+    },
+    "inventory": {
+      "type": "finite",
+      "quantity": 20
+    },
+    "netWeight": {
+      "amount": 10,
+      "unit": "oz"
+    },
+    "__collections__": {}
+  }
+}

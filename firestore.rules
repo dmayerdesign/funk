@@ -22,7 +22,7 @@ service cloud.firestore {
       allow write;
     }
 
-    match /admin.contents/{document=**} {
+    match /contents/{document=**} {
       allow read;
       allow write: if isSuperOrOwnerOrAdmin();
     }

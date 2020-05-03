@@ -17,13 +17,13 @@ import { Sku } from '@funk/model/commerce/product/sku/sku'
 export const construct = ({
   getApplicableDiscountsForSku = getApplicableDiscountsForSkuImpl,
 } = {}) =>
-  function(input: {
+  function(options: {
     sku: Sku,
     product: Product,
     activeDiscounts?: SkuDiscount[],
   }): Price
   {
-    const { sku, product, activeDiscounts = [] } = input
+    const { sku, product, activeDiscounts = [] } = options
     const applicableDiscounts =
       getApplicableDiscountsForSku(activeDiscounts, { sku, product })
     return getSkuPriceAfterDiscounts(sku, applicableDiscounts)

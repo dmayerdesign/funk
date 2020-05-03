@@ -7,14 +7,14 @@ import { AdminApi } from '@funk/ui/core/admin/api'
     <ion-header>
       <ion-toolbar color="primary">
         <ion-title>
-          <managed-content contentId="test-cms-doc"></managed-content>
+          <managed-content contentId="admin-title"></managed-content>
         </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <div>
         <h1>
-          <managed-content contentId="test-cms-doc-2"></managed-content>
+          <managed-content contentId="admin-set-secret-heading"></managed-content>
         </h1>
         <form [formGroup]="adminApi.setSecretFormGroup"
           (ngSubmit)="adminApi.setSecret()">

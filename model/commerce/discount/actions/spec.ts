@@ -3,7 +3,7 @@ import { SkuDiscount } from '@funk/model/commerce/discount/discount'
 import { CurrencyCode } from '@funk/model/commerce/price/currency-code'
 import { Product } from '@funk/model/commerce/product/product'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
-import { createFakeSku } from '@funk/model/commerce/product/sku/spec'
+import { createFakeSku } from '@funk/model/commerce/product/sku/stubs'
 
 describe('getApplicableDiscountsForSku', () =>
 {

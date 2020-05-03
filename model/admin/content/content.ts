@@ -1,1 +1,1 @@
-export const CONTENTS = 'admin.contents'
+export const CONTENTS = 'contents'
