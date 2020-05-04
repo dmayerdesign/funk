@@ -1,6 +1,6 @@
 Feature: Add a product
 
-This feature inherits from admin/content.
+This feature inherits from "admin/content".
 
 Rule: An administrator can create a product.
 
@@ -9,5 +9,5 @@ Rule: An administrator can create a product.
     And a product named Sweater
     When Adam visits the "add product" view
     And fills out the "add product" form with the details of Sweater
-    And performs the "stage changes" action
-    Then the new product is added to the change set
+    And performs the "save" action
+    Then the new product is added to Adam's content previews

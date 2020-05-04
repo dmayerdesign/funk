@@ -3,5 +3,10 @@
     "id": "product-1",
     "slug": "product-1-slug",
     "__collections__": {}
+  },
+  "product-2": {
+    "id": "product-2",
+    "slug": "product-2-slug",
+    "__collections__": {}
   }
 }

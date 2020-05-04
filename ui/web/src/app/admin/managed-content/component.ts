@@ -1,5 +1,5 @@
 import { Component, HostListener, Inject, Input, OnDestroy, OnInit } from '@angular/core'
-import { CONTENTS } from '@funk/model/admin/content/content'
+import { CONTENTS } from '@funk/model/managed-content/managed-content'
 import { ManagedContent, ManagedContentType } from '@funk/model/managed-content/managed-content'
 import { IdentityApi } from '@funk/ui/core/identity/api'
 import { Identity } from '@funk/ui/core/identity/interface'

@@ -22,19 +22,29 @@ service cloud.firestore {
       allow write;
     }
 
+    match /organizations/{document=**} {
+      allow read;
+      allow write: if isSuperOrOwnerOrAdmin();
+    }
+
     match /contents/{document=**} {
       allow read;
       allow write: if isSuperOrOwnerOrAdmin();
     }
 
-    match /commerce.products/{id}/{document=**} {
+    match /commerce.products/{document=**} {
       allow read;
       allow write: if isSuperOrOwnerOrAdmin();
     }
 
-    match /commerce.orders/{id}/{document=**} {
+    match /commerce.skus/{document=**} {
       allow read;
-      allow write;
+      allow write: if isSuperOrOwnerOrAdmin();
+    }
+
+    match /commerce.orders/{document=**} {
+      allow read;
+      allow write: if isSuperOrOwnerOrAdmin();
     }
 
     match /identity.user-configs/{uid}/{document=**} {
@@ -57,6 +67,11 @@ service cloud.firestore {
       allow read: if isIdAllowed(uid);
       allow create: if request.resource == null && isIdAllowed(uid);
       allow update, delete: if isIdAllowed(uid);
+    }
+
+    match /vault/{document=**} {
+      allow read: if isSuperOrOwner();
+      allow write: if isSuperOrOwner();
     }
   }
 }

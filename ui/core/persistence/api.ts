@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { AngularFirestore, CollectionReference, Query } from '@angular/fire/firestore'
 import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
+import { construct as constructPopulate } from '@funk/ui/core/persistence/helpers/populate'
 import { Persistence } from '@funk/ui/core/persistence/interface'
 import { Observable } from 'rxjs'
 import { first, map } from 'rxjs/operators'
@@ -8,6 +9,8 @@ import { first, map } from 'rxjs/operators'
 @Injectable({ providedIn: 'root' })
 export class PersistenceApi implements Persistence
 {
+  public populate = constructPopulate({ store: () => this._store })
+
   constructor(
     private _store: AngularFirestore
   )

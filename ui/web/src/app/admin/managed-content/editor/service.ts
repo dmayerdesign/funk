@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core'
 import { FormControl } from '@angular/forms'
-import { CONTENTS } from '@funk/model/admin/content/content'
 import { UserState, USER_STATES } from '@funk/model/identity/user-state'
+import { CONTENTS } from '@funk/model/managed-content/managed-content'
 import { ManagedContent } from '@funk/model/managed-content/managed-content'
 import { IdentityApi } from '@funk/ui/core/identity/api'
 import { Identity } from '@funk/ui/core/identity/interface'

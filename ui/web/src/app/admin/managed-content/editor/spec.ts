@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms'
-import { CONTENTS } from '@funk/model/admin/content/content'
 import { USER_STATES } from '@funk/model/identity/user-state'
+import { CONTENTS } from '@funk/model/managed-content/managed-content'
 import { IdentityStub, USER_UID_STUB } from '@funk/ui/core/identity/stubs'
 import { PersistenceStub } from '@funk/ui/core/persistence/stubs'
 import { ManagedContentEditorService } from '@funk/ui/web/app/admin/managed-content/editor/service'

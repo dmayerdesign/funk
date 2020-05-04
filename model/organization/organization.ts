@@ -12,3 +12,5 @@ export interface Organization extends DatabaseDocument {
   dbaNames?: string[]
   enterprises?: PrimaryKey[]
 }
+
+export const ORGANIZATIONS = 'organizations'
