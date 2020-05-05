@@ -9,14 +9,14 @@ Rule: A customer's shipping address must be verified before shipping rates are f
     Given a user named Sam with a valid Order
     And that Sam is going through the checkout flow
     When Sam provides a valid shipping address
-    Then he is allowed to continue to the "shipping options" step
+    Then he is ABLE to continue to the "shipping options" step
 
   Example: Sam the shopper provides an INVALID shipping address during checkout.
 
     Given a user named Sam with a valid Order
     And that Sam is going through the checkout flow
     When Sam provides an invalid shipping address
-    Then he is unable to continue to the "shipping options" step
+    Then he is UNABLE to continue to the "shipping options" step
 
 Rule: A customer must see options for shipping rates before submitting an Order.
 

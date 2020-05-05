@@ -1,5 +1,4 @@
-export interface Context
-{
+export interface Context {
   params: {
     [option: string]: any
   }

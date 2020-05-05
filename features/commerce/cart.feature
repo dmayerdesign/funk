@@ -12,10 +12,19 @@ Rule: A User must always have a shopping cart.
     Then the app creates an Order associated with Newt
     And the Order has a status of "Cart"
 
-  Example: An order is submitted.
+Rule: A User may add in-stock products to their cart.
 
-    Given a user named Retta who has placed Orders in the past
-    When Retta places an Order
-    Then a new Order associated with Retta is created
-    And the new Order has a status of "Cart"
-    
+  Example: Sally adds rollerblades to their cart.
+
+    Given a User named Sally
+    And an in-stock SKU named Rollerblades
+    When Sally tries to add Rollerblades to their cart
+    Then the Rollerblades are successfully added
+
+  Example: Sally cannot add covfefe to their cart.
+
+    Given a User named Sally
+    And an out-of-stock SKU named Covfefe
+    When Sally tries to add Covfefe to their cart
+    Then Sally is not able to add Covfefe to their cart
+    And Covfefe's out-of-stock status is communicated to Sally

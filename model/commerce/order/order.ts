@@ -9,6 +9,7 @@ export const ORDERS = 'commerce.orders'
 
 export enum Status {
   CART = 'Cart',
+  CART_CHECKOUT = 'Cart checkout',
   PAYMENT_PENDING = 'Payment pending',
   PAID = 'Paid',
   SHIPPED = 'Shipped',

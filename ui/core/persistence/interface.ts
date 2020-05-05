@@ -2,8 +2,7 @@ import { CollectionReference, Query } from '@angular/fire/firestore'
 import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
 import { Observable } from 'rxjs'
 
-export interface Persistence
-{
+export interface Persistence {
   list<DocumentType extends DatabaseDocument = DatabaseDocument>(
     collectionPath: string,
     paginationOptions?: {

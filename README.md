@@ -12,13 +12,13 @@ written with [Angular](https://angular.io) to run on
 
 Managing a server and database—even if that means combining managed solutions for
 each—gives me, a front end developer, far more control (and opportunity to mess up) than
-I want. A fully-managed back end, like Firebase, takes care of all your infrastructure, so
-you can focus on writing code.
+I want. A fully-managed back end, like Firebase, takes care of all my infrastructure, so
+I can focus on writing code.
 
 ## Design goals
 
 - **Zero to app in 10 minutes:** Funk aims to lower the barrier of entry for full-stack
-  development, allowing you to deploy a production-ready app in almost no time.
+  development, allowing me to deploy a production-ready app in almost no time.
 - **Cost-effectiveness:** Costly behaviors like reads and writes from Firestore should
   perform as efficiently as possible out of the box.
 - **Performance:** Offline support and pre-rendering make sure users get a fast, modern
@@ -32,7 +32,7 @@ you can focus on writing code.
   it's TypeScript's amazing feature set that makes it a winner for enterprise-level full-
   stack development.
 - **Serverless:** By integrating with Google Cloud Firestore and Cloud Functions, Funk
-  lets you build and deploy an app with minimal configuration and minimal cost.
+  lets me build and deploy an app with minimal configuration and minimal cost.
 
 ## Philosophy
 
@@ -42,6 +42,8 @@ The overarching goal of Funk is to make the pursuit of clean code **easier** and
 **more fun**.
 
 ## Using Funk
+
+
 
 Follow these steps to run a web app locally.
 
@@ -72,7 +74,7 @@ npm install
 npm run ui::develop::development
 ```
 
-6. To run in development (hot reload) mode, you need to open 3 shell windows. You'll
+6. To run in development (hot reload) mode, you need to open 2 shell windows. You'll
 probably want to do this while you're editing code.
 
 ```sh
@@ -82,12 +84,7 @@ probably want to do this while you're editing code.
 
 npm run ui::develop::local
 
-# The second window builds the server-side code and watches
-# for file changes.
+# The second window runs server-side functions locally.
 
-npm run serverless::develop::build
-
-# The third window runs server-side functions locally.
-
-npm run serverless::develop::serve
+npm run functions::develop::local
 ```

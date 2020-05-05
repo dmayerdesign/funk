@@ -9,7 +9,8 @@ Rule: Any user can view a list of all products.
     Then Anaya sees a list of products
     And the list is laid out as a grid
 
-Rule: A list of all products should be from most sales to least sales (unless the administrator has set a different policy).
+Rule: A list of all products should be from most sales to least sales (unless the
+  administrator has set a different policy).
 
   Example: Anaya visits an "all products" view and sees best-sellers first.
 
