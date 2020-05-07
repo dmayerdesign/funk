@@ -20,11 +20,11 @@ import { AdminApi } from '@funk/ui/core/admin/api'
           (ngSubmit)="adminApi.setSecret()">
           <input type="text"
             placeholder="Key"
-            formControlName="secretKey"
+            formControlName="key"
           />
           <input type="password"
             placeholder="Value"
-            formControlName="secretValue"
+            formControlName="value"
           />
           <input type="submit"
             [style.visibility]="'hidden'"
@@ -37,7 +37,7 @@ import { AdminApi } from '@funk/ui/core/admin/api'
           (ngSubmit)="adminApi.getSecret()">
           <input type="text"
             placeholder="Key"
-            formControlName="secretKey"
+            formControlName="key"
           />
           <input type="submit"
             [style.visibility]="'hidden'"

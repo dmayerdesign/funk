@@ -1,6 +1,6 @@
 import { Discount, SkuDiscount } from '@funk/model/commerce/discount/discount'
-import { Product } from '@funk/model/commerce/product/product'
-import { Sku } from '@funk/model/commerce/product/sku/sku'
+import { MarshalledProduct } from '@funk/model/commerce/product/product'
+import { MarshalledSku } from '@funk/model/commerce/product/sku/sku'
 import { sortBy } from 'lodash'
 import ApplicableDiscountsBuilder from './applicable-discounts-builder'
 
@@ -12,7 +12,7 @@ import ApplicableDiscountsBuilder from './applicable-discounts-builder'
  */
 export default function(
   discounts: SkuDiscount[],
-  { sku, product }: { sku: Sku, product: Product }): SkuDiscount[]
+  { sku, product }: { sku: MarshalledSku, product: MarshalledProduct }): SkuDiscount[]
 {
   return new ApplicableDiscountsForSkuBuilder(sku, product, discounts)
     .onlyAllowSkuDiscounts()
@@ -27,8 +27,8 @@ export default function(
 class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder {
 
   constructor(
-    private _sku: Sku,
-    private _product: Product,
+    private _sku: MarshalledSku,
+    private _product: MarshalledProduct,
     discounts: SkuDiscount[],
   )
   {

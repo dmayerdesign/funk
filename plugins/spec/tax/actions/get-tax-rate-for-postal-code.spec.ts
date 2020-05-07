@@ -44,8 +44,7 @@ describe('getTaxRateForPostalCode', () =>
     const returnValue = await getTaxRateForPostalCode(POSTAL_CODE)
 
     expect(getSecretSpy).toHaveBeenCalledTimes(1)
-    expect(getSecretSpy).toHaveBeenCalledWith(
-      { secretKey: TAX_SERVICE_PROVIDER_SECRET_KEY })
+    expect(getSecretSpy).toHaveBeenCalledWith(TAX_SERVICE_PROVIDER_SECRET_KEY)
     expect(httpClientStub.get).toHaveBeenCalledTimes(1)
     expect(httpClientStub.get).toHaveBeenCalledWith(
       TAX_RATE_CALCULATOR_URL + `?country=USA` + `&postalCode=${POSTAL_CODE}`,

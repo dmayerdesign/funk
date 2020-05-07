@@ -1,7 +1,6 @@
-import { CustomClaims } from '@funk/model/auth/custom-claims'
 import { UserRecord } from '@funk/plugins/auth/user-record'
 import { CloudFunction } from '@funk/plugins/cloud-function/cloud-function'
-import { Context } from '@funk/plugins/db/event/context'
+import { Context } from '@funk/plugins/persistence/event/context'
 
 export declare function authEvents(): {
   user(): {

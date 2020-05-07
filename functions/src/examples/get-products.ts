@@ -1,6 +1,6 @@
 import createRpcFunction from '@funk/functions/helpers/http/create-rpc-function'
 import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
-import { store } from '@funk/plugins/db/store'
+import { store } from '@funk/plugins/persistence/server-store'
 
 export default createRpcFunction(async (_request, response) =>
 {

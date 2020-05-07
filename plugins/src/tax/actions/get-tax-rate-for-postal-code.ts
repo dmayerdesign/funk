@@ -1,5 +1,5 @@
+import getSecretImpl from '@funk/api/admin/get-secret'
 import { TAX_PUBLISHABLE_KEY, TAX_RATE_CALCULATOR_URL } from '@funk/config'
-import getSecretImpl from '@funk/functions/helpers/admin/get-secret'
 import httpClientImpl, { Response } from '@funk/functions/helpers/http/client'
 import { AvataxResponse } from '@funk/model/commerce/tax-rate/avatax-response'
 import { TAX_SERVICE_PROVIDER_SECRET_KEY } from '@funk/model/secret/keys'
@@ -11,9 +11,7 @@ export const construct = ({
 {
   return async function(postalCode: string): Promise<number>
   {
-    const avataxLicenseKey = await getSecret(
-      { secretKey: TAX_SERVICE_PROVIDER_SECRET_KEY }
-    )
+    const avataxLicenseKey = await getSecret(TAX_SERVICE_PROVIDER_SECRET_KEY)
     const authString = Buffer.from(`${TAX_PUBLISHABLE_KEY}:${avataxLicenseKey}`)
       .toString('base64')
     const authorizationHeader = `Basic ${authString}`

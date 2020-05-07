@@ -1,8 +1,8 @@
 import { ChangeHandler } from '@funk/functions/helpers/listen/change-handler'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { CloudFunction } from '@funk/plugins/cloud-function/cloud-function'
-import { Change } from '@funk/plugins/db/change'
-import { storeListener } from '@funk/plugins/db/store-listener'
+import { Change } from '@funk/plugins/persistence/change'
+import { storeListener } from '@funk/plugins/persistence/store-listener'
 
 export default function(
   collectionPath: string,

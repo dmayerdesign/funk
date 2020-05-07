@@ -1,17 +1,18 @@
+import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { CloudFunction } from '@funk/plugins/cloud-function/cloud-function'
-import { ChangeContext } from '@funk/plugins/db/change'
-import { DocumentSnapshot } from '@funk/plugins/db/document-snapshot'
-import { storeListener } from '@funk/plugins/db/store-listener'
+import { ChangeContext } from '@funk/plugins/persistence/change'
+import { DocumentSnapshot } from '@funk/plugins/persistence/document-snapshot'
+import { storeListener } from '@funk/plugins/persistence/store-listener'
 
-export default function(
+export default function<DocumentType extends DatabaseDocument = DatabaseDocument>(
   collectionPath: string,
   handler: (
-    snapshot: DocumentSnapshot,
+    snapshot: DocumentSnapshot<DocumentType>,
     { params }: ChangeContext,
   ) => Promise<void>,
-): CloudFunction<DocumentSnapshot>
+): CloudFunction<DocumentSnapshot<DocumentType>>
 {
   return storeListener
-    .document(`${collectionPath}/{id}`)
+    .document<DocumentType>(`${collectionPath}/{id}`)
     .onCreate(handler)
 }

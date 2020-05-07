@@ -11,11 +11,11 @@ export class AdminApi
 {
   public secretShowing = ''
   public setSecretFormGroup = new FormGroup({
-    secretKey: new FormControl(),
-    secretValue: new FormControl(),
+    key: new FormControl(),
+    value: new FormControl(),
   })
   public getSecretFormGroup = new FormGroup({
-    secretKey: new FormControl(),
+    key: new FormControl(),
   })
 
   constructor(
@@ -46,7 +46,7 @@ export class AdminApi
     this.secretShowing = await this._httpClient
       .post<string>(
         `${environment.functionsUrl}/adminGetSecret`,
-        this.getSecretFormGroup.value,
+        this.getSecretFormGroup.value.key,
         {
           headers: {
             authorization: await this._identityApi.userIdToken$

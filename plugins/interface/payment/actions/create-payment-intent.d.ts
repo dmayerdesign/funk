@@ -12,6 +12,6 @@ export interface Options {
 
 export declare const construct: (deps: {
   paymentProviderSecret: string
-  getPaymentProvider: GetPaymentProvider
+  getPaymentProvider?: GetPaymentProvider
 }) =>
   (options: Options) => Promise<PaymentIntent>
