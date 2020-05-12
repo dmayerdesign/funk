@@ -12,7 +12,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@funk/api/*": [ "../api/*" ],
+      "@funk/api/*": [ "../api/src/*" ],
       "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/functions/*": [ "./src/*" ],

@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core'
 import { Plugins } from '@capacitor/core'
-import { DeviceStorageApi } from '@funk/ui/core/device-storage/api'
+import { DeviceStorage } from '@funk/ui/core/device-storage/interface'
 
 const { Storage } = Plugins
 
-@Injectable({ providedIn: 'root' })
-export class IonicDeviceStorageApi implements DeviceStorageApi
+export class DeviceStorageApi implements DeviceStorage
 {
   public upsert(key: string, value: any): void
   {

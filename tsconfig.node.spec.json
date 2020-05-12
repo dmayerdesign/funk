@@ -1,0 +1,35 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jest",
+      "node"
+    ],
+    "paths": {
+      "@funk/api/*": [ "./api/src/*" ],
+      "@funk/config": [ "./config/config.development.ts" ],
+      "@funk/copy/*": [ "./copy/*" ],
+      "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
+      "@funk/functions/*": [ "./functions/src/*" ],
+      "@funk/helpers/*": [ "./helpers/*" ],
+      "@funk/model/*": [ "./model/*" ],
+      "@funk/plugins/*": [ "./plugins/src/*" ],
+      "@funk/test/*": [ "./test/*" ],
+      "@funk/ui/web/*": [ "./ui/web/src/*" ],
+      "@funk/ui/core/*": [ "./ui/core/*" ],
+      "@funk/ui/helpers/*": [ "./ui/helpers/*" ]
+    }
+  },
+  "include": [
+    "config/**/*.ts",
+    "ui/web/src/polyfills.ts",
+    "ui/web/src/**/*.spec.ts",
+    "ui/web/src/**/spec.ts",
+    "functions/src/app/**/*.spec.ts",
+    "functions/src/app/**/spec.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

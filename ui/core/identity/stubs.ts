@@ -9,7 +9,7 @@ import { AdministratorGuard } from '@funk/ui/core/identity/administrator-guard'
 import { AnonymousGuard } from '@funk/ui/core/identity/anonymous-guard'
 import { IdentityApi } from '@funk/ui/core/identity/api'
 import { Identity } from '@funk/ui/core/identity/interface'
-import { PersistenceApi } from '@funk/ui/core/persistence/api'
+import { Persistence } from '@funk/ui/core/persistence/interface'
 import { auth, User } from 'firebase'
 import { of, BehaviorSubject } from 'rxjs'
 import { shareReplay } from 'rxjs/operators'
@@ -64,7 +64,7 @@ export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
 export const createStoreStub = (email = 'test@test.com') => ({
   listenById: (..._valueChangesArgs: any[]) => of(createUserConfigStub(email))
     .pipe(shareReplay(1)),
-}) as PersistenceApi
+}) as Persistence
 
 export const createStubbedIdentityApi = (userStubRole = UserRole.ANONYMOUS) =>
   new IdentityApi(createAuthStub(createAuthUserStub(userStubRole)), createStoreStub())

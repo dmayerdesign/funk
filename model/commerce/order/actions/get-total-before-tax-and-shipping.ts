@@ -1,3 +1,5 @@
+import marshallProduct from '@funk/api/commerce/product/marshall'
+import marshallSku from '@funk/api/commerce/product/sku/marshall'
 import { OrderDiscount, SkuDiscount } from '@funk/model/commerce/discount/discount'
 import { PopulatedOrder } from '@funk/model/commerce/order/order'
 import add from '@funk/model/commerce/price/actions/add'
@@ -16,21 +18,21 @@ export const construct = ({
 }: {
   getProductForSku: (sku: Sku) => Promise<Product>
 }) =>
-  function(order: DbDocumentInput<PopulatedOrder>): Promise<Price>
+  async function(order: DbDocumentInput<PopulatedOrder>): Promise<Price>
   {
-    const skus = order.skus
+    const skus = order.skus.map(marshallSku)
     const activeDiscounts = order.discounts || []
 
     if (!skus || !skus.length)
     {
       return Promise.resolve(NULL_PRICE)
     }
-    return zip(
+    return await zip(
       ...skus.map((sku) => of(sku).pipe(
         switchMap(async () =>
           getPriceAfterSkuDiscounts({
             sku,
-            product: await getProductForSku(sku),
+            product: marshallProduct(await getProductForSku(sku)),
             activeDiscounts: activeDiscounts as SkuDiscount[],
           })
         ))

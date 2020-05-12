@@ -1,9 +1,9 @@
 import getApplicableDiscountsForSku from '@funk/model/commerce/discount/actions/get-applicable-discounts-for-sku'
 import { SkuDiscount } from '@funk/model/commerce/discount/discount'
 import { CurrencyCode } from '@funk/model/commerce/price/currency-code'
-import { Product } from '@funk/model/commerce/product/product'
-import { Sku } from '@funk/model/commerce/product/sku/sku'
-import { createFakeSku } from '@funk/model/commerce/product/sku/stubs'
+import { MarshalledProduct } from '@funk/model/commerce/product/product'
+import { MarshalledSku } from '@funk/model/commerce/product/sku/sku'
+import { createFakeMarshalledSku } from '@funk/model/commerce/product/sku/stubs'
 
 describe('getApplicableDiscountsForSku', () =>
 {
@@ -16,7 +16,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createFakeSku(), product: createProduct() }
+        { sku: createFakeMarshalledSku(), product: createMarshalledProduct() }
       ))
       .toEqual(originalDiscounts)
   })
@@ -29,7 +29,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createFakeSku(), product: createProduct() }
+        { sku: createFakeMarshalledSku(), product: createMarshalledProduct() }
       ))
       .toEqual([
         createAllInclusiveTenPercentDiscount({ isCompoundable: false }),
@@ -44,7 +44,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createSkuExcludedById(), product: createProduct() }
+        { sku: createSkuExcludedById(), product: createMarshalledProduct() }
       ))
       .toEqual([
         createAllInclusiveTenPercentDiscount({}),
@@ -58,7 +58,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createFakeSku(), product: createProductExcludedById() }
+        { sku: createFakeMarshalledSku(), product: createProductExcludedById() }
       ))
       .toEqual([])
   })
@@ -70,7 +70,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createSkuExcludedByTaxTerm(), product: createProduct() }
+        { sku: createSkuExcludedByTaxTerm(), product: createMarshalledProduct() }
       ))
       .toEqual([])
   })
@@ -82,7 +82,7 @@ describe('getApplicableDiscountsForSku', () =>
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createFakeSku(), product: createProductExcludedByTaxTerm() }
+        { sku: createFakeMarshalledSku(), product: createProductExcludedByTaxTerm() }
       ))
       .toEqual([])
   })
@@ -95,25 +95,25 @@ export const createSkuExcludedById = (idSuffix = '0') => ({
   productId: `test_product_id_${idSuffix}`,
   price: { amount: 1000, currency: 'USD' },
   taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
-}) as Sku
+}) as MarshalledSku
 export const createSkuExcludedByTaxTerm = (idSuffix = '0') => ({
   id: `test_sku_id_${idSuffix}`,
   productId: `test_product_id_${idSuffix}`,
   price: { amount: 1000, currency: 'USD' },
   taxonomyTerms: [ `tax_term_id_EXCLUDE_FROM_DISCOUNT` ],
-}) as Sku
-export const createProduct = (idSuffix = '0') => ({
+}) as MarshalledSku
+export const createMarshalledProduct = (idSuffix = '0') => ({
   id: `test_product_id_${idSuffix}`,
   taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
-}) as Product
+}) as MarshalledProduct
 export const createProductExcludedById = (idSuffix = '0') => ({
   id: `test_product_id_EXCLUDE_FROM_DISCOUNT`,
   taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
-}) as Product
+}) as MarshalledProduct
 export const createProductExcludedByTaxTerm = (idSuffix = '0') => ({
   id: `test_product_id_${idSuffix}`,
   taxonomyTerms: [ `tax_term_id_EXCLUDE_FROM_DISCOUNT` ],
-}) as Product
+}) as MarshalledProduct
 export function createAllInclusiveTenPercentDiscount({
   isCompoundable = false,
 }: {

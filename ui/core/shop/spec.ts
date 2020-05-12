@@ -1,15 +1,15 @@
-import { createDefaultShopApiStub as createStubbedShopApi } from '@funk/ui/core/shop/stubs'
+import { createDefaultShopApiStub } from '@funk/ui/core/shop/stubs'
 
 describe('shop', () =>
 {
   it('should instantiate successfully', () =>
   {
-    expect(createStubbedShopApi()).toBeTruthy()
+    expect(createDefaultShopApiStub()).toBeTruthy()
   })
 
   it('should emit a cart', async (done) =>
   {
-    const api = createStubbedShopApi()
+    const api = createDefaultShopApiStub()
     const cartObserverSpy = jasmine.createSpy()
 
     api.init()

@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@angular/core'
 import { CanActivate, Router, UrlTree } from '@angular/router'
-import { IdentityApi } from '@funk/ui/core/identity/api'
-import { Identity } from '@funk/ui/core/identity/interface'
+import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
@@ -9,7 +8,7 @@ import { map } from 'rxjs/operators'
 export class AnonymousGuard implements CanActivate
 {
   constructor(
-    @Inject(IdentityApi) private _auth: Identity,
+    @Inject(IDENTITY) private _auth: Identity,
     private _router: Router,
   )
   { }

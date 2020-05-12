@@ -12,10 +12,8 @@ describe('createOrderForCustomer', () =>
 
     const order = createOrderForCustomer(customer, orderData)
 
-    expect(order.id).toBeTruthy()
     expect(order.status).toBe(Status.CART)
     expect(order.customer).toEqual(customer)
-    expect(order.skus).toEqual([])
-    expect(order.slug).toBe('test-order')
+    expect(order.slug).toBe(orderData.slug)
   })
 })

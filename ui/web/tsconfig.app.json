@@ -4,6 +4,7 @@
     "outDir": "../out-tsc/app",
     "baseUrl": ".",
     "paths": {
+      "@funk/api/*": [ "../../api/interface/*" ],
       "@funk/config": [ "../../.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "../../copy/*" ],
       "@funk/helpers/*": [ "../../helpers/*" ],

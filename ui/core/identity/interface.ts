@@ -5,6 +5,8 @@ import { Initializer } from '@funk/ui/helpers/initializer'
 import { auth } from 'firebase'
 import { Observable } from 'rxjs'
 
+export const IDENTITY = 'IDENTITY'
+
 export interface Identity extends Initializer {
   user$: Observable<UserHydrated>
   userId$: Observable<string>

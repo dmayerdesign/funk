@@ -1,19 +1,18 @@
 import { Inject, Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
+import { ignoreNullish } from '@funk/helpers/rxjs-shims'
 import { CustomClaims } from '@funk/model/auth/custom-claims'
 import roleHasAdminPrivilegeOrGreater from '@funk/model/auth/helpers/role-has-admin-privilege-or-greater'
 import { UserConfig, USER_CONFIGS } from '@funk/model/identity/user-config'
 import { UserHydrated } from '@funk/model/identity/user-hydrated'
 import { UserState, USER_STATES } from '@funk/model/identity/user-state'
 import { Identity } from '@funk/ui/core/identity/interface'
-import { PersistenceApi } from '@funk/ui/core/persistence/api'
-import { Persistence } from '@funk/ui/core/persistence/interface'
-import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
+import { Persistence, PERSISTENCE } from '@funk/ui/core/persistence/interface'
 import { auth, User } from 'firebase'
 import { combineLatest, of, Observable } from 'rxjs'
 import { distinctUntilKeyChanged, first, map, shareReplay, switchMap } from 'rxjs/operators'
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class IdentityApi implements Identity
 {
   private _nonNullAuthUser$ = this._auth.user.pipe(
@@ -26,7 +25,7 @@ export class IdentityApi implements Identity
     {
       if (user.isAnonymous)
       {
-        return of<UserConfig>({ id: user.uid, displayName: 'Guest', isAnonymous: true })
+        return of({ id: user.uid, displayName: 'Guest', isAnonymous: true })
       }
       return combineLatest(
         this._persistenceApi.listenById<UserConfig>(USER_CONFIGS, user.uid),
@@ -69,7 +68,7 @@ export class IdentityApi implements Identity
 
   constructor(
     private _auth: AngularFireAuth,
-    @Inject(PersistenceApi) private _persistenceApi: Persistence,
+    @Inject(PERSISTENCE) private _persistenceApi: Persistence,
   )
   { }
 

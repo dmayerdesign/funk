@@ -1,16 +1,11 @@
-import { HttpClient } from '@angular/common/http'
 import { Inject, Injectable } from '@angular/core'
 import createDocPath from '@funk/helpers/create-doc-path'
+import { ignoreNullish } from '@funk/helpers/rxjs-shims'
 import { Customer } from '@funk/model/commerce/order/customer/customer'
-import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
-import { IdentityApi } from '@funk/ui/core/identity/api'
-import { Identity } from '@funk/ui/core/identity/interface'
-import { PersistenceApi } from '@funk/ui/core/persistence/api'
-import { Persistence } from '@funk/ui/core/persistence/interface'
+import { Cart, Order, ORDERS, Status } from '@funk/model/commerce/order/order'
+import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
+import { Persistence, PERSISTENCE } from '@funk/ui/core/persistence/interface'
 import { Initializer } from '@funk/ui/helpers/initializer'
-import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
-import { environment } from '@funk/ui/web/environments/environment'
-import { Observable } from 'rxjs'
 import { map, shareReplay, switchMap } from 'rxjs/operators'
 
 @Injectable()
@@ -21,20 +16,17 @@ export class ShopApi implements Initializer
     switchMap((user) => this._persistenceApi
       .queryCollectionForMetadata(ORDERS, (collectionRef) => collectionRef
         .where(createDocPath<Order, Customer>('customer', 'userId'), '==', user.id)
-        .where(createDocPath<Order>('status'), '==', Status.CART)
-        .limit(1)
-      )),
+        .where(createDocPath<Order>('status'), 'in',
+          [ Status.CART, Status.CART_CHECKOUT ])
+        .limit(1))),
     map(([ metadata ]) => metadata),
     switchMap(({ collectionPath, documentPath }) =>
-      this._persistenceApi.listenById(collectionPath, documentPath)
-    ),
-    shareReplay(1),
-  )
+      this._persistenceApi.listenById<Cart>(collectionPath, documentPath)),
+    shareReplay(1))
 
   constructor(
-    private _httpClient: HttpClient,
-    @Inject(PersistenceApi) private _persistenceApi: Persistence,
-    @Inject(IdentityApi) private _identityApi: Identity,
+    @Inject(PERSISTENCE) private _persistenceApi: Persistence,
+    @Inject(IDENTITY) private _identityApi: Identity,
   )
   { }
 
@@ -43,9 +35,8 @@ export class ShopApi implements Initializer
     this.cart$.subscribe()
   }
 
-  public submitOrder(order: Partial<Order>): Observable<any>
+  public submitOrder(_order: Partial<Order>): void
   {
-    return this._httpClient
-      .post(`${environment.functionsUrl}/orderSubmit`, order)
+    // TODO: implement.
   }
 }

@@ -1,10 +1,8 @@
 import { Component, HostListener, Inject, Input, OnDestroy, OnInit } from '@angular/core'
 import { CONTENTS } from '@funk/model/managed-content/managed-content'
 import { ManagedContent, ManagedContentType } from '@funk/model/managed-content/managed-content'
-import { IdentityApi } from '@funk/ui/core/identity/api'
-import { Identity } from '@funk/ui/core/identity/interface'
-import { PersistenceApi } from '@funk/ui/core/persistence/api'
-import { Persistence } from '@funk/ui/core/persistence/interface'
+import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
+import { Persistence, PERSISTENCE } from '@funk/ui/core/persistence/interface'
 import { ManagedContentEditorService } from '@funk/ui/web/app/admin/managed-content/editor/service'
 import { Platform } from '@ionic/angular'
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy'
@@ -34,14 +32,14 @@ export class ManagedContentComponent implements OnInit, OnDestroy
         untilDestroyed(this),
         shareReplay(1),
       )
-  public contentValue$: Observable<string | undefined> = this.content$.pipe(
+  public contentValue$ = this.content$.pipe(
     map((content) => content?.value)
   )
 
   constructor(
     private _platform: Platform,
-    @Inject(IdentityApi) private _identityApi: Identity,
-    @Inject(PersistenceApi) private _persistenceApi: Persistence,
+    @Inject(IDENTITY) private _identityApi: Identity,
+    @Inject(PERSISTENCE) private _persistenceApi: Persistence,
     private _managedContentEditorService: ManagedContentEditorService,
   ) { }
 

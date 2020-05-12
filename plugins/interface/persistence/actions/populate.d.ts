@@ -8,5 +8,5 @@ export interface PopulateFieldOptions<DocumentType>
 
 export default function<PopulatedType, MarshalledType = any>(
   marshalledDoc: MarshalledType,
-  options: PopulateFieldOptions<MarshalledType | PopulatedType>[],
+  options: PopulateFieldOptions<MarshalledType>[],
 ): Promise<PopulatedType>

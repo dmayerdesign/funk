@@ -1,6 +1,6 @@
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 
-export default function (sku: Sku): boolean | undefined
+export default function(sku: Sku): boolean | undefined
 {
   if (sku.inventory.type === 'infinite')
   {
@@ -10,9 +10,9 @@ export default function (sku: Sku): boolean | undefined
   {
     return sku.inventory.quantity < 1
   }
-  if (sku.inventory.type === 'bucket' && typeof sku.inventory.value === 'string')
+  if (sku.inventory.type === 'bucket' && typeof sku.inventory.bucket === 'string')
   {
-    return sku.inventory.value !== 'out_of_stock'
+    return sku.inventory.bucket !== 'out_of_stock'
   }
   return undefined
 }

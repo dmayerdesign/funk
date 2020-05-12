@@ -2,7 +2,7 @@ import omitNullish from '@funk/helpers/omit-nullish'
 import { Price } from '@funk/model/commerce/price/price'
 import { MIN_TRANSACTION_CENTS } from '@funk/plugins/payment/config'
 import { PaymentIntent } from '@funk/plugins/payment/intent'
-import InvalidPaymentError from '@funk/plugins/payment/invalid-payment-error'
+import { PaymentIntentInvalidPriceError } from '@funk/plugins/payment/validation'
 import Stripe from 'stripe'
 import getPaymentProviderImpl from './get-payment-provider'
 
@@ -19,7 +19,7 @@ export const construct = ({
   getPaymentProvider = getPaymentProviderImpl,
 }: {
   paymentProviderSecret: string
-  getPaymentProvider: typeof getPaymentProviderImpl
+  getPaymentProvider?: typeof getPaymentProviderImpl
 }) =>
 {
   const stripe = getPaymentProvider(paymentProviderSecret)
@@ -47,7 +47,7 @@ export const construct = ({
 
     if (update.amount && update.amount < MIN_TRANSACTION_CENTS)
     {
-      throw new InvalidPaymentError(
+      throw new PaymentIntentInvalidPriceError(
         `Amount ${update.amount} is less than the minimum for a transaction.`)
     }
 

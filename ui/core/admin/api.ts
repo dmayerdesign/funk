@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http'
 import { Inject, Injectable } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { IdentityApi } from '@funk/ui/core/identity/api'
-import { Identity } from '@funk/ui/core/identity/interface'
-import { environment } from '@funk/ui/web/environments/environment'
-import { first, map } from 'rxjs/operators'
+import getSecret from '@funk/api/admin/get-secret'
+import grantSuperRoleToMe from '@funk/api/admin/grant-super-role-to-me'
+import setSecret from '@funk/api/admin/set-secret'
+import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
+import { FunctionsClient } from '@funk/ui/helpers/functions-client'
 
 @Injectable()
 export class AdminApi
@@ -19,60 +19,31 @@ export class AdminApi
   })
 
   constructor(
-    private _httpClient: HttpClient,
-    @Inject(IdentityApi) private _identityApi: Identity,
+    private _functionsClient: FunctionsClient,
+    @Inject(IDENTITY) private _identityApi: Identity,
   )
   { }
 
   public async setSecret(): Promise<void>
   {
-    await this._httpClient
-      .post(
-        `${environment.functionsUrl}/adminSetSecret`,
-        this.setSecretFormGroup.value,
-        {
-          headers: {
-            authorization: await this._identityApi.userIdToken$
-              .pipe(map((token) => `Bearer ${token}`), first())
-              .toPromise(),
-          },
-        },
-      )
-      .toPromise()
+    await this._functionsClient.rpcAuthorized<typeof setSecret>(
+      `adminSetSecret`,
+      this.setSecretFormGroup.value,
+    )
   }
 
   public async getSecret(): Promise<void>
   {
-    this.secretShowing = await this._httpClient
-      .post<string>(
-        `${environment.functionsUrl}/adminGetSecret`,
-        this.getSecretFormGroup.value.key,
-        {
-          headers: {
-            authorization: await this._identityApi.userIdToken$
-              .pipe(map((token) => `Bearer ${token}`), first())
-              .toPromise(),
-          },
-        },
-      )
-      .toPromise()
+    this.secretShowing = await this._functionsClient.rpcAuthorized<typeof getSecret>(
+      `adminGetSecret`,
+      this.getSecretFormGroup.value.key,
+    ) ?? ''
   }
 
   public async grantSuperRole(): Promise<void>
   {
-    await this._httpClient
-      .post<string>(
-        `${environment.functionsUrl}/adminGrantSuperRoleToMe`,
-        {},
-        {
-          headers: {
-            authorization: await this._identityApi.userIdToken$
-              .pipe(map((token) => `Bearer ${token}`), first())
-              .toPromise(),
-          },
-        },
-      )
-      .toPromise()
+    await this._functionsClient.rpc<typeof grantSuperRoleToMe>(
+      `adminGrantSuperRoleToMe`)
 
     await this._identityApi.sendEmailVerification()
   }

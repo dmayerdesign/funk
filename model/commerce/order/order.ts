@@ -52,3 +52,7 @@ export interface MarshalledOrder extends BaseOrder
 }
 
 export type Order = PopulatedOrder | MarshalledOrder
+
+export type Cart = Order & {
+  status: Status.CART | Status.CART_CHECKOUT
+}

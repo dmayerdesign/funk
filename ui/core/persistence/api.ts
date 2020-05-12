@@ -6,7 +6,7 @@ import { Persistence } from '@funk/ui/core/persistence/interface'
 import { Observable } from 'rxjs'
 import { first, map } from 'rxjs/operators'
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class PersistenceApi implements Persistence
 {
   public populate = constructPopulate({ store: () => this._store })

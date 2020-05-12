@@ -1,15 +1,14 @@
 import { Inject, Injectable } from '@angular/core'
 import { FormControl } from '@angular/forms'
+import { ignoreNullish } from '@funk/helpers/rxjs-shims'
+import { swallowErrorAndMapTo } from '@funk/helpers/rxjs-shims'
 import { UserState, USER_STATES } from '@funk/model/identity/user-state'
 import { CONTENTS } from '@funk/model/managed-content/managed-content'
 import { ManagedContent } from '@funk/model/managed-content/managed-content'
-import { IdentityApi } from '@funk/ui/core/identity/api'
-import { Identity } from '@funk/ui/core/identity/interface'
-import { PersistenceApi } from '@funk/ui/core/persistence/api'
-import { Persistence } from '@funk/ui/core/persistence/interface'
-import { ignoreNullish } from '@funk/ui/helpers/rxjs-shims'
+import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
+import { Persistence, PERSISTENCE } from '@funk/ui/core/persistence/interface'
 import { combineLatest, from, of, BehaviorSubject, Observable } from 'rxjs'
-import { catchError, first, map, pluck, shareReplay, switchMap } from 'rxjs/operators'
+import { first, map, pluck, shareReplay, switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class ManagedContentEditorService
@@ -40,7 +39,7 @@ export class ManagedContentEditorService
         ))
         .pipe(
           pluck<UserState | undefined, UserState['contentPreviews']>('contentPreviews'),
-          catchError(() => of(undefined)),
+          swallowErrorAndMapTo(undefined),
         )
     ),
     map((maybeContentPreviews) => maybeContentPreviews
@@ -49,8 +48,8 @@ export class ManagedContentEditorService
   )
 
   constructor(
-    @Inject(PersistenceApi) private _persistenceApi: Persistence,
-    @Inject(IdentityApi) private _identityApi: Identity,
+    @Inject(PERSISTENCE) private _persistenceApi: Persistence,
+    @Inject(IDENTITY) private _identityApi: Identity,
   )
   { }
 
@@ -142,14 +141,14 @@ export class ManagedContentEditorService
               ))
               .pipe(
                 map((user) => user?.contentPreviews?.[contentId]),
-                catchError(() => of(undefined)),
+                swallowErrorAndMapTo(undefined),
               ),
             from(this._persistenceApi.listenById<ManagedContent>(
               CONTENTS,
               contentId,
               ))
               .pipe(
-                catchError(() => of(undefined))
+                swallowErrorAndMapTo(undefined),
               ),
             )
             .pipe(

@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core'
 import { Address } from '@funk/model/address/address'
 import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
-import { PersistenceApi } from '@funk/ui/core/persistence/api'
-import { Persistence } from '@funk/ui/core/persistence/interface'
+import { Persistence, PERSISTENCE } from '@funk/ui/core/persistence/interface'
 import { timer, BehaviorSubject } from 'rxjs'
 
 @Component({
@@ -145,7 +144,7 @@ export class KitchenSinkContainer implements OnInit
 
   constructor(
     protected _renderer: Renderer2,
-    @Inject(PersistenceApi) private _persistenceApi: Persistence,
+    @Inject(PERSISTENCE) private _persistenceApi: Persistence,
   )
   { }
 

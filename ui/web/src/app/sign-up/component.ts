@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { IdentityApi } from '@funk/ui/core/identity/api'
-import { Identity } from '@funk/ui/core/identity/interface'
+import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
 
 @Component({
   selector: 'sign-up',
@@ -37,7 +36,7 @@ export class SignUpComponent
   })
 
   constructor(
-    @Inject(IdentityApi) private _identityApi: Identity,
+    @Inject(IDENTITY) private _identityApi: Identity,
   )
   { }
 
