@@ -1,6 +1,7 @@
 import { CollectionReference, Query } from '@angular/fire/firestore'
 import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
-import { Pagination, Persistence } from '@funk/ui/core/persistence/interface'
+import { Pagination } from '@funk/plugins/persistence/pagination'
+import { Persistence } from '@funk/ui/core/persistence/interface'
 import { get } from 'lodash'
 import { of, Observable } from 'rxjs'
 

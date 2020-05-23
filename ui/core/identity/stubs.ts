@@ -21,14 +21,20 @@ export const createIdTokenResultStub = (role = UserRole.ANONYMOUS) => ({
   claims: { role } as CustomClaims,
 })
 
-export const createUserConfigStub = (email = 'test@test.com') => ({
-  id: USER_UID_STUB,
-  displayName: 'Test',
-  email,
-}) as UserConfig
+export const createUserConfigStub = ({
+  id = USER_UID_STUB,
+  displayName = 'Test',
+  email = 'test@test.com',
+}) => ({ id, displayName, email }) as UserConfig
+
+export const createAnonymousUserStub = () => ({
+  ...createUserConfigStub({ displayName: 'Guest' }),
+  email: undefined,
+  isAnonymous: true,
+})
 
 export const createUserStub = (role = UserRole.ANONYMOUS, email?: string) => ({
-  ...createUserConfigStub(email),
+  ...createUserConfigStub({ email }),
   ...createIdTokenResultStub(role),
   isAnonymous: role === UserRole.ANONYMOUS,
 })
@@ -62,7 +68,7 @@ export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
 }) as unknown as AngularFireAuth
 
 export const createStoreStub = (email = 'test@test.com') => ({
-  listenById: (..._valueChangesArgs: any[]) => of(createUserConfigStub(email))
+  listenById: (..._valueChangesArgs: any[]) => of(createUserConfigStub({ email }))
     .pipe(shareReplay(1)),
 }) as Persistence
 

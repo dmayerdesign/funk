@@ -16,7 +16,7 @@ import {
   construct as constructUpdatePaymentIntent,
   Options as UpdatePaymentIntentOptions,
 } from '@funk/plugins/payment/actions/update-payment-intent'
-import { store } from '@funk/plugins/persistence/server-store'
+import updateById from '@funk/plugins/persistence/actions/update-by-id'
 
 export default ignoringKey<Order>('paymentIntentId', async ({ after }) =>
 {
@@ -65,7 +65,5 @@ async function _setPaymentIntentId(
 ): Promise<void>
 {
   if (!orderId || !paymentIntentId) return
-  await store().collection(ORDERS)
-    .doc(orderId)
-    .update({ paymentIntentId } as Partial<MarshalledOrder>)
+  await updateById<MarshalledOrder>(ORDERS, orderId, { paymentIntentId })
 }

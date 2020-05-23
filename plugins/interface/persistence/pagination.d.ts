@@ -16,3 +16,5 @@ export interface VirtualPagination {
   skip: number
   take: number
 }
+
+export declare const TAKE_ALL: number

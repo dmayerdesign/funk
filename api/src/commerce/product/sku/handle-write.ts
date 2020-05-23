@@ -3,22 +3,25 @@ import { MarshalledProductAttributeValues } from
   '@funk/model/commerce/attribute/attribute-value'
 import { MarshalledProduct, PRODUCTS } from '@funk/model/commerce/product/product'
 import { MarshalledSku, SKUS } from '@funk/model/commerce/product/sku/sku'
-import { store as storeImpl } from '@funk/plugins/persistence/server-store'
+import listImpl from '@funk/plugins/persistence/actions/list'
+import updateByIdImpl from '@funk/plugins/persistence/actions/update-by-id'
+import { TAKE_ALL } from '@funk/plugins/persistence/pagination'
 import { uniq } from 'lodash'
 
 export const construct = ({
-  store = storeImpl,
+  list = listImpl,
+  updateById = updateByIdImpl,
 } = {}) =>
 {
   return async function({ after }): Promise<void>
   {
     const sku = after.data()!
-    const skus = (await store().collection(SKUS)
-      .where('productId', '==', sku.productId).get())
-      .docs
-      .map((snapshot) => snapshot.data()) as MarshalledSku[]
-    const productDocRef = store().doc(`${PRODUCTS}/${sku.productId}`)
-    await productDocRef.update({
+    const skus = await list<MarshalledSku>({
+      collection: SKUS,
+      conditions: [[ 'productId', '==', sku.productId ]],
+      pagination: { take: TAKE_ALL, skip: 0, orderBy: 'id', orderByDirection: 'desc' },
+    })
+    await updateById(PRODUCTS, sku.productId!, {
       attributeValues: skus.reduce(
         (attributeValues, _sku) =>
         {

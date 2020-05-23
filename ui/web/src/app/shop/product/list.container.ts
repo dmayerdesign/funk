@@ -4,7 +4,7 @@ import getQueryConditions from
   '@funk/model/commerce/product/list-filter/actions/get-query-conditions'
 import { ListFilter } from '@funk/model/commerce/product/list-filter/list-filter'
 import { MarshalledProduct } from '@funk/model/commerce/product/product'
-import { Pagination, VirtualPagination } from '@funk/plugins/persistence/pagination'
+import { Pagination, TAKE_ALL, VirtualPagination } from '@funk/plugins/persistence/pagination'
 import { FunctionsClient } from '@funk/ui/helpers/functions-client'
 import { flatten } from 'lodash'
 import { combineLatest, BehaviorSubject, Observable } from 'rxjs'
@@ -27,7 +27,7 @@ export class ProductListContainer
   private _pagination = new BehaviorSubject<
     Pagination<MarshalledProduct> | VirtualPagination>({
     skip: 0,
-    take: 100,
+    take: TAKE_ALL,
     orderBy: 'popularity',
     orderByDirection: 'desc',
   })

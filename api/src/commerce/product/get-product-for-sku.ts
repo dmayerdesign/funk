@@ -1,9 +1,8 @@
-import { Product, PRODUCTS } from '@funk/model/commerce/product/product'
+import { MarshalledProduct, PRODUCTS } from '@funk/model/commerce/product/product'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
-import { store } from '@funk/plugins/persistence/server-store'
+import getById from '@funk/plugins/persistence/actions/get-by-id'
 
-export default function(sku: Sku): Promise<Product>
+export default function(sku: Sku): Promise<MarshalledProduct | undefined>
 {
-  return store().collection(PRODUCTS).doc(sku.productId).get()
-    .then((snapshot) => snapshot.data() as Product)
+  return getById<MarshalledProduct>(PRODUCTS, sku.productId)
 }

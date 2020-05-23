@@ -1,10 +1,11 @@
+import createDocPath from '@funk/helpers/create-doc-path'
 import { ListFilter, ListFilterType } from
   '@funk/model/commerce/product/list-filter/list-filter'
 import { MarshalledProduct } from '@funk/model/commerce/product/product'
-import { AbstractWhere, Where } from '@funk/plugins/persistence/where'
+import { Condition } from '@funk/plugins/persistence/condition'
 
 export default function(listFilter: ListFilter):
-  (Where<MarshalledProduct> | AbstractWhere)[]
+  Condition<MarshalledProduct>[]
 {
   switch (listFilter.type)
   {
@@ -15,16 +16,20 @@ export default function(listFilter: ListFilter):
     case ListFilterType.SCALAR_PROPERTY:
       return [[ listFilter.key, 'in', listFilter.values ]]
     case ListFilterType.SCALAR_ATTRIBUTE:
-      return [[ `attributeValues.${listFilter.attributeId}`, 'in', listFilter.values ]]
+      let documentPath = createDocPath<MarshalledProduct>(
+        'attributeValues', listFilter.attributeId)
+      return [[ documentPath, 'in', listFilter.values ]]
     case ListFilterType.RANGE_PROPERTY:
       return [
         [ listFilter.key, '>=', listFilter.range.min ],
         [ listFilter.key, '<', listFilter.range.max ],
       ]
     case ListFilterType.RANGE_ATTRIBUTE:
+      documentPath = createDocPath<MarshalledProduct>(
+        'attributeValues', listFilter.attributeId)
       return [
-        [ `attributeValues.${listFilter.attributeId}`, '>=', listFilter.range.min ],
-        [ `attributeValues.${listFilter.attributeId}`, '<', listFilter.range.max ],
+        [ documentPath, '>=', listFilter.range.min ],
+        [ documentPath, '<', listFilter.range.max ],
       ]
   }
 }

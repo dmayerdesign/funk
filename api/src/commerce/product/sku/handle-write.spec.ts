@@ -4,7 +4,6 @@ import { MarshalledSku } from '@funk/model/commerce/product/sku/sku'
 import { createFakeMarshalledSku } from '@funk/model/commerce/product/sku/stubs'
 import { ChangeContext } from '@funk/plugins/persistence/change'
 import { DocumentSnapshot } from '@funk/plugins/persistence/document-snapshot'
-import { store as Store } from '@funk/plugins/persistence/server-store'
 
 describe('skuHandleWrite', () =>
 {
@@ -33,17 +32,11 @@ describe('skuHandleWrite', () =>
         },
       } as MarshalledSku,
     ] as MarshalledSku[]
-    const updateSpy = jasmine.createSpy()
-    const docSpy = jasmine.createSpy().and.returnValue({
-      update: updateSpy,
-    })
-    const store = (() => ({
-      doc: docSpy,
-      collection: () => ({ where: () => ({ get: async () => ({
-        docs: ALL_SKUS.map((sku) => ({ data: () => sku })),
-      })})}),
-    })) as unknown as typeof Store
-    const handleWrite = construct({ store })
+    const list = jasmine.createSpy().and.returnValue(
+      Promise.resolve(ALL_SKUS)
+    )
+    const updateById = jasmine.createSpy()
+    const handleWrite = construct({ list, updateById })
 
     await handleWrite(
       {
@@ -53,8 +46,8 @@ describe('skuHandleWrite', () =>
       {} as ChangeContext
     )
 
-    expect(docSpy).toHaveBeenCalledWith(`${PRODUCTS}/${PRODUCT_ID}`)
-    expect(updateSpy).toHaveBeenCalledWith({
+    expect(list).toHaveBeenCalled()
+    expect(updateById).toHaveBeenCalledWith(PRODUCTS, PRODUCT_ID, {
       attributeValues: {
         [ATTRIBUTE_ID_1]: [ ATTRIBUTE_VALUE_1_1, ATTRIBUTE_VALUE_1_2 ],
         [ATTRIBUTE_ID_2]: [ ATTRIBUTE_VALUE_2 ],

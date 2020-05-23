@@ -1,10 +1,10 @@
 import { MarshalledProduct } from '@funk/model/commerce/product/product'
-import { AbstractWhere, Where } from '@funk/plugins/persistence/where'
 import { Pagination, VirtualPagination } from '@funk/plugins/persistence/pagination'
+import { Condition } from '@funk/plugins/persistence/condition'
 
 declare function list(options: {
   pagination: Pagination<MarshalledProduct> | VirtualPagination,
-  conditions: (Where<MarshalledProduct> | AbstractWhere)[]
+  conditions: Condition<MarshalledProduct>[]
 }): Promise<MarshalledProduct[]>
 
 export default list

@@ -3,7 +3,7 @@ import { UserRole } from '@funk/model/auth/user-role'
 import { UserConfig, USER_CONFIGS } from '@funk/model/identity/user-config'
 import { authAdmin } from '@funk/plugins/auth/auth-admin'
 import { UserRecord } from '@funk/plugins/auth/user-record'
-import { store } from '@funk/plugins/persistence/server-store'
+import setById from '@funk/plugins/persistence/actions/set-by-id'
 
 export default async function(user: UserRecord): Promise<any>
 {
@@ -20,8 +20,6 @@ export default async function(user: UserRecord): Promise<any>
       isAnonymous: false,
     }
 
-    await store().collection(USER_CONFIGS)
-      .doc(newUserConfig.id)
-      .set(newUserConfig)
+    await setById(USER_CONFIGS, newUserConfig.id, newUserConfig)
   }
 }

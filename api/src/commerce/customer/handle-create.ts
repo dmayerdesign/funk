@@ -1,7 +1,7 @@
 import createOrderForCustomer from '@funk/model/commerce/order/actions/create-order-for-customer'
 import { ORDERS } from '@funk/model/commerce/order/order'
 import { UserRecord } from '@funk/plugins/auth/user-record'
-import { store } from '@funk/plugins/persistence/server-store'
+import setById from '@funk/plugins/persistence/actions/set-by-id'
 
 export default async function(user: UserRecord): Promise<any>
 {
@@ -10,6 +10,6 @@ export default async function(user: UserRecord): Promise<any>
     const newOrder = createOrderForCustomer({
       userId: user.uid,
     })
-    await store().collection(ORDERS).doc(newOrder.id).set(newOrder)
+    await setById(ORDERS, newOrder.id, newOrder)
   }
 }

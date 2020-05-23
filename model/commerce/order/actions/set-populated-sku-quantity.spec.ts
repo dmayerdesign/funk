@@ -1,10 +1,10 @@
 import createOrderForCustomer from
   '@funk/model/commerce/order/actions/create-order-for-customer'
-import setSkuQuantity from '@funk/model/commerce/order/actions/set-sku-quantity'
+import setPopulatedSkuQuantity from '@funk/model/commerce/order/actions/set-populated-sku-quantity'
 import { PopulatedOrder } from '@funk/model/commerce/order/order'
 import { Sku } from '@funk/model/commerce/product/sku/sku'
 
-describe('setSkuQuantity', () =>
+describe('setPopulatedSkuQuantity', () =>
 {
   it('should remove a SKU from a populated order', () =>
   {
@@ -19,10 +19,10 @@ describe('setSkuQuantity', () =>
       skuQuantityMap: { ['sku 1']: 1, ['sku 2']: 1, ['sku 3']: 1 },
     } as PopulatedOrder
 
-    const orderWith0 = setSkuQuantity(
+    const orderWith0 = setPopulatedSkuQuantity(
       orderWith1,
       { sku: createSku('only sku'), quantity: 0 })
-    const orderWith2 = setSkuQuantity(
+    const orderWith2 = setPopulatedSkuQuantity(
       orderWith3,
       { sku: createSku('sku 2'), quantity: 0 })
 
@@ -39,7 +39,7 @@ describe('setSkuQuantity', () =>
       skuQuantityMap: { ['first sku']: 1 },
     } as PopulatedOrder
 
-    const orderWithNewSku = setSkuQuantity(
+    const orderWithNewSku = setPopulatedSkuQuantity(
       originalOrder,
       { sku: createSku('new sku'), quantity: quantityToAdd })
 

@@ -1,12 +1,13 @@
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { Condition } from '@funk/plugins/persistence/condition'
 import { Pagination, VirtualPagination } from '@funk/plugins/persistence/pagination'
 import { store } from '@funk/plugins/persistence/server-store'
-import { AbstractWhere, Where } from '@funk/plugins/persistence/where'
+import { AbstractWhere } from '@funk/plugins/persistence/where'
 
 export default function<DocumentType extends DatabaseDocument>(options: {
   collection: string,
   pagination: Pagination<DocumentType> | VirtualPagination,
-  conditions: (Where<DocumentType> | AbstractWhere)[],
+  conditions: Condition<DocumentType>[],
 }): Promise<DocumentType[]>
 {
   const { collection, pagination, conditions } = options

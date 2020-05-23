@@ -5,7 +5,10 @@ import { DISCOUNTS } from '@funk/model/commerce/discount/discount'
 import createOrderForCustomer
   from '@funk/model/commerce/order/actions/create-order-for-customer'
 import marshall from '@funk/model/commerce/order/actions/marshall'
-import setSkuQuantity from '@funk/model/commerce/order/actions/set-sku-quantity'
+import setMarshalledSkuQuantity from
+  '@funk/model/commerce/order/actions/set-marshalled-sku-quantity'
+import setPopulatedSkuQuantity from
+  '@funk/model/commerce/order/actions/set-populated-sku-quantity'
 import { Customer } from '@funk/model/commerce/order/customer/customer'
 import { Cart, MarshalledCart, ORDERS, PopulatedCart, Status } from '@funk/model/commerce/order/order'
 import { Sku, SKUS } from '@funk/model/commerce/product/sku/sku'
@@ -68,12 +71,16 @@ export class OrdersApi implements Orders
     const populatedCart = { ..._cart } as PopulatedCart
     const marshalledCart = marshall({ ..._cart }) as MarshalledCart
 
-    const updatedPopulatedCart = setSkuQuantity(populatedCart, { sku, quantity })
-    const updatedMarshalledCart = setSkuQuantity(marshalledCart, { sku, quantity })
+    const updatedPopulatedCart = setPopulatedSkuQuantity(
+      populatedCart,
+      { sku, quantity }) as PopulatedCart
+    const updatedMarshalledCart = setMarshalledSkuQuantity(
+      marshalledCart,
+      { skuId: sku.id, quantity }) as MarshalledCart
 
     await this._deviceStorage
-      .setById<Cart>(ORDERS, DEVICE_STORAGE_CART_ID, updatedPopulatedCart)
+      .setById<PopulatedCart>(ORDERS, DEVICE_STORAGE_CART_ID, updatedPopulatedCart)
     await this._persistence
-      .setById<Cart>(ORDERS, marshalledCart.id, updatedMarshalledCart)
+      .setById<MarshalledCart>(ORDERS, marshalledCart.id, updatedMarshalledCart)
   }
 }
