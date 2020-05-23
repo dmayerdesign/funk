@@ -7,6 +7,7 @@ module.exports = {
   testEnvironment: 'node',
   roots: [
     '<rootDir>/config',
+    '<rootDir>/api',
     '<rootDir>/functions',
     '<rootDir>/helpers',
     '<rootDir>/model',

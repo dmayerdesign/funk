@@ -38,11 +38,15 @@ interface BaseOrder extends DatabaseDocument {
   shipmentPrice?: Price
   /** The "shipping cost" shown to the customer at checkout. */
   shippingCostCharged?: Price
+  skuQuantityMap: { [skuId: string]: number }
 }
 
 export interface PopulatedOrder extends BaseOrder {
   skus: Sku[]
   discounts?: Discount[]
+}
+export type PopulatedCart = PopulatedOrder & {
+  status: Status.CART | Status.CART_CHECKOUT
 }
 
 export interface MarshalledOrder extends BaseOrder
@@ -50,9 +54,11 @@ export interface MarshalledOrder extends BaseOrder
   skus: PrimaryKey[]
   discounts?: PrimaryKey[]
 }
+export type MarshalledCart = MarshalledOrder & {
+  status: Status.CART | Status.CART_CHECKOUT
+}
 
 export type Order = PopulatedOrder | MarshalledOrder
-
 export type Cart = Order & {
   status: Status.CART | Status.CART_CHECKOUT
 }

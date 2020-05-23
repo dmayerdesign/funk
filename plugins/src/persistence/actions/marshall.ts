@@ -1,4 +1,5 @@
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { PrimaryKey } from '@funk/model/data-access/primary-key'
 
 export default function<
   MarshalledType extends DatabaseDocument,
@@ -13,7 +14,7 @@ export default function<
     const value = populatedDoc[key] as unknown as DatabaseDocument
     const relationship = typeof value === 'string' ? 'one-to-one' : 'one-to-many'
 
-    if (!value || !(value as unknown as (string | any[])).length)
+    if (!value || !(value as unknown as (PrimaryKey | any[])).length)
     {
       continue
     }

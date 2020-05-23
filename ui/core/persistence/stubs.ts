@@ -1,33 +1,25 @@
-import { AngularFirestoreCollection, AngularFirestoreDocument,
-  CollectionReference, Query, QueryFn } from '@angular/fire/firestore'
+import { CollectionReference, Query } from '@angular/fire/firestore'
 import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
-import { Persistence } from '@funk/ui/core/persistence/interface'
+import { Pagination, Persistence } from '@funk/ui/core/persistence/interface'
 import { get } from 'lodash'
 import { of, Observable } from 'rxjs'
 
 export class PersistenceStub implements Persistence
 {
-  public collection: <T>(path: string, queryFn?: QueryFn | undefined) =>
-    AngularFirestoreCollection<T> = (path) => ({
-      valueChanges: () => of(this._mockData[path]),
-    }) as any
-  public document: <T>(path: string) =>
-    AngularFirestoreDocument<T> = () => ({
-      valueChanges: () => of({}),
-    }) as any
+  public populate = async (doc: any) => doc
 
   constructor(
-    private _mockData: { [collectionPath: string]: any }
+    private _mockData: { [collectionPath: string]: any },
+    private _mockCollectionMetadata = [{
+      collectionPath: 'test.collection',
+      documentPath: 'test-doc',
+    }]
   )
   { }
 
   public list<DocumentType extends DatabaseDocument = DatabaseDocument>(
     collectionPath: string,
-    _paginationOptions?: {
-      orderBy: (keyof DocumentType & string)
-      orderByDirection: 'asc' | 'desc'
-      startAt: DocumentType[keyof DocumentType]
-    },
+    _paginationOptions?: Pagination,
   ): Promise<DocumentType[]>
   {
     return Promise.resolve(this._mockData[collectionPath])
@@ -63,14 +55,17 @@ export class PersistenceStub implements Persistence
   ): Promise<void>
   { }
 
+  public async deleteById<DocumentType extends object = DatabaseDocument>(
+    collectionPath: string,
+    documentPath: string,
+  ): Promise<void>
+  { }
+
   public queryCollectionForMetadata(
     collectionPath: string,
     selector: (collectionReference: CollectionReference) => Query
   ): Promise<DbDocumentMetadata[]>
   {
-    return Promise.resolve([{
-      collectionPath: 'test.collection',
-      documentPath: 'test-doc',
-    }])
+    return Promise.resolve(this._mockCollectionMetadata)
   }
 }

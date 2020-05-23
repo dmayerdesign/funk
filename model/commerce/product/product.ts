@@ -1,3 +1,5 @@
+import { MarshalledProductAttributeValues,
+  PopulatedProductAttributeValues } from '@funk/model/commerce/attribute/attribute-value'
 import { Review } from '@funk/model/commerce/review/review'
 import { TaxonomyTerm } from '@funk/model/commerce/taxonomy/taxonomy-term'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
@@ -20,9 +22,12 @@ interface BaseProduct extends DatabaseDocument {
    * https://support.google.com/merchants/answer/7052112?hl=en&ref_topic=6324338
    */
   duration?: Duration
+  isPublished?: boolean
 }
 
 export interface MarshalledProduct extends BaseProduct {
+  /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
+  attributeValues: MarshalledProductAttributeValues
   /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. */
   taxonomyTerms: PrimaryKey[]
   reviews?: PrimaryKey[]
@@ -30,6 +35,8 @@ export interface MarshalledProduct extends BaseProduct {
 }
 
 export interface PopulatedProduct extends BaseProduct {
+  /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
+  attributeValues: PopulatedProductAttributeValues
   /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. */
   taxonomyTerms: TaxonomyTerm[]
   reviews?: Review[]

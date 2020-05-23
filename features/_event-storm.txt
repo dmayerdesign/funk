@@ -1,45 +1,14 @@
 Sign up
-
-
 Sign in
-
-
 Get my cart
-
-
 Add a product to my cart
-
-
 Get a product
-
-
 Get a specific variant of a product
-
-
 Get a list of products
-
-
 Get a list of products ordered by price or rating
-
-
 Get a list of products by searching, and order that by relevance, price, or rating
-
-
 Get a list of products of a particular category
-
-
 Sign up for a newsletter
-
-
 Save a credit card
-
-
 Submit an order
-
-
 Save my shipping address
-
-
-
-
-

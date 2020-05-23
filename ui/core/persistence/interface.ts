@@ -1,19 +1,11 @@
 import { CollectionReference, Query } from '@angular/fire/firestore'
 import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
+import { PopulateFieldOptions } from '@funk/plugins/persistence/actions/populate'
 import { Observable } from 'rxjs'
 
 export const PERSISTENCE = 'PERSISTENCE'
 
-export interface Persistence {
-  list<DocumentType extends DatabaseDocument = DatabaseDocument>(
-    collectionPath: string,
-    paginationOptions?: {
-      orderBy: (keyof DocumentType & string)
-      orderByDirection: 'asc' | 'desc'
-      startAt: DocumentType[keyof DocumentType]
-    },
-  ): Promise<DocumentType[]>
-
+export interface AbstractPersistence {
   listenById<DocumentType extends object = DatabaseDocument>(
     collectionPath: string,
     documentPath: string,
@@ -36,6 +28,18 @@ export interface Persistence {
     documentPath: string,
     documentData: Partial<DocumentType>,
   ): Promise<void>
+
+  deleteById(
+    collectionPath: string,
+    documentPath: string,
+  ): Promise<void>
+}
+
+export interface Persistence extends AbstractPersistence {
+  populate<PopulatedType, MarshalledType = any>(
+    marshalledDoc: MarshalledType,
+    options: PopulateFieldOptions<MarshalledType | PopulatedType>[],
+  ): Promise<PopulatedType>
 
   queryCollectionForMetadata(
     collectionPath: string,

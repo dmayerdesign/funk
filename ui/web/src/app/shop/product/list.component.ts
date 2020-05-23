@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core'
 import { FormArray, FormControl, FormGroup } from '@angular/forms'
-import { ListFilter } from '@funk/model/commerce/product/list-filter'
+import { ListFilter } from '@funk/model/commerce/product/list-filter/list-filter'
 import { Product } from '@funk/model/commerce/product/product'
+import { Pagination } from '@funk/ui/core/persistence/interface'
 import { of, ReplaySubject } from 'rxjs'
 import { catchError, map, shareReplay } from 'rxjs/operators'
 
@@ -24,11 +25,13 @@ import { catchError, map, shareReplay } from 'rxjs/operators'
 export class ProductListComponent implements OnChanges
 {
   @Input() public products!: Product[]
-  @Input() public initialFilters!: ListFilter[]
+  @Input() public filters!: ListFilter[]
+  @Input() public pagination!: Pagination
   @Output() public filtersChange = new EventEmitter<ListFilter[]>()
+  @Output() public paginationChange = new EventEmitter<Pagination>()
 
-  public filters = new ReplaySubject<ListFilter[]>(1)
-  public filtersForm = this.filters.pipe(
+  private _filters = new ReplaySubject<ListFilter[]>(1)
+  public filtersForm = this._filters.pipe(
     map((filters) =>
       new FormArray(filters.map((filter) =>
       {
@@ -47,12 +50,12 @@ export class ProductListComponent implements OnChanges
 
   public ngOnChanges(changes: SimpleChanges): void
   {
-    const INITIAL_FILTERS: keyof this = 'initialFilters'
-    const initialFiltersChange = changes[INITIAL_FILTERS as string]
-    const initialFilters: ListFilter[] | undefined = initialFiltersChange.currentValue
-    if (initialFilters)
+    const INITIAL_FILTERS: keyof this = 'filters'
+    const filtersChange = changes[INITIAL_FILTERS as string]
+    const filters: ListFilter[] | undefined = filtersChange.currentValue
+    if (filters)
     {
-      this.filters.next(initialFilters)
+      this._filters.next(filters)
     }
   }
 }

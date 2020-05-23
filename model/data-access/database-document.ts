@@ -1,8 +1,9 @@
+import { PrimaryKey } from '@funk/model/data-access/primary-key'
 import { Timestamp } from '@funk/model/data-access/timestamp'
 
 export interface DatabaseDocument
 {
-  id: string
+  id: PrimaryKey
   slug?: string
   createdAt?: Timestamp
   updatedAt?: Timestamp

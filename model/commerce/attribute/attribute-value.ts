@@ -1,4 +1,3 @@
-import { OneOf } from '@funk/helpers/one-of'
 import { DatabaseDocument } from '@funk/model/data-access/database-document'
 import { PrimaryKey } from '@funk/model/data-access/primary-key'
 import { ImageGroup } from '@funk/model/image/image-group'
@@ -12,33 +11,27 @@ export interface AttributeValue extends DatabaseDocument {
   displayValue: string
   displayDescription?: string
   displayImage?: ImageGroup
-  displayColor?: [number, number, number]
+  displayColorRgb?: [number, number, number]
 }
 
-export interface MarshalledAttributeValues {
-  [attributeId: string]: OneOf<
-    MarshalledAttributeRefValue, AttributeStringValue, AttributeNumberValue
-  >
-}
-export interface PopulatedAttributeValues {
-  [attributeId: string]: OneOf<
-    PopulatedAttributeRefValue, AttributeStringValue, AttributeNumberValue
-  >
+export interface MarshalledSkuAttributeValues {
+  [attributeId: string]: PrimaryKey | string | number
 }
 
-export type AttributeValues = MarshalledAttributeValues | PopulatedAttributeValues
-
-interface AttributeNumberValue {
-  numberValue: number
+export interface PopulatedSkuAttributeValues {
+  [attributeId: string]: AttributeValue | string | number
 }
 
-interface AttributeStringValue {
-  stringValue: string
+export interface MarshalledProductAttributeValues {
+  [attributeId: string]: PrimaryKey[] | string[] | number[]
 }
 
-interface MarshalledAttributeRefValue {
-  attributeValue: PrimaryKey
+export interface PopulatedProductAttributeValues {
+  [attributeId: string]: AttributeValue[] | string[] | number[]
 }
-interface PopulatedAttributeRefValue {
-  attributeValue: PrimaryKey
-}
+
+export type AttributeValues =
+  MarshalledSkuAttributeValues |
+  PopulatedSkuAttributeValues |
+  MarshalledProductAttributeValues |
+  PopulatedProductAttributeValues

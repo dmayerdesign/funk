@@ -30,7 +30,7 @@ export const createUserConfigStub = (email = 'test@test.com') => ({
 export const createUserStub = (role = UserRole.ANONYMOUS, email?: string) => ({
   ...createUserConfigStub(email),
   ...createIdTokenResultStub(role),
-  isAnonymous: false,
+  isAnonymous: role === UserRole.ANONYMOUS,
 })
 
 export const createAuthUserStub = (role = UserRole.ANONYMOUS) => ({
@@ -38,8 +38,8 @@ export const createAuthUserStub = (role = UserRole.ANONYMOUS) => ({
   getIdToken: async (..._args: any[]) => ID_TOKEN_STUB,
   getIdTokenResult: async (..._args: any[]) => createIdTokenResultStub(role),
   sendEmailVerification: async (..._args: any[]) => { },
-  emailVerified: true,
-  isAnonymous: false,
+  emailVerified: role !== UserRole.ANONYMOUS,
+  isAnonymous: role === UserRole.ANONYMOUS,
 }) as unknown as User
 
 export const createUserCredentialStub = (
@@ -66,8 +66,8 @@ export const createStoreStub = (email = 'test@test.com') => ({
     .pipe(shareReplay(1)),
 }) as Persistence
 
-export const createStubbedIdentityApi = (userStubRole = UserRole.ANONYMOUS) =>
-  new IdentityApi(createAuthStub(createAuthUserStub(userStubRole)), createStoreStub())
+export const createStubbedIdentityApi = (userRole = UserRole.ANONYMOUS) =>
+  new IdentityApi(createAuthStub(createAuthUserStub(userRole)), createStoreStub())
 
 export const createRouterStub = () => (
   {
@@ -75,28 +75,40 @@ export const createRouterStub = () => (
   } as Router
 )
 
-export const createStubbedAdministratorGuard = (userStubRole = UserRole.ANONYMOUS) =>
+export const createStubbedAdministratorGuard = (userRole = UserRole.ANONYMOUS) =>
   new AdministratorGuard(
-    createAuthStub(createAuthUserStub(userStubRole)),
+    createAuthStub(createAuthUserStub(userRole)),
     createRouterStub()
   )
 
-export const createStubbedAnonymousGuard = (userStubRole = UserRole.ANONYMOUS) =>
+export const createStubbedAnonymousGuard = (userRole = UserRole.ANONYMOUS) =>
   new AnonymousGuard(
-    createStubbedIdentityApi(userStubRole),
+    createStubbedIdentityApi(userRole),
     createRouterStub()
   )
 
 export class IdentityStub implements Identity
 {
-  public user$ = of(createUserStub(UserRole.PUBLIC)).pipe(shareReplay(1))
+  private _email: string
+  private _role: UserRole
+
+  public user$ = of(createUserStub(this._role, this._email)).pipe(shareReplay(1))
   public userId$ = of(USER_UID_STUB).pipe(shareReplay(1))
   public userIdToken$ = of(ID_TOKEN_STUB).pipe(shareReplay(1))
-  public userRole$ = of(UserRole.PUBLIC).pipe(shareReplay(1))
-  public hasAdminPrivilegeOrGreater$ = of(roleHasAdminPrivilegeOrGreater(
-    UserRole.PUBLIC
-  )).pipe(shareReplay(1))
+  public userRole$ = of(this._role).pipe(shareReplay(1))
+  public hasAdminPrivilegeOrGreater$ = of(
+    roleHasAdminPrivilegeOrGreater(this._role)).pipe(shareReplay(1))
   public userState$ = of({ id: USER_UID_STUB } as UserState).pipe(shareReplay(1))
+
+  constructor({
+    email = 'test email',
+    role = UserRole.PUBLIC,
+  } = {})
+  {
+    this._email = email
+    this._role = role
+  }
+
   public async init(): Promise<void> { }
   public async createUserWithEmailAndPassword(
     _email: string,

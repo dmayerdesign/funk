@@ -12,33 +12,9 @@ export class PersistenceApi implements Persistence
   public populate = constructPopulate({ store: () => this._store })
 
   constructor(
-    private _store: AngularFirestore
+    private _store: AngularFirestore,
   )
   { }
-
-  public list<DocumentType extends DatabaseDocument = DatabaseDocument>(
-    collectionPath: string,
-    paginationOptions?: {
-      orderBy: keyof DocumentType & string
-      orderByDirection: 'asc' | 'desc'
-      startAt: DocumentType[keyof DocumentType]
-    },
-  ): Promise<DocumentType[]>
-  {
-    if (paginationOptions)
-    {
-      return this._store.collection<DocumentType>(collectionPath)
-        .ref
-        .orderBy(paginationOptions.orderBy, paginationOptions.orderByDirection)
-        .startAt(paginationOptions.startAt)
-        .get()
-        .then((snapshot) => snapshot.docs) as Promise<DocumentType[]>
-    }
-    return this._store.collection<DocumentType>(collectionPath)
-      .ref
-      .get()
-      .then((snapshot) => snapshot.docs) as Promise<DocumentType[]>
-  }
 
   public listenById<DocumentType extends object = DatabaseDocument>(
     collectionPath: string,
@@ -86,6 +62,16 @@ export class PersistenceApi implements Persistence
     await this._store.collection(collectionPath)
       .doc<DocumentType>(documentPath)
       .update(documentData)
+  }
+
+  public async deleteById(
+    collectionPath: string,
+    documentPath: string,
+  ): Promise<void>
+  {
+    await this._store.collection(collectionPath)
+      .doc<DocumentType>(documentPath)
+      .delete()
   }
 
   public queryCollectionForMetadata(
