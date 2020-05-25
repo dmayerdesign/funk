@@ -1,5 +1,5 @@
-import { auth } from 'firebase-admin'
+import { auth } from "firebase-admin"
 
 export interface DecodedIdToken extends
-  Omit<auth.DecodedIdToken, 'aud'>, Omit<auth.DecodedIdToken, 'firebase'>
+  Omit<auth.DecodedIdToken, "aud">, Omit<auth.DecodedIdToken, "firebase">
 { }

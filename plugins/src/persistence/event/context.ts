@@ -1,1 +1,1 @@
-export { EventContext as Context } from 'firebase-functions'
+export { EventContext as Context } from "firebase-functions"

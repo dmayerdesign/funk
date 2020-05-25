@@ -1,1 +1,1 @@
-export { CloudFunction } from 'firebase-functions'
+export { CloudFunction } from "firebase-functions"

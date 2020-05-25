@@ -1,24 +1,24 @@
-import getSecret from '@funk/api/admin/get-secret'
-import populate from '@funk/api/commerce/order/populate'
-import getProductForSku from '@funk/api/commerce/product/get-product-for-sku'
-import ignoringKey from '@funk/functions/helpers/listen/ignoring-key'
-import { construct as constructGetTax } from '@funk/model/commerce/order/actions/get-tax'
+import getSecret from "@funk/api/admin/get-secret"
+import populate from "@funk/api/commerce/order/populate"
+import getProductForSku from "@funk/api/commerce/product/get-product-for-sku"
+import ignoringKey from "@funk/functions/helpers/listen/ignoring-key"
+import { construct as constructGetTax } from "@funk/model/commerce/order/actions/get-tax"
 import { construct as constructGetTotalBeforeTax } from
-  '@funk/model/commerce/order/actions/get-total-before-tax-and-shipping'
-import { MarshalledOrder, Order, ORDERS } from '@funk/model/commerce/order/order'
-import add from '@funk/model/commerce/price/actions/add'
-import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from '@funk/model/secret/keys'
+  "@funk/model/commerce/order/actions/get-total-before-tax-and-shipping"
+import { MarshalledOrder, Order, ORDERS } from "@funk/model/commerce/order/order"
+import add from "@funk/model/commerce/price/actions/add"
+import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 import {
   construct as constructCreatePaymentIntent,
   Options as CreatePaymentIntentOptions,
-} from '@funk/plugins/payment/actions/create-payment-intent'
+} from "@funk/plugins/payment/actions/create-payment-intent"
 import {
   construct as constructUpdatePaymentIntent,
   Options as UpdatePaymentIntentOptions,
-} from '@funk/plugins/payment/actions/update-payment-intent'
-import updateById from '@funk/plugins/persistence/actions/update-by-id'
+} from "@funk/plugins/payment/actions/update-payment-intent"
+import updateById from "@funk/plugins/persistence/actions/update-by-id"
 
-export default ignoringKey<Order>('paymentIntentId', async ({ after }) =>
+export default ignoringKey<Order>("paymentIntentId", async ({ after }) =>
 {
   const order = after.data() as MarshalledOrder
   const populatedOrder = await populate(order)
@@ -47,21 +47,17 @@ export default ignoringKey<Order>('paymentIntentId', async ({ after }) =>
 const _getTotalBeforeTax = constructGetTotalBeforeTax({ getProductForSku })
 const _getTax = constructGetTax({ getProductForSku })
 const _newCreatePaymentIntent = async () =>
-{
-  return constructCreatePaymentIntent({
+  constructCreatePaymentIntent({
     paymentProviderSecret: (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!,
   })
-}
 const _newUpdatePaymentIntent = async () =>
-{
-  return constructUpdatePaymentIntent({
+  constructUpdatePaymentIntent({
     paymentProviderSecret: (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!,
   })
-}
 
 async function _setPaymentIntentId(
   orderId: string,
-  paymentIntentId: string,
+  paymentIntentId: string
 ): Promise<void>
 {
   if (!orderId || !paymentIntentId) return

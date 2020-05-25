@@ -1,8 +1,8 @@
-import { Component } from '@angular/core'
+import { Component } from "@angular/core"
 
 @Component({
-  selector: 'app-shell',
-  templateUrl: './component.html',
+  selector: "app-shell",
+  templateUrl: "./component.html",
 })
 export class AppShellComponent
 { }

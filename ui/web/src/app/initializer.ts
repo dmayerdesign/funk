@@ -1,5 +1,5 @@
-import { InjectionToken } from '@angular/core'
-import { Initializer } from '@funk/ui/helpers/initializer'
+import { InjectionToken } from "@angular/core"
+import { Initializer } from "@funk/ui/helpers/initializer"
 
 export interface InitializerFunction
 {
@@ -15,5 +15,5 @@ export function createModuleInitializer(...initializers: Initializer[]): Initial
 }
 
 export const INITIALIZE_CONTAINER = new InjectionToken<InitializerFunction>(
-  'INITIALIZE_CONTAINER'
+  "INITIALIZE_CONTAINER"
 )

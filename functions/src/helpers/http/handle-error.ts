@@ -1,7 +1,7 @@
-import { ErrorWithStatusCode } from '@funk/functions/helpers/http/error/error-with-status-code'
-import { InvalidInputError } from '@funk/model/error/invalid-input-error'
-import { StatusCode } from '@funk/model/http/status-code'
-import * as express from 'express'
+import { ErrorWithStatusCode } from "@funk/functions/helpers/http/error/error-with-status-code"
+import { InvalidInputError } from "@funk/model/error/invalid-input-error"
+import { StatusCode } from "@funk/model/http/status-code"
+import * as express from "express"
 
 const handler: express.ErrorRequestHandler = (error, _request, response, next) =>
 {

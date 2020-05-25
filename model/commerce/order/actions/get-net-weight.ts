@@ -1,6 +1,6 @@
-import { PopulatedOrder } from '@funk/model/commerce/order/order'
-import add from '@funk/model/weight/actions/add'
-import { Weight } from '@funk/model/weight/weight'
+import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import add from "@funk/model/weight/actions/add"
+import { Weight } from "@funk/model/weight/weight"
 
 export default function(order: PopulatedOrder): Weight
 {

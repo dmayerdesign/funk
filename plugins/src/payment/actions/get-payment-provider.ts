@@ -1,4 +1,4 @@
-import Stripe from 'stripe'
+import Stripe from "stripe"
 
 let provider: Stripe
 
@@ -8,10 +8,10 @@ export const construct = (paymentServiceProviderCtor = Stripe) =>
     return provider = provider || new paymentServiceProviderCtor(
       secret,
       {
-        apiVersion: '2019-12-03',
+        apiVersion: "2019-12-03",
         maxNetworkRetries: 2,
         ...options,
-      },
+      }
     )
   }
 

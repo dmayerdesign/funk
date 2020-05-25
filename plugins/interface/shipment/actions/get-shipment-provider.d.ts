@@ -4,4 +4,4 @@ export interface GetShipmentProvider
 export default GetShipmentProvider
 
 export function construct(shipmentServiceProviderCtor: any):
-  (secret: string) => any
+(secret: string) => any

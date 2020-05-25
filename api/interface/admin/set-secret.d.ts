@@ -1,4 +1,4 @@
-import setById from '@funk/plugins/persistence/actions/set-by-id'
+import setById from "@funk/plugins/persistence/actions/set-by-id"
 
 export interface Options {
   key: string

@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild } from "@angular/core"
 import {
   ManagedContentEditorService,
-} from '@funk/ui/web/app/admin/managed-content/editor/service'
-import { IonTextarea } from '@ionic/angular'
-import { merge, of, ReplaySubject } from 'rxjs'
-import { delay, startWith, switchMap, tap, throttleTime } from 'rxjs/operators'
+} from "@funk/ui/web/app/admin/managed-content/editor/service"
+import { IonTextarea } from "@ionic/angular"
+import { merge, of, ReplaySubject } from "rxjs"
+import { delay, startWith, switchMap, tap, throttleTime } from "rxjs/operators"
 
 const ANIMATION_DURATION_MS = 500
 
 @Component({
-  selector: 'managed-content-editor',
+  selector: "managed-content-editor",
   template: `
     <div class="managed-content-editor-wrapper">
       <div *ngIf="hasPreview | async">
@@ -39,11 +39,11 @@ const ANIMATION_DURATION_MS = 500
       </div>
     </ng-container>
   `,
-  styleUrls: [ './container.scss' ],
+  styleUrls: [ "./container.scss" ],
 })
 export class ManagedContentEditorContainer implements OnInit
 {
-  @ViewChild('contentValueInput') public contentValueInput!: IonTextarea
+  @ViewChild("contentValueInput") public contentValueInput!: IonTextarea
   private _cssAnimatingOut = new ReplaySubject<boolean>(1)
   public maybeFormControl = this._editorService.activeContentValueControl
   public hasPreview = this._editorService.hasPreview
@@ -55,14 +55,14 @@ export class ManagedContentEditorContainer implements OnInit
         of(isAnimating),
         of(false).pipe(
           delay(ANIMATION_DURATION_MS),
-          tap(() => this._editorService.cancel()),
-        ),
+          tap(() => this._editorService.cancel())
+        )
       )
       : of(isAnimating)
-    ),
+    )
   )
 
-  constructor(
+  public constructor(
     private _editorService: ManagedContentEditorService
   )
   { }
@@ -73,7 +73,7 @@ export class ManagedContentEditorContainer implements OnInit
     {
       setTimeout(
         () => this.contentValueInput.setFocus(),
-        100,
+        100
       )
     })
   }

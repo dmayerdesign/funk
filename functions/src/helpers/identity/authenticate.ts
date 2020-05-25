@@ -1,7 +1,8 @@
-import { AuthenticationRequest } from '@funk/functions/model/request-response/authentication-request'
-import { StatusCode, StatusCodeMessage } from '@funk/model/http/status-code'
-import { authAdmin } from '@funk/plugins/auth/auth-admin'
-import { NextFunction, Response } from 'express'
+import { AuthenticationRequest } from
+  "@funk/functions/model/request-response/authentication-request"
+import { StatusCode, StatusCodeMessage } from "@funk/model/http/status-code"
+import { authAdmin } from "@funk/plugins/auth/auth-admin"
+import { NextFunction, Response } from "express"
 
 /**
  * Express middleware that checks whether the request contains a user in the form of a
@@ -37,19 +38,19 @@ export default async function(
   function getEncodedIdTokenOrThrow(): string
   {
     const authHeader = request.headers.authorization as string | undefined
-    if (authHeader && authHeader.startsWith('Bearer '))
+    if (authHeader && authHeader.startsWith("Bearer "))
     {
-      return authHeader.split('Bearer ')[1]
+      return authHeader.split("Bearer ")[1]
     }
     else if (request.cookies && request.cookies.__session)
     {
       return request.cookies.__session
     }
     throw new Error(
-      `No Firebase ID token was found.\n` +
-      `Make sure you authorize your request by providing an HTTP header with the key` +
-      `"Authorization" and the value "Bearer <Firebase ID Token>"\n` +
-      `or by passing a "__session" cookie.`
+      "No Firebase ID token was found.\n" +
+      "Make sure you authorize your request by providing an HTTP header with the key" +
+      "\"Authorization\" and the value \"Bearer <Firebase ID Token>\"\n" +
+      "or by passing a \"__session\" cookie."
     )
   }
 }

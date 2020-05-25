@@ -1,17 +1,17 @@
-import { ignoreNullish, swallowErrorAndMapTo } from '@funk/helpers/rxjs-shims'
-import { of, BehaviorSubject, Observable } from 'rxjs'
-import { first, shareReplay } from 'rxjs/operators'
+import { ignoreNullish, swallowErrorAndMapTo } from "@funk/helpers/rxjs-shims"
+import { of, BehaviorSubject, Observable } from "rxjs"
+import { first, shareReplay } from "rxjs/operators"
 
-describe('rxjsShims', () =>
+describe("rxjsShims", () =>
 {
-  describe('ignoreNullish', () =>
+  describe("ignoreNullish", () =>
   {
-    it(`should ignore null`, async (done) =>
+    it("should ignore null", async (done) =>
     {
       const subject = of(true, null)
       const justTrue: Observable<boolean> = subject.pipe(
         ignoreNullish(),
-        shareReplay(1),
+        shareReplay(1)
       )
 
       justTrue
@@ -23,12 +23,12 @@ describe('rxjsShims', () =>
 
       done()
     })
-    it(`should ignore undefined`, async (done) =>
+    it("should ignore undefined", async (done) =>
     {
       const subject = of(true, undefined)
       const justTrue: Observable<boolean> = subject.pipe(
         ignoreNullish(),
-        shareReplay(1),
+        shareReplay(1)
       )
 
       justTrue
@@ -40,7 +40,7 @@ describe('rxjsShims', () =>
 
       done()
     })
-    it(`should allow false`, async (done) =>
+    it("should allow false", async (done) =>
     {
       const subject = new BehaviorSubject<boolean>(false)
       const justFalse = subject.pipe(ignoreNullish())
@@ -48,19 +48,19 @@ describe('rxjsShims', () =>
         .toBe(false)
       done()
     })
-    it(`should allow ''`, async (done) =>
+    it("should allow ''", async (done) =>
     {
-      const subject = new BehaviorSubject<string>('')
+      const subject = new BehaviorSubject<string>("")
       const justEmptyString = subject.pipe(ignoreNullish())
       expect(await justEmptyString.pipe(first()).toPromise())
-        .toBe('')
+        .toBe("")
       done()
     })
   })
 
-  describe('swallowErrorAndMapTo', () =>
+  describe("swallowErrorAndMapTo", () =>
   {
-    it('should swallow an error and map to the provided value', async (done) =>
+    it("should swallow an error and map to the provided value", async (done) =>
     {
       const throws$ = new Observable((subscriber) => subscriber.error(new Error()))
       const mapTo = {}

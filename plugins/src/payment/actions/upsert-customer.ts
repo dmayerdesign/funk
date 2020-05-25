@@ -1,5 +1,5 @@
-import Stripe from 'stripe'
-import getPaymentProviderImpl from './get-payment-provider'
+import Stripe from "stripe"
+import getPaymentProviderImpl from "./get-payment-provider"
 
 export interface CreateInput
 {
@@ -18,7 +18,7 @@ export const construct = ({
   async function(input: CreateInput | UpdateInput): Promise<Stripe.Customer>
   {
     const { paymentProviderSecret, customerData } = input,
-          { id } = input as UpdateInput
+      { id } = input as UpdateInput
     const stripe = getPaymentProvider(paymentProviderSecret)
 
     if (!!id)

@@ -1,4 +1,4 @@
-export const USER_CONFIGS = 'identity.user-configs'
+export const USER_CONFIGS = "identity.user-configs"
 
 export interface UserConfig
 {

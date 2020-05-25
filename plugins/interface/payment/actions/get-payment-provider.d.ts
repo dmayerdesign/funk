@@ -4,4 +4,4 @@ export interface GetPaymentProvider
 export default GetPaymentProvider
 
 export function construct(paymentServiceProviderCtor: any):
-  (secret: string, options?: any) => any
+(secret: string, options?: any) => any

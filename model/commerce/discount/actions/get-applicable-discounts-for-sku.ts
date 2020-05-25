@@ -1,8 +1,8 @@
-import { Discount, SkuDiscount } from '@funk/model/commerce/discount/discount'
-import { MarshalledProduct } from '@funk/model/commerce/product/product'
-import { MarshalledSku } from '@funk/model/commerce/product/sku/sku'
-import { sortBy } from 'lodash'
-import ApplicableDiscountsBuilder from './applicable-discounts-builder'
+import { Discount, SkuDiscount } from "@funk/model/commerce/discount/discount"
+import { MarshalledProduct } from "@funk/model/commerce/product/product"
+import { MarshalledSku } from "@funk/model/commerce/product/sku/sku"
+import { sortBy } from "lodash"
+import ApplicableDiscountsBuilder from "./applicable-discounts-builder"
 
 /**
  * Only one discount may be applied, unless one or more are `compoundable`.
@@ -12,7 +12,7 @@ import ApplicableDiscountsBuilder from './applicable-discounts-builder'
  */
 export default function(
   discounts: SkuDiscount[],
-  { sku, product }: { sku: MarshalledSku, product: MarshalledProduct }): SkuDiscount[]
+  { sku, product }: { sku: MarshalledSku; product: MarshalledProduct }): SkuDiscount[]
 {
   return new ApplicableDiscountsForSkuBuilder(sku, product, discounts)
     .onlyAllowSkuDiscounts()
@@ -26,10 +26,10 @@ export default function(
 
 class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder {
 
-  constructor(
+  public constructor(
     private _sku: MarshalledSku,
     private _product: MarshalledProduct,
-    discounts: SkuDiscount[],
+    discounts: SkuDiscount[]
   )
   {
     super(discounts)
@@ -38,7 +38,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder {
   public onlyAllowSkuDiscounts(): this
   {
     this._applicableDiscounts = this._applicableDiscounts.filter((discount) =>
-      (discount as Discount).type !== 'order')
+      (discount as Discount).type !== "order")
     return this
   }
 
@@ -60,16 +60,16 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder {
         {
           if (!!discount.excludes.taxonomyTerms.find(
             (excludedTerm) => !!this._sku.taxonomyTerms.find(
-              (term) => term === excludedTerm,
-            ),
+              (term) => term === excludedTerm
+            )
           ))
           {
             return false
           }
           if (!!discount.excludes.taxonomyTerms.find(
             (excludedTerm) => !!this._product.taxonomyTerms.find(
-              (term) => term === excludedTerm,
-            ),
+              (term) => term === excludedTerm
+            )
           ))
           {
             return false
@@ -94,16 +94,16 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder {
       {
         if (!!discount.includes.taxonomyTerms.find(
           (includedTerm) => !!this._sku.taxonomyTerms.find(
-            (term) => term === includedTerm,
-          ),
+            (term) => term === includedTerm
+          )
         ))
         {
           return true
         }
         if (!!discount.includes.taxonomyTerms.find(
           (includedTerm) => !!this._product.taxonomyTerms.find(
-            (term) => term === includedTerm,
-          ),
+            (term) => term === includedTerm
+          )
         ))
         {
           return true
@@ -141,7 +141,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder {
         if (discounts.some(({ isCompoundable }) => isCompoundable))
         {
           return discounts.filter(
-            ({ isCompoundable }) => isCompoundable,
+            ({ isCompoundable }) => isCompoundable
           )
         }
       }

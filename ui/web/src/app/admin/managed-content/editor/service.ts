@@ -1,20 +1,20 @@
-import { Inject, Injectable } from '@angular/core'
-import { FormControl } from '@angular/forms'
-import { ignoreNullish } from '@funk/helpers/rxjs-shims'
-import { swallowErrorAndMapTo } from '@funk/helpers/rxjs-shims'
-import { UserState, USER_STATES } from '@funk/model/identity/user-state'
-import { CONTENTS } from '@funk/model/managed-content/managed-content'
-import { ManagedContent } from '@funk/model/managed-content/managed-content'
-import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
-import { Persistence, PERSISTENCE } from '@funk/ui/core/persistence/interface'
-import { combineLatest, from, of, BehaviorSubject, Observable } from 'rxjs'
-import { first, map, pluck, shareReplay, switchMap } from 'rxjs/operators'
+import { Inject, Injectable } from "@angular/core"
+import { FormControl } from "@angular/forms"
+import { ignoreNullish } from "@funk/helpers/rxjs-shims"
+import { swallowErrorAndMapTo } from "@funk/helpers/rxjs-shims"
+import { UserState, USER_STATES } from "@funk/model/identity/user-state"
+import { CONTENTS } from "@funk/model/managed-content/managed-content"
+import { ManagedContent } from "@funk/model/managed-content/managed-content"
+import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
+import { Persistence, PERSISTENCE } from "@funk/ui/core/persistence/interface"
+import { combineLatest, from, of, BehaviorSubject, Observable } from "rxjs"
+import { first, map, pluck, shareReplay, switchMap } from "rxjs/operators"
 
 @Injectable()
 export class ManagedContentEditorService
 {
   private _maybeActiveContentId =
-    new BehaviorSubject<string | undefined>(undefined)
+  new BehaviorSubject<string | undefined>(undefined)
   public saving = new BehaviorSubject<boolean>(false)
   public activeContentValueControl = this._maybeActiveContentId
     .pipe(
@@ -24,32 +24,32 @@ export class ManagedContentEditorService
           .pipe(
             ignoreNullish(),
             first(),
-            pluck('value'),
-            map((value) => new FormControl(value)),
+            pluck("value"),
+            map((value) => new FormControl(value))
           )
       ),
-      shareReplay(1),
+      shareReplay(1)
     )
   public hasPreview = this._identityApi.userId$.pipe(
     ignoreNullish(),
     switchMap((userId) =>
       from(this._persistenceApi.listenById<UserState>(
         USER_STATES,
-        userId,
-        ))
+        userId
+      ))
         .pipe(
-          pluck<UserState | undefined, UserState['contentPreviews']>('contentPreviews'),
-          swallowErrorAndMapTo(undefined),
+          pluck<UserState | undefined, UserState["contentPreviews"]>("contentPreviews"),
+          swallowErrorAndMapTo(undefined)
         )
     ),
     map((maybeContentPreviews) => maybeContentPreviews
       && Object.keys(maybeContentPreviews).length),
-    shareReplay(1),
+    shareReplay(1)
   )
 
-  constructor(
+  public constructor(
     @Inject(PERSISTENCE) private _persistenceApi: Persistence,
-    @Inject(IDENTITY) private _identityApi: Identity,
+    @Inject(IDENTITY) private _identityApi: Identity
   )
   { }
 
@@ -74,7 +74,7 @@ export class ManagedContentEditorService
           contentPreviews: {
             [contentId]: { value: control.value } as ManagedContent,
           },
-        } as UserState,
+        } as UserState
       )
       this.saving.next(false)
       this._clear()
@@ -86,7 +86,7 @@ export class ManagedContentEditorService
     const userId = await this._identityApi.userId$.pipe(first()).toPromise()
     const userState = await this._persistenceApi.getById<UserState>(
       USER_STATES,
-      userId,
+      userId
     )
     if (userState?.contentPreviews)
     {
@@ -97,7 +97,7 @@ export class ManagedContentEditorService
           await this._persistenceApi.setById(
             CONTENTS,
             contentId,
-            userState.contentPreviews[contentId],
+            userState.contentPreviews[contentId]
           )
         }
         catch (error)
@@ -112,13 +112,13 @@ export class ManagedContentEditorService
           userId,
           {
             contentPreviews: newContentPreviews,
-          },
+          }
         )
       }
     }
     else
     {
-      console.log(`Couldn't find a preview to publish.`)
+      console.log("Couldn't find a preview to publish.")
     }
   }
 
@@ -128,7 +128,7 @@ export class ManagedContentEditorService
   }
 
   public listenForPreviewOrLiveContent(contentId: string):
-    Observable<ManagedContent | undefined>
+  Observable<ManagedContent | undefined>
   {
     return this._identityApi.userId$
       .pipe(
@@ -137,24 +137,24 @@ export class ManagedContentEditorService
           combineLatest(
             from(this._persistenceApi.listenById<UserState>(
               USER_STATES,
-              userId,
-              ))
+              userId
+            ))
               .pipe(
                 map((user) => user?.contentPreviews?.[contentId]),
-                swallowErrorAndMapTo(undefined),
+                swallowErrorAndMapTo(undefined)
               ),
             from(this._persistenceApi.listenById<ManagedContent>(
               CONTENTS,
-              contentId,
-              ))
+              contentId
+            ))
               .pipe(
-                swallowErrorAndMapTo(undefined),
-              ),
-            )
+                swallowErrorAndMapTo(undefined)
+              )
+          )
             .pipe(
-              map(([ preview, content ]) => preview || content),
-            ),
-        ),
+              map(([ preview, content ]) => preview || content)
+            )
+        )
       )
   }
 

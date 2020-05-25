@@ -1,8 +1,8 @@
-import { Component } from '@angular/core'
-import { AdminApi } from '@funk/ui/core/admin/api'
+import { Component } from "@angular/core"
+import { AdminApi } from "@funk/ui/core/admin/api"
 
 @Component({
-  selector: 'admin',
+  selector: "admin",
   template: `
     <ion-header>
       <ion-toolbar color="primary">
@@ -53,8 +53,8 @@ import { AdminApi } from '@funk/ui/core/admin/api'
 })
 export class AdminContainer
 {
-  constructor(
-    public adminApi: AdminApi,
+  public constructor(
+    public adminApi: AdminApi
   )
   { }
 }

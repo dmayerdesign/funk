@@ -1,13 +1,13 @@
-import { UrlTree } from '@angular/router'
-import { UserRole } from '@funk/model/auth/user-role'
-import { first } from 'rxjs/operators'
-import { AdministratorGuard } from './administrator-guard'
+import { UrlTree } from "@angular/router"
+import { UserRole } from "@funk/model/auth/user-role"
+import { first } from "rxjs/operators"
+import { AdministratorGuard } from "./administrator-guard"
 import { createAuthStub, createAuthUserStub, createRouterStub,
-  createStubbedAdministratorGuard } from './stubs'
+  createStubbedAdministratorGuard } from "./stubs"
 
-describe('AdministratorGuard', () =>
+describe("AdministratorGuard", () =>
 {
-  it('must activate if the user is SUPER', async (done) =>
+  it("must activate if the user is SUPER", async (done) =>
   {
     const canActivate = await createStubbedAdministratorGuard(UserRole.SUPER)
       .canActivate().pipe(first()).toPromise()
@@ -16,7 +16,7 @@ describe('AdministratorGuard', () =>
     done()
   })
 
-  it('must activate if the user is OWNER', async (done) =>
+  it("must activate if the user is OWNER", async (done) =>
   {
     const canActivate = await createStubbedAdministratorGuard(UserRole.OWNER)
       .canActivate().pipe(first()).toPromise()
@@ -25,7 +25,7 @@ describe('AdministratorGuard', () =>
     done()
   })
 
-  it('must activate if the user is ADMINISTRATOR', async (done) =>
+  it("must activate if the user is ADMINISTRATOR", async (done) =>
   {
     const canActivate = await createStubbedAdministratorGuard(UserRole.ADMINISTRATOR)
       .canActivate().pipe(first()).toPromise()
@@ -34,14 +34,14 @@ describe('AdministratorGuard', () =>
     done()
   })
 
-  it('must not activate if the user is PUBLIC', async (done) =>
+  it("must not activate if the user is PUBLIC", async (done) =>
   {
     const routerStub = createRouterStub()
-    spyOn(routerStub, 'parseUrl').and.callThrough()
+    spyOn(routerStub, "parseUrl").and.callThrough()
 
     const guard = new AdministratorGuard(
       createAuthStub(createAuthUserStub(UserRole.PUBLIC)),
-      routerStub,
+      routerStub
     )
     const canActivate = await guard.canActivate().pipe(first()).toPromise()
 
@@ -50,14 +50,14 @@ describe('AdministratorGuard', () =>
     done()
   })
 
-  it('must not activate if the user is ANONYMOUS', async (done) =>
+  it("must not activate if the user is ANONYMOUS", async (done) =>
   {
     const routerStub = createRouterStub()
-    spyOn(routerStub, 'parseUrl').and.callThrough()
+    spyOn(routerStub, "parseUrl").and.callThrough()
 
     const guard = new AdministratorGuard(
       createAuthStub(createAuthUserStub(UserRole.ANONYMOUS)),
-      routerStub,
+      routerStub
     )
     const canActivate = await guard.canActivate().pipe(first()).toPromise()
 

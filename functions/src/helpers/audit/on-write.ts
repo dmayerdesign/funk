@@ -1,9 +1,9 @@
-import diff from '@funk/functions/helpers/audit/diff'
-import omitNullish from '@funk/helpers/omit-nullish'
-import { Mutation } from '@funk/model/audit/mutation'
-import { DatabaseDocument, DbDocumentInput } from '@funk/model/data-access/database-document'
-import { Change, ChangeContext } from '@funk/plugins/persistence/change'
-import { store } from '@funk/plugins/persistence/server-store'
+import diff from "@funk/functions/helpers/audit/diff"
+import omitNullish from "@funk/helpers/omit-nullish"
+import { Mutation } from "@funk/model/audit/mutation"
+import { DatabaseDocument, DbDocumentInput } from "@funk/model/data-access/database-document"
+import { Change, ChangeContext } from "@funk/plugins/persistence/change"
+import { store } from "@funk/plugins/persistence/server-store"
 
 export default function<DocumentType extends DatabaseDocument>(
   dbPath: string
@@ -21,7 +21,7 @@ export default function<DocumentType extends DatabaseDocument>(
     const afterData = change.after.data()
     const changes = diff<DocumentType>(
       beforeData,
-      afterData,
+      afterData
     )
 
     if (changes.length)

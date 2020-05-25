@@ -1,4 +1,4 @@
-import { store } from '@funk/plugins/persistence/server-store'
+import { store } from "@funk/plugins/persistence/server-store"
 
 declare function getSecret(secretKey: string): Promise<string | undefined>
 

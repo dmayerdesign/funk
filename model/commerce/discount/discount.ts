@@ -1,9 +1,9 @@
-import { Price } from '@funk/model/commerce/price/price'
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { PrimaryKey } from '@funk/model/data-access/primary-key'
-import { Timestamp } from '@funk/model/data-access/timestamp'
+import { Price } from "@funk/model/commerce/price/price"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
+import { Timestamp } from "@funk/model/data-access/timestamp"
 
-export const DISCOUNTS = 'commerce.discounts'
+export const DISCOUNTS = "commerce.discounts"
 
 export interface DiscountRules
 {
@@ -31,13 +31,13 @@ interface BaseDiscount extends DatabaseDocument
 export interface SkuDiscount extends BaseDiscount
 {
   /** A 'sku' discount is a sale; an 'order' discount is a coupon. */
-  type: 'sku'
+  type: "sku"
 }
 
 export interface OrderDiscount extends BaseDiscount
 {
   /** A 'sku' discount is a sale; an 'order' discount is a coupon. */
-  type: 'order'
+  type: "order"
   /** A positive amount is deducted from an `Order`'s shipping cost. */
   totalShipping?: Price
   /** A positive percentage is deducted from an `Order`'s shipping cost. */

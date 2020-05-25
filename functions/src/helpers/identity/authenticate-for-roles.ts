@@ -1,14 +1,14 @@
-import authenticate from '@funk/functions/helpers/identity/authenticate'
+import authenticate from "@funk/functions/helpers/identity/authenticate"
 import { AuthenticatedRequest } from
-  '@funk/functions/model/request-response/authenticated-request'
+  "@funk/functions/model/request-response/authenticated-request"
 import { AuthenticationRequest } from
-  '@funk/functions/model/request-response/authentication-request'
-import getVerifiedRole from '@funk/model/auth/actions/get-verified-role'
-import { CustomClaims } from '@funk/model/auth/custom-claims'
-import { UserRole } from '@funk/model/auth/user-role'
-import { StatusCode, StatusCodeMessage } from '@funk/model/http/status-code'
-import { authAdmin } from '@funk/plugins/auth/auth-admin'
-import { NextFunction, RequestHandler, Response } from 'express'
+  "@funk/functions/model/request-response/authentication-request"
+import getVerifiedRole from "@funk/model/auth/actions/get-verified-role"
+import { CustomClaims } from "@funk/model/auth/custom-claims"
+import { UserRole } from "@funk/model/auth/user-role"
+import { StatusCode, StatusCodeMessage } from "@funk/model/http/status-code"
+import { authAdmin } from "@funk/plugins/auth/auth-admin"
+import { NextFunction, RequestHandler, Response } from "express"
 
 /**
  * Creates a `RequestHandler` which either calls `next` if the user has AT LEAST ONE of the
@@ -22,7 +22,7 @@ export default function(roles: UserRole[]): RequestHandler
   return function(
     request: AuthenticationRequest,
     response: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void>
   {
     return authenticate(

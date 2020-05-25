@@ -1,5 +1,5 @@
-import { validateBeforeMath } from '@funk/model/weight/validation'
-import { Weight } from '@funk/model/weight/weight'
+import { validateBeforeMath } from "@funk/model/weight/validation"
+import { Weight } from "@funk/model/weight/weight"
 
 // TODO: Add ability to convert units. For now, just throw if mismatched.
 export default function(weight1: Weight, weight2: Weight): Weight

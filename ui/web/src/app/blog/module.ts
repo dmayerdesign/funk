@@ -1,22 +1,22 @@
-import { CommonModule } from '@angular/common'
-import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
-import { BlogContainer } from '@funk/ui/web/app/blog/container'
-import { HomeComponent } from '@funk/ui/web/app/blog/home/component'
+import { CommonModule } from "@angular/common"
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+import { BlogContainer } from "@funk/ui/web/app/blog/container"
+import { HomeComponent } from "@funk/ui/web/app/blog/home/component"
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: BlogContainer,
     children: [
       {
-        path: 'home',
+        path: "home",
         component: HomeComponent,
       },
       {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'prefix',
+        path: "",
+        redirectTo: "home",
+        pathMatch: "prefix",
       },
     ],
   },

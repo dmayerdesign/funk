@@ -11,14 +11,14 @@ ${message}
       try
       {
         console.log(
-`vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+          `vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 ${JSON.stringify(toLog)}
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^`)
       }
       catch
       {
         console.log(
-`vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+          `vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 ${toLog}
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^`)
       }

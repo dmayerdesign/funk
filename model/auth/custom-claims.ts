@@ -1,4 +1,4 @@
-import { UserRole } from '@funk/model/auth/user-role'
+import { UserRole } from "@funk/model/auth/user-role"
 
 export interface CustomClaims
 {

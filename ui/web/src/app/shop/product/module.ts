@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common'
-import { NgModule } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { ProductListItemComponent } from '@funk/ui/web/app/shop/product/list-item.component'
-import { ProductListComponent } from '@funk/ui/web/app/shop/product/list.component'
-import { ProductListContainer } from '@funk/ui/web/app/shop/product/list.container'
-import { IonicModule } from '@ionic/angular'
+import { CommonModule } from "@angular/common"
+import { NgModule } from "@angular/core"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { ProductListItemComponent } from "@funk/ui/web/app/shop/product/list-item.component"
+import { ProductListComponent } from "@funk/ui/web/app/shop/product/list.component"
+import { ProductListContainer } from "@funk/ui/web/app/shop/product/list.container"
+import { IonicModule } from "@ionic/angular"
 
 @NgModule({
   imports: [

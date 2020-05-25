@@ -1,8 +1,8 @@
-import { store } from '@funk/plugins/persistence/server-store'
+import { store } from "@funk/plugins/persistence/server-store"
 
 export default async function(
   collectionPath: string,
-  documentPath: string,
+  documentPath: string
 ): Promise<void>
 {
   await store().collection(collectionPath)

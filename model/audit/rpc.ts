@@ -1,5 +1,5 @@
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { Timestamp } from '@funk/model/data-access/timestamp'
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { Timestamp } from "@funk/model/data-access/timestamp"
 
 export interface RpcRequest<InputType> extends DatabaseDocument
 {

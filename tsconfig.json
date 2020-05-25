@@ -44,8 +44,5 @@
   },
   "include": [
     "./**/*.ts"
-  ],
-  "exclude": [
-    "./functions/**/*"
   ]
 }

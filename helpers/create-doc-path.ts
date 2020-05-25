@@ -1,9 +1,9 @@
 export default function<
-    DataType,
-    NestedDataType1 extends DataType[keyof DataType] | never = never,
-    NestedDataType2 extends
-      DataType[keyof DataType][keyof DataType[keyof DataType]] | never = never,
-  >(
+  DataType,
+  NestedDataType1 extends DataType[keyof DataType] | never = never,
+  NestedDataType2 extends
+  DataType[keyof DataType][keyof DataType[keyof DataType]] | never = never,
+>(
   pathSegment1: keyof DataType,
   pathSegment2?: keyof NestedDataType1 | never,
   pathSegment3?: keyof NestedDataType2 | never
@@ -16,7 +16,7 @@ export default function<
       pathSegment2,
       pathSegment3,
     ]
-    .join('.')
+      .join(".")
   }
   else if (pathSegment2)
   {
@@ -24,7 +24,7 @@ export default function<
       pathSegment1,
       pathSegment2,
     ]
-    .join('.')
+      .join(".")
   }
   return pathSegment1 as string
 }

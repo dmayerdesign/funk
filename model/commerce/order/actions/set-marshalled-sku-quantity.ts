@@ -1,13 +1,13 @@
-import { MarshalledOrder } from '@funk/model/commerce/order/order'
-import { PrimaryKey } from '@funk/model/data-access/primary-key'
-import { uniq } from 'lodash'
+import { MarshalledOrder } from "@funk/model/commerce/order/order"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
+import { uniq } from "lodash"
 
 export default function(
   marshalledOrder: MarshalledOrder,
   options: {
     skuId: PrimaryKey
     quantity: number
-  },
+  }
 ): MarshalledOrder
 {
   const { skuId, quantity } = options

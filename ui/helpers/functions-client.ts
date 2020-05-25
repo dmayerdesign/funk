@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http'
-import { Inject, Injectable } from '@angular/core'
-import { FUNCTIONS_BASE_URL } from '@funk/config'
-import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
-import { first, map } from 'rxjs/operators'
+import { HttpClient } from "@angular/common/http"
+import { Inject, Injectable } from "@angular/core"
+import { FUNCTIONS_BASE_URL } from "@funk/config"
+import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
+import { first, map } from "rxjs/operators"
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class FunctionsClient
 {
-  constructor(
+  public constructor(
     private _httpClient: HttpClient,
     @Inject(IDENTITY) private _identity: Identity)
   { }
@@ -17,7 +17,7 @@ export class FunctionsClient
 
   public get<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
-    options?: Parameters<HttpClient['get']>[1]): ReturnType<FnType>
+    options?: Parameters<HttpClient["get"]>[1]): ReturnType<FnType>
   {
     return this._httpClient.get<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, options).toPromise() as
@@ -26,7 +26,7 @@ export class FunctionsClient
 
   public getAuthorized<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
-    options?: Parameters<HttpClient['get']>[1]): ReturnType<FnType>
+    options?: Parameters<HttpClient["get"]>[1]): ReturnType<FnType>
   {
     return this._identity.userIdToken$
       .pipe(map((token) => `Bearer ${token}`), first())
@@ -41,7 +41,7 @@ export class FunctionsClient
 
   public options<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
-    options?: Parameters<HttpClient['options']>[1]): ReturnType<FnType>
+    options?: Parameters<HttpClient["options"]>[1]): ReturnType<FnType>
   {
     return this._httpClient.options<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, options).toPromise() as
@@ -50,7 +50,7 @@ export class FunctionsClient
 
   public optionsAuthorized<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
-    options?: Parameters<HttpClient['options']>[1]): ReturnType<FnType>
+    options?: Parameters<HttpClient["options"]>[1]): ReturnType<FnType>
   {
     return this._identity.userIdToken$
       .pipe(map((token) => `Bearer ${token}`), first())
@@ -66,7 +66,7 @@ export class FunctionsClient
   public post<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
     payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient['post']>[2]): ReturnType<FnType>
+    options?: Parameters<HttpClient["post"]>[2]): ReturnType<FnType>
   {
     return this._httpClient.post<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options).toPromise() as
@@ -76,7 +76,7 @@ export class FunctionsClient
   public postAuthorized<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
     payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient['post']>[2]): ReturnType<FnType>
+    options?: Parameters<HttpClient["post"]>[2]): ReturnType<FnType>
   {
     return this._identity.userIdToken$
       .pipe(map((token) => `Bearer ${token}`), first())
@@ -92,7 +92,7 @@ export class FunctionsClient
   public put<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
     payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient['put']>[2]): ReturnType<FnType>
+    options?: Parameters<HttpClient["put"]>[2]): ReturnType<FnType>
   {
     return this._httpClient.put<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options).toPromise() as
@@ -102,7 +102,7 @@ export class FunctionsClient
   public putAuthorized<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
     payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient['put']>[2]): ReturnType<FnType>
+    options?: Parameters<HttpClient["put"]>[2]): ReturnType<FnType>
   {
     return this._identity.userIdToken$
       .pipe(map((token) => `Bearer ${token}`), first())
@@ -118,7 +118,7 @@ export class FunctionsClient
   public patch<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
     payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient['patch']>[2]): ReturnType<FnType>
+    options?: Parameters<HttpClient["patch"]>[2]): ReturnType<FnType>
   {
     return this._httpClient.patch<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options).toPromise() as
@@ -128,7 +128,7 @@ export class FunctionsClient
   public patchAuthorized<FnType extends (...args: any[]) => Promise<any>>(
     functionName: string,
     payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient['patch']>[2]): ReturnType<FnType>
+    options?: Parameters<HttpClient["patch"]>[2]): ReturnType<FnType>
   {
     return this._identity.userIdToken$
       .pipe(map((token) => `Bearer ${token}`), first())

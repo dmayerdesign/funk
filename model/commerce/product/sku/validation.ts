@@ -1,21 +1,20 @@
-import isInStock from '@funk/model/commerce/product/sku/actions/get-is-in-stock'
-import { Sku } from '@funk/model/commerce/product/sku/sku'
+import isInStock from "@funk/model/commerce/product/sku/actions/get-is-in-stock"
+import { Sku } from "@funk/model/commerce/product/sku/sku"
 
 class InvalidSkuError extends Error
 {
-  constructor(
+  public constructor(
     public readonly reason: ValidationFailureReason,
-    public readonly message: ValidationFailureReason = reason,
+    public readonly message: ValidationFailureReason = reason
   )
   {
     super(message)
   }
 }
 
-export const enum ValidationFailureReason
-{
-  INVALID = 'INVALID',
-  NOT_PURCHASABLE = 'NOT_PURCHASABLE',
+export const enum ValidationFailureReason {
+  INVALID = "INVALID",
+  NOT_PURCHASABLE = "NOT_PURCHASABLE",
 }
 
 /** @throws InvalidSkuError */

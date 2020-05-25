@@ -1,17 +1,17 @@
-import marshallProduct from '@funk/api/commerce/product/marshall'
-import marshallSku from '@funk/api/commerce/product/sku/marshall'
-import { OrderDiscount, SkuDiscount } from '@funk/model/commerce/discount/discount'
-import { PopulatedOrder } from '@funk/model/commerce/order/order'
-import add from '@funk/model/commerce/price/actions/add'
-import subtract from '@funk/model/commerce/price/actions/subtract'
-import { NULL_PRICE, Price } from '@funk/model/commerce/price/price'
-import { Product } from '@funk/model/commerce/product/product'
+import marshallProduct from "@funk/api/commerce/product/marshall"
+import marshallSku from "@funk/api/commerce/product/sku/marshall"
+import { OrderDiscount, SkuDiscount } from "@funk/model/commerce/discount/discount"
+import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import add from "@funk/model/commerce/price/actions/add"
+import subtract from "@funk/model/commerce/price/actions/subtract"
+import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
+import { Product } from "@funk/model/commerce/product/product"
 import getPriceAfterSkuDiscounts from
-  '@funk/model/commerce/product/sku/actions/get-price-after-discounts'
-import { Sku } from '@funk/model/commerce/product/sku/sku'
-import { DbDocumentInput } from '@funk/model/data-access/database-document'
-import { of, zip } from 'rxjs'
-import { first, map, switchMap } from 'rxjs/operators'
+  "@funk/model/commerce/product/sku/actions/get-price-after-discounts"
+import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { DbDocumentInput } from "@funk/model/data-access/database-document"
+import { of, zip } from "rxjs"
+import { first, map, switchMap } from "rxjs/operators"
 
 export const construct = ({
   getProductForSku,
@@ -38,24 +38,24 @@ export const construct = ({
         ))
       )
     )
-    .pipe(
-      map((actualPrices) =>
-        actualPrices.reduce(add, NULL_PRICE),
-      ),
-      map((priceAfterSkuDiscounts) => getPriceAfterOrderDiscounts(
-        activeDiscounts as OrderDiscount[],
-        priceAfterSkuDiscounts,
-      )),
-      first(),
-    )
-    .toPromise()
+      .pipe(
+        map((actualPrices) =>
+          actualPrices.reduce(add, NULL_PRICE)
+        ),
+        map((priceAfterSkuDiscounts) => getPriceAfterOrderDiscounts(
+          activeDiscounts as OrderDiscount[],
+          priceAfterSkuDiscounts
+        )),
+        first()
+      )
+      .toPromise()
   }
 
 function getPriceAfterOrderDiscounts(discounts: OrderDiscount[], priceBefore: Price): Price
 {
   return discounts.reduce((priceAfter, discount) =>
   {
-    if (discount.type === 'order')
+    if (discount.type === "order")
     {
       if (!!discount.orderTotalLowerLimit
         && subtract(priceBefore, discount.orderTotalLowerLimit).amount < 0)

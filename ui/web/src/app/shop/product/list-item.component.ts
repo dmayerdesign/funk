@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core'
-import { Product } from '@funk/model/commerce/product/product'
+import { Component, Input } from "@angular/core"
+import { Product } from "@funk/model/commerce/product/product"
 
 @Component({
-  selector: 'product-list-item',
+  selector: "product-list-item",
   template: `
     <div>
       <strong>{{ product?.name }}</strong>

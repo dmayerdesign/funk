@@ -1,18 +1,18 @@
-import { construct } from '@funk/plugins/payment/actions/upsert-customer'
-import { constructGetPaymentProviderStub } from '../stubs'
+import { construct } from "@funk/plugins/payment/actions/upsert-customer"
+import { constructGetPaymentProviderStub } from "../stubs"
 
-describe('upsertCustomer', () =>
+describe("upsertCustomer", () =>
 {
-  const paymentProviderSecret = 'TEST_PSP_SECRET'
+  const paymentProviderSecret = "TEST_PSP_SECRET"
 
-  it('should create a customer', async (done) =>
+  it("should create a customer", async (done) =>
   {
     const customerData = { address: {} } as any
     const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
     const upsertCustomer = construct({ getPaymentProvider })
 
-    spyOn(pspInstance.customers, 'create')
-    spyOn(pspInstance.customers, 'update')
+    spyOn(pspInstance.customers, "create")
+    spyOn(pspInstance.customers, "update")
 
     await upsertCustomer({ paymentProviderSecret, customerData })
 
@@ -24,15 +24,15 @@ describe('upsertCustomer', () =>
     done()
   })
 
-  it('should update a customer', async (done) =>
+  it("should update a customer", async (done) =>
   {
-    const id = 'test-customer'
+    const id = "test-customer"
     const customerData = { id, address: {} } as any
     const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
     const upsertCustomer = construct({ getPaymentProvider })
 
-    spyOn(pspInstance.customers, 'update')
-    spyOn(pspInstance.customers, 'create')
+    spyOn(pspInstance.customers, "update")
+    spyOn(pspInstance.customers, "create")
 
     await upsertCustomer({ paymentProviderSecret, customerData, id })
 

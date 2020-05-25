@@ -1,10 +1,11 @@
-import createApp from '@funk/functions/helpers/http/create-app'
-import handleRequest, { HandlerReturnTypes, RequestHandlers } from '@funk/functions/helpers/http/handle-request'
-import { RequestMethod } from '@funk/model/http/request-method'
-import { HttpsFunction } from '@funk/plugins/cloud-function/https-function'
-import { IRouter, IRouterMatcher } from 'express'
-import { camelCase } from 'lodash'
-import createFunction from './create-function'
+import createApp from "@funk/functions/helpers/http/create-app"
+import handleRequest, { HandlerReturnTypes, RequestHandlers } from
+  "@funk/functions/helpers/http/handle-request"
+import { RequestMethod } from "@funk/model/http/request-method"
+import { HttpsFunction } from "@funk/plugins/cloud-function/https-function"
+import { IRouter, IRouterMatcher } from "express"
+import { camelCase } from "lodash"
+import createFunction from "./create-function"
 
 export interface CrudHandlerMap
 {
@@ -22,8 +23,7 @@ export const construct = <
   LastHandlerReturnType extends HandlerReturnTypes = HandlerReturnTypes,
   RequestBodyType = any
 >() =>
-{
-  return function(
+  function(
     crudHandlerMap: CrudHandlerMap
   ): HttpsFunction
   {
@@ -42,28 +42,27 @@ export const construct = <
       (app[requestMethodFnName] as IRouterMatcher<any>)(
         getPathForCrudMethod(crudMethod),
         ...middlewares,
-        handleRequest<LastHandlerReturnType, RequestBodyType>(handler),
+        handleRequest<LastHandlerReturnType, RequestBodyType>(handler)
       )
     })
 
     return createFunction(app)
   }
-}
 
 function getRequestMethodForCrudMethod(crudMethod: CrudMethod): RequestMethod
 {
   switch (crudMethod)
   {
-    case 'list':
-    case 'get':
+    case "list":
+    case "get":
       return RequestMethod.GET
-    case 'create':
+    case "create":
       return RequestMethod.POST
-    case 'update':
+    case "update":
       return RequestMethod.PUT
-    case 'delete':
+    case "delete":
       return RequestMethod.DELETE
-    case 'upsertMany':
+    case "upsertMany":
       return RequestMethod.PATCH
     default:
       return RequestMethod.UNDEFINED
@@ -72,13 +71,13 @@ function getRequestMethodForCrudMethod(crudMethod: CrudMethod): RequestMethod
 
 function getPathForCrudMethod(crudMethod: CrudMethod): string
 {
-  if (crudMethod === 'list'
-    || crudMethod === 'update'
-    || crudMethod === 'delete')
+  if (crudMethod === "list"
+    || crudMethod === "update"
+    || crudMethod === "delete")
   {
-    return '/:id'
+    return "/:id"
   }
-  return '/'
+  return "/"
 }
 
 export default function<

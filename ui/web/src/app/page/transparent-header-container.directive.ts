@@ -1,5 +1,5 @@
 import { AfterViewInit, Directive, OnInit, Renderer2, TemplateRef,
-  ViewContainerRef } from '@angular/core'
+  ViewContainerRef } from "@angular/core"
 
 export interface TransparentHeaderContainerContext
 {
@@ -7,16 +7,16 @@ export interface TransparentHeaderContainerContext
 }
 
 @Directive({
-  selector: '[transparent-header-container]',
+  selector: "[transparent-header-container]",
 })
 export class TransparentHeaderContainerDirective implements AfterViewInit, OnInit
 {
   private _headerElement?: HTMLIonHeaderElement
 
-  constructor(
+  public constructor(
     private _renderer: Renderer2,
     private _templateRef: TemplateRef<TransparentHeaderContainerContext>,
-    private _viewContainerRef: ViewContainerRef,
+    private _viewContainerRef: ViewContainerRef
   )
   { }
 
@@ -29,7 +29,7 @@ export class TransparentHeaderContainerDirective implements AfterViewInit, OnIni
 
   public ngAfterViewInit(): void
   {
-    this._headerElement = document?.querySelector('ion-header') || undefined
+    this._headerElement = document?.querySelector("ion-header") || undefined
     this.handleContentScroll({
       detail: { scrollTop: 0, deltaY: 0 },
     } as CustomEvent)
@@ -42,11 +42,11 @@ export class TransparentHeaderContainerDirective implements AfterViewInit, OnIni
     {
       if (detail.scrollTop > 0 && detail.deltaY > 0)
       {
-        this._renderer.removeClass(headerElement, 'no-box-shadow')
+        this._renderer.removeClass(headerElement, "no-box-shadow")
       }
       else if (detail.scrollTop <= 0 && detail.deltaY <= 0)
       {
-        this._renderer.addClass(headerElement, 'no-box-shadow')
+        this._renderer.addClass(headerElement, "no-box-shadow")
       }
     }
   }

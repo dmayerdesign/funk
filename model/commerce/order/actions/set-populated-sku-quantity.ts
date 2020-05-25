@@ -1,14 +1,14 @@
-import { PopulatedOrder } from '@funk/model/commerce/order/order'
-import { Sku } from '@funk/model/commerce/product/sku/sku'
-import { PrimaryKey } from '@funk/model/data-access/primary-key'
-import { uniqBy } from 'lodash'
+import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
+import { uniqBy } from "lodash"
 
 export default function(
   populatedOrder: PopulatedOrder,
   options: {
-    sku: Sku,
+    sku: Sku
     quantity: number
-  },
+  }
 ): PopulatedOrder
 {
   const { sku, quantity } = options
@@ -26,7 +26,7 @@ export default function(
     _skus = [ ..._skus, sku ]
     _skuQuantityMap[sku.id] = quantity
   }
-  _populatedOrder.skus = uniqBy(_skus, 'id')
+  _populatedOrder.skus = uniqBy(_skus, "id")
 
   return {
     ..._populatedOrder,

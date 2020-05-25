@@ -1,8 +1,8 @@
-import { Location } from '@angular/common'
-import { Component } from '@angular/core'
+import { Location } from "@angular/common"
+import { Component } from "@angular/core"
 
 @Component({
-  selector: 'not-found',
+  selector: "not-found",
   template: `
     <h1>Not Found</h1>
     <ion-button mat-raised-button
@@ -14,8 +14,8 @@ import { Component } from '@angular/core'
 })
 export class NotFoundComponent
 {
-  constructor(
-    public location: Location,
+  public constructor(
+    public location: Location
   )
   { }
 }

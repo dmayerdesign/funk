@@ -1,6 +1,6 @@
-import { ReviewRating } from '@funk/model/commerce/review/review-rating'
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { PrimaryKey } from '@funk/model/data-access/primary-key'
+import { ReviewRating } from "@funk/model/commerce/review/review-rating"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
 
 export interface Review extends DatabaseDocument {
   authorId: PrimaryKey
@@ -9,4 +9,4 @@ export interface Review extends DatabaseDocument {
   body: string
 }
 
-export const REVIEWS = 'commerce.reviews'
+export const REVIEWS = "commerce.reviews"

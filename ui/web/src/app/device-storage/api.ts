@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core'
-import { Plugins } from '@capacitor/core'
-import { DeviceStorage } from '@funk/ui/core/device-storage/interface'
-import { Initializer } from '@funk/ui/helpers/initializer'
-import { orderBy, values } from 'lodash'
-import { BehaviorSubject, Observable } from 'rxjs'
-import { first, map } from 'rxjs/operators'
+import { Injectable } from "@angular/core"
+import { Plugins } from "@capacitor/core"
+import { DeviceStorage } from "@funk/ui/core/device-storage/interface"
+import { Initializer } from "@funk/ui/helpers/initializer"
+import { orderBy, values } from "lodash"
+import { BehaviorSubject, Observable } from "rxjs"
+import { first, map } from "rxjs/operators"
 
 const { Storage } = Plugins
 
@@ -22,14 +22,14 @@ export class DeviceStorageApi implements DeviceStorage, Initializer
     collectionPath: string,
     paginationOptions?: {
       orderBy: keyof DocumentType & string
-      orderByDirection: 'asc' | 'desc'
+      orderByDirection: "asc" | "desc"
       startAt: DocumentType[keyof DocumentType]
-    },
+    }
   ): Promise<DocumentType[]>
   {
     if (!!paginationOptions?.startAt)
     {
-      console.warn(`paginationOptions.startAt is not supported in the DeviceStorageApi.`)
+      console.warn("paginationOptions.startAt is not supported in the DeviceStorageApi.")
     }
     if (paginationOptions)
     {
@@ -47,7 +47,7 @@ export class DeviceStorageApi implements DeviceStorage, Initializer
 
   public listenById<DocumentType extends object>(
     collectionPath: string,
-    documentPath: string,
+    documentPath: string
   ): Observable<DocumentType | undefined>
   {
     return this._data.pipe(
@@ -57,7 +57,7 @@ export class DeviceStorageApi implements DeviceStorage, Initializer
 
   public async getById<DocumentType extends object>(
     collectionPath: string,
-    documentPath: string,
+    documentPath: string
   ): Promise<DocumentType | undefined>
   {
     return this._data.pipe(first()).toPromise()
@@ -70,7 +70,7 @@ export class DeviceStorageApi implements DeviceStorage, Initializer
     collectionPath: string,
     documentPath: string,
     documentData: DocumentType,
-    options?: { overwrite?: boolean },
+    options?: { overwrite?: boolean }
   ): Promise<void>
   {
     const data = { ...this._data.getValue() }
@@ -96,7 +96,7 @@ export class DeviceStorageApi implements DeviceStorage, Initializer
   public async updateById<DocumentType extends object>(
     collectionPath: string,
     documentPath: string,
-    documentData: Partial<DocumentType>,
+    documentData: Partial<DocumentType>
   ): Promise<void>
   {
     await this.setById(collectionPath, documentPath, documentData)
@@ -132,7 +132,7 @@ export class DeviceStorageApi implements DeviceStorage, Initializer
   private _deserialize<CollectionOrDocumentType extends object>(
     serializedData: string | undefined): CollectionOrDocumentType
   {
-    return JSON.parse(serializedData ?? '')
+    return JSON.parse(serializedData ?? "")
   }
 
   private async _loadFromStorage(): Promise<void>

@@ -1,20 +1,20 @@
-import { construct } from '@funk/api/commerce/product/sku/handle-write'
-import { PRODUCTS } from '@funk/model/commerce/product/product'
-import { MarshalledSku } from '@funk/model/commerce/product/sku/sku'
-import { createFakeMarshalledSku } from '@funk/model/commerce/product/sku/stubs'
-import { ChangeContext } from '@funk/plugins/persistence/change'
-import { DocumentSnapshot } from '@funk/plugins/persistence/document-snapshot'
+import { construct } from "@funk/api/commerce/product/sku/handle-write"
+import { PRODUCTS } from "@funk/model/commerce/product/product"
+import { MarshalledSku } from "@funk/model/commerce/product/sku/sku"
+import { createFakeMarshalledSku } from "@funk/model/commerce/product/sku/stubs"
+import { ChangeContext } from "@funk/plugins/persistence/change"
+import { DocumentSnapshot } from "@funk/plugins/persistence/document-snapshot"
 
-describe('skuHandleWrite', () =>
+describe("skuHandleWrite", () =>
 {
-  it('should update the parent product whenever attribute values change', async (done) =>
+  it("should update the parent product whenever attribute values change", async (done) =>
   {
-    const ATTRIBUTE_ID_1 = 'attribute id 1' as string
-    const ATTRIBUTE_ID_2 = 'attribute id 2' as string
-    const ATTRIBUTE_VALUE_1_1 = 'attribute value 1-1'
-    const ATTRIBUTE_VALUE_1_2 = 'attribute value 1-2'
-    const ATTRIBUTE_VALUE_2 = 'attribute value 2'
-    const PRODUCT_ID = 'product id'
+    const ATTRIBUTE_ID_1 = "attribute id 1" as string
+    const ATTRIBUTE_ID_2 = "attribute id 2" as string
+    const ATTRIBUTE_VALUE_1_1 = "attribute value 1-1"
+    const ATTRIBUTE_VALUE_1_2 = "attribute value 1-2"
+    const ATTRIBUTE_VALUE_2 = "attribute value 2"
+    const PRODUCT_ID = "product id"
     const CHANGED_SKU = {
       ...createFakeMarshalledSku(),
       productId: PRODUCT_ID,

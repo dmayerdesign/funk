@@ -1,9 +1,9 @@
-import { CollectionReference, Query } from '@angular/fire/firestore'
-import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
-import { PopulateFieldOptions } from '@funk/plugins/persistence/actions/populate'
-import { Observable } from 'rxjs'
+import { CollectionReference, Query } from "@angular/fire/firestore"
+import { DatabaseDocument, DbDocumentMetadata } from "@funk/model/data-access/database-document"
+import { PopulateFieldOptions } from "@funk/plugins/persistence/actions/populate"
+import { Observable } from "rxjs"
 
-export const PERSISTENCE = 'PERSISTENCE'
+export const PERSISTENCE = "PERSISTENCE"
 
 export interface AbstractPersistence {
   listenById<DocumentType extends object = DatabaseDocument>(

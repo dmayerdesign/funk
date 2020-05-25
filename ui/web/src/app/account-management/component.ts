@@ -1,7 +1,7 @@
-import { Component } from '@angular/core'
+import { Component } from "@angular/core"
 
 @Component({
-  selector: 'account-management',
+  selector: "account-management",
   template: `
     <ion-toolbar>
       <ion-title>Manage Your Account</ion-title>

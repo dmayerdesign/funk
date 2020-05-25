@@ -1,7 +1,7 @@
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { Change, ChangeContext } from '@funk/plugins/persistence/change'
-import { DocumentSnapshot } from '@funk/plugins/persistence/document-snapshot'
-import { CloudFunction } from 'firebase-functions'
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { Change, ChangeContext } from "@funk/plugins/persistence/change"
+import { DocumentSnapshot } from "@funk/plugins/persistence/document-snapshot"
+import { CloudFunction } from "firebase-functions"
 
 /** Respond to all document writes (creates, updates, or deletes). */
 export function handleWrite<DocumentType extends DatabaseDocument = DatabaseDocument>(

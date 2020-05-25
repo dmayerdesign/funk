@@ -1,6 +1,6 @@
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
-type WhereOperator = '<'|'<='|'=='|'>'|'>='|'array-contains'|'in'|'array-contains-any'
+type WhereOperator = "<"|"<="|"=="|">"|">="|"array-contains"|"in"|"array-contains-any"
 export type Where<
   DocumentType extends DatabaseDocument = any,
   Key extends keyof DocumentType = keyof DocumentType> =

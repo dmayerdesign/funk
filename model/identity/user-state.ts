@@ -1,6 +1,6 @@
-import { ManagedContent } from '@funk/model/managed-content/managed-content'
+import { ManagedContent } from "@funk/model/managed-content/managed-content"
 
-export const USER_STATES = 'identity.user-states'
+export const USER_STATES = "identity.user-states"
 
 export interface UserState
 {

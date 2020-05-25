@@ -1,4 +1,4 @@
-import { config } from 'firebase-functions'
+import { config } from "firebase-functions"
 
 export interface AdminConfig
 {

@@ -1,10 +1,10 @@
-import { Price } from '@funk/model/commerce/price/price'
+import { Price } from "@funk/model/commerce/price/price"
 
 class InvalidPriceError extends Error
 {
-  constructor(
+  public constructor(
     public readonly reason: ValidationFailureReason,
-    public readonly message: ValidationFailureReason = reason,
+    public readonly message: ValidationFailureReason = reason
   )
   {
     super(message)
@@ -13,26 +13,25 @@ class InvalidPriceError extends Error
 
 class CurrencyMismatchError extends Error
 {
-  constructor()
+  public constructor()
   {
-    super('Operations on Prices with different currencies is not supported.')
+    super("Operations on Prices with different currencies is not supported.")
   }
 }
 
-export const enum ValidationFailureReason
-{
-  INVALID_AMOUNT = 'INVALID_AMOUNT',
-  INVALID_CURRENCY = 'INVALID_CURRENCY',
+export const enum ValidationFailureReason {
+  INVALID_AMOUNT = "INVALID_AMOUNT",
+  INVALID_CURRENCY = "INVALID_CURRENCY",
 }
 
 /** @throws InvalidPriceError */
 export function validate(price: Price): void
 {
-  if (typeof price.currency === 'undefined')
+  if (typeof price.currency === "undefined")
   {
     throw new InvalidPriceError(ValidationFailureReason.INVALID_CURRENCY)
   }
-  if (typeof price.amount === 'undefined')
+  if (typeof price.amount === "undefined")
   {
     throw new InvalidPriceError(ValidationFailureReason.INVALID_AMOUNT)
   }

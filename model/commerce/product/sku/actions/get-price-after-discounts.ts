@@ -1,10 +1,10 @@
 import getApplicableDiscountsForSkuImpl from
-  '@funk/model/commerce/discount/actions/get-applicable-discounts-for-sku'
-import { SkuDiscount } from '@funk/model/commerce/discount/discount'
-import subtract from '@funk/model/commerce/price/actions/subtract'
-import { Price } from '@funk/model/commerce/price/price'
-import { MarshalledProduct } from '@funk/model/commerce/product/product'
-import { MarshalledSku } from '@funk/model/commerce/product/sku/sku'
+  "@funk/model/commerce/discount/actions/get-applicable-discounts-for-sku"
+import { SkuDiscount } from "@funk/model/commerce/discount/discount"
+import subtract from "@funk/model/commerce/price/actions/subtract"
+import { Price } from "@funk/model/commerce/price/price"
+import { MarshalledProduct } from "@funk/model/commerce/product/product"
+import { MarshalledSku } from "@funk/model/commerce/product/sku/sku"
 
 /**
  * Computes a `Sku`'s actual price given all active discounts. Will only apply discounts
@@ -18,9 +18,9 @@ export const construct = ({
   getApplicableDiscountsForSku = getApplicableDiscountsForSkuImpl,
 } = {}) =>
   function(options: {
-    sku: MarshalledSku,
-    product: MarshalledProduct,
-    activeDiscounts?: SkuDiscount[],
+    sku: MarshalledSku
+    product: MarshalledProduct
+    activeDiscounts?: SkuDiscount[]
   }): Price
   {
     const { sku, product, activeDiscounts = [] } = options

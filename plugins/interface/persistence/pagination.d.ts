@@ -1,8 +1,8 @@
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export interface Pagination<DocumentType extends object = DatabaseDocument> {
   orderBy: keyof DocumentType
-  orderByDirection: 'asc' | 'desc'
+  orderByDirection: "asc" | "desc"
   skip: number
   take: number
 }
@@ -12,7 +12,7 @@ export interface Pagination<DocumentType extends object = DatabaseDocument> {
  */
 export interface VirtualPagination {
   orderBy: string
-  orderByDirection: 'asc' | 'desc'
+  orderByDirection: "asc" | "desc"
   skip: number
   take: number
 }

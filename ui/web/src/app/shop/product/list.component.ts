@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core'
-import { FormArray, FormControl, FormGroup } from '@angular/forms'
-import { ListFilter } from '@funk/model/commerce/product/list-filter/list-filter'
-import { Product } from '@funk/model/commerce/product/product'
-import { Pagination } from '@funk/ui/core/persistence/interface'
-import { of, ReplaySubject } from 'rxjs'
-import { catchError, map, shareReplay } from 'rxjs/operators'
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from "@angular/core"
+import { FormArray, FormControl, FormGroup } from "@angular/forms"
+import { ListFilter } from "@funk/model/commerce/product/list-filter/list-filter"
+import { Product } from "@funk/model/commerce/product/product"
+import { Pagination } from "@funk/ui/core/persistence/interface"
+import { of, ReplaySubject } from "rxjs"
+import { catchError, map, shareReplay } from "rxjs/operators"
 
 @Component({
-  selector: 'product-list',
+  selector: "product-list",
   template: `
     <ng-container *ngFor="let product of products">
       <product-list-item [product]="product"></product-list-item>
@@ -34,23 +34,21 @@ export class ProductListComponent implements OnChanges
   public filtersForm = this._filters.pipe(
     map((filters) =>
       new FormArray(filters.map((filter) =>
-      {
-        return new FormGroup(
+        new FormGroup(
           Object.keys(filter).reduce(
             (groupDef, key) => ({
               ...groupDef,
               [key]: new FormControl(filter[key as keyof ListFilter]),
             }),
-            {} as { [key: string]: FormControl },
-          ))
-      }))),
+            {} as { [key: string]: FormControl }
+          ))))),
     catchError(() => of(undefined)),
-    shareReplay(1),
+    shareReplay(1)
   )
 
   public ngOnChanges(changes: SimpleChanges): void
   {
-    const INITIAL_FILTERS: keyof this = 'filters'
+    const INITIAL_FILTERS: keyof this = "filters"
     const filtersChange = changes[INITIAL_FILTERS as string]
     const filters: ListFilter[] | undefined = filtersChange.currentValue
     if (filters)

@@ -1,11 +1,10 @@
-import { Component, Inject, OnInit, Renderer2 } from '@angular/core'
-import { Address } from '@funk/model/address/address'
-import { Order, ORDERS, Status } from '@funk/model/commerce/order/order'
-import { Persistence, PERSISTENCE } from '@funk/ui/core/persistence/interface'
-import { timer, BehaviorSubject } from 'rxjs'
+/* eslint-disable max-len */
+import { Component, Inject, OnInit, Renderer2 } from "@angular/core"
+import { Persistence, PERSISTENCE } from "@funk/ui/core/persistence/interface"
+import { timer, BehaviorSubject } from "rxjs"
 
 @Component({
-  selector: 'kitchen-sink',
+  selector: "kitchen-sink",
   template: `
     <ng-template
       transparent-header-container
@@ -142,9 +141,9 @@ export class KitchenSinkContainer implements OnInit
 {
   public someDataLoading = new BehaviorSubject(true)
 
-  constructor(
+  public constructor(
     protected _renderer: Renderer2,
-    @Inject(PERSISTENCE) private _persistenceApi: Persistence,
+    @Inject(PERSISTENCE) private _persistenceApi: Persistence
   )
   { }
 
@@ -155,35 +154,4 @@ export class KitchenSinkContainer implements OnInit
 
   public async updateCart(): Promise<void>
   { }
-
-  public async seedOrder(): Promise<void>
-  {
-    const id = Date.now().toString()
-    await this._persistenceApi.setById<Order>(ORDERS, id, {
-      id,
-      customer: {
-        userId: 'ArSkuvU2l8fbIphhNeyzhjSNyDx1',
-        id: 'test-customer',
-        email: '',
-        firstName: '',
-        lastName: '',
-        shippingAddress: {} as Address,
-        billingAddress: {} as Address,
-        savePaymentInfo: false,
-        idForPayment: '',
-      },
-      paymentMethod: '',
-      skus: [ 'test-sku-1' ],
-      status: Status.CART,
-      subTotal: {
-        amount: 0,
-        currency: 'USD',
-      },
-      taxPercent: 0,
-      total: {
-        amount: 0,
-        currency: 'USD',
-      },
-    } as Order)
-  }
 }

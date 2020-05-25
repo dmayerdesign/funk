@@ -1,9 +1,9 @@
-import { CustomClaims } from '@funk/model/auth/custom-claims'
-import { UserRole } from '@funk/model/auth/user-role'
+import { CustomClaims } from "@funk/model/auth/custom-claims"
+import { UserRole } from "@funk/model/auth/user-role"
 
 export default function(
   verifications: { emailVerified: boolean },
-  claims?: CustomClaims,
+  claims?: CustomClaims
 ): UserRole
 {
   if (!claims || !claims.role)

@@ -1,11 +1,11 @@
-import { UserRole } from '@funk/model/auth/user-role'
-import { UserHydrated } from '@funk/model/identity/user-hydrated'
-import { UserState } from '@funk/model/identity/user-state'
-import { Initializer } from '@funk/ui/helpers/initializer'
-import { auth } from 'firebase'
-import { Observable } from 'rxjs'
+import { UserRole } from "@funk/model/auth/user-role"
+import { UserHydrated } from "@funk/model/identity/user-hydrated"
+import { UserState } from "@funk/model/identity/user-state"
+import { Initializer } from "@funk/ui/helpers/initializer"
+import { auth } from "firebase"
+import { Observable } from "rxjs"
 
-export const IDENTITY = 'IDENTITY'
+export const IDENTITY = "IDENTITY"
 
 export interface Identity extends Initializer {
   user$: Observable<UserHydrated>

@@ -1,4 +1,4 @@
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export default function<DocumentType extends object = DatabaseDocument>(
   collectionPath: string,

@@ -1,13 +1,13 @@
-import { MarshalledProduct } from '@funk/model/commerce/product/product'
-import { PrimaryKey } from '@funk/model/data-access/primary-key'
+import { MarshalledProduct } from "@funk/model/commerce/product/product"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
 
 export enum ListFilterType {
-  SCALAR_PROPERTY = 'SCALAR_PROPERTY',
-  RANGE_PROPERTY = 'RANGE_PROPERTY',
-  SCALAR_ATTRIBUTE = 'SCALAR_ATTRIBUTE',
-  RANGE_ATTRIBUTE = 'RANGE_ATTRIBUTE',
-  ATTRIBUTE_VALUE = 'ATTRIBUTE_VALUE',
-  TAXONOMY_TERM = 'TAXONOMY_TERM',
+  SCALAR_PROPERTY = "SCALAR_PROPERTY",
+  RANGE_PROPERTY = "RANGE_PROPERTY",
+  SCALAR_ATTRIBUTE = "SCALAR_ATTRIBUTE",
+  RANGE_ATTRIBUTE = "RANGE_ATTRIBUTE",
+  ATTRIBUTE_VALUE = "ATTRIBUTE_VALUE",
+  TAXONOMY_TERM = "TAXONOMY_TERM",
 }
 
 interface ScalarPropertyListFilter<

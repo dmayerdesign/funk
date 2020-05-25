@@ -1,23 +1,23 @@
-import { Discount } from '@funk/model/commerce/discount/discount'
-import { Customer } from '@funk/model/commerce/order/customer/customer'
-import { Price } from '@funk/model/commerce/price/price'
-import { Sku } from '@funk/model/commerce/product/sku/sku'
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { PrimaryKey } from '@funk/model/data-access/primary-key'
+import { Discount } from "@funk/model/commerce/discount/discount"
+import { Customer } from "@funk/model/commerce/order/customer/customer"
+import { Price } from "@funk/model/commerce/price/price"
+import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
 
-export const ORDERS = 'commerce.orders'
+export const ORDERS = "commerce.orders"
 
 export enum Status {
-  CART = 'Cart',
-  CART_CHECKOUT = 'Cart checkout',
-  PAYMENT_PENDING = 'Payment pending',
-  PAID = 'Paid',
-  SHIPPED = 'Shipped',
-  DELIVERED = 'Delivered',
-  CANCELLED = 'Cancelled',
-  CANCELLED_REFUNDED = 'Refunded due to cancellation',
-  RETURNED = 'Returned',
-  RETURNED_REFUNDED = 'Refunded upon return',
+  CART = "Cart",
+  CART_CHECKOUT = "Cart checkout",
+  PAYMENT_PENDING = "Payment pending",
+  PAID = "Paid",
+  SHIPPED = "Shipped",
+  DELIVERED = "Delivered",
+  CANCELLED = "Cancelled",
+  CANCELLED_REFUNDED = "Refunded due to cancellation",
+  RETURNED = "Returned",
+  RETURNED_REFUNDED = "Refunded upon return",
 }
 
 interface BaseOrder extends DatabaseDocument {

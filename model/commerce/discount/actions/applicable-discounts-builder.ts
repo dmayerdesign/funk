@@ -1,10 +1,10 @@
-import { SkuDiscount } from '@funk/model/commerce/discount/discount'
+import { SkuDiscount } from "@funk/model/commerce/discount/discount"
 
 export default class {
   protected _applicableDiscounts: SkuDiscount[] = []
 
-  constructor(
-    discounts: SkuDiscount[],
+  public constructor(
+    discounts: SkuDiscount[]
   )
   {
     this._setInitialDiscounts(discounts)

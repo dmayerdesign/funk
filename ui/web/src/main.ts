@@ -1,9 +1,9 @@
-import { enableProdMode } from '@angular/core'
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
-import { BrowserModule } from '@funk/ui/web/app/browser.module'
-import { environment } from '@funk/ui/web/environments/environment'
-import { defineCustomElements } from '@ionic/pwa-elements/loader'
-import 'hammerjs'
+import { enableProdMode } from "@angular/core"
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic"
+import { BrowserModule } from "@funk/ui/web/app/browser.module"
+import { environment } from "@funk/ui/web/environments/environment"
+import { defineCustomElements } from "@ionic/pwa-elements/loader"
+import "hammerjs"
 
 if (!environment.production)
 {
@@ -14,7 +14,7 @@ if (!environment.production)
   * This import should be commented out in production mode because it will have a negative impact
   * on performance if an error is thrown.
   */
-  require('zone.js/dist/zone-error') // Included with Angular CLI.
+  require("zone.js/dist/zone-error") // Included with Angular CLI.
 }
 
 if (environment.production)
@@ -22,7 +22,7 @@ if (environment.production)
   enableProdMode()
 }
 
-document.addEventListener('DOMContentLoaded', () =>
+document.addEventListener("DOMContentLoaded", () =>
 {
   platformBrowserDynamic().bootstrapModule(BrowserModule)
     .then(() =>

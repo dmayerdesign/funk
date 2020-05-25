@@ -1,5 +1,5 @@
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { Image } from '@funk/model/image/image'
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { Image } from "@funk/model/image/image"
 
 interface Images
 {

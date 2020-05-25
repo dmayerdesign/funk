@@ -1,74 +1,75 @@
-import { Inject, Injectable } from '@angular/core'
-import { AngularFireAuth } from '@angular/fire/auth'
-import { ignoreNullish } from '@funk/helpers/rxjs-shims'
-import { CustomClaims } from '@funk/model/auth/custom-claims'
-import roleHasAdminPrivilegeOrGreater from '@funk/model/auth/helpers/role-has-admin-privilege-or-greater'
-import { UserConfig, USER_CONFIGS } from '@funk/model/identity/user-config'
-import { UserHydrated } from '@funk/model/identity/user-hydrated'
-import { UserState, USER_STATES } from '@funk/model/identity/user-state'
-import { Identity } from '@funk/ui/core/identity/interface'
-import { Persistence, PERSISTENCE } from '@funk/ui/core/persistence/interface'
-import { auth, User } from 'firebase'
-import { combineLatest, of, Observable } from 'rxjs'
-import { distinctUntilKeyChanged, first, map, shareReplay, switchMap } from 'rxjs/operators'
+import { Inject, Injectable } from "@angular/core"
+import { AngularFireAuth } from "@angular/fire/auth"
+import { ignoreNullish } from "@funk/helpers/rxjs-shims"
+import { CustomClaims } from "@funk/model/auth/custom-claims"
+import roleHasAdminPrivilegeOrGreater from
+  "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
+import { UserConfig, USER_CONFIGS } from "@funk/model/identity/user-config"
+import { UserHydrated } from "@funk/model/identity/user-hydrated"
+import { UserState, USER_STATES } from "@funk/model/identity/user-state"
+import { Identity } from "@funk/ui/core/identity/interface"
+import { Persistence, PERSISTENCE } from "@funk/ui/core/persistence/interface"
+import { auth, User } from "firebase"
+import { combineLatest, of, Observable } from "rxjs"
+import { distinctUntilKeyChanged, first, map, shareReplay, switchMap } from "rxjs/operators"
 
 @Injectable()
 export class IdentityApi implements Identity
 {
   private _nonNullAuthUser$ = this._auth.user.pipe(
     ignoreNullish(),
-    shareReplay(1),
+    shareReplay(1)
   )
   public user$: Observable<UserHydrated> = this._nonNullAuthUser$.pipe(
-    distinctUntilKeyChanged('uid'),
+    distinctUntilKeyChanged("uid"),
     switchMap<User, Observable<UserHydrated>>((user) =>
     {
       if (user.isAnonymous)
       {
-        return of({ id: user.uid, displayName: 'Guest', isAnonymous: true })
+        return of({ id: user.uid, displayName: "Guest", isAnonymous: true })
       }
       return combineLatest(
         this._persistenceApi.listenById<UserConfig>(USER_CONFIGS, user.uid),
-        user.getIdTokenResult(true),
+        user.getIdTokenResult(true)
       )
-      .pipe(
-        map(([ userConfig, _user ]) => ({
-          ...(userConfig || {}),
-          id: user.uid,
-          claims: _user.claims as CustomClaims,
-          isAnonymous: false,
-        })),
-        shareReplay(1),
-      )
+        .pipe(
+          map(([ userConfig, _user ]) => ({
+            ...(userConfig || {}),
+            id: user.uid,
+            claims: _user.claims as CustomClaims,
+            isAnonymous: false,
+          })),
+          shareReplay(1)
+        )
     }),
-    shareReplay(1),
+    shareReplay(1)
   )
   public userId$: Observable<string> = this.user$.pipe(
-    map(({ id }) => id as string),
+    map(({ id }) => id as string)
   )
   public userIdToken$: Observable<string> = this._nonNullAuthUser$.pipe(
     switchMap((user) => user.getIdToken()),
-    shareReplay(1),
+    shareReplay(1)
   )
   public userRole$ = this.user$.pipe(
-    map(({ claims }) => claims && claims.role),
+    map(({ claims }) => claims && claims.role)
   )
   public hasAdminPrivilegeOrGreater$ = this.userRole$.pipe(
-    map((role) => role && roleHasAdminPrivilegeOrGreater(role)),
+    map((role) => role && roleHasAdminPrivilegeOrGreater(role))
   )
   public userState$ = this._nonNullAuthUser$.pipe(
-    distinctUntilKeyChanged('uid'),
+    distinctUntilKeyChanged("uid"),
     switchMap<User, Observable<UserState | undefined>>((user) =>
     {
       if (user.isAnonymous) return of({ id: user.uid })
       return this._persistenceApi.listenById<UserState>(USER_STATES, user.uid)
     }),
-    shareReplay(1),
+    shareReplay(1)
   )
 
-  constructor(
+  public constructor(
     private _auth: AngularFireAuth,
-    @Inject(PERSISTENCE) private _persistenceApi: Persistence,
+    @Inject(PERSISTENCE) private _persistenceApi: Persistence
   )
   { }
 
@@ -81,11 +82,11 @@ export class IdentityApi implements Identity
 
   public async createUserWithEmailAndPassword(
     email: string,
-    password: string,
+    password: string
   ): Promise<auth.UserCredential>
   {
     const userCredential = await this._auth.createUserWithEmailAndPassword(
-      email, password,
+      email, password
     )
     await this.sendEmailVerification()
     return userCredential
@@ -93,7 +94,7 @@ export class IdentityApi implements Identity
 
   public async signInWithEmailAndPassword(
     email: string,
-    password: string,
+    password: string
   ): Promise<auth.UserCredential>
   {
     return this._auth.signInWithEmailAndPassword(email, password)
@@ -119,7 +120,7 @@ export class IdentityApi implements Identity
       .pipe(
         switchMap((userOrNull) => userOrNull === null
           ? this._auth.signInAnonymously().then(({ user }) => user)
-          : of(userOrNull)),
+          : of(userOrNull))
       )
       .subscribe()
   }

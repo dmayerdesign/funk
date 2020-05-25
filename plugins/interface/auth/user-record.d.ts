@@ -1,4 +1,4 @@
-import { CustomClaims } from '@funk/model/auth/custom-claims'
+import { CustomClaims } from "@funk/model/auth/custom-claims"
 
 export interface UserRecord
 {
@@ -22,8 +22,8 @@ export interface UserRecord
     email: string
     phoneNumber: string
     photoURL: string
-    providerId: 'google.com'|'facebook.com'
-    toJSON(): UserRecord['providerData']
+    providerId: "google.com"|"facebook.com"
+    toJSON(): UserRecord["providerData"]
   }[]
   customClaims?: CustomClaims
   toJSON(): UserRecord

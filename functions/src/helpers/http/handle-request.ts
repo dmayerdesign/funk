@@ -1,5 +1,5 @@
 import { NextFunction, Request as ExpressRequest, RequestHandler as ExpressRequestHandler,
-  Response } from 'express'
+  Response } from "express"
 
 export interface Request<BodyType = any> extends ExpressRequest
 {
@@ -14,10 +14,10 @@ export type HandlerReturnTypes =
   | void | Promise<void>
 
 export type RequestHandler<
-    HandlerReturnType extends HandlerReturnTypes = undefined,
-    RequestBodyType = any,
-  > = (request: Request<RequestBodyType>, response: Response, next: NextFunction) =>
-    HandlerReturnType
+  HandlerReturnType extends HandlerReturnTypes = undefined,
+  RequestBodyType = any,
+> = (request: Request<RequestBodyType>, response: Response, next: NextFunction) =>
+HandlerReturnType
 
 export type RequestHandlers =
   [ RequestHandler<any> ]
@@ -29,7 +29,7 @@ export type RequestHandlers =
 export default function<
   HandlerReturnType extends HandlerReturnTypes = undefined,
   RequestBodyType = any,
-  >(
+>(
   handler: RequestHandler<HandlerReturnType, RequestBodyType>
 ): ExpressRequestHandler
 {
@@ -42,8 +42,8 @@ export default function<
       {
         return next()
       }
-      else if (typeof handlerResult === 'object'
-        && typeof (handlerResult as Promise<any>)['then'] === 'function')
+      else if (typeof handlerResult === "object"
+        && typeof (handlerResult as Promise<any>)["then"] === "function")
       {
         (handlerResult as Promise<any>)
           .then((value) =>

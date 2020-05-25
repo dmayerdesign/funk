@@ -1,15 +1,15 @@
-import { Inject, Injectable } from '@angular/core'
-import { CanActivate, Router, UrlTree } from '@angular/router'
-import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
-import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { Inject, Injectable } from "@angular/core"
+import { CanActivate, Router, UrlTree } from "@angular/router"
+import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
+import { Observable } from "rxjs"
+import { map } from "rxjs/operators"
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class AnonymousGuard implements CanActivate
 {
-  constructor(
+  public constructor(
     @Inject(IDENTITY) private _auth: Identity,
-    private _router: Router,
+    private _router: Router
   )
   { }
 
@@ -17,7 +17,7 @@ export class AnonymousGuard implements CanActivate
   {
     return this._auth.user$.pipe(
       map((user) => (!!user && !user.isAnonymous)
-        || this._router.parseUrl('/'))
+        || this._router.parseUrl("/"))
     )
   }
 }

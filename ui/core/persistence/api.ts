@@ -1,24 +1,24 @@
-import { Injectable } from '@angular/core'
-import { AngularFirestore, CollectionReference, Query } from '@angular/fire/firestore'
-import { DatabaseDocument, DbDocumentMetadata } from '@funk/model/data-access/database-document'
-import { construct as constructPopulate } from '@funk/ui/core/persistence/helpers/populate'
-import { Persistence } from '@funk/ui/core/persistence/interface'
-import { Observable } from 'rxjs'
-import { first, map } from 'rxjs/operators'
+import { Injectable } from "@angular/core"
+import { AngularFirestore, CollectionReference, Query } from "@angular/fire/firestore"
+import { DatabaseDocument, DbDocumentMetadata } from "@funk/model/data-access/database-document"
+import { construct as constructPopulate } from "@funk/ui/core/persistence/helpers/populate"
+import { Persistence } from "@funk/ui/core/persistence/interface"
+import { Observable } from "rxjs"
+import { first, map } from "rxjs/operators"
 
 @Injectable()
 export class PersistenceApi implements Persistence
 {
   public populate = constructPopulate({ store: () => this._store })
 
-  constructor(
-    private _store: AngularFirestore,
+  public constructor(
+    private _store: AngularFirestore
   )
   { }
 
   public listenById<DocumentType extends object = DatabaseDocument>(
     collectionPath: string,
-    documentPath: string,
+    documentPath: string
   ): Observable<DocumentType | undefined>
   {
     return this._store.collection(collectionPath)
@@ -28,7 +28,7 @@ export class PersistenceApi implements Persistence
 
   public async getById<DocumentType extends object = DatabaseDocument>(
     collectionPath: string,
-    documentPath: string,
+    documentPath: string
   ): Promise<DocumentType | undefined>
   {
     return this._store.collection(collectionPath)
@@ -36,7 +36,7 @@ export class PersistenceApi implements Persistence
       .get()
       .pipe(
         first(),
-        map((snapshot) => snapshot.data() as DocumentType),
+        map((snapshot) => snapshot.data() as DocumentType)
       )
       .toPromise()
   }
@@ -45,7 +45,7 @@ export class PersistenceApi implements Persistence
     collectionPath: string,
     documentPath: string,
     documentData: DocumentType,
-    options?: { overwrite?: boolean },
+    options?: { overwrite?: boolean }
   ): Promise<void>
   {
     await this._store.collection(collectionPath)
@@ -56,7 +56,7 @@ export class PersistenceApi implements Persistence
   public async updateById<DocumentType extends DatabaseDocument = DatabaseDocument>(
     collectionPath: string,
     documentPath: string,
-    documentData: Partial<DocumentType>,
+    documentData: Partial<DocumentType>
   ): Promise<void>
   {
     await this._store.collection(collectionPath)
@@ -66,7 +66,7 @@ export class PersistenceApi implements Persistence
 
   public async deleteById(
     collectionPath: string,
-    documentPath: string,
+    documentPath: string
   ): Promise<void>
   {
     await this._store.collection(collectionPath)
@@ -82,15 +82,15 @@ export class PersistenceApi implements Persistence
     return selector(
       this._store.collection(collectionPath).ref
     )
-    .get()
-    .then((snapshot) => snapshot.docs.map((doc) =>
-    {
-      const fullPath = doc.ref.path
-      const firstIndexOfSlash = fullPath.indexOf('/')
-      return {
-        collectionPath: fullPath.substring(0, firstIndexOfSlash),
-        documentPath: fullPath.substring(firstIndexOfSlash),
-      }
-    }))
+      .get()
+      .then((snapshot) => snapshot.docs.map((doc) =>
+      {
+        const fullPath = doc.ref.path
+        const firstIndexOfSlash = fullPath.indexOf("/")
+        return {
+          collectionPath: fullPath.substring(0, firstIndexOfSlash),
+          documentPath: fullPath.substring(firstIndexOfSlash),
+        }
+      }))
   }
 }

@@ -1,5 +1,5 @@
-import { of, pipe, Observable } from 'rxjs'
-import { catchError, filter, shareReplay } from 'rxjs/operators'
+import { of, pipe, Observable } from "rxjs"
+import { catchError, filter, shareReplay } from "rxjs/operators"
 
 export const ignoreNullish = <ValueType>() => pipe(
   filter<ValueType | undefined | null, ValueType>(

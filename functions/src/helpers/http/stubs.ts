@@ -1,4 +1,4 @@
-import { HttpClient, RequestConfig } from '@funk/functions/helpers/http/client'
+import { HttpClient, RequestConfig } from "@funk/functions/helpers/http/client"
 
 export const createHttpClientStub = (fakeResponse?: any): HttpClient =>
   ({

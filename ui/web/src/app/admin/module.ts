@@ -1,15 +1,15 @@
-import { CommonModule } from '@angular/common'
-import { NgModule } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { RouterModule, Routes } from '@angular/router'
-import { AdminContainer } from '@funk/ui/web/app/admin/container'
-import { AppFireModule } from '@funk/ui/web/app/fire.module'
-import { IonicModule } from '@ionic/angular'
-import { ManagedContentModule } from './managed-content/module'
+import { CommonModule } from "@angular/common"
+import { NgModule } from "@angular/core"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { RouterModule, Routes } from "@angular/router"
+import { AdminContainer } from "@funk/ui/web/app/admin/container"
+import { AppFireModule } from "@funk/ui/web/app/fire.module"
+import { IonicModule } from "@ionic/angular"
+import { ManagedContentModule } from "./managed-content/module"
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: AdminContainer,
   },
 ]

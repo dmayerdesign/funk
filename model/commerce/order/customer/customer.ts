@@ -1,4 +1,4 @@
-import { Address } from '@funk/model/address/address'
+import { Address } from "@funk/model/address/address"
 
 export interface Customer
 {

@@ -1,16 +1,15 @@
-export const enum UserRole
-{
+export const enum UserRole {
   /** Super users may read and write to the database and infrastructure. */
-  SUPER = 'SUPER',
+  SUPER = "SUPER",
   /**
    * Owners may read and write to the database and may read and write most infrastructure
    * data.
    */
-  OWNER = 'OWNER',
+  OWNER = "OWNER",
   /** Administrators may read and write to the database. */
-  ADMINISTRATOR = 'ADMINISTRATOR',
+  ADMINISTRATOR = "ADMINISTRATOR",
   /** The public may read and write some database collections. */
-  PUBLIC = 'PUBLIC',
+  PUBLIC = "PUBLIC",
   /** Anonymous users may read some database collections. */
-  ANONYMOUS = 'ANONYMOUS',
+  ANONYMOUS = "ANONYMOUS",
 }

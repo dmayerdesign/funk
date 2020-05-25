@@ -1,27 +1,27 @@
-import { ContentChild, Directive, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core'
-import { IonRippleEffect } from '@ionic/angular'
+import { ContentChild, Directive, ElementRef, HostListener, OnInit, Renderer2 } from "@angular/core"
+import { IonRippleEffect } from "@ionic/angular"
 
 @Directive({
-  selector: '[ripple-container]',
+  selector: "[ripple-container]",
 })
 export class RippleContainerDirective implements OnInit
 {
   @ContentChild(IonRippleEffect) public rippleEffect!: IonRippleEffect
   @ContentChild(IonRippleEffect, { read: ElementRef }) private rippleEffectRef!: ElementRef
 
-  constructor(
+  public constructor(
     private _renderer: Renderer2,
-    private _elementRef: ElementRef,
+    private _elementRef: ElementRef
   )
   { }
 
   public ngOnInit(): void
   {
-    this._renderer.addClass(this._elementRef.nativeElement, 'ion-activatable')
-    this._renderer.addClass(this._elementRef.nativeElement, 'ripple-parent')
+    this._renderer.addClass(this._elementRef.nativeElement, "ion-activatable")
+    this._renderer.addClass(this._elementRef.nativeElement, "ripple-parent")
   }
 
-  @HostListener('click', ['$event'])
+  @HostListener("click", ["$event"])
   public ripple = ({ x, y }: MouseEvent): void =>
   {
     this.rippleEffect.addRipple(x, y).then(() =>
@@ -29,14 +29,14 @@ export class RippleContainerDirective implements OnInit
       this._removeRipple(
         this.rippleEffectRef.nativeElement
           .shadowRoot
-          .querySelector('.ripple-effect')
+          .querySelector(".ripple-effect")
       )
     })
   }
 
   private _removeRipple(ripple: HTMLElement): void
   {
-    ripple.classList.add('fade-out')
+    ripple.classList.add("fade-out")
     setTimeout(() => ripple.remove(), 200)
   }
 }

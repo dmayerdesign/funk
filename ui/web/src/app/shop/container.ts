@@ -1,9 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core'
-import { InitializerFunction, INITIALIZE_CONTAINER } from '@funk/ui/web/app/initializer'
-import { BehaviorSubject } from 'rxjs'
+import { Component, Inject, OnInit } from "@angular/core"
+import { InitializerFunction, INITIALIZE_CONTAINER } from "@funk/ui/web/app/initializer"
+import { BehaviorSubject } from "rxjs"
 
 @Component({
-  selector: 'shop',
+  selector: "shop",
   template: `
     <ng-container *ngIf="init | async">
       <h1>Shop</h1>
@@ -14,7 +14,7 @@ import { BehaviorSubject } from 'rxjs'
 export class ShopContainer implements OnInit
 {
   public init = new BehaviorSubject(false)
-  constructor(
+  public constructor(
     @Inject(INITIALIZE_CONTAINER) private _init: InitializerFunction
   )
   { }

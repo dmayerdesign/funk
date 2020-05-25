@@ -7,6 +7,6 @@ export interface AvataxResponse
 export interface AvataxRate
 {
   rate: 0.06
-  name: 'MI STATE TAX'
-  type: 'State'
+  name: "MI STATE TAX"
+  type: "State"
 }

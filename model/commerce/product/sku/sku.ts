@@ -1,14 +1,15 @@
-import { MarshalledSkuAttributeValues, PopulatedSkuAttributeValues } from '@funk/model/commerce/attribute/attribute-value'
-import { Price } from '@funk/model/commerce/price/price'
-import { Inventory } from '@funk/model/commerce/product/sku/inventory'
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { PrimaryKey } from '@funk/model/data-access/primary-key'
-import { ImageGroup } from '@funk/model/image/image-group'
-import { Duration } from '@funk/model/time/duration'
-import { Weight } from '@funk/model/weight/weight'
-import { TaxonomyTerm } from '../../taxonomy/taxonomy-term'
+import { MarshalledSkuAttributeValues, PopulatedSkuAttributeValues } from
+  "@funk/model/commerce/attribute/attribute-value"
+import { Price } from "@funk/model/commerce/price/price"
+import { Inventory } from "@funk/model/commerce/product/sku/inventory"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
+import { ImageGroup } from "@funk/model/image/image-group"
+import { Duration } from "@funk/model/time/duration"
+import { Weight } from "@funk/model/weight/weight"
+import { TaxonomyTerm } from "../../taxonomy/taxonomy-term"
 
-export const SKUS = 'commerce.skus'
+export const SKUS = "commerce.skus"
 
 /**
  * This schema is largely based on Google's product data spec.
@@ -34,7 +35,7 @@ interface BaseSku extends DatabaseDocument {
   adult?: boolean
   multipack?: number
   isBundle?: boolean
-  shippingLabel?: 'perishable'|'oversized'|'fragile'
+  shippingLabel?: "perishable"|"oversized"|"fragile"
   maxHandlingTime?: Duration
   minHandlingTime?: Duration
   // shipping?: string // e.g. `US:CA:Overnight:16.00 USD`

@@ -1,10 +1,10 @@
-import { CLOUD_PROJECT_ID } from '@funk/config'
-import getConfigImpl from '@funk/functions/helpers/runtime/get-config'
-import { DbDocumentInput } from '@funk/model/data-access/database-document'
-import { EncryptedSecret } from '@funk/model/secret/encrypted-secret'
-import setByIdImpl from '@funk/plugins/persistence/actions/set-by-id'
-import { v1 } from '@google-cloud/kms'
-import { ClientOptions } from 'google-gax'
+import { CLOUD_PROJECT_ID } from "@funk/config"
+import getConfigImpl from "@funk/functions/helpers/runtime/get-config"
+import { DbDocumentInput } from "@funk/model/data-access/database-document"
+import { EncryptedSecret } from "@funk/model/secret/encrypted-secret"
+import setByIdImpl from "@funk/plugins/persistence/actions/set-by-id"
+import { v1 } from "@google-cloud/kms"
+import { ClientOptions } from "google-gax"
 
 export interface Options {
   key: string
@@ -20,8 +20,8 @@ export const construct = ({
   async ({ key, value }: Options): Promise<void> =>
   {
     const { client_email, private_key } = JSON.parse(
-      Buffer.from(getConfig().admin.serializedcredentials, 'base64')
-        .toString('utf8'))
+      Buffer.from(getConfig().admin.serializedcredentials, "base64")
+        .toString("utf8"))
     const client = createKmsClient({
       credentials: {
         client_email,
@@ -30,20 +30,20 @@ export const construct = ({
     })
     const keyName = client.cryptoKeyPath(
       CLOUD_PROJECT_ID,
-      'global',
+      "global",
       CLOUD_PROJECT_ID, // TODO: Rename key ring to 'primary'.
-      'master'
+      "master"
     )
 
     const [ encryptResponse ] = await client.encrypt({
       name: keyName,
-      plaintext: Buffer.from(value, 'utf8'),
+      plaintext: Buffer.from(value, "utf8"),
     })
 
     const encryptedSecret: DbDocumentInput<EncryptedSecret> = {
-      value: Buffer.from(encryptResponse.ciphertext!)?.toString('base64'),
+      value: Buffer.from(encryptResponse.ciphertext!)?.toString("base64"),
     }
-    await setById('vault', key, encryptedSecret)
+    await setById("vault", key, encryptedSecret)
   }
 
 export default construct()

@@ -1,10 +1,10 @@
-import { Weight } from '@funk/model/weight/weight'
+import { Weight } from "@funk/model/weight/weight"
 
 class InvalidWeightError extends Error
 {
-  constructor(
+  public constructor(
     public readonly reason: ValidationFailureReason,
-    public readonly message: ValidationFailureReason = reason,
+    public readonly message: ValidationFailureReason = reason
   )
   {
     super(message)
@@ -13,26 +13,25 @@ class InvalidWeightError extends Error
 
 class UnitMismatchError extends Error
 {
-  constructor()
+  public constructor()
   {
-    super('Operations on Weights with different units is not supported.')
+    super("Operations on Weights with different units is not supported.")
   }
 }
 
-export const enum ValidationFailureReason
-{
-  INVALID_AMOUNT = 'INVALID_AMOUNT',
-  INVALID_UNITS = 'INVALID_UNITS',
+export const enum ValidationFailureReason {
+  INVALID_AMOUNT = "INVALID_AMOUNT",
+  INVALID_UNITS = "INVALID_UNITS",
 }
 
 /** @throws InvalidWeightError */
 export function validate(weight: Weight): void
 {
-  if (typeof weight.unit === 'undefined')
+  if (typeof weight.unit === "undefined")
   {
     throw new InvalidWeightError(ValidationFailureReason.INVALID_UNITS)
   }
-  if (typeof weight.amount === 'undefined')
+  if (typeof weight.amount === "undefined")
   {
     throw new InvalidWeightError(ValidationFailureReason.INVALID_AMOUNT)
   }

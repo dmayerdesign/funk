@@ -7,8 +7,8 @@
  */
 
 import { ChangeDetectorRef, EventEmitter, OnDestroy, Pipe, PipeTransform,
-  WrappedValue } from '@angular/core'
-import { Observable, SubscriptionLike } from 'rxjs'
+  WrappedValue } from "@angular/core"
+import { Observable, SubscriptionLike } from "rxjs"
 
 /**
  * @ngModule CommonModule
@@ -23,7 +23,7 @@ import { Observable, SubscriptionLike } from 'rxjs'
  *
  * @experimental
  */
-@Pipe({name: 'noZoneAsync', pure: false})
+@Pipe({name: "noZoneAsync", pure: false})
 export default class NoZoneAsyncPipe implements OnDestroy, PipeTransform
 {
   private _latestValue: any = null
@@ -32,7 +32,7 @@ export default class NoZoneAsyncPipe implements OnDestroy, PipeTransform
   private _subscription: SubscriptionLike|null = null
   private _obj: Observable<any>|EventEmitter<any>|null = null
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef)
+  public constructor(private _changeDetectorRef: ChangeDetectorRef)
   { }
 
   public ngOnDestroy(): void

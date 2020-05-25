@@ -1,4 +1,4 @@
-export const SHOP = 'SHOP'
+export const SHOP = "SHOP"
 
 export interface Shop {
 }

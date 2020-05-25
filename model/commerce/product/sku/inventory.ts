@@ -1,20 +1,20 @@
 export interface FiniteInventory {
-  type: 'finite'
+  type: "finite"
   quantity: number
   quantityPending: number
 }
 export interface FiniteInventoryDisplayedAsBucket {
-  type: 'finite'
+  type: "finite"
   quantity: number
   quantityPending: number
-  bucket: 'in_stock' | 'limited' | 'out_of_stock'
+  bucket: "in_stock" | "limited" | "out_of_stock"
 }
 export interface InfiniteInventory {
-  type: 'infinite'
+  type: "infinite"
 }
 export interface BucketInventory {
-  type: 'bucket'
-  bucket: 'in_stock' | 'limited' | 'out_of_stock'
+  type: "bucket"
+  bucket: "in_stock" | "limited" | "out_of_stock"
 }
 
 export type Inventory =

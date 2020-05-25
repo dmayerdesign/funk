@@ -1,4 +1,4 @@
-import { StatusCode } from '@funk/model/http/status-code'
+import { StatusCode } from "@funk/model/http/status-code"
 
 export class BadRequestError extends Error
 {

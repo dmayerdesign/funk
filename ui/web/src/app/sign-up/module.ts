@@ -1,13 +1,13 @@
-import { CommonModule } from '@angular/common'
-import { NgModule } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { RouterModule, Routes } from '@angular/router'
-import { AppFireModule } from '@funk/ui/web/app/fire.module'
-import { SignUpComponent } from './component'
+import { CommonModule } from "@angular/common"
+import { NgModule } from "@angular/core"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { RouterModule, Routes } from "@angular/router"
+import { AppFireModule } from "@funk/ui/web/app/fire.module"
+import { SignUpComponent } from "./component"
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: SignUpComponent,
   },
 ]

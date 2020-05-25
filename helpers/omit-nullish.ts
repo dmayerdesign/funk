@@ -1,4 +1,4 @@
-import { isNil, omitBy } from 'lodash'
+import { isNil, omitBy } from "lodash"
 
 export default function<ValueType extends object>(value: ValueType): ValueType
 {

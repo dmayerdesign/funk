@@ -1,9 +1,9 @@
-import { Component, Inject } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
-import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
+import { Component, Inject } from "@angular/core"
+import { FormControl, FormGroup } from "@angular/forms"
+import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
 
 @Component({
-  selector: 'sign-up',
+  selector: "sign-up",
   template: `
     <h2>Sign In</h2>
     <form [formGroup]="signInFormGroup"
@@ -35,24 +35,24 @@ export class SignUpComponent
     password: new FormControl(),
   })
 
-  constructor(
-    @Inject(IDENTITY) private _identityApi: Identity,
+  public constructor(
+    @Inject(IDENTITY) private _identityApi: Identity
   )
   { }
 
   public async handleSignUpSubmit(): Promise<void>
   {
     await this._identityApi.createUserWithEmailAndPassword(
-      this.signUpFormGroup.get('email')!.value,
-      this.signUpFormGroup.get('password')!.value,
+      this.signUpFormGroup.get("email")!.value,
+      this.signUpFormGroup.get("password")!.value
     )
   }
 
   public async handleSignInSubmit(): Promise<void>
   {
     await this._identityApi.signInWithEmailAndPassword(
-      this.signInFormGroup.get('email')!.value,
-      this.signInFormGroup.get('password')!.value,
+      this.signInFormGroup.get("email")!.value,
+      this.signInFormGroup.get("password")!.value
     )
   }
 }

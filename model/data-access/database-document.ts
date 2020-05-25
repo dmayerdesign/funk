@@ -1,5 +1,5 @@
-import { PrimaryKey } from '@funk/model/data-access/primary-key'
-import { Timestamp } from '@funk/model/data-access/timestamp'
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
+import { Timestamp } from "@funk/model/data-access/timestamp"
 
 export interface DatabaseDocument
 {
@@ -10,7 +10,7 @@ export interface DatabaseDocument
 }
 
 export type DbDocumentInput<DocumentType extends DatabaseDocument> =
-  Omit<DocumentType, 'id'>
+  Omit<DocumentType, "id">
 
 export interface DbDocumentMetadata
 {

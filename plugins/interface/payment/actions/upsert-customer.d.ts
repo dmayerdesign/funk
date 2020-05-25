@@ -1,4 +1,4 @@
-import GetPaymentProvider from '@funk/plugins/payment/actions/get-payment-provider'
+import GetPaymentProvider from "@funk/plugins/payment/actions/get-payment-provider"
 
 export interface CreateInput
 {

@@ -1,4 +1,4 @@
-import { Order, Status } from '@funk/model/commerce/order/order'
+import { Order, Status } from "@funk/model/commerce/order/order"
 
 export default function(order: Order): boolean
 {

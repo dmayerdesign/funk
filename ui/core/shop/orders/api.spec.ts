@@ -1,24 +1,24 @@
-import { UserRole } from '@funk/model/auth/user-role'
-import createOrderForCustomer from '@funk/model/commerce/order/actions/create-order-for-customer'
-import marshall from '@funk/model/commerce/order/actions/marshall'
-import { MarshalledCart, ORDERS, PopulatedCart } from '@funk/model/commerce/order/order'
-import { createFakeMarshalledSku } from '@funk/model/commerce/product/sku/stubs'
-import { DeviceStorage } from '@funk/ui/core/device-storage/interface'
-import { IdentityStub, USER_UID_STUB } from '@funk/ui/core/identity/stubs'
-import { PersistenceStub } from '@funk/ui/core/persistence/stubs'
-import { OrdersApi } from '@funk/ui/core/shop/orders/api'
-import { first } from 'rxjs/operators'
+import { UserRole } from "@funk/model/auth/user-role"
+import createOrderForCustomer from "@funk/model/commerce/order/actions/create-order-for-customer"
+import marshall from "@funk/model/commerce/order/actions/marshall"
+import { MarshalledCart, ORDERS, PopulatedCart } from "@funk/model/commerce/order/order"
+import { createFakeMarshalledSku } from "@funk/model/commerce/product/sku/stubs"
+import { DeviceStorage } from "@funk/ui/core/device-storage/interface"
+import { IdentityStub, USER_UID_STUB } from "@funk/ui/core/identity/stubs"
+import { PersistenceStub } from "@funk/ui/core/persistence/stubs"
+import { OrdersApi } from "@funk/ui/core/shop/orders/api"
+import { first } from "rxjs/operators"
 
-describe('OrdersApi', () =>
+describe("OrdersApi", () =>
 {
-  const ORDER_ID = 'order id'
+  const ORDER_ID = "order id"
   const setUp = ({
     deviceStorageApi = new PersistenceStub({}),
     persistenceApi = new PersistenceStub(
       {
         [ORDERS]: {
           [ORDER_ID]: createOrderForCustomer({
-            email: 'test email',
+            email: "test email",
             userId: USER_UID_STUB,
           }),
         },
@@ -26,7 +26,7 @@ describe('OrdersApi', () =>
       [{
         collectionPath: ORDERS,
         documentPath: ORDER_ID,
-      }],
+      }]
     ),
     identityApi = new IdentityStub(),
   } = {}) => ({
@@ -39,7 +39,7 @@ describe('OrdersApi', () =>
       identityApi),
   })
 
-  it('should emit a cart if there is a signed-in user', async (done) =>
+  it("should emit a cart if there is a signed-in user", async (done) =>
   {
     const { orderApi } = setUp()
     const cartObserverSpy = jasmine.createSpy()
@@ -51,7 +51,7 @@ describe('OrdersApi', () =>
       done()
     })
   })
-  it('should emit a cart if there is NOT a signed-in user', async (done) =>
+  it("should emit a cart if there is NOT a signed-in user", async (done) =>
   {
     const { orderApi } = setUp({
       identityApi: new IdentityStub({ email: undefined, role: UserRole.ANONYMOUS }),
@@ -65,7 +65,7 @@ describe('OrdersApi', () =>
       done()
     })
   })
-  it('should add one SKU to the cart', async (done) =>
+  it("should add one SKU to the cart", async (done) =>
   {
     const { orderApi, deviceStorageApi, persistenceApi } = setUp()
     const SKU = createFakeMarshalledSku()
@@ -80,8 +80,8 @@ describe('OrdersApi', () =>
       skuQuantityMap: { [SKU.id]: 1 },
     })
 
-    spyOn(deviceStorageApi, 'setById')
-    spyOn(persistenceApi, 'setById')
+    spyOn(deviceStorageApi, "setById")
+    spyOn(persistenceApi, "setById")
 
     await orderApi.setSkuQuantityInCart(SKU, 1)
 

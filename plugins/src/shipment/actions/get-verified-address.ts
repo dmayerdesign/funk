@@ -1,6 +1,6 @@
-import omitNullish from '@funk/helpers/omit-nullish'
-import { Address } from '@funk/model/address/address'
-import getShipmentProviderImpl from './get-shipment-provider'
+import omitNullish from "@funk/helpers/omit-nullish"
+import { Address } from "@funk/model/address/address"
+import getShipmentProviderImpl from "./get-shipment-provider"
 
 export const construct = ({
   getShipmentProvider = getShipmentProviderImpl,

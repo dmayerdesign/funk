@@ -1,15 +1,15 @@
 import { MarshalledProductAttributeValues,
-  PopulatedProductAttributeValues } from '@funk/model/commerce/attribute/attribute-value'
-import { Review } from '@funk/model/commerce/review/review'
-import { TaxonomyTerm } from '@funk/model/commerce/taxonomy/taxonomy-term'
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
-import { PrimaryKey } from '@funk/model/data-access/primary-key'
-import { Timestamp } from '@funk/model/data-access/timestamp'
-import { ImageGroup } from '@funk/model/image/image-group'
-import { Organization } from '@funk/model/organization/organization'
-import { Duration } from '@funk/model/time/duration'
+  PopulatedProductAttributeValues } from "@funk/model/commerce/attribute/attribute-value"
+import { Review } from "@funk/model/commerce/review/review"
+import { TaxonomyTerm } from "@funk/model/commerce/taxonomy/taxonomy-term"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
+import { Timestamp } from "@funk/model/data-access/timestamp"
+import { ImageGroup } from "@funk/model/image/image-group"
+import { Organization } from "@funk/model/organization/organization"
+import { Duration } from "@funk/model/time/duration"
 
-export const PRODUCTS = 'commerce.products'
+export const PRODUCTS = "commerce.products"
 
 interface BaseProduct extends DatabaseDocument {
   name: string

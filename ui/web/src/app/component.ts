@@ -1,12 +1,13 @@
-import { Component, Inject } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
-import roleHasAdminPrivilegeOrGreater from '@funk/model/auth/helpers/role-has-admin-privilege-or-greater'
-import { Identity, IDENTITY } from '@funk/ui/core/identity/interface'
-import { combineLatest } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { Component, Inject } from "@angular/core"
+import { ActivatedRoute } from "@angular/router"
+import roleHasAdminPrivilegeOrGreater from
+  "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
+import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
+import { combineLatest } from "rxjs"
+import { map } from "rxjs/operators"
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   template: `
     <managed-content-editor>
       <main [ngClass]="{
@@ -25,10 +26,10 @@ export class AppComponent
     .pipe(
       map(([ role, params ]) => role
         && roleHasAdminPrivilegeOrGreater(role)
-        && params['edit'] === 'true'))
+        && params["edit"] === "true"))
 
-  constructor(
+  public constructor(
     private _activatedRoute: ActivatedRoute,
-    @Inject(IDENTITY) private _identity: Identity,
+    @Inject(IDENTITY) private _identity: Identity
   ) { }
 }

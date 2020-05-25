@@ -1,4 +1,4 @@
-import { DatabaseDocument } from '@funk/model/data-access/database-document'
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 interface DocumentSnapshotExtras {
   ref: any
@@ -19,8 +19,8 @@ interface DocumentSnapshotExtras {
  * explicitly verify a document's existence.
  */
 export interface DocumentSnapshot<
-    DocumentType extends { [key: string]: any } = DatabaseDocument
-  >
+  DocumentType extends { [key: string]: any } = DatabaseDocument
+>
   extends DocumentSnapshotExtras
 {
 

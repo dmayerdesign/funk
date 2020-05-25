@@ -1,10 +1,10 @@
 export interface OrganizationBrandingColors {
-    primary: string
+  primary: string
 }
 
 export interface OrganizationBranding {
-    displayName: string
-    logo: string
-    colors: OrganizationBrandingColors
-    cartName: string
+  displayName: string
+  logo: string
+  colors: OrganizationBrandingColors
+  cartName: string
 }

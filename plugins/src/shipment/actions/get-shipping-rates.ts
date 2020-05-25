@@ -1,11 +1,11 @@
-import { IS_PRODUCTION } from '@funk/config'
-import { Enterprise, ShippingCostStrategy } from '@funk/model/commerce/enterprise/enterprise'
-import getNetWeight from '@funk/model/commerce/order/actions/get-net-weight'
-import { PopulatedOrder } from '@funk/model/commerce/order/order'
-import fromDecimalString from '@funk/model/commerce/price/actions/from-decimal-string'
-import { CurrencyCode } from '@funk/model/commerce/price/currency-code'
-import { SimpleRate } from '@funk/plugins/shipment/simple-rate'
-import getShipmentProviderImpl from './get-shipment-provider'
+import { IS_PRODUCTION } from "@funk/config"
+import { Enterprise, ShippingCostStrategy } from "@funk/model/commerce/enterprise/enterprise"
+import getNetWeight from "@funk/model/commerce/order/actions/get-net-weight"
+import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import fromDecimalString from "@funk/model/commerce/price/actions/from-decimal-string"
+import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
+import { SimpleRate } from "@funk/plugins/shipment/simple-rate"
+import getShipmentProviderImpl from "./get-shipment-provider"
 
 export interface Options {
   order: PopulatedOrder
@@ -32,7 +32,7 @@ export const construct = ({
     const from_address = new shipmentApi.Address(enterprise.shippingFromAddress)
     const to_address = new shipmentApi.Address(order.customer.shippingAddress)
     const parcel = new shipmentApi.Parcel({
-      mode: IS_PRODUCTION ? 'production' : 'test',
+      mode: IS_PRODUCTION ? "production" : "test",
       weight: weightInOz,
     })
     const { rates } = await new shipmentApi.Shipment({
@@ -40,13 +40,13 @@ export const construct = ({
       from_address,
       parcel,
     })
-    .save()
+      .save()
     const firstRate = rates[0]
 
     if (enterprise.shippingCostStrategy === ShippingCostStrategy.FLAT_RATE)
     {
       return [{
-        name: 'Flat Rate Shipping',
+        name: "Flat Rate Shipping",
         carrier: enterprise.shippingCarrierDefault,
         price: enterprise.shippingFlatRate!,
         deliveryDateEstimate: new Date(firstRate.delivery_date).getTime(),

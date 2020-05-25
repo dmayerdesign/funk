@@ -1,5 +1,5 @@
-import { Price } from '@funk/model/commerce/price/price'
-import { validateBeforeMath } from '@funk/model/commerce/price/validation'
+import { Price } from "@funk/model/commerce/price/price"
+import { validateBeforeMath } from "@funk/model/commerce/price/validation"
 
 export default function(price1: Price, price2: Price): Price
 {
