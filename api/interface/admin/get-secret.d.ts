@@ -1,12 +1,11 @@
-import { store } from "@funk/plugins/persistence/server-store"
+import getById from "@funk/plugins/persistence/actions/get-by-id"
 
 declare function getSecret(secretKey: string): Promise<string | undefined>
 
 export declare function construct(deps?: {
   getConfig: any
-  store: typeof store
+  getById: typeof getById
   createKmsClient: (options?: any) => any
 }): typeof getSecret
-
 
 export default getSecret

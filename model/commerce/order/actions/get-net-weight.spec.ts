@@ -1,6 +1,6 @@
 import getNetWeight from "@funk/model/commerce/order/actions/get-net-weight"
 import { PopulatedOrder } from "@funk/model/commerce/order/order"
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { Sku } from "@funk/model/commerce/sku/sku"
 import { WeightUnit } from "@funk/model/units/weight-unit"
 
 describe("getNetWeight", () =>

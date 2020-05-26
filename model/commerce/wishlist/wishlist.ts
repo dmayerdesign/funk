@@ -1,4 +1,4 @@
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { Sku } from "@funk/model/commerce/sku/sku"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export interface Wishlist extends DatabaseDocument

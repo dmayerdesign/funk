@@ -1,5 +1,5 @@
 import { PopulatedOrder } from "@funk/model/commerce/order/order"
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { Sku } from "@funk/model/commerce/sku/sku"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 import { uniqBy } from "lodash"
 

@@ -1,13 +1,13 @@
 import { MarshalledSkuAttributeValues, PopulatedSkuAttributeValues } from
   "@funk/model/commerce/attribute/attribute-value"
 import { Price } from "@funk/model/commerce/price/price"
-import { Inventory } from "@funk/model/commerce/product/sku/inventory"
+import { Inventory } from "@funk/model/commerce/sku/inventory"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 import { ImageGroup } from "@funk/model/image/image-group"
 import { Duration } from "@funk/model/time/duration"
 import { Weight } from "@funk/model/weight/weight"
-import { TaxonomyTerm } from "../../taxonomy/taxonomy-term"
+import { TaxonomyTerm } from "@funk/model/commerce/taxonomy/taxonomy-term"
 
 export const SKUS = "commerce.skus"
 

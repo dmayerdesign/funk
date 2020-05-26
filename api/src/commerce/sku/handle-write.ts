@@ -2,7 +2,7 @@ import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
 import { MarshalledProductAttributeValues } from
   "@funk/model/commerce/attribute/attribute-value"
 import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
-import { MarshalledSku, SKUS } from "@funk/model/commerce/product/sku/sku"
+import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import listImpl from "@funk/plugins/persistence/actions/list"
 import updateByIdImpl from "@funk/plugins/persistence/actions/update-by-id"
 import { TAKE_ALL } from "@funk/plugins/persistence/pagination"

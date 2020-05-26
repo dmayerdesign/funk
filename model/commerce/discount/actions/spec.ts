@@ -3,8 +3,8 @@ import getApplicableDiscountsForSku from
 import { SkuDiscount } from "@funk/model/commerce/discount/discount"
 import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
-import { MarshalledSku } from "@funk/model/commerce/product/sku/sku"
-import { createFakeMarshalledSku } from "@funk/model/commerce/product/sku/stubs"
+import { MarshalledSku } from "@funk/model/commerce/sku/sku"
+import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 
 describe("getApplicableDiscountsForSku", () =>
 {

@@ -12,7 +12,7 @@ import setPopulatedSkuQuantity from
 import { Customer } from "@funk/model/commerce/order/customer/customer"
 import { Cart, MarshalledCart, ORDERS, PopulatedCart, Status } from
   "@funk/model/commerce/order/order"
-import { Sku, SKUS } from "@funk/model/commerce/product/sku/sku"
+import { Sku, SKUS } from "@funk/model/commerce/sku/sku"
 import { DeviceStorage, DEVICE_STORAGE } from "@funk/ui/core/device-storage/interface"
 import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
 import { Persistence, PERSISTENCE } from "@funk/ui/core/persistence/interface"

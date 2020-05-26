@@ -1,4 +1,4 @@
-import { construct } from "@funk/model/commerce/product/sku/actions/get-price-after-discounts"
+import { construct } from "@funk/model/commerce/sku/actions/get-price-after-discounts"
 
 xdescribe("getActualPrice", () =>
 {

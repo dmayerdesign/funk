@@ -12,8 +12,8 @@ export interface PopulateFieldOptions<DocumentType>
 }
 
 export default async function<
-  PopulatedType extends { [key: string]: DatabaseDocument | undefined },
-  MarshalledType extends { [key: string]: string } = { [key: string]: string },
+  PopulatedType,
+  MarshalledType = DatabaseDocument,
 >(
   marshalledDoc: MarshalledType,
   options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
@@ -32,7 +32,7 @@ export default async function<
     else if (relationship === "one-to-one")
     {
       _populatedDoc[key] = await getById<any>(
-        collectionPath, marshalledDoc[key])
+        collectionPath, marshalledDoc[key] as unknown as string)
     }
     else
     {

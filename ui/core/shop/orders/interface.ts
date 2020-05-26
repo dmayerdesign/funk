@@ -1,5 +1,5 @@
 import { Cart } from "@funk/model/commerce/order/order"
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { Sku } from "@funk/model/commerce/sku/sku"
 import { Initializer } from "@funk/ui/helpers/initializer"
 import { Observable } from "rxjs"
 

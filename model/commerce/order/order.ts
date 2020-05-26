@@ -1,7 +1,7 @@
 import { Discount } from "@funk/model/commerce/discount/discount"
 import { Customer } from "@funk/model/commerce/order/customer/customer"
 import { Price } from "@funk/model/commerce/price/price"
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { Sku } from "@funk/model/commerce/sku/sku"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 

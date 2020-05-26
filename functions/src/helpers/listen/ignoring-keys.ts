@@ -2,7 +2,7 @@ import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export default function<DocumentType extends DatabaseDocument>(
-  key: keyof DocumentType,
+  keys: (keyof DocumentType)[],
   handler: ChangeHandler<DocumentType>
 ): ChangeHandler<any>
 {
@@ -10,7 +10,10 @@ export default function<DocumentType extends DatabaseDocument>(
   {
     const { before, after } = change
 
-    if (before.data()?.[key as string] !== after.data()?.[key as string]) return
+    for (const key of keys)
+    {
+      if (before.data()?.[key as string] !== after.data()?.[key as string]) return
+    }
 
     return handler(change, context)
   }

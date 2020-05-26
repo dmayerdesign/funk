@@ -1,5 +1,5 @@
 import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
-import { MarshalledSku } from "@funk/model/commerce/product/sku/sku"
+import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import list from "@funk/plugins/persistence/actions/list"
 import updateById from "@funk/plugins/persistence/actions/update-by-id"
 

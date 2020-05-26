@@ -1,14 +1,14 @@
 import marshallProduct from "@funk/api/commerce/product/marshall"
-import marshallSku from "@funk/api/commerce/product/sku/marshall"
+import marshallSku from "@funk/api/commerce/sku/marshall"
 import { OrderDiscount, SkuDiscount } from "@funk/model/commerce/discount/discount"
 import { PopulatedOrder } from "@funk/model/commerce/order/order"
 import add from "@funk/model/commerce/price/actions/add"
 import subtract from "@funk/model/commerce/price/actions/subtract"
 import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
-import { Product } from "@funk/model/commerce/product/product"
+import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import getPriceAfterSkuDiscounts from
-  "@funk/model/commerce/product/sku/actions/get-price-after-discounts"
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+  "@funk/model/commerce/sku/actions/get-price-after-discounts"
+import { Sku } from "@funk/model/commerce/sku/sku"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
 import { of, zip } from "rxjs"
 import { first, map, switchMap } from "rxjs/operators"
@@ -16,7 +16,7 @@ import { first, map, switchMap } from "rxjs/operators"
 export const construct = ({
   getProductForSku,
 }: {
-  getProductForSku: (sku: Sku) => Promise<Product>
+  getProductForSku: (sku: Sku) => Promise<MarshalledProduct | undefined>
 }) =>
   async function(order: DbDocumentInput<PopulatedOrder>): Promise<Price>
   {
@@ -32,7 +32,9 @@ export const construct = ({
         switchMap(async () =>
           getPriceAfterSkuDiscounts({
             sku,
-            product: marshallProduct(await getProductForSku(sku)),
+            product: marshallProduct(
+              (await getProductForSku(sku)) ||
+              {} as MarshalledProduct),
             activeDiscounts: activeDiscounts as SkuDiscount[],
           })
         ))

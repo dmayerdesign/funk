@@ -68,7 +68,7 @@ module.exports = {
         "@typescript-eslint/no-unused-expressions": "error",
         "@typescript-eslint/prefer-function-type": "off",
         "@typescript-eslint/quotes": [
-            "error",
+            "warn",
             "double"
         ],
         "@typescript-eslint/semi": [
@@ -79,12 +79,13 @@ module.exports = {
         "@typescript-eslint/unified-signatures": "off",
         "arrow-body-style": "error",
         "brace-style": [
-            "off",
-            "off"
+            "warn",
+            "allman",
+            { "allowSingleLine": true }
         ],
         "camelcase": "off",
         "comma-dangle": [
-            "error",
+            "warn",
             {
                 "arrays": "always-multiline",
                 "objects": "always-multiline",
@@ -94,7 +95,10 @@ module.exports = {
             }
         ],
         "constructor-super": "error",
-        "curly": "off",
+        "curly": [
+            "error",
+            "multi-line"
+        ],
         "eol-last": "error",
         "eqeqeq": [
             "error",
@@ -155,7 +159,7 @@ module.exports = {
             }
         ],
         "no-throw-literal": "error",
-        "no-trailing-spaces": "error",
+        "no-trailing-spaces": "warn",
         "no-undef-init": "error",
         "no-underscore-dangle": "off",
         "no-unused-labels": "error",
@@ -163,7 +167,7 @@ module.exports = {
         "prefer-const": "error",
         "radix": "error",
         "spaced-comment": [
-            "error",
+            "warn",
             "always",
             {
                 "markers": [

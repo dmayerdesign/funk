@@ -1,6 +1,6 @@
 import { Discount, SkuDiscount } from "@funk/model/commerce/discount/discount"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
-import { MarshalledSku } from "@funk/model/commerce/product/sku/sku"
+import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { sortBy } from "lodash"
 import ApplicableDiscountsBuilder from "./applicable-discounts-builder"
 

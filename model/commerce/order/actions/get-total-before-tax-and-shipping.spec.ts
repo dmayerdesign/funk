@@ -2,16 +2,16 @@ import { construct as constructGetTotalBeforeTaxAndShipping } from
   "@funk/model/commerce/order/actions/get-total-before-tax-and-shipping"
 import { PopulatedOrder } from "@funk/model/commerce/order/order"
 import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
-import { Product } from "@funk/model/commerce/product/product"
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { MarshalledProduct } from "@funk/model/commerce/product/product"
+import { Sku } from "@funk/model/commerce/sku/sku"
 import { Discount } from "../../discount/discount"
 
 describe("getTotalBeforeTaxAndShipping", () =>
 {
   it("should get the before-tax total for an order", async (done) =>
   {
-    const PRODUCT1 = {} as Product
-    const PRODUCT2 = {} as Product
+    const PRODUCT1 = {} as MarshalledProduct
+    const PRODUCT2 = {} as MarshalledProduct
     const SKU1 = {
       id: "sku-1",
       price: { amount: 1000, currency: CurrencyCode.USD },
@@ -26,7 +26,8 @@ describe("getTotalBeforeTaxAndShipping", () =>
     const ORDER = { skus: [ SKU1, SKU2 ], discounts: DISCOUNTS } as PopulatedOrder
     const getProductForSku = async (sku: Sku) =>
     {
-      switch (sku) {
+      switch (sku)
+      {
         case SKU1: return PRODUCT1
         default: return PRODUCT2
       }

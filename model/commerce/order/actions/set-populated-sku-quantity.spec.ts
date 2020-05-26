@@ -2,7 +2,7 @@ import createOrderForCustomer from
   "@funk/model/commerce/order/actions/create-order-for-customer"
 import setPopulatedSkuQuantity from "@funk/model/commerce/order/actions/set-populated-sku-quantity"
 import { PopulatedOrder } from "@funk/model/commerce/order/order"
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { Sku } from "@funk/model/commerce/sku/sku"
 
 describe("setPopulatedSkuQuantity", () =>
 {

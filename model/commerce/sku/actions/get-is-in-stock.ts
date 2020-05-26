@@ -1,4 +1,4 @@
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { Sku } from "@funk/model/commerce/sku/sku"
 
 export default function(sku: Sku): boolean | undefined
 {

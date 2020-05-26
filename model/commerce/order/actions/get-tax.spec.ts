@@ -1,7 +1,7 @@
 import { construct as constructGetTax } from "@funk/model/commerce/order/actions/get-tax"
 import { PopulatedOrder } from "@funk/model/commerce/order/order"
 import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
-import { Sku } from "@funk/model/commerce/product/sku/sku"
+import { Sku } from "@funk/model/commerce/sku/sku"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
 import getTaxRateForPostalCodeImpl from
   "@funk/plugins/tax/actions/get-tax-rate-for-postal-code"

@@ -41,7 +41,7 @@ export const construct = ({
     })
 
     const encryptedSecret: DbDocumentInput<EncryptedSecret> = {
-      value: Buffer.from(encryptResponse.ciphertext!)?.toString("base64"),
+      value: Buffer.from(encryptResponse.ciphertext!).toString("base64"),
     }
     await setById("vault", key, encryptedSecret)
   }

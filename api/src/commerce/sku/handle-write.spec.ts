@@ -1,7 +1,7 @@
-import { construct } from "@funk/api/commerce/product/sku/handle-write"
+import { construct } from "@funk/api/commerce/sku/handle-write"
 import { PRODUCTS } from "@funk/model/commerce/product/product"
-import { MarshalledSku } from "@funk/model/commerce/product/sku/sku"
-import { createFakeMarshalledSku } from "@funk/model/commerce/product/sku/stubs"
+import { MarshalledSku } from "@funk/model/commerce/sku/sku"
+import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { ChangeContext } from "@funk/plugins/persistence/change"
 import { DocumentSnapshot } from "@funk/plugins/persistence/document-snapshot"
 

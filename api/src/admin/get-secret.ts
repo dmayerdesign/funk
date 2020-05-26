@@ -1,13 +1,13 @@
 import { CLOUD_PROJECT_ID } from "@funk/config"
 import getConfigImpl from "@funk/functions/helpers/runtime/get-config"
 import { EncryptedSecret } from "@funk/model/secret/encrypted-secret"
-import { store as storeImpl } from "@funk/plugins/persistence/server-store"
 import { v1 } from "@google-cloud/kms"
 import { ClientOptions } from "google-gax"
+import getByIdImpl from "@funk/plugins/persistence/actions/get-by-id"
 
 export const construct = ({
   getConfig = getConfigImpl,
-  store = storeImpl,
+  getById = getByIdImpl,
   createKmsClient = (options?: ClientOptions) =>
     new v1.KeyManagementServiceClient(options),
 } = {}) =>
@@ -28,10 +28,7 @@ export const construct = ({
       CLOUD_PROJECT_ID,
       "master"
     )
-    const encryptedSecret = (await store()
-      .doc(`/vault/${secretKey}`)
-      .get())
-      .data() as EncryptedSecret | undefined
+    const encryptedSecret = await getById<EncryptedSecret>("vault", secretKey)
 
     if (encryptedSecret)
     {

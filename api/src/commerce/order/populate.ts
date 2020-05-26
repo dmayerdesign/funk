@@ -1,6 +1,6 @@
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
 import { MarshalledOrder, PopulatedOrder } from "@funk/model/commerce/order/order"
-import { SKUS } from "@funk/model/commerce/product/sku/sku"
+import { SKUS } from "@funk/model/commerce/sku/sku"
 import populate from "@funk/plugins/persistence/actions/populate"
 
 export default function(order: MarshalledOrder): Promise<PopulatedOrder>

@@ -1,4 +1,4 @@
-import { MarshalledSku } from "@funk/model/commerce/product/sku/sku"
+import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { WeightUnit } from "@funk/model/units/weight-unit"
 
 export const createFakeMarshalledSku = (idSuffix = "0") => ({
