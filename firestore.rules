@@ -43,7 +43,7 @@ service cloud.firestore {
     }
 
     match /commerce.orders/{document=**} {
-      allow read;
+      allow read: if isSuperOrOwnerOrAdmin();
       allow write: if isSuperOrOwnerOrAdmin();
     }
 

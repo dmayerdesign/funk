@@ -3,8 +3,8 @@
 ## Framework independence
 
 We need to treat frameworks as tools, not architectures. I want my business logic to be
-written in a language I know well—in this case TypeScript—and not in the language of this
-year's hottest tooling.
+written in a language I know well—TypeScript—and not in the language of this year's
+hottest tooling.
 
 ## Writing super-clean, test-driven code
 
@@ -12,7 +12,7 @@ year's hottest tooling.
 - Take testing seriously.
 - Take type safety and code correctness seriously.
 
-## Performance pitfalls should be avoided, but so should micro-optimization.
+## Avoiding performance pitfalls as well as micro-optimizations
 
 - **Example of avoiding pitfalls:** Anything that runs in resource-constrained
   environments should be easily tree-shakeable and only as big as it needs to be.
@@ -20,12 +20,15 @@ year's hottest tooling.
   manipulation should be avoided if possible, even if it provides a small performance
   boost, since platform-specific concerns should be delegated to the framework.
 
+# Less-important ideas that are also good
+
 ## The file system is part of the code
 
-I already named the file; if a file exports only one thing, why repeat myself? Using
-default exports makes refactoring easier, so I use them whenever it makes sense. Sure,
-IDEs are great at that kind of stuff, but I like to help them (and my source control) out
-by minimizing how many things need to change in any given commit.
+Default exports offer several advantages:
+
+- Instead of the function/class name occurring twice in my code (in the filename and in
+  the function/class definition), it only occurs once.
+- They encourage writing single-responsibility files.
 
 ## [Trying it out] Source-control the development database
 

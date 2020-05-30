@@ -34,11 +34,11 @@ Rule: A User must go through a "checkout" flow before submitting an Order.
   Background:
 
     Given a User named Chuck
-    And that Chuck's Cart contains SKUs with a total price of USD 100.00
+    And that Chuck's Cart contains in-stock SKUs
 
   Example: Chuck begins the "checkout" flow.
 
-    When Chuck begins the process of submitting an Order
+    When Chuck begins the "checkout" flow
     Then the status of Chuck's Cart changes to "Cart Checkout"
 
   Example: Chuck completes the "checkout" flow.
@@ -47,5 +47,15 @@ Rule: A User must go through a "checkout" flow before submitting an Order.
     And that Chuck has provided their shipping address and chosen a shipping rate
     When Chuck submits their Order
     Then the status of Chuck's Order changes to "Payment Pending"
-    
 
+Rule: When an Order enters "Cart Checkout" status, its SKUs are reserved with respect
+  to Inventory.
+
+  Example: Sam and Cam each put one pair of shoes in their cart, and Sam begins checkout.
+
+    Given 2 users named Sam and Cam
+    And an in-stock SKU named Cool Shoes with 1 left in inventory
+    And that Sam and Cam each put Cool Shoes into their carts
+    When Sam begins the "checkout" flow
+    Then Cam is no longer able to purchase Cool Shoes
+    And the SKU's stock quantity appears to Cam as zero
