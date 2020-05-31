@@ -9,6 +9,7 @@
       "@funk/copy/*": [ "../../copy/*" ],
       "@funk/helpers/*": [ "../../helpers/*" ],
       "@funk/model/*": [ "../../model/*" ],
+      "@funk/plugins/persistence/*": [ "../../plugins/src/persistence/web/*" ],
       "@funk/plugins/*": [ "../../plugins/src/*" ],
       "@funk/plugins-spec/*": [ "../../plugins/spec/*" ],
       "@funk/ui/web/*": [ "./src/*" ],

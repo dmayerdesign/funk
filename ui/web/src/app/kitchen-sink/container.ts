@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
-import { Component, Inject, OnInit, Renderer2 } from "@angular/core"
-import { Persistence, PERSISTENCE } from "@funk/ui/core/persistence/interface"
-import { timer, BehaviorSubject } from "rxjs"
+import { Component, OnInit, Renderer2 } from "@angular/core"
+import { BehaviorSubject, timer } from "rxjs"
 
 @Component({
   selector: "kitchen-sink",
@@ -142,8 +141,7 @@ export class KitchenSinkContainer implements OnInit
   public someDataLoading = new BehaviorSubject(true)
 
   public constructor(
-    protected _renderer: Renderer2,
-    @Inject(PERSISTENCE) private _persistenceApi: Persistence
+    protected _renderer: Renderer2
   )
   { }
 

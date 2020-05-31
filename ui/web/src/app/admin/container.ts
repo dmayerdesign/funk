@@ -1,5 +1,10 @@
-import { Component } from "@angular/core"
-import { AdminApi } from "@funk/ui/core/admin/api"
+import { Component, Inject } from "@angular/core"
+import { FormControl, FormGroup } from "@angular/forms"
+import { FunctionsClient } from "@funk/ui/helpers/functions-client"
+import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
+import setSecret from "@funk/api/admin/set-secret"
+import getSecret from "@funk/api/admin/get-secret"
+import grantSuperRoleToMe from "@funk/api/admin/grant-super-role-to-me"
 
 @Component({
   selector: "admin",
@@ -49,12 +54,45 @@ import { AdminApi } from "@funk/ui/core/admin/api"
       </div>
     </ion-content>
   `,
-  providers: [ AdminApi ],
 })
 export class AdminContainer
 {
+  public secretShowing = ""
+  public setSecretFormGroup = new FormGroup({
+    key: new FormControl(),
+    value: new FormControl(),
+  })
+  public getSecretFormGroup = new FormGroup({
+    key: new FormControl(),
+  })
+
   public constructor(
-    public adminApi: AdminApi
+    private _functionsClient: FunctionsClient,
+    @Inject(IDENTITY) private _identityApi: Identity
   )
   { }
+
+  public async setSecret(): Promise<void>
+  {
+    await this._functionsClient.rpcAuthorized<typeof setSecret>(
+      "adminSetSecret",
+      this.setSecretFormGroup.value
+    )
+  }
+
+  public async getSecret(): Promise<void>
+  {
+    this.secretShowing = await this._functionsClient.rpcAuthorized<typeof getSecret>(
+      "adminGetSecret",
+      this.getSecretFormGroup.value.key
+    ) ?? ""
+  }
+
+  public async grantSuperRole(): Promise<void>
+  {
+    await this._functionsClient.rpc<typeof grantSuperRoleToMe>(
+      "adminGrantSuperRoleToMe")
+
+    await this._identityApi.sendEmailVerification()
+  }
 }

@@ -8,13 +8,10 @@ export const construct = ({
 } = {}) =>
   async function(user: UserRecord): Promise<any>
   {
-    if (user.email)
-    {
-      const newOrder = createOrderForCustomer({
-        userId: user.uid,
-      })
-      await setById(ORDERS, newOrder.id, newOrder)
-    }
+    const newOrder = createOrderForCustomer({
+      userId: user.uid,
+    })
+    await setById(ORDERS, newOrder.id, newOrder)
   }
 
 export default construct()

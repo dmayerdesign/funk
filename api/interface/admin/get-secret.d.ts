@@ -1,10 +1,10 @@
-import getById from "@funk/plugins/persistence/actions/get-by-id"
+import { construct as constructGetById } from "@funk/plugins/persistence/actions/get-by-id"
 
 declare function getSecret(secretKey: string): Promise<string | undefined>
 
 export declare function construct(deps?: {
   getConfig: any
-  getById: typeof getById
+  getById: ReturnType<typeof constructGetById>
   createKmsClient: (options?: any) => any
 }): typeof getSecret
 

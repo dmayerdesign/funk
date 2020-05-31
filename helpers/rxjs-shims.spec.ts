@@ -1,5 +1,5 @@
 import { ignoreNullish, swallowErrorAndMapTo } from "@funk/helpers/rxjs-shims"
-import { of, BehaviorSubject, Observable } from "rxjs"
+import { BehaviorSubject, Observable, of } from "rxjs"
 import { first, shareReplay } from "rxjs/operators"
 
 describe("rxjsShims", () =>

@@ -1,13 +1,14 @@
 import { Component, HostListener, Inject, Input, OnDestroy, OnInit } from "@angular/core"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
 import { ManagedContent, ManagedContentType } from "@funk/model/managed-content/managed-content"
-import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
-import { Persistence, PERSISTENCE } from "@funk/ui/core/persistence/interface"
+import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
 import { ManagedContentEditorService } from "@funk/ui/web/app/admin/managed-content/editor/service"
 import { Platform } from "@ionic/angular"
-import { untilDestroyed, UntilDestroy } from "@ngneat/until-destroy"
-import { defer, from, Observable } from "rxjs"
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
+import { Observable, defer, from } from "rxjs"
 import { first, map, shareReplay, switchMap } from "rxjs/operators"
+import { LISTEN_BY_ID } from "@funk/ui/core/persistence/tokens"
+import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
 
 @UntilDestroy()
 @Component({
@@ -26,8 +27,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy
       switchMap((canManageContent) => canManageContent
         ? this._managedContentEditorService
           .listenForPreviewOrLiveContent(this.contentId)
-        : this._persistenceApi
-          .listenById<ManagedContent>(CONTENTS, this.contentId)
+        : this._listenById<ManagedContent>(CONTENTS, this.contentId)
       ),
       untilDestroyed(this),
       shareReplay(1)
@@ -39,7 +39,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy
   public constructor(
     private _platform: Platform,
     @Inject(IDENTITY) private _identityApi: Identity,
-    @Inject(PERSISTENCE) private _persistenceApi: Persistence,
+    @Inject(LISTEN_BY_ID) private _listenById: ReturnType<typeof constructListenById>,
     private _managedContentEditorService: ManagedContentEditorService
   ) { }
 

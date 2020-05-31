@@ -10,9 +10,9 @@ import { AdministratorGuard } from "@funk/ui/core/identity/administrator-guard"
 import { AnonymousGuard } from "@funk/ui/core/identity/anonymous-guard"
 import { IdentityApi } from "@funk/ui/core/identity/api"
 import { Identity } from "@funk/ui/core/identity/interface"
-import { PersistenceStub } from "@funk/ui/core/persistence/stubs"
-import { auth, User } from "firebase"
-import { of, BehaviorSubject } from "rxjs"
+import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
+import { User, auth } from "firebase"
+import { BehaviorSubject, of } from "rxjs"
 import { shareReplay } from "rxjs/operators"
 
 export const USER_UID_STUB = "user-1"
@@ -72,9 +72,8 @@ export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
 export const createStubbedIdentityApi = (userRole = UserRole.ANONYMOUS) =>
   new IdentityApi(
     createAuthStub(createAuthUserStub(userRole)),
-    new PersistenceStub(
-      createUserConfigStub({ email: "test@test.com" })
-    ))
+    (async () => createUserConfigStub({})) as
+      unknown as ReturnType<typeof constructListenById>)
 
 export const createRouterStub = () => (
   {

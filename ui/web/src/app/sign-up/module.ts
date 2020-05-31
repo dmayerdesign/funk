@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
 import { AppFireModule } from "@funk/ui/web/app/fire.module"
-import { SignUpComponent } from "./component"
+import { SignUpComponent } from "@funk/ui/web/app/sign-up/component"
 
 const routes: Routes = [
   {

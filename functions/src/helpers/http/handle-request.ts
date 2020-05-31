@@ -1,4 +1,4 @@
-import { NextFunction, Request as ExpressRequest, RequestHandler as ExpressRequestHandler,
+import { Request as ExpressRequest, RequestHandler as ExpressRequestHandler, NextFunction,
   Response } from "express"
 
 export interface Request<BodyType = any> extends ExpressRequest

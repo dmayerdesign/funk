@@ -43,7 +43,8 @@ describe("getSecret", () =>
   })
 })
 
-function setUp() {
+function setUp()
+{
   const getConfig = createGetConfigStub()
   const cryptoKeyPath = jasmine.createSpy()
   const decrypt = jasmine.createSpy().and.returnValue(Promise.resolve([

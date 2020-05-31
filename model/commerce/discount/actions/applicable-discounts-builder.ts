@@ -1,6 +1,7 @@
 import { SkuDiscount } from "@funk/model/commerce/discount/discount"
 
-export default class {
+export default class
+{
   protected _applicableDiscounts: SkuDiscount[] = []
 
   public constructor(

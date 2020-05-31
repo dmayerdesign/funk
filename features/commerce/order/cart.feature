@@ -12,6 +12,13 @@ Rule: A User must always have a shopping cart.
     Then the app creates an Order associated with Newt
     And the Order has a status of "Cart"
 
+  Example: When a User submits an Order, a new Cart is created for them.
+
+    Given a User named Annie
+    And that Annie has an Order ready to submit
+    When Annie successfully submits their Order
+    Then a new Cart is created for Annie
+
 Rule: A User may add in-stock products to their cart.
 
   Example: Sally adds rollerblades to their cart.

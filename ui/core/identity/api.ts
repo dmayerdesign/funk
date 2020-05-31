@@ -4,14 +4,16 @@ import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { CustomClaims } from "@funk/model/auth/custom-claims"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
-import { UserConfig, USER_CONFIGS } from "@funk/model/identity/user-config"
+import { USER_CONFIGS, UserConfig } from "@funk/model/identity/user-config"
 import { UserHydrated } from "@funk/model/identity/user-hydrated"
-import { UserState, USER_STATES } from "@funk/model/identity/user-state"
+import { USER_STATES, UserState } from "@funk/model/identity/user-state"
 import { Identity } from "@funk/ui/core/identity/interface"
-import { Persistence, PERSISTENCE } from "@funk/ui/core/persistence/interface"
-import { auth, User } from "firebase"
-import { combineLatest, of, Observable } from "rxjs"
+import { User, auth } from "firebase"
+import { Observable, combineLatest, of } from "rxjs"
 import { distinctUntilKeyChanged, first, map, shareReplay, switchMap } from "rxjs/operators"
+import { LISTEN_BY_ID } from "@funk/ui/core/persistence/tokens"
+import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
+import { asPromise } from "@funk/helpers/as-promise"
 
 @Injectable()
 export class IdentityApi implements Identity
@@ -29,7 +31,7 @@ export class IdentityApi implements Identity
         return of({ id: user.uid, displayName: "Guest", isAnonymous: true })
       }
       return combineLatest(
-        this._persistenceApi.listenById<UserConfig>(USER_CONFIGS, user.uid),
+        this._listenById<UserConfig>(USER_CONFIGS, user.uid),
         user.getIdTokenResult(true)
       )
         .pipe(
@@ -62,18 +64,20 @@ export class IdentityApi implements Identity
     switchMap<User, Observable<UserState | undefined>>((user) =>
     {
       if (user.isAnonymous) return of({ id: user.uid })
-      return this._persistenceApi.listenById<UserState>(USER_STATES, user.uid)
+      return this._listenById<UserState>(USER_STATES, user.uid)
     }),
     shareReplay(1)
   )
 
   public constructor(
     private _auth: AngularFireAuth,
-    @Inject(PERSISTENCE) private _persistenceApi: Persistence
+    @Inject(LISTEN_BY_ID) private _listenById: ReturnType<typeof constructListenById>
   )
-  { }
+  {
+    this.init()
+  }
 
-  public async init(): Promise<void>
+  public init(): void
   {
     this.user$.subscribe()
     this.userIdToken$.subscribe()
@@ -114,14 +118,12 @@ export class IdentityApi implements Identity
     }
   }
 
-  private _signInAnonymouslyIfUserIsNull(): void
+  private async _signInAnonymouslyIfUserIsNull(): Promise<void>
   {
-    this._auth.authState
-      .pipe(
-        switchMap((userOrNull) => userOrNull === null
-          ? this._auth.signInAnonymously().then(({ user }) => user)
-          : of(userOrNull))
-      )
-      .subscribe()
+    const userOrNull = asPromise(this._auth.authState)
+    if (userOrNull === null)
+    {
+      await this._auth.signInAnonymously()
+    }
   }
 }

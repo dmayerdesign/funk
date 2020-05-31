@@ -7,7 +7,7 @@ import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { Pagination, TAKE_ALL, VirtualPagination } from "@funk/plugins/persistence/pagination"
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 import { flatten } from "lodash"
-import { combineLatest, BehaviorSubject, Observable } from "rxjs"
+import { BehaviorSubject, Observable, combineLatest } from "rxjs"
 import { map, shareReplay, switchMap } from "rxjs/operators"
 
 @Component({

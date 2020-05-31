@@ -2,7 +2,7 @@ import { Component, Inject } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
-import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
+import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
 import { combineLatest } from "rxjs"
 import { map } from "rxjs/operators"
 

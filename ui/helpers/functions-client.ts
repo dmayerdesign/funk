@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http"
 import { Inject, Injectable } from "@angular/core"
 import { FUNCTIONS_BASE_URL } from "@funk/config"
-import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
+import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
 import { first, map } from "rxjs/operators"
 
 @Injectable({ providedIn: "root" })

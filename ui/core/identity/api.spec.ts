@@ -1,33 +1,54 @@
 import { IdentityApi } from "@funk/ui/core/identity/api"
 import {
+  ID_TOKEN_STUB,
   createAnonymousUserStub,
   createAuthStub,
   createAuthUserStub,
   createUserCredentialStub,
-  ID_TOKEN_STUB,
+  createUserConfigStub,
 } from "@funk/ui/core/identity/stubs"
+import { construct as constructListenById } from
+  "@funk/plugins/persistence/actions/listen-by-id"
 import { first } from "rxjs/operators"
-import { PersistenceStub } from "@funk/ui/core/persistence/stubs"
+import { UserRole } from "@funk/model/auth/user-role"
 
 describe("IdentityApi", () =>
 {
+  let listenById: ReturnType<typeof constructListenById>
+
   it("should instantiate successfully", () =>
   {
-    expect(new IdentityApi(createAuthStub(), new PersistenceStub({}))).toBeTruthy()
+    expect(new IdentityApi(createAuthStub(), listenById)).toBeTruthy()
   })
 
-  it("should initialize", async (done) =>
+  it("should initialize fpr an anonymous user", async (done) =>
   {
     const authUserStub = createAuthUserStub()
     spyOn(authUserStub, "getIdToken")
-    await new IdentityApi(createAuthStub(authUserStub), new PersistenceStub({})).init()
-    expect(authUserStub.getIdToken).toHaveBeenCalledTimes(1)
+
+    new IdentityApi(createAuthStub(authUserStub), listenById).init()
+
+    // expect(authUserStub.getIdToken).toHaveBeenCalledTimes(1)
+    expect(authUserStub.getIdToken).toHaveBeenCalled()
+    expect(listenById).not.toHaveBeenCalled()
+    done()
+  })
+
+  it("should initialize fpr a logged-in user", async (done) =>
+  {
+    const authUserStub = createAuthUserStub(UserRole.PUBLIC)
+    spyOn(authUserStub, "getIdToken")
+
+    new IdentityApi(createAuthStub(authUserStub), listenById).init()
+
+    expect(authUserStub.getIdToken).toHaveBeenCalled()
+    expect(listenById).toHaveBeenCalled()
     done()
   })
 
   it("should emit a user", async (done) =>
   {
-    const api = new IdentityApi(createAuthStub(), new PersistenceStub({}))
+    const api = new IdentityApi(createAuthStub(), listenById)
     expect(await api.user$.pipe(first()).toPromise()).toEqual(
       createAnonymousUserStub())
     done()
@@ -35,7 +56,7 @@ describe("IdentityApi", () =>
 
   it("should emit an id token", async (done) =>
   {
-    const api = new IdentityApi(createAuthStub(), new PersistenceStub({}))
+    const api = new IdentityApi(createAuthStub(), listenById)
     expect(await api.userIdToken$.pipe(first()).toPromise()).toEqual(ID_TOKEN_STUB)
     done()
   })
@@ -44,7 +65,7 @@ describe("IdentityApi", () =>
   {
     const TEST_EMAIL = "test-create-user@test.com"
     const authUserStub = createAuthUserStub()
-    const api = new IdentityApi(createAuthStub(authUserStub), new PersistenceStub({}))
+    const api = new IdentityApi(createAuthStub(authUserStub), listenById)
     const userCredentialStubSerialized = JSON.stringify(
       createUserCredentialStub(authUserStub)
     )
@@ -62,7 +83,7 @@ describe("IdentityApi", () =>
   {
     const TEST_EMAIL = "test-create-user@test.com"
     const authUserStub = createAuthUserStub()
-    const api = new IdentityApi(createAuthStub(authUserStub), new PersistenceStub({}))
+    const api = new IdentityApi(createAuthStub(authUserStub), listenById)
     const userCredentialStubSerialized = JSON.stringify(
       createUserCredentialStub(authUserStub)
     )
@@ -77,8 +98,13 @@ describe("IdentityApi", () =>
   {
     const authStub = createAuthStub()
     spyOn(authStub, "signOut")
-    await new IdentityApi(authStub, new PersistenceStub({})).signOut()
+    await new IdentityApi(authStub, listenById).signOut()
     expect(authStub.signOut).toHaveBeenCalledTimes(1)
     done()
+  })
+
+  beforeEach(() =>
+  {
+    listenById = jest.fn().mockResolvedValue(createUserConfigStub({}))
   })
 })

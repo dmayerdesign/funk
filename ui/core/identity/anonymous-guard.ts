@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@angular/core"
 import { CanActivate, Router, UrlTree } from "@angular/router"
-import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
+import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
 import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
 

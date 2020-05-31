@@ -12,6 +12,22 @@ hottest tooling.
 - Take testing seriously.
 - Take type safety and code correctness seriously.
 
+# Less-important ideas that are also good
+
+## The file system is part of the code
+
+### One file, one function
+
+- Enforces single-responsibility principle.
+- Keeps tests simple and small.
+- Surfaces architectural boundaries.
+
+### Default exports
+
+- Instead of the function/class name occurring twice in my code (in the filename and in
+  the function/class definition), it only occurs once.
+- They encourage writing single-responsibility files.
+
 ## Avoiding performance pitfalls as well as micro-optimizations
 
 - **Example of avoiding pitfalls:** Anything that runs in resource-constrained
@@ -20,17 +36,7 @@ hottest tooling.
   manipulation should be avoided if possible, even if it provides a small performance
   boost, since platform-specific concerns should be delegated to the framework.
 
-# Less-important ideas that are also good
-
-## The file system is part of the code
-
-Default exports offer several advantages:
-
-- Instead of the function/class name occurring twice in my code (in the filename and in
-  the function/class definition), it only occurs once.
-- They encourage writing single-responsibility files.
-
-## [Trying it out] Source-control the development database
+## [Trying it out] Source-control initial states of the development database
 
 Source-controlling a JSON copy of the development database reduces the need for database
 surgery and surfaces dependencies on database state.

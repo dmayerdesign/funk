@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
 import { ListFilter } from "@funk/model/commerce/product/list-filter/list-filter"
 import { Product } from "@funk/model/commerce/product/product"
-import { Pagination } from "@funk/ui/core/persistence/interface"
-import { of, ReplaySubject } from "rxjs"
+import { ReplaySubject, of } from "rxjs"
 import { catchError, map, shareReplay } from "rxjs/operators"
+import { Pagination } from "@funk/plugins/persistence/pagination"
 
 @Component({
   selector: "product-list",

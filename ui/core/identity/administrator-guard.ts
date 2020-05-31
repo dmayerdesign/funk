@@ -5,7 +5,7 @@ import getVerifiedRole from "@funk/model/auth/actions/get-verified-role"
 import { CustomClaims } from "@funk/model/auth/custom-claims"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
-import { from, of, Observable } from "rxjs"
+import { Observable, from, of } from "rxjs"
 import { map, switchMap } from "rxjs/operators"
 
 @Injectable({ providedIn: "root" })

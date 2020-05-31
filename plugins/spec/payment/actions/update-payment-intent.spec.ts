@@ -1,5 +1,5 @@
 import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
-import { construct, Options } from "@funk/plugins/payment/actions/update-payment-intent"
+import { Options, construct } from "@funk/plugins/payment/actions/update-payment-intent"
 import { constructGetPaymentProviderStub } from "../stubs"
 
 describe("updatePaymentIntent", () =>

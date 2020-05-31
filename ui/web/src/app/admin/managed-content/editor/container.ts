@@ -3,7 +3,7 @@ import {
   ManagedContentEditorService,
 } from "@funk/ui/web/app/admin/managed-content/editor/service"
 import { IonTextarea } from "@ionic/angular"
-import { merge, of, ReplaySubject } from "rxjs"
+import { ReplaySubject, merge, of } from "rxjs"
 import { delay, startWith, switchMap, tap, throttleTime } from "rxjs/operators"
 
 const ANIMATION_DURATION_MS = 500

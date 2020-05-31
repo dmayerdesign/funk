@@ -2,19 +2,22 @@ import { Inject, Injectable } from "@angular/core"
 import { FormControl } from "@angular/forms"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { swallowErrorAndMapTo } from "@funk/helpers/rxjs-shims"
-import { UserState, USER_STATES } from "@funk/model/identity/user-state"
+import { USER_STATES, UserState } from "@funk/model/identity/user-state"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
 import { ManagedContent } from "@funk/model/managed-content/managed-content"
-import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
-import { Persistence, PERSISTENCE } from "@funk/ui/core/persistence/interface"
-import { combineLatest, from, of, BehaviorSubject, Observable } from "rxjs"
+import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
+import { BehaviorSubject, Observable, combineLatest, from, of } from "rxjs"
 import { first, map, pluck, shareReplay, switchMap } from "rxjs/operators"
+import { LISTEN_BY_ID, GET_BY_ID, SET_BY_ID, UPDATE_BY_ID } from "@funk/ui/core/persistence/tokens"
+import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
+import { construct as constructGetById } from "@funk/plugins/persistence/actions/get-by-id"
+import { construct as constructSetById } from "@funk/plugins/persistence/actions/set-by-id"
+import { construct as constructUpdateById } from "@funk/plugins/persistence/actions/update-by-id"
 
 @Injectable()
 export class ManagedContentEditorService
 {
-  private _maybeActiveContentId =
-  new BehaviorSubject<string | undefined>(undefined)
+  private _maybeActiveContentId = new BehaviorSubject<string | undefined>(undefined)
   public saving = new BehaviorSubject<boolean>(false)
   public activeContentValueControl = this._maybeActiveContentId
     .pipe(
@@ -33,7 +36,7 @@ export class ManagedContentEditorService
   public hasPreview = this._identityApi.userId$.pipe(
     ignoreNullish(),
     switchMap((userId) =>
-      from(this._persistenceApi.listenById<UserState>(
+      from(this._listenById<UserState>(
         USER_STATES,
         userId
       ))
@@ -48,8 +51,11 @@ export class ManagedContentEditorService
   )
 
   public constructor(
-    @Inject(PERSISTENCE) private _persistenceApi: Persistence,
-    @Inject(IDENTITY) private _identityApi: Identity
+    @Inject(IDENTITY) private _identityApi: Identity,
+    @Inject(LISTEN_BY_ID) private _listenById: ReturnType<typeof constructListenById>,
+    @Inject(GET_BY_ID) private _getById: ReturnType<typeof constructGetById>,
+    @Inject(SET_BY_ID) private _setById: ReturnType<typeof constructSetById>,
+    @Inject(UPDATE_BY_ID) private _updateById: ReturnType<typeof constructUpdateById>
   )
   { }
 
@@ -67,7 +73,7 @@ export class ManagedContentEditorService
       const userId = await this._identityApi.userId$.pipe(first()).toPromise()
       const contentId = await this._maybeActiveContentId
         .pipe(first()).toPromise() as string
-      await this._persistenceApi.setById<UserState>(
+      await this._setById<UserState>(
         USER_STATES,
         userId,
         {
@@ -84,7 +90,7 @@ export class ManagedContentEditorService
   public async maybePublish(): Promise<void>
   {
     const userId = await this._identityApi.userId$.pipe(first()).toPromise()
-    const userState = await this._persistenceApi.getById<UserState>(
+    const userState = await this._getById<UserState>(
       USER_STATES,
       userId
     )
@@ -94,7 +100,7 @@ export class ManagedContentEditorService
       {
         try
         {
-          await this._persistenceApi.setById(
+          await this._setById(
             CONTENTS,
             contentId,
             userState.contentPreviews[contentId]
@@ -107,7 +113,7 @@ export class ManagedContentEditorService
         }
         const newContentPreviews = { ...userState.contentPreviews }
         delete newContentPreviews[contentId]
-        await this._persistenceApi.updateById<UserState>(
+        await this._updateById<UserState>(
           USER_STATES,
           userId,
           {
@@ -135,7 +141,7 @@ export class ManagedContentEditorService
         ignoreNullish(),
         switchMap((userId) =>
           combineLatest(
-            from(this._persistenceApi.listenById<UserState>(
+            from(this._listenById<UserState>(
               USER_STATES,
               userId
             ))
@@ -143,7 +149,7 @@ export class ManagedContentEditorService
                 map((user) => user?.contentPreviews?.[contentId]),
                 swallowErrorAndMapTo(undefined)
               ),
-            from(this._persistenceApi.listenById<ManagedContent>(
+            from(this._listenById<ManagedContent>(
               CONTENTS,
               contentId
             ))

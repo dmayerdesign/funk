@@ -6,15 +6,18 @@ export const constructGetShipmentProviderStub = () =>
 
   class ShipmentProviderStub
   {
-    public Address = class Address {
+    public Address = class Address
+    {
       public constructor(_input: any) { }
       public save = saveAddress
     }
-    public Parcel = class Parcel {
+    public Parcel = class Parcel
+    {
       public constructor(_input: any) { }
       public save = saveParcel
     }
-    public Shipment = class Shipment {
+    public Shipment = class Shipment
+    {
       public constructor(_input: any) { }
       public save = saveShipment
     }

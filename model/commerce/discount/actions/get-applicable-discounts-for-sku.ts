@@ -24,7 +24,8 @@ export default function(
     .build()
 }
 
-class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder {
+class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder
+{
 
   public constructor(
     private _sku: MarshalledSku,

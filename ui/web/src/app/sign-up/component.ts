@@ -1,6 +1,6 @@
 import { Component, Inject } from "@angular/core"
 import { FormControl, FormGroup } from "@angular/forms"
-import { Identity, IDENTITY } from "@funk/ui/core/identity/interface"
+import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
 
 @Component({
   selector: "sign-up",

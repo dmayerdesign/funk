@@ -1,18 +1,22 @@
 declare module "@easypost/api" {
-  class Address {
+  class Address
+  {
     public constructor(input: any)
     public save(): Promise<any>
   }
-  class Parcel {
+  class Parcel
+  {
     public constructor(input: any)
     public save(): Promise<any>
   }
-  class Shipment {
+  class Shipment
+  {
     public constructor(input: any)
     public save(): Promise<any>
   }
 
-  export default class Easypost {
+  export default class Easypost
+  {
     public Address: typeof Address
     public Parcel: typeof Parcel
     public Shipment: typeof Shipment
