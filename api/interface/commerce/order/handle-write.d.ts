@@ -9,7 +9,7 @@ import { construct as constructCreatePaymentIntent } from
   "@funk/plugins/payment/actions/create-payment-intent"
 import { construct as constructUpdatePaymentIntent } from
   "@funk/plugins/payment/actions/update-payment-intent"
-import { construct as constructGetTotalBeforeTax } from
+import { construct as constructGetTotalBeforeTaxAndShipping } from
   "@funk/model/commerce/order/actions/get-total-before-tax-and-shipping"
 import { construct as constructGetTax } from
   "@funk/model/commerce/order/actions/get-tax"
@@ -17,7 +17,7 @@ import { construct as constructGetTax } from
 declare const handleWrite: ChangeHandler<MarshalledOrder>
 
 export const construct: (deps?: {
-  constructGetTotalBeforeTax: typeof constructGetTotalBeforeTax
+  constructGetTotalBeforeTaxAndShipping: typeof constructGetTotalBeforeTaxAndShipping
   constructGetTax: typeof constructGetTax
   getSecret: typeof getSecret
   populate: typeof populate

@@ -47,11 +47,11 @@ describe("orderHandleWrite", () =>
       const BEFORE = undefined
       const AFTER = {} as MarshalledOrder
       const deps = setUp(BEFORE, AFTER)
-      const getTotalBeforeTax = jasmine.createSpy().and.returnValue({
+      const getTotalBeforeTaxAndShipping = jasmine.createSpy().and.returnValue({
         amount: MIN_TRANSACTION_CENTS - 1,
         currency: CurrencyCode.USD,
       } as Price)
-      const constructGetTotalBeforeTax = () => async () => getTotalBeforeTax()
+      const constructGetTotalBeforeTaxAndShipping = () => async () => getTotalBeforeTaxAndShipping()
       const getTax = jasmine.createSpy().and.returnValue({
         amount: 0,
         currency: CurrencyCode.USD,
@@ -59,7 +59,7 @@ describe("orderHandleWrite", () =>
       const constructGetTax = () => async () => getTax()
       const handleWrite = construct({
         ...deps,
-        constructGetTotalBeforeTax,
+        constructGetTotalBeforeTaxAndShipping,
         constructGetTax,
       })
       const {
@@ -72,7 +72,7 @@ describe("orderHandleWrite", () =>
       await handleWrite(change, changeContext)
 
       expect(populate).toHaveBeenCalled()
-      expect(getTotalBeforeTax).toHaveBeenCalled()
+      expect(getTotalBeforeTaxAndShipping).toHaveBeenCalled()
       expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
       done()
     })
@@ -147,7 +147,7 @@ const setUp = (before: MarshalledOrder | undefined, after: MarshalledOrder | und
     after: { data: () => after },
   } as unknown as Change<MarshalledOrder>
   const changeContext = {} as unknown as ChangeContext
-  const constructGetTotalBeforeTax = jasmine.createSpy().and.returnValue(
+  const constructGetTotalBeforeTaxAndShipping = jasmine.createSpy().and.returnValue(
     async () => ({ amount: 1000, currency: CurrencyCode.USD }) as Price
   )
   const constructGetTax = jasmine.createSpy().and.returnValue(
@@ -170,7 +170,7 @@ const setUp = (before: MarshalledOrder | undefined, after: MarshalledOrder | und
   return {
     change,
     changeContext,
-    constructGetTotalBeforeTax,
+    constructGetTotalBeforeTaxAndShipping,
     constructGetTax,
     populate,
     getProductForSku,

@@ -32,7 +32,8 @@ export default function<DocumentType extends DatabaseDocument>(
         changes: changes.map(omitNullish),
       }
       await store()
-        .doc(`${dbPath}/${timestampId}`)
+        .collection(dbPath)
+        .doc(timestampId)
         .set(mutation)
     }
   }

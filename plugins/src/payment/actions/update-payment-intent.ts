@@ -14,13 +14,13 @@ export interface Options {
   savePaymentMethod?: boolean
 }
 
-export const construct = ({
+export function construct({
   paymentProviderSecret,
   getPaymentProvider = getPaymentProviderImpl,
 }: {
   paymentProviderSecret: string
   getPaymentProvider?: typeof getPaymentProviderImpl
-}) =>
+})
 {
   const stripe = getPaymentProvider(paymentProviderSecret)
 

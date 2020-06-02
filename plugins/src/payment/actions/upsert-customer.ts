@@ -12,10 +12,11 @@ export interface UpdateInput {
   customerData: Stripe.CustomerUpdateParams
 }
 
-export const construct = ({
+export function construct({
   getPaymentProvider = getPaymentProviderImpl,
-} = {}) =>
-  async function(input: CreateInput | UpdateInput): Promise<Stripe.Customer>
+} = {})
+{
+  return async function(input: CreateInput | UpdateInput): Promise<Stripe.Customer>
   {
     const { paymentProviderSecret, customerData } = input,
       { id } = input as UpdateInput
@@ -30,5 +31,6 @@ export const construct = ({
       return await stripe.customers.create(customerData)
     }
   }
+}
 
 export default construct()

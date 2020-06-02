@@ -2,14 +2,15 @@ import omitNullish from "@funk/helpers/omit-nullish"
 import { Address } from "@funk/model/address/address"
 import getShipmentProviderImpl from "./get-shipment-provider"
 
-export const construct = ({
+export function construct({
   getShipmentProvider = getShipmentProviderImpl,
   shipmentProviderSecret,
 }: {
   getShipmentProvider: typeof getShipmentProviderImpl
   shipmentProviderSecret: string
-}) =>
-  async function(address: Address): Promise<Address | undefined>
+})
+{
+  return async function(address: Address): Promise<Address | undefined>
   {
     const shipmentApi = getShipmentProvider(shipmentProviderSecret)
     const verifiedAddressOrError = await new shipmentApi.Address(address).save()
@@ -28,3 +29,4 @@ export const construct = ({
       country: verifiedAddressOrError.country,
     })
   }
+}

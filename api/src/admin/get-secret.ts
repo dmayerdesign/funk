@@ -5,13 +5,14 @@ import { v1 } from "@google-cloud/kms"
 import { ClientOptions } from "google-gax"
 import getByIdImpl from "@funk/plugins/persistence/actions/get-by-id"
 
-export const construct = ({
+export function construct({
   getConfig = getConfigImpl,
   getById = getByIdImpl,
   createKmsClient = (options?: ClientOptions) =>
     new v1.KeyManagementServiceClient(options),
-} = {}) =>
-  async function(secretKey: string): Promise<string | undefined>
+} = {})
+{
+  return async function(secretKey: string): Promise<string | undefined>
   {
     const { client_email, private_key } = JSON.parse(
       Buffer.from(getConfig().admin.serializedcredentials, "base64").toString("utf8")
@@ -42,5 +43,6 @@ export const construct = ({
 
     return undefined
   }
+}
 
 export default construct()

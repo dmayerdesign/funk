@@ -4,8 +4,9 @@ import { HttpsFunction } from "@funk/plugins/cloud-function/https-function"
 import { Application, Response } from "express"
 import { https } from "firebase-functions"
 
-export const construct = () =>
-  function<
+export function construct()
+{
+  return function<
     HandlerReturnType extends HandlerReturnTypes = HandlerReturnTypes,
     RequestBodyType = any>
   (app: Application): HttpsFunction<
@@ -13,5 +14,6 @@ export const construct = () =>
   {
     return https.onRequest(app)
   }
+}
 
 export default construct()

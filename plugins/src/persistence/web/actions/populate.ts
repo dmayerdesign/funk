@@ -7,8 +7,9 @@ export interface PopulateFieldOptions<DocumentType> {
   relationship?: "one-to-many" | "one-to-one"
 }
 
-export const construct = ({ store }: { store: () => AngularFirestore }) =>
-  async function<PopulatedType, MarshalledType = any>(
+export function construct({ store }: { store: () => AngularFirestore })
+{
+  return async function<PopulatedType, MarshalledType = any>(
     marshalledDoc: MarshalledType,
     options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
   ): Promise<PopulatedType>
@@ -48,3 +49,4 @@ export const construct = ({ store }: { store: () => AngularFirestore }) =>
     }
     return _populatedDoc
   }
+}

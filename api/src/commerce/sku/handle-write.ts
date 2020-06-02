@@ -8,11 +8,12 @@ import updateByIdImpl from "@funk/plugins/persistence/actions/update-by-id"
 import { TAKE_ALL } from "@funk/plugins/persistence/pagination"
 import { uniq } from "lodash"
 
-export const construct = ({
+export function construct({
   list = listImpl,
   updateById = updateByIdImpl,
-} = {}) =>
-  async function({ after }): Promise<void>
+} = {})
+{
+  return async function({ after }): Promise<void>
   {
     const sku = after.data()!
     const skus = await list<MarshalledSku>({
@@ -38,5 +39,6 @@ export const construct = ({
       ),
     } as Partial<MarshalledProduct>)
   } as ChangeHandler<MarshalledSku>
+}
 
 export default construct()

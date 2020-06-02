@@ -9,8 +9,9 @@ export interface CreateAppOptions
   corsOptions?: cors.CorsOptions
 }
 
-export const construct = (appFactory = () => express()) =>
-  function({ corsOptions }: CreateAppOptions = {}): express.Application
+export function construct(appFactory = () => express())
+{
+  return function({ corsOptions }: CreateAppOptions = {}): express.Application
   {
     return appFactory().use(
       cookieParser(),
@@ -21,5 +22,6 @@ export const construct = (appFactory = () => express()) =>
       })
     )
   }
+}
 
 export default construct()

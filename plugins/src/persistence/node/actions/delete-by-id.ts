@@ -1,7 +1,8 @@
 import { store as storeImpl } from "@funk/plugins/persistence/server-store"
 
-export const construct = (store = storeImpl) =>
-  async function(
+export function construct(store = storeImpl)
+{
+  return async function(
     collectionPath: string,
     documentPath: string
   ): Promise<void>
@@ -10,5 +11,6 @@ export const construct = (store = storeImpl) =>
       .doc(documentPath)
       .delete()
   }
+}
 
 export default construct()

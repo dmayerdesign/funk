@@ -12,14 +12,15 @@ export interface Options {
   enterprise: Enterprise
 }
 
-export const construct = ({
+export function construct({
   getShipmentProvider = getShipmentProviderImpl,
   shipmentProviderSecret,
 }: {
   getShipmentProvider: typeof getShipmentProviderImpl
   shipmentProviderSecret: string
-}) =>
-  async function({
+})
+{
+  return async function({
     order,
     enterprise,
   }: Options): Promise<SimpleRate[]>
@@ -64,3 +65,4 @@ export const construct = ({
       }))
     }
   }
+}

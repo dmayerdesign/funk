@@ -6,8 +6,9 @@ import { RequestWithBody } from "@funk/functions/model/request-response/request-
 import { HttpsFunction } from "@funk/plugins/cloud-function/https-function"
 import { Response } from "express"
 
-export const construct = () =>
-  function<
+export function construct()
+{
+  return function<
     HandlerReturnType extends HandlerReturnTypes = HandlerReturnTypes,
     RequestBodyType = any>
   (
@@ -22,5 +23,6 @@ export const construct = () =>
       handleRequest<HandlerReturnType, RequestBodyType>(handler)
     ))
   }
+}
 
 export default construct()

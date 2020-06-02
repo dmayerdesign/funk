@@ -43,7 +43,7 @@ module.exports = {
             }
         ],
         "@typescript-eslint/indent": [
-            "error",
+            "warn",
             2
         ],
         "@typescript-eslint/member-delimiter-style": [

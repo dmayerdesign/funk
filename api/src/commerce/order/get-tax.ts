@@ -8,12 +8,13 @@ import { SKUS } from "@funk/model/commerce/sku/sku"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import populateImpl from "@funk/plugins/persistence/actions/populate"
 
-export const construct = ({
+export function construct({
   getProductForSku = getProductForSkuImpl,
   populate = populateImpl,
   constructGetTax = constructGetTaxImpl,
-} = {}) =>
-  async (marshalledOrder: MarshalledOrder): Promise<Price> =>
+} = {})
+{
+  return async function (marshalledOrder: MarshalledOrder): Promise<Price>
   {
     const order = await populate<PopulatedOrder, MarshalledOrder>(marshalledOrder, [
       { key: "skus", collectionPath: SKUS },
@@ -28,5 +29,6 @@ export const construct = ({
 
     return constructGetTax({ getProductForSku })(order)
   }
+}
 
 export default construct()

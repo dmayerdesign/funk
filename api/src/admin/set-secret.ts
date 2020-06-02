@@ -11,13 +11,14 @@ export interface Options {
   value: string
 }
 
-export const construct = ({
+export function construct({
   getConfig = getConfigImpl,
   setById = setByIdImpl,
   createKmsClient = (options?: ClientOptions) =>
     new v1.KeyManagementServiceClient(options),
-} = {}) =>
-  async ({ key, value }: Options): Promise<void> =>
+} = {})
+{
+  return async ({ key, value }: Options): Promise<void> =>
   {
     const { client_email, private_key } = JSON.parse(
       Buffer.from(getConfig().admin.serializedcredentials, "base64")
@@ -45,5 +46,6 @@ export const construct = ({
     }
     await setById("vault", key, encryptedSecret)
   }
+}
 
 export default construct()

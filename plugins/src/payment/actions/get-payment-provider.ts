@@ -2,8 +2,9 @@ import Stripe from "stripe"
 
 let provider: Stripe
 
-export const construct = (paymentServiceProviderCtor = Stripe) =>
-  function(secret: string, options = {} as Stripe.StripeConfig): Stripe
+export function construct(paymentServiceProviderCtor = Stripe)
+{
+  return function(secret: string, options = {} as Stripe.StripeConfig): Stripe
   {
     return provider = provider || new paymentServiceProviderCtor(
       secret,
@@ -14,5 +15,6 @@ export const construct = (paymentServiceProviderCtor = Stripe) =>
       }
     )
   }
+}
 
 export default construct()

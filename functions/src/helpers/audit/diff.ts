@@ -1,8 +1,9 @@
 import { Diff } from "@funk/model/audit/diff"
 const { diff } = require("diff-json")
 
-export const construct = () =>
-  function<DocumentType = object>(
+export function construct()
+{
+  return function<DocumentType = object>(
     beforeData: any, afterData: any): Diff<DocumentType>[]
   {
     const changes = diff(
@@ -33,5 +34,6 @@ export const construct = () =>
 
     return changes
   }
+}
 
 export default construct()

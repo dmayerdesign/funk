@@ -19,11 +19,12 @@ export interface CrudHandlerMap
 
 export type CrudMethod = keyof CrudHandlerMap
 
-export const construct = <
+export function construct<
   LastHandlerReturnType extends HandlerReturnTypes = HandlerReturnTypes,
   RequestBodyType = any
->() =>
-  function(
+>()
+{
+  return function(
     crudHandlerMap: CrudHandlerMap
   ): HttpsFunction
   {
@@ -48,6 +49,7 @@ export const construct = <
 
     return createFunction(app)
   }
+}
 
 function getRequestMethodForCrudMethod(crudMethod: CrudMethod): RequestMethod
 {
