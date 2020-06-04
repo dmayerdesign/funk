@@ -2,8 +2,6 @@ import { HttpClientModule } from "@angular/common/http"
 import { ErrorHandler, NgModule } from "@angular/core"
 import { BrowserModule } from "@angular/platform-browser"
 import { RouterModule } from "@angular/router"
-import { IdentityApi } from "@funk/ui/core/identity/api"
-import { IDENTITY } from "@funk/ui/core/identity/interface"
 import { ManagedContentModule } from "@funk/ui/web/app/admin/managed-content/module"
 import { AppCommonModule } from "@funk/ui/web/app/common.module"
 import { AppComponent } from "@funk/ui/web/app/component"
@@ -37,10 +35,6 @@ import { PersistenceModule } from "@funk/ui/core/persistence/module"
     {
       provide: ErrorHandler,
       useClass: AppErrorHandler,
-    },
-    {
-      provide: IDENTITY,
-      useClass: IdentityApi,
     },
   ],
   bootstrap: [ AppComponent ],

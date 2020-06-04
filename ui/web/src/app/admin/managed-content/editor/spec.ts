@@ -1,28 +1,29 @@
 import { USER_STATES } from "@funk/model/identity/user-state"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
-import { IdentityStub, USER_UID_STUB } from "@funk/ui/core/identity/stubs"
+import { FAKE_USER_UID } from "@funk/ui/core/identity/stubs"
 import { ManagedContentEditorService } from "@funk/ui/web/app/admin/managed-content/editor/service"
-import { Identity } from "@funk/ui/core/identity/interface"
 import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
-import { construct as constructGetById } from "@funk/plugins/persistence/actions/get-by-id"
+import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
 import { construct as constructSetById } from "@funk/plugins/persistence/actions/set-by-id"
 import { construct as constructUpdateById } from "@funk/plugins/persistence/actions/update-by-id"
 import { when } from "jest-when"
 import { of } from "rxjs"
 import { asPromise } from "@funk/helpers/as-promise"
+import UserSession from "@funk/ui/core/identity/user-session"
+import { UserRole } from "@funk/model/auth/user-role"
 
 describe("ManagedContentEditorService", () =>
 {
-  let identity: Identity
+  let userSession: UserSession
   let listenById: ReturnType<typeof constructListenById>
-  let getById: ReturnType<typeof constructGetById>
+  let getById: GetById
   let setById: ReturnType<typeof constructSetById>
   let updateById: ReturnType<typeof constructUpdateById>
 
   it("should manage content for the first time", async (done) =>
   {
     const service = new ManagedContentEditorService(
-      identity, listenById, getById, setById, updateById
+      userSession, listenById, getById, setById, updateById
     )
     const getActiveContentValueControl = async () =>
       await asPromise(service.activeContentValueControl)
@@ -38,7 +39,7 @@ describe("ManagedContentEditorService", () =>
   it("should manage content for the second time", async (done) =>
   {
     const service = new ManagedContentEditorService(
-      identity, listenById, getById, setById, updateById
+      userSession, listenById, getById, setById, updateById
     )
     const getActiveContentValueControl = async () =>
       await asPromise(service.activeContentValueControl)
@@ -52,7 +53,7 @@ describe("ManagedContentEditorService", () =>
   it("should save managed content", async (done) =>
   {
     const service = new ManagedContentEditorService(
-      identity, listenById, getById, setById, updateById
+      userSession, listenById, getById, setById, updateById
     )
 
     service.manageContent("content-1")
@@ -67,7 +68,7 @@ describe("ManagedContentEditorService", () =>
     expect(setById).toHaveBeenCalledTimes(1)
     expect(setById).toHaveBeenCalledWith(
       USER_STATES,
-      USER_UID_STUB,
+      FAKE_USER_UID,
       { contentPreviews: { "content-1": { value: "Test 1 preview" } } }
     )
     done()
@@ -76,7 +77,7 @@ describe("ManagedContentEditorService", () =>
   it("should publish managed content", async (done) =>
   {
     const service = new ManagedContentEditorService(
-      identity, listenById, getById, setById, updateById
+      userSession, listenById, getById, setById, updateById
     )
 
     await service.maybePublish()
@@ -89,29 +90,43 @@ describe("ManagedContentEditorService", () =>
     )
     expect(updateById).toHaveBeenCalledTimes(1)
     expect(updateById).toHaveBeenCalledWith(
-      USER_STATES, USER_UID_STUB, { contentPreviews: {} }
+      USER_STATES, FAKE_USER_UID, { contentPreviews: {} }
     )
+    done()
+  })
+
+  it("should not publish content if the user is not an admin", async (done) =>
+  {
+    userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
+    const service = new ManagedContentEditorService(
+      userSession, listenById, getById, setById, updateById
+    )
+
+    await service.maybePublish()
+
+    expect(setById).not.toHaveBeenCalled()
+    expect(updateById).not.toHaveBeenCalledWith()
     done()
   })
 
   beforeEach(() =>
   {
-    identity = new IdentityStub()
+    userSession = of({
+      auth: { claims: { role: UserRole.ADMINISTRATOR } },
+      person: { id: FAKE_USER_UID },
+    }) as UserSession
+    getById = jest.fn().mockReturnValue(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
     listenById = jest.fn()
-    getById = jest.fn()
     setById = jest.fn()
     updateById = jest.fn()
 
-    when(getById as unknown as jest.SpiedFunction<typeof getById>)
-      .calledWith(USER_STATES, expect.any(String))
-      .mockReturnValue(Promise.resolve(FAKE_USER_STATES[USER_UID_STUB]))
-    when(listenById as unknown as jest.SpiedFunction<typeof listenById>)
-      .calledWith(USER_STATES, expect.any(String))
-      .mockReturnValue(of(FAKE_USER_STATES[USER_UID_STUB]))
-    when(listenById as unknown as jest.SpiedFunction<typeof listenById>)
+    when(listenById as jest.Mock)
+      .calledWith(USER_STATES)
+      .mockReturnValue(of(FAKE_USER_STATES[FAKE_USER_UID]))
+    when(listenById as jest.Mock)
       .calledWith(CONTENTS, "content-1")
       .mockReturnValue(of(FAKE_CONTENTS["content-1"]))
-    when(listenById as unknown as jest.SpiedFunction<typeof listenById>)
+    when(listenById as jest.Mock)
       .calledWith(CONTENTS, "content-2")
       .mockReturnValue(of(FAKE_CONTENTS["content-2"]))
   })
@@ -127,8 +142,8 @@ const FAKE_CONTENTS = {
 }
 
 const FAKE_USER_STATES = {
-  [USER_UID_STUB]: {
-    id: USER_UID_STUB,
+  [FAKE_USER_UID]: {
+    id: FAKE_USER_UID,
     contentPreviews: {
       "content-1": {
         value: "Test 1 preview saved",

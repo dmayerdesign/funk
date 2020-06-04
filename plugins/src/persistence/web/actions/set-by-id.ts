@@ -15,3 +15,6 @@ export function construct(store: AngularFirestore)
       .set(documentData, { merge: !options?.overwrite })
   }
 }
+
+type SetById = ReturnType<typeof construct>
+export default SetById

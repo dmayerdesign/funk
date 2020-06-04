@@ -15,5 +15,6 @@ Happy linting! 💖
     "editor.codeLens": false,
     "editor.tabSize": 2,
     "files.autoSaveDelay": 60000,
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.extensions.sortImports.omitSemicolon": true
 }

@@ -5,14 +5,18 @@ import { swallowErrorAndMapTo } from "@funk/helpers/rxjs-shims"
 import { USER_STATES, UserState } from "@funk/model/identity/user-state"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
 import { ManagedContent } from "@funk/model/managed-content/managed-content"
-import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
 import { BehaviorSubject, Observable, combineLatest, from, of } from "rxjs"
 import { first, map, pluck, shareReplay, switchMap } from "rxjs/operators"
 import { LISTEN_BY_ID, GET_BY_ID, SET_BY_ID, UPDATE_BY_ID } from "@funk/ui/core/persistence/tokens"
 import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
-import { construct as constructGetById } from "@funk/plugins/persistence/actions/get-by-id"
+import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
 import { construct as constructSetById } from "@funk/plugins/persistence/actions/set-by-id"
 import { construct as constructUpdateById } from "@funk/plugins/persistence/actions/update-by-id"
+import { USER_SESSION } from "@funk/ui/core/identity/tokens"
+import UserSession from "@funk/ui/core/identity/user-session"
+import { asPromise } from "@funk/helpers/as-promise"
+import roleHasAdminPrivilegeOrGreater from
+  "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
 
 @Injectable()
 export class ManagedContentEditorService
@@ -28,32 +32,27 @@ export class ManagedContentEditorService
             ignoreNullish(),
             first(),
             pluck("value"),
-            map((value) => new FormControl(value))
-          )
-      ),
-      shareReplay(1)
-    )
-  public hasPreview = this._identityApi.userId$.pipe(
+            map((value) => new FormControl(value)))),
+      shareReplay(1))
+  public hasPreview = this._userSession.pipe(
     ignoreNullish(),
+    pluck("person", "id"),
     switchMap((userId) =>
       from(this._listenById<UserState>(
         USER_STATES,
-        userId
-      ))
+        userId))
         .pipe(
-          pluck<UserState | undefined, UserState["contentPreviews"]>("contentPreviews"),
-          swallowErrorAndMapTo(undefined)
-        )
-    ),
+          ignoreNullish(),
+          pluck("contentPreviews"),
+          swallowErrorAndMapTo(undefined))),
     map((maybeContentPreviews) => maybeContentPreviews
       && Object.keys(maybeContentPreviews).length),
-    shareReplay(1)
-  )
+    shareReplay(1))
 
   public constructor(
-    @Inject(IDENTITY) private _identityApi: Identity,
+    @Inject(USER_SESSION) private _userSession: UserSession,
     @Inject(LISTEN_BY_ID) private _listenById: ReturnType<typeof constructListenById>,
-    @Inject(GET_BY_ID) private _getById: ReturnType<typeof constructGetById>,
+    @Inject(GET_BY_ID) private _getById: GetById,
     @Inject(SET_BY_ID) private _setById: ReturnType<typeof constructSetById>,
     @Inject(UPDATE_BY_ID) private _updateById: ReturnType<typeof constructUpdateById>
   )
@@ -66,16 +65,15 @@ export class ManagedContentEditorService
 
   public async saveAndClearIfEditing(): Promise<void>
   {
-    const control = await this.activeContentValueControl.pipe(first()).toPromise()
+    const control = await asPromise(this.activeContentValueControl)
     if (control)
     {
       this.saving.next(true)
-      const userId = await this._identityApi.userId$.pipe(first()).toPromise()
-      const contentId = await this._maybeActiveContentId
-        .pipe(first()).toPromise() as string
+      const { person } = await asPromise(this._userSession)
+      const contentId = await asPromise(this._maybeActiveContentId) as string
       await this._setById<UserState>(
         USER_STATES,
-        userId,
+        person.id,
         {
           contentPreviews: {
             [contentId]: { value: control.value } as ManagedContent,
@@ -89,10 +87,13 @@ export class ManagedContentEditorService
 
   public async maybePublish(): Promise<void>
   {
-    const userId = await this._identityApi.userId$.pipe(first()).toPromise()
+    const { person, auth } = await asPromise(this._userSession)
+
+    if (!roleHasAdminPrivilegeOrGreater(auth.claims.role)) return
+
     const userState = await this._getById<UserState>(
       USER_STATES,
-      userId
+      person.id
     )
     if (userState?.contentPreviews)
     {
@@ -111,11 +112,13 @@ export class ManagedContentEditorService
           console.error(error)
           continue
         }
+
         const newContentPreviews = { ...userState.contentPreviews }
         delete newContentPreviews[contentId]
+
         await this._updateById<UserState>(
           USER_STATES,
-          userId,
+          person.id,
           {
             contentPreviews: newContentPreviews,
           }
@@ -133,35 +136,28 @@ export class ManagedContentEditorService
     this._clear()
   }
 
-  public listenForPreviewOrLiveContent(contentId: string):
-  Observable<ManagedContent | undefined>
+  public listenForPreviewOrLiveContent(
+    contentId: string): Observable<ManagedContent | undefined>
   {
-    return this._identityApi.userId$
+    return this._userSession
       .pipe(
         ignoreNullish(),
+        pluck("person", "id"),
         switchMap((userId) =>
           combineLatest(
             from(this._listenById<UserState>(
               USER_STATES,
-              userId
-            ))
+              userId))
               .pipe(
                 map((user) => user?.contentPreviews?.[contentId]),
-                swallowErrorAndMapTo(undefined)
-              ),
+                swallowErrorAndMapTo(undefined)),
             from(this._listenById<ManagedContent>(
               CONTENTS,
-              contentId
-            ))
+              contentId))
               .pipe(
-                swallowErrorAndMapTo(undefined)
-              )
-          )
+                swallowErrorAndMapTo(undefined)))
             .pipe(
-              map(([ preview, content ]) => preview || content)
-            )
-        )
-      )
+              map(([ preview, content ]) => preview || content))))
   }
 
   private _clear(): void

@@ -16,3 +16,5 @@ export function construct(store = storeImpl)
 }
 
 export default construct()
+
+export type GetById = ReturnType<typeof construct>

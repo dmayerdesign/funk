@@ -1,6 +1,6 @@
 import { construct } from "@funk/model/commerce/sku/actions/get-price-after-discounts"
 
-xdescribe("getActualPrice", () =>
+describe.skip("getActualPrice", () =>
 {
   it("should construct", () =>
   {

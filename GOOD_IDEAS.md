@@ -1,32 +1,17 @@
 # Ideas that I think are good
 
-## Framework independence
-
-We need to treat frameworks as tools, not architectures. I want my business logic to be
-written in a language I know well—TypeScript—and not in the language of this year's
-hottest tooling.
-
-## Writing super-clean, test-driven code
-
-- Take the SOLID principles (aka object-oriented design) seriously.
-- Take testing seriously.
-- Take type safety and code correctness seriously.
-
-# Less-important ideas that are also good
-
-## The file system is part of the code
+## Single-responsibility principle
 
 ### One file, one function
 
-- Enforces single-responsibility principle.
 - Keeps tests simple and small.
 - Surfaces architectural boundaries.
 
-### Default exports
+## Framework independence
 
-- Instead of the function/class name occurring twice in my code (in the filename and in
-  the function/class definition), it only occurs once.
-- They encourage writing single-responsibility files.
+- That includes DI frameworks!
+
+## Last responsible moment
 
 ## Avoiding performance pitfalls as well as micro-optimizations
 

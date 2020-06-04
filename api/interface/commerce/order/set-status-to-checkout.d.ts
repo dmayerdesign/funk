@@ -1,8 +1,8 @@
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
-import setById from "@funk/plugins/persistence/actions/set-by-id"
+import updateById from "@funk/plugins/persistence/actions/update-by-id"
 
 export const construct: (deps?: {
-  setById: typeof setById
+  updateById: typeof updateById
 }) => typeof setStatusToCheckout
 
 export default function setStatusToCheckout(cartId: PrimaryKey): Promise<void>

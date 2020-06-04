@@ -1,10 +1,11 @@
 import { Component, Inject } from "@angular/core"
 import { FormControl, FormGroup } from "@angular/forms"
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
-import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
 import setSecret from "@funk/api/admin/set-secret"
 import getSecret from "@funk/api/admin/get-secret"
 import grantSuperRoleToMe from "@funk/api/admin/grant-super-role-to-me"
+import SendEmailVerification from "@funk/ui/core/identity/actions/send-email-verification"
+import { SEND_EMAIL_VERIFICATION } from "@funk/ui/core/identity/tokens"
 
 @Component({
   selector: "admin",
@@ -68,7 +69,7 @@ export class AdminContainer
 
   public constructor(
     private _functionsClient: FunctionsClient,
-    @Inject(IDENTITY) private _identityApi: Identity
+    @Inject(SEND_EMAIL_VERIFICATION) private _sendEmailVerification: SendEmailVerification
   )
   { }
 
@@ -93,6 +94,6 @@ export class AdminContainer
     await this._functionsClient.rpc<typeof grantSuperRoleToMe>(
       "adminGrantSuperRoleToMe")
 
-    await this._identityApi.sendEmailVerification()
+    await this._sendEmailVerification()
   }
 }

@@ -3,7 +3,7 @@ Feature: Store data in a database
 - contents
 - audit
 - identity
-  - user-configs
+  - persons
 - commerce
   - skus
   - products

@@ -16,3 +16,5 @@ export function construct(store: AngularFirestore)
       .pipe(map((snapshot) => snapshot.data() as DocumentType)))
   }
 }
+
+export type GetById = ReturnType<typeof construct>

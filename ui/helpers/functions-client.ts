@@ -1,15 +1,17 @@
 import { HttpClient } from "@angular/common/http"
 import { Inject, Injectable } from "@angular/core"
 import { FUNCTIONS_BASE_URL } from "@funk/config"
-import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
 import { first, map } from "rxjs/operators"
+import { USER_ID_TOKEN } from "@funk/ui/core/identity/tokens"
+import UserIdToken from "@funk/ui/core/identity/user-id-token"
 
 @Injectable({ providedIn: "root" })
 export class FunctionsClient
 {
   public constructor(
     private _httpClient: HttpClient,
-    @Inject(IDENTITY) private _identity: Identity)
+    @Inject(USER_ID_TOKEN) private _userIdToken: UserIdToken
+  )
   { }
 
   public rpc = this.post
@@ -28,7 +30,7 @@ export class FunctionsClient
     functionName: string,
     options?: Parameters<HttpClient["get"]>[1]): ReturnType<FnType>
   {
-    return this._identity.userIdToken$
+    return this._userIdToken
       .pipe(map((token) => `Bearer ${token}`), first())
       .toPromise()
       .then((authorization) => this.get<FnType>(functionName, {
@@ -52,7 +54,7 @@ export class FunctionsClient
     functionName: string,
     options?: Parameters<HttpClient["options"]>[1]): ReturnType<FnType>
   {
-    return this._identity.userIdToken$
+    return this._userIdToken
       .pipe(map((token) => `Bearer ${token}`), first())
       .toPromise()
       .then((authorization) => this.options<FnType>(functionName, {
@@ -78,7 +80,7 @@ export class FunctionsClient
     payload?: Parameters<FnType>[0],
     options?: Parameters<HttpClient["post"]>[2]): ReturnType<FnType>
   {
-    return this._identity.userIdToken$
+    return this._userIdToken
       .pipe(map((token) => `Bearer ${token}`), first())
       .toPromise()
       .then((authorization) => this.post<FnType>(functionName, payload, {
@@ -104,7 +106,7 @@ export class FunctionsClient
     payload?: Parameters<FnType>[0],
     options?: Parameters<HttpClient["put"]>[2]): ReturnType<FnType>
   {
-    return this._identity.userIdToken$
+    return this._userIdToken
       .pipe(map((token) => `Bearer ${token}`), first())
       .toPromise()
       .then((authorization) => this.put<FnType>(functionName, payload, {
@@ -130,7 +132,7 @@ export class FunctionsClient
     payload?: Parameters<FnType>[0],
     options?: Parameters<HttpClient["patch"]>[2]): ReturnType<FnType>
   {
-    return this._identity.userIdToken$
+    return this._userIdToken
       .pipe(map((token) => `Bearer ${token}`), first())
       .toPromise()
       .then((authorization) => this.patch<FnType>(functionName, payload, {

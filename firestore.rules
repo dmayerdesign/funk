@@ -47,7 +47,7 @@ service cloud.firestore {
       allow write: if isSuperOrOwnerOrAdmin();
     }
 
-    match /identity.user-configs/{uid}/{document=**} {
+    match /identity.persons/{uid}/{document=**} {
       function isIdAllowed(id) {
         return id == request.auth.uid
           || isSuperOrOwner()

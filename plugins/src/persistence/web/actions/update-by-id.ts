@@ -6,7 +6,7 @@ export function construct(store: AngularFirestore)
   return async function<DocumentType extends object = DatabaseDocument>(
     collectionPath: string,
     documentPath: string,
-    documentData: DocumentType
+    documentData: Partial<DocumentType>
   ): Promise<void>
   {
     await store.collection(collectionPath)

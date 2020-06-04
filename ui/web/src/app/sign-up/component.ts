@@ -1,6 +1,11 @@
 import { Component, Inject } from "@angular/core"
 import { FormControl, FormGroup } from "@angular/forms"
-import { IDENTITY, Identity } from "@funk/ui/core/identity/interface"
+import CreateUserWithEmailAndPassword from
+  "@funk/ui/core/identity/actions/create-user-with-email-and-password"
+import { SIGN_IN_WITH_EMAIL_AND_PASSWORD, CREATE_USER_WITH_EMAIL_AND_PASSWORD } from
+  "@funk/ui/core/identity/tokens"
+import SignInWithEmailAndPassword from
+  "@funk/ui/core/identity/actions/sign-in-with-email-and-password"
 
 @Component({
   selector: "sign-up",
@@ -36,13 +41,16 @@ export class SignUpComponent
   })
 
   public constructor(
-    @Inject(IDENTITY) private _identityApi: Identity
+    @Inject(CREATE_USER_WITH_EMAIL_AND_PASSWORD)
+    private _createUser: CreateUserWithEmailAndPassword,
+
+    @Inject(SIGN_IN_WITH_EMAIL_AND_PASSWORD) private _signIn: SignInWithEmailAndPassword
   )
   { }
 
   public async handleSignUpSubmit(): Promise<void>
   {
-    await this._identityApi.createUserWithEmailAndPassword(
+    await this._createUser(
       this.signUpFormGroup.get("email")!.value,
       this.signUpFormGroup.get("password")!.value
     )
@@ -50,7 +58,7 @@ export class SignUpComponent
 
   public async handleSignInSubmit(): Promise<void>
   {
-    await this._identityApi.signInWithEmailAndPassword(
+    await this._signIn(
       this.signInFormGroup.get("email")!.value,
       this.signInFormGroup.get("password")!.value
     )

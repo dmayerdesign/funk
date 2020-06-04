@@ -1,48 +1,28 @@
 import { AngularFireAuth } from "@angular/fire/auth"
 import { Router, UrlTree } from "@angular/router"
 import { CustomClaims } from "@funk/model/auth/custom-claims"
-import roleHasAdminPrivilegeOrGreater from
-  "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
 import { UserRole } from "@funk/model/auth/user-role"
-import { UserConfig } from "@funk/model/identity/user-config"
-import { UserState } from "@funk/model/identity/user-state"
+import { Person } from "@funk/model/identity/person"
 import { AdministratorGuard } from "@funk/ui/core/identity/administrator-guard"
-import { AnonymousGuard } from "@funk/ui/core/identity/anonymous-guard"
-import { IdentityApi } from "@funk/ui/core/identity/api"
-import { Identity } from "@funk/ui/core/identity/interface"
-import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
-import { User, auth } from "firebase"
+import { User } from "firebase"
 import { BehaviorSubject, of } from "rxjs"
-import { shareReplay } from "rxjs/operators"
 
-export const USER_UID_STUB = "user-1"
-export const ID_TOKEN_STUB = "test-token"
+export const FAKE_USER_UID = "user-1"
+export const FAKE_ID_TOKEN = "test-token"
 
 export const createIdTokenResultStub = (role = UserRole.ANONYMOUS) => ({
   claims: { role } as CustomClaims,
 })
 
-export const createUserConfigStub = ({
-  id = USER_UID_STUB,
+export const createFakePerson = ({
+  id = FAKE_USER_UID,
   displayName = "Test",
   email = "test@test.com",
-}) => ({ id, displayName, email }) as UserConfig
-
-export const createAnonymousUserStub = () => ({
-  ...createUserConfigStub({ displayName: "Guest" }),
-  email: undefined,
-  isAnonymous: true,
-})
-
-export const createUserStub = (role = UserRole.ANONYMOUS, email?: string) => ({
-  ...createUserConfigStub({ email }),
-  ...createIdTokenResultStub(role),
-  isAnonymous: role === UserRole.ANONYMOUS,
-})
+} = {}) => ({ id, displayName, email }) as Person
 
 export const createAuthUserStub = (role = UserRole.ANONYMOUS) => ({
-  uid: USER_UID_STUB,
-  getIdToken: async (..._args: any[]) => ID_TOKEN_STUB,
+  uid: FAKE_USER_UID,
+  getIdToken: async (..._args: any[]) => FAKE_ID_TOKEN,
   getIdTokenResult: async (..._args: any[]) => createIdTokenResultStub(role),
   sendEmailVerification: async (..._args: any[]) => { },
   emailVerified: role !== UserRole.ANONYMOUS,
@@ -66,70 +46,15 @@ export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
   signInAnonymously: () => { },
   currentUser: authUserStub,
   authState: new BehaviorSubject(authUserStub),
+  idTokenResult: of({}),
 }) as unknown as AngularFireAuth
 
-
-export const createStubbedIdentityApi = (userRole = UserRole.ANONYMOUS) =>
-  new IdentityApi(
-    createAuthStub(createAuthUserStub(userRole)),
-    (async () => createUserConfigStub({})) as
-      unknown as ReturnType<typeof constructListenById>)
-
-export const createRouterStub = () => (
-  {
-    parseUrl: (_url: string) => new UrlTree(),
-  } as Router
-)
+export const createRouterStub = () => ({
+  parseUrl: (_url: string) => new UrlTree(),
+} as Router)
 
 export const createStubbedAdministratorGuard = (userRole = UserRole.ANONYMOUS) =>
   new AdministratorGuard(
     createAuthStub(createAuthUserStub(userRole)),
     createRouterStub()
   )
-
-export const createStubbedAnonymousGuard = (userRole = UserRole.ANONYMOUS) =>
-  new AnonymousGuard(
-    createStubbedIdentityApi(userRole),
-    createRouterStub()
-  )
-
-export class IdentityStub implements Identity
-{
-  private _email: string
-  private _role: UserRole
-
-  public user$ = of(createUserStub(this._role, this._email)).pipe(shareReplay(1))
-  public userId$ = of(USER_UID_STUB).pipe(shareReplay(1))
-  public userIdToken$ = of(ID_TOKEN_STUB).pipe(shareReplay(1))
-  public userRole$ = of(this._role).pipe(shareReplay(1))
-  public hasAdminPrivilegeOrGreater$ = of(
-    roleHasAdminPrivilegeOrGreater(this._role)).pipe(shareReplay(1))
-  public userState$ = of({ id: USER_UID_STUB } as UserState).pipe(shareReplay(1))
-
-  public constructor({
-    email = "test email",
-    role = UserRole.PUBLIC,
-  } = {})
-  {
-    this._email = email
-    this._role = role
-  }
-
-  public async init(): Promise<void> { }
-  public async createUserWithEmailAndPassword(
-    _email: string,
-    _password: string
-  ): Promise<auth.UserCredential>
-  {
-    return {} as auth.UserCredential
-  }
-  public async signInWithEmailAndPassword(
-    _email: string,
-    _password: string
-  ): Promise<auth.UserCredential>
-  {
-    return {} as auth.UserCredential
-  }
-  public async signOut(): Promise<void> { }
-  public async sendEmailVerification(): Promise<void> { }
-}

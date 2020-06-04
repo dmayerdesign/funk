@@ -6,3 +6,5 @@ export default function getById<DocumentType extends object = DatabaseDocument>(
   collectionPath: string,
   documentPath: string,
 ): Promise<DocumentType | undefined>
+
+export type GetById = ReturnType<typeof construct>

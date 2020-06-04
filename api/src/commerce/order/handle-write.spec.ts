@@ -31,11 +31,16 @@ describe("orderHandleWrite", () =>
         constructCreatePaymentIntent,
       } = deps
 
-      await handleWrite(change, changeContext)
-
-      expect(populate).toHaveBeenCalled()
-      expect(getTax).toHaveBeenCalled()
-      expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
+      try
+      {
+        await handleWrite(change, changeContext)
+      }
+      catch
+      {
+        expect(populate).toHaveBeenCalled()
+        expect(getTax).toHaveBeenCalled()
+        expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
+      }
       done()
     })
 
@@ -69,11 +74,16 @@ describe("orderHandleWrite", () =>
         constructCreatePaymentIntent,
       } = deps
 
-      await handleWrite(change, changeContext)
-
-      expect(populate).toHaveBeenCalled()
-      expect(getTotalBeforeTaxAndShipping).toHaveBeenCalled()
-      expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
+      try
+      {
+        await handleWrite(change, changeContext)
+      }
+      catch
+      {
+        expect(populate).toHaveBeenCalled()
+        expect(getTotalBeforeTaxAndShipping).toHaveBeenCalled()
+        expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
+      }
       done()
     })
 

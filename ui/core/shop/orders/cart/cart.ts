@@ -1,4 +1,3 @@
-import { Identity } from "@funk/ui/core/identity/interface"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { switchMap, map, shareReplay } from "rxjs/operators"
 import { from } from "rxjs"
@@ -14,19 +13,20 @@ import { construct as constructListenById } from
   "@funk/plugins/persistence/actions/listen-by-id"
 import { construct as constructPopulate } from
   "@funk/plugins/persistence/actions/populate"
+import UserSession from "@funk/ui/core/identity/user-session"
 
 export function construct(
-  identity: Identity,
+  userSession: UserSession,
   queryCollectionForMetadata: ReturnType<typeof constructQueryCollectionForMeta>,
   listenById: ReturnType<typeof constructListenById>,
   populate: ReturnType<typeof constructPopulate>
 )
 {
-  const cart$ = identity.user$.pipe(
+  const cart$ = userSession.pipe(
     ignoreNullish(),
-    switchMap((user) =>
+    switchMap(({ person }) =>
       from(queryCollectionForMetadata(ORDERS, (collectionRef) => collectionRef
-        .where(createDocPath<Cart, Customer>("customer", "userId"), "==", user.id)
+        .where(createDocPath<Cart, Customer>("customer", "userId"), "==", person.id)
         .where(createDocPath<Cart>("status"), "in", [ Status.CART, Status.CART_CHECKOUT ])
         .limit(1)))
         .pipe(
