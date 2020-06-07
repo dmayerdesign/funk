@@ -8,9 +8,9 @@ export interface Options {
   enterprise: Enterprise
 }
 
-export declare const construct: (deps: {
-  shipmentProviderSecret: string
+export declare const construct: (
+  shipmentProviderSecret: string,
   getShipmentProvider: GetShipmentProvider
-}) => (options: Options) => Promise<SimpleRate[]>
+) => (options: Options) => Promise<SimpleRate[]>
 
 export type GetShippingRate = ReturnType<typeof construct>

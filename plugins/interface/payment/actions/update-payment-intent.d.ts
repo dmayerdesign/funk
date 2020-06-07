@@ -10,10 +10,10 @@ export interface Options {
   customerEmail?: string
 }
 
-export declare const construct: (deps: {
-  paymentProviderSecret: string
+export declare const construct: (
+  paymentProviderSecret: string,
   getPaymentProvider?: GetPaymentProvider
-}) =>
+) =>
 (id: string, input: Options) => Promise<PaymentIntent>
 
 export type UpdatePaymentIntent = ReturnType<typeof construct>

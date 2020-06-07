@@ -11,9 +11,9 @@ export interface UpdateInput {
   customerData: any
 }
 
-export function construct(deps: {
+export function construct(
   getPaymentProvider: GetPaymentProvider
-}): (input: CreateInput | UpdateInput) => Promise<any>
+): (input: CreateInput | UpdateInput) => Promise<any>
 
 export default function upsertCustomer(input: CreateInput | UpdateInput): Promise<any>
 

@@ -1,7 +1,7 @@
 import { UserRecord } from "@funk/plugins/auth/user-record"
-import setById from "@funk/plugins/persistence/actions/set-by-id"
+import { SetById } from "@funk/plugins/persistence/actions/set-by-id"
 
-export const construct: (deps?: { setById: typeof setById }) => typeof handleCreate
+export const construct: (setById: SetById) => typeof handleCreate
 
 export default function handleCreate(user: UserRecord): Promise<any>
 

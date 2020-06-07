@@ -112,10 +112,10 @@ const setUp = (shippingCostStrategy: ShippingCostStrategy) =>
     saveShipment,
     sspInstance,
   } = constructGetShipmentProviderStub()
-  const getShippingRates = construct({
+  const getShippingRates = construct(
     shipmentProviderSecret,
-    getShipmentProvider,
-  })
+    getShipmentProvider
+  )
   saveShipment.and.callFake(async () => ({
     rates: [
       {

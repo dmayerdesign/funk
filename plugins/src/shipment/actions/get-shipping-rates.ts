@@ -12,13 +12,10 @@ export interface Options {
   enterprise: Enterprise
 }
 
-export function construct({
-  getShipmentProvider = getShipmentProviderImpl,
-  shipmentProviderSecret,
-}: {
-  getShipmentProvider: typeof getShipmentProviderImpl
-  shipmentProviderSecret: string
-})
+export function construct(
+  shipmentProviderSecret: string,
+  getShipmentProvider = getShipmentProviderImpl
+)
 {
   return async function({
     order,

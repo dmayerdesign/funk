@@ -11,12 +11,12 @@ export interface Options {
   value: string
 }
 
-export function construct({
+export function construct(
   getConfig = getConfigImpl,
   setById = setByIdImpl,
   createKmsClient = (options?: ClientOptions) =>
-    new v1.KeyManagementServiceClient(options),
-} = {})
+    new v1.KeyManagementServiceClient(options)
+)
 {
   return async ({ key, value }: Options): Promise<void> =>
   {

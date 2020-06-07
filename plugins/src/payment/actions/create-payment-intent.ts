@@ -14,13 +14,10 @@ export interface Options {
   customerEmail?: string
 }
 
-export function construct({
-  paymentProviderSecret,
-  getPaymentProvider = getPaymentProviderImpl,
-}: {
-  paymentProviderSecret: string
-  getPaymentProvider?: typeof getPaymentProviderImpl
-})
+export function construct(
+  paymentProviderSecret: string,
+  getPaymentProvider = getPaymentProviderImpl
+)
 {
   const stripe = getPaymentProvider(paymentProviderSecret)
 

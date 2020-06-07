@@ -8,11 +8,11 @@ import { SKUS } from "@funk/model/commerce/sku/sku"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import populateImpl from "@funk/plugins/persistence/actions/populate"
 
-export function construct({
+export function construct(
   getProductForSku = getProductForSkuImpl,
   populate = populateImpl,
-  constructGetTax = constructGetTaxImpl,
-} = {})
+  constructGetTax = constructGetTaxImpl
+)
 {
   return async function (marshalledOrder: MarshalledOrder): Promise<Price>
   {
@@ -27,7 +27,7 @@ export function construct({
       throw new InvalidInputError(ORDER_GET_TAX_MISSING_POSTAL_CODE)
     }
 
-    return constructGetTax({ getProductForSku })(order)
+    return constructGetTax(getProductForSku)(order)
   }
 }
 

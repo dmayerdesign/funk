@@ -4,6 +4,6 @@ describe.skip("getActualPrice", () =>
 {
   it("should construct", () =>
   {
-    expect(construct({})).toBeTruthy()
+    expect(construct()).toBeTruthy()
   })
 })

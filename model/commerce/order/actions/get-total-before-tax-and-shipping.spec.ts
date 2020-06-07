@@ -34,7 +34,7 @@ describe("getTotalBeforeTaxAndShipping", () =>
     }
 
     const getTotalBeforeTaxAndShipping =
-      constructGetTotalBeforeTaxAndShipping({ getProductForSku })
+      constructGetTotalBeforeTaxAndShipping(getProductForSku)
     const totalBeforeTax = await getTotalBeforeTaxAndShipping(ORDER)
 
     expect(totalBeforeTax).toEqual({ amount: 1500, currency: CurrencyCode.USD })

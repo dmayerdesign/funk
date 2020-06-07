@@ -14,9 +14,9 @@ import { MarshalledSku } from "@funk/model/commerce/sku/sku"
  * than, today's date, or any subset thereof. That filtering must be done before invoking
  * this function; it will not check `startAt` and `endAt` values.
  */
-export function construct({
-  getApplicableDiscountsForSku = getApplicableDiscountsForSkuImpl,
-} = {})
+export function construct(
+  getApplicableDiscountsForSku = getApplicableDiscountsForSkuImpl
+)
 {
   return function(options: {
     sku: MarshalledSku

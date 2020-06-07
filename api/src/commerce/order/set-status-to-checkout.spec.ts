@@ -6,7 +6,7 @@ describe("setStatusToCheckout", () =>
   it("should set the order status to `Cart Checkout`", async (done) =>
   {
     const updateById = jasmine.createSpy()
-    const setStatusToCheckout = construct({ updateById })
+    const setStatusToCheckout = construct(updateById)
     const ORDER_ID = "order id"
 
     await setStatusToCheckout(ORDER_ID)

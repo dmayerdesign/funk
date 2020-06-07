@@ -8,7 +8,7 @@ describe("customerHandleCreate", () =>
   {
     const USER = { uid: "user uid" } as UserRecord
     const setById = jasmine.createSpy()
-    const handleCreate = construct({ setById })
+    const handleCreate = construct(setById)
 
     await handleCreate(USER)
 

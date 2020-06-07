@@ -3,9 +3,9 @@ import { ORDERS } from "@funk/model/commerce/order/order"
 import { UserRecord } from "@funk/plugins/auth/user-record"
 import setByIdImpl from "@funk/plugins/persistence/actions/set-by-id"
 
-export function construct({
-  setById = setByIdImpl,
-} = {})
+export function construct(
+  setById = setByIdImpl
+)
 {
   return async function(user: UserRecord): Promise<any>
   {

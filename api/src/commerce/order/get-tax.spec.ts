@@ -20,13 +20,13 @@ describe("orderGetTax", () =>
       populatedOrder,
       getTax,
     } = setUp(ORDER)
-    const getTaxUnderTest = construct({ populate, getProductForSku, constructGetTax })
+    const getTaxUnderTest = construct(getProductForSku, populate, constructGetTax)
 
     const getTaxResult = await getTaxUnderTest(ORDER)
 
     expect(getTaxResult).toEqual("getTax return value")
     expect(populate).toHaveBeenCalledWith(ORDER, expect.anything())
-    expect(constructGetTax).toHaveBeenCalledWith({ getProductForSku })
+    expect(constructGetTax).toHaveBeenCalledWith(getProductForSku)
     expect(getTax).toHaveBeenCalledWith(populatedOrder)
     done()
   })
@@ -41,7 +41,7 @@ describe("orderGetTax", () =>
       getProductForSku,
       constructGetTax,
     } = setUp(ORDER)
-    const getTaxUnderTest = construct({ populate, getProductForSku, constructGetTax })
+    const getTaxUnderTest = construct(getProductForSku, populate, constructGetTax)
 
     try
     {
@@ -50,6 +50,7 @@ describe("orderGetTax", () =>
     catch(_error)
     {
       error = _error
+      console.log(error)
     }
 
     expect(error?.constructor).toBe(InvalidInputError)

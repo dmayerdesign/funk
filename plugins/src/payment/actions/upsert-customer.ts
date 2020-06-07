@@ -12,9 +12,7 @@ export interface UpdateInput {
   customerData: Stripe.CustomerUpdateParams
 }
 
-export function construct({
-  getPaymentProvider = getPaymentProviderImpl,
-} = {})
+export function construct(getPaymentProvider = getPaymentProviderImpl)
 {
   return async function(input: CreateInput | UpdateInput): Promise<Stripe.Customer>
   {

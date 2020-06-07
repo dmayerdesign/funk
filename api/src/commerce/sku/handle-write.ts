@@ -8,10 +8,10 @@ import updateByIdImpl from "@funk/plugins/persistence/actions/update-by-id"
 import { TAKE_ALL } from "@funk/plugins/persistence/pagination"
 import { uniq } from "lodash"
 
-export function construct({
+export function construct(
   list = listImpl,
-  updateById = updateByIdImpl,
-} = {})
+  updateById = updateByIdImpl
+)
 {
   return async function({ after }): Promise<void>
   {

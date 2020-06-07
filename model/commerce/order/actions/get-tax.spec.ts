@@ -28,10 +28,10 @@ describe("getTax", () =>
     const getTaxRateForPostalCode = jasmine.createSpy(
       "getTaxRateForPostalCode", createGetTaxRateForPostalCodeStub()).and.callThrough()
     const getProductForSku = createGetProductForSku()
-    const getTax = constructGetTax({
-      getTaxRateForPostalCode,
+    const getTax = constructGetTax(
       getProductForSku,
-    })
+      getTaxRateForPostalCode
+    )
 
     const response = await getTax(ORDER)
 

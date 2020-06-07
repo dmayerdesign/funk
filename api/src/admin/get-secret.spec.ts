@@ -1,16 +1,24 @@
-import { createGetConfigStub } from "@funk/functions/helpers/runtime/get-config"
+import getConfigImpl, { createGetConfigStub } from "@funk/functions/helpers/runtime/get-config"
 import { construct } from "@funk/api/admin/get-secret"
 import { EncryptedSecret } from "@funk/model/secret/encrypted-secret"
 
 describe("getSecret", () =>
 {
+  let getConfig: typeof getConfigImpl
+  let cryptoKeyPath: any
+  let decrypt: any
+  let createKmsClient: (options?: any) => any
+
   it("should get a secret", async (done) =>
   {
-    const { getConfig, createKmsClient, cryptoKeyPath, decrypt } = setUp()
     const getById = jasmine.createSpy().and.callFake(async () => ({
       value: Buffer.from("encrypted secret").toString("base64"),
     }) as EncryptedSecret)
-    const getSecret = construct({ getConfig, createKmsClient, getById })
+    const getSecret = construct(
+      getConfig,
+      getById,
+      createKmsClient
+    )
     const SECRET_KEY = "secret key"
 
     const secret = await getSecret(SECRET_KEY)
@@ -29,9 +37,8 @@ describe("getSecret", () =>
 
   it("should get an undefined secret", async (done) =>
   {
-    const { getConfig, createKmsClient, decrypt } = setUp()
     const getById = jasmine.createSpy().and.callFake(async () => undefined)
-    const getSecret = construct({ getConfig, createKmsClient, getById })
+    const getSecret = construct(getConfig, getById, createKmsClient)
     const SECRET_KEY = "secret key"
 
     const secret = await getSecret(SECRET_KEY)
@@ -41,18 +48,20 @@ describe("getSecret", () =>
 
     done()
   })
-})
 
-function setUp()
-{
-  const getConfig = createGetConfigStub()
-  const cryptoKeyPath = jasmine.createSpy()
-  const decrypt = jasmine.createSpy().and.returnValue(Promise.resolve([
-    { plaintext: "decrypted secret" },
-  ]))
-  const createKmsClient = jasmine.createSpy().and.returnValue({
-    cryptoKeyPath,
-    decrypt,
+
+  beforeEach(() =>
+  {
+    getConfig = createGetConfigStub()
+    cryptoKeyPath = jasmine.createSpy()
+    decrypt = jasmine.createSpy().and.returnValue(Promise.resolve([
+      { plaintext: "decrypted secret" },
+    ]))
+    createKmsClient = jasmine.createSpy().and.returnValue({
+      cryptoKeyPath,
+      decrypt,
+    })
+    return { getConfig, cryptoKeyPath, decrypt, createKmsClient }
   })
-  return { getConfig, cryptoKeyPath, decrypt, createKmsClient }
-}
+
+})

@@ -7,10 +7,10 @@ describe("updatePaymentIntent", () =>
   it("should update a payment intent", async (done) =>
   {
     const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
-    const updatePaymentIntent = construct({
-      getPaymentProvider,
+    const updatePaymentIntent = construct(
       paymentProviderSecret,
-    })
+      getPaymentProvider
+    )
     const PSP_UPDATE_RESULT = "FAKE_RESULT"
     const expectedUpdateParams = {
       amount: 1500,
@@ -40,9 +40,9 @@ describe("updatePaymentIntent", () =>
     {
       let didThrow = false
       const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
-      const updatePaymentIntent = construct({
-        getPaymentProvider, paymentProviderSecret,
-      })
+      const updatePaymentIntent = construct(
+        paymentProviderSecret,
+        getPaymentProvider)
 
       spyOn(pspInstance.paymentIntents, "update")
 

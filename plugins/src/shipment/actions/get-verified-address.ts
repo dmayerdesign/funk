@@ -2,13 +2,10 @@ import omitNullish from "@funk/helpers/omit-nullish"
 import { Address } from "@funk/model/address/address"
 import getShipmentProviderImpl from "./get-shipment-provider"
 
-export function construct({
-  getShipmentProvider = getShipmentProviderImpl,
-  shipmentProviderSecret,
-}: {
-  getShipmentProvider: typeof getShipmentProviderImpl
-  shipmentProviderSecret: string
-})
+export function construct(
+  shipmentProviderSecret: string,
+  getShipmentProvider = getShipmentProviderImpl
+)
 {
   return async function(address: Address): Promise<Address | undefined>
   {

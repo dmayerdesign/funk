@@ -36,7 +36,7 @@ describe("skuHandleWrite", () =>
       Promise.resolve(ALL_SKUS)
     )
     const updateById = jasmine.createSpy()
-    const handleWrite = construct({ list, updateById })
+    const handleWrite = construct(list, updateById)
 
     await handleWrite(
       {

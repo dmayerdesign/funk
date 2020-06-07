@@ -71,10 +71,10 @@ const setUp = (isDeliverable: boolean) =>
     saveAddress,
     sspInstance,
   } = constructGetShipmentProviderStub()
-  const getVerifiedAddress = construct({
+  const getVerifiedAddress = construct(
     shipmentProviderSecret,
-    getShipmentProvider,
-  })
+    getShipmentProvider
+  )
 
   if (isDeliverable)
   {

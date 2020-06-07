@@ -1,10 +1,10 @@
 import { HttpClient } from "@funk/functions/helpers/http/client"
-import getSecret from "@funk/api/admin/get-secret"
+import { GetSecret } from "@funk/api/admin/get-secret"
 
-export function construct(deps: {
-  getSecret: typeof getSecret
+export function construct(
+  getSecret: GetSecret,
   httpClient: HttpClient
-}): typeof getTaxRateForPostalCode
+): typeof getTaxRateForPostalCode
 
 export default function getTaxRateForPostalCode(postalCode: string): Promise<number>
 

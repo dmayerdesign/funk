@@ -1,5 +1,5 @@
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
-import getShippingPostalCodeImpl from
+import getShippingPostalCode from
   "@funk/model/commerce/order/actions/get-shipping-postal-code"
 import { construct as createGetTotalBeforeTaxAndShipping } from
   "@funk/model/commerce/order/actions/get-total-before-tax-and-shipping"
@@ -11,17 +11,12 @@ import { Sku } from "@funk/model/commerce/sku/sku"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
 import getTaxRateForPostalCodeImpl from "@funk/plugins/tax/actions/get-tax-rate-for-postal-code"
 
-export function construct({
-  getTaxRateForPostalCode = getTaxRateForPostalCodeImpl,
-  getShippingPostalCode = getShippingPostalCodeImpl,
-  getProductForSku,
-}: {
-  getTaxRateForPostalCode?: typeof getTaxRateForPostalCodeImpl
-  getShippingPostalCode?: typeof getShippingPostalCodeImpl
-  getProductForSku: (sku: Sku) => Promise<MarshalledProduct | undefined>
-})
+export function construct(
+  getProductForSku: (sku: Sku) => Promise<MarshalledProduct | undefined>,
+  getTaxRateForPostalCode = getTaxRateForPostalCodeImpl
+)
 {
-  const getTotalBeforeTaxAndShipping = createGetTotalBeforeTaxAndShipping({ getProductForSku })
+  const getTotalBeforeTaxAndShipping = createGetTotalBeforeTaxAndShipping(getProductForSku)
   return async function(
     order: DbDocumentInput<PopulatedOrder>): Promise<Price>
   {

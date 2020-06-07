@@ -37,10 +37,10 @@ describe("getTaxRateForPostalCode", () =>
     })
     spyOn(httpClientStub, "get").and.callThrough()
 
-    const getTaxRateForPostalCode = construct({
-      getSecret: getSecretSpy,
-      httpClient: httpClientStub,
-    })
+    const getTaxRateForPostalCode = construct(
+      getSecretSpy,
+      httpClientStub
+    )
     const returnValue = await getTaxRateForPostalCode(POSTAL_CODE)
 
     expect(getSecretSpy).toHaveBeenCalledTimes(1)

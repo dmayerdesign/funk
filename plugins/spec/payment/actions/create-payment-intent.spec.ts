@@ -22,9 +22,7 @@ describe("createPaymentIntent", () =>
   it("should create a payment intent", async (done) =>
   {
     const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
-    const createPaymentIntent = construct({
-      getPaymentProvider, paymentProviderSecret,
-    })
+    const createPaymentIntent = construct(paymentProviderSecret, getPaymentProvider)
     const PSP_CREATE_RESULT = "FAKE_RESULT"
     const expectedCreateParams = {
       amount: 1000,
@@ -57,9 +55,10 @@ describe("createPaymentIntent", () =>
     {
       let didThrow = false
       const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
-      const createPaymentIntent = construct({
-        getPaymentProvider, paymentProviderSecret,
-      })
+      const createPaymentIntent = construct(
+        paymentProviderSecret,
+        getPaymentProvider
+      )
 
       spyOn(pspInstance.paymentIntents, "create")
 

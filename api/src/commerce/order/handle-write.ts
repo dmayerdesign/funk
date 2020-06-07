@@ -24,25 +24,25 @@ import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 export function construct({
   constructGetTotalBeforeTaxAndShipping = constructGetTotalBeforeTaxAndShippingImpl,
   constructGetTax = constructGetTaxImpl,
+  constructCreatePaymentIntent = constructCreatePaymentIntentImpl,
+  constructUpdatePaymentIntent = constructUpdatePaymentIntentImpl,
   getSecret = getSecretImpl,
   populate = populateImpl,
   getProductForSku = getProductForSkuImpl,
   ignoringKeys = ignoringKeysImpl,
-  constructCreatePaymentIntent = constructCreatePaymentIntentImpl,
-  constructUpdatePaymentIntent = constructUpdatePaymentIntentImpl,
   updateById = updateByIdImpl,
 } = {})
 {
-  const _getTotalBeforeTaxAndShipping = constructGetTotalBeforeTaxAndShipping({ getProductForSku })
-  const _getTax = constructGetTax({ getProductForSku })
+  const _getTotalBeforeTaxAndShipping = constructGetTotalBeforeTaxAndShipping(getProductForSku)
+  const _getTax = constructGetTax((() => {}) as any, getProductForSku)
   const _constructCreatePaymentIntent = async () =>
-    constructCreatePaymentIntent({
-      paymentProviderSecret: (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!,
-    })
+    constructCreatePaymentIntent(
+      (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!
+    )
   const _constructUpdatePaymentIntent = async () =>
-    constructUpdatePaymentIntent({
-      paymentProviderSecret: (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!,
-    })
+    constructUpdatePaymentIntent(
+      (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!
+    )
 
   return ignoringKeys<Order>([ "paymentIntentId" ], async ({ after }) =>
   {

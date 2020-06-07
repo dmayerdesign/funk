@@ -14,11 +14,9 @@ import { DbDocumentInput } from "@funk/model/data-access/database-document"
 import { of, zip, OperatorFunction } from "rxjs"
 import { first, map, switchMap } from "rxjs/operators"
 
-export function construct({
-  getProductForSku,
-}: {
+export function construct(
   getProductForSku: (sku: MarshalledSku) => Promise<MarshalledProduct | undefined>
-})
+)
 {
   return async function(order: DbDocumentInput<PopulatedOrder>): Promise<Price>
   {
