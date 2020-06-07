@@ -4,12 +4,12 @@ import { CollectionReference, Query } from "@angular/fire/firestore"
 
 export function construct(store: AngularFirestore)
 {
-  return function queryCollectionForMetadata(
+  return async function(
     collectionPath: string,
     selector: (collectionReference: CollectionReference) => Query
   ): Promise<DbDocumentMetadata[]>
   {
-    return selector(
+    return await selector(
       store.collection(collectionPath).ref)
       .get()
       .then((snapshot) => snapshot.docs.map((doc) =>
@@ -23,3 +23,5 @@ export function construct(store: AngularFirestore)
       }))
   }
 }
+
+export type QueryCollectionForMetadata = ReturnType<typeof construct>

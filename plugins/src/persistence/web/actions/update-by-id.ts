@@ -14,3 +14,5 @@ export function construct(store: AngularFirestore)
       .update(documentData)
   }
 }
+
+export type UpdateById = ReturnType<typeof construct>

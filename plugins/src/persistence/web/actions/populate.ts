@@ -50,3 +50,5 @@ export function construct({ store }: { store: () => AngularFirestore })
     return _populatedDoc
   }
 }
+
+export type Populate = ReturnType<typeof construct>

@@ -4,7 +4,7 @@ import { Pagination, VirtualPagination } from "@funk/plugins/persistence/paginat
 import { store } from "@funk/plugins/persistence/server-store"
 import { AbstractWhere } from "@funk/plugins/persistence/where"
 
-export default function<DocumentType extends DatabaseDocument>(options: {
+export default function list<DocumentType extends DatabaseDocument>(options: {
   collection: string
   pagination: Pagination<DocumentType> | VirtualPagination
   conditions: Condition<DocumentType>[]
@@ -27,3 +27,5 @@ export default function<DocumentType extends DatabaseDocument>(options: {
     .then((snapshot) => snapshot.docs
       .map((doc) => doc.data())) as Promise<DocumentType[]>
 }
+
+export type List = typeof list

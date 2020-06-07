@@ -4,7 +4,7 @@
   "scripts": {
     "ionic": "ionic serve",
     "start": "npm run ui::start",
-    "ui::start": "npx angular-http-server --path ui/web/dist/web-browser -p 4200",
+    "ui::start": "npx angular-http-server --path ui/dist/web-browser -p 4200",
     "test": "sh ./build-pipeline/package-scripts/test.sh",
     "test::browser": "sh ./build-pipeline/package-scripts/test-browser.sh",
     "test::server": "sh ./build-pipeline/package-scripts/test-server.sh",

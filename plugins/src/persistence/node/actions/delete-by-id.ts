@@ -13,4 +13,6 @@ export function construct(store = storeImpl)
   }
 }
 
+export type DeleteById = ReturnType<typeof construct>
+
 export default construct()

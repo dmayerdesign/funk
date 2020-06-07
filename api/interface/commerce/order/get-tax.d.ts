@@ -1,12 +1,12 @@
 import { MarshalledOrder } from "@funk/model/commerce/order/order"
 import { Price } from "@funk/model/commerce/price/price"
 import getProductForSku from "@funk/api/commerce/product/get-product-for-sku"
-import populate from "@funk/plugins/persistence/actions/populate"
+import { Populate } from "@funk/plugins/persistence/actions/populate"
 import { construct as constructGetTaxImpl } from "@funk/model/commerce/order/actions/get-tax"
 
 export const construct: (deps?: {
   getProductForSku: typeof getProductForSku
-  populate: typeof populate
+  populate: Populate
   constructGetTax: typeof constructGetTaxImpl
 }) => typeof getTax
 

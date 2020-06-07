@@ -8,3 +8,5 @@ declare function listenById<DocumentType extends object = DatabaseDocument>(
   collectionPath: string,
   documentPath: string
 ): Observable<DocumentType | undefined>
+
+export type ListenById = typeof listenById

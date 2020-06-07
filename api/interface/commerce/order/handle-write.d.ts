@@ -1,7 +1,7 @@
 import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
 import { MarshalledOrder } from "@funk/model/commerce/order/order"
 import getSecret from "@funk/api/admin/get-secret"
-import populate from "@funk/plugins/persistence/actions/populate"
+import { Populate } from "@funk/plugins/persistence/actions/populate"
 import getProductForSku from "@funk/api/commerce/product/get-product-for-sku"
 import ignoringKeys from "@funk/functions/helpers/listen/ignoring-keys"
 import updateById from "@funk/plugins/persistence/actions/update-by-id"
@@ -20,7 +20,7 @@ export const construct: (deps?: {
   constructGetTotalBeforeTaxAndShipping: typeof constructGetTotalBeforeTaxAndShipping
   constructGetTax: typeof constructGetTax
   getSecret: typeof getSecret
-  populate: typeof populate
+  populate: Populate
   getProductForSku: typeof getProductForSku
   ignoringKeys: typeof ignoringKeys
   constructCreatePaymentIntent: typeof constructCreatePaymentIntent

@@ -1,7 +1,7 @@
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 
-export default function<
+export default function marshall<
   MarshalledType extends DatabaseDocument,
   PopulatedType extends DatabaseDocument>(
   populatedDoc: PopulatedType,
@@ -35,3 +35,5 @@ export default function<
   }
   return _marshalledDoc
 }
+
+export type Marshall = typeof marshall

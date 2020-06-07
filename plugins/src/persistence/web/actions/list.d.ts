@@ -9,3 +9,5 @@ export default function list<DocumentType extends DatabaseDocument>(options: {
   pagination: Pagination<DocumentType> | VirtualPagination
   conditions: Condition<DocumentType>[]
 }): Promise<DocumentType[]>
+
+export type List = typeof list

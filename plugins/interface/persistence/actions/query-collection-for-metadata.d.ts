@@ -7,3 +7,5 @@ export default function queryCollectionForMetadata(
   collectionPath: string,
   selector: (collectionReference: CollectionReference) => Query
 ): Promise<DbDocumentMetadata[]>
+
+export type QueryCollectionForMetadata = typeof queryCollectionForMetadata

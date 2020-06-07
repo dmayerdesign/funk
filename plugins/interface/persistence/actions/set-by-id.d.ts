@@ -8,3 +8,5 @@ export default function setById<DocumentType extends object = DatabaseDocument>(
   documentData: DocumentType,
   options?: { overwrite?: boolean },
 ): Promise<void>
+
+export type SetById = typeof setById

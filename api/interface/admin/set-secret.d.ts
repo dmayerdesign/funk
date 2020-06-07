@@ -1,4 +1,4 @@
-import setById from "@funk/plugins/persistence/actions/set-by-id"
+import { SetById } from "@funk/plugins/persistence/actions/set-by-id"
 
 export interface Options {
   key: string
@@ -9,7 +9,7 @@ declare function setSecret(options: Options): Promise<void>
 
 export declare function construct(deps?: {
   getConfig: any
-  setById: typeof setById
+  setById: SetById
   createKmsClient: (options?: any) => any
 }): typeof setSecret
 

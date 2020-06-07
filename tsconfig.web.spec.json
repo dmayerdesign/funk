@@ -17,16 +17,14 @@
       "@funk/plugins/*": [ "./plugins/src/*" ],
       "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
       "@funk/test/*": [ "./test/*" ],
-      "@funk/ui/web/*": [ "./ui/web/src/*" ],
-      "@funk/ui/core/*": [ "./ui/core/*" ],
-      "@funk/ui/helpers/*": [ "./ui/helpers/*" ]
+      "@funk/ui/*": [ "./ui/src/*" ]
     }
   },
   "include": [
     "config/**/*.ts",
-    "ui/web/src/polyfills.ts",
-    "ui/web/src/**/*.spec.ts",
-    "ui/web/src/**/spec.ts",
+    "ui/src/polyfills.ts",
+    "ui/src/**/*.spec.ts",
+    "ui/src/**/spec.ts",
     "functions/src/app/**/*.spec.ts",
     "functions/src/app/**/spec.ts"
   ],

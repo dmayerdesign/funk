@@ -1,7 +1,7 @@
 import { DbDocumentMetadata } from "@funk/model/data-access/database-document"
 import { store } from "@funk/plugins/persistence/server-store"
 
-export default function(
+export default function queryCollectionForMetadata(
   collectionPath: string,
   selector: (collectionReference: FirebaseFirestore.CollectionReference) =>
   FirebaseFirestore.Query
@@ -21,3 +21,5 @@ export default function(
       }
     }))
 }
+
+export type QueryCollectionForMetadata = typeof queryCollectionForMetadata

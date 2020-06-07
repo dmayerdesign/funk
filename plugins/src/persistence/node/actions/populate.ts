@@ -54,4 +54,6 @@ export function construct(getById = getByIdImpl, list = listImpl)
   }
 }
 
+export type Populate = ReturnType<typeof construct>
+
 export default construct()

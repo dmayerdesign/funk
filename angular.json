@@ -5,25 +5,25 @@
   "projects": {
     "web": {
       "projectType": "application",
-      "root": "ui/web",
-      "sourceRoot": "ui/web/src",
+      "root": "ui",
+      "sourceRoot": "ui/src",
       "prefix": "",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "ui/web/dist/web-browser",
-            "index": "ui/web/src/index.html",
-            "main": "ui/web/src/main.ts",
-            "polyfills": "ui/web/src/polyfills.ts",
-            "tsConfig": "ui/web/tsconfig.app.json",
+            "outputPath": "ui/dist/web-browser",
+            "index": "ui/src/index.html",
+            "main": "ui/src/main.ts",
+            "polyfills": "ui/src/polyfills.ts",
+            "tsConfig": "ui/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "ui/web/src/favicon.ico",
-              "ui/web/src/manifest.webmanifest",
+              "ui/src/favicon.ico",
+              "ui/src/manifest.webmanifest",
               {
                 "glob": "**/*",
-                "input": "ui/web/src/assets",
+                "input": "ui/src/assets",
                 "output": "assets"
               },
               {
@@ -33,7 +33,7 @@
               }
             ],
             "styles": [
-              "ui/web/src/styles/main.scss"
+              "ui/src/styles/main.scss"
             ]
           },
           "configurations": {
@@ -46,8 +46,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "ui/web/src/environments/environment.ts",
-                  "with": "ui/web/src/environments/environment.local.ts"
+                  "replace": "ui/src/environments/environment.ts",
+                  "with": "ui/src/environments/environment.local.ts"
                 }
               ]
             },
@@ -60,21 +60,21 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "ui/web/src/environments/environment.ts",
-                  "with": "ui/web/src/environments/environment.development.ts"
+                  "replace": "ui/src/environments/environment.ts",
+                  "with": "ui/src/environments/environment.development.ts"
                 }
               ],
               "optimization": false,
               "outputHashing": "all",
               "buildOptimizer": true,
               "serviceWorker": true,
-              "ngswConfigPath": "ui/web/ngsw-config.json"
+              "ngswConfigPath": "ui/ngsw-config.json"
             },
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "ui/web/src/environments/environment.ts",
-                  "with": "ui/web/src/environments/environment.production.ts"
+                  "replace": "ui/src/environments/environment.ts",
+                  "with": "ui/src/environments/environment.production.ts"
                 }
               ],
               "optimization": true,
@@ -97,7 +97,7 @@
                 }
               ],
               "serviceWorker": true,
-              "ngswConfigPath": "ui/web/ngsw-config.json"
+              "ngswConfigPath": "ui/ngsw-config.json"
             }
           }
         },
@@ -127,32 +127,32 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "ui/web/dist/web-server",
-            "main": "ui/web/src/main.server.ts",
-            "tsConfig": "ui/web/tsconfig.server.json"
+            "outputPath": "ui/dist/web-server",
+            "main": "ui/src/main.server.ts",
+            "tsConfig": "ui/tsconfig.server.json"
           },
           "configurations": {
             "local": {
               "fileReplacements": [
                 {
-                  "replace": "ui/web/src/environments/environment.ts",
-                  "with": "ui/web/src/environments/environment.local.ts"
+                  "replace": "ui/src/environments/environment.ts",
+                  "with": "ui/src/environments/environment.local.ts"
                 }
               ]
             },
             "development": {
               "fileReplacements": [
                 {
-                  "replace": "ui/web/src/environments/environment.ts",
-                  "with": "ui/web/src/environments/environment.development.ts"
+                  "replace": "ui/src/environments/environment.ts",
+                  "with": "ui/src/environments/environment.development.ts"
                 }
               ]
             },
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "ui/web/src/environments/environment.ts",
-                  "with": "ui/web/src/environments/environment.production.ts"
+                  "replace": "ui/src/environments/environment.ts",
+                  "with": "ui/src/environments/environment.production.ts"
                 }
               ],
               "sourceMap": false,

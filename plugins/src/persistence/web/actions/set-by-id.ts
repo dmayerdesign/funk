@@ -16,5 +16,4 @@ export function construct(store: AngularFirestore)
   }
 }
 
-type SetById = ReturnType<typeof construct>
-export default SetById
+export type SetById = ReturnType<typeof construct>

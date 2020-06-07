@@ -16,4 +16,6 @@ export function construct(store = storeImpl)
   }
 }
 
+export type SetById = ReturnType<typeof construct>
+
 export default construct()

@@ -14,3 +14,5 @@ export function construct(store: AngularFirestore)
       .valueChanges()
   }
 }
+
+export type ListenById = ReturnType<typeof construct>

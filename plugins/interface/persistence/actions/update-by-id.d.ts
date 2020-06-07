@@ -7,3 +7,5 @@ export default function updateById<DocumentType extends object = DatabaseDocumen
   documentPath: string,
   documentData: Partial<DocumentType>,
 ): Promise<void>
+
+export type UpdateById = typeof updateById
