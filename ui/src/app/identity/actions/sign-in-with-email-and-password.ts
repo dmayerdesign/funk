@@ -15,5 +15,4 @@ export function construct(
   }
 }
 
-type SignInWithEmailAndPassword = ReturnType<typeof construct>
-export default SignInWithEmailAndPassword
+export type SignInWithEmailAndPassword = ReturnType<typeof construct>

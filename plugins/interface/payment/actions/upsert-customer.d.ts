@@ -1,4 +1,4 @@
-import GetPaymentProvider from "@funk/plugins/payment/actions/get-payment-provider"
+import { GetPaymentProvider } from "@funk/plugins/payment/actions/get-payment-provider"
 
 export interface CreateInput
 {
@@ -15,6 +15,6 @@ export function construct(deps: {
   getPaymentProvider: GetPaymentProvider
 }): (input: CreateInput | UpdateInput) => Promise<any>
 
-declare function upsertCustomer(input: CreateInput | UpdateInput): Promise<any>
+export default function upsertCustomer(input: CreateInput | UpdateInput): Promise<any>
 
-export default upsertCustomer
+export type UpsertCustomer = ReturnType<typeof construct>

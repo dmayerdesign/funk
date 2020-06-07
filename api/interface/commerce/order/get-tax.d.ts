@@ -11,3 +11,5 @@ export const construct: (deps?: {
 }) => typeof getTax
 
 export default function getTax(marshalledOrder: MarshalledOrder): Promise<Price>
+
+export type GetTax = ReturnType<typeof construct>

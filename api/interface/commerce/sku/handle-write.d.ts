@@ -5,10 +5,11 @@ import { UpdateById } from "@funk/plugins/persistence/actions/update-by-id"
 
 declare const handleWrite: ChangeHandler<MarshalledSku>
 
-declare const construct: (deps?: {
+export const construct: (deps?: {
   list: List
   updateById: UpdateById
 }) => typeof handleWrite
 
-export { construct }
 export default handleWrite
+
+export type HandleWrite = ReturnType<typeof construct>

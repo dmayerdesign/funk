@@ -13,3 +13,5 @@ export function construct({
 }
 
 export default construct()
+
+export type SetStatusToCheckout = ReturnType<typeof construct>

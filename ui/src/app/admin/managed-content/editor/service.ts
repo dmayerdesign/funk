@@ -13,7 +13,7 @@ import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
 import { construct as constructSetById } from "@funk/plugins/persistence/actions/set-by-id"
 import { construct as constructUpdateById } from "@funk/plugins/persistence/actions/update-by-id"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
-import UserSession from "@funk/ui/app/identity/user-session"
+import { UserSession } from "@funk/ui/app/identity/user-session"
 import { asPromise } from "@funk/helpers/as-promise"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"

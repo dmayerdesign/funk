@@ -4,7 +4,7 @@ import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 import setSecret from "@funk/api/admin/set-secret"
 import getSecret from "@funk/api/admin/get-secret"
 import grantSuperRoleToMe from "@funk/api/admin/grant-super-role-to-me"
-import SendEmailVerification from "@funk/ui/app/identity/actions/send-email-verification"
+import { SendEmailVerification } from "@funk/ui/app/identity/actions/send-email-verification"
 import { SEND_EMAIL_VERIFICATION } from "@funk/ui/app/identity/tokens"
 
 @Component({

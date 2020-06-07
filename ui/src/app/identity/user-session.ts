@@ -49,5 +49,4 @@ export function construct(
   )
 }
 
-type UserSession = ReturnType<typeof construct>
-export default UserSession
+export type UserSession = ReturnType<typeof construct>

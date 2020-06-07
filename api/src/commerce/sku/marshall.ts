@@ -1,11 +1,18 @@
 import { MarshalledSku, Sku } from "@funk/model/commerce/sku/sku"
-import marshall from "@funk/plugins/persistence/actions/marshall"
+import marshallImpl from "@funk/plugins/persistence/actions/marshall"
 
-export default function(sku: Sku): MarshalledSku
+export function construct(marshall = marshallImpl)
 {
-  return marshall<MarshalledSku, Sku>(sku, [
-    "attributeValues",
-    "taxonomyTerms",
-    "imageGroups",
-  ])
+  return function(sku: Sku): MarshalledSku
+  {
+    return marshall<MarshalledSku, Sku>(sku, [
+      "attributeValues",
+      "taxonomyTerms",
+      "imageGroups",
+    ])
+  }
 }
+
+export default construct()
+
+export type Marshall = ReturnType<typeof construct>

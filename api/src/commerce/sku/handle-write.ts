@@ -42,3 +42,5 @@ export function construct({
 }
 
 export default construct()
+
+export type HandleWrite = ReturnType<typeof construct>

@@ -14,3 +14,5 @@ export default function setSkuQuantity(
     quantity: number
   }
 ): Promise<void>
+
+export type SetSkuQuantity = ReturnType<typeof construct>

@@ -1,6 +1,6 @@
 import { Price } from "@funk/model/commerce/price/price"
 import { PaymentIntent } from "@funk/plugins/payment/intent"
-import GetPaymentProvider from "@funk/plugins/payment/actions/get-payment-provider"
+import { GetPaymentProvider } from "@funk/plugins/payment/actions/get-payment-provider"
 
 export interface Options {
   price?: Price
@@ -15,3 +15,5 @@ export declare const construct: (deps: {
   getPaymentProvider?: GetPaymentProvider
 }) =>
 (id: string, input: Options) => Promise<PaymentIntent>
+
+export type UpdatePaymentIntent = ReturnType<typeof construct>

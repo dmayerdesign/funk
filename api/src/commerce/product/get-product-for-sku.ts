@@ -1,8 +1,15 @@
 import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
 import { Sku } from "@funk/model/commerce/sku/sku"
-import getById from "@funk/plugins/persistence/actions/get-by-id"
+import getByIdImpl from "@funk/plugins/persistence/actions/get-by-id"
 
-export default function(sku: Sku): Promise<MarshalledProduct | undefined>
+export function construct(getById = getByIdImpl)
 {
-  return getById<MarshalledProduct>(PRODUCTS, sku.productId)
+  return function(sku: Sku): Promise<MarshalledProduct | undefined>
+  {
+    return getById<MarshalledProduct>(PRODUCTS, sku.productId)
+  }
 }
+
+export default construct()
+
+export type GetProductForSku = ReturnType<typeof construct>

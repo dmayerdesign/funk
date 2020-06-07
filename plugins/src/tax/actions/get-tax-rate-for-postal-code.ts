@@ -28,3 +28,5 @@ export function construct({
 }
 
 export default construct()
+
+export type GetTaxRateForPostalCode = ReturnType<typeof construct>

@@ -23,5 +23,4 @@ export function construct(
   )
 }
 
-type UserState = ReturnType<typeof construct>
-export default UserState
+export type UserState = ReturnType<typeof construct>

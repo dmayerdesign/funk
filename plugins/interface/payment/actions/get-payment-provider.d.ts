@@ -1,7 +1,5 @@
-export interface GetPaymentProvider
-{ (secret: string, options?: any): any }
+export function construct(paymentServiceProviderCtor: any): typeof getPaymentProvider
 
-export default GetPaymentProvider
+export default function getPaymentProvider(secret: string, options?: any): any
 
-export function construct(paymentServiceProviderCtor: any):
-(secret: string, options?: any) => any
+export type GetPaymentProvider = ReturnType<typeof construct>

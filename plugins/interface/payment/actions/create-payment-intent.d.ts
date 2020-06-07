@@ -15,3 +15,5 @@ export declare const construct: (deps: {
   getPaymentProvider?: GetPaymentProvider
 }) =>
 (options: Options) => Promise<PaymentIntent>
+
+export type CreatePaymentIntent = ReturnType<typeof construct>

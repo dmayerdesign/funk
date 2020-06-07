@@ -62,3 +62,4 @@ export function construct({
   }
 }
 
+export type CreatePaymentIntent = ReturnType<typeof construct>

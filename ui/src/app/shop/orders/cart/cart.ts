@@ -13,7 +13,7 @@ import { construct as constructListenById } from
   "@funk/plugins/persistence/actions/listen-by-id"
 import { construct as constructPopulate } from
   "@funk/plugins/persistence/actions/populate"
-import UserSession from "@funk/ui/app/identity/user-session"
+import { UserSession } from "@funk/ui/app/identity/user-session"
 
 export function construct(
   userSession: UserSession,

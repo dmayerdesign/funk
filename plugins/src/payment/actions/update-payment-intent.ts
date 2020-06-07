@@ -54,3 +54,5 @@ export function construct({
     return await stripe.paymentIntents.update(id, update)
   }
 }
+
+export type UpdatePaymentIntent = ReturnType<typeof construct>

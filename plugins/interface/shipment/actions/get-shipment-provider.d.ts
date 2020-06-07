@@ -1,7 +1,5 @@
-export interface GetShipmentProvider
-{ (secret: string, options?: any): any }
+export default function getShipmentProvider(secret: string): any
 
-export default GetShipmentProvider
+export function construct(shipmentServiceProviderCtor: any): typeof getShipmentProvider
 
-export function construct(shipmentServiceProviderCtor: any):
-(secret: string) => any
+export type GetShipmentProvider = ReturnType<typeof construct>

@@ -9,7 +9,7 @@ import { construct as constructUpdateById } from "@funk/plugins/persistence/acti
 import { when } from "jest-when"
 import { of } from "rxjs"
 import { asPromise } from "@funk/helpers/as-promise"
-import UserSession from "@funk/ui/app/identity/user-session"
+import { UserSession } from "@funk/ui/app/identity/user-session"
 import { UserRole } from "@funk/model/auth/user-role"
 
 describe("ManagedContentEditorService", () =>

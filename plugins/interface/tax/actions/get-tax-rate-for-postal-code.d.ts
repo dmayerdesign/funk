@@ -4,6 +4,8 @@ import getSecret from "@funk/api/admin/get-secret"
 export function construct(deps: {
   getSecret: typeof getSecret
   httpClient: HttpClient
-}): (postalCode: string) => Promise<number>
+}): typeof getTaxRateForPostalCode
 
-export default function(postalCode: string): Promise<number>
+export default function getTaxRateForPostalCode(postalCode: string): Promise<number>
+
+export type GetTaxRateForPostalCode = ReturnType<typeof construct>

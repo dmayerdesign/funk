@@ -32,3 +32,5 @@ export function construct({
 }
 
 export default construct()
+
+export type GetTax = ReturnType<typeof construct>

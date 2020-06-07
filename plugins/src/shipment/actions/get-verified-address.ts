@@ -30,3 +30,5 @@ export function construct({
     })
   }
 }
+
+export type GetVerifiedAddress = ReturnType<typeof construct>

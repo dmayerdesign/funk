@@ -13,5 +13,4 @@ export function construct(
   }
 }
 
-type SendEmailVerification = ReturnType<typeof construct>
-export default SendEmailVerification
+export type SendEmailVerification = ReturnType<typeof construct>

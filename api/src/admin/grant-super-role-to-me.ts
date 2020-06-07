@@ -1,11 +1,20 @@
 import { UserRole } from "@funk/model/auth/user-role"
-import { authAdmin } from "@funk/plugins/auth/auth-admin"
+import { authAdmin as authAdminImpl } from "@funk/plugins/auth/auth-admin"
 
-export default async (): Promise<void> =>
+export function construct(
+  authAdmin = authAdminImpl
+)
 {
-  const me = await authAdmin().getUserByEmail("d.a.mayer92@gmail.com")
-  if (me.emailVerified)
+  return async function(): Promise<void>
   {
-    await authAdmin().setCustomUserClaims(me.uid, { role: UserRole.SUPER })
+    const me = await authAdmin().getUserByEmail("d.a.mayer92@gmail.com")
+    if (me.emailVerified)
+    {
+      await authAdmin().setCustomUserClaims(me.uid, { role: UserRole.SUPER })
+    }
   }
 }
+
+export default construct()
+
+export type GrantSuperRoleToMe = ReturnType<typeof construct>

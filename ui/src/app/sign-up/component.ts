@@ -1,10 +1,10 @@
 import { Component, Inject } from "@angular/core"
 import { FormControl, FormGroup } from "@angular/forms"
-import CreateUserWithEmailAndPassword from
+import { CreateUserWithEmailAndPassword } from
   "@funk/ui/app/identity/actions/create-user-with-email-and-password"
 import { SIGN_IN_WITH_EMAIL_AND_PASSWORD, CREATE_USER_WITH_EMAIL_AND_PASSWORD } from
   "@funk/ui/app/identity/tokens"
-import SignInWithEmailAndPassword from
+import { SignInWithEmailAndPassword } from
   "@funk/ui/app/identity/actions/sign-in-with-email-and-password"
 
 @Component({

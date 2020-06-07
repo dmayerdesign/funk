@@ -1,10 +1,20 @@
 import { Order } from "@funk/model/commerce/order/order"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
-import createEmail from "@funk/model/email/actions/create-email"
+import { readFileSync } from "fs-extra"
+import { compile } from "handlebars"
 import { resolve } from "path"
 
-export default (partialOrder: Partial<DbDocumentInput<Order>>) =>
-  createEmail(
-    { skus: partialOrder.skus },
-    resolve(__dirname, "../../", "assets/email-templates", "receipt.hbs")
-  )
+export function construct()
+{
+  return function(partialOrder: Partial<DbDocumentInput<Order>>): string
+  {
+    const runtimePathToTemplate = resolve(__dirname, "../../",
+      "assets/email-templates", "receipt.hbs")
+    const template = compile(readFileSync(runtimePathToTemplate).toString("utf8"))
+    return template({ skus: partialOrder.skus })
+  }
+}
+
+export default construct()
+
+export type CreateReceipt = ReturnType<typeof construct>

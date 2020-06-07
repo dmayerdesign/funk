@@ -66,3 +66,5 @@ export function construct({
     }
   }
 }
+
+export type GetShippingRate = ReturnType<typeof construct>

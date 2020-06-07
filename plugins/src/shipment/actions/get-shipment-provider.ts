@@ -9,3 +9,5 @@ export function construct(paymentServiceProviderCtor = Easypost)
 }
 
 export default construct()
+
+export type GetShipmentProvider = ReturnType<typeof construct>

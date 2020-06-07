@@ -9,7 +9,7 @@ import { map, shareReplay, switchMap, pluck } from "rxjs/operators"
 import { LISTEN_BY_ID } from "@funk/ui/app/persistence/tokens"
 import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
-import UserSession from "@funk/ui/app/identity/user-session"
+import { UserSession } from "@funk/ui/app/identity/user-session"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
 import { asPromise } from "@funk/helpers/as-promise"

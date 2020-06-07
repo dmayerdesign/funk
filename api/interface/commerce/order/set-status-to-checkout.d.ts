@@ -6,3 +6,5 @@ export const construct: (deps?: {
 }) => typeof setStatusToCheckout
 
 export default function setStatusToCheckout(cartId: PrimaryKey): Promise<void>
+
+export type SetStatusToCheckout = ReturnType<typeof construct>

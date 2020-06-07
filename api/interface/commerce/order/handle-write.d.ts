@@ -29,3 +29,5 @@ export const construct: (deps?: {
 }) => typeof handleWrite
 
 export default handleWrite
+
+export type HandleWrite = ReturnType<typeof construct>

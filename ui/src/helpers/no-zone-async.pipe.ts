@@ -24,7 +24,7 @@ import { Observable, SubscriptionLike } from "rxjs"
  * @experimental
  */
 @Pipe({name: "noZoneAsync", pure: false})
-export default class NoZoneAsyncPipe implements OnDestroy, PipeTransform
+export class NoZoneAsyncPipe implements OnDestroy, PipeTransform
 {
   private _latestValue: any = null
   private _latestReturnedValue: any = null

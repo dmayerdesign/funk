@@ -1,6 +1,6 @@
 import { construct } from "@funk/ui/app/identity/actions/initialize"
-import UserIdToken from "@funk/ui/app/identity/user-id-token"
-import UserSession from "@funk/ui/app/identity/user-session"
+import { UserIdToken } from "@funk/ui/app/identity/user-id-token"
+import { UserSession } from "@funk/ui/app/identity/user-session"
 import { AngularFireAuth } from "@angular/fire/auth"
 import { UserRole } from "@funk/model/auth/user-role"
 import { of } from "rxjs"

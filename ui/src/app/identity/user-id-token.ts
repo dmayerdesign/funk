@@ -13,5 +13,4 @@ export function construct(
   )
 }
 
-type UserIdToken = ReturnType<typeof construct>
-export default UserIdToken
+export type UserIdToken = ReturnType<typeof construct>

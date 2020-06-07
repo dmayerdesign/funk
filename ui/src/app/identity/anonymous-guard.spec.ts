@@ -3,7 +3,7 @@ import { asPromise } from "@funk/helpers/as-promise"
 import { UserRole } from "@funk/model/auth/user-role"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
 import { createRouterStub } from "@funk/ui/app/identity/stubs"
-import UserSession from "@funk/ui/app/identity/user-session"
+import { UserSession } from "@funk/ui/app/identity/user-session"
 import { of } from "rxjs"
 
 describe("AnonymousGuard", () =>

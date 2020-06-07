@@ -18,3 +18,5 @@ export function construct(paymentServiceProviderCtor = Stripe)
 }
 
 export default construct()
+
+export type GetPaymentProvider = ReturnType<typeof construct>

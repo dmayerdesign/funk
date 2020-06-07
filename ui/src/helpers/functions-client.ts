@@ -3,7 +3,7 @@ import { Inject, Injectable } from "@angular/core"
 import { FUNCTIONS_BASE_URL } from "@funk/config"
 import { first, map } from "rxjs/operators"
 import { USER_ID_TOKEN } from "@funk/ui/app/identity/tokens"
-import UserIdToken from "@funk/ui/app/identity/user-id-token"
+import { UserIdToken } from "@funk/ui/app/identity/user-id-token"
 
 @Injectable({ providedIn: "root" })
 export class FunctionsClient

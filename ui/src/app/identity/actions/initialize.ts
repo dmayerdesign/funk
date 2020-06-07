@@ -1,8 +1,8 @@
 import { AngularFireAuth } from "@angular/fire/auth"
 import { UserRole } from "@funk/model/auth/user-role"
 import { asPromise } from "@funk/helpers/as-promise"
-import UserSession from "@funk/ui/app/identity/user-session"
-import UserIdToken from "@funk/ui/app/identity/user-id-token"
+import { UserSession } from "@funk/ui/app/identity/user-session"
+import { UserIdToken } from "@funk/ui/app/identity/user-id-token"
 
 export function construct(
   auth: AngularFireAuth,
@@ -27,5 +27,5 @@ export function construct(
   }
 }
 
-type Initialize = ReturnType<typeof construct>
-export default Initialize
+export type Initialize = ReturnType<typeof construct>
+

@@ -25,3 +25,5 @@ export function construct(
 }
 
 export default construct()
+
+export type SetSkuQuantity = ReturnType<typeof construct>

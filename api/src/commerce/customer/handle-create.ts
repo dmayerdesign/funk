@@ -17,3 +17,5 @@ export function construct({
 }
 
 export default construct()
+
+export type HandleCreate = ReturnType<typeof construct>

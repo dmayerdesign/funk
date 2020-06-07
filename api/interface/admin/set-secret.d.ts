@@ -5,7 +5,7 @@ export interface Options {
   value: string
 }
 
-declare function setSecret(options: Options): Promise<void>
+export default function setSecret(options: Options): Promise<void>
 
 export declare function construct(deps?: {
   getConfig: any
@@ -13,4 +13,4 @@ export declare function construct(deps?: {
   createKmsClient: (options?: any) => any
 }): typeof setSecret
 
-export default setSecret
+export type SetSecret = typeof setSecret

@@ -1,6 +1,6 @@
 import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
 
-declare function getSecret(secretKey: string): Promise<string | undefined>
+export default function getSecret(secretKey: string): Promise<string | undefined>
 
 export declare function construct(deps?: {
   getConfig: any
@@ -8,4 +8,4 @@ export declare function construct(deps?: {
   createKmsClient: (options?: any) => any
 }): typeof getSecret
 
-export default getSecret
+export type GetSecret = typeof getSecret

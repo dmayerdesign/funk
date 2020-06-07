@@ -49,3 +49,5 @@ export function construct({
 }
 
 export default construct()
+
+export type SetSecret = ReturnType<typeof construct>

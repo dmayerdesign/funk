@@ -10,5 +10,4 @@ export function construct(
   }
 }
 
-type SignOut = ReturnType<typeof construct>
-export default SignOut
+export type SignOut = ReturnType<typeof construct>

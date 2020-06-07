@@ -34,3 +34,5 @@ export function construct({
 }
 
 export default construct()
+
+export type UpsertCustomer = ReturnType<typeof construct>
