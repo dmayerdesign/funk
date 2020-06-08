@@ -11,7 +11,7 @@ export function construct(store: AngularFirestore)
   {
     await store.collection(collectionPath)
       .doc<DocumentType>(documentPath)
-      .update(documentData)
+      .update({ ...documentData, updatedAt: Date.now() })
   }
 }
 

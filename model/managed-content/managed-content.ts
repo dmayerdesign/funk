@@ -1,7 +1,10 @@
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
-import { ImageGroup } from "../image/image-group"
+import { ImageGroup } from "@funk/model/image/image-group"
 
-export interface ManagedText extends DatabaseDocument {
+export interface BaseManagedContent extends DatabaseDocument {
+}
+
+export interface ManagedText extends BaseManagedContent {
   type: ManagedContentType.TEXT
   value: string
   i18n?: {
@@ -13,7 +16,7 @@ export interface ManagedText extends DatabaseDocument {
   }
 }
 
-export interface ManagedImage extends DatabaseDocument {
+export interface ManagedImage extends BaseManagedContent {
   type: ManagedContentType.IMAGE
   value: ImageGroup
   i18n?: {

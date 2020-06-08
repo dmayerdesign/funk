@@ -55,12 +55,8 @@ export class ManagedContentEditorContainer implements OnInit
         of(isAnimating),
         of(false).pipe(
           delay(ANIMATION_DURATION_MS),
-          tap(() => this._editorService.cancel())
-        )
-      )
-      : of(isAnimating)
-    )
-  )
+          tap(() => this._editorService.cancel())))
+      : of(isAnimating)))
 
   public constructor(
     private _editorService: ManagedContentEditorService
@@ -96,6 +92,6 @@ export class ManagedContentEditorContainer implements OnInit
   public async maybeSaveAndPublish(): Promise<void>
   {
     await this.saveEdit()
-    await this._editorService.maybePublish()
+    await this._editorService.maybePublishAll()
   }
 }

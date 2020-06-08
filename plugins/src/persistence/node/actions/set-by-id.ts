@@ -12,7 +12,7 @@ export function construct(store = storeImpl)
   {
     await store().collection(collectionPath)
       .doc(documentPath)
-      .set(documentData, { merge: !options?.overwrite })
+      .set({ ...documentData, updatedAt: Date.now() }, { merge: !options?.overwrite })
   }
 }
 

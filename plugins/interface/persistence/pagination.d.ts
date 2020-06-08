@@ -18,3 +18,4 @@ export interface VirtualPagination {
 }
 
 export declare const TAKE_ALL: number
+export declare const RANDOM_ORDER: Pick<Pagination, "orderBy" | "orderByDirection">

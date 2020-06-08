@@ -17,6 +17,12 @@ import { UserSession } from "@funk/ui/app/identity/user-session"
 import { asPromise } from "@funk/helpers/as-promise"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
+import createDocPath from "@funk/helpers/create-doc-path"
+import { ContentPreview } from "@funk/model/managed-content/content-preview"
+import { Person } from "@funk/model/identity/person"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
+
+type PublishConflict = [ ContentPreview, ManagedContent ]
 
 @Injectable()
 export class ManagedContentEditorService
@@ -48,6 +54,7 @@ export class ManagedContentEditorService
     map((maybeContentPreviews) => maybeContentPreviews
       && Object.keys(maybeContentPreviews).length),
     shareReplay(1))
+  public contentsUpdatedAfterPreview = new BehaviorSubject<PublishConflict[] | []>([])
 
   public constructor(
     @Inject(USER_SESSION) private _userSession: UserSession,
@@ -71,63 +78,82 @@ export class ManagedContentEditorService
       this.saving.next(true)
       const { person } = await asPromise(this._userSession)
       const contentId = await asPromise(this._maybeActiveContentId) as string
-      await this._setById<UserState>(
+      await this._updateById<UserState>(
         USER_STATES,
         person.id,
         {
-          contentPreviews: {
-            [contentId]: { value: control.value } as ManagedContent,
-          },
-        } as UserState
+          [createDocPath<UserState>("contentPreviews", contentId, "content")]: {
+            value: control.value,
+          } as ManagedContent,
+        } as Partial<UserState>
       )
       this.saving.next(false)
       this._clear()
     }
   }
 
-  public async maybePublish(): Promise<void>
+  public async maybePublishAll(): Promise<void>
   {
     const { person, auth } = await asPromise(this._userSession)
 
+    // Do nothing if the user is not an admin.
     if (!roleHasAdminPrivilegeOrGreater(auth.claims.role)) return
 
-    const userState = await this._getById<UserState>(
-      USER_STATES,
-      person.id
-    )
-    if (userState?.contentPreviews)
-    {
-      for (const contentId of Object.keys(userState.contentPreviews))
-      {
-        try
-        {
-          await this._setById(
-            CONTENTS,
-            contentId,
-            userState.contentPreviews[contentId]
-          )
-        }
-        catch (error)
-        {
-          console.error(error)
-          continue
-        }
-
-        const newContentPreviews = { ...userState.contentPreviews }
-        delete newContentPreviews[contentId]
-
-        await this._updateById<UserState>(
-          USER_STATES,
-          person.id,
-          {
-            contentPreviews: newContentPreviews,
-          }
-        )
-      }
-    }
-    else
+    // Do nothing if no content previews exist.
+    const maybeContentPreviews = await this._maybeGetContentPreviews(person)
+    if (!maybeContentPreviews)
     {
       console.log("Couldn't find a preview to publish.")
+      return
+    }
+
+    for (const contentId of Object.keys(maybeContentPreviews!))
+    {
+      try { await this._publishOrReportConflict(contentId, maybeContentPreviews!, person) }
+      catch (error)
+      {
+        // TODO: Communicate this error to the user.
+        console.error(error)
+        continue
+      }
+    }
+  }
+
+  // "Publish mine anyway"
+  public async publishOne(contentId: PrimaryKey): Promise<void>
+  {
+    const { person, auth } = await asPromise(this._userSession)
+    // Do nothing if the user is not an admin.
+    if (!roleHasAdminPrivilegeOrGreater(auth.claims.role)) return
+
+    await this._publishAndDeleteContentPreview(person, contentId)
+
+    this._removeFromContentsUpdatedAfterPreview(contentId)
+  }
+
+  // "Discard mine"
+  public async removePreview(contentId: PrimaryKey): Promise<void>
+  {
+    const { person } = await asPromise(this._userSession)
+
+    const maybeContentPreviews = await this._maybeGetContentPreviews(person)
+    const newContentPreviews = { ...maybeContentPreviews }
+    delete newContentPreviews[contentId]
+    await this._updateById<UserState>(
+      USER_STATES,
+      person.id,
+      {
+        contentPreviews: newContentPreviews,
+      }
+    )
+
+    const contentsUpdatedAfterPreview = [ ...this.contentsUpdatedAfterPreview.getValue() ]
+    const indexOfContentUpdatedAfterPreview = contentsUpdatedAfterPreview.findIndex(
+      ([ _, managedContent ]) => managedContent.id === contentId)
+    if (indexOfContentUpdatedAfterPreview > -1)
+    {
+      contentsUpdatedAfterPreview.splice(indexOfContentUpdatedAfterPreview, 1)
+      this.contentsUpdatedAfterPreview.next(contentsUpdatedAfterPreview)
     }
   }
 
@@ -137,7 +163,8 @@ export class ManagedContentEditorService
   }
 
   public listenForPreviewOrLiveContent(
-    contentId: string): Observable<ManagedContent | undefined>
+    contentId: string
+  ): Observable<ManagedContent | undefined>
   {
     return this._userSession
       .pipe(
@@ -149,7 +176,7 @@ export class ManagedContentEditorService
               USER_STATES,
               userId))
               .pipe(
-                map((user) => user?.contentPreviews?.[contentId]),
+                map((user) => user?.contentPreviews?.[contentId]?.content),
                 swallowErrorAndMapTo(undefined)),
             from(this._listenById<ManagedContent>(
               CONTENTS,
@@ -163,5 +190,66 @@ export class ManagedContentEditorService
   private _clear(): void
   {
     this._maybeActiveContentId.next(undefined)
+  }
+
+  private async _maybeGetContentPreviews(
+    person: Person
+  ): Promise<{ [contentId: string]: ContentPreview } | undefined>
+  {
+    const userState = await this._getById<UserState>(
+      USER_STATES,
+      person.id
+    )
+    return userState?.contentPreviews
+  }
+
+  private _removeFromContentsUpdatedAfterPreview(contentId: string): void
+  {
+    const contentsUpdatedAfterPreview = [ ...this.contentsUpdatedAfterPreview.getValue() ]
+    const indexOfContentUpdatedAfterPreview = contentsUpdatedAfterPreview.findIndex(
+      ([ _, managedContent ]) => managedContent.id === contentId)
+    if (indexOfContentUpdatedAfterPreview > -1)
+    {
+      contentsUpdatedAfterPreview.splice(indexOfContentUpdatedAfterPreview, 1)
+      this.contentsUpdatedAfterPreview.next(contentsUpdatedAfterPreview)
+    }
+  }
+
+  private async _publishAndDeleteContentPreview(
+    person: Person,
+    contentId: string
+  ): Promise<void>
+  {
+    const contentPreviews = await this._maybeGetContentPreviews(person)
+    await this._setById<ManagedContent>(CONTENTS, contentId, contentPreviews![contentId].content)
+    const newContentPreviews = { ...contentPreviews }
+    delete newContentPreviews[contentId]
+    await this._updateById<UserState>(USER_STATES, person.id, {
+      contentPreviews: newContentPreviews,
+    })
+  }
+
+  private async _publishOrReportConflict(
+    contentId: PrimaryKey,
+    contentPreviews: { [contentId: string]: ContentPreview },
+    person: Person
+  ): Promise<void>
+  {
+    const contentPreview = contentPreviews[contentId]
+    const content = await this._getById<ManagedContent>(CONTENTS, contentId)
+    const contentWasUpdatedAfterPreview =
+      content!.updatedAt! > contentPreview.createdAt
+    if (contentWasUpdatedAfterPreview)
+    {
+      const contentsUpdatedAfterPreview: PublishConflict[] = [
+        ...this.contentsUpdatedAfterPreview.getValue(),
+        [ contentPreview, content! ],
+      ]
+      this.contentsUpdatedAfterPreview.next(contentsUpdatedAfterPreview)
+    }
+    else
+    {
+      await this._publishAndDeleteContentPreview(person, contentId)
+    }
   }
 }

@@ -6,11 +6,12 @@ import { construct as constructListenById } from "@funk/plugins/persistence/acti
 import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
 import { construct as constructSetById } from "@funk/plugins/persistence/actions/set-by-id"
 import { construct as constructUpdateById } from "@funk/plugins/persistence/actions/update-by-id"
-import { when } from "jest-when"
-import { of } from "rxjs"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserSession } from "@funk/ui/app/identity/user-session"
 import { UserRole } from "@funk/model/auth/user-role"
+import { when } from "jest-when"
+import { of } from "rxjs"
+import { subHours } from "date-fns"
 
 describe("ManagedContentEditorService", () =>
 {
@@ -65,11 +66,11 @@ describe("ManagedContentEditorService", () =>
       await asPromise(service.activeContentValueControl)
 
     expect(clearedActiveContentValueControl).toBe(undefined)
-    expect(setById).toHaveBeenCalledTimes(1)
-    expect(setById).toHaveBeenCalledWith(
+    expect(updateById).toHaveBeenCalledTimes(1)
+    expect(updateById).toHaveBeenCalledWith(
       USER_STATES,
       FAKE_USER_UID,
-      { contentPreviews: { "content-1": { value: "Test 1 preview" } } }
+      { "contentPreviews.content-1.content": { value: "Test 1 preview" } }
     )
     done()
   })
@@ -80,7 +81,7 @@ describe("ManagedContentEditorService", () =>
       userSession, listenById, getById, setById, updateById
     )
 
-    await service.maybePublish()
+    await service.maybePublishAll()
 
     expect(setById).toHaveBeenCalledTimes(1)
     expect(setById).toHaveBeenCalledWith(
@@ -102,12 +103,37 @@ describe("ManagedContentEditorService", () =>
       userSession, listenById, getById, setById, updateById
     )
 
-    await service.maybePublish()
+    await service.maybePublishAll()
 
     expect(setById).not.toHaveBeenCalled()
     expect(updateById).not.toHaveBeenCalledWith()
     done()
   })
+
+  it("should not publish content if it has been edited since the preview was created",
+    async (done) =>
+    {
+      const FAKE_USER_STATES = createFakeUserStates("content-with-publish-conflict")
+      when(listenById as jest.Mock)
+        .calledWith(USER_STATES)
+        .mockReturnValueOnce(of(FAKE_USER_STATES[FAKE_USER_UID]))
+      when(getById as jest.Mock)
+        .calledWith(USER_STATES)
+        .mockReturnValueOnce(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
+      const service: ManagedContentEditorService = new ManagedContentEditorService(
+        userSession, listenById, getById, setById, updateById
+      )
+
+      await service.maybePublishAll()
+      const contentsUpdatedAfterPreview = await asPromise(
+        service.contentsUpdatedAfterPreview)
+      const contentIdUpdatedAfterPreview = contentsUpdatedAfterPreview[0][1].id
+
+      expect(setById).not.toHaveBeenCalled()
+      expect(updateById).not.toHaveBeenCalledWith()
+      expect(contentIdUpdatedAfterPreview).toBe("content-with-publish-conflict")
+      done()
+    })
 
   beforeEach(() =>
   {
@@ -115,39 +141,67 @@ describe("ManagedContentEditorService", () =>
       auth: { claims: { role: UserRole.ADMINISTRATOR } },
       person: { id: FAKE_USER_UID },
     }) as UserSession
-    getById = jest.fn().mockReturnValue(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
+    getById = jest.fn()
     listenById = jest.fn()
     setById = jest.fn()
     updateById = jest.fn()
 
+    const FAKE_USER_STATES = createFakeUserStates()
     when(listenById as jest.Mock)
       .calledWith(USER_STATES)
       .mockReturnValue(of(FAKE_USER_STATES[FAKE_USER_UID]))
+    when(getById as jest.Mock)
+      .calledWith(USER_STATES)
+      .mockReturnValue(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
+    when(getById as jest.Mock)
+      .calledWith(CONTENTS, "content-1")
+      .mockReturnValue(Promise.resolve(FAKE_CONTENTS["content-1"]))
+    when(getById as jest.Mock)
+      .calledWith(CONTENTS, "content-2")
+      .mockReturnValue(Promise.resolve(FAKE_CONTENTS["content-2"]))
+    when(getById as jest.Mock)
+      .calledWith(CONTENTS, "content-with-publish-conflict")
+      .mockReturnValue(Promise.resolve(FAKE_CONTENTS["content-with-publish-conflict"]))
     when(listenById as jest.Mock)
       .calledWith(CONTENTS, "content-1")
       .mockReturnValue(of(FAKE_CONTENTS["content-1"]))
     when(listenById as jest.Mock)
       .calledWith(CONTENTS, "content-2")
       .mockReturnValue(of(FAKE_CONTENTS["content-2"]))
+    when(listenById as jest.Mock)
+      .calledWith(CONTENTS, "content-with-publish-conflict")
+      .mockReturnValue(of(FAKE_CONTENTS["content-with-publish-conflict"]))
   })
 })
 
 const FAKE_CONTENTS = {
   "content-1": {
+    id: "content-1",
     value: "Test 1",
+    updatedAt: subHours(new Date(), 1).getTime(),
   },
   "content-2": {
+    id: "content-2",
     value: "Test 2",
+    updatedAt: subHours(new Date(), 1).getTime(),
+  },
+  "content-with-publish-conflict": {
+    id: "content-with-publish-conflict",
+    value: "Test With PublishConflict",
+    updatedAt: new Date().getTime(),
   },
 }
 
-const FAKE_USER_STATES = {
+const createFakeUserStates = (contentIdPreviewing = "content-1") => ({
   [FAKE_USER_UID]: {
     id: FAKE_USER_UID,
     contentPreviews: {
-      "content-1": {
-        value: "Test 1 preview saved",
+      [contentIdPreviewing]: {
+        createdAt: subHours(new Date(), 1).getTime(),
+        content: {
+          value: "Test 1 preview saved",
+        },
       },
     },
   },
-}
+})

@@ -11,7 +11,7 @@ export function construct(store = storeImpl)
   {
     await store().collection(collectionPath)
       .doc(documentPath)
-      .update(documentData)
+      .update({ ...documentData, updatedAt: Date.now() })
   }
 }
 
