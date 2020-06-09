@@ -1,21 +1,20 @@
-import { AngularFireAuth } from "@angular/fire/auth"
 import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
-import { distinctUntilKeyChanged, switchMap, shareReplay, map } from "rxjs/operators"
 import { UserRole } from "@funk/model/auth/user-role"
 import { Auth } from "@funk/model/identity/auth"
-import { of } from "rxjs"
 import { UserSession as IUserSession } from "@funk/model/identity/user-session"
 import { Person, PERSONS } from "@funk/model/identity/person"
+import { AuthClient } from "@funk/plugins/auth/auth-client"
+import { of } from "rxjs"
+import { switchMap, shareReplay, map } from "rxjs/operators"
 
 export function construct(
-  auth: AngularFireAuth,
+  auth: AuthClient,
   listenById: ReturnType<typeof constructListenById>
 )
 {
   return auth.user.pipe(
     ignoreNullish(),
-    distinctUntilKeyChanged("uid"),
     switchMap(async (user) => ({
       id: user.uid,
       token: await user.getIdToken(),

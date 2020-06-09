@@ -1,8 +1,8 @@
-import { AngularFireAuth } from "@angular/fire/auth"
 import { SendEmailVerification } from "@funk/ui/app/identity/actions/send-email-verification"
+import { AuthClient } from "@funk/plugins/auth/auth-client"
 
 export function construct(
-  auth: AngularFireAuth,
+  auth: AuthClient,
   sendEmailVerification: SendEmailVerification
 )
 {

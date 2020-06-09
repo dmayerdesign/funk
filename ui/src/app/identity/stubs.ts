@@ -4,8 +4,8 @@ import { CustomClaims } from "@funk/model/auth/custom-claims"
 import { UserRole } from "@funk/model/auth/user-role"
 import { Person } from "@funk/model/identity/person"
 import { AdministratorGuard } from "@funk/ui/app/identity/administrator-guard"
-import { User } from "firebase"
-import { BehaviorSubject, of } from "rxjs"
+import { BehaviorSubject, of, Observable } from "rxjs"
+import { AuthClient, AuthClientUser } from "@funk/plugins/auth/auth-client"
 
 export const FAKE_USER_UID = "user-1"
 export const FAKE_ID_TOKEN = "test-token"
@@ -27,7 +27,7 @@ export const createAuthUserStub = (role = UserRole.ANONYMOUS) => ({
   sendEmailVerification: async (..._args: any[]) => { },
   emailVerified: role !== UserRole.ANONYMOUS,
   isAnonymous: role === UserRole.ANONYMOUS,
-}) as unknown as User
+}) as unknown as AuthClientUser
 
 export const createUserCredentialStub = (
   authUserStub = createAuthUserStub()
@@ -37,17 +37,18 @@ export const createUserCredentialStub = (
 })
 
 export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
-  user: new BehaviorSubject(authUserStub),
+  user: new BehaviorSubject(authUserStub) as Observable<AuthClientUser>,
   createUserWithEmailAndPassword: async (..._args: any[]) =>
     createUserCredentialStub(authUserStub),
   signInWithEmailAndPassword: async (..._args: any[]) =>
     createUserCredentialStub(authUserStub),
   signOut: async () => { },
-  signInAnonymously: () => { },
+  signInAnonymously: async () => { },
+  sendEmailVerification: async () => { },
   currentUser: authUserStub,
   authState: new BehaviorSubject(authUserStub),
-  idTokenResult: of({}),
-}) as unknown as AngularFireAuth
+  idTokenResult: of({}) as AuthClient["idTokenResult"],
+}) as unknown as AuthClient
 
 export const createRouterStub = () => ({
   parseUrl: (_url: string) => new UrlTree(),
@@ -55,6 +56,6 @@ export const createRouterStub = () => ({
 
 export const createStubbedAdministratorGuard = (userRole = UserRole.ANONYMOUS) =>
   new AdministratorGuard(
-    createAuthStub(createAuthUserStub(userRole)),
+    createAuthStub(createAuthUserStub(userRole)) as unknown as AngularFireAuth,
     createRouterStub()
   )

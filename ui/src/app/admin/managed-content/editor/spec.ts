@@ -75,7 +75,7 @@ describe("ManagedContentEditorService", () =>
     done()
   })
 
-  it("should publish managed content", async (done) =>
+  it("should publish all previews", async (done) =>
   {
     const service = new ManagedContentEditorService(
       userSession, listenById, getById, setById, updateById
@@ -96,7 +96,7 @@ describe("ManagedContentEditorService", () =>
     done()
   })
 
-  it("should not publish content if the user is not an admin", async (done) =>
+  it("should not publish all previews if the user is not an admin", async (done) =>
   {
     userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
     const service = new ManagedContentEditorService(
@@ -110,7 +110,7 @@ describe("ManagedContentEditorService", () =>
     done()
   })
 
-  it("should not publish content if it has been edited since the preview was created",
+  it("should not publish if the content has been edited since the preview was created",
     async (done) =>
     {
       const FAKE_USER_STATES = createFakeUserStates("content-with-publish-conflict")
@@ -134,6 +134,62 @@ describe("ManagedContentEditorService", () =>
       expect(contentIdUpdatedAfterPreview).toBe("content-with-publish-conflict")
       done()
     })
+
+  it("should publish one preview, regardless of publish conflict",
+    async (done) =>
+    {
+      const service: ManagedContentEditorService = new ManagedContentEditorService(
+        userSession, listenById, getById, setById, updateById
+      )
+
+      await service.publishOne("content-1")
+
+      expect(setById).toHaveBeenCalledTimes(1)
+      expect(setById).toHaveBeenCalledWith(
+        CONTENTS,
+        "content-1",
+        { value: "Test 1 preview saved" }
+      )
+      expect(updateById).toHaveBeenCalledTimes(1)
+      expect(updateById).toHaveBeenCalledWith(
+        USER_STATES, FAKE_USER_UID, { contentPreviews: {} }
+      )
+      done()
+    })
+
+  it("should not publish one preview if the user is not an admin", async (done) =>
+  {
+    userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
+    const service = new ManagedContentEditorService(
+      userSession, listenById, getById, setById, updateById
+    )
+
+    await service.publishOne("content-1")
+
+    expect(setById).not.toHaveBeenCalled()
+    expect(updateById).not.toHaveBeenCalledWith()
+    done()
+  })
+
+  it("should remove a preview", async (done) =>
+  {
+    const service = new ManagedContentEditorService(
+      userSession, listenById, getById, setById, updateById
+    )
+
+    await service.removePreview("content-1")
+
+    expect(getById).toHaveBeenCalledWith(
+      USER_STATES,
+      FAKE_USER_UID
+    )
+    expect(updateById).toHaveBeenCalledWith(
+      USER_STATES,
+      FAKE_USER_UID,
+      { contentPreviews: {} }
+    )
+    done()
+  })
 
   beforeEach(() =>
   {

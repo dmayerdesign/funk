@@ -1,7 +1,7 @@
-import { AngularFireAuth } from "@angular/fire/auth"
+import { AuthClient } from "@funk/plugins/auth/auth-client"
 
 export function construct(
-  auth: AngularFireAuth
+  auth: AuthClient
 )
 {
   return async function(): Promise<void>

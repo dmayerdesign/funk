@@ -7,14 +7,14 @@
       "node"
     ],
     "paths": {
-      "@funk/api/*": [ "./api/src/*" ],
+      "@funk/api/*": [ "./api/implementation/*" ],
       "@funk/config": [ "./config/config.development.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
       "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
-      "@funk/plugins/persistence/*": [ "./plugins/src/persistence/node/*" ],
-      "@funk/plugins/*": [ "./plugins/src/*" ],
+      "@funk/plugins/persistence/*": [ "./plugins/implementation/persistence/node/*" ],
+      "@funk/plugins/*": [ "./plugins/implementation/*" ],
       "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
       "@funk/test/*": [ "./test/*" ],
       "@funk/ui/*": [ "./ui/src/*" ]
@@ -27,7 +27,7 @@
     "ui/src/**/spec.ts",
     "functions/src/app/**/*.spec.ts",
     "functions/src/app/**/spec.ts",
-    "plugins/src/**/*.ts"
+    "plugins/implementation/**/*.ts"
   ],
   "exclude": [
     "node_modules"

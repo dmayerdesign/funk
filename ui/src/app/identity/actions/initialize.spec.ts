@@ -1,13 +1,13 @@
 import { construct } from "@funk/ui/app/identity/actions/initialize"
 import { UserIdToken } from "@funk/ui/app/identity/user-id-token"
 import { UserSession } from "@funk/ui/app/identity/user-session"
-import { AngularFireAuth } from "@angular/fire/auth"
 import { UserRole } from "@funk/model/auth/user-role"
+import { AuthClient } from "@funk/plugins/auth/auth-client"
 import { of } from "rxjs"
 
 describe("identityInitialize", () =>
 {
-  let auth: AngularFireAuth
+  let auth: AuthClient
   let userSession: UserSession
   let userIdToken: UserIdToken
 
@@ -16,7 +16,7 @@ describe("identityInitialize", () =>
     auth = {
       idTokenResult: of(null),
       signInAnonymously: jest.fn().mockImplementation(() => Promise.resolve()),
-    } as unknown as AngularFireAuth
+    } as unknown as AuthClient
     const initialize = construct(
       auth,
       userSession,
@@ -42,7 +42,7 @@ describe("identityInitialize", () =>
         },
       }),
       signInAnonymously: jest.fn(),
-    } as unknown as AngularFireAuth
+    } as unknown as AuthClient
     const initialize = construct(
       auth,
       userSession,

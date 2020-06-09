@@ -1,9 +1,9 @@
-import { AngularFireAuth } from "@angular/fire/auth"
+import { AuthClient } from "@funk/plugins/auth/auth-client"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { shareReplay, map } from "rxjs/operators"
 
 export function construct(
-  auth: AngularFireAuth
+  auth: AuthClient
 )
 {
   return auth.user.pipe(
