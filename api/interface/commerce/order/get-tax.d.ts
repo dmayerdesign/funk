@@ -1,13 +1,14 @@
 import { MarshalledOrder } from "@funk/model/commerce/order/order"
 import { Price } from "@funk/model/commerce/price/price"
-import { GetProductForSku } from "@funk/api/commerce/product/get-product-for-sku"
-import { Populate } from "@funk/plugins/persistence/actions/populate"
-import { construct as constructGetTaxImpl } from "@funk/model/commerce/order/actions/get-tax"
+import { Populate } from "@funk/api/commerce/order/populate"
+import { GetTotalBeforeTaxAndShipping } from
+  "@funk/api/commerce/order/get-total-before-tax-and-shipping"
+import { GetTaxRateForPostalCode } from "@funk/plugins/tax/actions/get-tax-rate-for-postal-code"
 
 export const construct: (
-  getProductForSku: GetProductForSku,
+  getTotalBeforeTaxAndShipping: GetTotalBeforeTaxAndShipping,
   populate: Populate,
-  constructGetTax: typeof constructGetTaxImpl
+  getTaxRateForPostalCode: GetTaxRateForPostalCode
 ) => typeof getTax
 
 export default function getTax(marshalledOrder: MarshalledOrder): Promise<Price>

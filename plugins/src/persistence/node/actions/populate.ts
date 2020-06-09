@@ -15,7 +15,7 @@ export function construct(getById = getByIdImpl, list = listImpl)
 {
   return async function<
     PopulatedType,
-    MarshalledType = DatabaseDocument,
+    MarshalledType extends DatabaseDocument,
   >(
     marshalledDoc: MarshalledType,
     options: PopulateFieldOptions<MarshalledType | PopulatedType>[]

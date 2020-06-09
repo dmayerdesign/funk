@@ -5,7 +5,7 @@ export const construct: (getById: GetById) => typeof populate
 
 export default function populate<
   PopulatedType,
-  MarshalledType = DatabaseDocument>(
+  MarshalledType extends DatabaseDocument>(
   marshalledDoc: MarshalledType,
   options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
 ): Promise<PopulatedType>

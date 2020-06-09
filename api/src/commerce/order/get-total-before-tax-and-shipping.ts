@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/indent */
-import marshallProduct from "@funk/api/commerce/product/marshall"
 import marshallSku from "@funk/api/commerce/sku/marshall"
 import { OrderDiscount, SkuDiscount, Discount } from "@funk/model/commerce/discount/discount"
 import { PopulatedOrder } from "@funk/model/commerce/order/order"
 import add from "@funk/model/commerce/price/actions/add"
 import subtract from "@funk/model/commerce/price/actions/subtract"
 import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
-import { MarshalledProduct } from "@funk/model/commerce/product/product"
+import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
 import getPriceAfterSkuDiscounts from
   "@funk/model/commerce/sku/actions/get-price-after-discounts"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
+import getByIdImpl from "@funk/plugins/persistence/actions/get-by-id"
 import { of, zip, OperatorFunction } from "rxjs"
 import { first, map, switchMap } from "rxjs/operators"
 
 export function construct(
-  getProductForSku: (sku: MarshalledSku) => Promise<MarshalledProduct | undefined>
+  getById = getByIdImpl
 )
 {
   return async function(order: DbDocumentInput<PopulatedOrder>): Promise<Price>
@@ -29,8 +29,11 @@ export function construct(
     }
     return await zip(
       ...skus.map((sku) => of(sku).pipe(
-        switchMapToPriceAfterSkuDiscounts(activeDiscounts))
-      ))
+        switchMapToPriceAfterSkuDiscounts(
+          activeDiscounts,
+          (_sku: MarshalledSku) => getById<MarshalledProduct>(PRODUCTS, sku.productId)
+        )
+      )))
       .pipe(
         map((actualPrices) => actualPrices.reduce(add, NULL_PRICE)),
         map((priceAfterSkuDiscounts) => getPriceAfterOrderDiscounts(
@@ -43,20 +46,23 @@ export function construct(
   }
 
   function switchMapToPriceAfterSkuDiscounts(
-    discounts: Discount[]
+    discounts: Discount[],
+    getProduct: (sku: MarshalledSku) => Promise<MarshalledProduct | undefined>
   ): OperatorFunction<MarshalledSku, Price>
   {
     return switchMap<MarshalledSku, Promise<Price>>(async (sku) =>
-      getPriceAfterSkuDiscounts({
+    {
+      const product = await getProduct(sku)
+      return getPriceAfterSkuDiscounts({
         sku,
-        product: marshallProduct(
-          (await getProductForSku(sku)) ||
-          {} as MarshalledProduct),
+        product: product!,
         activeDiscounts: discounts.filter(({ type }) => type === "sku") as SkuDiscount[],
       })
-    )
+    })
   }
 }
+
+export default construct()
 
 function getPriceAfterOrderDiscounts(discounts: Discount[], priceBefore: Price): Price
 {
