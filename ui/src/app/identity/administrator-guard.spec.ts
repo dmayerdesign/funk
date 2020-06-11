@@ -1,9 +1,13 @@
 import { UrlTree } from "@angular/router"
 import { UserRole } from "@funk/model/auth/user-role"
+import { AdministratorGuard } from "@funk/ui/app/identity/administrator-guard"
+import {
+  createAuthStub,
+  createAuthUserStub,
+  createRouterStub,
+  createStubbedAdministratorGuard,
+} from "@funk/ui/app/identity/stubs"
 import { first } from "rxjs/operators"
-import { AdministratorGuard } from "./administrator-guard"
-import { createAuthStub, createAuthUserStub, createRouterStub,
-  createStubbedAdministratorGuard } from "./stubs"
 
 describe("AdministratorGuard", () =>
 {

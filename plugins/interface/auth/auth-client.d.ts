@@ -18,16 +18,14 @@ export interface AuthClient {
 
 export interface AuthClientUser {
   uid: string
-  getIdTokenResult(): IdTokenResult
+  isAnonymous: boolean
+  emailVerified: boolean
+  getIdTokenResult(): Promise<IdTokenResult>
   getIdToken(forceRefresh?: boolean): Promise<string>
   sendEmailVerification(): Promise<void>
-  isAnonymous: boolean
 }
 
 interface IdTokenResult {
-  /**
-   * The Firebase Auth ID token JWT string.
-   */
   token: string
   /**
    * The ID token expiration time formatted as a UTC string.
@@ -42,19 +40,5 @@ interface IdTokenResult {
    * The ID token issued at time formatted as a UTC string.
    */
   issuedAtTime: string
-  /**
-   * The sign-in provider through which the ID token was obtained (anonymous,
-   * custom, phone, password, etc). Note, this does not map to provider IDs.
-   */
-  signInProvider: string | null
-  /**
-   * The type of second factor associated with this session, provided the user
-   * was multi-factor authenticated (eg. phone, etc).
-   */
-  signInSecondFactor: string | null
-  /**
-   * The entire payload claims of the ID token including the standard reserved
-   * claims as well as the custom claims.
-   */
   claims: CustomClaims
 }

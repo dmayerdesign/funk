@@ -4,6 +4,7 @@ import { UserRole } from "@funk/model/auth/user-role"
 import { Auth } from "@funk/model/identity/auth"
 import { UserSession as IUserSession } from "@funk/model/identity/user-session"
 import { Person, PERSONS } from "@funk/model/identity/person"
+import getVerifiedRole from "@funk/model/auth/actions/get-verified-role"
 import { AuthClient } from "@funk/plugins/auth/auth-client"
 import { of } from "rxjs"
 import { switchMap, shareReplay, map } from "rxjs/operators"
@@ -15,15 +16,23 @@ export function construct(
 {
   return auth.user.pipe(
     ignoreNullish(),
-    switchMap(async (user) => ({
-      id: user.uid,
-      token: await user.getIdToken(),
-      claims: {
+    switchMap(async (user) =>
+    {
+      const unverifiedClaims = {
         role: user.isAnonymous
           ? UserRole.ANONYMOUS
           : (await user.getIdTokenResult()).claims.role,
-      },
-    }) as Auth),
+      }
+      const verifiedClaims = {
+        ...unverifiedClaims,
+        role: getVerifiedRole({ emailVerified: user.emailVerified }, unverifiedClaims),
+      }
+      return {
+        id: user.uid,
+        token: await user.getIdToken(),
+        claims: verifiedClaims,
+      } as Auth
+    }),
     switchMap((_auth) =>
     {
       if (_auth.claims.role === UserRole.ANONYMOUS)

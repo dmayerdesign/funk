@@ -22,6 +22,7 @@ import {
   USER_SESSION,
   USER_ID_TOKEN,
   USER_STATE,
+  AUTH_CLIENT,
 } from "@funk/ui/app/identity/tokens"
 
 /**
@@ -31,44 +32,48 @@ import {
   imports: [ AppFireModule ],
   providers: [
     {
+      provide: AUTH_CLIENT,
+      useExisting: AngularFireAuth,
+    },
+    {
       provide: SEND_EMAIL_VERIFICATION,
       useFactory: constructSendEmailVerification,
-      deps: [ AngularFireAuth ],
+      deps: [ AUTH_CLIENT ],
     },
     {
       provide: SIGN_IN_WITH_EMAIL_AND_PASSWORD,
       useFactory: constructSignInWithEmailAndPassword,
-      deps: [ AngularFireAuth ],
+      deps: [ AUTH_CLIENT ],
     },
     {
       provide: SIGN_OUT,
       useFactory: constructSignOut,
-      deps: [ AngularFireAuth ],
+      deps: [ AUTH_CLIENT ],
     },
     {
       provide: USER_ID_TOKEN,
       useFactory: constructUserIdToken,
-      deps: [ AngularFireAuth ],
+      deps: [ AUTH_CLIENT ],
     },
     {
       provide: CREATE_USER_WITH_EMAIL_AND_PASSWORD,
       useFactory: constructCreateUserWithEmailAndPassword,
-      deps: [ AngularFireAuth, SEND_EMAIL_VERIFICATION ],
+      deps: [ AUTH_CLIENT, SEND_EMAIL_VERIFICATION ],
     },
     {
       provide: USER_SESSION,
       useFactory: constructUserSession,
-      deps: [ AngularFireAuth, LISTEN_BY_ID ],
+      deps: [ AUTH_CLIENT, LISTEN_BY_ID ],
     },
     {
       provide: USER_STATE,
       useFactory: constructUserState,
-      deps: [ AngularFireAuth, LISTEN_BY_ID ],
+      deps: [ AUTH_CLIENT, LISTEN_BY_ID ],
     },
     {
       provide: INITIALIZE,
       useFactory: constructInitialize,
-      deps: [ AngularFireAuth, USER_SESSION, USER_ID_TOKEN ],
+      deps: [ AUTH_CLIENT, USER_SESSION, USER_ID_TOKEN ],
     },
     {
       provide: APP_INITIALIZER,

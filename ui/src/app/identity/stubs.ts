@@ -4,21 +4,22 @@ import { CustomClaims } from "@funk/model/auth/custom-claims"
 import { UserRole } from "@funk/model/auth/user-role"
 import { Person } from "@funk/model/identity/person"
 import { AdministratorGuard } from "@funk/ui/app/identity/administrator-guard"
+import { AuthClient, AuthClientUser, IdTokenResult } from "@funk/plugins/auth/auth-client"
 import { BehaviorSubject, of, Observable } from "rxjs"
-import { AuthClient, AuthClientUser } from "@funk/plugins/auth/auth-client"
 
 export const FAKE_USER_UID = "user-1"
 export const FAKE_ID_TOKEN = "test-token"
 
 export const createIdTokenResultStub = (role = UserRole.ANONYMOUS) => ({
   claims: { role } as CustomClaims,
-})
+}) as IdTokenResult
 
 export const createFakePerson = ({
   id = FAKE_USER_UID,
   displayName = "Test",
   email = "test@test.com",
-} = {}) => ({ id, displayName, email }) as Person
+} = {}) =>
+  ({ id, displayName, email }) as Person
 
 export const createAuthUserStub = (role = UserRole.ANONYMOUS) => ({
   uid: FAKE_USER_UID,

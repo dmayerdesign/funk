@@ -1,4 +1,5 @@
 import { InjectionToken } from "@angular/core"
+import { AuthClient } from "@funk/plugins/auth/auth-client"
 import { CreateUserWithEmailAndPassword } from
   "@funk/ui/app/identity/actions/create-user-with-email-and-password"
 import { Initialize } from "@funk/ui/app/identity/actions/initialize"
@@ -21,3 +22,4 @@ export const SIGN_OUT = new InjectionToken<SignOut>("SIGN_OUT")
 export const USER_SESSION = new InjectionToken<UserSession>("USER_SESSION")
 export const USER_ID_TOKEN = new InjectionToken<UserIdToken>("USER_ID_TOKEN")
 export const USER_STATE = new InjectionToken<UserState>("USER_STATE")
+export const AUTH_CLIENT = new InjectionToken<AuthClient>("AUTH_CLIENT")

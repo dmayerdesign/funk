@@ -7,6 +7,12 @@
 - Keeps tests simple and small.
 - Surfaces architectural boundaries.
 
+## Plugin architecture
+
+- A "plugin" is anything that imports "third-party" code. "Third-party" is anything that ISN'T
+  - Part of the domain model
+  - Responsible for gluing the domain model to a platform
+
 ## Framework independence
 
 - That includes DI frameworks!
