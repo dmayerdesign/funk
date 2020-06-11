@@ -5,7 +5,7 @@ import roleHasAdminPrivilegeOrGreater from
 import { combineLatest } from "rxjs"
 import { map } from "rxjs/operators"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
-import { UserSession } from "@funk/ui/app/identity/user-session"
+import { UserSession } from "@funk/ui/core/identity/user-session"
 
 @Component({
   selector: "app-root",

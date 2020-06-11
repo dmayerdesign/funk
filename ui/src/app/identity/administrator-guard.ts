@@ -3,7 +3,7 @@ import { CanActivate, Router, UrlTree } from "@angular/router"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
-import { UserSession } from "@funk/ui/app/identity/user-session"
+import { UserSession } from "@funk/ui/core/identity/user-session"
 import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
 

@@ -2,14 +2,10 @@ import { UrlTree } from "@angular/router"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserRole } from "@funk/model/auth/user-role"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
-import { createRouterStub } from "@funk/ui/app/identity/stubs"
-import { UserSession } from "@funk/ui/app/identity/user-session"
-import { of } from "rxjs"
+import { createRouterStub, createUserSession } from "@funk/ui/core/identity/stubs"
 
 describe("AnonymousGuard", () =>
 {
-  const createUserSession = (role: UserRole) => of({ auth: { claims: { role } } }) as UserSession
-
   it("must activate if the user is SUPER", async (done) =>
   {
     const canActivate = await asPromise(new AnonymousGuard(

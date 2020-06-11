@@ -1,18 +1,21 @@
-import { AngularFireAuth } from "@angular/fire/auth"
 import { Router, UrlTree } from "@angular/router"
 import { CustomClaims } from "@funk/model/auth/custom-claims"
 import { UserRole } from "@funk/model/auth/user-role"
 import { Person } from "@funk/model/identity/person"
 import { AdministratorGuard } from "@funk/ui/app/identity/administrator-guard"
-import { AuthClient, AuthClientUser, IdTokenResult } from "@funk/plugins/auth/auth-client"
+import { AuthClient, AuthClientUser } from "@funk/plugins/auth/auth-client"
+import { UserSession } from "@funk/ui/core/identity/user-session"
 import { BehaviorSubject, of, Observable } from "rxjs"
 
 export const FAKE_USER_UID = "user-1"
 export const FAKE_ID_TOKEN = "test-token"
 
-export const createIdTokenResultStub = (role = UserRole.ANONYMOUS) => ({
+const createIdTokenResultStub = (role = UserRole.ANONYMOUS) => ({
   claims: { role } as CustomClaims,
-}) as IdTokenResult
+})
+
+export const createUserSession = (role: UserRole) =>
+  of({ auth: { claims: { role } } }) as UserSession
 
 export const createFakePerson = ({
   id = FAKE_USER_UID,
@@ -57,6 +60,6 @@ export const createRouterStub = () => ({
 
 export const createStubbedAdministratorGuard = (userRole = UserRole.ANONYMOUS) =>
   new AdministratorGuard(
-    createAuthStub(createAuthUserStub(userRole)) as unknown as AngularFireAuth,
+    createUserSession(userRole),
     createRouterStub()
   )

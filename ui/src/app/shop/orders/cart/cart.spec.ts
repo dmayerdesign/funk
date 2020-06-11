@@ -6,9 +6,9 @@ import { construct as constructListenById }
 import { construct as constructPopulate }
   from "@funk/plugins/persistence/actions/populate"
 import { Cart } from "@funk/model/commerce/order/order"
-import { UserSession } from "@funk/ui/app/identity/user-session"
+import { UserSession } from "@funk/ui/core/identity/user-session"
 import { of } from "rxjs"
-import { createFakePerson } from "@funk/ui/app/identity/stubs"
+import { createFakePerson } from "@funk/ui/core/identity/stubs"
 
 describe("cart", () =>
 {
