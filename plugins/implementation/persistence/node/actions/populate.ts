@@ -55,6 +55,11 @@ export function construct(getById = getByIdImpl, list = listImpl)
   }
 }
 
-export type Populate = ReturnType<typeof construct>
+export type Populate<
+  PopulatedType,
+  MarshalledType extends DatabaseDocument = any> = (
+    marshalledDoc: MarshalledType,
+    options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
+  ) => Promise<PopulatedType>
 
 export default construct()

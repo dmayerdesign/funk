@@ -1,4 +1,5 @@
 import { AngularFirestore } from "@angular/fire/firestore"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export interface PopulateFieldOptions<DocumentType> {
   collectionPath: string
@@ -9,7 +10,7 @@ export interface PopulateFieldOptions<DocumentType> {
 
 export function construct(store: () => AngularFirestore)
 {
-  return async function<PopulatedType, MarshalledType = any>(
+  return async function<PopulatedType, MarshalledType extends DatabaseDocument = any>(
     marshalledDoc: MarshalledType,
     options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
   ): Promise<PopulatedType>
@@ -51,4 +52,9 @@ export function construct(store: () => AngularFirestore)
   }
 }
 
-export type Populate = ReturnType<typeof construct>
+export type Populate<
+  PopulatedType,
+  MarshalledType extends DatabaseDocument = any> = (
+    marshalledDoc: MarshalledType,
+    options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
+  ) => Promise<PopulatedType>

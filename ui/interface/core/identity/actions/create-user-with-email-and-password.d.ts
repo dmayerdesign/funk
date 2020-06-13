@@ -12,4 +12,3 @@ export default function createUserWithEmailAndPassword(
 ): Promise<void>
 
 export type CreateUserWithEmailAndPassword = ReturnType<typeof construct>
-

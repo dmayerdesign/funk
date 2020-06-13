@@ -17,4 +17,9 @@ export interface PopulateFieldOptions<DocumentType> {
   relationship?: "one-to-many" | "one-to-one"
 }
 
-export type Populate = typeof populate
+export type Populate<
+  PopulatedType,
+  MarshalledType extends DatabaseDocument> = (
+    marshalledDoc: MarshalledType,
+    options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
+  ) => Promise<PopulatedType>

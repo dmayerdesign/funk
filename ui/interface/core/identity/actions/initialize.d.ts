@@ -11,4 +11,3 @@ export function construct(
 export default function initialize(): void
 
 export type Initialize = ReturnType<typeof construct>
-
