@@ -2,7 +2,7 @@ import getTotalBeforeTaxAndShippingImpl from
   "@funk/api/commerce/order/get-total-before-tax-and-shipping"
 import { ORDER_GET_TAX_MISSING_POSTAL_CODE } from "@funk/copy/error-messages"
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
-import { MarshalledOrder, PopulatedOrder } from "@funk/model/commerce/order/order"
+import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
 import getShippingPostalCode from "@funk/model/commerce/order/actions/get-shipping-postal-code"
 import { Price, NULL_PRICE } from "@funk/model/commerce/price/price"
 import { SKUS } from "@funk/model/commerce/sku/sku"
@@ -17,26 +17,28 @@ export function construct(
   getTaxRateForPostalCode = getTaxRateForPostalCodeImpl
 )
 {
-  return async function (marshalledOrder: MarshalledOrder): Promise<Price>
+  return async function (order: Order | MarshalledOrder): Promise<Price>
   {
-    const order = await populate<PopulatedOrder, MarshalledOrder>(marshalledOrder, [
-      { key: "skus", collectionPath: SKUS },
-      { key: "discounts", collectionPath: DISCOUNTS },
-    ])
+    const populatedOrder = await populate<Order, MarshalledOrder>(
+      order as MarshalledOrder,
+      [
+        { key: "skus", collectionPath: SKUS },
+        { key: "discounts", collectionPath: DISCOUNTS },
+      ])
 
     const postalCode = throwInvalidInputIfNilOrEmpty(
-      getShippingPostalCode(order),
+      getShippingPostalCode(populatedOrder),
       ORDER_GET_TAX_MISSING_POSTAL_CODE
     )
     const taxRate = await getTaxRateForPostalCode(postalCode)
-    const total = await getTotalBeforeTaxAndShipping(order)
+    const total = await getTotalBeforeTaxAndShipping(populatedOrder)
 
     return add(
       {
         amount: Math.ceil(total.amount * taxRate),
         currency: total.currency,
       },
-      order.additionalTaxAmount ?? NULL_PRICE
+      populatedOrder.additionalTaxAmount ?? NULL_PRICE
     )
   }
 }

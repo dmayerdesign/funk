@@ -1,5 +1,5 @@
 import { Enterprise, ShippingCostStrategy } from "@funk/model/commerce/enterprise/enterprise"
-import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import { Order } from "@funk/model/commerce/order/order"
 import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { construct } from "@funk/plugins/shipment/actions/get-shipping-rates"
@@ -99,7 +99,7 @@ const setUp = (shippingCostStrategy: ShippingCostStrategy) =>
     skus: [
       { ...createFakeMarshalledSku("1"), price: { amount: 1000, currency: CurrencyCode.USD } },
     ],
-  } as PopulatedOrder
+  } as Order
   const ENTERPRISE = {
     shippingFromAddress: {},
     shippingCostStrategy,

@@ -1,11 +1,10 @@
 import getSecretImpl from "@funk/api/admin/get-secret"
 import populateImpl from "@funk/api/commerce/order/populate"
-import getProductForSkuImpl from "@funk/api/commerce/product/get-product-for-sku"
 import ignoringKeysImpl from "@funk/functions/helpers/listen/ignoring-keys"
-import { construct as constructGetTaxImpl } from "@funk/model/commerce/order/actions/get-tax"
-import { construct as constructGetTotalBeforeTaxAndShippingImpl } from
-  "@funk/model/commerce/order/actions/get-total-before-tax-and-shipping"
-import { MarshalledOrder, ORDERS, Order, PopulatedOrder } from "@funk/model/commerce/order/order"
+import getTaxImpl from "@funk/api/commerce/order/get-tax"
+import getTotalBeforeTaxAndShippingImpl from
+  "@funk/api/commerce/order/get-total-before-tax-and-shipping"
+import { MarshalledOrder, ORDERS, Order } from "@funk/model/commerce/order/order"
 import add from "@funk/model/commerce/price/actions/add"
 import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 import {
@@ -21,20 +20,17 @@ import { Price } from "@funk/model/commerce/price/price"
 import { MIN_TRANSACTION_CENTS } from "@funk/plugins/payment/config"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 
-export function construct({
-  constructGetTotalBeforeTaxAndShipping = constructGetTotalBeforeTaxAndShippingImpl,
-  constructGetTax = constructGetTaxImpl,
+export function construct(
   constructCreatePaymentIntent = constructCreatePaymentIntentImpl,
   constructUpdatePaymentIntent = constructUpdatePaymentIntentImpl,
+  getTotalBeforeTaxAndShipping = getTotalBeforeTaxAndShippingImpl,
+  getTax = getTaxImpl,
   getSecret = getSecretImpl,
   populate = populateImpl,
-  getProductForSku = getProductForSkuImpl,
   ignoringKeys = ignoringKeysImpl,
-  updateById = updateByIdImpl,
-} = {})
+  updateById = updateByIdImpl
+)
 {
-  const _getTotalBeforeTaxAndShipping = constructGetTotalBeforeTaxAndShipping(getProductForSku)
-  const _getTax = constructGetTax((() => {}) as any, getProductForSku)
   const _constructCreatePaymentIntent = async () =>
     constructCreatePaymentIntent(
       (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!
@@ -44,7 +40,7 @@ export function construct({
       (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!
     )
 
-  return ignoringKeys<Order>([ "paymentIntentId" ], async ({ after }) =>
+  return ignoringKeys<MarshalledOrder>([ "paymentIntentId" ], async ({ after }) =>
   {
     const order = after.data() as MarshalledOrder
     const priceAfterTax = await getTransactionPriceAfterTaxOrThrow(await populate(order))
@@ -76,11 +72,11 @@ export function construct({
     await updateById<MarshalledOrder>(ORDERS, orderId, { paymentIntentId })
   }
 
-  async function getTransactionPriceAfterTaxOrThrow(order: PopulatedOrder): Promise<Price>
+  async function getTransactionPriceAfterTaxOrThrow(order: Order): Promise<Price>
   {
     const priceAfterTax = add(
-      await _getTotalBeforeTaxAndShipping(order),
-      await _getTax(order))
+      await getTotalBeforeTaxAndShipping(order),
+      await getTax(order))
     if (priceAfterTax.amount < MIN_TRANSACTION_CENTS)
     {
       throw new InvalidInputError(

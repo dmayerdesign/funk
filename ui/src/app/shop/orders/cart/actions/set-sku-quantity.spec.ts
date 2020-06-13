@@ -1,5 +1,5 @@
-import { PopulatedCart } from "@funk/model/commerce/order/order"
-import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
+import { Cart } from "@funk/model/commerce/order/order"
+import { createFakeSku } from "@funk/model/commerce/sku/stubs"
 import { construct as constructCart } from "@funk/ui/app/shop/orders/cart/cart"
 import { construct } from "@funk/ui/app/shop/orders/cart/actions/set-sku-quantity"
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
@@ -7,7 +7,7 @@ import { of } from "rxjs"
 
 describe("cartSetSkuQuantity", () =>
 {
-  const CART = { id: "cart id" } as PopulatedCart
+  const CART = { id: "cart id" } as Cart
   let cart: ReturnType<typeof constructCart>
   let functionsClient: FunctionsClient
   let rpcAuthorized: Function
@@ -22,10 +22,10 @@ describe("cartSetSkuQuantity", () =>
   it("should add {n} SKUs to the cart", async (done) =>
   {
     const n = Math.ceil(Math.random() * 5)
-    const SKU = createFakeMarshalledSku()
-    const setSkuQuantityInCart = construct(cart, functionsClient)
+    const SKU = createFakeSku()
+    const setSkuQuantity = construct(cart, functionsClient)
 
-    await setSkuQuantityInCart(SKU, n)
+    await setSkuQuantity(SKU, n)
 
     expect(rpcAuthorized).toHaveBeenCalledWith(
       "commerceOrderSetSkuQuantity",

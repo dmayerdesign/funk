@@ -1,15 +1,15 @@
-import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import { Order } from "@funk/model/commerce/order/order"
 import { Sku } from "@funk/model/commerce/sku/sku"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 import { uniqBy } from "lodash"
 
 export default function(
-  populatedOrder: PopulatedOrder,
+  populatedOrder: Order,
   options: {
     sku: Sku
     quantity: number
   }
-): PopulatedOrder
+): Order
 {
   const { sku, quantity } = options
   const _populatedOrder = { ...populatedOrder }
@@ -17,8 +17,8 @@ export default function(
   let _skus = [..._populatedOrder.skus] as Sku[]
   if (quantity === 0)
   {
-    const indexOfPopulatedSku = _skus.findIndex(({ id }) => id === sku.id)
-    _skus = removeSku(_skus, indexOfPopulatedSku)
+    const indexOfSku = _skus.findIndex(({ id }) => id === sku.id)
+    _skus = removeSku(_skus, indexOfSku)
     _skuQuantityMap = setQuantityToZero(_skuQuantityMap, sku.id)
   }
   else

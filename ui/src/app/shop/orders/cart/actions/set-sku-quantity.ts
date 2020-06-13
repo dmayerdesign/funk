@@ -1,4 +1,4 @@
-import { PopulatedCart } from
+import { Cart } from
   "@funk/model/commerce/order/order"
 import { Sku } from "@funk/model/commerce/sku/sku"
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
@@ -11,9 +11,9 @@ export function construct(
   functionsClient: FunctionsClient
 )
 {
-  return async function setSkuQuantityInCart(sku: Sku, quantity: number): Promise<void>
+  return async function(sku: Sku, quantity: number): Promise<void>
   {
-    const _cart = await cart.pipe(first()).toPromise() as PopulatedCart
+    const _cart = await cart.pipe(first()).toPromise() as Cart
 
     functionsClient.rpcAuthorized<typeof setSkuQuantity>("commerceOrderSetSkuQuantity", {
       orderId: _cart.id,

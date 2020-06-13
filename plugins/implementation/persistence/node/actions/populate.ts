@@ -31,7 +31,8 @@ export function construct(getById = getByIdImpl, list = listImpl)
       {
         continue
       }
-      else if (relationship === "one-to-one")
+      else if (relationship === "one-to-one"
+        && typeof marshalledDoc[key] === "string")
       {
         _populatedDoc[key] = await getById<any>(
           collectionPath, marshalledDoc[key] as unknown as string)

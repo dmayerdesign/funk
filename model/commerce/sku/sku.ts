@@ -1,4 +1,4 @@
-import { MarshalledSkuAttributeValues, PopulatedSkuAttributeValues } from
+import { MarshalledSkuAttributeValues, SkuAttributeValues } from
   "@funk/model/commerce/attribute/attribute-value"
 import { Price } from "@funk/model/commerce/price/price"
 import { Inventory } from "@funk/model/commerce/sku/inventory"
@@ -68,9 +68,9 @@ export interface MarshalledSku extends BaseSku {
   imageGroups?: PrimaryKey[]
 }
 
-export interface PopulatedSku extends BaseSku {
+export interface Sku extends BaseSku {
   /** A `Sku` may have exactly one `AttributeValue` per `Attribute`. */
-  attributeValues: PopulatedSkuAttributeValues
+  attributeValues: SkuAttributeValues
   /**
    * A `Sku` may have multiple `TaxonomyTerms` per `Taxonomy`.
    * This field should only store terms which are not present in the associated `Product`
@@ -79,5 +79,3 @@ export interface PopulatedSku extends BaseSku {
   taxonomyTerms: TaxonomyTerm[]
   imageGroups?: ImageGroup[]
 }
-
-export type Sku = MarshalledSku | PopulatedSku

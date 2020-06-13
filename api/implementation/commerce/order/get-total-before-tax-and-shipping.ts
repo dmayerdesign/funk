@@ -1,6 +1,5 @@
-import marshallSku from "@funk/api/commerce/sku/marshall"
 import { SkuDiscount } from "@funk/model/commerce/discount/discount"
-import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import { Order } from "@funk/model/commerce/order/order"
 import add from "@funk/model/commerce/price/actions/add"
 import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
 import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
@@ -10,6 +9,7 @@ import { DbDocumentInput } from "@funk/model/data-access/database-document"
 import getPriceAfterOrderDiscounts from
   "@funk/model/commerce/order/actions/get-price-after-order-discounts"
 import getByIdImpl from "@funk/plugins/persistence/actions/get-by-id"
+import { asPromise } from "@funk/helpers/as-promise"
 import { of, zip } from "rxjs"
 import { first, map, switchMap } from "rxjs/operators"
 
@@ -17,16 +17,16 @@ export function construct(
   getById = getByIdImpl
 )
 {
-  return async function(order: DbDocumentInput<PopulatedOrder>): Promise<Price>
+  return async function(order: DbDocumentInput<Order>): Promise<Price>
   {
-    const skus = order.skus.map(marshallSku)
+    const skus = order.skus
     const activeDiscounts = order.discounts ?? []
 
     if (!skus || !skus.length)
     {
       return Promise.resolve(NULL_PRICE)
     }
-    return await zip(
+    return await asPromise(zip(
       ...skus.map((_sku) => of(_sku).pipe(
         switchMap(async (sku) =>
         {
@@ -47,8 +47,7 @@ export function construct(
           priceAfterSkuDiscounts
         )),
         first()
-      )
-      .toPromise()
+      ))
   }
 }
 

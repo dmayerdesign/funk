@@ -1,10 +1,10 @@
 import { Enterprise } from "@funk/model/commerce/enterprise/enterprise"
-import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import { Order } from "@funk/model/commerce/order/order"
 import { SimpleRate } from "@funk/plugins/shipment/simple-rate"
 import { GetShipmentProvider } from "@funk/plugins/shipment/actions/get-shipment-provider"
 
 export interface Options {
-  order: PopulatedOrder
+  order: Order
   enterprise: Enterprise
 }
 

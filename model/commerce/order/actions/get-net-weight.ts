@@ -1,8 +1,8 @@
-import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import { Order } from "@funk/model/commerce/order/order"
 import add from "@funk/model/weight/actions/add"
 import { Weight } from "@funk/model/weight/weight"
 
-export default function(order: PopulatedOrder): Weight
+export default function(order: Order): Weight
 {
   return order.skus
     .filter(({ netWeight }) => !!netWeight)

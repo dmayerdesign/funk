@@ -1,4 +1,4 @@
-import { MarshalledOrder } from "@funk/model/commerce/order/order"
+import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
 import { Price } from "@funk/model/commerce/price/price"
 import { Populate } from "@funk/api/commerce/order/populate"
 import { GetTotalBeforeTaxAndShipping } from
@@ -11,6 +11,6 @@ export const construct: (
   getTaxRateForPostalCode: GetTaxRateForPostalCode
 ) => typeof getTax
 
-export default function getTax(marshalledOrder: MarshalledOrder): Promise<Price>
+export default function getTax(order: Order | MarshalledOrder): Promise<Price>
 
 export type GetTax = ReturnType<typeof construct>

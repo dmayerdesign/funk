@@ -18,7 +18,7 @@ export interface MarshalledSkuAttributeValues {
   [attributeId: string]: PrimaryKey | string | number
 }
 
-export interface PopulatedSkuAttributeValues {
+export interface SkuAttributeValues {
   [attributeId: string]: AttributeValue | string | number
 }
 
@@ -26,12 +26,6 @@ export interface MarshalledProductAttributeValues {
   [attributeId: string]: PrimaryKey[] | string[] | number[]
 }
 
-export interface PopulatedProductAttributeValues {
+export interface ProductAttributeValues {
   [attributeId: string]: AttributeValue[] | string[] | number[]
 }
-
-export type AttributeValues =
-  MarshalledSkuAttributeValues |
-  PopulatedSkuAttributeValues |
-  MarshalledProductAttributeValues |
-  PopulatedProductAttributeValues

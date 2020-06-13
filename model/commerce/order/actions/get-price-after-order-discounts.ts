@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/indent */
 import { OrderDiscount } from "@funk/model/commerce/discount/discount"
-import { PopulatedOrder } from "@funk/model/commerce/order/order"
+import { Order } from "@funk/model/commerce/order/order"
 import subtract from "@funk/model/commerce/price/actions/subtract"
 import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
 import getOrderDiscounts from "@funk/model/commerce/order/actions/get-order-discounts"
 
 export default function(
-  order: DbDocumentInput<PopulatedOrder>,
+  order: DbDocumentInput<Order>,
   orderPrice: Price
 ): Price
 {

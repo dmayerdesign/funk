@@ -2,7 +2,7 @@ import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { switchMap, map, shareReplay } from "rxjs/operators"
 import { from } from "rxjs"
 import createDocPath from "@funk/helpers/create-doc-path"
-import { ORDERS, Cart, Status, MarshalledCart, PopulatedCart } from
+import { ORDERS, Cart, Status, MarshalledCart } from
   "@funk/model/commerce/order/order"
 import { Customer } from "@funk/model/commerce/order/customer/customer"
 import { SKUS } from "@funk/model/commerce/sku/sku"
@@ -34,7 +34,7 @@ export function construct(
           switchMap(({ collectionPath, documentPath }) =>
             listenById<MarshalledCart>(collectionPath, documentPath)),
           switchMap((cart) =>
-            populate<PopulatedCart, MarshalledCart>(cart!, [
+            populate<Cart, MarshalledCart>(cart!, [
               { key: "skus", collectionPath: SKUS },
               { key: "discounts", collectionPath: DISCOUNTS },
             ]))

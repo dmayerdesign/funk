@@ -1,3 +1,15 @@
+import { GetSecret } from "@funk/api/admin/get-secret"
+import { Populate } from "@funk/plugins/persistence/actions/populate"
+import ignoringKeysImpl from "@funk/functions/helpers/listen/ignoring-keys"
+import { UpdateById } from "@funk/plugins/persistence/actions/update-by-id"
+import { construct as ConstructCreatePaymentIntent } from
+  "@funk/plugins/payment/actions/create-payment-intent"
+import { construct as ConstructUpdatePaymentIntent } from
+  "@funk/plugins/payment/actions/update-payment-intent"
+import { GetTotalBeforeTaxAndShipping } from
+  "@funk/api/commerce/order/get-total-before-tax-and-shipping"
+import { GetTax } from
+  "@funk/api/commerce/order/get-tax"
 import { MarshalledOrder, ORDERS } from "@funk/model/commerce/order/order"
 import { construct } from "@funk/api/commerce/order/handle-write"
 import { Change, ChangeContext } from "@funk/plugins/persistence/change"
@@ -12,24 +24,27 @@ const ORDER_ID = "order id"
 
 describe("orderHandleWrite", () =>
 {
+  let before: MarshalledOrder | undefined
+  let after: MarshalledOrder | undefined
+  let change: Change<MarshalledOrder>
+  let changeContext: ChangeContext
+
+  let constructCreatePaymentIntent: typeof ConstructCreatePaymentIntent
+  let constructUpdatePaymentIntent: typeof ConstructUpdatePaymentIntent
+  let getTotalBeforeTaxAndShipping: GetTotalBeforeTaxAndShipping
+  let getTax: GetTax
+  let getSecret: GetSecret
+  let populate: Populate
+  let ignoringKeys: typeof ignoringKeysImpl
+  let updateById: UpdateById
+
   it("should not create a payment intent if the customer has no billing zip code",
     async (done) =>
     {
-      const BEFORE = undefined
-      const AFTER = {} as MarshalledOrder
-      const deps = setUp(BEFORE, AFTER)
-      const getTax = jasmine.createSpy().and.throwError("fake missing zip code error")
-      const constructGetTax = () => async () => getTax()
-      const handleWrite = construct({
-        ...deps,
-        constructGetTax,
-      })
-      const {
-        change,
-        changeContext,
-        populate,
-        constructCreatePaymentIntent,
-      } = deps
+      before = undefined
+      after = {} as MarshalledOrder
+      getTax = jasmine.createSpy().and.throwError("fake missing zip code error")
+      const handleWrite = constructHandleWrite()
 
       try
       {
@@ -49,30 +64,17 @@ describe("orderHandleWrite", () =>
     + "transaction amount",
     async (done) =>
     {
-      const BEFORE = undefined
-      const AFTER = {} as MarshalledOrder
-      const deps = setUp(BEFORE, AFTER)
-      const getTotalBeforeTaxAndShipping = jasmine.createSpy().and.returnValue({
+      before = undefined
+      after = {} as MarshalledOrder
+      getTotalBeforeTaxAndShipping = jasmine.createSpy().and.returnValue({
         amount: MIN_TRANSACTION_CENTS - 1,
         currency: CurrencyCode.USD,
       } as Price)
-      const constructGetTotalBeforeTaxAndShipping = () => async () => getTotalBeforeTaxAndShipping()
-      const getTax = jasmine.createSpy().and.returnValue({
+      getTax = jasmine.createSpy().and.returnValue({
         amount: 0,
         currency: CurrencyCode.USD,
       } as Price)
-      const constructGetTax = () => async () => getTax()
-      const handleWrite = construct({
-        ...deps,
-        constructGetTotalBeforeTaxAndShipping,
-        constructGetTax,
-      })
-      const {
-        change,
-        changeContext,
-        populate,
-        constructCreatePaymentIntent,
-      } = deps
+      const handleWrite = constructHandleWrite()
 
       try
       {
@@ -89,20 +91,9 @@ describe("orderHandleWrite", () =>
 
   it("should create a payment intent", async (done) =>
   {
-    const BEFORE = undefined
-    const AFTER = { id: ORDER_ID } as MarshalledOrder
-    const deps = setUp(BEFORE, AFTER)
-    const handleWrite = construct(deps)
-    const {
-      change,
-      changeContext,
-      populate,
-      ignoringKeys,
-      constructCreatePaymentIntent,
-      constructUpdatePaymentIntent,
-      getSecret,
-      updateById,
-    } = deps
+    before = undefined
+    after = { id: ORDER_ID } as MarshalledOrder
+    const handleWrite = constructHandleWrite()
 
     await handleWrite(change, changeContext)
 
@@ -120,20 +111,9 @@ describe("orderHandleWrite", () =>
 
   it("should update a payment intent", async (done) =>
   {
-    const BEFORE = undefined
-    const AFTER = { id: ORDER_ID, paymentIntentId: PAYMENT_INTENT_ID } as MarshalledOrder
-    const deps = setUp(BEFORE, AFTER)
-    const handleWrite = construct(deps)
-    const {
-      change,
-      changeContext,
-      populate,
-      ignoringKeys,
-      constructCreatePaymentIntent,
-      constructUpdatePaymentIntent,
-      getSecret,
-      updateById,
-    } = deps
+    before = undefined
+    after = { id: ORDER_ID, paymentIntentId: PAYMENT_INTENT_ID } as MarshalledOrder
+    const handleWrite = constructHandleWrite()
 
     await handleWrite(change, changeContext)
 
@@ -147,47 +127,48 @@ describe("orderHandleWrite", () =>
     expect(updateById).not.toHaveBeenCalled()
     done()
   })
+
+  function constructHandleWrite()
+  {
+    return construct(
+      constructCreatePaymentIntent,
+      constructUpdatePaymentIntent,
+      getTotalBeforeTaxAndShipping,
+      getTax,
+      getSecret,
+      populate,
+      ignoringKeys,
+      updateById
+    )
+  }
+
+  beforeEach(() =>
+  {
+    change = {
+      before: { data: () => before },
+      after: { data: () => after },
+    } as unknown as Change<MarshalledOrder>
+    changeContext = {} as unknown as ChangeContext
+
+    const PAYMENT_INTENT = { id: PAYMENT_INTENT_ID } as PaymentIntent
+    constructCreatePaymentIntent = jasmine.createSpy().and.returnValue(
+      async () => PAYMENT_INTENT
+    )
+    constructUpdatePaymentIntent = jasmine.createSpy().and.returnValue(
+      async () => PAYMENT_INTENT
+    )
+    getTotalBeforeTaxAndShipping = jasmine.createSpy().and.returnValue(
+      Promise.resolve<Price>({ amount: 1000, currency: CurrencyCode.USD })
+    )
+    getTax = jasmine.createSpy().and.returnValue(
+      Promise.resolve<Price>({ amount: 60, currency: CurrencyCode.USD })
+    )
+    getSecret = jasmine.createSpy()
+    populate = jasmine.createSpy().and.callFake(async (order) => order)
+    ignoringKeys = jasmine.createSpy().and.callFake(
+      (_: any, fn: ChangeHandler) => fn
+    )
+    updateById = jasmine.createSpy()
+  })
 })
 
-const setUp = (before: MarshalledOrder | undefined, after: MarshalledOrder | undefined) =>
-{
-  const PAYMENT_INTENT = { id: PAYMENT_INTENT_ID } as PaymentIntent
-  const change = {
-    before: { data: () => before },
-    after: { data: () => after },
-  } as unknown as Change<MarshalledOrder>
-  const changeContext = {} as unknown as ChangeContext
-  const constructGetTotalBeforeTaxAndShipping = jasmine.createSpy().and.returnValue(
-    async () => ({ amount: 1000, currency: CurrencyCode.USD }) as Price
-  )
-  const constructGetTax = jasmine.createSpy().and.returnValue(
-    async () => ({ amount: 60, currency: CurrencyCode.USD }) as Price
-  )
-  const populate = jasmine.createSpy().and.callFake(async (order) => order)
-  const getProductForSku = jasmine.createSpy()
-  const constructCreatePaymentIntent = jasmine.createSpy().and.returnValue(
-    async () => PAYMENT_INTENT
-  )
-  const constructUpdatePaymentIntent = jasmine.createSpy().and.returnValue(
-    async () => PAYMENT_INTENT
-  )
-  const getSecret = jasmine.createSpy()
-  const updateById = jasmine.createSpy()
-  const ignoringKeys = jasmine.createSpy().and.callFake(
-    (_: any, fn: ChangeHandler) => fn
-  )
-
-  return {
-    change,
-    changeContext,
-    constructGetTotalBeforeTaxAndShipping,
-    constructGetTax,
-    populate,
-    getProductForSku,
-    ignoringKeys,
-    constructCreatePaymentIntent,
-    constructUpdatePaymentIntent,
-    getSecret,
-    updateById,
-  }
-}

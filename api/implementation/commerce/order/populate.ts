@@ -1,13 +1,13 @@
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
-import { MarshalledOrder, PopulatedOrder } from "@funk/model/commerce/order/order"
+import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 import populateImpl from "@funk/plugins/persistence/actions/populate"
 
 export function construct(populate = populateImpl)
 {
-  return function(order: MarshalledOrder): Promise<PopulatedOrder>
+  return function(order: MarshalledOrder): Promise<Order>
   {
-    return populate<PopulatedOrder, MarshalledOrder>(order, [
+    return populate<Order, MarshalledOrder>(order, [
       { key: "skus", collectionPath: SKUS },
       { key: "discounts", collectionPath: DISCOUNTS },
     ])

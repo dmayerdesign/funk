@@ -1,9 +1,3 @@
-import { Observable } from "rxjs"
-import { first } from "rxjs/operators"
+import { firstValueFrom } from "rxjs"
 
-export function asPromise<ValueType>(
-  observable: Observable<ValueType>
-): Promise<ValueType>
-{
-  return observable.pipe(first()).toPromise()
-}
+export const asPromise = firstValueFrom

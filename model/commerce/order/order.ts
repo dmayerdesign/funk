@@ -1,7 +1,7 @@
 import { Discount } from "@funk/model/commerce/discount/discount"
 import { Customer } from "@funk/model/commerce/order/customer/customer"
 import { Price } from "@funk/model/commerce/price/price"
-import { Sku } from "@funk/model/commerce/sku/sku"
+import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 
@@ -41,24 +41,18 @@ interface BaseOrder extends DatabaseDocument {
   skuQuantityMap: { [skuId: string]: number }
 }
 
-export interface PopulatedOrder extends BaseOrder {
-  skus: Sku[]
+export interface Order extends BaseOrder {
+  skus: MarshalledSku[]
   discounts?: Discount[]
 }
-export type PopulatedCart = PopulatedOrder & {
+export type Cart = Order & {
   status: Status.CART | Status.CART_CHECKOUT
 }
 
-export interface MarshalledOrder extends BaseOrder
-{
+export interface MarshalledOrder extends BaseOrder {
   skus: PrimaryKey[]
   discounts?: PrimaryKey[]
 }
 export type MarshalledCart = MarshalledOrder & {
-  status: Status.CART | Status.CART_CHECKOUT
-}
-
-export type Order = PopulatedOrder | MarshalledOrder
-export type Cart = Order & {
   status: Status.CART | Status.CART_CHECKOUT
 }

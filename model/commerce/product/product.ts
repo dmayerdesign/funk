@@ -1,5 +1,5 @@
 import { MarshalledProductAttributeValues,
-  PopulatedProductAttributeValues } from "@funk/model/commerce/attribute/attribute-value"
+  ProductAttributeValues } from "@funk/model/commerce/attribute/attribute-value"
 import { Review } from "@funk/model/commerce/review/review"
 import { TaxonomyTerm } from "@funk/model/commerce/taxonomy/taxonomy-term"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
@@ -11,7 +11,7 @@ import { Duration } from "@funk/model/time/duration"
 
 export const PRODUCTS = "commerce.products"
 
-interface BaseProduct extends DatabaseDocument {
+export interface Product extends DatabaseDocument {
   name: string
   description?: string
   imageGroups?: ImageGroup[]
@@ -23,24 +23,20 @@ interface BaseProduct extends DatabaseDocument {
    */
   duration?: Duration
   isPublished?: boolean
-}
-
-export interface MarshalledProduct extends BaseProduct {
   /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
-  attributeValues: MarshalledProductAttributeValues
-  /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. */
-  taxonomyTerms: PrimaryKey[]
-  reviews?: PrimaryKey[]
-  brand?: PrimaryKey
-}
-
-export interface PopulatedProduct extends BaseProduct {
-  /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
-  attributeValues: PopulatedProductAttributeValues
+  attributeValues: ProductAttributeValues
   /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. */
   taxonomyTerms: TaxonomyTerm[]
   reviews?: Review[]
   brand?: Organization
 }
 
-export type Product = MarshalledProduct | PopulatedProduct
+export type MarshalledProduct =
+  Omit<Product, "attributeValues"|"taxonomyTerms"|"reviews"|"brand"> & {
+    /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
+    attributeValues: MarshalledProductAttributeValues
+    /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. */
+    taxonomyTerms: PrimaryKey[]
+    reviews?: PrimaryKey[]
+    brand?: PrimaryKey
+  }
