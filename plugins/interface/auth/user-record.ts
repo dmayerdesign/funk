@@ -1,7 +1,6 @@
 import { CustomClaims } from "@funk/model/auth/custom-claims"
 
-export interface UserRecord
-{
+export interface UserRecord {
   uid: string
   email?: string
   emailVerified: boolean

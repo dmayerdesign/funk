@@ -15,7 +15,7 @@ import { GetTax } from
 
 declare const handleWrite: ChangeHandler<MarshalledOrder>
 
-export const construct: (
+export declare const construct: (
   constructCreatePaymentIntent: typeof ConstructCreatePaymentIntent,
   constructUpdatePaymentIntent: typeof ConstructUpdatePaymentIntent,
   getTotalBeforeTaxAndShipping: GetTotalBeforeTaxAndShipping,

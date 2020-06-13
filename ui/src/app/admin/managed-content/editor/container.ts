@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from "@angular/core"
+import { Component, OnInit, ViewChild, Inject } from "@angular/core"
 import {
   ManagedContentEditorService,
-} from "@funk/ui/app/admin/managed-content/editor/service"
+} from "@funk/ui/core/admin/managed-content/editor/service"
+import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
 import { IonTextarea } from "@ionic/angular"
 import { ReplaySubject, merge, of } from "rxjs"
 import { delay, startWith, switchMap, tap, throttleTime } from "rxjs/operators"
@@ -59,11 +60,12 @@ export class ManagedContentEditorContainer implements OnInit
       : of(isAnimating)))
 
   public constructor(
+    @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
     private _editorService: ManagedContentEditorService
   )
   { }
 
-  public ngOnInit(): void
+  public ngOnInit = (): void =>
   {
     this.maybeFormControl.subscribe(() =>
     {
@@ -74,22 +76,15 @@ export class ManagedContentEditorContainer implements OnInit
     })
   }
 
-  public animateOut(): void
-  {
-    this._cssAnimatingOut.next(true)
-  }
+  public animateOut = (): void => this._cssAnimatingOut.next(true)
 
-  public async saveEdit(): Promise<void>
-  {
+  public saveEdit = async (): Promise<void> =>
     await this._editorService.saveAndClearIfEditing()
-  }
 
-  public async cancelEdit(): Promise<void>
-  {
+  public cancelEdit = async (): Promise<void> =>
     this.animateOut()
-  }
 
-  public async maybeSaveAndPublish(): Promise<void>
+  public maybeSaveAndPublish = async (): Promise<void> =>
   {
     await this.saveEdit()
     await this._editorService.maybePublishAll()

@@ -1,7 +1,7 @@
 import { USER_STATES } from "@funk/model/identity/user-state"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
 import { FAKE_USER_UID } from "@funk/ui/core/identity/stubs"
-import { ManagedContentEditorService } from "@funk/ui/app/admin/managed-content/editor/service"
+import { ManagedContentEditorService } from "@funk/ui/core/admin/managed-content/editor/service"
 import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
 import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
 import { construct as constructSetById } from "@funk/plugins/persistence/actions/set-by-id"
@@ -9,9 +9,9 @@ import { construct as constructUpdateById } from "@funk/plugins/persistence/acti
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { UserRole } from "@funk/model/auth/user-role"
+import { subHours } from "date-fns"
 import { when } from "jest-when"
 import { of } from "rxjs"
-import { subHours } from "date-fns"
 
 describe("ManagedContentEditorService", () =>
 {

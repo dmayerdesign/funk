@@ -5,7 +5,8 @@ export interface Options {
   value: string
 }
 
-export default function setSecret(options: Options): Promise<void>
+declare function setSecret(options: Options): Promise<void>
+export default setSecret
 
 export declare function construct(
   getConfig: any,

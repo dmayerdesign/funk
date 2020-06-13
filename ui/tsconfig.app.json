@@ -9,9 +9,10 @@
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
-      "@funk/plugins/persistence/*": [ "../plugins/implementation/persistence/web/*" ],
+      "@funk/plugins/persistence/*": [ "../plugins/implementation/persistence/ui/*" ],
       "@funk/plugins/*": [ "../plugins/implementation/*" ],
       "@funk/plugins-spec/*": [ "../plugins/spec/*" ],
+      "@funk/ui/core/*": [ "./src/core/*" ],
       "@funk/ui/*": [ "./src/*" ]
     }
   },
@@ -19,7 +20,5 @@
     "src/main.ts",
     "src/polyfills.ts"
   ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  "include": []
 }

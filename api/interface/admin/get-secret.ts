@@ -1,6 +1,7 @@
 import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
 
-export default function getSecret(secretKey: string): Promise<string | undefined>
+declare function getSecret(secretKey: string): Promise<string | undefined>
+export default getSecret
 
 export declare function construct(
   getConfig: any,

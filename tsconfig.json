@@ -36,11 +36,15 @@
       "@funk/model/*": [ "./model/*" ],
       "@funk/plugins/*": [ "./plugins/interface/*" ],
       "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
+      "@funk/ui/core/*": [ "./ui/interface/core/*" ],
       "@funk/ui/*": [ "./ui/src/*" ],
       "@funk/test/*": [ "./test/*" ]
     }
   },
   "include": [
     "./**/*.ts"
+  ],
+  "exclude": [
+    "./node_modules/**/*"
   ]
 }

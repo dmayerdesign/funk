@@ -3,9 +3,10 @@ import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { Condition } from "@funk/plugins/persistence/condition"
 import { Pagination, VirtualPagination } from "@funk/plugins/persistence/pagination"
 
-export function construct(list: List): typeof listPublished
+export declare function construct(list: List): typeof listPublished
 
-export default function listPublished({ pagination, conditions }: {
+export default listPublished
+declare function listPublished({ pagination, conditions }: {
   pagination: Pagination<MarshalledProduct> | VirtualPagination
   conditions: Condition<MarshalledProduct>[]
 }): Promise<MarshalledProduct[]>

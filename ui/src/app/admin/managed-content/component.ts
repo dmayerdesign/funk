@@ -1,10 +1,7 @@
 import { Component, HostListener, Inject, Input, OnDestroy, OnInit } from "@angular/core"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
 import { ManagedContent, ManagedContentType } from "@funk/model/managed-content/managed-content"
-import { ManagedContentEditorService } from "@funk/ui/app/admin/managed-content/editor/service"
-import { Platform } from "@ionic/angular"
-import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
-import { Observable, defer, from } from "rxjs"
+import { ManagedContentEditorService } from "@funk/ui/core/admin/managed-content/editor/service"
 import { map, shareReplay, switchMap, pluck } from "rxjs/operators"
 import { LISTEN_BY_ID } from "@funk/ui/app/persistence/tokens"
 import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
@@ -13,6 +10,10 @@ import { UserSession } from "@funk/ui/core/identity/user-session"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
 import { asPromise } from "@funk/helpers/as-promise"
+import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
+import { Platform } from "@ionic/angular"
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
+import { Observable, defer, from } from "rxjs"
 
 @UntilDestroy()
 @Component({
@@ -29,7 +30,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy
     from(this._canManageContent()))
     .pipe(
       switchMap((canManageContent) => canManageContent
-        ? this._managedContentEditorService
+        ? this._editorService
           .listenForPreviewOrLiveContent(this.contentId)
         : this._listenById<ManagedContent>(CONTENTS, this.contentId)
       ),
@@ -44,7 +45,8 @@ export class ManagedContentComponent implements OnInit, OnDestroy
     private _platform: Platform,
     @Inject(USER_SESSION) private _userSession: UserSession,
     @Inject(LISTEN_BY_ID) private _listenById: ReturnType<typeof constructListenById>,
-    private _managedContentEditorService: ManagedContentEditorService
+    @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
+    private _editorService: ManagedContentEditorService
   ) { }
 
   public async ngOnInit(): Promise<void>
@@ -60,7 +62,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy
   {
     if (await this._canManageContent())
     {
-      this._managedContentEditorService.manageContent(this.contentId)
+      this._editorService.manageContent(this.contentId)
     }
   }
 

@@ -13,7 +13,7 @@
       "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
-      "@funk/plugins/persistence/*": [ "./plugins/implementation/persistence/web/*" ],
+      "@funk/plugins/persistence/*": [ "./plugins/implementation/persistence/ui/*" ],
       "@funk/plugins/*": [ "./plugins/implementation/*" ],
       "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
       "@funk/test/*": [ "./test/*" ],

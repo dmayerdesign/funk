@@ -18,7 +18,7 @@ export interface AnimateOptions
 
 export class Animation
 {
-  private _tween?: GSAPStatic.Tween
+  private _tween?: TweenMax
 
   public constructor (
     private _animateOptions: AnimateOptions
@@ -30,7 +30,7 @@ export class Animation
     const { durationMs, element, easingFunction, toCss } = this._animateOptions
     this._tween = to(element, durationMs / 1000, {
       ease: easingFunction,
-      ...toCss,
+      ...toCss as CSSStyleDeclaration | any,
     })
   }
 
