@@ -3,7 +3,6 @@ import { platformBrowserDynamic } from "@angular/platform-browser-dynamic"
 import { BrowserModule } from "@funk/ui/app/browser.module"
 import { environment } from "@funk/ui/environments/environment"
 import { defineCustomElements } from "@ionic/pwa-elements/loader"
-import "hammerjs"
 
 if (!environment.production)
 {
