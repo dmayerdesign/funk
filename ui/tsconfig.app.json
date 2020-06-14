@@ -12,13 +12,13 @@
       "@funk/plugins/persistence/*": [ "../plugins/implementation/persistence/ui/*" ],
       "@funk/plugins/*": [ "../plugins/implementation/*" ],
       "@funk/plugins-spec/*": [ "../plugins/spec/*" ],
-      "@funk/ui/core/*": [ "./src/core/*" ],
-      "@funk/ui/*": [ "./src/*" ]
+      "@funk/ui/core/*": [ "./implementation/core/*" ],
+      "@funk/ui/*": [ "./implementation/*" ]
     }
   },
   "files": [
-    "src/main.ts",
-    "src/polyfills.ts"
+    "implementation/main.ts",
+    "implementation/polyfills.ts"
   ],
   "include": []
 }

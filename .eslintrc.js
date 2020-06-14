@@ -148,10 +148,6 @@ module.exports = {
         "no-eval": "error",
         "no-fallthrough": "error",
         "no-new-wrappers": "error",
-        "no-restricted-imports": [
-            "error",
-            "^.+plugins\\/src(\\/.+)?$"
-        ],
         "no-shadow": [
             "error",
             {

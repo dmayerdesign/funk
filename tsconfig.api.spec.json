@@ -13,18 +13,15 @@
       "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
-      "@funk/plugins/persistence/*": [ "./plugins/implementation/persistence/functions/*" ],
+      "@funk/plugins/persistence/*": [ "./plugins/implementation/persistence/api/*" ],
       "@funk/plugins/*": [ "./plugins/implementation/*" ],
       "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
-      "@funk/test/*": [ "./test/*" ],
-      "@funk/ui/*": [ "./ui/src/*" ]
+      "@funk/test/*": [ "./test/*" ]
     }
   },
   "include": [
+    "api/implementation/**/*.ts",
     "config/**/*.ts",
-    "ui/src/polyfills.ts",
-    "ui/src/**/*.spec.ts",
-    "ui/src/**/spec.ts",
     "functions/src/app/**/*.spec.ts",
     "functions/src/app/**/spec.ts",
     "plugins/implementation/**/*.ts"

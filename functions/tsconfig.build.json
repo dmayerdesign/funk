@@ -18,7 +18,7 @@
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
-      "@funk/plugins/persistence/*": [ "../plugins/implementation/persistence/functions/*" ],
+      "@funk/plugins/persistence/*": [ "../plugins/implementation/persistence/api/*" ],
       "@funk/plugins/*": [ "../plugins/implementation/*" ]
     }
   }
