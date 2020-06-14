@@ -1,7 +1,7 @@
 {
-  "defaultProject": "web",
+  "defaultProject": "client-app",
   "projects": {
-    "web": {
+    "client-app": {
       "name": "Ionic Web App",
       "integrations": {
         "capacitor": {}

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "ui",
   "projects": {
-    "web": {
+    "client-app": {
       "projectType": "application",
       "root": "ui",
       "sourceRoot": "ui/src",
@@ -12,7 +12,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "ui/dist/web-browser",
+            "outputPath": "ui/dist/client-app-browser",
             "index": "ui/src/index.html",
             "main": "ui/src/main.ts",
             "polyfills": "ui/src/polyfills.ts",
@@ -104,30 +104,30 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "web:build"
+            "browserTarget": "client-app:build"
           },
           "configurations": {
             "local": {
-              "browserTarget": "web:build:local"
+              "browserTarget": "client-app:build:local"
             },
             "development": {
-              "browserTarget": "web:build:development"
+              "browserTarget": "client-app:build:development"
             },
             "production": {
-              "browserTarget": "web:build:production"
+              "browserTarget": "client-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "web:build"
+            "browserTarget": "client-app:build"
           }
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "ui/dist/web-server",
+            "outputPath": "ui/dist/client-app-server",
             "main": "ui/src/main.server.ts",
             "tsConfig": "ui/tsconfig.server.json"
           },
@@ -163,60 +163,60 @@
         "app-shell": {
           "builder": "@angular-devkit/build-angular:app-shell",
           "options": {
-            "browserTarget": "web:build",
-            "serverTarget": "web:server",
+            "browserTarget": "client-app:build",
+            "serverTarget": "client-app:server",
             "route": "shell"
           },
           "configurations": {
             "local": {
-              "browserTarget": "web:build:local",
-              "serverTarget": "web:server:local"
+              "browserTarget": "client-app:build:local",
+              "serverTarget": "client-app:server:local"
             },
             "development": {
-              "browserTarget": "web:build:development",
-              "serverTarget": "web:server:development"
+              "browserTarget": "client-app:build:development",
+              "serverTarget": "client-app:server:development"
             },
             "production": {
-              "browserTarget": "web:build:production",
-              "serverTarget": "web:server:production"
+              "browserTarget": "client-app:build:production",
+              "serverTarget": "client-app:server:production"
             }
           }
         },
         "ionic-cordova-build": {
           "builder": "@ionic/angular-toolkit:cordova-build",
           "options": {
-            "browserTarget": "web:build"
+            "browserTarget": "client-app:build"
           },
           "configurations": {
             "local": {
-              "browserTarget": "web:build:local"
+              "browserTarget": "client-app:build:local"
             },
             "development": {
-              "browserTarget": "web:build:development"
+              "browserTarget": "client-app:build:development"
             },
             "production": {
-              "browserTarget": "web:build:production"
+              "browserTarget": "client-app:build:production"
             }
           }
         },
         "ionic-cordova-serve": {
           "builder": "@ionic/angular-toolkit:cordova-serve",
           "options": {
-            "cordovaBuildTarget": "web:ionic-cordova-build",
-            "devServerTarget": "web:serve"
+            "cordovaBuildTarget": "client-app:ionic-cordova-build",
+            "devServerTarget": "client-app:serve"
           },
           "configurations": {
             "local": {
-              "cordovaBuildTarget": "web:ionic-cordova-build:local",
-              "devServerTarget": "web:serve:local"
+              "cordovaBuildTarget": "client-app:ionic-cordova-build:local",
+              "devServerTarget": "client-app:serve:local"
             },
             "development": {
-              "cordovaBuildTarget": "web:ionic-cordova-build:development",
-              "devServerTarget": "web:serve:development"
+              "cordovaBuildTarget": "client-app:ionic-cordova-build:development",
+              "devServerTarget": "client-app:serve:development"
             },
             "production": {
-              "cordovaBuildTarget": "web:ionic-cordova-build:production",
-              "devServerTarget": "web:serve:production"
+              "cordovaBuildTarget": "client-app:ionic-cordova-build:production",
+              "devServerTarget": "client-app:serve:production"
             }
           }
         }
@@ -234,5 +234,5 @@
       "styleext": "scss"
     }
   },
-  "defaultProject": "web"
+  "defaultProject": "client-app"
 }

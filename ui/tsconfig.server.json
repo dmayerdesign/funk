@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "outDir": "./dist/web-server",
+    "outDir": "./dist/client-app-server",
     "module": "commonjs"
   },
   "angularCompilerOptions": {

@@ -1,6 +1,6 @@
 const { pathsToModuleNameMapper } = require('ts-jest/utils')
 const baseConfig = require('./test/jest.base-config')
-const { compilerOptions } = require('./tsconfig.node.spec.json')
+const { compilerOptions } = require('./tsconfig.api.spec.json')
 
 module.exports = {
   ...baseConfig,
@@ -18,7 +18,7 @@ module.exports = {
   }),
   globals: {
     'ts-jest': {
-      tsConfig: 'tsconfig.node.spec.json',
+      tsConfig: 'tsconfig.api.spec.json',
       diagnostics: {
         warnOnly: true,
       },
