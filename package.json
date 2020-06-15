@@ -16,7 +16,7 @@
     "ui::build::production": "sh ./build-pipeline/package-scripts/ui-build-production.sh",
     "ui::develop::local": "sh ./build-pipeline/package-scripts/ui-develop-local.sh",
     "ui::develop::development": "sh ./build-pipeline/package-scripts/ui-develop-development.sh",
-    "functions::test": "sh ./build-pipeline/package-scripts/test-functions.sh",
+    "functions::test": "sh ./build-pipeline/package-scripts/test-api.sh",
     "functions::build::local": "sh ./build-pipeline/package-scripts/functions-build-local.sh",
     "functions::build::development": "sh ./build-pipeline/package-scripts/functions-build-development.sh",
     "functions::build::production": "sh ./build-pipeline/package-scripts/functions-build-production.sh",
