@@ -1,18 +1,18 @@
 import { MarshalledSku, Sku } from "@funk/model/commerce/sku/sku"
 import { WeightUnit } from "@funk/model/units/weight-unit"
 
-export const createFakeMarshalledSku = (idSuffix = "0") => ({
-  id: `test_sku_id_${idSuffix}`,
-  productId: `test_product_id_${idSuffix}`,
+export const createFakeMarshalledSku = (id = "sku id") => ({
+  id,
+  productId: `product id for ${id}`,
   price: { amount: 1000, currency: "USD" },
-  taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
+  taxonomyTerms: [ `tax term for ${id}` ],
   netWeight: { amount: 2, unit: WeightUnit.OUNCES },
 }) as MarshalledSku
 
-export const createFakeSku = (idSuffix = "0") => ({
-  id: `test_sku_id_${idSuffix}`,
-  productId: `test_product_id_${idSuffix}`,
+export const createFakeSku = (id = "sku id") => ({
+  id,
+  productId: `product id for ${id}`,
   price: { amount: 1000, currency: "USD" },
-  taxonomyTerms: [ { id: `tax_term_id_${idSuffix}` } ],
+  taxonomyTerms: [ { id: `tax term for ${id}` } ],
   netWeight: { amount: 2, unit: WeightUnit.OUNCES },
 }) as Sku

@@ -12,7 +12,7 @@ describe("getNetWeight", () =>
         { netWeight: { amount: 10, unit: WeightUnit.OUNCES } },
         { netWeight: { amount: 10, unit: WeightUnit.OUNCES } },
       ] as Sku[],
-    } as Order
+    } as unknown as Order
 
     expect(getNetWeight(ORDER)).toEqual({
       amount: 20,

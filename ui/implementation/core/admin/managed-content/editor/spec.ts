@@ -1,7 +1,10 @@
 import { USER_STATES } from "@funk/model/identity/user-state"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
 import { FAKE_USER_UID } from "@funk/ui/core/identity/stubs"
-import { ManagedContentEditorService } from "@funk/ui/core/admin/managed-content/editor/service"
+import {
+  construct,
+  ManagedContentEditorService,
+} from "@funk/ui/core/admin/managed-content/editor/service"
 import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
 import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
 import { construct as constructSetById } from "@funk/plugins/persistence/actions/set-by-id"
@@ -23,7 +26,7 @@ describe("ManagedContentEditorService", () =>
 
   it("should manage content for the first time", async (done) =>
   {
-    const service = new ManagedContentEditorService(
+    const service = construct(
       userSession, listenById, getById, setById, updateById
     )
     const getActiveContentValueControl = async () =>
@@ -39,7 +42,7 @@ describe("ManagedContentEditorService", () =>
 
   it("should manage content for the second time", async (done) =>
   {
-    const service = new ManagedContentEditorService(
+    const service = construct(
       userSession, listenById, getById, setById, updateById
     )
     const getActiveContentValueControl = async () =>
@@ -53,7 +56,7 @@ describe("ManagedContentEditorService", () =>
 
   it("should save managed content", async (done) =>
   {
-    const service = new ManagedContentEditorService(
+    const service = construct(
       userSession, listenById, getById, setById, updateById
     )
 
@@ -77,7 +80,7 @@ describe("ManagedContentEditorService", () =>
 
   it("should publish all previews", async (done) =>
   {
-    const service = new ManagedContentEditorService(
+    const service = construct(
       userSession, listenById, getById, setById, updateById
     )
 
@@ -99,7 +102,7 @@ describe("ManagedContentEditorService", () =>
   it("should not publish all previews if the user is not an admin", async (done) =>
   {
     userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
-    const service = new ManagedContentEditorService(
+    const service = construct(
       userSession, listenById, getById, setById, updateById
     )
 
@@ -120,7 +123,7 @@ describe("ManagedContentEditorService", () =>
       when(getById as jest.Mock)
         .calledWith(USER_STATES)
         .mockReturnValueOnce(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
-      const service: ManagedContentEditorService = new ManagedContentEditorService(
+      const service: ManagedContentEditorService = construct(
         userSession, listenById, getById, setById, updateById
       )
 
@@ -138,7 +141,7 @@ describe("ManagedContentEditorService", () =>
   it("should publish one preview, regardless of publish conflict",
     async (done) =>
     {
-      const service: ManagedContentEditorService = new ManagedContentEditorService(
+      const service: ManagedContentEditorService = construct(
         userSession, listenById, getById, setById, updateById
       )
 
@@ -160,7 +163,7 @@ describe("ManagedContentEditorService", () =>
   it("should not publish one preview if the user is not an admin", async (done) =>
   {
     userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
-    const service = new ManagedContentEditorService(
+    const service = construct(
       userSession, listenById, getById, setById, updateById
     )
 
@@ -173,7 +176,7 @@ describe("ManagedContentEditorService", () =>
 
   it("should remove a preview", async (done) =>
   {
-    const service = new ManagedContentEditorService(
+    const service = construct(
       userSession, listenById, getById, setById, updateById
     )
 

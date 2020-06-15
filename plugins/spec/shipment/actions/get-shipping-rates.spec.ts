@@ -97,7 +97,7 @@ const setUp = (shippingCostStrategy: ShippingCostStrategy) =>
       shippingAddress: {},
     },
     skus: [
-      { ...createFakeMarshalledSku("1"), price: { amount: 1000, currency: CurrencyCode.USD } },
+      { ...createFakeMarshalledSku(), price: { amount: 1000, currency: CurrencyCode.USD } },
     ],
   } as Order
   const ENTERPRISE = {

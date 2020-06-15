@@ -1,12 +1,12 @@
 import { Order } from "@funk/model/commerce/order/order"
-import { Sku } from "@funk/model/commerce/sku/sku"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
+import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { uniqBy } from "lodash"
 
 export default function(
   populatedOrder: Order,
   options: {
-    sku: Sku
+    sku: MarshalledSku
     quantity: number
   }
 ): Order
@@ -14,7 +14,7 @@ export default function(
   const { sku, quantity } = options
   const _populatedOrder = { ...populatedOrder }
   let _skuQuantityMap = { ..._populatedOrder.skuQuantityMap }
-  let _skus = [..._populatedOrder.skus] as Sku[]
+  let _skus = [..._populatedOrder.skus] as MarshalledSku[]
   if (quantity === 0)
   {
     const indexOfSku = _skus.findIndex(({ id }) => id === sku.id)
@@ -45,8 +45,8 @@ function setQuantityToZero(
 }
 
 function removeSku(
-  skus: Sku[],
-  indexOfSku: number): Sku[]
+  skus: MarshalledSku[],
+  indexOfSku: number): MarshalledSku[]
 {
   const _skus = [ ...skus ]
   if (indexOfSku > -1)
