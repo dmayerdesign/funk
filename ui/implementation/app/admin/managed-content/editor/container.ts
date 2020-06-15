@@ -1,27 +1,22 @@
-import { Component, OnInit, ViewChild, Inject } from "@angular/core"
+import { Component, OnInit, ViewChild, Inject, ViewEncapsulation } from "@angular/core"
 import {
   ManagedContentEditorService,
 } from "@funk/ui/core/admin/managed-content/editor/service"
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
-import { USER_SESSION } from "@funk/ui/app/identity/tokens"
-import { ActivatedRoute } from "@angular/router"
-import { UserSession } from "@funk/ui/core/identity/user-session"
-import roleHasAdminPrivilegeOrGreater from
-  "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
 import { IonTextarea } from "@ionic/angular"
-import { ReplaySubject, merge, of, combineLatest } from "rxjs"
-import { delay, startWith, switchMap, tap, throttleTime, map } from "rxjs/operators"
+import { ReplaySubject, merge, of } from "rxjs"
+import { delay, startWith, switchMap, tap, throttleTime } from "rxjs/operators"
 
 const ANIMATION_DURATION_MS = 500
 
 @Component({
   selector: "managed-content-editor",
   template: `
-    <div [ngClass]="{
-      'managed-content-editor-wrapper': true,
-      'has-preview': hasPreview | async,
-      'admin-edit-mode-is-on': adminEditModeIsOn | async
-    }">
+    <div id="managed-content-editor-wrapper"
+      [ngClass]="{
+        'has-preview': hasPreview | async,
+        'admin-edit-mode-is-on': isActivated | async
+      }">
       <div *ngIf="hasPreview | async"
         id="has-preview-notice">
         You are looking at a preview
@@ -52,6 +47,7 @@ const ANIMATION_DURATION_MS = 500
     </ng-container>
   `,
   styleUrls: [ "./container.scss" ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ManagedContentEditorContainer implements OnInit
 {
@@ -69,16 +65,9 @@ export class ManagedContentEditorContainer implements OnInit
           delay(ANIMATION_DURATION_MS),
           tap(() => this._editorService.cancel())))
       : of(isAnimating)))
-  public adminEditModeIsOn = combineLatest(
-    this._userSession,
-    this._activatedRoute.queryParams)
-    .pipe(
-      map(([ { auth }, params ]) => roleHasAdminPrivilegeOrGreater(auth.claims.role)
-        && params["edit"] === "true"))
+  public isActivated = this._editorService.isActivated
 
   public constructor(
-    private _activatedRoute: ActivatedRoute,
-    @Inject(USER_SESSION) private _userSession: UserSession,
     @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
     private _editorService: ManagedContentEditorService
   )

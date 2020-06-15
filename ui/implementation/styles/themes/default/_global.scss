@@ -8,12 +8,6 @@
     opacity: 0;
   }
 }
-ion-title {
-  @media screen and (min-width: #{$content-max-width-px}px) {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
 
 // Page.
 .ion-page {
@@ -101,6 +95,16 @@ ion-card {
     @media screen and (min-width: #{$content-max-width-px}px) {
       margin-left: -20px;
       margin-right: -20px;
+    }
+  }
+}
+
+// Toolbar.
+ion-toolbar {
+  .max-width-container ion-title {
+    @media screen and (min-width: #{$content-max-width-px}px) {
+      padding-inline-start: 0px;
+      padding-inline-end: 0px;
     }
   }
 }

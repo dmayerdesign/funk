@@ -20,6 +20,7 @@ export function construct(
 ): ManagedContentEditorService
 
 export interface ManagedContentEditorService {
+  isActivated: Observable<boolean>
   saving: BehaviorSubject<boolean>
   activeContentValueControl: Observable<AbstractControl | undefined>
   hasPreview: Observable<boolean>

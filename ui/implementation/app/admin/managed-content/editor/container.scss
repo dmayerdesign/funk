@@ -40,30 +40,8 @@ $has-preview-notice-height: 26px;
 
 @include animate-in-out($drawer-height);
 
-.managed-content-editor-wrapper {
-  #managed-content-editor-drawer {
-    ion-card {
-      margin: 0;
-      transform: translateY(10px);
-      padding-bottom: 10px;
-      width: 100%;
-      height: $drawer-height;
-    
-      form {
-        display: flex;
-        flex-direction: column;
-        height: $drawer-height;
-    
-        .drawer-card-actions {
-          display: flex;
-          padding: 10px;
-          justify-content: flex-start;
-        }
-      }
-    }
-  }
-  
-  .has-preview {
+#managed-content-editor-wrapper {
+  &.has-preview {
     #has-preview-notice {
       display: block;
       box-sizing: border-box;
@@ -71,6 +49,39 @@ $has-preview-notice-height: 26px;
     }
     ion-router-outlet {
       top: $has-preview-notice-height;
+    }
+  }
+  &.admin-edit-mode-is-on {
+    managed-content {
+      cursor: pointer;
+      text-decoration: underline dotted rgba(var(--ion-color-warning-rgb), 0.4);
+  
+      &:hover {
+        text-decoration: underline dotted rgb(var(--ion-color-warning-rgb));
+      }
+    }
+  }
+  
+}
+
+#managed-content-editor-drawer {
+  ion-card {
+    margin: 0;
+    transform: translateY(10px);
+    padding-bottom: 10px;
+    width: 100%;
+    height: $drawer-height;
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      height: $drawer-height;
+  
+      .drawer-card-actions {
+        display: flex;
+        padding: 10px;
+        justify-content: flex-start;
+      }
     }
   }
 }

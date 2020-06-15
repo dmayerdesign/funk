@@ -33,6 +33,10 @@ export function construct(
   return new class ManagedContentEditorService
   {
     private _maybeActiveContentId = new BehaviorSubject<string | undefined>(undefined)
+    public isActivated = userSession.pipe(
+      pluck("auth", "claims", "role"),
+      map(roleHasAdminPrivilegeOrGreater)
+    )
     public saving = new BehaviorSubject<boolean>(false)
     public activeContentValueControl = this._maybeActiveContentId
       .pipe(
