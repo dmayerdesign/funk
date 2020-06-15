@@ -12,7 +12,6 @@
       "@funk/plugins/persistence/*": [ "../plugins/implementation/persistence/ui/*" ],
       "@funk/plugins/*": [ "../plugins/implementation/*" ],
       "@funk/plugins-spec/*": [ "../plugins/spec/*" ],
-      "@funk/ui/core/*": [ "./implementation/core/*" ],
       "@funk/ui/*": [ "./implementation/*" ]
     }
   },

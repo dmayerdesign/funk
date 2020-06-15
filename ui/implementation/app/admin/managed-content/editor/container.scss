@@ -1,5 +1,6 @@
 $animation-duration: 500ms;
 $drawer-height: 200px;
+$has-preview-notice-height: 26px;
 
 @mixin animate-in-out($height: 200px) {
   @keyframes animate-in {
@@ -39,22 +40,37 @@ $drawer-height: 200px;
 
 @include animate-in-out($drawer-height);
 
-ion-card {
-  margin: 0;
-  transform: translateY(10px);
-  padding-bottom: 10px;
-  width: 100%;
-  height: $drawer-height;
-
-  form {
-    display: flex;
-    flex-direction: column;
-    height: $drawer-height;
-
-    .drawer-card-actions {
-      display: flex;
-      padding: 10px;
-      justify-content: flex-start;
+.managed-content-editor-wrapper {
+  #managed-content-editor-drawer {
+    ion-card {
+      margin: 0;
+      transform: translateY(10px);
+      padding-bottom: 10px;
+      width: 100%;
+      height: $drawer-height;
+    
+      form {
+        display: flex;
+        flex-direction: column;
+        height: $drawer-height;
+    
+        .drawer-card-actions {
+          display: flex;
+          padding: 10px;
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+  
+  .has-preview {
+    #has-preview-notice {
+      display: block;
+      box-sizing: border-box;
+      height: $has-preview-notice-height;
+    }
+    ion-router-outlet {
+      top: $has-preview-notice-height;
     }
   }
 }

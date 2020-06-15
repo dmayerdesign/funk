@@ -36,8 +36,8 @@
       "@funk/model/*": [ "./model/*" ],
       "@funk/plugins/*": [ "./plugins/interface/*" ],
       "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
-      "@funk/ui/core/*": [ "./ui/interface/core/*" ],
       "@funk/ui/app/*": [ "./ui/implementation/app/*" ],
+      "@funk/ui/helpers/*": [ "./ui/implementation/helpers/*" ],
       "@funk/ui/*": [ "./ui/interface/*" ],
       "@funk/test/*": [ "./test/*" ]
     }

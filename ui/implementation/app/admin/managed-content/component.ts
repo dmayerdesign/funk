@@ -2,7 +2,6 @@ import { Component, HostListener, Inject, Input, OnDestroy, OnInit } from "@angu
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
 import { ManagedContent, ManagedContentType } from "@funk/model/managed-content/managed-content"
 import { ManagedContentEditorService } from "@funk/ui/core/admin/managed-content/editor/service"
-import { map, shareReplay, switchMap, pluck } from "rxjs/operators"
 import { LISTEN_BY_ID } from "@funk/ui/app/persistence/tokens"
 import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
@@ -13,12 +12,13 @@ import { asPromise } from "@funk/helpers/as-promise"
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
 import { Platform } from "@ionic/angular"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
+import { map, shareReplay, switchMap, pluck } from "rxjs/operators"
 import { Observable, defer, from } from "rxjs"
 
 @UntilDestroy()
 @Component({
   selector: "managed-content",
-  template: "{{ contentValue$ | async }}",
+  template: "{{ contentValue | async }}",
 })
 export class ManagedContentComponent implements OnInit, OnDestroy
 {
@@ -26,7 +26,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy
   @Input() public type: ManagedContentType = ManagedContentType.TEXT
 
   public isDesktop = this._platform.platforms().includes("desktop")
-  public content$: Observable<ManagedContent | undefined> = defer(() =>
+  public content: Observable<ManagedContent | undefined> = defer(() =>
     from(this._canManageContent()))
     .pipe(
       switchMap((canManageContent) => canManageContent
@@ -37,7 +37,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy
       untilDestroyed(this),
       shareReplay(1)
     )
-  public contentValue$ = this.content$.pipe(
+  public contentValue = this.content.pipe(
     map((content) => content?.value)
   )
 
@@ -51,8 +51,8 @@ export class ManagedContentComponent implements OnInit, OnDestroy
 
   public async ngOnInit(): Promise<void>
   {
-    this.content$.subscribe()
-    this.contentValue$.subscribe()
+    this.content.subscribe()
+    this.contentValue.subscribe()
   }
 
   public ngOnDestroy(): void { }

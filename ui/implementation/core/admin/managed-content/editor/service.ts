@@ -1,5 +1,5 @@
 import { FormControl } from "@angular/forms"
-import { ignoreNullish } from "@funk/helpers/rxjs-shims"
+import { ignoreNullish, assertNotNullish } from "@funk/helpers/rxjs-shims"
 import { swallowErrorAndMapTo } from "@funk/helpers/rxjs-shims"
 import { USER_STATES, UserState } from "@funk/model/identity/user-state"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
@@ -18,6 +18,7 @@ import { Person } from "@funk/model/identity/person"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 import { BehaviorSubject, Observable, combineLatest, from, of } from "rxjs"
 import { first, map, pluck, shareReplay, switchMap } from "rxjs/operators"
+import { tapAndLog } from "@funk/helpers/tap-and-log"
 
 type PublishConflict = [ ContentPreview, ManagedContent ]
 
@@ -52,11 +53,12 @@ export function construct(
           USER_STATES,
           userId))
           .pipe(
-            ignoreNullish(),
+            tapAndLog("got here"),
+            assertNotNullish(),
             pluck("contentPreviews"),
             swallowErrorAndMapTo(undefined))),
-      map((maybeContentPreviews) => maybeContentPreviews
-        && Object.keys(maybeContentPreviews).length),
+      map((maybeContentPreviews) => Object.keys(maybeContentPreviews!).length),
+      swallowErrorAndMapTo(false),
       shareReplay(1))
     public contentsUpdatedAfterPreview = new BehaviorSubject<PublishConflict[] | []>([])
 
@@ -164,7 +166,7 @@ export function construct(
       return userSession
         .pipe(
           ignoreNullish(),
-          pluck("person", "id"),
+          pluck("auth", "id"),
           switchMap((userId) =>
             combineLatest(
               from(listenById<UserState>(
