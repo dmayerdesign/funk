@@ -11,10 +11,10 @@ should. For example, members of a team will usually have slightly different ways
 applying the SOLID principles.
 
 The obvious answer is for everyone working on a project to
-**follow a set of simple rules.**
+**follow a set of simple rules** that specify how to apply the SOLID principles at the code level.
 What exactly those rules are is much less important than
-**making sure that they're followed consistently.** What is important about the rules themselves is that they be
-**simple enough** to be easily followed by anyone touching the code.
+**making sure that they're followed consistently.** But what is important about the rules themselves is that they be
+**simple enough** to be easily and consistently followed by anyone touching the code.
 
 Here's the small set of rules I use in this project:
 
