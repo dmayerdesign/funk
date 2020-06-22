@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core"
-import { BehaviorSubject } from "rxjs"
+import { Component, Inject } from "@angular/core"
+import { ENTERPRISE } from "@funk/ui/app/shop/tokens"
+import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
 
 @Component({
   selector: "shop",
   template: `
-    <ng-container *ngIf="init | async">
-      <h1>Shop</h1>
-      <router-outlet></router-outlet>
+    <ng-container *ngIf="!(enterprise | async)">
+      <ion-progress-bar type="indeterminate"></ion-progress-bar>
     </ng-container>
+    <h1>Shop</h1>
+    <router-outlet></router-outlet>
   `,
 })
-export class ShopContainer implements OnInit
+export class ShopContainer
 {
-  public init = new BehaviorSubject(false)
-
-  public async ngOnInit(): Promise<void>
-  {
-    this.init.next(true)
-  }
+  public constructor(
+    @Inject(ENTERPRISE) public enterprise: Enterprise$
+  )
+  { }
 }

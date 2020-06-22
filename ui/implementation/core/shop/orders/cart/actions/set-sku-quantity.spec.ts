@@ -1,7 +1,7 @@
 import { Cart } from "@funk/model/commerce/order/order"
 import { createFakeSku } from "@funk/model/commerce/sku/stubs"
-import { construct as constructCart } from "@funk/ui/app/shop/orders/cart/cart"
-import { construct } from "@funk/ui/app/shop/orders/cart/actions/set-sku-quantity"
+import { construct as constructCart } from "@funk/ui/core/shop/orders/cart/cart"
+import { construct } from "@funk/ui/core/shop/orders/cart/actions/set-sku-quantity"
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 import { of } from "rxjs"
 

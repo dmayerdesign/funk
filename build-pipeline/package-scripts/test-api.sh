@@ -3,7 +3,8 @@ GCLOUD_PROJECT=test_gcloud_project \
 node_modules/.bin/jest \
   --config jest.api-config.js \
   --ci \
-  --coverage \
+  --runInBand \
+  --detectOpenHandles \
   $@
 
 # TODO: Explore how to make this more stable (often fails to kill the emulator).

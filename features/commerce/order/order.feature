@@ -5,11 +5,12 @@ Rule: A User may submit an Order
   Background:
 
     Given a user named Sam
+    And a payment service provider named Stripe
     And that Sam lives in a state with 10% sales tax
-    And a SKU named Cool Shoes with a price of $40.00
+    And a SKU named Cool Shoes with a price of USD 40.00
     And that Cool Shoes is in stock
     And that during checkout, Sam provides his shipping address and selects a shipping
-      rate with a price of $5.00
+      rate with a price of USD 5.00
     And that during checkout, Sam provides his payment information
     And that at the moment Sam commits to the sale, Cool Shoes is still in stock
 
@@ -17,29 +18,30 @@ Rule: A User may submit an Order
     in the list price of SKUs.
 
     Given a primary Enterprise configured to include sales tax in the list price of SKUs
-    And that Sam has an Order containing 1 Cool Shoes
-    When Sam submits the Order
-    Then Sam is charged $49.00
-    And the Enterprise is alerted of the new order
+    And that Sam has an Order for 1 Cool Shoes
+    When Sam completes the "checkout" flow for the Order
+    Then a payment of USD 49.00 is charged to Sam using the Enterprise's Stripe account
+    And a success message is communicated to Sam
+    And the Enterprise is alerted of the new Order
 
   Example: Sam orders one pair of shoes from an Enterprise configured to NOT include sales
     tax in the list price of SKUs.
 
     Given a primary Enterprise configured to NOT include sales tax in the list price
       of SKUs
-    And that Sam has an Order containing 1 Cool Shoes
-    When Sam submits the Order
-    Then Sam is charged $45.00
-    And the Enterprise is alerted of the new order
+    And that Sam has an Order for 1 Cool Shoes
+    When Sam completes the "checkout" flow for the Order
+    Then a payment of USD 45.00 is charged to Sam using the Enterprise's Stripe account
+    And a success message is communicated to Sam
+    And the Enterprise is alerted of the new Order
 
-Rule: Payment is submitted for an Order when the User completes the "checkout" flow.
+Rule: A User may not submit an Order if the final price is less than USD 0.50
 
-  Example: Annie successfully submits an Order.
+  Example: Sam is not allowed to complete the "checkout" flow for an Order totaling less
+    than USD 0.50
 
-    Given a user named Annie
-    And a payment service provider named Stripe
-    And that Annie has an Order with one or more SKUs
-    And that the total after tax exceeds USD 0.50
-    When Annie completes the "checkout" flow
-    Then the payment is submitted to Stripe
-    And a success message is communicated to Annie
+    Given that Sam has an Order for one or more SKUs
+    And that Sam selects a compoundable Discount for free shipping
+    When Sam selects a compoundable Discount for 100% off all SKUs
+    Then the Order Price is set to USD 0.50
+    And it is communicated to Sam that Orders totaling less than USD 0.50 are not allowed

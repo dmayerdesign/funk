@@ -45,3 +45,5 @@ export function construct(
   cart$.subscribe()
   return cart$
 }
+
+export type Cart$ = ReturnType<typeof construct>

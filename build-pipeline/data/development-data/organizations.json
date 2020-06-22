@@ -1,6 +1,6 @@
 {
-  "test-org-primary": {
-    "id": "test-org-primary",
+  "primary": {
+    "id": "primary",
     "slug": "funky-business",
     "type": "enterprise",
     "isPrimary": true,

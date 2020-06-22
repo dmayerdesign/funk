@@ -19,16 +19,16 @@ Rule: A User must always have a shopping cart.
     When Annie successfully submits their Order
     Then a new Cart is created for Annie
 
-Rule: A User may add in-stock products to their cart.
+Rule: A User may only add in-stock products to their cart.
 
-  Example: Sally adds rollerblades to their cart.
+  Example: Sally can add the in-stock SKU Rollerblades to their cart.
 
     Given a User named Sally
     And an in-stock SKU named Rollerblades
     When Sally tries to add Rollerblades to their cart
     Then the Rollerblades are successfully added
 
-  Example: Sally cannot add Covfefe to their cart.
+  Example: Sally cannot add the out-of-stock SKU Covfefe to their cart.
 
     Given a User named Sally
     And an out-of-stock SKU named Covfefe

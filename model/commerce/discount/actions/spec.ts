@@ -39,8 +39,8 @@ describe("getApplicableDiscountsForSku", () =>
   it("should filter out discounts which exclude the SKU by id", () =>
   {
     const originalDiscounts = [
-      createAllInclusiveTenPercentDiscount({}),
-      createExclusiveAmountDiscount({}),
+      createAllInclusiveTenPercentDiscount({ isCompoundable: true }),
+      createExclusiveAmountDiscount({ isCompoundable: true }),
     ]
     expect(
       getApplicableDiscountsForSku(
@@ -48,7 +48,7 @@ describe("getApplicableDiscountsForSku", () =>
         { sku: createSkuExcludedById(), product: createMarshalledProduct() }
       ))
       .toEqual([
-        createAllInclusiveTenPercentDiscount({}),
+        createAllInclusiveTenPercentDiscount({ isCompoundable: true }),
       ])
   })
   it("should filter out discounts which exclude the product by id", () =>

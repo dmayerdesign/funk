@@ -14,3 +14,4 @@ export interface Organization extends DatabaseDocument {
 }
 
 export const ORGANIZATIONS = "organizations"
+export const PRIMARY_ORGANIZATION = "primary"

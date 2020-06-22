@@ -1,4 +1,4 @@
-import { construct } from "@funk/ui/app/shop/orders/cart/cart"
+import { construct } from "@funk/ui/core/shop/orders/cart/cart"
 import { construct as constructQueryCollectionForMeta }
   from "@funk/plugins/persistence/actions/query-collection-for-metadata"
 import { construct as constructListenById }
@@ -10,7 +10,7 @@ import { UserSession } from "@funk/ui/core/identity/user-session"
 import { createFakePerson } from "@funk/ui/core/identity/stubs"
 import { of } from "rxjs"
 
-describe("cart", () =>
+describe("Cart$", () =>
 {
   let userSession: UserSession
   let queryCollectionForMetadata: ReturnType<typeof constructQueryCollectionForMeta>
@@ -23,24 +23,24 @@ describe("cart", () =>
   beforeEach(() =>
   {
     userSession = of({ person: createFakePerson() }) as UserSession
-    queryCollectionForMetadata = jasmine.createSpy().and.returnValue(
+    queryCollectionForMetadata = jest.fn().mockReturnValue(
       Promise.resolve([{
         collectionPath: COLLECTION_PATH,
         documentPath: DOCUMENT_PATH,
       }])
     )
-    listenById = jasmine.createSpy().and.returnValue(Promise.resolve(CART))
-    populate = jasmine.createSpy().and.returnValue(Promise.resolve(CART))
+    listenById = jest.fn().mockReturnValue(of(CART))
+    populate = jest.fn().mockReturnValue(Promise.resolve(CART))
   })
 
-  it("should emit a cart", async (done) =>
+  it("should emit a cart, given that the user has a cart", async (done) =>
   {
     const cart = construct(
       userSession,
       queryCollectionForMetadata,
       listenById,
       populate)
-    const cartObserverSpy = jasmine.createSpy()
+    const cartObserverSpy = jest.fn()
 
     cart.subscribe(cartObserverSpy)
     cart.subscribe(() =>
