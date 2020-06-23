@@ -33,10 +33,7 @@ export class ProductListContainer
   })
   private _filters = new BehaviorSubject<ListFilter[]>([])
   public pagination = this._pagination.asObservable()
-  public filters: Observable<ListFilter[]> = this._filters
-    .pipe(
-      shareReplayOnce()
-    )
+  public filters: Observable<ListFilter[]> = this._filters.asObservable()
   public queryConditions = this.filters.pipe(
     map((filters) => flatten(filters.map(getQueryConditions))),
     shareReplayOnce()

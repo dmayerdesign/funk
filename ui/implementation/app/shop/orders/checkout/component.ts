@@ -6,6 +6,7 @@ import { pluck } from "rxjs/operators"
 @Component({
   selector: "checkout",
   template: `
+    <h3>Checkout works!</h3>
     <p>Shipping cost strategy: {{ shippingCostStrategy | async }}</p>
   `,
 })

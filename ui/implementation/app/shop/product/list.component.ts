@@ -17,17 +17,21 @@ import { ReplaySubject, of } from "rxjs"
 @Component({
   selector: "product-list",
   template: `
-    <ng-container *ngFor="let product of products">
-      <product-list-item [product]="product"></product-list-item>
-    </ng-container>
-
-    <div *ngFor="let filter of (filtersForm | async)?.controls">
-      <strong>Filter {{ filter?.value | json }}</strong>
-      <ng-container [formGroup]="filter">
-        <ion-input formControlName="type"></ion-input>
-        <ion-input formControlName="value"></ion-input>
+    <ion-grid>
+      <ng-container *ngFor="let product of products">
+        <ion-row><ion-col>
+          <product-list-item [product]="product"></product-list-item>
+        </ion-col></ion-row>
       </ng-container>
-    </div>
+
+      <div *ngFor="let filter of (filtersForm | async)?.controls">
+        <strong>Filter {{ filter?.value | json }}</strong>
+        <ng-container [formGroup]="filter">
+          <ion-input formControlName="type"></ion-input>
+          <ion-input formControlName="value"></ion-input>
+        </ng-container>
+      </div>
+    </ion-grid>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

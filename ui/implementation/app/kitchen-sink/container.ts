@@ -20,7 +20,6 @@ import { BehaviorSubject, timer } from "rxjs"
       </ng-container>
       <ion-content
         [ngClass]="{
-          'page-content': true,
           'ion-padding': false
         }"
         [scrollEvents]="true"
