@@ -1,5 +1,6 @@
 import { Component } from "@angular/core"
 import listPublished from "@funk/api/commerce/product/list-published"
+import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import getQueryConditions from
   "@funk/model/commerce/product/list-filter/actions/get-query-conditions"
 import { ListFilter } from "@funk/model/commerce/product/list-filter/list-filter"
@@ -8,7 +9,7 @@ import { Pagination, TAKE_ALL, VirtualPagination } from "@funk/plugins/persisten
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 import { flatten } from "lodash"
 import { BehaviorSubject, Observable, combineLatest } from "rxjs"
-import { map, shareReplay, switchMap } from "rxjs/operators"
+import { map, switchMap } from "rxjs/operators"
 
 @Component({
   selector: "product-list-container",
@@ -16,7 +17,7 @@ import { map, shareReplay, switchMap } from "rxjs/operators"
     <product-list
       [products]="products | async"
       [filters]="filters | async"
-      [pagination]="pagination"
+      [pagination]="pagination | async"
       (filtersChange)="handleFiltersChange($event)"
       (paginationChange)="handlePaginationChange($event)">
     </product-list>
@@ -24,29 +25,32 @@ import { map, shareReplay, switchMap } from "rxjs/operators"
 })
 export class ProductListContainer
 {
-  private _pagination = new BehaviorSubject<
-  Pagination<MarshalledProduct> | VirtualPagination>({
+  private _pagination = new BehaviorSubject<Pagination<MarshalledProduct> | VirtualPagination>({
     skip: 0,
     take: TAKE_ALL,
-    orderBy: "popularity",
+    orderBy: "updatedAt",
     orderByDirection: "desc",
   })
   private _filters = new BehaviorSubject<ListFilter[]>([])
   public pagination = this._pagination.asObservable()
   public filters: Observable<ListFilter[]> = this._filters
     .pipe(
-      shareReplay(1)
+      shareReplayOnce()
     )
   public queryConditions = this.filters.pipe(
     map((filters) => flatten(filters.map(getQueryConditions))),
-    shareReplay(1)
+    shareReplayOnce()
   )
-  public products: Observable<MarshalledProduct[]> =
-  combineLatest(this.queryConditions, this.pagination).pipe(
-    switchMap(([ conditions, pagination ]) =>
-      this._functionsClient.rpc<typeof listPublished>(
-        "commerceProductListPublished",
-        { pagination, conditions })))
+  public products: Observable<MarshalledProduct[]> = combineLatest(
+    this.queryConditions,
+    this.pagination)
+    .pipe(
+      switchMap(([ conditions, pagination ]) =>
+        this._functionsClient.rpc<typeof listPublished>(
+          "commerceProductListPublished",
+          { pagination, conditions })),
+      shareReplayOnce()
+    )
 
   public constructor(
     private _functionsClient: FunctionsClient

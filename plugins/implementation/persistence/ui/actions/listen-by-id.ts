@@ -1,6 +1,7 @@
 import { AngularFirestore } from "@angular/fire/firestore/firestore"
-import { Observable } from "rxjs"
+import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { Observable } from "rxjs"
 
 export function construct(store: AngularFirestore)
 {
@@ -9,9 +10,12 @@ export function construct(store: AngularFirestore)
     documentPath: string
   ): Observable<DocumentType | undefined>
   {
-    return store.collection(collectionPath)
+    const multicastingStream = store.collection(collectionPath)
       .doc<DocumentType>(documentPath)
       .valueChanges()
+      .pipe(shareReplayOnce())
+    multicastingStream.subscribe()
+    return multicastingStream
   }
 }
 

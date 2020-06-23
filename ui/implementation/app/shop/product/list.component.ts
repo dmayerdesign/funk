@@ -1,10 +1,18 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from "@angular/core"
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ChangeDetectionStrategy,
+} from "@angular/core"
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
 import { ListFilter } from "@funk/model/commerce/product/list-filter/list-filter"
 import { Product } from "@funk/model/commerce/product/product"
-import { ReplaySubject, of } from "rxjs"
-import { catchError, map, shareReplay } from "rxjs/operators"
 import { Pagination } from "@funk/plugins/persistence/pagination"
+import { catchError, map, shareReplay } from "rxjs/operators"
+import { ReplaySubject, of } from "rxjs"
 
 @Component({
   selector: "product-list",
@@ -21,6 +29,7 @@ import { Pagination } from "@funk/plugins/persistence/pagination"
       </ng-container>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListComponent implements OnChanges
 {

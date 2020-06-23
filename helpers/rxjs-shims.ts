@@ -14,4 +14,4 @@ export const swallowErrorAndMapTo =
     pipe(catchError<InputType, Observable<OutputType>>(() =>
       of(outputType)))
 
-export const shareReplayOnce = () => shareReplay(1)
+export const shareReplayOnce = <ValueType>() => shareReplay<ValueType>(1)

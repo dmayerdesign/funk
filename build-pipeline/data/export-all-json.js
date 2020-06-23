@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const program = require('commander')
-const firebase = require('firebase-admin');
+const firebase = require('firebase-admin')
 const { mkdirpSync, writeFileSync } = require('fs-extra')
 const inquirer = require('inquirer')
-const { firestoreExport } = require('node-firestore-import-export');
+const { firestoreExport } = require('node-firestore-import-export')
 const { resolve } = require('path')
 const { configToJson } = require('../../config/helpers/config-to-json')
 
@@ -50,7 +50,7 @@ async function exportAllData(pathToExportDir, configJson)
   const { PATH_TO_SERVICE_ACCOUNT_JSON } = configJson
   const serviceAccountJson = require(PATH_TO_SERVICE_ACCOUNT_JSON)
 
-  firebase.initializeApp(serviceAccountJson);
+  firebase.initializeApp(serviceAccountJson)
 
   firebase.firestore().listCollections().then((collectionRefs) =>
   {

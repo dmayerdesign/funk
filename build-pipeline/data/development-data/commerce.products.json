@@ -2,11 +2,17 @@
   "product-1": {
     "id": "product-1",
     "slug": "product-1-slug",
+    "name": "Cool Shoes",
+    "isPublished": true,
+    "updatedAt": 1592885299436,
     "__collections__": {}
   },
   "product-2": {
     "id": "product-2",
     "slug": "product-2-slug",
+    "name": "Rollerblades",
+    "isPublished": true,
+    "updatedAt": 1592885299437,
     "__collections__": {}
   }
 }

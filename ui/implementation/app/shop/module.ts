@@ -10,16 +10,17 @@ import { USER_SESSION } from "@funk/ui/app/identity/tokens"
 import { ShopContainer } from "@funk/ui/app/shop/container"
 import { HomeContainer } from "@funk/ui/app/shop/home/container"
 import { ProductModule } from "@funk/ui/app/shop/product/module"
-import { construct as constructResolveEnterprise } from "@funk/ui/app/shop/enterprise/resolve-enterprise"
+import { construct as constructResolveEnterprise } from
+  "@funk/ui/app/shop/enterprise/resolve-enterprise"
+import { QUERY_COLLECTION_FOR_METADATA, LISTEN_BY_ID, POPULATE } from
+  "@funk/ui/app/persistence/tokens"
+import { CheckoutComponent } from "@funk/ui/app/shop/orders/checkout/component"
 import { construct as constructEnterprise } from "@funk/ui/core/shop/enterprise/enterprise"
 import { construct as constructCart } from "@funk/ui/core/shop/orders/cart/cart"
 import { construct as constructSetSkuQuantity } from
   "@funk/ui/core/shop/orders/cart/actions/set-sku-quantity"
-import { IonicModule } from "@ionic/angular"
-import { QUERY_COLLECTION_FOR_METADATA, LISTEN_BY_ID, POPULATE } from
-  "@funk/ui/app/persistence/tokens"
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
-import { CheckoutComponent } from "@funk/ui/app/shop/orders/checkout/component"
+import { IonicModule } from "@ionic/angular"
 
 const routes: Routes = [
   {

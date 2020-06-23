@@ -18,7 +18,6 @@ import { Person } from "@funk/model/identity/person"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 import { BehaviorSubject, Observable, combineLatest, from, of } from "rxjs"
 import { first, map, pluck, shareReplay, switchMap } from "rxjs/operators"
-import { tapAndLog } from "@funk/helpers/tap-and-log"
 
 type PublishConflict = [ ContentPreview, ManagedContent ]
 
@@ -57,7 +56,6 @@ export function construct(
           USER_STATES,
           userId))
           .pipe(
-            tapAndLog("got here"),
             assertNotNullish(),
             pluck("contentPreviews"),
             swallowErrorAndMapTo(undefined))),

@@ -1,5 +1,9 @@
 import { Price } from "@funk/model/commerce/price/price"
-import { validate, ValidationFailureReason, validateBeforeMath } from "@funk/model/commerce/price/validation"
+import {
+  validate,
+  ValidationFailureReason,
+  validateBeforeMath,
+} from "@funk/model/commerce/price/validation"
 import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
 
 describe("price", () =>
