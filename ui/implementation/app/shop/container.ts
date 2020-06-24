@@ -8,7 +8,6 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
     <ng-container *ngIf="!(enterprise | async)">
       <ion-progress-bar type="indeterminate"></ion-progress-bar>
     </ng-container>
-    <h1>Shop</h1>
     <router-outlet></router-outlet>
   `,
 })

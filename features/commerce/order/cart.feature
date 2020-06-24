@@ -19,6 +19,25 @@ Rule: A User must always have a shopping cart.
     When Annie successfully submits their Order
     Then a new Cart is created for Annie
 
+Rule: A User must have quick access to their cart anywhere in the Commerce app.
+
+  Background:
+
+    Given a User named Newt
+    And that Newt has added a SKU to their cart
+
+  Example: Basic details of Newt's Cart are visible while they browse the Commerce app.
+
+    When Newt visits any page in the Commerce app
+    Then Newt can see an indication that there is 1 SKU in their Cart
+    And Newt should have the option of easily viewing the Cart
+
+  Example: Newt checks on their Cart while browsing the Commerce app.
+
+    When Newt visits any page in the Commerce app
+    And Newt attempts to view the Cart
+    Then details of the Cart should be communicated to Newt
+
 Rule: A User may only add in-stock products to their cart.
 
   Example: Sally can add the in-stock SKU Rollerblades to their cart.

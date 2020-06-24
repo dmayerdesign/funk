@@ -5,11 +5,11 @@ import { catchError } from "rxjs/operators"
 @Component({
   selector: "app-root",
   template: `
-    <managed-content-editor>
-      <main>
+    <ion-app>
+      <managed-content-editor>
         <ion-router-outlet></ion-router-outlet>
-      </main>
-    </managed-content-editor>
+      </managed-content-editor>
+    </ion-app>
   `,
 })
 export class AppComponent

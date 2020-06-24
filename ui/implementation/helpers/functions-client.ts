@@ -22,8 +22,8 @@ export class FunctionsClient
     functionName: string,
     options?: Parameters<HttpClient["get"]>[1]): ReturnType<FnType>
   {
-    return this._httpClient.get<unknown>(
-      `${FUNCTIONS_BASE_URL}/${functionName}`, options).toPromise() as
+    return asPromise(this._httpClient.get<unknown>(
+      `${FUNCTIONS_BASE_URL}/${functionName}`, options)) as
         ReturnType<FnType>
   }
 
@@ -45,8 +45,8 @@ export class FunctionsClient
     functionName: string,
     options?: Parameters<HttpClient["options"]>[1]): ReturnType<FnType>
   {
-    return this._httpClient.options<unknown>(
-      `${FUNCTIONS_BASE_URL}/${functionName}`, options).toPromise() as
+    return asPromise(this._httpClient.options<unknown>(
+      `${FUNCTIONS_BASE_URL}/${functionName}`, options)) as
         ReturnType<FnType>
   }
 
@@ -69,8 +69,8 @@ export class FunctionsClient
     payload?: Parameters<FnType>[0],
     options?: Parameters<HttpClient["post"]>[2]): ReturnType<FnType>
   {
-    return this._httpClient.post<unknown>(
-      `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options).toPromise() as
+    return asPromise(this._httpClient.post<unknown>(
+      `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options)) as
         ReturnType<FnType>
   }
 
@@ -94,8 +94,8 @@ export class FunctionsClient
     payload?: Parameters<FnType>[0],
     options?: Parameters<HttpClient["put"]>[2]): ReturnType<FnType>
   {
-    return this._httpClient.put<unknown>(
-      `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options).toPromise() as
+    return asPromise(this._httpClient.put<unknown>(
+      `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options)) as
         ReturnType<FnType>
   }
 
@@ -119,8 +119,8 @@ export class FunctionsClient
     payload?: Parameters<FnType>[0],
     options?: Parameters<HttpClient["patch"]>[2]): ReturnType<FnType>
   {
-    return this._httpClient.patch<unknown>(
-      `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options).toPromise() as
+    return asPromise(this._httpClient.patch<unknown>(
+      `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options)) as
         ReturnType<FnType>
   }
 

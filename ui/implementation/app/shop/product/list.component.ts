@@ -6,6 +6,7 @@ import {
   Output,
   SimpleChanges,
   ChangeDetectionStrategy,
+  SimpleChange,
 } from "@angular/core"
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
 import { ListFilter } from "@funk/model/commerce/product/list-filter/list-filter"
@@ -62,8 +63,8 @@ export class ProductListComponent implements OnChanges
   public ngOnChanges(changes: SimpleChanges): void
   {
     const INITIAL_FILTERS: keyof this = "filters"
-    const filtersChange = changes[INITIAL_FILTERS as string]
-    const filters: ListFilter[] | undefined = filtersChange.currentValue
+    const filtersChange = changes[INITIAL_FILTERS as string] as SimpleChange | undefined
+    const filters: ListFilter[] | undefined = filtersChange?.currentValue
     if (filters)
     {
       this._filters.next(filters)
