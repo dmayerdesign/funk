@@ -27,13 +27,13 @@ const routes: Routes = [
     canActivate: [ AnonymousGuard ],
   },
   {
-    path: "sign-up",
-    loadChildren: () => import("@funk/ui/app/sign-up/module")
-      .then((mod) => mod.SignUpModule),
+    path: "sign-in",
+    loadChildren: () => import("@funk/ui/app/sign-in/module")
+      .then((mod) => mod.SignInModule),
   },
   {
     path: "",
-    redirectTo: "/sign-up",
+    redirectTo: "/sign-in",
     pathMatch: "full",
   },
   {

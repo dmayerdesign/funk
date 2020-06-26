@@ -13,6 +13,8 @@ export interface AuthClient {
     password: string
   ): Promise<any>
   signInAnonymously(): Promise<any>
+  signInWithPopup(provider: AuthProvider): Promise<{ user: AuthClientUser }>
+  useDeviceLanguage(): void
   signOut(): Promise<void>
 }
 
@@ -23,6 +25,10 @@ export interface AuthClientUser {
   getIdTokenResult(): Promise<IdTokenResult>
   getIdToken(forceRefresh?: boolean): Promise<string>
   sendEmailVerification(): Promise<void>
+}
+
+export interface AuthProvider {
+  providerId: string
 }
 
 interface IdTokenResult {

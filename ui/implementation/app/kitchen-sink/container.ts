@@ -97,7 +97,7 @@ import { BehaviorSubject, timer } from "rxjs"
                   <ion-button
                     slot="end"
                     shape="round"
-                    size="medium"
+                    size="default"
                     fill="outline">
                     View
                   </ion-button>

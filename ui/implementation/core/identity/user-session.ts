@@ -8,6 +8,7 @@ import getVerifiedRole from "@funk/model/auth/actions/get-verified-role"
 import { AuthClient } from "@funk/plugins/auth/auth-client"
 import { of } from "rxjs"
 import { switchMap, shareReplay, map } from "rxjs/operators"
+import { tapAndLog } from "@funk/helpers/tap-and-log"
 
 export function construct(
   auth: AuthClient,
@@ -53,6 +54,7 @@ export function construct(
           }))
         )
     }),
+    tapAndLog("user session"),
     shareReplay(1)
   )
 }

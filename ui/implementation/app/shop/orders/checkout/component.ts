@@ -5,9 +5,24 @@ import { pluck } from "rxjs/operators"
 
 @Component({
   selector: "checkout",
+  // template: `
+  //   <ion-content
+  //     [ngClass]="{ 'ion-padding': false }"
+  //     [scrollEvents]="true"
+  //     (ionScroll)="handleContentScroll($event)">
+
+  //     <h3>Checkout works!</h3>
+  //     <p>Shipping cost strategy: {{ shippingCostStrategy | async }}</p>
+
+  //   </ion-content>
+  // `,
   template: `
-    <h3>Checkout works!</h3>
-    <p>Shipping cost strategy: {{ shippingCostStrategy | async }}</p>
+    <ion-card>
+
+      <h3>Checkout works!</h3>
+      <p>Shipping cost strategy: {{ shippingCostStrategy | async }}</p>
+
+    </ion-card>
   `,
 })
 export class CheckoutComponent

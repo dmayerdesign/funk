@@ -1,0 +1,40 @@
+sign-in {
+  ion-nav {
+    .ion-page {
+      justify-content: flex-start;
+    }
+  }
+}
+
+.sign-in-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+
+  form {
+    width: 100%;
+
+    ion-button[type="submit"] {
+      margin-top: 20px;
+    }
+  }
+}
+
+.sign-in-toolbar {
+  position: absolute;
+}
+
+sign-in-form,
+sign-up-form {
+  text-align: center;
+
+  .go-to-signup {
+    text-decoration: underline;
+  }
+}
+

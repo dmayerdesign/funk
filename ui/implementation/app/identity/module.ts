@@ -1,23 +1,26 @@
 import { APP_INITIALIZER, NgModule } from "@angular/core"
 import { AppFireModule } from "@funk/ui/app/fire.module"
 import { AngularFireAuth } from "@angular/fire/auth"
-import { construct as constructCreateUserWithEmailAndPassword} from
+import { construct as constructCreateUserWithEmailAndPassword } from
   "@funk/ui/core/identity/actions/create-user-with-email-and-password"
-import { construct as constructInitialize} from "@funk/ui/core/identity/actions/initialize"
-import { construct as constructSendEmailVerification} from
+import { construct as constructInitialize } from "@funk/ui/core/identity/actions/initialize"
+import { construct as constructSendEmailVerification } from
   "@funk/ui/core/identity/actions/send-email-verification"
-import { construct as constructSignInWithEmailAndPassword} from
+import { construct as constructSignInWithEmailAndPassword } from
   "@funk/ui/core/identity/actions/sign-in-with-email-and-password"
-import { construct as constructSignOut} from "@funk/ui/core/identity/actions/sign-out"
-import { construct as constructUserSession} from "@funk/ui/core/identity/user-session"
-import { construct as constructUserIdToken} from "@funk/ui/core/identity/user-id-token"
-import { construct as constructUserState} from "@funk/ui/core/identity/user-state"
+import { construct as constructSignInWithProvider } from
+  "@funk/ui/core/identity/actions/sign-in-with-provider"
+import { construct as constructSignOut } from "@funk/ui/core/identity/actions/sign-out"
+import { construct as constructUserSession } from "@funk/ui/core/identity/user-session"
+import { construct as constructUserIdToken } from "@funk/ui/core/identity/user-id-token"
+import { construct as constructUserState } from "@funk/ui/core/identity/user-state"
 import { LISTEN_BY_ID } from "@funk/ui/app/persistence/tokens"
 import {
   CREATE_USER_WITH_EMAIL_AND_PASSWORD,
   INITIALIZE,
   SEND_EMAIL_VERIFICATION,
   SIGN_IN_WITH_EMAIL_AND_PASSWORD,
+  SIGN_IN_WITH_PROVIDER,
   SIGN_OUT,
   USER_SESSION,
   USER_ID_TOKEN,
@@ -43,6 +46,11 @@ import {
     {
       provide: SIGN_IN_WITH_EMAIL_AND_PASSWORD,
       useFactory: constructSignInWithEmailAndPassword,
+      deps: [ AUTH_CLIENT ],
+    },
+    {
+      provide: SIGN_IN_WITH_PROVIDER,
+      useFactory: constructSignInWithProvider,
       deps: [ AUTH_CLIENT ],
     },
     {

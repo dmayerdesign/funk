@@ -3,12 +3,14 @@ import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
 import { AppFireModule } from "@funk/ui/app/fire.module"
-import { SignUpComponent } from "@funk/ui/app/sign-up/component"
+import { SignInContainer } from "@funk/ui/app/sign-in/container"
+import { SignUpFormComponent } from "@funk/ui/app/sign-in/sign-up-form.component"
+import { IonicModule } from "@ionic/angular"
 
 const routes: Routes = [
   {
     path: "",
-    component: SignUpComponent,
+    component: SignInContainer,
   },
 ]
 
@@ -19,10 +21,12 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    IonicModule,
   ],
   declarations: [
-    SignUpComponent,
+    SignInContainer,
+    SignUpFormComponent,
   ],
 })
-export class SignUpModule
+export class SignInModule
 { }
