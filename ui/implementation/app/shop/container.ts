@@ -28,6 +28,7 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
         (ionScroll)="handleContentScroll($event)">
         <ion-router-outlet [animated]="true"></ion-router-outlet>
       </ion-content>
+
     </ng-template>
   `,
 })

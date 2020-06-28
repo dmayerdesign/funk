@@ -9,10 +9,11 @@ import { BehaviorSubject, timer } from "rxjs"
       transparent-header-container
       let-handleContentScroll>
       <ion-header>
-        <ion-toolbar>
-          <div class="max-width-container">
-            <ion-title>Kitchen Sink</ion-title>
-          </div>
+        <ion-toolbar class="max-width-container">
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>Kitchen Sink</ion-title>
         </ion-toolbar>
       </ion-header>
       <ng-container *ngIf="someDataLoading | async">
@@ -35,8 +36,10 @@ import { BehaviorSubject, timer } from "rxjs"
             <ion-card-title color="light">Card Title</ion-card-title>
           </ion-card-header>
           <ion-card-content class="max-width-container">
-            Keep close to Nature's heart...and break clear away, once in awhile,
-            and climb a mountain or spend a week in the woods. Wash your spirit clean.
+            <ion-text color="light">
+              Keep close to Nature's heart...and break clear away, once in awhile,
+              and climb a mountain or spend a week in the woods. Wash your spirit clean.
+            </ion-text>
           </ion-card-content>
         </ion-card>
         <ion-grid class="max-width-container">
@@ -130,7 +133,6 @@ import { BehaviorSubject, timer } from "rxjs"
             </ion-col>
           </ion-row>
         </ion-grid>
-        <!--<ion-button (click)="seedOrder()">Seed order</ion-button>-->
       </ion-content>
     </ng-template>
   `,

@@ -49,7 +49,7 @@ ion-card {
       padding-top: 100px;
     }
     ion-card-content {
-      padding-bottom: 50px;
+      padding-bottom: 70px;
     }
     ion-card-title {
       @media screen and (min-width: 768px) {
@@ -100,11 +100,6 @@ ion-card {
 }
 
 // Toolbar.
-ion-toolbar {
-  .max-width-container ion-title {
-    @media screen and (min-width: #{$content-max-width-px}px) {
-      padding-inline-start: 0px;
-      padding-inline-end: 0px;
-    }
-  }
+ion-toolbar.max-width-container {
+  max-width: #{$content-max-width-px + 32}px;
 }

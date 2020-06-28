@@ -1,29 +1,67 @@
-import { Component } from "@angular/core"
-import { Router } from "@angular/router"
-import { catchError } from "rxjs/operators"
+import { Component, ViewChild, OnInit, Inject } from "@angular/core"
+import { Router, NavigationEnd } from "@angular/router"
+import { AppAtlas } from "@funk/ui/app/atlas/atlas"
+import { BUILD_MENU_ITEM } from "@funk/ui/app/atlas/tokens"
+import { BuildMenuItem } from "@funk/model/ui/atlas/actions/build-menu-item"
+import { IonMenu } from "@ionic/angular"
 
 @Component({
   selector: "app-root",
+  styles: [`
+    #main {
+      height: 100vh;
+    }
+  `],
   template: `
     <ion-app>
-      <managed-content-editor>
-        <ion-router-outlet></ion-router-outlet>
-      </managed-content-editor>
+      <ion-menu side="start" content-id="main">
+        <ion-header>
+          <ion-toolbar translucent>
+            <ion-title>Menu</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <ion-list>
+            <ng-container *ngFor="let menuLink of menuItems">
+              <ion-item [routerLink]="menuLink.url">
+                <ion-label>{{ menuLink.label }}</ion-label>
+              </ion-item>
+            </ng-container>
+          </ion-list>
+        </ion-content>
+      </ion-menu>
+
+      <main id="main">
+        <managed-content-editor>
+          <ion-router-outlet></ion-router-outlet>
+        </managed-content-editor>
+      </main>
     </ion-app>
   `,
 })
-export class AppComponent
+export class AppComponent implements OnInit
 {
+  @ViewChild(IonMenu) public menu!: IonMenu
+  public menuItems = [
+    this._buildMenuItem("shop", "home"),
+    this._buildMenuItem("shop", "checkout"),
+  ]
+
   public constructor(
-    private _router: Router
+    private readonly _router: Router,
+    @Inject(BUILD_MENU_ITEM) private readonly _buildMenuItem: BuildMenuItem<AppAtlas>
   )
+  { }
+
+  public ngOnInit(): void
   {
     this._router.events
-      .pipe(catchError((error, caught) =>
+      .subscribe((event) =>
       {
-        console.error(error)
-        return caught
-      }))
-      .subscribe()
+        if (event instanceof NavigationEnd)
+        {
+          this.menu.close()
+        }
+      })
   }
 }
