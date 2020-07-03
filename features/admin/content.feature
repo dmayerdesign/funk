@@ -10,7 +10,8 @@ Rule: An administrator can edit managed content in the production environment.
 
   Example: An admin User can edit content in place.
 
-    Given an admin named Adam with no previews
+    Given an admin named Adam
+    And that Adam has no previews
     When Adam edits a content value and submits it
     Then the content preview replaces the content in the UI
     And Adam enters the "preview" state

@@ -2,7 +2,7 @@ import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
 import { construct } from "@funk/api/commerce/order/get-tax"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import { Address } from "@funk/model/address/address"
-import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 
 describe("orderGetTax", () =>

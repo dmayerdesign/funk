@@ -1,7 +1,7 @@
 import getApplicableDiscountsForSku from
   "@funk/model/commerce/discount/actions/get-applicable-discounts-for-sku"
 import { SkuDiscount } from "@funk/model/commerce/discount/discount"
-import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"

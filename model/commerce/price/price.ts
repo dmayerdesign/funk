@@ -1,10 +1,8 @@
-import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 import { WeightUnit } from "@funk/model/units/weight-unit"
+import { Money } from "@funk/model/money/money"
 
-export interface Price {
-  amount: number
-  currency: CurrencyCode
-}
+export type Price = Money
 
 export interface PricePerUnitWeight {
   amount: number

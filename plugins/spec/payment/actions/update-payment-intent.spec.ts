@@ -1,4 +1,4 @@
-import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 import { Options, construct } from "@funk/plugins/payment/actions/update-payment-intent"
 import { constructGetPaymentProviderStub } from "../stubs"
 

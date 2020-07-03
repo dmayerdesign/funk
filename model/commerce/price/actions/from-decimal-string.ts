@@ -1,4 +1,4 @@
-import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 import { Price } from "@funk/model/commerce/price/price"
 
 export default function(decimalString: string, currency: CurrencyCode): Price

@@ -1,5 +1,5 @@
 import fromDecimalString from "@funk/model/commerce/price/actions/from-decimal-string"
-import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 
 describe("fromDecimalString", () =>
 {

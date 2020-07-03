@@ -4,7 +4,7 @@ import {
   ValidationFailureReason,
   validateBeforeMath,
 } from "@funk/model/commerce/price/validation"
-import { CurrencyCode } from "@funk/model/commerce/price/currency-code"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 
 describe("price", () =>
 {
