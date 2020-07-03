@@ -39,7 +39,7 @@ describe("orderHandleWrite", () =>
   let updateById: UpdateById
 
   it("should not create a payment intent if the customer has no billing zip code",
-    async (done) =>
+    async () =>
     {
       before = undefined
       after = {} as MarshalledOrder
@@ -56,13 +56,12 @@ describe("orderHandleWrite", () =>
         expect(getTax).toHaveBeenCalled()
         expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
       }
-      done()
     })
 
   it(
     "should not create a payment intent if the order total is less than the minimum "
     + "transaction amount",
-    async (done) =>
+    async () =>
     {
       before = undefined
       after = {} as MarshalledOrder
@@ -86,10 +85,9 @@ describe("orderHandleWrite", () =>
         expect(getTotalBeforeTaxAndShipping).toHaveBeenCalled()
         expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
       }
-      done()
     })
 
-  it("should create a payment intent", async (done) =>
+  it("should create a payment intent", async () =>
   {
     before = undefined
     after = { id: ORDER_ID } as MarshalledOrder
@@ -106,10 +104,9 @@ describe("orderHandleWrite", () =>
     expect(getSecret).toHaveBeenCalled()
     expect(updateById).toHaveBeenCalledWith(ORDERS, ORDER_ID,
       { paymentIntentId: PAYMENT_INTENT_ID })
-    done()
   })
 
-  it("should update a payment intent", async (done) =>
+  it("should update a payment intent", async () =>
   {
     before = undefined
     after = { id: ORDER_ID, paymentIntentId: PAYMENT_INTENT_ID } as MarshalledOrder
@@ -125,7 +122,6 @@ describe("orderHandleWrite", () =>
     expect(constructUpdatePaymentIntent).toHaveBeenCalled()
     expect(getSecret).toHaveBeenCalled()
     expect(updateById).not.toHaveBeenCalled()
-    done()
   })
 
   function constructHandleWrite()

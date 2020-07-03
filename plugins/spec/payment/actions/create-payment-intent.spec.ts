@@ -19,7 +19,7 @@ describe("createPaymentIntent", () =>
     price: { amount: 49, currency: CurrencyCode.USD },
   }
 
-  it("should create a payment intent", async (done) =>
+  it("should create a payment intent", async () =>
   {
     const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
     const createPaymentIntent = construct(paymentProviderSecret, getPaymentProvider)
@@ -46,12 +46,10 @@ describe("createPaymentIntent", () =>
       { idempotencyKey: GOOD_OPTIONS.idempotencyKey }
     )
     expect(paymentIntent).toBe(PSP_CREATE_RESULT)
-
-    done()
   })
 
   it("should not create a payment intent if the amount is less than the minimum",
-    async (done) =>
+    async () =>
     {
       let didThrow = false
       const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
@@ -74,7 +72,5 @@ describe("createPaymentIntent", () =>
       expect(getPaymentProvider).toHaveBeenCalledWith(paymentProviderSecret)
       expect(pspInstance.paymentIntents.create).not.toHaveBeenCalled()
       expect(didThrow).toBe(true)
-
-      done()
     })
 })

@@ -10,7 +10,7 @@ describe("getShippingRates", () =>
 {
   describe("for by-weight shipping cost strategy", () =>
   {
-    it("should get a single shipping rate for an order", async (done) =>
+    it("should get a single shipping rate for an order", async () =>
     {
       const {
         ORDER,
@@ -46,12 +46,11 @@ describe("getShippingRates", () =>
       })
       expect(saveShipment).toHaveBeenCalledTimes(1)
       expect(rates).toEqual(expected)
-      done()
     })
   })
   describe("for flat-rate shipping cost strategy", () =>
   {
-    it("should get a single shipping rate for an order", async (done) =>
+    it("should get a single shipping rate for an order", async () =>
     {
       const {
         ORDER,
@@ -87,7 +86,6 @@ describe("getShippingRates", () =>
       })
       expect(saveShipment).toHaveBeenCalledTimes(1)
       expect(rates).toEqual(expected)
-      done()
     })
   })
 })

@@ -24,7 +24,7 @@ describe("ManagedContentEditorService", () =>
   let setById: ReturnType<typeof constructSetById>
   let updateById: ReturnType<typeof constructUpdateById>
 
-  it("should manage content for the first time", async (done) =>
+  it("should manage content for the first time", async () =>
   {
     const service = construct(
       userSession, listenById, getById, setById, updateById
@@ -37,10 +37,9 @@ describe("ManagedContentEditorService", () =>
     expect(await getActiveContentValueControl()).toEqual(
       expect.objectContaining({ value: "Test 2" })
     )
-    done()
   })
 
-  it("should manage content for the second time", async (done) =>
+  it("should manage content for the second time", async () =>
   {
     const service = construct(
       userSession, listenById, getById, setById, updateById
@@ -51,10 +50,9 @@ describe("ManagedContentEditorService", () =>
     service.manageContent("content-1")
 
     expect((await getActiveContentValueControl())?.value).toEqual("Test 1 preview saved")
-    done()
   })
 
-  it("should save managed content", async (done) =>
+  it("should save managed content", async () =>
   {
     const service = construct(
       userSession, listenById, getById, setById, updateById
@@ -75,10 +73,9 @@ describe("ManagedContentEditorService", () =>
       FAKE_USER_UID,
       { "contentPreviews.content-1.content": { value: "Test 1 preview" } }
     )
-    done()
   })
 
-  it("should publish all previews", async (done) =>
+  it("should publish all previews", async () =>
   {
     const service = construct(
       userSession, listenById, getById, setById, updateById
@@ -96,10 +93,9 @@ describe("ManagedContentEditorService", () =>
     expect(updateById).toHaveBeenCalledWith(
       USER_STATES, FAKE_USER_UID, { contentPreviews: {} }
     )
-    done()
   })
 
-  it("should not publish all previews if the user is not an admin", async (done) =>
+  it("should not publish all previews if the user is not an admin", async () =>
   {
     userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
     const service = construct(
@@ -110,11 +106,10 @@ describe("ManagedContentEditorService", () =>
 
     expect(setById).not.toHaveBeenCalled()
     expect(updateById).not.toHaveBeenCalledWith()
-    done()
   })
 
   it("should not publish if the content has been edited since the preview was created",
-    async (done) =>
+    async () =>
     {
       const FAKE_USER_STATES = createFakeUserStates("content-with-publish-conflict")
       when(listenById as jest.Mock)
@@ -135,11 +130,10 @@ describe("ManagedContentEditorService", () =>
       expect(setById).not.toHaveBeenCalled()
       expect(updateById).not.toHaveBeenCalledWith()
       expect(contentIdUpdatedAfterPreview).toBe("content-with-publish-conflict")
-      done()
     })
 
   it("should publish one preview, regardless of publish conflict",
-    async (done) =>
+    async () =>
     {
       const service: ManagedContentEditorService = construct(
         userSession, listenById, getById, setById, updateById
@@ -157,10 +151,9 @@ describe("ManagedContentEditorService", () =>
       expect(updateById).toHaveBeenCalledWith(
         USER_STATES, FAKE_USER_UID, { contentPreviews: {} }
       )
-      done()
     })
 
-  it("should not publish one preview if the user is not an admin", async (done) =>
+  it("should not publish one preview if the user is not an admin", async () =>
   {
     userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
     const service = construct(
@@ -171,10 +164,9 @@ describe("ManagedContentEditorService", () =>
 
     expect(setById).not.toHaveBeenCalled()
     expect(updateById).not.toHaveBeenCalledWith()
-    done()
   })
 
-  it("should remove a preview", async (done) =>
+  it("should remove a preview", async () =>
   {
     const service = construct(
       userSession, listenById, getById, setById, updateById
@@ -191,7 +183,6 @@ describe("ManagedContentEditorService", () =>
       FAKE_USER_UID,
       { contentPreviews: {} }
     )
-    done()
   })
 
   beforeEach(() =>

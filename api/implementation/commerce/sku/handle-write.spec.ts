@@ -7,7 +7,7 @@ import { DocumentSnapshot } from "@funk/plugins/persistence/document-snapshot"
 
 describe("skuHandleWrite", () =>
 {
-  it("should update the parent product whenever attribute values change", async (done) =>
+  it("should update the parent product whenever attribute values change", async () =>
   {
     const ATTRIBUTE_ID_1 = "attribute id 1" as string
     const ATTRIBUTE_ID_2 = "attribute id 2" as string
@@ -53,8 +53,6 @@ describe("skuHandleWrite", () =>
         [ATTRIBUTE_ID_2]: [ ATTRIBUTE_VALUE_2 ],
       },
     })
-
-    done()
   })
 })
 

@@ -9,7 +9,7 @@ describe("setSecret", () =>
   let encrypt: any
   let createKmsClient: (options?: any) => any
 
-  it("should set a secret", async (done) =>
+  it("should set a secret", async () =>
   {
     const setById = jasmine.createSpy().and.callFake(async () => ({
       value: Buffer.from("encrypted secret").toString("base64"),
@@ -27,8 +27,6 @@ describe("setSecret", () =>
     expect(encrypt).toHaveBeenCalledWith(expect.anything())
     expect(setById).toHaveBeenCalledWith("vault", SECRET_KEY,
       { value: Buffer.from("encrypted secret").toString("base64") })
-
-    done()
   })
 
   beforeEach(() =>

@@ -11,7 +11,7 @@ describe("identityInitialize", () =>
   let userSession: UserSession
   let userIdToken: UserIdToken
 
-  it("should initialize for an anonymous user", async (done) =>
+  it("should initialize for an anonymous user", async () =>
   {
     auth = {
       idTokenResult: of(null),
@@ -29,11 +29,10 @@ describe("identityInitialize", () =>
       expect(userSession.subscribe).toHaveBeenCalled()
       expect(userIdToken.subscribe).toHaveBeenCalled()
       expect(auth.signInAnonymously).toHaveBeenCalledTimes(1)
-      done()
     })
   })
 
-  it("should initialize for a logged-in user", async (done) =>
+  it("should initialize for a logged-in user", async () =>
   {
     auth = {
       idTokenResult: of({
@@ -53,7 +52,6 @@ describe("identityInitialize", () =>
     Promise.resolve().then(() =>
     {
       expect(auth.signInAnonymously).not.toHaveBeenCalled()
-      done()
     })
   })
 

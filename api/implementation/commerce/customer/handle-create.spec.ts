@@ -4,7 +4,7 @@ import { UserRecord } from "@funk/plugins/auth/user-record"
 
 describe("customerHandleCreate", () =>
 {
-  it("should create a cart when any user is created", async (done) =>
+  it("should create a cart when any user is created", async () =>
   {
     const USER = { uid: "user uid" } as UserRecord
     const setById = jasmine.createSpy()
@@ -20,6 +20,5 @@ describe("customerHandleCreate", () =>
           userId: USER.uid,
         }),
       }))
-    done()
   })
 })

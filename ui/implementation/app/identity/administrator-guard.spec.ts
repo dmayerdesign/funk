@@ -10,34 +10,31 @@ import { first } from "rxjs/operators"
 
 describe("AdministratorGuard", () =>
 {
-  it("must activate if the user is SUPER", async (done) =>
+  it("must activate if the user is SUPER", async () =>
   {
     const canActivate = await createStubbedAdministratorGuard(UserRole.SUPER)
       .canActivate().pipe(first()).toPromise()
 
     expect(canActivate).toBe(true)
-    done()
   })
 
-  it("must activate if the user is OWNER", async (done) =>
+  it("must activate if the user is OWNER", async () =>
   {
     const canActivate = await createStubbedAdministratorGuard(UserRole.OWNER)
       .canActivate().pipe(first()).toPromise()
 
     expect(canActivate).toBe(true)
-    done()
   })
 
-  it("must activate if the user is ADMINISTRATOR", async (done) =>
+  it("must activate if the user is ADMINISTRATOR", async () =>
   {
     const canActivate = await createStubbedAdministratorGuard(UserRole.ADMINISTRATOR)
       .canActivate().pipe(first()).toPromise()
 
     expect(canActivate).toBe(true)
-    done()
   })
 
-  it("must not activate if the user is PUBLIC", async (done) =>
+  it("must not activate if the user is PUBLIC", async () =>
   {
     const routerStub = createRouterStub()
     spyOn(routerStub, "parseUrl").and.callThrough()
@@ -50,10 +47,9 @@ describe("AdministratorGuard", () =>
 
     expect(canActivate).toEqual(new UrlTree())
     expect(routerStub.parseUrl).toHaveBeenCalledTimes(1)
-    done()
   })
 
-  it("must not activate if the user is ANONYMOUS", async (done) =>
+  it("must not activate if the user is ANONYMOUS", async () =>
   {
     const routerStub = createRouterStub()
     spyOn(routerStub, "parseUrl").and.callThrough()
@@ -66,6 +62,5 @@ describe("AdministratorGuard", () =>
 
     expect(canActivate).toEqual(new UrlTree())
     expect(routerStub.parseUrl).toHaveBeenCalledTimes(1)
-    done()
   })
 })

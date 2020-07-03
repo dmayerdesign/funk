@@ -7,7 +7,7 @@ import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 
 describe("orderGetTax", () =>
 {
-  it("should populate the order and pass it to the `getTax` method", async (done) =>
+  it("should populate the order and pass it to the `getTax` method", async () =>
   {
     const ORDER: Partial<Order> = {
       customer: {
@@ -36,10 +36,9 @@ describe("orderGetTax", () =>
 
     expect(getTaxResult).toEqual({ currency: CurrencyCode.USD, amount: 600 })
     expect(populate).toHaveBeenCalledWith(marshalledOrder, expect.anything())
-    done()
   })
 
-  it("should throw if no zip code is provided", async (done) =>
+  it("should throw if no zip code is provided", async () =>
   {
     let error!: Error | undefined
 
@@ -66,7 +65,6 @@ describe("orderGetTax", () =>
     }
 
     expect(error?.constructor).toBe(InvalidInputError)
-    done()
   })
 })
 

@@ -9,7 +9,7 @@ describe("getSecret", () =>
   let decrypt: any
   let createKmsClient: (options?: any) => any
 
-  it("should get a secret", async (done) =>
+  it("should get a secret", async () =>
   {
     const getById = jasmine.createSpy().and.callFake(async () => ({
       value: Buffer.from("encrypted secret").toString("base64"),
@@ -31,11 +31,9 @@ describe("getSecret", () =>
     expect(cryptoKeyPath).toHaveBeenCalled()
     expect(getById).toHaveBeenCalledWith("vault", SECRET_KEY)
     expect(decrypt).toHaveBeenCalledWith(expect.anything())
-
-    done()
   })
 
-  it("should get an undefined secret", async (done) =>
+  it("should get an undefined secret", async () =>
   {
     const getById = jasmine.createSpy().and.callFake(async () => undefined)
     const getSecret = construct(getConfig, getById, createKmsClient)
@@ -45,8 +43,6 @@ describe("getSecret", () =>
 
     expect(secret).toBe(undefined)
     expect(decrypt).not.toHaveBeenCalled()
-
-    done()
   })
 
 

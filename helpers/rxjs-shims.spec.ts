@@ -6,7 +6,7 @@ describe("rxjsShims", () =>
 {
   describe("ignoreNullish", () =>
   {
-    it("should ignore null", async (done) =>
+    it("should ignore null", async () =>
     {
       const subject = of(true, null)
       const justTrue: Observable<boolean> = subject.pipe(
@@ -20,10 +20,8 @@ describe("rxjsShims", () =>
         {
           expect(onlyTrue).toBe(true)
         })
-
-      done()
     })
-    it("should ignore undefined", async (done) =>
+    it("should ignore undefined", async () =>
     {
       const subject = of(true, undefined)
       const justTrue: Observable<boolean> = subject.pipe(
@@ -37,30 +35,26 @@ describe("rxjsShims", () =>
         {
           expect(onlyTrue).toBe(true)
         })
-
-      done()
     })
-    it("should allow false", async (done) =>
+    it("should allow false", async () =>
     {
       const subject = new BehaviorSubject<boolean>(false)
       const justFalse = subject.pipe(ignoreNullish())
       expect(await justFalse.pipe(first()).toPromise())
         .toBe(false)
-      done()
     })
-    it("should allow ''", async (done) =>
+    it("should allow ''", async () =>
     {
       const subject = new BehaviorSubject<string>("")
       const justEmptyString = subject.pipe(ignoreNullish())
       expect(await justEmptyString.pipe(first()).toPromise())
         .toBe("")
-      done()
     })
   })
 
   describe("swallowErrorAndMapTo", () =>
   {
-    it("should swallow an error and map to the provided value", async (done) =>
+    it("should swallow an error and map to the provided value", async () =>
     {
       const throws$ = new Observable((subscriber) => subscriber.error(new Error()))
       const mapTo = {}
@@ -71,7 +65,6 @@ describe("rxjsShims", () =>
           shareReplay(1))
         .toPromise()
       expect(expectEqualsMapTo).toBe(mapTo)
-      done()
     })
   })
 })

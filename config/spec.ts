@@ -12,10 +12,9 @@ describe.skip("Firestore access control rules", () =>
   let adminApp: app.App
   let defaultApp: app.App
 
-  beforeAll(async (done) =>
+  beforeAll(async () =>
   {
     await onBefore()
-    done()
   })
 
   it("should not allow a regular user to see another user config", () =>

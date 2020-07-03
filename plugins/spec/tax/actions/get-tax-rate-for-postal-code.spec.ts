@@ -24,7 +24,7 @@ export function customerWithBadPostalCode(): Customer
 
 describe("getTaxRateForPostalCode", () =>
 {
-  it("should call the tax rate calculator API with the correct query", async (done) =>
+  it("should call the tax rate calculator API with the correct query", async () =>
   {
     const TAX_SERVICE_PROVIDER_LICENSE_KEY = "test_license_key"
     const expectedAuthHeader = "Basic " + Buffer
@@ -54,6 +54,5 @@ describe("getTaxRateForPostalCode", () =>
         },
       })
     expect(returnValue).toBe(0.6)
-    done()
   })
 })

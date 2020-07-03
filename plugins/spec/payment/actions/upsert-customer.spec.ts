@@ -5,7 +5,7 @@ describe("upsertCustomer", () =>
 {
   const paymentProviderSecret = "TEST_PSP_SECRET"
 
-  it("should create a customer", async (done) =>
+  it("should create a customer", async () =>
   {
     const customerData = { address: {} } as any
     const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
@@ -20,11 +20,9 @@ describe("upsertCustomer", () =>
     expect(pspInstance.customers.update).not.toHaveBeenCalled()
     expect(pspInstance.customers.create).toHaveBeenCalledTimes(1)
     expect(pspInstance.customers.create).toHaveBeenCalledWith(customerData)
-
-    done()
   })
 
-  it("should update a customer", async (done) =>
+  it("should update a customer", async () =>
   {
     const id = "test-customer"
     const customerData = { id, address: {} } as any
@@ -40,7 +38,5 @@ describe("upsertCustomer", () =>
     expect(pspInstance.customers.create).not.toHaveBeenCalled()
     expect(pspInstance.customers.update).toHaveBeenCalledTimes(1)
     expect(pspInstance.customers.update).toHaveBeenCalledWith(id, customerData)
-
-    done()
   })
 })

@@ -19,12 +19,11 @@ describe("orderSetSkuQuantity", () =>
     setSkuQuantity = construct(getById, setById)
   })
 
-  it("should persist a change to SKU quantity", async (done) =>
+  it("should persist a change to SKU quantity", async () =>
   {
     await setSkuQuantity({ orderId: ORDER_ID, skuId: SKU_ID, quantity: 1 })
 
     expect(getById).toHaveBeenCalledWith(ORDERS, ORDER_ID)
     expect(setById).toHaveBeenCalledWith(ORDERS, ORDER_ID, expect.any(Object))
-    done()
   })
 })

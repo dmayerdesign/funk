@@ -4,7 +4,7 @@ import { constructGetPaymentProviderStub } from "../stubs"
 
 describe("updatePaymentIntent", () =>
 {
-  it("should update a payment intent", async (done) =>
+  it("should update a payment intent", async () =>
   {
     const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
     const updatePaymentIntent = construct(
@@ -31,12 +31,10 @@ describe("updatePaymentIntent", () =>
       expectedUpdateParams
     )
     expect(paymentIntent).toBe(PSP_UPDATE_RESULT)
-
-    done()
   })
 
   it("should not update a payment intent if the amount is less than the minimum",
-    async (done) =>
+    async () =>
     {
       let didThrow = false
       const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
@@ -58,8 +56,6 @@ describe("updatePaymentIntent", () =>
       expect(getPaymentProvider).toHaveBeenCalledWith(paymentProviderSecret)
       expect(pspInstance.paymentIntents.update).not.toHaveBeenCalled()
       expect(didThrow).toBe(true)
-
-      done()
     })
 
   const paymentProviderSecret = "TEST_PSP_SECRET"

@@ -19,7 +19,7 @@ describe("cartSetSkuQuantity", () =>
     functionsClient = { rpcAuthorized } as FunctionsClient
   })
 
-  it("should add {n} SKUs to the cart", async (done) =>
+  it("should add {n} SKUs to the cart", async () =>
   {
     const n = Math.ceil(Math.random() * 5)
     const SKU = createFakeSku()
@@ -31,6 +31,5 @@ describe("cartSetSkuQuantity", () =>
       "commerceOrderSetSkuQuantity",
       { orderId: CART.id, skuId: SKU.id, quantity: n }
     )
-    done()
   })
 })

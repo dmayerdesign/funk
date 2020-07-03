@@ -6,7 +6,7 @@ import { createRouterStub, createUserSession } from "@funk/ui/core/identity/stub
 
 describe("AnonymousGuard", () =>
 {
-  it("must activate if the user is SUPER", async (done) =>
+  it("must activate if the user is SUPER", async () =>
   {
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.SUPER),
@@ -14,10 +14,9 @@ describe("AnonymousGuard", () =>
       .canActivate())
 
     expect(canActivate).toBe(true)
-    done()
   })
 
-  it("must activate if the user is OWNER", async (done) =>
+  it("must activate if the user is OWNER", async () =>
   {
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.OWNER),
@@ -25,10 +24,9 @@ describe("AnonymousGuard", () =>
       .canActivate())
 
     expect(canActivate).toBe(true)
-    done()
   })
 
-  it("must activate if the user is ADMINISTRATOR", async (done) =>
+  it("must activate if the user is ADMINISTRATOR", async () =>
   {
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.ADMINISTRATOR),
@@ -36,10 +34,9 @@ describe("AnonymousGuard", () =>
       .canActivate())
 
     expect(canActivate).toBe(true)
-    done()
   })
 
-  it("must activate if the user is PUBLIC", async (done) =>
+  it("must activate if the user is PUBLIC", async () =>
   {
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.PUBLIC),
@@ -47,10 +44,9 @@ describe("AnonymousGuard", () =>
       .canActivate())
 
     expect(canActivate).toBe(true)
-    done()
   })
 
-  it("must NOT activate if the user is ANONYMOUS", async (done) =>
+  it("must NOT activate if the user is ANONYMOUS", async () =>
   {
     const routerStub = createRouterStub()
     spyOn(routerStub, "parseUrl").and.callThrough()
@@ -62,6 +58,5 @@ describe("AnonymousGuard", () =>
 
     expect(canActivate).toEqual(new UrlTree())
     expect(routerStub.parseUrl).toHaveBeenCalledTimes(1)
-    done()
   })
 })

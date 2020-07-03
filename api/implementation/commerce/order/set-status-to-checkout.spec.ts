@@ -3,7 +3,7 @@ import { ORDERS, Status } from "@funk/model/commerce/order/order"
 
 describe("setStatusToCheckout", () =>
 {
-  it("should set the order status to `Cart Checkout`", async (done) =>
+  it("should set the order status to `Cart Checkout`", async () =>
   {
     const updateById = jasmine.createSpy()
     const setStatusToCheckout = construct(updateById)
@@ -14,6 +14,5 @@ describe("setStatusToCheckout", () =>
     expect(updateById).toHaveBeenCalledWith(
       ORDERS, ORDER_ID, { status: Status.CART_CHECKOUT }
     )
-    done()
   })
 })

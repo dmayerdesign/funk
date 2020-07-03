@@ -4,7 +4,7 @@ import { constructGetShipmentProviderStub } from "../stubs"
 
 describe("getVerifiedAddress", () =>
 {
-  it("should verify a deliverable address", async (done) =>
+  it("should verify a deliverable address", async () =>
   {
     const {
       FAKE_ADDRESS,
@@ -31,9 +31,8 @@ describe("getVerifiedAddress", () =>
     expect(sspInstance.Address).toHaveBeenCalledWith(FAKE_ADDRESS)
     expect(saveAddress).toHaveBeenCalledTimes(1)
     expect(verifiedAddress).toEqual(expected)
-    done()
   })
-  it("should verify a not-deliverable address", async (done) =>
+  it("should verify a not-deliverable address", async () =>
   {
     const {
       FAKE_ADDRESS,
@@ -53,7 +52,6 @@ describe("getVerifiedAddress", () =>
     expect(sspInstance.Address).toHaveBeenCalledWith(FAKE_ADDRESS)
     expect(saveAddress).toHaveBeenCalledTimes(1)
     expect(unverifiedAddress).toEqual(expected)
-    done()
   })
 })
 

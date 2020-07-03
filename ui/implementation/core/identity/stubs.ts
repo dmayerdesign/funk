@@ -40,7 +40,7 @@ export const createUserCredentialStub = (
   user: authUserStub,
 })
 
-export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
+export const createAuthClientStub = (authUserStub = createAuthUserStub()) => ({
   user: new BehaviorSubject(authUserStub) as Observable<AuthClientUser>,
   createUserWithEmailAndPassword: async (..._args: any[]) =>
     createUserCredentialStub(authUserStub),
@@ -48,7 +48,9 @@ export const createAuthStub = (authUserStub = createAuthUserStub()) => ({
     createUserCredentialStub(authUserStub),
   signOut: async () => { },
   signInAnonymously: async () => { },
+  signInWithPopup: async () => { },
   sendEmailVerification: async () => { },
+  useDeviceLanguage: () => { },
   currentUser: authUserStub,
   authState: new BehaviorSubject(authUserStub),
   idTokenResult: of({}) as AuthClient["idTokenResult"],

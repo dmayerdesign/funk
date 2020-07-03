@@ -33,7 +33,7 @@ describe("Cart$", () =>
     populate = jest.fn().mockReturnValue(Promise.resolve(CART))
   })
 
-  it("should emit a cart, given that the user has a cart", async (done) =>
+  it("should emit a cart, given that the user has a cart", async () =>
   {
     const cart = construct(
       userSession,
@@ -46,7 +46,6 @@ describe("Cart$", () =>
     cart.subscribe(() =>
     {
       expect(cartObserverSpy).toHaveBeenCalledTimes(1)
-      done()
     })
   })
 })

@@ -19,7 +19,7 @@ describe("Enterprise$", () =>
       .mockReturnValue(of(ENTERPRISE))
   })
 
-  it("should emit the primary enterprise", async (done) =>
+  it("should emit the primary enterprise", async () =>
   {
     const enterprise = construct(listenById)
     const enterpriseObserverSpy = jest.fn()
@@ -28,7 +28,6 @@ describe("Enterprise$", () =>
     enterprise.subscribe(() =>
     {
       expect(enterpriseObserverSpy).toHaveBeenCalledTimes(1)
-      done()
     })
   })
 })

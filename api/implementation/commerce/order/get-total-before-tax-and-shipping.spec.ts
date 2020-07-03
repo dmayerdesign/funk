@@ -7,7 +7,7 @@ import { Discount } from "@funk/model/commerce/discount/discount"
 
 describe("getTotalBeforeTaxAndShipping", () =>
 {
-  it("should get the before-tax total for an order", async (done) =>
+  it("should get the before-tax total for an order", async () =>
   {
     const SKU1 = {
       id: "sku-1",
@@ -27,6 +27,5 @@ describe("getTotalBeforeTaxAndShipping", () =>
     const totalBeforeTax = await getTotalBeforeTaxAndShipping(ORDER)
 
     expect(totalBeforeTax).toEqual({ amount: 1500, currency: CurrencyCode.USD })
-    done()
   })
 })
