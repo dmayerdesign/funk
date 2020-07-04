@@ -1,5 +1,7 @@
-import { MarshalledProductAttributeValues,
-  ProductAttributeValues } from "@funk/model/commerce/attribute/attribute-value"
+import {
+  MarshalledProductAttributeValues,
+  ProductAttributeValues,
+} from "@funk/model/commerce/attribute/attribute-value"
 import { Review } from "@funk/model/commerce/review/review"
 import { TaxonomyTerm } from "@funk/model/commerce/taxonomy/taxonomy-term"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
@@ -8,6 +10,8 @@ import { Timestamp } from "@funk/model/data-access/timestamp"
 import { ImageGroup } from "@funk/model/image/image-group"
 import { Organization } from "@funk/model/organization/organization"
 import { Duration } from "@funk/model/time/duration"
+import { Price } from "@funk/model/commerce/price/price"
+import { InclusiveRange } from "@funk/model/range/range"
 
 export const PRODUCTS = "commerce.products"
 
@@ -29,6 +33,8 @@ export interface Product extends DatabaseDocument {
   taxonomyTerms: TaxonomyTerm[]
   reviews?: Review[]
   brand?: Organization
+  priceRange: InclusiveRange<Price>
+  discountedPriceRange: InclusiveRange<Price>
 }
 
 export type MarshalledProduct =

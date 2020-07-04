@@ -1,26 +1,43 @@
 import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
 import { MarshalledProductAttributeValues } from
   "@funk/model/commerce/attribute/attribute-value"
+import subtract from "@funk/model/commerce/price/actions/subtract"
 import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import listImpl from "@funk/plugins/persistence/actions/list"
 import updateByIdImpl from "@funk/plugins/persistence/actions/update-by-id"
 import { TAKE_ALL } from "@funk/plugins/persistence/pagination"
-import { uniq } from "lodash"
+import { isEqual, uniq } from "lodash"
 
 export function construct(
   list = listImpl,
   updateById = updateByIdImpl
 )
 {
-  return async function({ after }): Promise<void>
+  return async function({ before, after }): Promise<void>
   {
+    const skuBefore = before.data()
     const sku = after.data()!
+
+    if (
+      isEqual(skuBefore?.attributeValues, sku.attributeValues)
+      && isEqual(skuBefore?.price, sku.price)
+    )
+    {
+      return
+    }
+
     const skus = await list<MarshalledSku>({
       collection: SKUS,
       conditions: [[ "productId", "==", sku.productId ]],
       pagination: { take: TAKE_ALL, skip: 0, orderBy: "id", orderByDirection: "desc" },
     })
+    const skuPricesLowToHigh = skus
+      .map(({ price }) => price)
+      .sort((price1, price2) => subtract(price1, price2).amount)
+    const minSkuPrice = skuPricesLowToHigh[0]
+    const maxSkuPrice = skuPricesLowToHigh[skuPricesLowToHigh.length - 1]
+
     await updateById(PRODUCTS, sku.productId!, {
       attributeValues: skus.reduce(
         (attributeValues, _sku) =>
@@ -37,10 +54,14 @@ export function construct(
         },
         {} as MarshalledProductAttributeValues
       ),
+      priceRange: {
+        min: minSkuPrice,
+        max: maxSkuPrice,
+      },
     } as Partial<MarshalledProduct>)
   } as ChangeHandler<MarshalledSku>
 }
 
 export default construct()
 
-export type HandleWrite = ReturnType<typeof construct>
+export type SyncProduct = ReturnType<typeof construct>

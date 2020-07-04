@@ -5,15 +5,13 @@ import { Timestamp } from "@funk/model/data-access/timestamp"
 
 export const DISCOUNTS = "commerce.discounts"
 
-export interface DiscountRules
-{
+export interface DiscountRules {
   all?: boolean
   skus?: PrimaryKey[]
   taxonomyTerms?: PrimaryKey[]
 }
 
-interface BaseDiscount extends DatabaseDocument
-{
+interface BaseDiscount extends DatabaseDocument {
   /** A positive amount is deducted from the `Order` total or `Product` price. */
   total?: Price
   /** A positive percentage is deducted from the `Order` total or `Product` price. */
@@ -28,14 +26,12 @@ interface BaseDiscount extends DatabaseDocument
   preDiscountProductPriceThreshold?: Price
 }
 
-export interface SkuDiscount extends BaseDiscount
-{
+export interface SkuDiscount extends BaseDiscount {
   /** A 'sku' discount is a sale; an 'order' discount is a coupon. */
   type: "sku"
 }
 
-export interface OrderDiscount extends BaseDiscount
-{
+export interface OrderDiscount extends BaseDiscount {
   /** A 'sku' discount is a sale; an 'order' discount is a coupon. */
   type: "order"
   /** A positive amount is deducted from an `Order`'s shipping cost. */
