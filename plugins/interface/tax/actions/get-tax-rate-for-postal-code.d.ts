@@ -1,5 +1,5 @@
 import { HttpClient } from "@funk/functions/helpers/http/client"
-import { GetSecret } from "@funk/api/admin/get-secret"
+import { GetSecret } from "@funk/plugins/secrets/actions/get-secret"
 
 export function construct(
   getSecret: GetSecret,

@@ -1,4 +1,4 @@
-import getSecretImpl from "@funk/api/admin/get-secret"
+import getSecretImpl from "@funk/plugins/secrets/actions/get-secret"
 import { TAX_PUBLISHABLE_KEY, TAX_RATE_CALCULATOR_URL } from "@funk/config"
 import httpClientImpl, { Response } from "@funk/functions/helpers/http/client"
 import { AvataxResponse } from "@funk/model/commerce/tax-rate/avatax-response"

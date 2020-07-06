@@ -1,17 +1,8 @@
-import { SetById } from "@funk/plugins/persistence/actions/set-by-id"
+import setSecretPluginImpl from "@funk/plugins/secrets/actions/set-secret"
 
-export interface Options {
-  key: string
-  value: string
-}
+export declare function construct(setSecretPlugin?: typeof setSecretPluginImpl): typeof setSecret
 
-declare function setSecret(options: Options): Promise<void>
+declare function setSecret(...args: Parameters<typeof setSecretPluginImpl>): Promise<string>
 export default setSecret
-
-export declare function construct(
-  getConfig: any,
-  setById: SetById,
-  createKmsClient: (options?: any) => any
-): typeof setSecret
 
 export type SetSecret = typeof setSecret

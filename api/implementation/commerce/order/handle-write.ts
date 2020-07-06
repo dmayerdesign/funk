@@ -1,4 +1,4 @@
-import getSecretImpl from "@funk/api/admin/get-secret"
+import getSecretImpl from "@funk/plugins/secrets/actions/get-secret"
 import populateImpl from "@funk/api/commerce/order/populate"
 import ignoringKeysImpl from "@funk/functions/helpers/listen/ignoring-keys"
 import getTaxImpl from "@funk/api/commerce/order/get-tax"

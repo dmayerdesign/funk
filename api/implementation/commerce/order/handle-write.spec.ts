@@ -1,4 +1,4 @@
-import { GetSecret } from "@funk/api/admin/get-secret"
+import { GetSecret } from "@funk/plugins/secrets/actions/get-secret"
 import ignoringKeysImpl from "@funk/functions/helpers/listen/ignoring-keys"
 import { UpdateById } from "@funk/plugins/persistence/actions/update-by-id"
 import { construct as ConstructCreatePaymentIntent } from
