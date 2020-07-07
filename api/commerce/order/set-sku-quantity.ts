@@ -10,12 +10,14 @@ export function construct(
   updateById = updateByIdImpl
 )
 {
+  interface Options {
+    orderId: PrimaryKey
+    skuId: PrimaryKey
+    quantity: number
+  }
+
   return async function(
-    { orderId, skuId, quantity }: {
-      orderId: PrimaryKey
-      skuId: PrimaryKey
-      quantity: number
-    }
+    { orderId, skuId, quantity }: Options
   ): Promise<void>
   {
     const order = await getById<MarshalledOrder>(ORDERS, orderId)

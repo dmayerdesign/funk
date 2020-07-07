@@ -7,3 +7,4 @@ import { construct as constructEnterprise } from
 export const ENTERPRISE = new InjectionToken<ReturnType<typeof constructEnterprise>>("ENTERPRISE")
 export const RESOLVE_ENTERPRISE =
   new InjectionToken<ReturnType<typeof constructResolveEnterprise>>("RESOLVE_ENTERPRISE")
+

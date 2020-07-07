@@ -5,10 +5,12 @@ import { Pagination, VirtualPagination } from "@funk/plugins/persistence/paginat
 
 export function construct(list = listImpl)
 {
-  return function({ pagination, conditions }: {
+  interface Options {
     pagination: Pagination<MarshalledProduct> | VirtualPagination
     conditions: Condition<MarshalledProduct>[]
-  }): Promise<MarshalledProduct[]>
+  }
+
+  return function({ pagination, conditions }: Options): Promise<MarshalledProduct[]>
   {
     const IS_PUBLISHED: keyof MarshalledProduct = "isPublished"
     return list({

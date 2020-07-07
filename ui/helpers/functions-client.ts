@@ -18,124 +18,124 @@ export class FunctionsClient
   public rpc = this.post
   public rpcAuthorized = this.postAuthorized
 
-  public get<FnType extends (...args: any[]) => Promise<any>>(
+  public get<ResolvedValueType>(
     functionName: string,
-    options?: Parameters<HttpClient["get"]>[1]): ReturnType<FnType>
+    options?: Parameters<HttpClient["get"]>[1]): Promise<ResolvedValueType>
   {
     return asPromise(this._httpClient.get<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, options)) as
-        ReturnType<FnType>
+        Promise<ResolvedValueType>
   }
 
-  public getAuthorized<FnType extends (...args: any[]) => Promise<any>>(
+  public getAuthorized<ResolvedValueType>(
     functionName: string,
-    options?: Parameters<HttpClient["get"]>[1]): ReturnType<FnType>
+    options?: Parameters<HttpClient["get"]>[1]): Promise<ResolvedValueType>
   {
     return asPromise(this._userIdToken
       .pipe(map((token) => `Bearer ${token}`)))
-      .then((authorization) => this.get<FnType>(functionName, {
+      .then((authorization) => this.get<ResolvedValueType>(functionName, {
         ...options,
         headers: {
           ...options?.headers,
           authorization,
-        }})) as ReturnType<FnType>
+        }})) as Promise<ResolvedValueType>
   }
 
-  public options<FnType extends (...args: any[]) => Promise<any>>(
+  public options<ResolvedValueType>(
     functionName: string,
-    options?: Parameters<HttpClient["options"]>[1]): ReturnType<FnType>
+    options?: Parameters<HttpClient["options"]>[1]): Promise<ResolvedValueType>
   {
     return asPromise(this._httpClient.options<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, options)) as
-        ReturnType<FnType>
+        Promise<ResolvedValueType>
   }
 
-  public optionsAuthorized<FnType extends (...args: any[]) => Promise<any>>(
+  public optionsAuthorized<ResolvedValueType>(
     functionName: string,
-    options?: Parameters<HttpClient["options"]>[1]): ReturnType<FnType>
+    options?: Parameters<HttpClient["options"]>[1]): Promise<ResolvedValueType>
   {
     return asPromise(this._userIdToken
       .pipe(map((token) => `Bearer ${token}`)))
-      .then((authorization) => this.options<FnType>(functionName, {
+      .then((authorization) => this.options<ResolvedValueType>(functionName, {
         ...options,
         headers: {
           ...options?.headers,
           authorization,
-        }})) as ReturnType<FnType>
+        }})) as Promise<ResolvedValueType>
   }
 
-  public post<FnType extends (...args: any[]) => Promise<any>>(
+  public post<PayloadType, ResolvedValueType>(
     functionName: string,
-    payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient["post"]>[2]): ReturnType<FnType>
+    payload?: PayloadType,
+    options?: Parameters<HttpClient["post"]>[2]): Promise<ResolvedValueType>
   {
     return asPromise(this._httpClient.post<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options)) as
-        ReturnType<FnType>
+        Promise<ResolvedValueType>
   }
 
-  public postAuthorized<FnType extends (...args: any[]) => Promise<any>>(
+  public postAuthorized<PayloadType, ResolvedValueType>(
     functionName: string,
-    payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient["post"]>[2]): ReturnType<FnType>
+    payload?: PayloadType,
+    options?: Parameters<HttpClient["post"]>[2]): Promise<ResolvedValueType>
   {
     return asPromise(this._userIdToken
       .pipe(map((token) => `Bearer ${token}`)))
-      .then((authorization) => this.post<FnType>(functionName, payload, {
+      .then((authorization) => this.post<PayloadType, ResolvedValueType>(functionName, payload, {
         ...options,
         headers: {
           ...options?.headers,
           authorization,
-        }})) as ReturnType<FnType>
+        }})) as Promise<ResolvedValueType>
   }
 
-  public put<FnType extends (...args: any[]) => Promise<any>>(
+  public put<PayloadType, ResolvedValueType>(
     functionName: string,
-    payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient["put"]>[2]): ReturnType<FnType>
+    payload?: PayloadType,
+    options?: Parameters<HttpClient["put"]>[2]): Promise<ResolvedValueType>
   {
     return asPromise(this._httpClient.put<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options)) as
-        ReturnType<FnType>
+        Promise<ResolvedValueType>
   }
 
-  public putAuthorized<FnType extends (...args: any[]) => Promise<any>>(
+  public putAuthorized<PayloadType, ResolvedValueType>(
     functionName: string,
-    payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient["put"]>[2]): ReturnType<FnType>
+    payload?: PayloadType,
+    options?: Parameters<HttpClient["put"]>[2]): Promise<ResolvedValueType>
   {
     return asPromise(this._userIdToken
       .pipe(map((token) => `Bearer ${token}`)))
-      .then((authorization) => this.put<FnType>(functionName, payload, {
+      .then((authorization) => this.put<PayloadType, ResolvedValueType>(functionName, payload, {
         ...options,
         headers: {
           ...options?.headers,
           authorization,
-        }})) as ReturnType<FnType>
+        }})) as Promise<ResolvedValueType>
   }
 
-  public patch<FnType extends (...args: any[]) => Promise<any>>(
+  public patch<PayloadType, ResolvedValueType>(
     functionName: string,
-    payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient["patch"]>[2]): ReturnType<FnType>
+    payload?: PayloadType,
+    options?: Parameters<HttpClient["patch"]>[2]): Promise<ResolvedValueType>
   {
     return asPromise(this._httpClient.patch<unknown>(
       `${FUNCTIONS_BASE_URL}/${functionName}`, payload, options)) as
-        ReturnType<FnType>
+        Promise<ResolvedValueType>
   }
 
-  public patchAuthorized<FnType extends (...args: any[]) => Promise<any>>(
+  public patchAuthorized<PayloadType, ResolvedValueType>(
     functionName: string,
-    payload?: Parameters<FnType>[0],
-    options?: Parameters<HttpClient["patch"]>[2]): ReturnType<FnType>
+    payload?: PayloadType,
+    options?: Parameters<HttpClient["patch"]>[2]): Promise<ResolvedValueType>
   {
     return asPromise(this._userIdToken
       .pipe(map((token) => `Bearer ${token}`)))
-      .then((authorization) => this.patch<FnType>(functionName, payload, {
+      .then((authorization) => this.patch<PayloadType, ResolvedValueType>(functionName, payload, {
         ...options,
         headers: {
           ...options?.headers,
           authorization,
-        }})) as ReturnType<FnType>
+        }})) as Promise<ResolvedValueType>
   }
 }

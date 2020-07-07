@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
 import { ENTERPRISE, RESOLVE_ENTERPRISE } from "@funk/ui/app/shop/tokens"
-import { CART, CART_SET_SKU_QUANTITY } from "@funk/ui/app/shop/orders/tokens"
+import { CART, CART_SET_SKU_QUANTITY, SET_SKU_QUANTITY } from "@funk/ui/app/shop/orders/tokens"
 import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import { AppCommonModule } from "@funk/ui/app/common.module"
 import { AppFireModule } from "@funk/ui/app/fire.module"
@@ -18,9 +18,8 @@ import { QUERY_COLLECTION_FOR_METADATA, LISTEN_BY_ID, POPULATE } from
 import { CheckoutComponent } from "@funk/ui/app/shop/orders/checkout/component"
 import { construct as constructEnterprise } from "@funk/ui/core/shop/enterprise/enterprise"
 import { construct as constructCart } from "@funk/ui/core/shop/orders/cart/cart"
-import { construct as constructSetSkuQuantity } from
+import { construct as constructCartSetSkuQuantity } from
   "@funk/ui/core/shop/orders/cart/actions/set-sku-quantity"
-import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 import { IonicModule } from "@ionic/angular"
 
 const routes: Routes = [
@@ -83,8 +82,8 @@ const routes: Routes = [
     },
     {
       provide: CART_SET_SKU_QUANTITY,
-      useFactory: constructSetSkuQuantity,
-      deps: [ CART, FunctionsClient ],
+      useFactory: constructCartSetSkuQuantity,
+      deps: [ CART, SET_SKU_QUANTITY ],
     },
   ],
 })

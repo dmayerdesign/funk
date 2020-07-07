@@ -1,11 +1,12 @@
 import { Component, Inject } from "@angular/core"
 import { FormControl, FormGroup } from "@angular/forms"
-import { FunctionsClient } from "@funk/ui/helpers/functions-client"
-import setSecret from "@funk/plugins/secrets/actions/set-secret"
-import getSecret from "@funk/plugins/secrets/actions/get-secret"
-// import grantSuperRoleToMe from "@funk/api/admin/grant-super-role-to-me"
+import { construct as constructGrantSuperRole } from
+  "@funk/ui/functions/admin/grant-super-role-to-me"
+import { construct as constructGetSecret } from "@funk/ui/functions/admin/get-secret"
+import { construct as constructSetSecret } from "@funk/ui/functions/admin/set-secret"
 import { SendEmailVerification } from "@funk/ui/core/identity/actions/send-email-verification"
 import { SEND_EMAIL_VERIFICATION } from "@funk/ui/app/identity/tokens"
+import { GRANT_SUPER_ROLE_TO_ME, GET_SECRET, SET_SECRET } from "@funk/ui/app/admin/tokens"
 
 @Component({
   selector: "admin",
@@ -68,31 +69,32 @@ export class AdminContainer
   })
 
   public constructor(
-    private _functionsClient: FunctionsClient,
+    @Inject(GRANT_SUPER_ROLE_TO_ME)
+    private _grantSuperRole: ReturnType<typeof constructGrantSuperRole>,
+
+    @Inject(GET_SECRET) private _getSecret: ReturnType<typeof constructGetSecret>,
+
+    @Inject(SET_SECRET) private _setSecret: ReturnType<typeof constructSetSecret>,
+
     @Inject(SEND_EMAIL_VERIFICATION) private _sendEmailVerification: SendEmailVerification
   )
   { }
 
   public async setSecret(): Promise<void>
   {
-    await this._functionsClient.rpcAuthorized<typeof setSecret>(
-      "adminSetSecret",
-      this.setSecretFormGroup.value
-    )
+    await this._setSecret(this.setSecretFormGroup.value)
   }
 
   public async getSecret(): Promise<void>
   {
-    this.secretShowing = await this._functionsClient.rpcAuthorized<typeof getSecret>(
-      "adminGetSecret",
+    this.secretShowing = await this._getSecret(
       this.getSecretFormGroup.value.key
     ) ?? ""
   }
 
   public async grantSuperRole(): Promise<void>
   {
-    await this._functionsClient.rpc<any>(
-      "adminGrantSuperRoleToMe")
+    await this._grantSuperRole()
 
     await this._sendEmailVerification()
   }
