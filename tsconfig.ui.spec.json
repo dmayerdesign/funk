@@ -7,24 +7,20 @@
       "node"
     ],
     "paths": {
-      "@funk/api/*": [ "./api/interface/*" ],
+      "@funk/plugins/*": [ "./ui/plugins/*" ],
       "@funk/config": [ "./config/config.development.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
-      "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
-      "@funk/plugins/persistence/*": [ "./plugins/implementation/persistence/ui/*" ],
-      "@funk/plugins/*": [ "./plugins/implementation/*" ],
-      "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
       "@funk/test/*": [ "./test/*" ],
-      "@funk/ui/*": [ "./ui/implementation/*" ]
+      "@funk/ui/*": [ "./ui/*" ]
     }
   },
   "include": [
     "config/**/*.ts",
-    "ui/implementation/polyfills.ts",
-    "ui/implementation/**/*.spec.ts",
-    "ui/implementation/**/spec.ts",
+    "ui/polyfills.ts",
+    "ui/**/*.spec.ts",
+    "ui/**/spec.ts",
     "functions/src/app/**/*.spec.ts",
     "functions/src/app/**/spec.ts"
   ],

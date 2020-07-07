@@ -12,14 +12,13 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@funk/api/*": [ "../api/interface/*" ],
+      "@funk/plugins/*": [ "../api/plugins/*" ],
+      "@funk/api/*": [ "../api/*" ],
       "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
-      "@funk/model/*": [ "../model/*" ],
-      "@funk/plugins/*": [ "../plugins/interface/*" ],
-      "@funk/plugins-spec/*": [ "../plugins/spec/*" ]
+      "@funk/model/*": [ "../model/*" ]
     }
   },
   "include": [

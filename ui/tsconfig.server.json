@@ -5,9 +5,9 @@
     "module": "commonjs"
   },
   "angularCompilerOptions": {
-    "entryModule": "./implementation/app/server.module#AppServerModule"
+    "entryModule": "./app/server.module#AppServerModule"
   },
   "files": [
-    "implementation/main.server.ts"
+    "main.server.ts"
   ]
 }

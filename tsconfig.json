@@ -28,18 +28,18 @@
     "noUnusedLocals": true,
     "baseUrl": ".",
     "paths": {
-      "@funk/api/*": [ "./api/interface/*" ],
+      "@funk/plugins/*": [
+        "./api/plugins/*",
+        "./ui/plugins/*"
+      ],
+      "@funk/api/*": [ "./api/*" ],
       "@funk/config": [ "./.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
       "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
-      "@funk/plugins/*": [ "./plugins/interface/*" ],
-      "@funk/plugins-spec/*": [ "./plugins/spec/*" ],
-      "@funk/ui/app/*": [ "./ui/implementation/app/*" ],
-      "@funk/ui/helpers/*": [ "./ui/implementation/helpers/*" ],
-      "@funk/ui/*": [ "./ui/interface/*" ],
-      "@funk/test/*": [ "./test/*" ]
+      "@funk/test/*": [ "./test/*" ],
+      "@funk/ui/*": [ "./ui/*" ]
     }
   },
   "include": [

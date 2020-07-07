@@ -4,20 +4,18 @@
     "outDir": "./out-tsc/app",
     "baseUrl": ".",
     "paths": {
-      "@funk/api/*": [ "../api/interface/*" ],
+      "@funk/plugins/*": [ "./plugins/*" ],
       "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "../copy/*" ],
+      "@funk/functions/*": [ "./functions/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
       "@funk/model/*": [ "../model/*" ],
-      "@funk/plugins/persistence/*": [ "../plugins/implementation/persistence/ui/*" ],
-      "@funk/plugins/*": [ "../plugins/implementation/*" ],
-      "@funk/plugins-spec/*": [ "../plugins/spec/*" ],
-      "@funk/ui/*": [ "./implementation/*" ]
+      "@funk/ui/*": [ "./*" ]
     }
   },
   "files": [
-    "implementation/main.ts",
-    "implementation/polyfills.ts"
+    "main.ts",
+    "polyfills.ts"
   ],
   "include": []
 }

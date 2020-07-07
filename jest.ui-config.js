@@ -1,18 +1,18 @@
-const { pathsToModuleNameMapper } = require('ts-jest/utils')
-const baseConfig = require('./test/jest.base-config')
-const { compilerOptions } = require('./tsconfig.ui.spec.json')
+const { pathsToModuleNameMapper } = require("ts-jest/utils")
+const baseConfig = require("./test/jest.base-config")
+const { compilerOptions } = require("./tsconfig.ui.spec.json")
 
 module.exports = {
   ...baseConfig,
   roots: [
-    '<rootDir>/ui',
+    "<rootDir>/ui",
   ],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>'
+    prefix: "<rootDir>"
   }),
   globals: {
-    'ts-jest': {
-      tsConfig: 'tsconfig.ui.spec.json',
+    "ts-jest": {
+      tsConfig: "tsconfig.ui.spec.json",
       diagnostics: {
         warnOnly: true,
       },

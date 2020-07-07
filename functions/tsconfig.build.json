@@ -12,14 +12,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@funk/api/*": [ "../api/implementation/*" ],
+      "@funk/plugins/*": [ "../api/plugins/*" ],
+      "@funk/api/*": [ "../api/*" ],
       "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],
-      "@funk/model/*": [ "../model/*" ],
-      "@funk/plugins/persistence/*": [ "../plugins/implementation/persistence/api/*" ],
-      "@funk/plugins/*": [ "../plugins/implementation/*" ]
+      "@funk/model/*": [ "../model/*" ]
     }
   }
 }
