@@ -1,4 +1,4 @@
-import { store as storeImpl } from "@funk/plugins/persistence/server-store"
+import { store as storeImpl } from "@funk/api/plugins/persistence/server-store"
 
 export function construct(store = storeImpl)
 {

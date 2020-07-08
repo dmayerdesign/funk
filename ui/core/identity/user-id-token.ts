@@ -1,4 +1,4 @@
-import { AuthClient } from "@funk/plugins/auth/auth-client"
+import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { shareReplay, switchMap } from "rxjs/operators"
 

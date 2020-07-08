@@ -1,5 +1,5 @@
 import { SendEmailVerification } from "@funk/ui/core/identity/actions/send-email-verification"
-import { AuthClient } from "@funk/plugins/auth/auth-client"
+import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
 
 export function construct(
   auth: AuthClient,

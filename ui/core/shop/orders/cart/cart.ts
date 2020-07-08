@@ -8,11 +8,11 @@ import { Customer } from "@funk/model/commerce/order/customer/customer"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
 import { construct as constructQueryCollectionForMeta } from
-  "@funk/plugins/persistence/actions/query-collection-for-metadata"
+  "@funk/ui/plugins/persistence/actions/query-collection-for-metadata"
 import { construct as constructListenById } from
-  "@funk/plugins/persistence/actions/listen-by-id"
+  "@funk/ui/plugins/persistence/actions/listen-by-id"
 import { construct as constructPopulate } from
-  "@funk/plugins/persistence/actions/populate"
+  "@funk/ui/plugins/persistence/actions/populate"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 
 export function construct(

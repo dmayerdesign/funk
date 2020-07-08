@@ -1,7 +1,7 @@
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
-import getByIdImpl from "@funk/plugins/persistence/actions/get-by-id"
-import listImpl from "@funk/plugins/persistence/actions/list"
-import { TAKE_ALL } from "@funk/plugins/persistence/pagination"
+import getByIdImpl from "@funk/api/plugins/persistence/actions/get-by-id"
+import listImpl from "@funk/api/plugins/persistence/actions/list"
+import { TAKE_ALL } from "@funk/api/plugins/persistence/pagination"
 
 export interface PopulateFieldOptions<DocumentType>
 {

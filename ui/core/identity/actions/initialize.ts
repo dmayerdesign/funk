@@ -1,6 +1,6 @@
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserRole } from "@funk/model/auth/user-role"
-import { AuthClient } from "@funk/plugins/auth/auth-client"
+import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
 import { UserIdToken } from "@funk/ui/core/identity/user-id-token"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 

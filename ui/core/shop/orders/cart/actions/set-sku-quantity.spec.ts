@@ -1,34 +1,32 @@
 import { Cart } from "@funk/model/commerce/order/order"
 import { createFakeSku } from "@funk/model/commerce/sku/stubs"
 import { construct as constructCart } from "@funk/ui/core/shop/orders/cart/cart"
+import { construct as constructSetSkuQuantity } from
+  "@funk/ui/functions/commerce/order/set-sku-quantity"
 import { construct } from "@funk/ui/core/shop/orders/cart/actions/set-sku-quantity"
-import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 import { of } from "rxjs"
 
 describe("cartSetSkuQuantity", () =>
 {
   const CART = { id: "cart id" } as Cart
   let cart: ReturnType<typeof constructCart>
-  let functionsClient: FunctionsClient
-  let rpcAuthorized: Function
+  let setSkuQuantity: ReturnType<typeof constructSetSkuQuantity>
 
   beforeEach(() =>
   {
     cart = of(CART)
-    rpcAuthorized = jasmine.createSpy()
-    functionsClient = { rpcAuthorized } as FunctionsClient
+    setSkuQuantity = jasmine.createSpy() as ReturnType<typeof constructSetSkuQuantity>
   })
 
   it("should add {n} SKUs to the cart", async () =>
   {
     const n = Math.ceil(Math.random() * 5)
     const SKU = createFakeSku()
-    const setSkuQuantity = construct(cart, functionsClient)
+    const functionUnderTest = construct(cart, setSkuQuantity)
 
-    await setSkuQuantity(SKU, n)
+    await functionUnderTest(SKU, n)
 
-    expect(rpcAuthorized).toHaveBeenCalledWith(
-      "commerceOrderSetSkuQuantity",
+    expect(setSkuQuantity).toHaveBeenCalledWith(
       { orderId: CART.id, skuId: SKU.id, quantity: n }
     )
   })

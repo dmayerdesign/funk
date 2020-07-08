@@ -1,5 +1,5 @@
 import { InjectionToken } from "@angular/core"
-import { AuthClient } from "@funk/plugins/auth/auth-client"
+import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
 import { CreateUserWithEmailAndPassword } from
   "@funk/ui/core/identity/actions/create-user-with-email-and-password"
 import { Initialize } from "@funk/ui/core/identity/actions/initialize"

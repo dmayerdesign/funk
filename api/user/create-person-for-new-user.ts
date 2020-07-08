@@ -1,6 +1,6 @@
-import setByIdImpl from "@funk/plugins/persistence/actions/set-by-id"
+import setByIdImpl from "@funk/api/plugins/persistence/actions/set-by-id"
 import { Person, PERSONS } from "@funk/model/identity/person"
-import { UserRecord } from "@funk/plugins/auth/user-record"
+import { UserRecord } from "@funk/api/plugins/auth/user-record"
 
 export function construct(setById = setByIdImpl)
 {

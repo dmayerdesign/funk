@@ -1,10 +1,8 @@
 import { ErrorHandler, NgModule } from "@angular/core"
 import { BrowserModule } from "@angular/platform-browser"
 import { RouterModule } from "@angular/router"
-import { construct as constructBuildMenuItem } from "@funk/model/ui/atlas/actions/build-menu-item"
 import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
-import atlas from "@funk/ui/app/atlas/atlas"
-import { APP_ATLAS, BUILD_MENU_ITEM } from "@funk/ui/app/atlas/tokens"
+import { AtlasModule } from "@funk/ui/app/atlas/module"
 import { AppCommonModule } from "@funk/ui/app/common.module"
 import { AppComponent } from "@funk/ui/app/component"
 import { AppErrorHandler } from "@funk/ui/app/error-handler"
@@ -21,14 +19,15 @@ import { IonicStorageModule } from "@ionic/storage"
   imports: [
     BrowserModule.withServerTransition({ appId: "serverApp" }),
     RouterModule.forRoot(routes),
-    FunctionsModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    AppFireModule.withProviders(),
+    AppFireModule,
+    PersistenceModule,
+    ManagedContentModule,
     IdentityModule,
-    ManagedContentModule.withProviders(),
+    AtlasModule,
+    FunctionsModule,
     AppCommonModule,
-    PersistenceModule.forRoot(),
   ],
   declarations: [
     AppComponent,
@@ -38,15 +37,6 @@ import { IonicStorageModule } from "@ionic/storage"
     {
       provide: ErrorHandler,
       useClass: AppErrorHandler,
-    },
-    {
-      provide: APP_ATLAS,
-      useValue: atlas,
-    },
-    {
-      provide: BUILD_MENU_ITEM,
-      useFactory: constructBuildMenuItem,
-      deps: [ APP_ATLAS ],
     },
   ],
   bootstrap: [ AppComponent ],

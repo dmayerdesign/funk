@@ -1,7 +1,7 @@
 import createUid from "@funk/helpers/create-uid"
 import { MarshalledOrder, ORDERS } from "@funk/model/commerce/order/order"
-import updateByIdImpl from "@funk/plugins/persistence/actions/update-by-id"
-import { DocumentSnapshot } from "@funk/plugins/persistence/document-snapshot"
+import updateByIdImpl from "@funk/api/plugins/persistence/actions/update-by-id"
+import { DocumentSnapshot } from "@funk/api/plugins/persistence/document-snapshot"
 
 export function construct(updateById = updateByIdImpl)
 {

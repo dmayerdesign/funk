@@ -1,5 +1,5 @@
 
-import { AuthClient, AuthProvider } from "@funk/plugins/auth/auth-client"
+import { AuthClient, AuthProvider } from "@funk/ui/plugins/auth/auth-client"
 
 export function construct(
   auth: AuthClient

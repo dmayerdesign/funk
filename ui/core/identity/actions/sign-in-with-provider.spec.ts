@@ -1,4 +1,4 @@
-import { AuthClient, AuthProvider } from "@funk/plugins/auth/auth-client"
+import { AuthClient, AuthProvider } from "@funk/ui/plugins/auth/auth-client"
 import {
   createAuthClientStub,
 } from "@funk/ui/core/identity/stubs"

@@ -1,4 +1,4 @@
-import getSecretPluginImpl from "@funk/plugins/secrets/actions/get-secret"
+import getSecretPluginImpl from "@funk/api/plugins/secrets/actions/get-secret"
 
 export function construct(getSecretPlugin = getSecretPluginImpl)
 {

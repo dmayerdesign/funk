@@ -8,7 +8,7 @@ import getPriceAfterSkuDiscounts from
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
 import getPriceAfterOrderDiscounts from
   "@funk/model/commerce/order/actions/get-price-after-order-discounts"
-import getByIdImpl from "@funk/plugins/persistence/actions/get-by-id"
+import getByIdImpl from "@funk/api/plugins/persistence/actions/get-by-id"
 import { asPromise } from "@funk/helpers/as-promise"
 import { of, zip } from "rxjs"
 import { first, map, switchMap } from "rxjs/operators"

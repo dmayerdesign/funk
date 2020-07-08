@@ -7,7 +7,7 @@ import getVerifiedRole from "@funk/model/auth/actions/get-verified-role"
 import { CustomClaims } from "@funk/model/auth/custom-claims"
 import { UserRole } from "@funk/model/auth/user-role"
 import { StatusCode, StatusCodeMessage } from "@funk/model/http/status-code"
-import { authAdmin } from "@funk/plugins/auth/auth-admin"
+import { authAdmin } from "@funk/api/plugins/auth/auth-admin"
 import { NextFunction, RequestHandler, Response } from "express"
 
 /**

@@ -2,7 +2,7 @@ import createApp from "@funk/functions/helpers/http/create-app"
 import handleRequest, { HandlerReturnTypes, RequestHandlers } from
   "@funk/functions/helpers/http/handle-request"
 import { RequestMethod } from "@funk/model/http/request-method"
-import { HttpsFunction } from "@funk/plugins/cloud-function/https-function"
+import { HttpsFunction } from "@funk/api/plugins/cloud-function/https-function"
 import { IRouter, IRouterMatcher } from "express"
 import { camelCase } from "lodash"
 import createFunction from "./create-function"

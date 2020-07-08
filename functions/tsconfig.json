@@ -12,7 +12,6 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@funk/plugins/*": [ "../api/plugins/*" ],
       "@funk/api/*": [ "../api/*" ],
       "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
       "@funk/copy/*": [ "../copy/*" ],

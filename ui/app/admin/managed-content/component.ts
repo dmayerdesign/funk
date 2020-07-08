@@ -3,7 +3,7 @@ import { CONTENTS } from "@funk/model/managed-content/managed-content"
 import { ManagedContent, ManagedContentType } from "@funk/model/managed-content/managed-content"
 import { ManagedContentEditorService } from "@funk/ui/core/admin/managed-content/editor/service"
 import { LISTEN_BY_ID } from "@funk/ui/app/persistence/tokens"
-import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
+import { construct as constructListenById } from "@funk/ui/plugins/persistence/actions/listen-by-id"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import roleHasAdminPrivilegeOrGreater from

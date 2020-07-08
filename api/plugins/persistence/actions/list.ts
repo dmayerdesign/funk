@@ -1,8 +1,8 @@
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
-import { Condition } from "@funk/plugins/persistence/condition"
-import { Pagination, VirtualPagination } from "@funk/plugins/persistence/pagination"
-import { store } from "@funk/plugins/persistence/server-store"
-import { AbstractWhere } from "@funk/plugins/persistence/where"
+import { Condition } from "@funk/api/plugins/persistence/condition"
+import { Pagination, VirtualPagination } from "@funk/api/plugins/persistence/pagination"
+import { store } from "@funk/api/plugins/persistence/server-store"
+import { AbstractWhere } from "@funk/api/plugins/persistence/where"
 
 export default function list<DocumentType extends DatabaseDocument>(options: {
   collection: string

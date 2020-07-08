@@ -4,9 +4,9 @@ import { MarshalledProductAttributeValues } from
 import subtract from "@funk/model/commerce/price/actions/subtract"
 import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
-import listImpl from "@funk/plugins/persistence/actions/list"
-import updateByIdImpl from "@funk/plugins/persistence/actions/update-by-id"
-import { TAKE_ALL } from "@funk/plugins/persistence/pagination"
+import listImpl from "@funk/api/plugins/persistence/actions/list"
+import updateByIdImpl from "@funk/api/plugins/persistence/actions/update-by-id"
+import { TAKE_ALL } from "@funk/api/plugins/persistence/pagination"
 import { isEqual, uniq } from "lodash"
 
 export function construct(

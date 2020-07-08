@@ -1,4 +1,4 @@
-import { construct } from "@funk/plugins/payment/actions/upsert-customer"
+import { construct } from "@funk/api/plugins/payment/actions/upsert-customer"
 import { constructGetPaymentProviderStub } from "../stubs"
 
 describe("upsertCustomer", () =>

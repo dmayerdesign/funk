@@ -1,8 +1,8 @@
 import omitNullish from "@funk/helpers/omit-nullish"
 import { Price } from "@funk/model/commerce/price/price"
-import { MIN_TRANSACTION_CENTS } from "@funk/plugins/payment/config"
-import { PaymentIntent } from "@funk/plugins/payment/intent"
-import { PaymentIntentInvalidPriceError } from "@funk/plugins/payment/validation"
+import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
+import { PaymentIntent } from "@funk/api/plugins/payment/intent"
+import { PaymentIntentInvalidPriceError } from "@funk/api/plugins/payment/validation"
 import Stripe from "stripe"
 import getPaymentProviderImpl from "./get-payment-provider"
 

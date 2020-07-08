@@ -1,7 +1,7 @@
 import listImpl from "@funk/api/commerce/product/list"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
-import { Condition } from "@funk/plugins/persistence/condition"
-import { Pagination, VirtualPagination } from "@funk/plugins/persistence/pagination"
+import { Condition } from "@funk/api/plugins/persistence/condition"
+import { Pagination, VirtualPagination } from "@funk/api/plugins/persistence/pagination"
 
 export function construct(list = listImpl)
 {

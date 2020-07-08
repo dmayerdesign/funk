@@ -3,7 +3,7 @@ import { CustomClaims } from "@funk/model/auth/custom-claims"
 import { UserRole } from "@funk/model/auth/user-role"
 import { Person } from "@funk/model/identity/person"
 import { AdministratorGuard } from "@funk/ui/app/identity/administrator-guard"
-import { AuthClient, AuthClientUser } from "@funk/plugins/auth/auth-client"
+import { AuthClient, AuthClientUser } from "@funk/ui/plugins/auth/auth-client"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { BehaviorSubject, of, Observable } from "rxjs"
 

@@ -1,11 +1,10 @@
 import createDocPath from "@funk/helpers/create-doc-path"
 import { ListFilter, ListFilterType } from
-  "@funk/model/commerce/product/list-filter/list-filter"
+  "@funk/ui/core/shop/products/list-filter/list-filter"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
-import { Condition } from "@funk/plugins/persistence/condition"
+import { Condition } from "@funk/ui/plugins/persistence/condition"
 
-export default function(listFilter: ListFilter):
-Condition<MarshalledProduct>[]
+export default function(listFilter: ListFilter): Condition<MarshalledProduct>[]
 {
   switch (listFilter.type)
   {

@@ -1,7 +1,7 @@
 import createOrderForCustomer from "@funk/model/commerce/order/actions/create-order-for-customer"
 import { ORDERS } from "@funk/model/commerce/order/order"
-import { UserRecord } from "@funk/plugins/auth/user-record"
-import setByIdImpl from "@funk/plugins/persistence/actions/set-by-id"
+import { UserRecord } from "@funk/api/plugins/auth/user-record"
+import setByIdImpl from "@funk/api/plugins/persistence/actions/set-by-id"
 
 export function construct(
   setById = setByIdImpl

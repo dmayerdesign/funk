@@ -1,5 +1,5 @@
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
-import updateByIdImpl from "@funk/plugins/persistence/actions/update-by-id"
+import updateByIdImpl from "@funk/api/plugins/persistence/actions/update-by-id"
 import { Cart, ORDERS, Status } from "@funk/model/commerce/order/order"
 
 export function construct(

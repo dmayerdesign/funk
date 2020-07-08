@@ -1,5 +1,5 @@
 import { construct as constructListenById }
-  from "@funk/plugins/persistence/actions/listen-by-id"
+  from "@funk/ui/plugins/persistence/actions/listen-by-id"
 import { Enterprise } from "@funk/model/commerce/enterprise/enterprise"
 import { construct } from "@funk/ui/core/shop/enterprise/enterprise"
 import { when } from "jest-when"

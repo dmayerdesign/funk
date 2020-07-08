@@ -1,5 +1,4 @@
 import { APP_INITIALIZER, NgModule } from "@angular/core"
-import { AppFireModule } from "@funk/ui/app/fire.module"
 import { AngularFireAuth } from "@angular/fire/auth"
 import { construct as constructCreateUserWithEmailAndPassword } from
   "@funk/ui/core/identity/actions/create-user-with-email-and-password"
@@ -32,7 +31,6 @@ import {
  * This module should only be imported in the root module.
  */
 @NgModule({
-  imports: [ AppFireModule ],
   providers: [
     {
       provide: AUTH_CLIENT,

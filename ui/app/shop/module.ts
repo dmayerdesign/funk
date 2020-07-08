@@ -6,7 +6,6 @@ import { ENTERPRISE, RESOLVE_ENTERPRISE } from "@funk/ui/app/shop/tokens"
 import { CART, CART_SET_SKU_QUANTITY, SET_SKU_QUANTITY } from "@funk/ui/app/shop/orders/tokens"
 import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import { AppCommonModule } from "@funk/ui/app/common.module"
-import { AppFireModule } from "@funk/ui/app/fire.module"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
 import { ShopContainer } from "@funk/ui/app/shop/container"
 import { HomeContainer } from "@funk/ui/app/shop/home/container"
@@ -49,7 +48,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     IonicModule,
-    AppFireModule,
     ManagedContentModule,
     ProductModule,
     AppCommonModule,

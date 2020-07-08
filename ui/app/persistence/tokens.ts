@@ -1,11 +1,11 @@
 import { InjectionToken } from "@angular/core"
-import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
-import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
-import { construct as constructSetById } from "@funk/plugins/persistence/actions/set-by-id"
-import { construct as constructUpdateById } from "@funk/plugins/persistence/actions/update-by-id"
-import { construct as constructPopulate } from "@funk/plugins/persistence/actions/populate"
+import { construct as constructListenById } from "@funk/ui/plugins/persistence/actions/listen-by-id"
+import { GetById } from "@funk/ui/plugins/persistence/actions/get-by-id"
+import { construct as constructSetById } from "@funk/ui/plugins/persistence/actions/set-by-id"
+import { construct as constructUpdateById } from "@funk/ui/plugins/persistence/actions/update-by-id"
+import { construct as constructPopulate } from "@funk/ui/plugins/persistence/actions/populate"
 import { construct as constructQueryCollectionForMetadata } from
-  "@funk/plugins/persistence/actions/query-collection-for-metadata"
+  "@funk/ui/plugins/persistence/actions/query-collection-for-metadata"
 
 export const LISTEN_BY_ID =
   new InjectionToken<ReturnType<typeof constructListenById>>("LISTEN_BY_ID")

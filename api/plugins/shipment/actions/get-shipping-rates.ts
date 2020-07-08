@@ -4,7 +4,7 @@ import getNetWeight from "@funk/model/commerce/order/actions/get-net-weight"
 import { Order } from "@funk/model/commerce/order/order"
 import fromDecimalString from "@funk/model/commerce/price/actions/from-decimal-string"
 import { CurrencyCode } from "@funk/model/money/currency-code"
-import { SimpleRate } from "@funk/plugins/shipment/simple-rate"
+import { SimpleRate } from "@funk/api/plugins/shipment/simple-rate"
 import getShipmentProviderImpl from "./get-shipment-provider"
 
 export interface Options {

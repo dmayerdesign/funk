@@ -1,7 +1,7 @@
 import { AuthenticationRequest } from
   "@funk/functions/model/request-response/authentication-request"
 import { StatusCode, StatusCodeMessage } from "@funk/model/http/status-code"
-import { authAdmin } from "@funk/plugins/auth/auth-admin"
+import { authAdmin } from "@funk/api/plugins/auth/auth-admin"
 import { NextFunction, Response } from "express"
 
 /**

@@ -1,4 +1,4 @@
-import { DecodedIdToken } from "@funk/plugins/auth/decoded-id-token"
+import { DecodedIdToken } from "@funk/api/plugins/auth/decoded-id-token"
 import { Request } from "express"
 
 export interface AuthenticatedRequest extends Readonly<Request>

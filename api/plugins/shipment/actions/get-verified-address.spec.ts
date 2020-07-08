@@ -1,5 +1,5 @@
 import { Address } from "@funk/model/address/address"
-import { construct } from "@funk/plugins/shipment/actions/get-verified-address"
+import { construct } from "@funk/api/plugins/shipment/actions/get-verified-address"
 import { constructGetShipmentProviderStub } from "../stubs"
 
 describe("getVerifiedAddress", () =>

@@ -7,8 +7,8 @@ import getShippingPostalCode from "@funk/model/commerce/order/actions/get-shippi
 import { Price, NULL_PRICE } from "@funk/model/commerce/price/price"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 import add from "@funk/model/commerce/price/actions/add"
-import populateImpl from "@funk/plugins/persistence/actions/populate"
-import getTaxRateForPostalCodeImpl from "@funk/plugins/tax/actions/get-tax-rate-for-postal-code"
+import populateImpl from "@funk/api/plugins/persistence/actions/populate"
+import getTaxRateForPostalCodeImpl from "@funk/api/plugins/tax/actions/get-tax-rate-for-postal-code"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
 
 export function construct(

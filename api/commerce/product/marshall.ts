@@ -1,5 +1,5 @@
 import { MarshalledProduct, Product } from "@funk/model/commerce/product/product"
-import marshallImpl from "@funk/plugins/persistence/actions/marshall"
+import marshallImpl from "@funk/api/plugins/persistence/actions/marshall"
 
 export function construct(marshall = marshallImpl)
 {

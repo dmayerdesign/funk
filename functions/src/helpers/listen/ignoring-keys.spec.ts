@@ -1,6 +1,6 @@
 import ignoringKeys from "./ignoring-keys"
 import { DocumentSnapshot } from "firebase-functions/lib/providers/firestore"
-import { ChangeContext } from "@funk/plugins/persistence/change"
+import { ChangeContext } from "@funk/api/plugins/persistence/change"
 
 describe("ignoringKeys", () =>
 {

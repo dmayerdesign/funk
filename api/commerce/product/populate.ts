@@ -2,7 +2,7 @@ import { MarshalledProduct, Product } from "@funk/model/commerce/product/product
 import { REVIEWS } from "@funk/model/commerce/review/review"
 import { TAXONOMY_TERMS } from "@funk/model/commerce/taxonomy/taxonomy-term"
 import { ORGANIZATIONS } from "@funk/model/organization/organization"
-import populateImpl from "@funk/plugins/persistence/actions/populate"
+import populateImpl from "@funk/api/plugins/persistence/actions/populate"
 
 export function construct(populate = populateImpl)
 {

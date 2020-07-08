@@ -1,7 +1,7 @@
 import { CLOUD_PROJECT_ID } from "@funk/config"
 import getConfigImpl from "@funk/functions/helpers/runtime/get-config"
 import { EncryptedSecret } from "@funk/model/secret/encrypted-secret"
-import getByIdImpl from "@funk/plugins/persistence/actions/get-by-id"
+import getByIdImpl from "@funk/api/plugins/persistence/actions/get-by-id"
 import { v1 } from "@google-cloud/kms"
 import { ClientOptions } from "google-gax"
 

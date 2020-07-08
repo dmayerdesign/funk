@@ -1,4 +1,4 @@
-import marshall from "@funk/plugins/persistence/actions/marshall"
+import marshall from "@funk/ui/plugins/persistence/actions/marshall"
 
 describe("marshall", () =>
 {

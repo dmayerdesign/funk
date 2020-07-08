@@ -5,10 +5,10 @@ import {
   construct,
   ManagedContentEditorService,
 } from "@funk/ui/core/admin/managed-content/editor/service"
-import { construct as constructListenById } from "@funk/plugins/persistence/actions/listen-by-id"
-import { GetById } from "@funk/plugins/persistence/actions/get-by-id"
-import { construct as constructSetById } from "@funk/plugins/persistence/actions/set-by-id"
-import { construct as constructUpdateById } from "@funk/plugins/persistence/actions/update-by-id"
+import { construct as constructListenById } from "@funk/ui/plugins/persistence/actions/listen-by-id"
+import { GetById } from "@funk/ui/plugins/persistence/actions/get-by-id"
+import { construct as constructSetById } from "@funk/ui/plugins/persistence/actions/set-by-id"
+import { construct as constructUpdateById } from "@funk/ui/plugins/persistence/actions/update-by-id"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { UserRole } from "@funk/model/auth/user-role"

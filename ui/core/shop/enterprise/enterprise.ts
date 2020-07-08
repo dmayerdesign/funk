@@ -1,5 +1,5 @@
 import { Enterprise } from "@funk/model/commerce/enterprise/enterprise"
-import { ListenById } from "@funk/plugins/persistence/actions/listen-by-id"
+import { ListenById } from "@funk/ui/plugins/persistence/actions/listen-by-id"
 import { Observable } from "rxjs"
 import { ORGANIZATIONS, PRIMARY_ORGANIZATION } from "@funk/model/organization/organization"
 

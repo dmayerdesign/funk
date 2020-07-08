@@ -1,7 +1,7 @@
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
-import { Pagination, VirtualPagination } from "@funk/plugins/persistence/pagination"
+import { Pagination, VirtualPagination } from "@funk/ui/plugins/persistence/pagination"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
-import { Condition } from "@funk/plugins/persistence/condition"
+import { Condition } from "@funk/ui/plugins/persistence/condition"
 
 const functionName = "commerceProductListPublished"
 interface PayloadType {

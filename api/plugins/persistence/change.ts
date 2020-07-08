@@ -1,5 +1,5 @@
-import { DocumentSnapshot } from "@funk/plugins/persistence/document-snapshot"
-import { Context } from "@funk/plugins/persistence/event/context"
+import { DocumentSnapshot } from "@funk/api/plugins/persistence/document-snapshot"
+import { Context } from "@funk/api/plugins/persistence/event/context"
 import { Change as FirebaseChange } from "firebase-functions"
 
 export interface ChangeContext extends Context

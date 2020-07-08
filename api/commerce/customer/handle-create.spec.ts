@@ -1,6 +1,6 @@
 import { construct } from "@funk/api/commerce/customer/handle-create"
 import { ORDERS } from "@funk/model/commerce/order/order"
-import { UserRecord } from "@funk/plugins/auth/user-record"
+import { UserRecord } from "@funk/api/plugins/auth/user-record"
 
 describe("customerHandleCreate", () =>
 {

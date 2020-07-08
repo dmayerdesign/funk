@@ -9,11 +9,17 @@ import {
   SimpleChange,
 } from "@angular/core"
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
-import { ListFilter } from "@funk/model/commerce/product/list-filter/list-filter"
+import { ListFilter } from "@funk/ui/core/shop/products/list-filter/list-filter"
 import { Product } from "@funk/model/commerce/product/product"
-import { Pagination } from "@funk/plugins/persistence/pagination"
+import { Pagination } from "@funk/ui/plugins/persistence/pagination"
 import { catchError, map, shareReplay } from "rxjs/operators"
 import { ReplaySubject, of } from "rxjs"
+
+interface ProductListOptions {
+  products: Product[]
+  filters: ListFilter[]
+  pagination: Pagination
+}
 
 @Component({
   selector: "product-list",
@@ -36,7 +42,7 @@ import { ReplaySubject, of } from "rxjs"
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListComponent implements OnChanges
+export class ProductListComponent implements OnChanges, ProductListOptions
 {
   @Input() public products!: Product[]
   @Input() public filters!: ListFilter[]
@@ -62,9 +68,10 @@ export class ProductListComponent implements OnChanges
 
   public ngOnChanges(changes: SimpleChanges): void
   {
-    const INITIAL_FILTERS: keyof this = "filters"
+    const INITIAL_FILTERS: keyof ProductListOptions = "filters"
     const filtersChange = changes[INITIAL_FILTERS as string] as SimpleChange | undefined
     const filters: ListFilter[] | undefined = filtersChange?.currentValue
+
     if (filters)
     {
       this._filters.next(filters)

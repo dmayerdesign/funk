@@ -3,10 +3,10 @@ import { PRODUCTS } from "@funk/model/commerce/product/product"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
-import { ChangeContext } from "@funk/plugins/persistence/change"
-import { DocumentSnapshot } from "@funk/plugins/persistence/document-snapshot"
-import { List } from "@funk/plugins/persistence/actions/list"
-import { UpdateById } from "@funk/plugins/persistence/actions/update-by-id"
+import { ChangeContext } from "@funk/api/plugins/persistence/change"
+import { DocumentSnapshot } from "@funk/api/plugins/persistence/document-snapshot"
+import { List } from "@funk/api/plugins/persistence/actions/list"
+import { UpdateById } from "@funk/api/plugins/persistence/actions/update-by-id"
 
 describe("skuSyncProduct", () =>
 {
