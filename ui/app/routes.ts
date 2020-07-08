@@ -4,6 +4,11 @@ import { NotFoundComponent } from "@funk/ui/app/not-found/component"
 
 const routes: Routes = [
   {
+    path: "",
+    redirectTo: "shop",
+    pathMatch: "full",
+  },
+  {
     path: "sink",
     loadChildren: () => import("@funk/ui/app/kitchen-sink/module")
       .then((mod) => mod.KitchenSinkModule),
@@ -30,11 +35,6 @@ const routes: Routes = [
     path: "sign-in",
     loadChildren: () => import("@funk/ui/app/sign-in/module")
       .then((mod) => mod.SignInModule),
-  },
-  {
-    path: "",
-    redirectTo: "/sign-in",
-    pathMatch: "full",
   },
   {
     path: "**",
