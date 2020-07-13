@@ -1,15 +1,13 @@
 import { RequestMethod } from "@funk/model/http/request-method"
 import axios from "axios"
 
-export interface RequestConfig
-{
+export interface RequestConfig {
   url?: string
   method?: RequestMethod
   headers?: { [key: string]: string }
 }
 
-export interface Response<T = any>
-{
+export interface Response<T = any> {
   data: T
   status: number
   statusText: string
@@ -18,8 +16,7 @@ export interface Response<T = any>
   request?: any
 }
 
-export interface HttpClient
-{
+export interface HttpClient {
   get<T = any, R = Response<T>>(url: string, config?: RequestConfig): Promise<R>
   delete<T = any, R = Response<T>>(url: string, config?: RequestConfig): Promise<R>
   head<T = any, R = Response<T>>(url: string, config?: RequestConfig): Promise<R>

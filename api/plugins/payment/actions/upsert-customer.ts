@@ -1,8 +1,7 @@
 import Stripe from "stripe"
 import getPaymentProviderImpl from "./get-payment-provider"
 
-export interface CreateInput
-{
+export interface CreateInput {
   paymentProviderSecret: string
   customerData: Stripe.CustomerCreateParams
 }

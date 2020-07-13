@@ -1,6 +1,5 @@
 import { UserRole } from "@funk/model/auth/user-role"
 
-export interface CustomClaims
-{
+export interface CustomClaims {
   role: UserRole
 }

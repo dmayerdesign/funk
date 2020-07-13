@@ -1,13 +1,11 @@
 import { config } from "firebase-functions"
 
-export interface AdminConfig
-{
+export interface AdminConfig {
   // TODO: Figure out if this supports camelCase.
   serializedcredentials: string
 }
 
-export interface FunctionsConfig
-{
+export interface FunctionsConfig {
   admin: AdminConfig
 }
 

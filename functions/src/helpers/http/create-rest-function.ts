@@ -7,8 +7,7 @@ import { IRouter, IRouterMatcher } from "express"
 import { camelCase } from "lodash"
 import createFunction from "./create-function"
 
-export interface CrudHandlerMap
-{
+export interface CrudHandlerMap {
   list?: RequestHandlers
   get?: RequestHandlers
   create?: RequestHandlers

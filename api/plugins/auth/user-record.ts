@@ -1,5 +1,4 @@
-export interface UserRecord
-{
+export interface UserRecord {
   uid: string
   email?: string
   emailVerified: boolean

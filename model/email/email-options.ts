@@ -1,7 +1,6 @@
 import { Organization } from "@funk/model/organization/organization"
 
-export interface CreateEmailOptions
-{
+export interface CreateEmailOptions {
   organization?: Organization
   styleOverrides?: {
     mastheadBgColor?: string
@@ -11,8 +10,7 @@ export interface CreateEmailOptions
   }
 }
 
-export interface SendEmailOptions
-{
+export interface SendEmailOptions {
   fromName: string
   fromEmail: string
   toName?: string

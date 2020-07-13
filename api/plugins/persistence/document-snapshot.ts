@@ -4,5 +4,4 @@ import { DocumentSnapshot as FirestoreDocumentSnapshot } from "@google-cloud/fir
 export interface DocumentSnapshot<
   DocumentType extends { [key: string]: any } = DatabaseDocument
 >
-  extends FirestoreDocumentSnapshot
-{ }
+  extends FirestoreDocumentSnapshot { }

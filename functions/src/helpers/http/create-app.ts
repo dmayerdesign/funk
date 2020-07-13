@@ -4,8 +4,7 @@ import cookieParser from "cookie-parser"
 import cors from "cors"
 import express from "express"
 
-export interface CreateAppOptions
-{
+export interface CreateAppOptions {
   corsOptions?: cors.CorsOptions
 }
 

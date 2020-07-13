@@ -1,8 +1,7 @@
 import { to } from "gsap"
 
 // https://javascript.info/js-animation
-export interface AnimateOptions
-{
+export interface AnimateOptions {
   element: HTMLElement
   durationMs: number
   easingFunction:

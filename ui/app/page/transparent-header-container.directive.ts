@@ -1,8 +1,7 @@
 import { AfterViewInit, Directive, OnInit, Renderer2, TemplateRef,
   ViewContainerRef } from "@angular/core"
 
-export interface TransparentHeaderContainerContext
-{
+export interface TransparentHeaderContainerContext {
   $implicit: (event: CustomEvent) => void
 }
 

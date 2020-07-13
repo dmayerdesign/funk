@@ -3,8 +3,7 @@ import getByIdImpl from "@funk/api/plugins/persistence/actions/get-by-id"
 import listImpl from "@funk/api/plugins/persistence/actions/list"
 import { TAKE_ALL } from "@funk/api/plugins/persistence/pagination"
 
-export interface PopulateFieldOptions<DocumentType>
-{
+export interface PopulateFieldOptions<DocumentType> {
   collectionPath: string
   key: keyof DocumentType
   /** Defaults to `one-to-many`. */

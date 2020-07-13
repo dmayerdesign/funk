@@ -1,8 +1,7 @@
 import { Request as ExpressRequest, RequestHandler as ExpressRequestHandler, NextFunction,
   Response } from "express"
 
-export interface Request<BodyType = any> extends ExpressRequest
-{
+export interface Request<BodyType = any> extends ExpressRequest {
   body: BodyType
 }
 

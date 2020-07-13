@@ -1,7 +1,6 @@
 import { Address } from "@funk/model/address/address"
 
-export interface Customer
-{
+export interface Customer {
   userId: string
   idForPayment: string
   email: string
