@@ -1,8 +1,8 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "capacitor-starter",
+  "appId": "org.funk.ui",
+  "appName": "client-app",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "www",
+  "webDir": "ui/dist/client-app-browser",
   "cordova": {}
 }
