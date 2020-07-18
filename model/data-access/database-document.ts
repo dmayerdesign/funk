@@ -7,6 +7,10 @@ export interface DatabaseDocument {
   updatedAt?: Timestamp
 }
 
+export interface DocumentData {
+  [field: string]: any
+}
+
 export type DbDocumentInput<DocumentType extends DatabaseDocument> =
   Omit<DocumentType, "id">
 

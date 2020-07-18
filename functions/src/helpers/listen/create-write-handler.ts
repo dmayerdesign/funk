@@ -9,5 +9,5 @@ export default function<DocumentType extends DatabaseDocument = DatabaseDocument
   handler: ChangeHandler<DocumentType>
 ): CloudFunction<Change<DocumentType>>
 {
-  return handleWrite(`${collectionPath}/{id}`, handler)
+  return handleWrite<DocumentType>(`${collectionPath}/{id}`, handler)
 }

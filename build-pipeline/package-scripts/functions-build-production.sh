@@ -1,4 +1,4 @@
-node ./build-pipeline/package-scripts/prebuild -c "production" && \
-node ./build-pipeline/package-scripts/functions-prebuild -c "production" && \
+ts-node ./build-pipeline/package-scripts/prebuild.ts -c "production" && \
+ts-node ./build-pipeline/package-scripts/functions-prebuild.ts -c "production" && \
 tsc --project functions/tsconfig.build.json && \
-node ./build-pipeline/package-scripts/functions-postbuild
+ts-node ./build-pipeline/package-scripts/functions-postbuild.ts

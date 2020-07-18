@@ -1,20 +1,20 @@
-#!/usr/bin/env node
-const { exec } = require('shelljs')
-const program = require('commander')
-const { configToJson } = require('../../config/helpers/config-to-json')
+/* eslint-disable max-len */
+import { exec } from "shelljs"
+import program from "commander"
+import { configToJson } from "../../config/helpers/config-to-json"
 
 (async () =>
 {
-  program.option('-c, --configuration <configuration>', 'e.g. production')
+  program.option("-c, --configuration <configuration>", "e.g. production")
   program.parse(process.argv)
   const { configuration } = program.opts()
   const {
     CLOUD_PROJECT_ID,
   } = configToJson(configuration)
 
-  const KMS_LOCATION = 'global'
+  const KMS_LOCATION = "global"
   const KEY_RING_ID = CLOUD_PROJECT_ID
-  const KEY_ID = 'master'
+  const KEY_ID = "master"
 
   // TODO:
   // - do a full firebase init

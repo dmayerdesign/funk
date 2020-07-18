@@ -1,3 +1,3 @@
-node ./build-pipeline/package-scripts/prebuild -c "local" && \
+ts-node ./build-pipeline/package-scripts/prebuild.ts -c "local" && \
 ionic build -c "local" && \
 ng run client-app:server -c "local"
