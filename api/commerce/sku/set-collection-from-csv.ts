@@ -1,5 +1,6 @@
 import setManyImpl from "@funk/api/plugins/persistence/actions/set-many"
 import { SKUS } from "@funk/model/commerce/sku/sku"
+import isValid from "@funk/model/commerce/sku/is-valid"
 
 export function construct(
   setMany = setManyImpl
