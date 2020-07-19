@@ -48,6 +48,7 @@
     "cookie-parser": "~1.4.5",
     "cordova-plugin-file-transfer": "1.7.1",
     "core-js": "~3.6.5",
+    "csvtojson": "2.0.10",
     "date-fns": "2.14.0",
     "diff-json": "~2.0.0",
     "diff2html": "3.1.9",

@@ -60,7 +60,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder
         if (!!discount.excludes.taxonomyTerms)
         {
           if (!!discount.excludes.taxonomyTerms.find(
-            (excludedTerm) => !!this._sku.taxonomyTerms.find(
+            (excludedTerm) => !!this._sku.taxonomyTerms?.find(
               (term) => term === excludedTerm
             )
           ))
@@ -68,7 +68,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder
             return false
           }
           if (!!discount.excludes.taxonomyTerms.find(
-            (excludedTerm) => !!this._product.taxonomyTerms.find(
+            (excludedTerm) => !!this._product.taxonomyTerms?.find(
               (term) => term === excludedTerm
             )
           ))
@@ -94,7 +94,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder
       if (!!discount.includes.taxonomyTerms)
       {
         if (!!discount.includes.taxonomyTerms.find(
-          (includedTerm) => !!this._sku.taxonomyTerms.find(
+          (includedTerm) => !!this._sku.taxonomyTerms?.find(
             (term) => term === includedTerm
           )
         ))
@@ -102,7 +102,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder
           return true
         }
         if (!!discount.includes.taxonomyTerms.find(
-          (includedTerm) => !!this._product.taxonomyTerms.find(
+          (includedTerm) => !!this._product.taxonomyTerms?.find(
             (term) => term === includedTerm
           )
         ))

@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "outDir": "lib",
     "esModuleInterop": true,
     "module": "commonjs",
-    "outDir": "lib",
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
     "target": "es2015",

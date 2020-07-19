@@ -14,7 +14,8 @@ export interface Enterprise extends Organization {
   billingAddress: Address
   shippingCostStrategy: ShippingCostStrategy
   shippingFlatRate?: Price
-  shippingCarriers: string[]
+  /** @required */
+  shippingCarriers?: string[]
   shippingCarrierDefault: string
   addSalesTax?: boolean
 }

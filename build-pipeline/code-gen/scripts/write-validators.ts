@@ -74,7 +74,8 @@ import schema from "@funk/model/${schemaDefFilename.split("/model/")[1]}"
 
 export default function(data: ${interfaceName}): string[] | false
 {
-  const requiredProps = schema.required as (keyof ${interfaceName})[]
+  const _schema = schema as any
+  const requiredProps = (_schema.required ?? []) as (keyof ${interfaceName})[]
   const errors = requiredProps.reduce((_errors, requiredPropName) =>
   {
     if (typeof data[requiredPropName] === "undefined")

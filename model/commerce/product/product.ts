@@ -29,8 +29,8 @@ export interface Product extends DatabaseDocument {
   isPublished?: boolean
   /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
   attributeValues: ProductAttributeValues
-  /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. */
-  taxonomyTerms: TaxonomyTerm[]
+  /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. @required */
+  taxonomyTerms?: TaxonomyTerm[]
   reviews?: Review[]
   brand?: Organization
   priceRange: InclusiveRange<Price>
@@ -41,8 +41,8 @@ export type MarshalledProduct =
   Omit<Product, "attributeValues"|"taxonomyTerms"|"reviews"|"brand"> & {
     /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
     attributeValues: MarshalledProductAttributeValues
-    /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. */
-    taxonomyTerms: PrimaryKey[]
+    /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. Required */
+    taxonomyTerms?: PrimaryKey[]
     reviews?: PrimaryKey[]
     brand?: PrimaryKey
   }

@@ -63,8 +63,9 @@ export interface MarshalledSku extends BaseSku {
    * A `Sku` may have multiple `TaxonomyTerms` per `Taxonomy`.
    * This field should only store terms which are not present in the associated `Product`
    * and which do not apply to all sibling `Skus`.
+   * @required
    */
-  taxonomyTerms: PrimaryKey[]
+  taxonomyTerms?: PrimaryKey[]
   imageGroups?: PrimaryKey[]
 }
 
@@ -75,7 +76,8 @@ export interface Sku extends BaseSku {
    * A `Sku` may have multiple `TaxonomyTerms` per `Taxonomy`.
    * This field should only store terms which are not present in the associated `Product`
    * and which do not apply to all sibling `Skus`.
+   * @required
    */
-  taxonomyTerms: TaxonomyTerm[]
+  taxonomyTerms?: TaxonomyTerm[]
   imageGroups?: ImageGroup[]
 }

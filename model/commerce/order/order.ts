@@ -42,7 +42,8 @@ interface BaseOrder extends DatabaseDocument {
 }
 
 export interface Order extends BaseOrder {
-  skus: MarshalledSku[]
+  /** @required */
+  skus?: MarshalledSku[]
   discounts?: Discount[]
 }
 export type Cart = Order & {
@@ -50,7 +51,8 @@ export type Cart = Order & {
 }
 
 export interface MarshalledOrder extends BaseOrder {
-  skus: PrimaryKey[]
+  /** @required */
+  skus?: PrimaryKey[]
   discounts?: PrimaryKey[]
 }
 export type MarshalledCart = MarshalledOrder & {

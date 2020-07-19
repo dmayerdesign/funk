@@ -1,8 +1,11 @@
+import { ImportedSku } from "@funk/api/commerce/sku/_imported-sku"
+import mapImportedSkuToSku from "@funk/api/commerce/sku/_map-imported-sku-to-sku"
 import setManyImpl from "@funk/api/plugins/persistence/actions/set-many"
-import { SKUS, Sku } from "@funk/model/commerce/sku/sku"
-import skuIsInvalid from "@funk/model/commerce/sku/validators/sku-is-invalid"
-import { values } from "lodash"
+import { SKUS, MarshalledSku } from "@funk/model/commerce/sku/sku"
+import marshalledSkuIsInvalid from "@funk/model/commerce/sku/validators/marshalled-sku-is-invalid"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
+import csvToJson from "csvtojson"
+import { values, Dictionary } from "lodash"
 
 export function construct(
   setMany = setManyImpl
@@ -10,8 +13,18 @@ export function construct(
 {
   return async function(csvData: string): Promise<void>
   {
-    console.log(csvData)
-    const jsonCollectionData = {} as CollectionData
+    const rowsJson: ImportedSku[] = await csvToJson().fromString(csvData)
+
+    if (rowsJson.length === 0) return
+
+    const jsonCollectionData: Dictionary<MarshalledSku> = rowsJson.reduce(
+      (collectionData, jsonRow) =>
+      {
+        collectionData[jsonRow["SKU"]] = mapImportedSkuToSku(jsonRow)
+        return collectionData
+      },
+      {} as Dictionary<MarshalledSku>)
+
     throwIfCollectionDataContainsInvalidSku(jsonCollectionData)
 
     await setMany(SKUS, jsonCollectionData)
@@ -22,15 +35,11 @@ export default construct()
 
 export type SetCollectionFromCsv = ReturnType<typeof construct>
 
-interface CollectionData {
-  [id: string]: Sku
-}
-
-function throwIfCollectionDataContainsInvalidSku(collectionData: CollectionData): void
+function throwIfCollectionDataContainsInvalidSku(collectionData: Dictionary<MarshalledSku>): void
 {
   values(collectionData).forEach((sku) =>
   {
-    if (skuIsInvalid(sku))
+    if (marshalledSkuIsInvalid(sku))
     {
       throw new InvalidInputError(
         `Encountered an invalid SKU, aborting the import. Invalid SKU: ${JSON.stringify(sku)}`

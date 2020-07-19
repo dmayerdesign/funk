@@ -6,7 +6,8 @@ export interface TaxonomyTerm extends DatabaseDocument {
   singularName: string
   pluralName: string
   description: string
-  children: TaxonomyTerm[]
+  /** @required */
+  children?: TaxonomyTerm[]
   forInternalUseOnly: boolean
 }
 

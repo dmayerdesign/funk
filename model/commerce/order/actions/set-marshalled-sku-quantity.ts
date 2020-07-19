@@ -13,7 +13,7 @@ export default function(
   const { skuId, quantity } = options
   const _marshalledOrder = { ...marshalledOrder }
   let _skuQuantityMap = { ...marshalledOrder.skuQuantityMap }
-  let _skuIds = [ ..._marshalledOrder.skus ]
+  let _skuIds = !!_marshalledOrder.skus ? [ ..._marshalledOrder.skus ] : []
 
   if (quantity === 0)
   {

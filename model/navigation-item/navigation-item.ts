@@ -1,5 +1,6 @@
 export interface NavigationItem {
   text: string
-  routerLink: string[]
+  /** @required */
+  routerLink?: string[]
   children?: NavigationItem[]
 }

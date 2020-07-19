@@ -5,5 +5,6 @@ export interface Wishlist extends DatabaseDocument {
   userId: string
   name: string
   isDefault: boolean
-  skus: Sku[]
+  /** @required */
+  skus?: Sku[]
 }

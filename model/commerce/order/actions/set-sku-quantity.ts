@@ -14,7 +14,7 @@ export default function(
   const { sku, quantity } = options
   const _populatedOrder = { ...populatedOrder }
   let _skuQuantityMap = { ..._populatedOrder.skuQuantityMap }
-  let _skus = [..._populatedOrder.skus] as MarshalledSku[]
+  let _skus = (!!_populatedOrder.skus ? [ ..._populatedOrder.skus ] : []) as MarshalledSku[]
   if (quantity === 0)
   {
     const indexOfSku = _skus.findIndex(({ id }) => id === sku.id)
