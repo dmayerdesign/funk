@@ -28,7 +28,7 @@ export interface Product extends DatabaseDocument {
   duration?: Duration
   isPublished?: boolean
   /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
-  attributeValues: ProductAttributeValues
+  attributeValues?: ProductAttributeValues
   /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. @required */
   taxonomyTerms?: TaxonomyTerm[]
   reviews?: Review[]
@@ -40,7 +40,7 @@ export interface Product extends DatabaseDocument {
 export type MarshalledProduct =
   Omit<Product, "attributeValues"|"taxonomyTerms"|"reviews"|"brand"> & {
     /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
-    attributeValues: MarshalledProductAttributeValues
+    attributeValues?: MarshalledProductAttributeValues
     /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. Required */
     taxonomyTerms?: PrimaryKey[]
     reviews?: PrimaryKey[]

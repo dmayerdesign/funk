@@ -22,3 +22,5 @@ export type Inventory =
   | InfiniteInventory
   | BucketInventory
   | FiniteInventoryDisplayedAsBucket
+
+export type InventoryShorthand = number | "infinite" | BucketInventory["bucket"]

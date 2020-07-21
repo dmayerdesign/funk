@@ -1,4 +1,6 @@
-export interface ImportedSku {
+import { Dictionary } from "lodash"
+
+export interface ImportedSku extends Dictionary<string> {
   "Thumbnail": string
   "SKU": string
   "Name": string
@@ -14,11 +16,9 @@ export interface ImportedSku {
   "GTIN": string
   "MPN": string
   "Is adult product": string
-  "Is multipack": string
+  "Multipack quantity": string
   "Is bundle": string
   "Shipping label": string
   "Max handling time": string
   "Min handling time": string
-  "Attribute: Brand": string
-  "Taxonomy: Categories": string
 }

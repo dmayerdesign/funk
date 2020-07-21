@@ -6,7 +6,7 @@ import { ORDERS } from "@funk/model/commerce/order/order"
 describe("orderSetSkuQuantity", () =>
 {
   const ORDER_ID = "order id"
-  const SKU_ID = "sku id"
+  const SKU_ID = "sku-id"
   const ORDER = { id: ORDER_ID, skus: [], discounts: [] }
   let getById: GetById
   let setById: ReturnType<typeof constructSetById>

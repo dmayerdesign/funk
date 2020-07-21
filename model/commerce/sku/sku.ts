@@ -22,6 +22,7 @@ interface BaseSku extends DatabaseDocument {
   productId: PrimaryKey
   price: Price
   inventory: Inventory
+  /** AKA unitPricingMeasure */
   netWeight: Weight
   defaultImageGroupId?: PrimaryKey
   isDefaultSku?: boolean
@@ -32,8 +33,8 @@ interface BaseSku extends DatabaseDocument {
   gtin?: string
   /** Manufacturer Part Number */
   mpn?: string
-  adult?: boolean
-  multipack?: number
+  isAdult?: boolean
+  multipackQuantity?: number
   isBundle?: boolean
   shippingLabel?: "perishable"|"oversized"|"fragile"
   maxHandlingTime?: Duration
@@ -58,7 +59,7 @@ interface BaseSku extends DatabaseDocument {
 
 export interface MarshalledSku extends BaseSku {
   /** A `Sku` may have exactly one `AttributeValue` per `Attribute`. */
-  attributeValues: MarshalledSkuAttributeValues
+  attributeValues?: MarshalledSkuAttributeValues
   /**
    * A `Sku` may have multiple `TaxonomyTerms` per `Taxonomy`.
    * This field should only store terms which are not present in the associated `Product`
@@ -71,7 +72,7 @@ export interface MarshalledSku extends BaseSku {
 
 export interface Sku extends BaseSku {
   /** A `Sku` may have exactly one `AttributeValue` per `Attribute`. */
-  attributeValues: SkuAttributeValues
+  attributeValues?: SkuAttributeValues
   /**
    * A `Sku` may have multiple `TaxonomyTerms` per `Taxonomy`.
    * This field should only store terms which are not present in the associated `Product`

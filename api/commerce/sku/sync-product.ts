@@ -42,9 +42,9 @@ export function construct(
       attributeValues: skus.reduce(
         (attributeValues, _sku) =>
         {
-          Object.keys(_sku.attributeValues).forEach((attributeId) =>
+          Object.keys(_sku.attributeValues ?? {}).forEach((attributeId) =>
           {
-            const attributeValue = _sku.attributeValues[attributeId]
+            const attributeValue = _sku.attributeValues![attributeId]
             attributeValues[attributeId] = uniq([
               ...(attributeValues[attributeId] ?? []),
               attributeValue,
