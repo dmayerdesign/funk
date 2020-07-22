@@ -1,10 +1,10 @@
 {
-  "admin-set-secret-heading": {
-    "value": "Set Secret",
+  "app-title": {
+    "value": "Danny's App",
     "__collections__": {}
   },
-  "admin-title": {
-    "value": "Admin",
+  "shop-title": {
+    "value": "Shop",
     "__collections__": {}
   }
 }

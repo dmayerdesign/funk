@@ -11,7 +11,7 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
 
       <ion-header>
         <ion-toolbar class="max-width-container">
-          <ion-title>Shop</ion-title>
+          <ion-title><managed-content contentId="shop-title"></managed-content></ion-title>
           <ion-buttons slot="primary">
             <ion-button routerLink="/shop/home">Go Home</ion-button>
             <ion-button routerLink="/shop/checkout">Go to Checkout</ion-button>

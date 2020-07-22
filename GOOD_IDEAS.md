@@ -1,6 +1,6 @@
 **It all boils down to simplicity.**
 
-A simple thing is easier to understand and easier to change. We want things to be simple.
+A simple thing is easier to understand, change, extend, and debug. We want things to be simple.
 
 But how do you simplify something inherently complex like an e-commerce app?
 

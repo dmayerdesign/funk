@@ -14,14 +14,14 @@ import { GRANT_SUPER_ROLE_TO_ME, GET_SECRET, SET_SECRET } from "@funk/ui/app/adm
     <ion-header>
       <ion-toolbar color="primary">
         <ion-title>
-          <managed-content contentId="admin-title"></managed-content>
+          <managed-content contentId="app-title"></managed-content>
         </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <div>
         <h1>
-          <managed-content contentId="admin-set-secret-heading"></managed-content>
+          Set Secret
         </h1>
         <form [formGroup]="setSecretFormGroup"
           (ngSubmit)="setSecret()">
@@ -50,9 +50,13 @@ import { GRANT_SUPER_ROLE_TO_ME, GET_SECRET, SET_SECRET } from "@funk/ui/app/adm
             [style.visibility]="'hidden'"
           />
         </form>
+        <div>
+          <code>{{ secretShowing }}</code>
+        </div>
       </div>
       <div>
-        <code>{{ secretShowing }}</code>
+        <h1>Upload Skus</h1>
+        <import-skus></import-skus>
       </div>
     </ion-content>
   `,

@@ -39,7 +39,7 @@ import { configToJson } from "../../config/helpers/config-to-json"
     # Configure.
     ./google-cloud-sdk/bin/gcloud init
     ./google-cloud-sdk/bin/gcloud config set project ${CLOUD_PROJECT_ID}
-    firebase use ${CLOUD_PROJECT_ID}
+    node_modules/.bin/firebase use ${CLOUD_PROJECT_ID}
 
     # Enable services.
     ./google-cloud-sdk/bin/gcloud services enable --project ${CLOUD_PROJECT_ID} \
@@ -54,6 +54,6 @@ import { configToJson } from "../../config/helpers/config-to-json"
       --purpose encryption
 
     # Set up the firestore emulator.
-    firebase setup:emulators:firestore
+    node_modules/.bin/firebase setup:emulators:firestore
   `)
 })()

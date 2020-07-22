@@ -5,6 +5,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "fs"
 import { exec } from "shelljs"
 import program from "commander"
 import { configToJson } from "../../config/helpers/config-to-json"
+import writeFunctionsPackage from "../code-gen/scripts/write-functions-package"
 
 program.option("-c, --configuration <configuration>", "e.g. production")
 program.parse(process.argv)
@@ -40,8 +41,9 @@ if (configHasChanged)
 const { PATH_TO_SERVICE_ACCOUNT_JSON } = configJson
 const serviceAccountJson = require(PATH_TO_SERVICE_ACCOUNT_JSON)
 const serviceAccountBase64 = Buffer.from(JSON.stringify(serviceAccountJson)).toString("base64")
-exec(`firebase functions:config:set admin.serializedcredentials=${serviceAccountBase64}`)
-exec("firebase functions:config:get > functions/.runtimeconfig.json")
+exec(`node_modules/.bin/firebase functions:config:set \
+  admin.serializedcredentials=${serviceAccountBase64}`)
+exec("node_modules/.bin/firebase functions:config:get > functions/.runtimeconfig.json")
 
 // Delete any existing built output.
 try
@@ -54,3 +56,5 @@ try
 { delSync(resolve(__dirname, "../../", "functions/node_modules") + "/**") }
 catch (_)
 { /* Do nothing. */ }
+
+writeFunctionsPackage()

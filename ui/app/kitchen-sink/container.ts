@@ -95,7 +95,7 @@ import { BehaviorSubject, timer } from "rxjs"
               sizeXl="4">
               <ion-card>
                 <ion-item>
-                  <ion-icon name="pin" slot="start"></ion-icon>
+                  <ion-icon lazy="true" name="pin" slot="start"></ion-icon>
                   <ion-label>ion-item in a card, icon left, button right</ion-label>
                   <ion-button
                     slot="end"

@@ -4,7 +4,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
 import { AdminContainer } from "@funk/ui/app/admin/container"
 import { IonicModule } from "@ionic/angular"
-import { ManagedContentModule } from "./managed-content/module"
+import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
+import { ImportSkusContainer } from "@funk/ui/app/admin/import-skus/container"
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
   ],
   declarations: [
     AdminContainer,
+    ImportSkusContainer,
   ],
 })
 export class AdminModule

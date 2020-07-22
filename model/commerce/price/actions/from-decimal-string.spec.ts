@@ -19,12 +19,8 @@ describe("fromDecimalString", () =>
       currency: CurrencyCode.USD,
     })
   })
-  it("should parse an empty string into a price of zero dollars", () =>
+  it("should parse an empty string into `undefined`", () =>
   {
-    const PRICE_STRING = ""
-    expect(fromDecimalString(PRICE_STRING, CurrencyCode.USD)).toEqual({
-      amount: 0,
-      currency: CurrencyCode.USD,
-    })
+    expect(fromDecimalString("", CurrencyCode.USD)).toBe(undefined)
   })
 })

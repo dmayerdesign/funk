@@ -1,5 +1,5 @@
 npm i && \
 npm run test && \
 npm run build::production && \
-firebase use funk-production && \
-firebase deploy
+node_modules/.bin/firebase use funk-production && \
+node_modules/.bin/firebase deploy
