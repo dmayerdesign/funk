@@ -1,5 +1,10 @@
-import { USER_STATES } from "@funk/model/identity/user-state"
-import { CONTENTS } from "@funk/model/managed-content/managed-content"
+import { USER_STATES, UserState } from "@funk/model/identity/user-state"
+import {
+  CONTENTS,
+  ManagedContent,
+  ManagedContentType,
+  ManagedText,
+} from "@funk/model/managed-content/managed-content"
 import { FAKE_USER_UID } from "@funk/ui/core/identity/stubs"
 import {
   construct,
@@ -9,11 +14,13 @@ import { construct as constructListenById } from "@funk/ui/plugins/persistence/a
 import { GetById } from "@funk/ui/plugins/persistence/actions/get-by-id"
 import { construct as constructSetById } from "@funk/ui/plugins/persistence/actions/set-by-id"
 import { construct as constructUpdateById } from "@funk/ui/plugins/persistence/actions/update-by-id"
+import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { UserRole } from "@funk/model/auth/user-role"
 import { subHours } from "date-fns"
 import { when } from "jest-when"
+import { Dictionary } from "lodash"
 import { of } from "rxjs"
 
 describe("ManagedContentEditorService", () =>
@@ -23,12 +30,11 @@ describe("ManagedContentEditorService", () =>
   let getById: GetById
   let setById: ReturnType<typeof constructSetById>
   let updateById: ReturnType<typeof constructUpdateById>
+  let getInnerText: ReturnType<typeof constructGetInnerText>
 
   it("should manage content for the first time", async () =>
   {
-    const service = construct(
-      userSession, listenById, getById, setById, updateById
-    )
+    const service = newService()
     const getActiveContentValueControl = async () =>
       await asPromise(service.activeContentValueControl)
 
@@ -41,9 +47,7 @@ describe("ManagedContentEditorService", () =>
 
   it("should manage content for the second time", async () =>
   {
-    const service = construct(
-      userSession, listenById, getById, setById, updateById
-    )
+    const service = newService()
     const getActiveContentValueControl = async () =>
       await asPromise(service.activeContentValueControl)
 
@@ -54,32 +58,31 @@ describe("ManagedContentEditorService", () =>
 
   it("should save managed content", async () =>
   {
-    const service = construct(
-      userSession, listenById, getById, setById, updateById
-    )
-
+    const service = newService()
     service.manageContent("content-1")
-    const activeContentValueControl =
-      await asPromise(service.activeContentValueControl)
+    const activeContentValueControl = await asPromise(service.activeContentValueControl)
     activeContentValueControl?.setValue("Test 1 preview")
+
     await service.saveAndClearIfEditing()
+
     const clearedActiveContentValueControl =
       await asPromise(service.activeContentValueControl)
-
     expect(clearedActiveContentValueControl).toBe(undefined)
     expect(updateById).toHaveBeenCalledTimes(1)
     expect(updateById).toHaveBeenCalledWith(
       USER_STATES,
       FAKE_USER_UID,
-      { "contentPreviews.content-1.content": { value: "Test 1 preview" } }
+      {
+        "contentPreviews.content-1.content": {
+          value: FAKE_CONTENTS["content-1"].value + " preview",
+        },
+      }
     )
   })
 
   it("should publish all previews", async () =>
   {
-    const service = construct(
-      userSession, listenById, getById, setById, updateById
-    )
+    const service = newService()
 
     await service.maybePublishAll()
 
@@ -87,7 +90,7 @@ describe("ManagedContentEditorService", () =>
     expect(setById).toHaveBeenCalledWith(
       CONTENTS,
       "content-1",
-      { value: "Test 1 preview saved" }
+      createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.["content-1"].content
     )
     expect(updateById).toHaveBeenCalledTimes(1)
     expect(updateById).toHaveBeenCalledWith(
@@ -98,9 +101,7 @@ describe("ManagedContentEditorService", () =>
   it("should not publish all previews if the user is not an admin", async () =>
   {
     userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
-    const service = construct(
-      userSession, listenById, getById, setById, updateById
-    )
+    const service = newService()
 
     await service.maybePublishAll()
 
@@ -118,9 +119,7 @@ describe("ManagedContentEditorService", () =>
       when(getById as jest.Mock)
         .calledWith(USER_STATES)
         .mockReturnValueOnce(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
-      const service: ManagedContentEditorService = construct(
-        userSession, listenById, getById, setById, updateById
-      )
+      const service = newService()
 
       await service.maybePublishAll()
       const contentsUpdatedAfterPreview = await asPromise(
@@ -135,9 +134,7 @@ describe("ManagedContentEditorService", () =>
   it("should publish one preview, regardless of publish conflict",
     async () =>
     {
-      const service: ManagedContentEditorService = construct(
-        userSession, listenById, getById, setById, updateById
-      )
+      const service = newService()
 
       await service.publishOne("content-1")
 
@@ -145,7 +142,7 @@ describe("ManagedContentEditorService", () =>
       expect(setById).toHaveBeenCalledWith(
         CONTENTS,
         "content-1",
-        { value: "Test 1 preview saved" }
+        createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.["content-1"].content
       )
       expect(updateById).toHaveBeenCalledTimes(1)
       expect(updateById).toHaveBeenCalledWith(
@@ -156,9 +153,7 @@ describe("ManagedContentEditorService", () =>
   it("should not publish one preview if the user is not an admin", async () =>
   {
     userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
-    const service = construct(
-      userSession, listenById, getById, setById, updateById
-    )
+    const service = newService()
 
     await service.publishOne("content-1")
 
@@ -168,9 +163,7 @@ describe("ManagedContentEditorService", () =>
 
   it("should remove a preview", async () =>
   {
-    const service = construct(
-      userSession, listenById, getById, setById, updateById
-    )
+    const service = newService()
 
     await service.removePreview("content-1")
 
@@ -195,6 +188,7 @@ describe("ManagedContentEditorService", () =>
     listenById = jest.fn()
     setById = jest.fn()
     updateById = jest.fn()
+    getInnerText = (htmlString: string) => htmlString
 
     const FAKE_USER_STATES = createFakeUserStates()
     when(listenById as jest.Mock)
@@ -222,35 +216,54 @@ describe("ManagedContentEditorService", () =>
       .calledWith(CONTENTS, "content-with-publish-conflict")
       .mockReturnValue(of(FAKE_CONTENTS["content-with-publish-conflict"]))
   })
+
+  function newService(): ManagedContentEditorService
+  {
+    return construct(
+      userSession, listenById, getById, setById, updateById, getInnerText
+    )
+  }
 })
 
-const FAKE_CONTENTS = {
+const FAKE_CONTENTS: Dictionary<ManagedContent> = {
   "content-1": {
     id: "content-1",
     value: "Test 1",
+    type: ManagedContentType.TEXT,
     updatedAt: subHours(new Date(), 1).getTime(),
   },
   "content-2": {
     id: "content-2",
     value: "Test 2",
+    type: ManagedContentType.TEXT,
+    updatedAt: subHours(new Date(), 1).getTime(),
+  },
+  "html-content": {
+    id: "content-2",
+    value: "<p>HTML <b>content</b></p>",
+    type: ManagedContentType.HTML,
     updatedAt: subHours(new Date(), 1).getTime(),
   },
   "content-with-publish-conflict": {
     id: "content-with-publish-conflict",
     value: "Test With PublishConflict",
+    type: ManagedContentType.TEXT,
     updatedAt: new Date().getTime(),
   },
 }
 
-const createFakeUserStates = (contentIdPreviewing = "content-1") => ({
+const createFakeUserStates = (contentIdPreviewing = "content-1"): {
+  [id: string]: UserState
+} => ({
   [FAKE_USER_UID]: {
     id: FAKE_USER_UID,
     contentPreviews: {
       [contentIdPreviewing]: {
         createdAt: subHours(new Date(), 1).getTime(),
         content: {
-          value: "Test 1 preview saved",
-        },
+          ...FAKE_CONTENTS[contentIdPreviewing],
+          value: FAKE_CONTENTS[contentIdPreviewing].value + " preview saved",
+        } as ManagedText,
       },
     },
   },

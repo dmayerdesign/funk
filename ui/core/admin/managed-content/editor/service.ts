@@ -1,14 +1,8 @@
 import { FormControl } from "@angular/forms"
-import { ignoreNullish, assertNotNullish } from "@funk/helpers/rxjs-shims"
-import { swallowErrorAndMapTo } from "@funk/helpers/rxjs-shims"
+import { ignoreNullish, shareReplayOnce, maybePluck } from "@funk/helpers/rxjs-shims"
 import { USER_STATES, UserState } from "@funk/model/identity/user-state"
-import { CONTENTS } from "@funk/model/managed-content/managed-content"
+import { CONTENTS, ManagedContentType } from "@funk/model/managed-content/managed-content"
 import { ManagedContent } from "@funk/model/managed-content/managed-content"
-import { construct as constructListenById } from "@funk/ui/plugins/persistence/actions/listen-by-id"
-import { GetById } from "@funk/ui/plugins/persistence/actions/get-by-id"
-import { construct as constructSetById } from "@funk/ui/plugins/persistence/actions/set-by-id"
-import { construct as constructUpdateById } from "@funk/ui/plugins/persistence/actions/update-by-id"
-import { UserSession } from "@funk/ui/core/identity/user-session"
 import { asPromise } from "@funk/helpers/as-promise"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
@@ -16,8 +10,14 @@ import createDocPath from "@funk/helpers/create-doc-path"
 import { ContentPreview } from "@funk/model/managed-content/content-preview"
 import { Person } from "@funk/model/identity/person"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
+import { construct as constructListenById } from "@funk/ui/plugins/persistence/actions/listen-by-id"
+import { GetById } from "@funk/ui/plugins/persistence/actions/get-by-id"
+import { construct as constructSetById } from "@funk/ui/plugins/persistence/actions/set-by-id"
+import { construct as constructUpdateById } from "@funk/ui/plugins/persistence/actions/update-by-id"
+import { UserSession } from "@funk/ui/core/identity/user-session"
+import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
 import { BehaviorSubject, Observable, combineLatest, from, of } from "rxjs"
-import { first, map, pluck, shareReplay, switchMap } from "rxjs/operators"
+import { map, pluck, switchMap, first } from "rxjs/operators"
 
 type PublishConflict = [ ContentPreview, ManagedContent ]
 
@@ -26,7 +26,8 @@ export function construct(
   listenById: ReturnType<typeof constructListenById>,
   getById: GetById,
   setById: ReturnType<typeof constructSetById>,
-  updateById: ReturnType<typeof constructUpdateById>
+  updateById: ReturnType<typeof constructUpdateById>,
+  getInnerText: ReturnType<typeof constructGetInnerText>
 )
 {
   return new class ManagedContentEditorService
@@ -37,17 +38,22 @@ export function construct(
       map(roleHasAdminPrivilegeOrGreater)
     )
     public saving = new BehaviorSubject<boolean>(false)
-    public activeContentValueControl = this._maybeActiveContentId
-      .pipe(
-        switchMap((contentId) => !contentId
-          ? of(undefined)
-          : this.listenForPreviewOrLiveContent(contentId)
-            .pipe(
-              ignoreNullish(),
-              first(),
-              pluck("value"),
-              map((value) => new FormControl(value)))),
-        shareReplay(1))
+    public activeContent = this._maybeActiveContentId.pipe(
+      switchMap((contentId) => !!contentId
+        ? this.listenForPreviewOrLiveContent(contentId).pipe(first())
+        : of(undefined)),
+      shareReplayOnce())
+    public activeContentType = this.activeContent.pipe(
+      maybePluck("type"),
+      shareReplayOnce())
+    public activeContentValueControl = this.activeContent.pipe(
+      maybePluck("value"),
+      map((value) => value ? new FormControl(value) : undefined),
+      shareReplayOnce())
+    public activeContentValue = this.activeContentValueControl.pipe(
+      switchMap((content) => content?.valueChanges ?? of(undefined)),
+      shareReplayOnce()
+    ) as Observable<string>
     public hasPreview = userSession.pipe(
       ignoreNullish(),
       pluck("person", "id"),
@@ -56,13 +62,19 @@ export function construct(
           USER_STATES,
           userId))
           .pipe(
-            assertNotNullish(),
-            pluck("contentPreviews"),
-            swallowErrorAndMapTo(undefined))),
-      map((maybeContentPreviews) => Object.keys(maybeContentPreviews!).length),
-      swallowErrorAndMapTo(false),
-      shareReplay(1))
+            maybePluck("contentPreviews"))),
+      map((maybeContentPreviews) => !!Object.keys(maybeContentPreviews ?? {}).length),
+      shareReplayOnce())
     public contentsUpdatedAfterPreview = new BehaviorSubject<PublishConflict[] | []>([])
+
+    public constructor()
+    {
+      this.activeContent.subscribe()
+      this.activeContentType.subscribe()
+      this.activeContentValueControl.subscribe()
+      this.activeContentValue.subscribe()
+      this.hasPreview.subscribe()
+    }
 
     public manageContent(contentId: string): void
     {
@@ -72,20 +84,36 @@ export function construct(
     public async saveAndClearIfEditing(): Promise<void>
     {
       const control = await asPromise(this.activeContentValueControl)
+
       if (control)
       {
         this.saving.next(true)
+
         const { person } = await asPromise(userSession)
+        const content = await asPromise(this.activeContent)
         const contentId = await asPromise(this._maybeActiveContentId) as string
-        await updateById<UserState>(
-          USER_STATES,
-          person.id,
-          {
+        const htmlValue = await asPromise(this.activeContentValue)
+
+        try
+        {
+          const userStateUpdate = {
             [createDocPath<UserState>("contentPreviews", contentId, "content")]: {
-              value: control.value,
+              value: content!.type === ManagedContentType.HTML
+                ? htmlValue
+                : getInnerText(htmlValue),
             } as ManagedContent,
           } as Partial<UserState>
-        )
+
+          await updateById<UserState>(
+            USER_STATES,
+            person.id,
+            userStateUpdate
+          )
+        }
+        catch (error)
+        {
+          console.log("There was an error updating the preview.", error)
+        }
         this.saving.next(false)
         this._clear()
       }
@@ -175,13 +203,10 @@ export function construct(
                 USER_STATES,
                 userId))
                 .pipe(
-                  map((user) => user?.contentPreviews?.[contentId]?.content),
-                  swallowErrorAndMapTo(undefined)),
+                  map((user) => user?.contentPreviews?.[contentId]?.content)),
               from(listenById<ManagedContent>(
                 CONTENTS,
-                contentId))
-                .pipe(
-                  swallowErrorAndMapTo(undefined)))
+                contentId)))
               .pipe(
                 map(([ preview, content ]) => preview || content))))
     }

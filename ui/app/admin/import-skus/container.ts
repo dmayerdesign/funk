@@ -1,29 +1,56 @@
-import { Component } from "@angular/core"
-// import { SKUS } from "@funk/model/commerce/sku/sku"
-// import { FUNCTIONS_BASE_URL } from "@funk/config"
-import { FileTransfer } from "@ionic-native/file-transfer/ngx"
+import { Component, OnInit } from "@angular/core"
+import { SKUS } from "@funk/model/commerce/sku/sku"
+import { FUNCTIONS_BASE_URL } from "@funk/config"
+import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer/ngx"
+import { Platform } from "@ionic/angular"
 
 @Component({
   selector: "import-skus",
   template: `
-    <ion-button expand="full">
+    <ion-button expand="full"
+
+      (click)="importSkusInput.click()">
       <ion-icon lazy="true" slot="start" name="image"></ion-icon>
       <ion-label slot="end">Upload Image</ion-label>
-      <input id="import-skus-input"
+      <input #importSkusInput
+        id="import-skus-input"
         type="file"
         multiple
         (change)="upload($event)"
-        accept="text/csv">
+        [accept]="acceptContentTypes"
+        [style.visibility]="'hidden'"
+        [style.width]="0"
+      />
     </ion-button>
   `,
 })
-export class ImportSkusContainer
+export class ImportSkusContainer implements OnInit
 {
-  private _fileTransfer = this._fileTransferFactory.create()
+  public readonly acceptContentTypes = [
+    "application/csv",
+    "application/vnd.ms-excel",
+    "application/x-csv",
+    "text/comma-separated-values",
+    "text/csv",
+    "text/plain",
+    "text/x-comma-separated-values",
+    "text/x-csv",
+  ].join(",")
+  private _fileTransfer?: FileTransferObject
 
   public constructor(
-    private _fileTransferFactory: FileTransfer
-  ) { }
+    private _fileTransferFactory: FileTransfer,
+    private _platform: Platform
+  )
+  { }
+
+  public ngOnInit(): void
+  {
+    this._platform.ready().then(() =>
+    {
+      this._fileTransfer = this._fileTransferFactory.create()
+    })
+  }
 
   public async upload(event: InputEvent & { target: { files: File[] } }): Promise<void>
   {
@@ -34,19 +61,23 @@ export class ImportSkusContainer
 
     reader.onload = async () =>
     {
-      console.log(reader.result)
+      const dataUri = reader.result as string
 
-      // console.log(
-      //   await this._fileTransfer.upload(
-      //     uri,
-      //     `${FUNCTIONS_BASE_URL}/commerceSkuImport`,
-      //     {
-      //       fileKey: SKUS,
-      //       fileName: "skus-import.csv",
-      //       mimeType: "text/csv",
-      //     }
-      //   )
-      // )
+      console.log(dataUri)
+
+      // TODO: only if platform mobile.
+      // For web use `rxjs-uploader` with ionic button.
+      console.log(
+        await this._fileTransfer!.upload(
+          dataUri,
+          `${FUNCTIONS_BASE_URL}/commerceSkuImport`,
+          {
+            fileKey: SKUS,
+            fileName: `${SKUS}-import.csv`,
+            mimeType: this.acceptContentTypes,
+          }
+        )
+      )
     }
 
     reader.onerror = (error) =>
@@ -57,6 +88,6 @@ export class ImportSkusContainer
 
   public ngOnDestroy(): void
   {
-    this._fileTransfer.abort()
+    this._fileTransfer!.abort()
   }
 }

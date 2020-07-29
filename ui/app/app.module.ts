@@ -23,7 +23,7 @@ import { IonicStorageModule } from "@ionic/storage"
     IonicStorageModule.forRoot(),
     AppFireModule,
     PersistenceModule,
-    ManagedContentModule,
+    ManagedContentModule.withProviders(),
     IdentityModule,
     AtlasModule,
     FunctionsModule,

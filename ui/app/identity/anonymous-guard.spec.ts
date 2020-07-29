@@ -1,4 +1,4 @@
-import { UrlTree } from "@angular/router"
+import { UrlTree, RouterStateSnapshot } from "@angular/router"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserRole } from "@funk/model/auth/user-role"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
@@ -6,12 +6,20 @@ import { createRouterStub, createUserSession } from "@funk/ui/core/identity/stub
 
 describe("AnonymousGuard", () =>
 {
+  const activatedRoute: any = {}
+  let routerState: RouterStateSnapshot
+
+  beforeEach(() =>
+  {
+    routerState = { url: "go-to-url" } as RouterStateSnapshot
+  })
+
   it("must activate if the user is SUPER", async () =>
   {
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.SUPER),
       createRouterStub())
-      .canActivate())
+      .canActivate(activatedRoute, routerState))
 
     expect(canActivate).toBe(true)
   })
@@ -21,7 +29,7 @@ describe("AnonymousGuard", () =>
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.OWNER),
       createRouterStub())
-      .canActivate())
+      .canActivate(activatedRoute, routerState))
 
     expect(canActivate).toBe(true)
   })
@@ -31,7 +39,7 @@ describe("AnonymousGuard", () =>
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.ADMINISTRATOR),
       createRouterStub())
-      .canActivate())
+      .canActivate(activatedRoute, routerState))
 
     expect(canActivate).toBe(true)
   })
@@ -41,22 +49,24 @@ describe("AnonymousGuard", () =>
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.PUBLIC),
       createRouterStub())
-      .canActivate())
+      .canActivate(activatedRoute, routerState))
 
     expect(canActivate).toBe(true)
   })
 
   it("must NOT activate if the user is ANONYMOUS", async () =>
   {
+    const URL_TREE = new UrlTree()
     const routerStub = createRouterStub()
-    spyOn(routerStub, "parseUrl").and.callThrough()
+    spyOn(routerStub, "parseUrl").and.returnValue(URL_TREE)
 
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.ANONYMOUS),
       routerStub)
-      .canActivate())
+      .canActivate(activatedRoute, routerState))
 
-    expect(canActivate).toEqual(new UrlTree())
-    expect(routerStub.parseUrl).toHaveBeenCalledTimes(1)
+    expect(canActivate).toBe(URL_TREE)
+    expect(routerStub.parseUrl).toHaveBeenCalledWith(
+      expect.stringContaining("=go-to-url"))
   })
 })

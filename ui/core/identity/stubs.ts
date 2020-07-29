@@ -2,7 +2,8 @@ import { Router, UrlTree } from "@angular/router"
 import { CustomClaims } from "@funk/model/auth/custom-claims"
 import { UserRole } from "@funk/model/auth/user-role"
 import { Person } from "@funk/model/identity/person"
-import { AdministratorGuard } from "@funk/ui/app/identity/administrator-guard"
+import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
+import { PublicGuard } from "@funk/ui/app/identity/public-guard"
 import { AuthClient, AuthClientUser } from "@funk/ui/plugins/auth/auth-client"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { BehaviorSubject, of, Observable } from "rxjs"
@@ -60,8 +61,13 @@ export const createRouterStub = () => ({
   parseUrl: (_url: string) => new UrlTree(),
 } as Router)
 
-export const createStubbedAdministratorGuard = (userRole = UserRole.ANONYMOUS) =>
-  new AdministratorGuard(
+export const createStubbedPublicGuard = (
+  userRole = UserRole.ANONYMOUS
+) =>
+  new PublicGuard(
     createUserSession(userRole),
+    {
+      canActivate: jest.fn().mockReturnValue(of(true)),
+    } as Partial<AnonymousGuard> as AnonymousGuard,
     createRouterStub()
   )

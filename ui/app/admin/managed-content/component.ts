@@ -18,12 +18,23 @@ import { Observable, defer, from } from "rxjs"
 @UntilDestroy()
 @Component({
   selector: "managed-content",
-  template: "{{ contentValue | async }}",
+  template: `
+    <ng-container *ngIf="(contentType | async) === ManagedContentType.TEXT">
+      {{ contentValue | async }}
+    </ng-container>
+    <ng-container *ngIf="(contentType | async) === ManagedContentType.HTML">
+      <div [outerHTML]="contentValue | async"></div>
+    </ng-container>
+    <!-- TODO:
+      <ng-container *ngIf="(contentType | async) === ManagedContentType.IMAGE">
+        {{ contentValue | async }}
+      </ng-container>
+    -->
+  `,
 })
 export class ManagedContentComponent implements OnInit, OnDestroy
 {
   @Input() public contentId!: string
-  @Input() public type: ManagedContentType = ManagedContentType.TEXT
 
   public isDesktop = this._platform.platforms().includes("desktop")
   public content: Observable<ManagedContent | undefined> = defer(() =>
@@ -37,9 +48,14 @@ export class ManagedContentComponent implements OnInit, OnDestroy
       untilDestroyed(this),
       shareReplay(1)
     )
+  public contentType = this.content.pipe(
+    map((content) => content?.type)
+  )
   public contentValue = this.content.pipe(
     map((content) => content?.value)
   )
+
+  public readonly ManagedContentType = ManagedContentType
 
   public constructor(
     private _platform: Platform,

@@ -1,4 +1,4 @@
-import { ignoreNullish, swallowErrorAndMapTo } from "@funk/helpers/rxjs-shims"
+import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { BehaviorSubject, Observable, of } from "rxjs"
 import { first, shareReplay } from "rxjs/operators"
 
@@ -49,22 +49,6 @@ describe("rxjsShims", () =>
       const justEmptyString = subject.pipe(ignoreNullish())
       expect(await justEmptyString.pipe(first()).toPromise())
         .toBe("")
-    })
-  })
-
-  describe("swallowErrorAndMapTo", () =>
-  {
-    it("should swallow an error and map to the provided value", async () =>
-    {
-      const throws$ = new Observable((subscriber) => subscriber.error(new Error()))
-      const mapTo = {}
-      const expectEqualsMapTo = await throws$
-        .pipe(
-          first(),
-          swallowErrorAndMapTo(mapTo),
-          shareReplay(1))
-        .toPromise()
-      expect(expectEqualsMapTo).toBe(mapTo)
     })
   })
 })

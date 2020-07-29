@@ -2,7 +2,7 @@ $animation-duration: 500ms;
 $drawer-height: 200px;
 $has-preview-notice-height: 26px;
 
-@mixin animate-in-out($height: 200px) {
+@mixin animate-in-out($height: $drawer-height) {
   @keyframes animate-in {
     from {
       transform: translateY($height);
@@ -71,17 +71,5 @@ $has-preview-notice-height: 26px;
     padding-bottom: 10px;
     width: 100%;
     height: $drawer-height;
-  
-    form {
-      display: flex;
-      flex-direction: column;
-      height: $drawer-height;
-  
-      .drawer-card-actions {
-        display: flex;
-        padding: 10px;
-        justify-content: flex-start;
-      }
-    }
   }
 }
