@@ -10,5 +10,11 @@
     "value": "Shop",
     "type": "TEXT",
     "__collections__": {}
+  },
+  "sink-content-1": {
+    "id": "sink-content-1",
+    "value": "<h2>Keep close to Nature's heart...</h2><p>and break clear away, once in awhile, and climb a mountain or spend a week in the woods.</p><p>Wash your spirit clean.</p>",
+    "type": "HTML",
+    "__collections__": {}
   }
 }

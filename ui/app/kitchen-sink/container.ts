@@ -75,7 +75,7 @@ import { BehaviorSubject, timer } from "rxjs"
               sizeMd="6"
               sizeLg="4"
               sizeXl="4">
-              <ion-card ripple-container>
+              <ion-card>
                 <ion-card-header>
                   <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
                   <ion-card-title>Card Title</ion-card-title>
@@ -84,7 +84,6 @@ import { BehaviorSubject, timer } from "rxjs"
                   Keep close to Nature's heart...and break clear away, once in awhile,
                   and climb a mountain or spend a week in the woods. Wash your spirit clean.
                 </ion-card-content>
-                <ion-ripple-effect></ion-ripple-effect>
               </ion-card>
             </ion-col>
             <ion-col
@@ -119,16 +118,14 @@ import { BehaviorSubject, timer } from "rxjs"
               sizeMd="6"
               sizeLg="4"
               sizeXl="4">
-              <ion-card ripple-container>
+              <ion-card>
                 <ion-card-header>
                   <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
                   <ion-card-title>Card Title</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
-                  Keep close to Nature's heart...and break clear away, once in awhile,
-                  and climb a mountain or spend a week in the woods. Wash your spirit clean.
+                  <managed-content contentId="sink-content-1"></managed-content>
                 </ion-card-content>
-                <ion-ripple-effect></ion-ripple-effect>
               </ion-card>
             </ion-col>
           </ion-row>

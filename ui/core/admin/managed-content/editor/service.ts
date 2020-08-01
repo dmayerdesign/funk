@@ -98,6 +98,8 @@ export function construct(
         {
           const userStateUpdate = {
             [createDocPath<UserState>("contentPreviews", contentId, "content")]: {
+              id: contentId,
+              type: content!.type,
               value: content!.type === ManagedContentType.HTML
                 ? htmlValue
                 : getInnerText(htmlValue),

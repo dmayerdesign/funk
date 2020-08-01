@@ -1,5 +1,5 @@
 $animation-duration: 500ms;
-$drawer-height: 200px;
+$drawer-height: 60vh;
 $has-preview-notice-height: 26px;
 
 @mixin animate-in-out($height: $drawer-height) {
@@ -26,7 +26,6 @@ $has-preview-notice-height: 26px;
     left: 0;
     bottom: 0;
     width: 100%;
-    height: $height;
   }
 
   .animate-in {
@@ -54,22 +53,28 @@ $has-preview-notice-height: 26px;
   &.admin-edit-mode-is-on {
     managed-content {
       cursor: pointer;
-      text-decoration: underline dotted rgba(var(--ion-color-warning-rgb), 0.4);
+      text-decoration: underline solid rgba(var(--ion-color-warning-rgb), 0.6);
   
       &:hover {
-        text-decoration: underline dotted rgb(var(--ion-color-warning-rgb));
+        text-decoration: underline solid rgb(var(--ion-color-warning-rgb));
       }
     }
   }
-  
 }
 
 #managed-content-editor-drawer {
+  $actions-height: 50px;
+
   ion-card {
-    margin: 0;
-    transform: translateY(10px);
-    padding-bottom: 10px;
-    width: 100%;
-    height: $drawer-height;
+    background: #fff;
+  }
+
+  #editor-container .ck-editor__main > .ck-content {
+    height: calc(50vh - #{$actions-height});
+  }
+
+  #editor-actions {
+    background: #fff;
+    height: $actions-height;
   }
 }

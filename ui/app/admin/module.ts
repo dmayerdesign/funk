@@ -3,10 +3,9 @@ import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
 import { AdminContainer } from "@funk/ui/app/admin/container"
-import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import { ImportSkusContainer } from "@funk/ui/app/admin/import-skus/container"
+import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import { IonicModule } from "@ionic/angular"
-import { FileTransfer } from "@ionic-native/file-transfer/ngx"
 
 const routes: Routes = [
   {
@@ -25,11 +24,8 @@ const routes: Routes = [
     ManagedContentModule,
   ],
   declarations: [
-    ImportSkusContainer,
     AdminContainer,
-  ],
-  providers: [
-    FileTransfer,
+    ImportSkusContainer,
   ],
 })
 export class AdminModule

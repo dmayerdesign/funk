@@ -17,5 +17,7 @@
     "main.ts",
     "polyfills.ts"
   ],
-  "include": []
+  "include": [
+    "../type-shims.d.ts"
+  ]
 }

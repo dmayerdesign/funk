@@ -1,15 +1,22 @@
-import { Component, HostListener, Inject, Input, OnDestroy, OnInit } from "@angular/core"
+import {
+  Component,
+  HostListener,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
 import { ManagedContent, ManagedContentType } from "@funk/model/managed-content/managed-content"
+import roleHasAdminPrivilegeOrGreater from
+  "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
+import { asPromise } from "@funk/helpers/as-promise"
+import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
 import { ManagedContentEditorService } from "@funk/ui/core/admin/managed-content/editor/service"
 import { LISTEN_BY_ID } from "@funk/ui/app/persistence/tokens"
 import { construct as constructListenById } from "@funk/ui/plugins/persistence/actions/listen-by-id"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
 import { UserSession } from "@funk/ui/core/identity/user-session"
-import roleHasAdminPrivilegeOrGreater from
-  "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
-import { asPromise } from "@funk/helpers/as-promise"
-import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
 import { Platform } from "@ionic/angular"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { map, shareReplay, switchMap, pluck } from "rxjs/operators"
@@ -23,13 +30,15 @@ import { Observable, defer, from } from "rxjs"
       {{ contentValue | async }}
     </ng-container>
     <ng-container *ngIf="(contentType | async) === ManagedContentType.HTML">
-      <div [outerHTML]="contentValue | async"></div>
+      <div [innerHTML]="contentValue | async"></div>
     </ng-container>
     <!-- TODO:
       <ng-container *ngIf="(contentType | async) === ManagedContentType.IMAGE">
         {{ contentValue | async }}
       </ng-container>
     -->
+
+    <ng-template #htmlValue></ng-template>
   `,
 })
 export class ManagedContentComponent implements OnInit, OnDestroy
