@@ -97,6 +97,7 @@ export function construct(
         try
         {
           const userStateUpdate = {
+            [createDocPath<UserState>("contentPreviews", contentId, "createdAt")]: Date.now(),
             [createDocPath<UserState>("contentPreviews", contentId, "content")]: {
               id: contentId,
               type: content!.type,

@@ -38,7 +38,6 @@
     "@angular/service-worker": "~9.1.11",
     "@capacitor/core": "2.2.0",
     "@ckeditor/ckeditor5-angular": "1.2.3",
-    "@ckeditor/ckeditor5-build-classic": "20.0.0",
     "@easypost/api": "3.9.1",
     "@google-cloud/kms": "~2.1.2",
     "@ionic-native/file-transfer": "5.27.0",

@@ -3,4 +3,4 @@ declare module "recursive-readdir-sync" {
   export = recursiveReaddirSync
 }
 
-declare module "@ckeditor/ckeditor5-build-classic"
+declare module "lib/ckeditor5/build/ckeditor"

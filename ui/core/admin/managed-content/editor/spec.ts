@@ -72,11 +72,13 @@ describe("ManagedContentEditorService", () =>
     expect(updateById).toHaveBeenCalledWith(
       USER_STATES,
       FAKE_USER_UID,
-      {
+      expect.objectContaining({
         "contentPreviews.content-1.content": {
+          id: FAKE_CONTENTS["content-1"].id,
+          type: FAKE_CONTENTS["content-1"].type,
           value: FAKE_CONTENTS["content-1"].value + " preview",
         },
-      }
+      })
     )
   })
 

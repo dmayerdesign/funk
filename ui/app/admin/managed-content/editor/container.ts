@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from "@angular/core"
-import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic"
+import { ManagedContentType } from "@funk/model/managed-content/managed-content"
 import {
   ManagedContentEditorService,
 } from "@funk/ui/core/admin/managed-content/editor/service"
@@ -7,7 +7,8 @@ import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-conte
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { IonTextarea } from "@ionic/angular"
 import { of } from "rxjs"
-import { delay, switchMap } from "rxjs/operators"
+import { delay, switchMap, map } from "rxjs/operators"
+import * as ClassicEditor from "lib/ckeditor5/build/ckeditor"
 
 const ANIMATION_DURATION_MS = 500
 
@@ -39,6 +40,7 @@ const ANIMATION_DURATION_MS = 500
         <ion-card class="flat full-width">
           <div id="editor-container">
             <ckeditor
+              [config]="{ toolbar: editorToolbarConfig | async }"
               [editor]="editor"
               [formControl]="maybeFormControl | async">
             </ckeditor>
@@ -69,8 +71,46 @@ export class ManagedContentEditorContainer implements OnInit
     shareReplayOnce()
   )
   public isActivated = this._editorService.isActivated
+  public editorToolbarConfig = this._editorService.activeContentType.pipe(
+    map((type) =>
+    {
+      switch(type)
+      {
+        case ManagedContentType.TEXT: return this.editorToolbarConfigForPlaintext
+        default: return this.editorToolbarConfigForHtml
+      }
+    })
+  )
 
   public readonly editor = ClassicEditor
+  public readonly editorToolbarConfigForPlaintext: { items: string[] } = { items: [] }
+  public readonly editorToolbarConfigForHtml: { items: string[] } = {
+    items: [
+      "heading",
+      "|",
+      "fontSize",
+      "bold",
+      "italic",
+      "underline",
+      "strikethrough",
+      "bulletedList",
+      "numberedList",
+      "superscript",
+      "subscript",
+      "fontColor",
+      "|",
+      "indent",
+      "outdent",
+      "|",
+      "link",
+      "imageUpload",
+      "blockQuote",
+      "mediaEmbed",
+      "horizontalLine",
+      "undo",
+      "redo",
+    ],
+  }
 
   public constructor(
     @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
@@ -80,6 +120,7 @@ export class ManagedContentEditorContainer implements OnInit
 
   public ngOnInit(): void
   {
+    console.log("toolbar", new ClassicEditor())
   }
 
   public saveEdit = async (): Promise<void> =>
