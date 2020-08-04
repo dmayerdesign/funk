@@ -5,7 +5,7 @@ import { NotFoundComponent } from "@funk/ui/app/not-found/component"
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "shop",
+    redirectTo: "admin",
     pathMatch: "full",
   },
   {

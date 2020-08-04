@@ -12,8 +12,8 @@ type ResolvedValueType = MarshalledProduct[]
 
 export function construct(client: FunctionsClient)
 {
-  return async function(secretKey: PayloadType): Promise<ResolvedValueType>
+  return async function(payload: PayloadType): Promise<ResolvedValueType>
   {
-    return client.rpcAuthorized<PayloadType, ResolvedValueType>(functionName, secretKey)
+    return client.rpcAuthorized<PayloadType, ResolvedValueType>(functionName, payload)
   }
 }

@@ -7,8 +7,6 @@ sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/import-collecti
 sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/import-collection-json.ts \
   --collection "commerce.products" && \
 sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/import-collection-json.ts \
-  --collection "commerce.skus" && \
-sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/import-collection-json.ts \
   --collection "contents" && \
 sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/import-collection-json.ts \
   --collection "identity.user-states" && \

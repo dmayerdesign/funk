@@ -1,22 +1,20 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit, Inject } from "@angular/core"
 import { SKUS } from "@funk/model/commerce/sku/sku"
-import { FUNCTIONS_BASE_URL } from "@funk/config"
-import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer/ngx"
-import { Platform } from "@ionic/angular"
+import { SKU_IMPORT } from "@funk/ui/app/shop/sku/tokens"
+import { construct as constructSkuImport } from "@funk/ui/functions/commerce/sku/import"
+import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
 
 @Component({
   selector: "import-skus",
   template: `
     <ion-button expand="full"
-
       (click)="importSkusInput.click()">
       <ion-icon lazy="true" slot="start" name="image"></ion-icon>
       <ion-label slot="end">Upload Image</ion-label>
       <input #importSkusInput
         id="import-skus-input"
         type="file"
-        multiple
-        (change)="upload($event)"
+        (change)="upload($event.target.files)"
         [accept]="acceptContentTypes"
         [style.visibility]="'hidden'"
         [style.width]="0"
@@ -26,68 +24,28 @@ import { Platform } from "@ionic/angular"
 })
 export class ImportSkusContainer implements OnInit
 {
-  public readonly acceptContentTypes = [
-    "application/csv",
-    "application/vnd.ms-excel",
-    "application/x-csv",
-    "text/comma-separated-values",
-    "text/csv",
-    "text/plain",
-    "text/x-comma-separated-values",
-    "text/x-csv",
-  ].join(",")
-  private _fileTransfer?: FileTransferObject
+  public readonly acceptContentTypes = csvMimeTypes.join(",")
+  public readonly fileKey = SKUS
 
   public constructor(
-    private _fileTransferFactory: FileTransfer,
-    private _platform: Platform
+    @Inject(SKU_IMPORT) private _skuImport: ReturnType<typeof constructSkuImport>
   )
   { }
 
   public ngOnInit(): void
+  { }
+
+  public async upload(fileList: FileList): Promise<void>
   {
-    this._platform.ready().then(() =>
+    const file = fileList.item(0)
+    const fileReader = new FileReader()
+    fileReader.readAsText(file!)
+    fileReader.addEventListener("loadend", async () =>
     {
-      this._fileTransfer = this._fileTransferFactory.create()
+      await this._skuImport(fileReader.result as string)
     })
   }
 
-  public async upload(event: InputEvent & { target: { files: File[] } }): Promise<void>
-  {
-    const file = event.target?.files[0]
-    const reader = new FileReader()
-
-    reader.readAsDataURL(file)
-
-    reader.onload = async () =>
-    {
-      const dataUri = reader.result as string
-
-      console.log(dataUri)
-
-      // TODO: only if platform mobile.
-      // For web use `rxjs-uploader` with ionic button.
-      console.log(
-        await this._fileTransfer!.upload(
-          dataUri,
-          `${FUNCTIONS_BASE_URL}/commerceSkuImport`,
-          {
-            fileKey: SKUS,
-            fileName: `${SKUS}-import.csv`,
-            mimeType: this.acceptContentTypes,
-          }
-        )
-      )
-    }
-
-    reader.onerror = (error) =>
-    {
-      console.error(error)
-    }
-  }
-
   public ngOnDestroy(): void
-  {
-    this._fileTransfer!.abort()
-  }
+  { }
 }

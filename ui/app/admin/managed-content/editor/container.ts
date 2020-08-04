@@ -88,13 +88,14 @@ export class ManagedContentEditorContainer implements OnInit
     items: [
       "heading",
       "|",
-      "fontSize",
       "bold",
       "italic",
       "underline",
       "strikethrough",
       "bulletedList",
       "numberedList",
+      "|",
+      "fontSize",
       "superscript",
       "subscript",
       "fontColor",
@@ -119,9 +120,7 @@ export class ManagedContentEditorContainer implements OnInit
   { }
 
   public ngOnInit(): void
-  {
-    console.log("toolbar", new ClassicEditor())
-  }
+  { }
 
   public saveEdit = async (): Promise<void> =>
     await this._editorService.saveAndClearIfEditing()

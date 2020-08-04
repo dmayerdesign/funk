@@ -45,6 +45,7 @@
     "@ionic/pwa-elements": "1.5.2",
     "@ionic/storage": "2.2.0",
     "@ngneat/until-destroy": "7.2.0",
+    "@sendgrid/mail": "7.2.2",
     "axios": "^0.19.2",
     "cookie-parser": "~1.4.5",
     "cordova-plugin-file-transfer": "1.7.1",

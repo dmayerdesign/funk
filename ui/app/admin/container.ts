@@ -7,6 +7,7 @@ import { construct as constructSetSecret } from "@funk/ui/functions/admin/set-se
 import { SendEmailVerification } from "@funk/ui/core/identity/actions/send-email-verification"
 import { SEND_EMAIL_VERIFICATION } from "@funk/ui/app/identity/tokens"
 import { GRANT_SUPER_ROLE_TO_ME, GET_SECRET, SET_SECRET } from "@funk/ui/app/admin/tokens"
+import { Platform } from "@ionic/angular"
 
 @Component({
   selector: "admin",
@@ -54,7 +55,7 @@ import { GRANT_SUPER_ROLE_TO_ME, GET_SECRET, SET_SECRET } from "@funk/ui/app/adm
           <code>{{ secretShowing }}</code>
         </div>
       </div>
-      <div>
+      <div *ngIf="allowUploadSkus">
         <h1>Upload Skus</h1>
         <import-skus></import-skus>
       </div>
@@ -71,6 +72,7 @@ export class AdminContainer
   public getSecretFormGroup = new FormGroup({
     key: new FormControl(),
   })
+  public allowUploadSkus = this._platform.platforms().includes("desktop")
 
   public constructor(
     @Inject(GRANT_SUPER_ROLE_TO_ME)
@@ -80,9 +82,13 @@ export class AdminContainer
 
     @Inject(SET_SECRET) private _setSecret: ReturnType<typeof constructSetSecret>,
 
-    @Inject(SEND_EMAIL_VERIFICATION) private _sendEmailVerification: SendEmailVerification
+    @Inject(SEND_EMAIL_VERIFICATION) private _sendEmailVerification: SendEmailVerification,
+
+    private _platform: Platform
   )
-  { }
+  {
+    console.log(this._platform.platforms())
+  }
 
   public async setSecret(): Promise<void>
   {

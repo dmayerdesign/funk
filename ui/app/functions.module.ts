@@ -9,9 +9,11 @@ import { construct as constructCommerceOrderSetSkuQuantity } from
   "@funk/ui/functions/commerce/order/set-sku-quantity"
 import { construct as constructCommerceProductListPublished } from
   "@funk/ui/functions/commerce/product/list-published"
+import { construct as constructCommerceSkuImport } from "@funk/ui/functions/commerce/sku/import"
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 import { SET_SKU_QUANTITY } from "@funk/ui/app/shop/orders/tokens"
 import { LIST_PUBLISHED } from "@funk/ui/app/shop/product/tokens"
+import { SKU_IMPORT } from "@funk/ui/app/shop/sku/tokens"
 
 @NgModule({
   imports: [
@@ -41,6 +43,11 @@ import { LIST_PUBLISHED } from "@funk/ui/app/shop/product/tokens"
     {
       provide: LIST_PUBLISHED,
       useFactory: constructCommerceProductListPublished,
+      deps: [ FunctionsClient ],
+    },
+    {
+      provide: SKU_IMPORT,
+      useFactory: constructCommerceSkuImport,
       deps: [ FunctionsClient ],
     },
   ],
