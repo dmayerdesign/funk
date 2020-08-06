@@ -5,7 +5,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "fs"
 import { exec } from "shelljs"
 import program from "commander"
 import { configToJson } from "../../config/helpers/config-to-json"
-import writeFunctionsPackage from "../code-gen/scripts/write-functions-package"
+import writeFunctionsPackage from "../code-gen/behaviors/write-functions-package"
 
 program.option("-c, --configuration <configuration>", "e.g. production")
 program.parse(process.argv)

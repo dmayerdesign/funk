@@ -3,12 +3,12 @@ import getTotalBeforeTaxAndShippingImpl from
 import { ORDER_GET_TAX_MISSING_POSTAL_CODE } from "@funk/copy/error-messages"
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
 import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
-import getShippingPostalCode from "@funk/model/commerce/order/actions/get-shipping-postal-code"
+import getShippingPostalCode from "@funk/model/commerce/order/behaviors/get-shipping-postal-code"
 import { Price, NULL_PRICE } from "@funk/model/commerce/price/price"
 import { SKUS } from "@funk/model/commerce/sku/sku"
-import add from "@funk/model/commerce/price/actions/add"
-import populateImpl from "@funk/api/plugins/persistence/actions/populate"
-import getTaxRateForPostalCodeImpl from "@funk/api/plugins/tax/actions/get-tax-rate-for-postal-code"
+import add from "@funk/model/commerce/price/behaviors/add"
+import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
+import getTaxRateForPostalCodeImpl from "@funk/api/plugins/tax/behaviors/get-tax-rate-for-postal-code"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
 
 export function construct(

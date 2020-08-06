@@ -1,21 +1,21 @@
-import getSecretImpl from "@funk/api/plugins/secrets/actions/get-secret"
+import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
 import populateImpl from "@funk/api/commerce/order/populate"
 import ignoringKeysImpl from "@funk/functions/helpers/listen/ignoring-keys"
 import getTaxImpl from "@funk/api/commerce/order/get-tax"
 import getTotalBeforeTaxAndShippingImpl from
   "@funk/api/commerce/order/get-total-before-tax-and-shipping"
 import { MarshalledOrder, ORDERS, Order } from "@funk/model/commerce/order/order"
-import add from "@funk/model/commerce/price/actions/add"
+import add from "@funk/model/commerce/price/behaviors/add"
 import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 import {
   Options as CreatePaymentIntentOptions,
   construct as constructCreatePaymentIntentImpl,
-} from "@funk/api/plugins/payment/actions/create-payment-intent"
+} from "@funk/api/plugins/payment/behaviors/create-payment-intent"
 import {
   Options as UpdatePaymentIntentOptions,
   construct as constructUpdatePaymentIntentImpl,
-} from "@funk/api/plugins/payment/actions/update-payment-intent"
-import updateByIdImpl from "@funk/api/plugins/persistence/actions/update-by-id"
+} from "@funk/api/plugins/payment/behaviors/update-payment-intent"
+import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import { Price } from "@funk/model/commerce/price/price"
 import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"

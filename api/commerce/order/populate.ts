@@ -1,7 +1,7 @@
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
 import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
 import { SKUS } from "@funk/model/commerce/sku/sku"
-import populateImpl from "@funk/api/plugins/persistence/actions/populate"
+import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
 
 export function construct(populate = populateImpl)
 {

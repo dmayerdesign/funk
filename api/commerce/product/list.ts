@@ -1,5 +1,5 @@
 import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
-import listImpl from "@funk/api/plugins/persistence/actions/list"
+import listImpl from "@funk/api/plugins/persistence/behaviors/list"
 import { Condition } from "@funk/api/plugins/persistence/condition"
 import { Pagination, VirtualPagination } from "@funk/api/plugins/persistence/pagination"
 

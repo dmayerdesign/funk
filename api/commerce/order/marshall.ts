@@ -1,5 +1,5 @@
 import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
-import marshallImpl from "@funk/api/plugins/persistence/actions/marshall"
+import marshallImpl from "@funk/api/plugins/persistence/behaviors/marshall"
 
 export function construct(marshall = marshallImpl)
 {

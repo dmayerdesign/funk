@@ -1,14 +1,14 @@
 import { SkuDiscount } from "@funk/model/commerce/discount/discount"
 import { Order } from "@funk/model/commerce/order/order"
-import add from "@funk/model/commerce/price/actions/add"
+import add from "@funk/model/commerce/price/behaviors/add"
 import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
 import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
 import getPriceAfterSkuDiscounts from
-  "@funk/model/commerce/sku/actions/get-price-after-discounts"
+  "@funk/model/commerce/sku/behaviors/get-price-after-discounts"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
 import getPriceAfterOrderDiscounts from
-  "@funk/model/commerce/order/actions/get-price-after-order-discounts"
-import getByIdImpl from "@funk/api/plugins/persistence/actions/get-by-id"
+  "@funk/model/commerce/order/behaviors/get-price-after-order-discounts"
+import getByIdImpl from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import { asPromise } from "@funk/helpers/as-promise"
 import { of, zip } from "rxjs"
 import { first, map, switchMap } from "rxjs/operators"

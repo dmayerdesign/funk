@@ -1,5 +1,5 @@
 import { MarshalledSku, Sku } from "@funk/model/commerce/sku/sku"
-import marshallImpl from "@funk/api/plugins/persistence/actions/marshall"
+import marshallImpl from "@funk/api/plugins/persistence/behaviors/marshall"
 
 export function construct(marshall = marshallImpl)
 {

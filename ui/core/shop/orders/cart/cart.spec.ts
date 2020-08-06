@@ -1,10 +1,10 @@
 import { construct } from "@funk/ui/core/shop/orders/cart/cart"
 import { construct as constructQueryCollectionForMeta }
-  from "@funk/ui/plugins/persistence/actions/query-collection-for-metadata"
+  from "@funk/ui/plugins/persistence/behaviors/query-collection-for-metadata"
 import { construct as constructListenById }
-  from "@funk/ui/plugins/persistence/actions/listen-by-id"
+  from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { construct as constructPopulate }
-  from "@funk/ui/plugins/persistence/actions/populate"
+  from "@funk/ui/plugins/persistence/behaviors/populate"
 import { Cart } from "@funk/model/commerce/order/order"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { createFakePerson } from "@funk/ui/core/identity/stubs"

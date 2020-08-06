@@ -1,5 +1,5 @@
-import { GetById } from "@funk/api/plugins/persistence/actions/get-by-id"
-import { construct as constructSetById } from "@funk/api/plugins/persistence/actions/set-by-id"
+import { GetById } from "@funk/api/plugins/persistence/behaviors/get-by-id"
+import { construct as constructSetById } from "@funk/api/plugins/persistence/behaviors/set-by-id"
 import { construct } from "@funk/api/commerce/order/set-sku-quantity"
 import { ORDERS } from "@funk/model/commerce/order/order"
 

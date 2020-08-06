@@ -3,7 +3,7 @@ import { AuthenticatedRequest } from
   "@funk/functions/model/request-response/authenticated-request"
 import { AuthenticationRequest } from
   "@funk/functions/model/request-response/authentication-request"
-import getVerifiedRole from "@funk/model/auth/actions/get-verified-role"
+import getVerifiedRole from "@funk/model/auth/behaviors/get-verified-role"
 import { CustomClaims } from "@funk/model/auth/custom-claims"
 import { UserRole } from "@funk/model/auth/user-role"
 import { StatusCode, StatusCodeMessage } from "@funk/model/http/status-code"

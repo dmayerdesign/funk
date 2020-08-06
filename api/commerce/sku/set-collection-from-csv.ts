@@ -1,6 +1,6 @@
 import { ImportedSku } from "@funk/api/commerce/sku/_imported-sku"
 import mapImportedSkuToSku from "@funk/api/commerce/sku/_map-imported-sku-to-sku"
-import setManyImpl from "@funk/api/plugins/persistence/actions/set-many"
+import setManyImpl from "@funk/api/plugins/persistence/behaviors/set-many"
 import { SKUS, MarshalledSku } from "@funk/model/commerce/sku/sku"
 import marshalledSkuIsInvalid from "@funk/model/commerce/sku/validators/marshalled-sku-is-invalid"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"

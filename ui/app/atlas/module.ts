@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core"
-import { construct as constructBuildMenuItem } from "@funk/model/ui/atlas/actions/build-menu-item"
+import { construct as constructBuildMenuItem } from "@funk/model/ui/atlas/behaviors/build-menu-item"
 import { construct as constructHomeRelativeUrl } from "@funk/ui/app/atlas/home-relative-url"
 import atlas from "@funk/ui/app/atlas/atlas"
 import { APP_ATLAS, BUILD_MENU_ITEM, HOME_RELATIVE_URL } from "@funk/ui/app/atlas/tokens"

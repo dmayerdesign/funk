@@ -1,15 +1,15 @@
 import { APP_INITIALIZER, NgModule } from "@angular/core"
 import { AngularFireAuth } from "@angular/fire/auth"
 import { construct as constructCreateUserWithEmailAndPassword } from
-  "@funk/ui/core/identity/actions/create-user-with-email-and-password"
-import { construct as constructInitialize } from "@funk/ui/core/identity/actions/initialize"
+  "@funk/ui/core/identity/behaviors/create-user-with-email-and-password"
+import { construct as constructInitialize } from "@funk/ui/core/identity/behaviors/initialize"
 import { construct as constructSendEmailVerification } from
-  "@funk/ui/core/identity/actions/send-email-verification"
+  "@funk/ui/core/identity/behaviors/send-email-verification"
 import { construct as constructSignInWithEmailAndPassword } from
-  "@funk/ui/core/identity/actions/sign-in-with-email-and-password"
+  "@funk/ui/core/identity/behaviors/sign-in-with-email-and-password"
 import { construct as constructSignInWithProvider } from
-  "@funk/ui/core/identity/actions/sign-in-with-provider"
-import { construct as constructSignOut } from "@funk/ui/core/identity/actions/sign-out"
+  "@funk/ui/core/identity/behaviors/sign-in-with-provider"
+import { construct as constructSignOut } from "@funk/ui/core/identity/behaviors/sign-out"
 import { construct as constructUserSession } from "@funk/ui/core/identity/user-session"
 import { construct as constructUserIdToken } from "@funk/ui/core/identity/user-id-token"
 import { construct as constructUserState } from "@funk/ui/core/identity/user-state"

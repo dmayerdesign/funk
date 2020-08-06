@@ -1,4 +1,4 @@
-import { SetMany } from "@funk/api/plugins/persistence/actions/set-many"
+import { SetMany } from "@funk/api/plugins/persistence/behaviors/set-many"
 import { construct, SetCollectionFromCsv } from "@funk/api/commerce/sku/set-collection-from-csv"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"

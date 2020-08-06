@@ -2,8 +2,8 @@
 import { exec } from "shelljs"
 import { readFileSync, removeSync, writeFileSync } from "fs-extra"
 import { resolve } from "path"
-import writeFunctionsAssets from "../code-gen/scripts/write-functions-assets"
-import writeFunctionsIndex from "../code-gen/scripts/write-functions-index"
+import writeFunctionsAssets from "../code-gen/behaviors/write-functions-assets"
+import writeFunctionsIndex from "../code-gen/behaviors/write-functions-index"
 
 // Generate index.js for our functions.
 writeFunctionsIndex()

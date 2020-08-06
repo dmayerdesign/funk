@@ -1,11 +1,11 @@
 import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
 import { MarshalledProductAttributeValues } from
   "@funk/model/commerce/attribute/attribute-value"
-import subtract from "@funk/model/commerce/price/actions/subtract"
+import subtract from "@funk/model/commerce/price/behaviors/subtract"
 import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
-import listImpl from "@funk/api/plugins/persistence/actions/list"
-import updateByIdImpl from "@funk/api/plugins/persistence/actions/update-by-id"
+import listImpl from "@funk/api/plugins/persistence/behaviors/list"
+import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import { TAKE_ALL } from "@funk/api/plugins/persistence/pagination"
 import { isEqual, uniq } from "lodash"
 

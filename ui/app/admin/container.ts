@@ -4,7 +4,7 @@ import { construct as constructGrantSuperRole } from
   "@funk/ui/functions/admin/grant-super-role-to-me"
 import { construct as constructGetSecret } from "@funk/ui/functions/admin/get-secret"
 import { construct as constructSetSecret } from "@funk/ui/functions/admin/set-secret"
-import { SendEmailVerification } from "@funk/ui/core/identity/actions/send-email-verification"
+import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
 import { SEND_EMAIL_VERIFICATION } from "@funk/ui/app/identity/tokens"
 import { GRANT_SUPER_ROLE_TO_ME, GET_SECRET, SET_SECRET } from "@funk/ui/app/admin/tokens"
 import { Platform } from "@ionic/angular"

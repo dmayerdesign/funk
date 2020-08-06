@@ -1,4 +1,4 @@
-import setByIdImpl from "@funk/api/plugins/persistence/actions/set-by-id"
+import setByIdImpl from "@funk/api/plugins/persistence/behaviors/set-by-id"
 import { UserRecord } from "@funk/api/plugins/auth/user-record"
 import { USER_STATES, UserState } from "@funk/model/identity/user-state"
 

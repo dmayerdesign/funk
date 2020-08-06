@@ -1,10 +1,10 @@
-import { GetSecret } from "@funk/api/plugins/secrets/actions/get-secret"
+import { GetSecret } from "@funk/api/plugins/secrets/behaviors/get-secret"
 import ignoringKeysImpl from "@funk/functions/helpers/listen/ignoring-keys"
-import { UpdateById } from "@funk/api/plugins/persistence/actions/update-by-id"
+import { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import { construct as ConstructCreatePaymentIntent } from
-  "@funk/api/plugins/payment/actions/create-payment-intent"
+  "@funk/api/plugins/payment/behaviors/create-payment-intent"
 import { construct as ConstructUpdatePaymentIntent } from
-  "@funk/api/plugins/payment/actions/update-payment-intent"
+  "@funk/api/plugins/payment/behaviors/update-payment-intent"
 import { GetTotalBeforeTaxAndShipping } from
   "@funk/api/commerce/order/get-total-before-tax-and-shipping"
 import { GetTax } from

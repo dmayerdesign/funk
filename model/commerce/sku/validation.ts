@@ -1,4 +1,4 @@
-import isInStock from "@funk/model/commerce/sku/actions/get-is-in-stock"
+import isInStock from "@funk/model/commerce/sku/behaviors/get-is-in-stock"
 import { Sku } from "@funk/model/commerce/sku/sku"
 
 class InvalidSkuError extends Error

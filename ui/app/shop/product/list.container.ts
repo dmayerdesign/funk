@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import getQueryConditions from
-  "@funk/ui/core/shop/products/list-filter/actions/get-query-conditions"
+  "@funk/ui/core/shop/products/list-filter/behaviors/get-query-conditions"
 import { ListFilter } from "@funk/ui/core/shop/products/list-filter/list-filter"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { Pagination, TAKE_ALL, VirtualPagination } from "@funk/ui/plugins/persistence/pagination"

@@ -18,7 +18,7 @@ import { CheckoutComponent } from "@funk/ui/app/shop/orders/checkout/component"
 import { construct as constructEnterprise } from "@funk/ui/core/shop/enterprise/enterprise"
 import { construct as constructCart } from "@funk/ui/core/shop/orders/cart/cart"
 import { construct as constructCartSetSkuQuantity } from
-  "@funk/ui/core/shop/orders/cart/actions/set-sku-quantity"
+  "@funk/ui/core/shop/orders/cart/behaviors/set-sku-quantity"
 import { IonicModule } from "@ionic/angular"
 
 const routes: Routes = [

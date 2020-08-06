@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, Inject } from "@angular/core"
 import { Router, NavigationEnd } from "@angular/router"
 import { AppAtlas } from "@funk/ui/app/atlas/atlas"
 import { BUILD_MENU_ITEM } from "@funk/ui/app/atlas/tokens"
-import { BuildMenuItem } from "@funk/model/ui/atlas/actions/build-menu-item"
+import { BuildMenuItem } from "@funk/model/ui/atlas/behaviors/build-menu-item"
 import { IonMenu } from "@ionic/angular"
 
 @Component({

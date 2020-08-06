@@ -1,6 +1,6 @@
 import program from "commander"
-import writeConfig from "../code-gen/scripts/write-config"
-import writeValidators from "../code-gen/scripts/write-validators"
+import writeConfig from "../code-gen/behaviors/write-config"
+import writeValidators from "../code-gen/behaviors/write-validators"
 import { Configuration } from "../../model/configuration"
 
 program.option("-c, --configuration <configuration>", "e.g. production", Configuration.DEVELOPMENT)
