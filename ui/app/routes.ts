@@ -1,11 +1,12 @@
 import { Routes } from "@angular/router"
+import { DEFAULT_URL } from "@funk/ui/app/atlas/atlas"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
 import { NotFoundComponent } from "@funk/ui/app/not-found/component"
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "admin",
+    redirectTo: DEFAULT_URL,
     pathMatch: "full",
   },
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
     path: "sign-in",
     loadChildren: () => import("@funk/ui/app/sign-in/module")
       .then((mod) => mod.SignInModule),
+  },
+  {
+    path: "poetry",
+    loadChildren: () => import("@funk/ui/app/poetry/module")
+      .then((mod) => mod.PoetryModule),
   },
   {
     path: "**",

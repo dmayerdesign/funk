@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from "@angular/core"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 import { SKU_IMPORT } from "@funk/ui/app/shop/sku/tokens"
-import { construct as constructSkuImport } from "@funk/ui/functions/commerce/sku/import"
+import { SkuImport } from "@funk/ui/functions/commerce/sku/import"
 import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
 
 @Component({
@@ -28,7 +28,7 @@ export class ImportSkusContainer implements OnInit
   public readonly fileKey = SKUS
 
   public constructor(
-    @Inject(SKU_IMPORT) private _skuImport: ReturnType<typeof constructSkuImport>
+    @Inject(SKU_IMPORT) private _skuImport: SkuImport
   )
   { }
 

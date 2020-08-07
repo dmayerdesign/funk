@@ -2,8 +2,8 @@ import { Component } from "@angular/core"
 
 @Component({
   template: `
-    <p>Home works!</p>
+    <ion-router-outlet></ion-router-outlet>
   `,
 })
-export class HomeComponent
+export class PoetryContainer
 { }

@@ -14,3 +14,5 @@ export function construct(client: FunctionsClient)
     return client.rpcAuthorized<PayloadType, ResolvedValueType>(functionName, secretKey)
   }
 }
+
+export type SetSecret = ReturnType<typeof construct>

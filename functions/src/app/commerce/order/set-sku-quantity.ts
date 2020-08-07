@@ -1,4 +1,4 @@
-import getTax from "@funk/api/commerce/order/get-tax"
+import setSkuQuantity from "@funk/api/commerce/order/set-sku-quantity"
 import createRpcFunction from "@funk/functions/helpers/http/create-rpc-function"
 import mapRequestToBody from "@funk/functions/helpers/http/map-request-to-body"
 import authenticateForRoles from "@funk/functions/helpers/identity/authenticate-for-roles"
@@ -12,5 +12,5 @@ export default createRpcFunction(
     UserRole.PUBLIC,
     UserRole.ANONYMOUS,
   ]),
-  mapRequestToBody(getTax)
+  mapRequestToBody(setSkuQuantity)
 )

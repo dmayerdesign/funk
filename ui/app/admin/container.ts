@@ -1,9 +1,8 @@
 import { Component, Inject } from "@angular/core"
 import { FormControl, FormGroup } from "@angular/forms"
-import { construct as constructGrantSuperRole } from
-  "@funk/ui/functions/admin/grant-super-role-to-me"
-import { construct as constructGetSecret } from "@funk/ui/functions/admin/get-secret"
-import { construct as constructSetSecret } from "@funk/ui/functions/admin/set-secret"
+import { GrantSuperRoleToMe } from "@funk/ui/functions/admin/grant-super-role-to-me"
+import { GetSecret } from "@funk/ui/functions/admin/get-secret"
+import { SetSecret } from "@funk/ui/functions/admin/set-secret"
 import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
 import { SEND_EMAIL_VERIFICATION } from "@funk/ui/app/identity/tokens"
 import { GRANT_SUPER_ROLE_TO_ME, GET_SECRET, SET_SECRET } from "@funk/ui/app/admin/tokens"
@@ -75,15 +74,10 @@ export class AdminContainer
   public allowUploadSkus = this._platform.platforms().includes("desktop")
 
   public constructor(
-    @Inject(GRANT_SUPER_ROLE_TO_ME)
-    private _grantSuperRole: ReturnType<typeof constructGrantSuperRole>,
-
-    @Inject(GET_SECRET) private _getSecret: ReturnType<typeof constructGetSecret>,
-
-    @Inject(SET_SECRET) private _setSecret: ReturnType<typeof constructSetSecret>,
-
+    @Inject(GRANT_SUPER_ROLE_TO_ME) private _grantSuperRole: GrantSuperRoleToMe,
+    @Inject(GET_SECRET) private _getSecret: GetSecret,
+    @Inject(SET_SECRET) private _setSecret: SetSecret,
     @Inject(SEND_EMAIL_VERIFICATION) private _sendEmailVerification: SendEmailVerification,
-
     private _platform: Platform
   )
   {

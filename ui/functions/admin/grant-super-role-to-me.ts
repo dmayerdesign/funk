@@ -10,3 +10,5 @@ export function construct(client: FunctionsClient)
     return client.rpcAuthorized<undefined, ResolvedValueType>(functionName)
   }
 }
+
+export type GrantSuperRoleToMe = ReturnType<typeof construct>

@@ -19,12 +19,16 @@ import { construct as constructEnterprise } from "@funk/ui/core/shop/enterprise/
 import { construct as constructCart } from "@funk/ui/core/shop/orders/cart/cart"
 import { construct as constructCartSetSkuQuantity } from
   "@funk/ui/core/shop/orders/cart/behaviors/set-sku-quantity"
+import atlas from "@funk/ui/app/atlas/atlas"
 import { IonicModule } from "@ionic/angular"
 
 const routes: Routes = [
   {
     path: "",
     component: ShopContainer,
+    data: {
+      title: atlas.shop.label,
+    },
     resolve: {
       enterprise: RESOLVE_ENTERPRISE,
     },
@@ -37,10 +41,16 @@ const routes: Routes = [
       {
         path: "home",
         component: HomeContainer,
+        data: {
+          title: atlas.shop.__atlas__.home.label,
+        },
       },
       {
         path: "checkout",
         component: CheckoutComponent,
+        data: {
+          title: atlas.shop.__atlas__.checkout.label,
+        },
       },
     ],
   },

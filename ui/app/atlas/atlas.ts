@@ -1,5 +1,10 @@
-/* eslint-disable max-len */
+export const DEFAULT_URL = "/admin"
+
 const atlas = {
+  "admin": {
+    label: "Admin",
+    __atlas__: {},
+  },
   "sink": {
     label: "Kitchen Sink",
     __atlas__: {},
@@ -22,11 +27,25 @@ const atlas = {
       },
     },
   },
+  "poetry": {
+    label: "Poetry",
+    __atlas__: {
+      "contact": {
+        label: "Contact",
+      },
+    },
+  },
 }
 
 export default atlas
 
 export type AppAtlas = typeof atlas
-export type AppPath = keyof AppAtlas
+export type AppPath = Exclude<keyof AppAtlas, "__atlas__">
+export type AdminAtlas = typeof atlas["admin"]["__atlas__"]
+export type AdminPath = Exclude<keyof AdminAtlas, "__atlas__">
+export type SinkAtlas = typeof atlas["sink"]["__atlas__"]
+export type SinkPath = Exclude<keyof SinkAtlas, "__atlas__">
 export type ShopAtlas = typeof atlas["shop"]["__atlas__"]
-export type ShopPath = keyof ShopAtlas
+export type ShopPath = Exclude<keyof ShopAtlas, "__atlas__">
+export type PoetryAtlas = typeof atlas["poetry"]
+export type PoetryPath = Exclude<keyof PoetryAtlas, "__atlas__">

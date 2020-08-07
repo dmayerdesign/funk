@@ -1,7 +1,8 @@
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
+import { ContactForm } from "@funk/model/contact/contact-form"
 
-const functionName = "commerceSkuImport"
-type PayloadType = string
+const functionName = "contactOwner"
+type PayloadType = ContactForm
 type ResolvedValueType = void
 
 export function construct(client: FunctionsClient)
@@ -12,4 +13,4 @@ export function construct(client: FunctionsClient)
   }
 }
 
-export type SkuImport = ReturnType<typeof construct>
+export type ContactOwner = ReturnType<typeof construct>

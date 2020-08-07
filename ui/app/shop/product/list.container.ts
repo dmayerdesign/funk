@@ -5,8 +5,7 @@ import getQueryConditions from
 import { ListFilter } from "@funk/ui/core/shop/products/list-filter/list-filter"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { Pagination, TAKE_ALL, VirtualPagination } from "@funk/ui/plugins/persistence/pagination"
-import { construct as  constructListPublished } from
-  "@funk/ui/functions/commerce/product/list-published"
+import { ListPublished } from "@funk/ui/functions/commerce/product/list-published"
 import { LIST_PUBLISHED } from "@funk/ui/app/shop/product/tokens"
 import { flatten } from "lodash"
 import { BehaviorSubject, Observable, combineLatest } from "rxjs"
@@ -56,7 +55,7 @@ export class ProductListContainer
     )
 
   public constructor(
-    @Inject(LIST_PUBLISHED) private _listPublished: ReturnType<typeof constructListPublished>,
+    @Inject(LIST_PUBLISHED) private _listPublished: ListPublished,
     private _loadingController: LoadingController
   )
   { }

@@ -17,3 +17,5 @@ export function construct(client: FunctionsClient)
     return client.rpcAuthorized<PayloadType, ResolvedValueType>(functionName, payload)
   }
 }
+
+export type SetSkuQuantity = ReturnType<typeof construct>

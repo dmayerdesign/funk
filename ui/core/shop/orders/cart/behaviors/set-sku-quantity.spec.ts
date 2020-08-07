@@ -1,21 +1,20 @@
 import { Cart } from "@funk/model/commerce/order/order"
 import { createFakeSku } from "@funk/model/commerce/sku/stubs"
-import { construct as constructCart } from "@funk/ui/core/shop/orders/cart/cart"
-import { construct as constructSetSkuQuantity } from
-  "@funk/ui/functions/commerce/order/set-sku-quantity"
+import { Cart$ } from "@funk/ui/core/shop/orders/cart/cart"
+import { SetSkuQuantity } from "@funk/ui/functions/commerce/order/set-sku-quantity"
 import { construct } from "@funk/ui/core/shop/orders/cart/behaviors/set-sku-quantity"
 import { of } from "rxjs"
 
 describe("cartSetSkuQuantity", () =>
 {
   const CART = { id: "cart id" } as Cart
-  let cart: ReturnType<typeof constructCart>
-  let setSkuQuantity: ReturnType<typeof constructSetSkuQuantity>
+  let cart: Cart$
+  let setSkuQuantity: SetSkuQuantity
 
   beforeEach(() =>
   {
     cart = of(CART)
-    setSkuQuantity = jasmine.createSpy() as ReturnType<typeof constructSetSkuQuantity>
+    setSkuQuantity = jasmine.createSpy() as SetSkuQuantity
   })
 
   it("should add {n} SKUs to the cart", async () =>

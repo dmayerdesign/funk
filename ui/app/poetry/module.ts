@@ -2,19 +2,25 @@ import { CommonModule } from "@angular/common"
 import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
-import { AdminContainer } from "@funk/ui/app/admin/container"
-import { ImportSkusContainer } from "@funk/ui/app/admin/import-skus/container"
 import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import atlas from "@funk/ui/app/atlas/atlas"
+import { ContactContainer } from "@funk/ui/app/poetry/contact/container"
+import { PoetryContainer } from "@funk/ui/app/poetry/container"
 import { IonicModule } from "@ionic/angular"
 
 const routes: Routes = [
   {
     path: "",
-    component: AdminContainer,
-    data: {
-      title: atlas.admin.label,
-    },
+    component: PoetryContainer,
+    children: [
+      {
+        path: "contact",
+        component: ContactContainer,
+        data: {
+          title: atlas.poetry.__atlas__.contact.label,
+        },
+      },
+    ],
   },
 ]
 
@@ -28,9 +34,9 @@ const routes: Routes = [
     ManagedContentModule,
   ],
   declarations: [
-    AdminContainer,
-    ImportSkusContainer,
+    PoetryContainer,
+    ContactContainer,
   ],
 })
-export class AdminModule
+export class PoetryModule
 { }
