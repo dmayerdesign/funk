@@ -11,3 +11,4 @@ export const PATH_TO_SERVICE_ACCOUNT_JSON = "/Users/danielmayer/.secrets/funk-de
 export const TAX_RATE_CALCULATOR_URL = "https://rest.avatax.com/api/v2/taxrates/bypostalcode"
 export const TAX_PUBLISHABLE_KEY = "2000143843"
 export const PAYMENT_PUBLISHABLE_KEY = "pk_test_FCCMRbB54V2BMvswJxpJht0T002zd0buM1"
+export const TURING_TEST_PUBLISHABLE_KEY = "6LdS_rsZAAAAAEUeQO7xkWMJno0N068Xv5l136OR"

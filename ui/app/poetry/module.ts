@@ -6,7 +6,13 @@ import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import atlas from "@funk/ui/app/atlas/atlas"
 import { ContactContainer } from "@funk/ui/app/poetry/contact/container"
 import { PoetryContainer } from "@funk/ui/app/poetry/container"
+import {
+  construct as constructGetToken,
+  GET_TOKEN,
+  INITIALIZE_TURING_TEST,
+} from "@funk/ui/app/turing-test/get-token"
 import { IonicModule } from "@ionic/angular"
+import { load as loadRecaptcha } from "recaptcha-v3"
 
 const routes: Routes = [
   {
@@ -36,6 +42,17 @@ const routes: Routes = [
   declarations: [
     PoetryContainer,
     ContactContainer,
+  ],
+  providers: [
+    {
+      provide: INITIALIZE_TURING_TEST,
+      useValue: loadRecaptcha,
+    },
+    {
+      provide: GET_TOKEN,
+      useFactory: constructGetToken,
+      deps: [ INITIALIZE_TURING_TEST ],
+    },
   ],
 })
 export class PoetryModule

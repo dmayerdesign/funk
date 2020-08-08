@@ -20,6 +20,7 @@ describe("sendEmailToOwner", () =>
       name: "name",
       emailAddress: "email address",
       message: "message",
+      turingTestToken: "turing test token",
     }
 
     await sendEmailToOwner(EMAIL)

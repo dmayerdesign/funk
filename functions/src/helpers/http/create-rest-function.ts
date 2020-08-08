@@ -3,9 +3,10 @@ import handleRequest, { HandlerReturnTypes, RequestHandlers } from
   "@funk/functions/helpers/http/handle-request"
 import { RequestMethod } from "@funk/model/http/request-method"
 import { HttpsFunction } from "@funk/api/plugins/cloud-function/https-function"
+import createFunction from "@funk/functions/helpers/http/create-function"
+import handleError from "@funk/functions/helpers/http/handle-error"
 import { IRouter, IRouterMatcher } from "express"
 import { camelCase } from "lodash"
-import createFunction from "./create-function"
 
 export interface CrudHandlerMap {
   list?: RequestHandlers
@@ -38,11 +39,12 @@ export function construct<
       const handlers = [ ...value ]
       const handler = handlers.pop()!
       const middlewares = handlers
-      ;
-      (app[requestMethodFnName] as IRouterMatcher<any>)(
+
+      ;(app[requestMethodFnName] as IRouterMatcher<any>)(
         getPathForCrudMethod(crudMethod),
         ...middlewares,
-        handleRequest<LastHandlerReturnType, RequestBodyType>(handler)
+        handleRequest<LastHandlerReturnType, RequestBodyType>(handler),
+        handleError
       )
     })
 

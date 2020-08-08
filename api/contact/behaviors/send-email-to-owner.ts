@@ -1,13 +1,35 @@
 import { OWNER_EMAIL } from "@funk/config"
 import { ContactForm } from "@funk/model/contact/contact-form"
+import isHumanImpl from "@funk/api/contact/behaviors/is-human"
 import sendEmailImpl from "@funk/api/plugins/email/behaviors/send"
+import { ForbiddenError } from "@funk/model/error/forbidden-error"
+import throwIfContactFormIsInvalid from
+  "@funk/model/contact/validators/throw-if-contact-form-is-invalid"
 
 export function construct(
-  sendEmail = sendEmailImpl
+  sendEmail = sendEmailImpl,
+  isHuman = isHumanImpl
 )
 {
-  return async function({ name, emailAddress, message }: ContactForm): Promise<void>
+  /**
+   * @throws {InvalidInputError}
+   */
+  return async function(contactForm: ContactForm): Promise<void>
   {
+    throwIfContactFormIsInvalid(contactForm)
+    const {
+      name,
+      emailAddress,
+      message,
+      turingTestToken,
+    } = contactForm
+    const _isHuman = await isHuman(turingTestToken)
+    if (!_isHuman)
+    {
+      throw new ForbiddenError(
+        "The user submitting this form appears to be a robot."
+      )
+    }
     await sendEmail({
       to: OWNER_EMAIL,
       from: {
@@ -15,12 +37,12 @@ export function construct(
         email: emailAddress,
       },
       subject: `${name} submitted the contact form and is probably not a robot`,
-      text: render({ name, emailAddress, message }),
+      text: render({ name, message }),
     })
   }
 }
 
-function render({ name, message }: ContactForm): string
+function render({ name, message }: Pick<ContactForm, "name" | "message">): string
 {
   return `
 From: ${name}

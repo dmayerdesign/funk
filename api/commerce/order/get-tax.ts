@@ -8,7 +8,8 @@ import { Price, NULL_PRICE } from "@funk/model/commerce/price/price"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 import add from "@funk/model/commerce/price/behaviors/add"
 import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
-import getTaxRateForPostalCodeImpl from "@funk/api/plugins/tax/behaviors/get-tax-rate-for-postal-code"
+import getTaxRateForPostalCodeImpl from
+  "@funk/api/plugins/tax/behaviors/get-tax-rate-for-postal-code"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
 
 export function construct(

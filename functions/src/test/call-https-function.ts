@@ -1,5 +1,5 @@
 import { FUNCTIONS_BASE_URL } from "@funk/config"
-import httpClient, { Response } from "@funk/functions/helpers/http/client"
+import httpClient, { Response } from "@funk/api/plugins/http/client"
 
 export default async function<ResponseDataType = any>(
   functionName: string,

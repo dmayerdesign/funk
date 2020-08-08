@@ -32,7 +32,7 @@ export default function<
   handler: RequestHandler<HandlerReturnType, RequestBodyType>
 ): ExpressRequestHandler
 {
-  return function(request, response, next): void
+  return async function(request, response, next): Promise<void>
   {
     try
     {
@@ -44,16 +44,12 @@ export default function<
       else if (typeof handlerResult === "object"
         && typeof (handlerResult as Promise<any>)["then"] === "function")
       {
-        (handlerResult as Promise<any>)
-          .then((value) =>
-          {
-            if (response.headersSent) next()
-            else
-            {
-              send(response, value)
-            }
-          })
-          .catch(next)
+        const value = await (handlerResult as Promise<any>)
+        if (response.headersSent) next()
+        else
+        {
+          send(response, value)
+        }
       }
       else
       {

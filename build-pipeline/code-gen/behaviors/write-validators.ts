@@ -56,19 +56,23 @@ ${
           validatorsDirname,
           `${kebabCase(interfaceName)}.schema.json`
         )
-        const validatorFilename = resolve(
+        const validator1Filename = resolve(
           validatorsDirname,
           `${kebabCase(interfaceName)}-is-invalid.ts`
         )
+        const validator2Filename = resolve(
+          validatorsDirname,
+          `throw-if-${kebabCase(interfaceName)}-is-invalid.ts`
+        )
         if (existsSync(schemaDefFilename)) unlinkSync(schemaDefFilename)
-        if (existsSync(validatorFilename)) unlinkSync(validatorFilename)
+        if (existsSync(validator1Filename)) unlinkSync(validator1Filename)
 
         const schemaDef = schemaDefs[interfaceName]
         if (!schemaDef) return
 
         const schemaDefFile = JSON.stringify(schemaDef, null, 2) + "\n"
-        const validatorFile =
-  `/* eslint-disable max-len */
+        const validator1File =
+`/* eslint-disable max-len */
 import { ${interfaceName} } from "@funk/model/${filename.split("/model/")[1]}"
 import schema from "@funk/model/${schemaDefFilename.split("/model/")[1]}"
 
@@ -87,11 +91,40 @@ export default function(data: ${interfaceName}): string[] | false
   return errors.length > 0 ? errors : false
 }
 `
+        const validator2File =
+`/* eslint-disable max-len */
+import { InvalidInputError } from "@funk/model/error/invalid-input-error"
+import { ${interfaceName} } from "@funk/model/${filename.split("/model/")[1]}"
+import isInvalid from "@funk/model/${modelDirname.split("/model/")[1]}` +
+  `/validators/${filename.split("/").pop()!.replace(".ts", "")}-is-invalid"
+
+export function construct()
+{
+  return function(data: ${interfaceName}): void
+  {
+    const falseOrErrors = isInvalid(data)
+    if (falseOrErrors)
+    {
+      throw new InvalidInputError(
+        "The ${interfaceName} was invalid. Details:\\n" +
+        \`  Errors: \${falseOrErrors}\\n\` +
+        "  Qualified name: ${filename.split("/model/")[1].replace(".ts", "")}\\n"
+      )
+    }
+  }
+}
+
+export default construct()
+
+export type Validate = ReturnType<typeof construct>
+`
         mkdirpSync(validatorsDirname)
         console.log("Writing " + schemaDefFilename)
         writeFileSync(schemaDefFilename, schemaDefFile)
-        console.log("Writing " + validatorFilename)
-        writeFileSync(validatorFilename, validatorFile)
+        console.log("Writing " + validator1Filename)
+        writeFileSync(validator1Filename, validator1File)
+        console.log("Writing " + validator2Filename)
+        writeFileSync(validator2Filename, validator2File)
       }
       catch (error)
       {

@@ -4,6 +4,7 @@ import handleRequest, { HandlerReturnTypes, RequestHandlers }
   from "@funk/functions/helpers/http/handle-request"
 import { RequestWithBody } from "@funk/functions/model/request-response/request-with-body"
 import { HttpsFunction } from "@funk/api/plugins/cloud-function/https-function"
+import handleError from "@funk/functions/helpers/http/handle-error"
 import { Response } from "express"
 
 export function construct()
@@ -20,7 +21,8 @@ export function construct()
     const middlewares = _handlers
     return createFunction<HandlerReturnType, RequestBodyType>(createApp().post("/",
       ...middlewares,
-      handleRequest<HandlerReturnType, RequestBodyType>(handler)
+      handleRequest<HandlerReturnType, RequestBodyType>(handler),
+      handleError
     ))
   }
 }
