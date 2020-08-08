@@ -1,11 +1,12 @@
 /* eslint-disable max-len */
+export const CLIENT_APP_URL = "http://localhost:8100"
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
 export const IS_PRODUCTION = false
 export const CLOUD_PROJECT_ID = "funk-development"
 export const CLOUD_PROJECT_REGION = "us-east1"
 export const FUNCTIONS_REGION = "us-central1"
 export const FUNCTIONS_BASE_URL = "http://localhost:5001/funk-development/us-central1"
-export const TRUSTED_ORIGINS = "http://localhost:8100"
+export const TRUSTED_ORIGINS = `${CLIENT_APP_URL}`
 // TODO: Remove this in favor of setting the GOOGLE_APPLICATION_CREDENTIALS env variable.
 export const PATH_TO_SERVICE_ACCOUNT_JSON = "/Users/danielmayer/.secrets/funk-development/funk-development-093bbbc44257.json"
 export const TAX_RATE_CALCULATOR_URL = "https://rest.avatax.com/api/v2/taxrates/bypostalcode"
