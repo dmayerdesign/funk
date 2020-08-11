@@ -1,4 +1,5 @@
-import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
+import { construct as constructListenById } from
+  "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { UserRole } from "@funk/model/auth/user-role"
 import { Auth } from "@funk/model/identity/auth"

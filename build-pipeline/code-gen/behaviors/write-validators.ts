@@ -1,14 +1,11 @@
-import {
-  readFileSync,
-  mkdirpSync,
-  unlinkSync,
-  writeFileSync,
-  existsSync,
-} from "fs-extra"
+import { existsSync, mkdirpSync, readFileSync, unlinkSync, writeFileSync } from "fs-extra"
 import { kebabCase } from "lodash"
-import { resolve } from "path"
+import md5 from "md5"
+import { resolve, sep } from "path"
 import recursiveReaddir from "recursive-readdir-sync"
 import * as schemaGenerator from "ts-json-schema-generator"
+
+const CACHE_PATH = resolve(__dirname, "../../../", ".funk/.cache/validators")
 
 export default function()
 {
@@ -28,7 +25,7 @@ ${
     .filter((filename) => !filename.includes("/validators/"))
     // Causing a bug for some reason:
     .filter((filename) => !filename.includes("get-price-after-order-discounts"))
-    .map((filename) => `import "@funk/model/${filename.split("/model/")[1]}"`)
+    .map((filename) => `import "@funk/model/${filename.split(sep + "model" + sep)[1]}"`)
     .join("\n")
 }\n`
   )
@@ -43,10 +40,9 @@ ${
   {
     const modelDirname = filename.substring(0, filename.lastIndexOf("/"))
     const validatorsDirname = resolve(modelDirname, "validators")
-
     const fileString = readFileSync(filename).toString("utf-8")
-    const interfaceNames = fileString.match(new RegExp("(?<=export(\\s)+interface(\\s)+)\\w+", "g"))
 
+    const interfaceNames = fileString.match(new RegExp("(?<=export(\\s)+interface(\\s)+)\\w+", "g"))
     interfaceNames?.forEach((interfaceName) =>
     {
       try
@@ -64,17 +60,45 @@ ${
           validatorsDirname,
           `throw-if-${kebabCase(interfaceName)}-is-invalid.ts`
         )
-        if (existsSync(schemaDefFilename)) unlinkSync(schemaDefFilename)
-        if (existsSync(validator1Filename)) unlinkSync(validator1Filename)
 
+        // Do nothing if no schema def is found for this interface.
         const schemaDef = schemaDefs[interfaceName]
         if (!schemaDef) return
 
-        const schemaDefFile = JSON.stringify(schemaDef, null, 2) + "\n"
-        const validator1File =
-`/* eslint-disable max-len */
-import { ${interfaceName} } from "@funk/model/${filename.split("/model/")[1]}"
-import schema from "@funk/model/${schemaDefFilename.split("/model/")[1]}"
+        // Do nothing if the schema def has not changed since last time.
+        const hashedSchemaDef = md5(JSON.stringify(schemaDef))
+        const cachedHashedSchemaDefPath = resolve(
+          CACHE_PATH,
+          `${
+            filename.split(sep + "model" + sep)[1].replace(new RegExp(sep, "g"), "_")
+          }_${interfaceName}`
+        )
+        let cachedHashedSchemaDef: string | undefined
+        try
+        { cachedHashedSchemaDef = readFileSync(cachedHashedSchemaDefPath).toString("utf-8") }
+        catch
+        { }
+        if (hashedSchemaDef === cachedHashedSchemaDef) return
+
+        // Delete existing validator files.
+        if (existsSync(schemaDefFilename)) unlinkSync(schemaDefFilename)
+        if (existsSync(validator1Filename)) unlinkSync(validator1Filename)
+        if (existsSync(validator2Filename)) unlinkSync(validator2Filename)
+        // Write new validator files.
+        writeValidators()
+        cacheSource()
+
+        function writeValidators(): void
+        {
+          mkdirpSync(validatorsDirname)
+          console.log("Writing " + schemaDefFilename)
+          writeFileSync(schemaDefFilename, JSON.stringify(schemaDef, null, 2) + "\n")
+          console.log("Writing " + validator1Filename)
+          writeFileSync(
+            validator1Filename,
+            `/* eslint-disable max-len */
+import { ${interfaceName} } from "@funk/model/${filename.split(sep + "model" + sep)[1]}"
+import schema from "@funk/model/${schemaDefFilename.split(sep + "model" + sep)[1]}"
 
 export default function(data: ${interfaceName}): string[] | false
 {
@@ -91,11 +115,14 @@ export default function(data: ${interfaceName}): string[] | false
   return errors.length > 0 ? errors : false
 }
 `
-        const validator2File =
-`/* eslint-disable max-len */
+          )
+          console.log("Writing " + validator2Filename)
+          writeFileSync(
+            validator2Filename,
+            `/* eslint-disable max-len */
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
-import { ${interfaceName} } from "@funk/model/${filename.split("/model/")[1]}"
-import isInvalid from "@funk/model/${modelDirname.split("/model/")[1]}` +
+import { ${interfaceName} } from "@funk/model/${filename.split(sep + "model" + sep)[1]}"
+import isInvalid from "@funk/model/${modelDirname.split(sep + "model" + sep)[1]}` +
   `/validators/${filename.split("/").pop()!.replace(".ts", "")}-is-invalid"
 
 export function construct()
@@ -108,7 +135,7 @@ export function construct()
       throw new InvalidInputError(
         "The ${interfaceName} was invalid. Details:\\n" +
         \`  Errors: \${falseOrErrors}\\n\` +
-        "  Qualified name: ${filename.split("/model/")[1].replace(".ts", "")}\\n"
+        "  Full path: ${filename.split(sep + "model" + sep)[1].replace(".ts", "")}\\n"
       )
     }
   }
@@ -118,13 +145,13 @@ export default construct()
 
 export type Validate = ReturnType<typeof construct>
 `
-        mkdirpSync(validatorsDirname)
-        console.log("Writing " + schemaDefFilename)
-        writeFileSync(schemaDefFilename, schemaDefFile)
-        console.log("Writing " + validator1Filename)
-        writeFileSync(validator1Filename, validator1File)
-        console.log("Writing " + validator2Filename)
-        writeFileSync(validator2Filename, validator2File)
+          )
+        }
+        function cacheSource()
+        {
+          mkdirpSync(CACHE_PATH)
+          writeFileSync(cachedHashedSchemaDefPath, hashedSchemaDef)
+        }
       }
       catch (error)
       {

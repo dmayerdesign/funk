@@ -21,9 +21,9 @@ function getStatusCodeForError(error?: Error | ErrorWithStatusCode): StatusCode
 {
   const errorsToResponseCodes =
     new Map<Function, StatusCode>([
-      [  InvalidInputError, StatusCode.BAD_REQUEST ],
-      [  NotFoundError, StatusCode.NOT_FOUND ],
-      [  ForbiddenError, StatusCode.FORBIDDEN ],
+      [ InvalidInputError, StatusCode.BAD_REQUEST ],
+      [ NotFoundError, StatusCode.NOT_FOUND ],
+      [ ForbiddenError, StatusCode.FORBIDDEN ],
     ])
 
   for (const [ ErrorType, responseCode ] of errorsToResponseCodes.entries())

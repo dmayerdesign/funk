@@ -1,4 +1,4 @@
-import { OWNER_EMAIL } from "@funk/config"
+import { CLIENT_APP_URL, OWNER_EMAIL } from "@funk/config"
 import { ContactForm } from "@funk/model/contact/contact-form"
 import isHumanImpl from "@funk/api/contact/behaviors/is-human"
 import sendEmailImpl from "@funk/api/plugins/email/behaviors/send"
@@ -33,7 +33,7 @@ export function construct(
     await sendEmail({
       to: OWNER_EMAIL,
       from: {
-        name: `${name} (via the contact form)`,
+        name: `${name} (via the contact form at ${CLIENT_APP_URL})`,
         email: emailAddress,
       },
       subject: `${name} submitted the contact form and is probably not a robot`,

@@ -10,10 +10,13 @@ import createDocPath from "@funk/helpers/create-doc-path"
 import { ContentPreview } from "@funk/model/managed-content/content-preview"
 import { Person } from "@funk/model/identity/person"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
-import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
+import { construct as constructListenById } from
+  "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
-import { construct as constructSetById } from "@funk/ui/plugins/persistence/behaviors/set-by-id"
-import { construct as constructUpdateById } from "@funk/ui/plugins/persistence/behaviors/update-by-id"
+import { construct as constructSetById } from
+  "@funk/ui/plugins/persistence/behaviors/set-by-id"
+import { construct as constructUpdateById } from
+  "@funk/ui/plugins/persistence/behaviors/update-by-id"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
 import { BehaviorSubject, Observable, combineLatest, from, of } from "rxjs"
