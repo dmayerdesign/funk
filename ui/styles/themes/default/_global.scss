@@ -11,7 +11,7 @@
 
 // Page.
 .ion-page {
-  background: $page-background-color;
+  background: $color-page-background;
 }
 
 // Card.
@@ -60,10 +60,10 @@ ion-card {
       }
     }
     ion-card-title[color="light"] {
-      color: $hero-title-color-light;
+      color: $color-hero-title-light;
     }
     ion-card-title[color="dark"] {
-      color: $hero-title-color-dark;
+      color: $color-hero-title-dark;
     }
     ion-card-subtitle {
       @media screen and (min-width: 768px) {
@@ -74,10 +74,10 @@ ion-card {
       }
     }
     ion-card-subtitle[color="light"] {
-      color: $hero-subtitle-color-light;
+      color: $color-hero-subtitle-light;
     }
     ion-card-subtitle[color="dark"] {
-      color: $hero-subtitle-color-dark;
+      color: $color-hero-subtitle-dark;
     }
   }
 }

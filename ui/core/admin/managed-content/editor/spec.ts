@@ -24,6 +24,7 @@ import { subHours } from "date-fns"
 import { when } from "jest-when"
 import { Dictionary } from "lodash"
 import { of } from "rxjs"
+import { AlertController } from "@ionic/angular"
 
 describe("ManagedContentEditorService", () =>
 {
@@ -33,6 +34,7 @@ describe("ManagedContentEditorService", () =>
   let setById: ReturnType<typeof constructSetById>
   let updateById: ReturnType<typeof constructUpdateById>
   let getInnerText: ReturnType<typeof constructGetInnerText>
+  let alertController: AlertController
 
   it("should manage content for the first time", async () =>
   {
@@ -84,11 +86,24 @@ describe("ManagedContentEditorService", () =>
     )
   })
 
-  it("should publish all previews", async () =>
+  it("should ask the user to confirm before publishing all previews", async () =>
   {
     const service = newService()
 
     await service.maybePublishAll()
+
+    expect(alertController.create).toHaveBeenCalled()
+  })
+
+  it("should publish all previews", async () =>
+  {
+    const FAKE_USER_STATES = createFakeUserStates("content-1")
+    const service = newService()
+
+    await service.publishAll(
+      FAKE_USER_STATES[FAKE_USER_UID].contentPreviews!,
+      { id: FAKE_USER_UID }
+    )
 
     expect(setById).toHaveBeenCalledTimes(1)
     expect(setById).toHaveBeenCalledWith(
@@ -109,8 +124,7 @@ describe("ManagedContentEditorService", () =>
 
     await service.maybePublishAll()
 
-    expect(setById).not.toHaveBeenCalled()
-    expect(updateById).not.toHaveBeenCalledWith()
+    expect(alertController.create).not.toHaveBeenCalled()
   })
 
   it("should not publish if the content has been edited since the preview was created",
@@ -125,7 +139,10 @@ describe("ManagedContentEditorService", () =>
         .mockReturnValueOnce(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
       const service = newService()
 
-      await service.maybePublishAll()
+      await service.publishAll(
+        FAKE_USER_STATES[FAKE_USER_UID].contentPreviews!,
+        { id: FAKE_USER_UID }
+      )
       const contentsUpdatedAfterPreview = await asPromise(
         service.contentsUpdatedAfterPreview)
       const contentIdUpdatedAfterPreview = contentsUpdatedAfterPreview[0][1].id
@@ -182,6 +199,27 @@ describe("ManagedContentEditorService", () =>
     )
   })
 
+  it("should ask the user to confirm before removing all previews", async () =>
+  {
+    const service = newService()
+
+    await service.maybeRemoveAllPreviews()
+
+    expect(alertController.create).toHaveBeenCalled()
+  })
+
+  it("should remove all previews", async () =>
+  {
+    const service = newService()
+
+    await service.removeAllPreviews()
+
+    expect(updateById).toHaveBeenCalledWith(
+      USER_STATES, FAKE_USER_UID, { contentPreviews: {} }
+    )
+    expect(service.contentsUpdatedAfterPreview.getValue()).toEqual([])
+  })
+
   beforeEach(() =>
   {
     userSession = of({
@@ -193,6 +231,10 @@ describe("ManagedContentEditorService", () =>
     setById = jest.fn()
     updateById = jest.fn()
     getInnerText = (htmlString: string) => htmlString
+    alertController = {
+      create: jest.fn().mockReturnValue({ present: jest.fn() }),
+      dismiss: jest.fn(),
+    } as Partial<AlertController> as AlertController
 
     const FAKE_USER_STATES = createFakeUserStates()
     when(listenById as jest.Mock)
@@ -224,7 +266,7 @@ describe("ManagedContentEditorService", () =>
   function newService(): ManagedContentEditorService
   {
     return construct(
-      userSession, listenById, getById, setById, updateById, getInnerText
+      userSession, listenById, getById, setById, updateById, getInnerText, alertController
     )
   }
 })

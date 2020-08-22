@@ -16,5 +16,41 @@
     "value": "<h2>Keep close to Nature's heart...</h2><p>and break clear away, once in awhile, and climb a mountain or spend a week in the woods.</p><p>Wash your spirit clean.</p>",
     "type": "HTML",
     "__collections__": {}
+  },
+  "poetry-title": {
+    "id": "poetry-title",
+    "value": "Poetry Portfolio",
+    "type": "TEXT",
+    "__collections__": {}
+  },
+  "poetry-subtitle": {
+    "id": "poetry-subtitle",
+    "value": "poet and teacher",
+    "type": "TEXT",
+    "__collections__": {}
+  },
+  "poetry-about-article": {
+    "id": "poetry-about-article",
+    "value": "<p>Something goes here</p>",
+    "type": "HTML",
+    "__collections__": {}
+  },
+  "poetry-publications-article": {
+    "id": "poetry-about-article",
+    "value": "<p>Something goes here</p>",
+    "type": "HTML",
+    "__collections__": {}
+  },
+  "poetry-honors-article": {
+    "id": "poetry-about-article",
+    "value": "<p>Something goes here</p>",
+    "type": "HTML",
+    "__collections__": {}
+  },
+  "poetry-teaching-article": {
+    "id": "poetry-about-article",
+    "value": "<p>Something goes here</p>",
+    "type": "HTML",
+    "__collections__": {}
   }
 }

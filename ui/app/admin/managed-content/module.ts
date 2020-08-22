@@ -14,7 +14,7 @@ import {
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
 import { LISTEN_BY_ID, GET_BY_ID, SET_BY_ID, UPDATE_BY_ID } from "@funk/ui/app/persistence/tokens"
 import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
-import { IonicModule } from "@ionic/angular"
+import { IonicModule, AlertController } from "@ionic/angular"
 import { ClickOutsideModule } from "ng-click-outside"
 
 @NgModule({
@@ -57,6 +57,7 @@ export class ManagedContentModule
             SET_BY_ID,
             UPDATE_BY_ID,
             HTML_GET_INNER_TEXT,
+            AlertController,
           ],
         },
       ],

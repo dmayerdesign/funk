@@ -132,8 +132,8 @@ body.dark {
 }
 
 /** Funk SCSS Variables **/
-$page-background-color: var(--ion-color-primary-contrast);
-$hero-title-color-light: var(--ion-color-dark-shade);
-$hero-subtitle-color-light: var(--ion-color-dark-shade);
-$hero-title-color-dark: var(--ion-color-light);
-$hero-subtitle-color-dark: var(--ion-color-light);
+$color-page-background: var(--ion-color-primary-contrast);
+$color-hero-title-light: var(--ion-color-dark-shade);
+$color-hero-subtitle-light: var(--ion-color-dark-shade);
+$color-hero-title-dark: var(--ion-color-light);
+$color-hero-subtitle-dark: var(--ion-color-light);

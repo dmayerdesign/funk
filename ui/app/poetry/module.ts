@@ -1,18 +1,21 @@
+import { load as loadRecaptcha } from "recaptcha-v3"
+
 import { CommonModule } from "@angular/common"
 import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
 import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import atlas from "@funk/ui/app/atlas/atlas"
+import { AboutContainer } from "@funk/ui/app/poetry/about/container"
 import { ContactContainer } from "@funk/ui/app/poetry/contact/container"
 import { PoetryContainer } from "@funk/ui/app/poetry/container"
+import { HonorsContainer } from "@funk/ui/app/poetry/honors/container"
+import { PublicationsContainer } from "@funk/ui/app/poetry/publications/container"
+import { TeachingContainer } from "@funk/ui/app/poetry/teaching/container"
 import {
-  construct as constructGetToken,
-  GET_TOKEN,
-  INITIALIZE_TURING_TEST,
+  construct as constructGetToken, GET_TOKEN, INITIALIZE_TURING_TEST,
 } from "@funk/ui/app/turing-test/get-token"
 import { IonicModule } from "@ionic/angular"
-import { load as loadRecaptcha } from "recaptcha-v3"
 
 const routes: Routes = [
   {
@@ -20,10 +23,38 @@ const routes: Routes = [
     component: PoetryContainer,
     children: [
       {
+        path: "about",
+        component: AboutContainer,
+        data: {
+          title: atlas.poetry.__atlas__.contact.label,
+        },
+      },
+      {
         path: "contact",
         component: ContactContainer,
         data: {
           title: atlas.poetry.__atlas__.contact.label,
+        },
+      },
+      {
+        path: "honors",
+        component: HonorsContainer,
+        data: {
+          title: atlas.poetry.__atlas__.honors.label,
+        },
+      },
+      {
+        path: "publications",
+        component: PublicationsContainer,
+        data: {
+          title: atlas.poetry.__atlas__.publications.label,
+        },
+      },
+      {
+        path: "teaching",
+        component: TeachingContainer,
+        data: {
+          title: atlas.poetry.__atlas__.teaching.label,
         },
       },
     ],
@@ -41,7 +72,11 @@ const routes: Routes = [
   ],
   declarations: [
     PoetryContainer,
+    AboutContainer,
     ContactContainer,
+    HonorsContainer,
+    PublicationsContainer,
+    TeachingContainer,
   ],
   providers: [
     {

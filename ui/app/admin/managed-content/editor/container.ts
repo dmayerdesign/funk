@@ -23,8 +23,27 @@ const ANIMATION_DURATION_MS = 500
       }">
       <div *ngIf="hasPreview | async"
         id="has-preview-notice">
-        You are looking at a preview
-        <button (click)="maybeSaveAndPublish()">Publish</button>
+
+        <p id="has-preview-message">You are looking at a preview.</p>
+
+        <div id="has-preview-actions">
+          <div class="has-preview-action">
+            <button
+              class="save-button"
+              type="button"
+              (click)="maybeSaveAndPublish()">
+              Publish changes
+            </button>
+          </div>
+          <div class="has-preview-action">
+            <button
+              class="cancel-button"
+              type="button"
+              (click)="discardChanges()">
+              Discard changes
+            </button>
+          </div>
+        </div>
       </div>
       <ng-content></ng-content>
     </div>
@@ -37,7 +56,7 @@ const ANIMATION_DURATION_MS = 500
         }"
         (clickOutside)="cancelEdit()">
 
-        <ion-card class="flat full-width">
+        <ion-card class="flat">
           <div id="editor-container">
             <ckeditor
               [config]="{ toolbar: editorToolbarConfig | async }"
@@ -47,10 +66,37 @@ const ANIMATION_DURATION_MS = 500
           </div>
           <div id="editor-actions"
             class="drawer-card-actions">
-            <ion-button type="button" (click)="saveEdit()">Save</ion-button>
-            <ion-button [fill]="'outline'" type="button" (click)="cancelEdit()">
-              Cancel
-            </ion-button>
+            <div class="drawer-card-action">
+              <button
+                class="save-button"
+                type="button"
+                (click)="saveEdit()">
+                Save
+              </button>
+
+              <!-- <ion-button -->
+                <!-- buttonType="button" -->
+                <!-- color="dark" -->
+                <!-- expand="full" -->
+                <!-- (click)="saveEdit()"> -->
+                <!-- Save -->
+              <!-- </ion-button> -->
+            </div>
+            <div class="drawer-card-action">
+              <button
+                class="cancel-button"
+                type="button"
+                (click)="cancelEdit()">
+                Cancel
+              </button>
+              <!-- <ion-button -->
+                <!-- buttonType="button" -->
+                <!-- color="danger" -->
+                <!-- expand="full" -->
+                <!-- (click)="cancelEdit()"> -->
+                <!-- Cancel -->
+              <!-- </ion-button> -->
+            </div>
           </div>
         </ion-card>
       </div>
@@ -122,17 +168,24 @@ export class ManagedContentEditorContainer implements OnInit
   public ngOnInit(): void
   { }
 
-  public saveEdit = async (): Promise<void> =>
+  public async saveEdit(): Promise<void>
+  {
     await this._editorService.saveAndClearIfEditing()
+  }
 
-  public cancelEdit = async (): Promise<void> =>
+  public async cancelEdit(): Promise<void>
   {
     this._editorService.cancel()
   }
 
-  public maybeSaveAndPublish = async (): Promise<void> =>
+  public async maybeSaveAndPublish(): Promise<void>
   {
     await this.saveEdit()
     await this._editorService.maybePublishAll()
+  }
+
+  public async discardChanges(): Promise<void>
+  {
+    await this._editorService.maybeRemoveAllPreviews()
   }
 }

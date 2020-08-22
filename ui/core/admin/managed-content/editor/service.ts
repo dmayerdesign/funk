@@ -1,26 +1,30 @@
+import { BehaviorSubject, combineLatest, from, Observable, of } from "rxjs"
+import { first, map, pluck, switchMap } from "rxjs/operators"
+
 import { FormControl } from "@angular/forms"
-import { ignoreNullish, shareReplayOnce, maybePluck } from "@funk/helpers/rxjs-shims"
-import { USER_STATES, UserState } from "@funk/model/identity/user-state"
-import { CONTENTS, ManagedContentType } from "@funk/model/managed-content/managed-content"
-import { ManagedContent } from "@funk/model/managed-content/managed-content"
 import { asPromise } from "@funk/helpers/as-promise"
+import createDocPath from "@funk/helpers/create-doc-path"
+import { ignoreNullish, maybePluck, shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import roleHasAdminPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
-import createDocPath from "@funk/helpers/create-doc-path"
-import { ContentPreview } from "@funk/model/managed-content/content-preview"
-import { Person } from "@funk/model/identity/person"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
-import { construct as constructListenById } from
-  "@funk/ui/plugins/persistence/behaviors/listen-by-id"
-import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
-import { construct as constructSetById } from
-  "@funk/ui/plugins/persistence/behaviors/set-by-id"
-import { construct as constructUpdateById } from
-  "@funk/ui/plugins/persistence/behaviors/update-by-id"
+import { Person } from "@funk/model/identity/person"
+import { USER_STATES, UserState } from "@funk/model/identity/user-state"
+import { ContentPreview } from "@funk/model/managed-content/content-preview"
+import {
+  CONTENTS, ManagedContent, ManagedContentType,
+} from "@funk/model/managed-content/managed-content"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
-import { BehaviorSubject, Observable, combineLatest, from, of } from "rxjs"
-import { map, pluck, switchMap, first } from "rxjs/operators"
+import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
+import {
+  construct as constructListenById,
+} from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
+import { construct as constructSetById } from "@funk/ui/plugins/persistence/behaviors/set-by-id"
+import {
+  construct as constructUpdateById,
+} from "@funk/ui/plugins/persistence/behaviors/update-by-id"
+import { AlertController } from "@ionic/angular"
 
 type PublishConflict = [ ContentPreview, ManagedContent ]
 
@@ -30,7 +34,8 @@ export function construct(
   getById: GetById,
   setById: ReturnType<typeof constructSetById>,
   updateById: ReturnType<typeof constructUpdateById>,
-  getInnerText: ReturnType<typeof constructGetInnerText>
+  getInnerText: ReturnType<typeof constructGetInnerText>,
+  alert: AlertController
 )
 {
   return new class ManagedContentEditorService
@@ -140,9 +145,44 @@ export function construct(
         return
       }
 
-      for (const contentId of Object.keys(maybeContentPreviews!))
+      // Do nothing if the user does not confirm.
+      const CONFIRM_MESSAGE = "You're about to publish (make visible to the public) all your " +
+      "changes since the last time you published. This can't be undone."
+      const confirmRemoveAll = await alert.create({
+        header: "Are you sure?",
+        message: CONFIRM_MESSAGE,
+        buttons: [
+          {
+            text: "Keep editing",
+            role: "cancel",
+            cssClass: "secondary",
+            handler: async () =>
+            {
+              await alert.dismiss()
+            },
+          },
+          {
+            text: "Publish",
+            cssClass: "",
+            handler: async () =>
+            {
+              await this.publishAll(maybeContentPreviews, person)
+            },
+          },
+        ],
+      })
+
+      confirmRemoveAll.present()
+    }
+
+    public async publishAll(
+      contentPreviews: { [contentId: string]: ContentPreview },
+      person: Person
+    ): Promise<void>
+    {
+      for (const contentId of Object.keys(contentPreviews!))
       {
-        try { await this._publishOrReportConflict(contentId, maybeContentPreviews!, person) }
+        try { await this._publishOrReportConflict(contentId, contentPreviews!, person) }
         catch (error)
         {
           // TODO: Communicate this error to the user.
@@ -180,14 +220,52 @@ export function construct(
         }
       )
 
-      const contentsUpdatedAfterPreview = [ ...this.contentsUpdatedAfterPreview.getValue() ]
-      const indexOfContentUpdatedAfterPreview = contentsUpdatedAfterPreview.findIndex(
-        ([ _, managedContent ]) => managedContent.id === contentId)
-      if (indexOfContentUpdatedAfterPreview > -1)
-      {
-        contentsUpdatedAfterPreview.splice(indexOfContentUpdatedAfterPreview, 1)
-        this.contentsUpdatedAfterPreview.next(contentsUpdatedAfterPreview)
-      }
+      this._removeFromContentsUpdatedAfterPreview(contentId)
+    }
+
+    public async maybeRemoveAllPreviews(): Promise<void>
+    {
+      const CONFIRM_MESSAGE = "You're about to discard all your changes since the last time you " +
+        "published. This can't be undone."
+      const confirmRemoveAll = await alert.create({
+        header: "Are you sure?",
+        message: CONFIRM_MESSAGE,
+        buttons: [
+          {
+            text: "Keep",
+            role: "cancel",
+            cssClass: "secondary",
+            handler: async () =>
+            {
+              await alert.dismiss()
+            },
+          },
+          {
+            text: "Discard",
+            cssClass: "",
+            handler: async () =>
+            {
+              await this.removeAllPreviews()
+            },
+          },
+        ],
+      })
+
+      confirmRemoveAll.present()
+    }
+
+    public async removeAllPreviews(): Promise<void>
+    {
+      const { person } = await asPromise(userSession)
+      const newContentPreviews = {}
+      await updateById<UserState>(
+        USER_STATES,
+        person.id,
+        {
+          contentPreviews: newContentPreviews,
+        }
+      )
+      this.contentsUpdatedAfterPreview.next([])
     }
 
     public cancel(): void
