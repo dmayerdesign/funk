@@ -1,8 +1,8 @@
 import { enableProdMode } from "@angular/core"
 
-import { environment } from "@funk/ui/environments/environment"
+import { configuration } from "@funk/ui/configurations/configuration"
 
-if (environment.production)
+if (configuration.production)
 {
   enableProdMode()
 }

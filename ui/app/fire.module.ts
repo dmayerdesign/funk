@@ -2,11 +2,11 @@ import { NgModule } from "@angular/core"
 import { AngularFireModule } from "@angular/fire"
 import { AngularFireAuth, AngularFireAuthModule } from "@angular/fire/auth"
 import { AngularFirestore, AngularFirestoreModule } from "@angular/fire/firestore"
-import { environment } from "@funk/ui/environments/environment"
+import { configuration } from "@funk/ui/configurations/configuration"
 
 @NgModule({
   imports: [
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(configuration.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
   ],

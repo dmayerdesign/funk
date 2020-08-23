@@ -46,8 +46,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "ui/environments/environment.ts",
-                  "with": "ui/environments/environment.local.ts"
+                  "replace": "ui/configurations/configuration.ts",
+                  "with": "ui/configurations/configuration.local.ts"
                 }
               ]
             },
@@ -60,8 +60,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "ui/environments/environment.ts",
-                  "with": "ui/environments/environment.development.ts"
+                  "replace": "ui/configurations/configuration.ts",
+                  "with": "ui/configurations/configuration.development.ts"
                 }
               ],
               "optimization": false,
@@ -73,8 +73,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "ui/environments/environment.ts",
-                  "with": "ui/environments/environment.production.ts"
+                  "replace": "ui/configurations/configuration.ts",
+                  "with": "ui/configurations/configuration.production.ts"
                 }
               ],
               "optimization": true,
@@ -135,24 +135,24 @@
             "local": {
               "fileReplacements": [
                 {
-                  "replace": "ui/environments/environment.ts",
-                  "with": "ui/environments/environment.local.ts"
+                  "replace": "ui/configurations/configuration.ts",
+                  "with": "ui/configurations/configuration.local.ts"
                 }
               ]
             },
             "development": {
               "fileReplacements": [
                 {
-                  "replace": "ui/environments/environment.ts",
-                  "with": "ui/environments/environment.development.ts"
+                  "replace": "ui/configurations/configuration.ts",
+                  "with": "ui/configurations/configuration.development.ts"
                 }
               ]
             },
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "ui/environments/environment.ts",
-                  "with": "ui/environments/environment.production.ts"
+                  "replace": "ui/configurations/configuration.ts",
+                  "with": "ui/configurations/configuration.production.ts"
                 }
               ],
               "sourceMap": false,
