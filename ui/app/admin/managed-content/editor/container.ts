@@ -28,20 +28,22 @@ const ANIMATION_DURATION_MS = 500
 
         <div id="has-preview-actions">
           <div class="has-preview-action">
-            <button
-              class="save-button"
-              type="button"
+            <ion-button
+              [style.font-size]="'11px'"
+              size="small"
+              color="primary"
               (click)="maybeSaveAndPublish()">
               Publish changes
-            </button>
+            </ion-button>
           </div>
           <div class="has-preview-action">
-            <button
-              class="cancel-button"
-              type="button"
+            <ion-button
+              [style.font-size]="'11px'"
+              size="small"
+              color="danger"
               (click)="discardChanges()">
               Discard changes
-            </button>
+            </ion-button>
           </div>
         </div>
       </div>
@@ -67,35 +69,22 @@ const ANIMATION_DURATION_MS = 500
           <div id="editor-actions"
             class="drawer-card-actions">
             <div class="drawer-card-action">
-              <button
-                class="save-button"
-                type="button"
+              <ion-button
+                buttonType="button"
+                color="dark"
+                expand="full"
                 (click)="saveEdit()">
                 Save
-              </button>
-
-              <!-- <ion-button -->
-                <!-- buttonType="button" -->
-                <!-- color="dark" -->
-                <!-- expand="full" -->
-                <!-- (click)="saveEdit()"> -->
-                <!-- Save -->
-              <!-- </ion-button> -->
+              </ion-button>
             </div>
             <div class="drawer-card-action">
-              <button
-                class="cancel-button"
-                type="button"
+              <ion-button
+                buttonType="button"
+                color="danger"
+                expand="full"
                 (click)="cancelEdit()">
                 Cancel
-              </button>
-              <!-- <ion-button -->
-                <!-- buttonType="button" -->
-                <!-- color="danger" -->
-                <!-- expand="full" -->
-                <!-- (click)="cancelEdit()"> -->
-                <!-- Cancel -->
-              <!-- </ion-button> -->
+              </ion-button>
             </div>
           </div>
         </ion-card>

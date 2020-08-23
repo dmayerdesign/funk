@@ -61,34 +61,11 @@ $has-preview-notice-height: 32px;
       }
       #has-preview-actions {
         display: flex;
+        align-items: center;
 
         .has-preview-action {
           display: flex;
           min-width: 100px;
-        }
-
-        button {
-          width: 100%;
-          padding: 6px 10px;
-          margin-right: 10px;
-          font-weight: bold;
-          text-transform: uppercase;
-          font-size: 10px;
-          letter-spacing: 0.5px;
-          transition: 100ms transform ease-out;
-  
-          &:hover {
-            transform: translateZ(10px);
-          }
-  
-          &.save-button {
-            color: $color-primary-contrast;
-            background: $color-primary;
-          }
-          &.cancel-button {
-            color: $color-dark-contrast;
-            background: transparent;
-          }
         }
       }
     }
@@ -183,28 +160,6 @@ $has-preview-notice-height: 32px;
       min-width: 100px;
       margin-right: 10px;
       perspective: 200px;
-
-      button {
-        width: 100%;
-        padding: 12px 20px;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 12px;
-        letter-spacing: 0.5px;
-        transition: 100ms transform ease-out;
-
-        &:hover {
-          transform: translateZ(10px);
-        }
-
-        &.save-button {
-          color: $color-primary-contrast;
-          background: $color-primary;
-        }
-        &.cancel-button {
-          background: transparent;
-        }
-      }
     }
   }
 }

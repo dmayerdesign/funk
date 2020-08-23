@@ -1,11 +1,5 @@
 /** Funk SCSS Variables **/
 
-$color-page-background: var(--ion-color-primary-contrast);
-$color-hero-title-light: var(--ion-color-dark-contrast);
-$color-hero-subtitle-light: var(--ion-color-dark-contrast);
-$color-hero-title-dark: var(--ion-color-dark);
-$color-hero-subtitle-dark: var(--ion-color-dark);
-
 $color-primary: #3C77BF;
 $color-primary-rgb: 60, 119, 191;
 $color-primary-contrast: #ffffff;
@@ -75,74 +69,80 @@ $color-light-tint: #f5f6f9;
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: $color-primary;
-  --ion-color-primary-rgb: $color-primary-rgb;
-  --ion-color-primary-contrast: $color-primary-contrast;
-  --ion-color-primary-contrast-rgb: $color-primary-contrast-rgb;
-  --ion-color-primary-shade: $color-primary-shade;
-  --ion-color-primary-tint: $color-primary-tint;
+  --ion-color-primary: #{$color-primary};
+  --ion-color-primary-rgb: #{$color-primary-rgb};
+  --ion-color-primary-contrast: #{$color-primary-contrast};
+  --ion-color-primary-contrast-rgb: #{$color-primary-contrast-rgb};
+  --ion-color-primary-shade: #{$color-primary-shade};
+  --ion-color-primary-tint: #{$color-primary-tint};
 
   /** secondary **/
-  --ion-color-secondary: $color-secondary;
-  --ion-color-secondary-rgb: $color-secondary-rgb;
-  --ion-color-secondary-contrast: $color-secondary-contrast;
-  --ion-color-secondary-contrast-rgb: $color-secondary-contrast-rgb;
-  --ion-color-secondary-shade: $color-secondary-shade;
-  --ion-color-secondary-tint: $color-secondary-tint;
+  --ion-color-secondary: #{$color-secondary};
+  --ion-color-secondary-rgb: #{$color-secondary-rgb};
+  --ion-color-secondary-contrast: #{$color-secondary-contrast};
+  --ion-color-secondary-contrast-rgb: #{$color-secondary-contrast-rgb};
+  --ion-color-secondary-shade: #{$color-secondary-shade};
+  --ion-color-secondary-tint: #{$color-secondary-tint};
 
   /** tertiary **/
-  --ion-color-tertiary: $color-tertiary;
-  --ion-color-tertiary-rgb: $color-tertiary-rgb;
-  --ion-color-tertiary-contrast: $color-tertiary-contrast;
-  --ion-color-tertiary-contrast-rgb: $color-tertiary-contrast-rgb;
-  --ion-color-tertiary-shade: $color-tertiary-shade;
-  --ion-color-tertiary-tint: $color-tertiary-tint;
+  --ion-color-tertiary: #{$color-tertiary};
+  --ion-color-tertiary-rgb: #{$color-tertiary-rgb};
+  --ion-color-tertiary-contrast: #{$color-tertiary-contrast};
+  --ion-color-tertiary-contrast-rgb: #{$color-tertiary-contrast-rgb};
+  --ion-color-tertiary-shade: #{$color-tertiary-shade};
+  --ion-color-tertiary-tint: #{$color-tertiary-tint};
 
   /** success **/
-  --ion-color-success: $color-success;
-  --ion-color-success-rgb: $color-success-rgb;
-  --ion-color-success-contrast: $color-success-contrast;
-  --ion-color-success-contrast-rgb: $color-success-contrast-rgb;
-  --ion-color-success-shade: $color-success-shade;
-  --ion-color-success-tint: $color-success-tint;
+  --ion-color-success: #{$color-success};
+  --ion-color-success-rgb: #{$color-success-rgb};
+  --ion-color-success-contrast: #{$color-success-contrast};
+  --ion-color-success-contrast-rgb: #{$color-success-contrast-rgb};
+  --ion-color-success-shade: #{$color-success-shade};
+  --ion-color-success-tint: #{$color-success-tint};
 
   /** warning **/
-  --ion-color-warning: $color-warning;
-  --ion-color-warning-rgb: $color-warning-rgb;
-  --ion-color-warning-contrast: $color-warning-contrast;
-  --ion-color-warning-contrast-rgb: $color-warning-contrast-rgb;
-  --ion-color-warning-shade: $color-warning-shade;
-  --ion-color-warning-tint: $color-warning-tint;
+  --ion-color-warning: #{$color-warning};
+  --ion-color-warning-rgb: #{$color-warning-rgb};
+  --ion-color-warning-contrast: #{$color-warning-contrast};
+  --ion-color-warning-contrast-rgb: #{$color-warning-contrast-rgb};
+  --ion-color-warning-shade: #{$color-warning-shade};
+  --ion-color-warning-tint: #{$color-warning-tint};
 
   /** danger **/
-  --ion-color-danger: $color-danger;
-  --ion-color-danger-rgb: $color-danger-rgb;
-  --ion-color-danger-contrast: $color-danger-contrast;
-  --ion-color-danger-contrast-rgb: $color-danger-contrast-rgb;
-  --ion-color-danger-shade: $color-danger-shade;
-  --ion-color-danger-tint: $color-danger-tint;
+  --ion-color-danger: #{$color-danger};
+  --ion-color-danger-rgb: #{$color-danger-rgb};
+  --ion-color-danger-contrast: #{$color-danger-contrast};
+  --ion-color-danger-contrast-rgb: #{$color-danger-contrast-rgb};
+  --ion-color-danger-shade: #{$color-danger-shade};
+  --ion-color-danger-tint: #{$color-danger-tint};
 
   /** dark **/
-  --ion-color-dark: $color-dark;
-  --ion-color-dark-rgb: $color-dark-rgb;
-  --ion-color-dark-contrast: $color-dark-contrast;
-  --ion-color-dark-contrast-rgb: $color-dark-contrast-rgb;
-  --ion-color-dark-shade: $color-dark-shade;
-  --ion-color-dark-tint: $color-dark-tint;
+  --ion-color-dark: #{$color-dark};
+  --ion-color-dark-rgb: #{$color-dark-rgb};
+  --ion-color-dark-contrast: #{$color-dark-contrast};
+  --ion-color-dark-contrast-rgb: #{$color-dark-contrast-rgb};
+  --ion-color-dark-shade: #{$color-dark-shade};
+  --ion-color-dark-tint: #{$color-dark-tint};
 
   /** medium **/
-  --ion-color-medium: $color-medium;
-  --ion-color-medium-rgb: $color-medium-rgb;
-  --ion-color-medium-contrast: $color-medium-contrast;
-  --ion-color-medium-contrast-rgb: $color-medium-contrast-rgb;
-  --ion-color-medium-shade: $color-medium-shade;
-  --ion-color-medium-tint: $color-medium-tint;
+  --ion-color-medium: #{$color-medium};
+  --ion-color-medium-rgb: #{$color-medium-rgb};
+  --ion-color-medium-contrast: #{$color-medium-contrast};
+  --ion-color-medium-contrast-rgb: #{$color-medium-contrast-rgb};
+  --ion-color-medium-shade: #{$color-medium-shade};
+  --ion-color-medium-tint: #{$color-medium-tint};
 
   /** light **/
-  --ion-color-light: $color-light;
-  --ion-color-light-rgb: $color-light-rgb;
-  --ion-color-light-contrast: $color-light-contrast;
-  --ion-color-light-contrast-rgb: $color-light-contrast-rgb;
-  --ion-color-light-shade: $color-light-shade;
-  --ion-color-light-tint: $color-light-tint;
+  --ion-color-light: #{$color-light};
+  --ion-color-light-rgb: #{$color-light-rgb};
+  --ion-color-light-contrast: #{$color-light-contrast};
+  --ion-color-light-contrast-rgb: #{$color-light-contrast-rgb};
+  --ion-color-light-shade: #{$color-light-shade};
+  --ion-color-light-tint: #{$color-light-tint};
 }
+
+$color-page-background: $color-primary-contrast;
+$color-hero-title-light: $color-dark-contrast;
+$color-hero-subtitle-light: $color-dark-contrast;
+$color-hero-title-dark: $color-dark;
+$color-hero-subtitle-dark: $color-dark;
