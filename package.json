@@ -9,6 +9,7 @@
     "build::local": "sh ./build-pipeline/package-scripts/build-local.sh",
     "build::development": "sh ./build-pipeline/package-scripts/build-development.sh",
     "build::production": "sh ./build-pipeline/package-scripts/build-production.sh",
+    "deploy::local": "sh ./build-pipeline/package-scripts/deploy-local.sh",
     "deploy::development": "sh ./build-pipeline/package-scripts/deploy-development.sh",
     "deploy::production": "sh ./build-pipeline/package-scripts/deploy-production.sh",
     "ui::build::local": "sh ./build-pipeline/package-scripts/ui-build-local.sh",

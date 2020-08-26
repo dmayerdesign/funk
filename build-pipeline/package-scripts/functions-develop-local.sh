@@ -1,5 +1,5 @@
 npm run functions::build::local && \
-node_modules/.bin/firebase emulators:start --only functions
+node_modules/.bin/firebase emulators:start --only functions,firestore
 
 # # Rebuild and restart on file changes. Build once initially.
 # # Make *sure* the previous emulator is terminated.

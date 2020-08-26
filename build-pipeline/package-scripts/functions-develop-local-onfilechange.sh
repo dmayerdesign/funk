@@ -5,5 +5,5 @@ echo $CACHED_PID
 kill $CACHED_PID || true
 
 npm run functions::build::local && \
-node_modules/.bin/firebase emulators:start --only functions \
+node_modules/.bin/firebase emulators:start --only functions,firestore \
 & echo $! > $PATH_TO_CACHED

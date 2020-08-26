@@ -58,7 +58,7 @@ const ANIMATION_DURATION_MS = 500
         }"
         (clickOutside)="cancelEdit()">
 
-        <ion-card class="flat">
+        <ion-card class="flat flat-with-shadow">
           <div id="editor-container">
             <ckeditor
               [config]="{ toolbar: editorToolbarConfig | async }"

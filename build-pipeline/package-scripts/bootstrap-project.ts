@@ -13,8 +13,8 @@ import { configToJson } from "../../config/helpers/config-to-json"
   } = configToJson(configuration)
 
   const KMS_LOCATION = "global"
-  const KEY_RING_ID = CLOUD_PROJECT_ID
-  const KEY_ID = "master"
+  const KEY_RING_ID = "primary"
+  const KEY_ID = "main"
 
   // TODO:
   // - do a full firebase init
@@ -40,6 +40,11 @@ import { configToJson } from "../../config/helpers/config-to-json"
     ./google-cloud-sdk/bin/gcloud init
     ./google-cloud-sdk/bin/gcloud config set project ${CLOUD_PROJECT_ID}
     node_modules/.bin/firebase use ${CLOUD_PROJECT_ID}
+
+    # Add a service account.
+    # Name it "Functions".
+    # Give it the "Project > Owner" role.
+    # Create a private key and save it somewhere.
 
     # Enable services.
     ./google-cloud-sdk/bin/gcloud services enable --project ${CLOUD_PROJECT_ID} \
