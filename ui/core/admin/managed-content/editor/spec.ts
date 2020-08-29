@@ -42,7 +42,7 @@ describe("ManagedContentEditorService", () =>
     const getActiveContentValueControl = async () =>
       await asPromise(service.activeContentValueControl)
 
-    service.manageContent("content-2")
+    await service.manageContent("content-2")
 
     expect(await getActiveContentValueControl()).toEqual(
       expect.objectContaining({ value: "Test 2" })
@@ -55,7 +55,7 @@ describe("ManagedContentEditorService", () =>
     const getActiveContentValueControl = async () =>
       await asPromise(service.activeContentValueControl)
 
-    service.manageContent("content-1")
+    await service.manageContent("content-1")
 
     expect((await getActiveContentValueControl())?.value).toEqual("Test 1 preview saved")
   })
@@ -63,7 +63,7 @@ describe("ManagedContentEditorService", () =>
   it("should save managed content", async () =>
   {
     const service = newService()
-    service.manageContent("content-1")
+    await service.manageContent("content-1")
     const activeContentValueControl = await asPromise(service.activeContentValueControl)
     activeContentValueControl?.setValue("Test 1 preview")
 
@@ -266,7 +266,7 @@ describe("ManagedContentEditorService", () =>
   function newService(): ManagedContentEditorService
   {
     return construct(
-      userSession, listenById, getById, setById, updateById, getInnerText, alertController
+      userSession, listenById, getById, setById, updateById, getInnerText, alertController, of(961)
     )
   }
 })

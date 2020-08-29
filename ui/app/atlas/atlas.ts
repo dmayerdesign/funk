@@ -1,4 +1,4 @@
-export const DEFAULT_URL = "/poetry/contact"
+export const DEFAULT_URL = "/shop/home"
 
 const atlas = {
   "admin": {

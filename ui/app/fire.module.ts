@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core"
 import { AngularFireModule } from "@angular/fire"
 import { AngularFireAuth, AngularFireAuthModule } from "@angular/fire/auth"
-import { AngularFirestore, AngularFirestoreModule } from "@angular/fire/firestore"
+import { AngularFirestore, AngularFirestoreModule, SETTINGS } from "@angular/fire/firestore"
 import { configuration } from "@funk/ui/configurations/configuration"
 
 @NgModule({
@@ -18,6 +18,13 @@ import { configuration } from "@funk/ui/configurations/configuration"
   providers: [
     AngularFirestore,
     AngularFireAuth,
+    {
+      provide: SETTINGS,
+      useValue: configuration.production ? undefined : {
+        host: "localhost:8080",
+        ssl: false,
+      },
+    },
   ],
 })
 export class AppFireModule

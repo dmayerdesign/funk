@@ -1,7 +1,7 @@
-npm i && \
-npm run test && \
-npm run build::local && \
-\
+# npm i && \
+# npm run test && \
+# npm run build::local && \
+# \
 node_modules/.bin/firebase use funk-development && \
 \
 sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/local-import-collection-json.ts \

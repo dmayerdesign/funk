@@ -79,7 +79,6 @@ $has-preview-notice-height: 32px;
       cursor: pointer;
 
       // Beacon.
-      // &::before,
       &::after {
         position: absolute;
         content: "";
@@ -94,11 +93,7 @@ $has-preview-notice-height: 32px;
         box-shadow: 0 0 0 3px rgba($color-warning, 0.6);
         animation: beacon 2s infinite linear;
       }
-      // &::after {
-      //   animation-delay: 1s;
-      // }
       &:hover {
-        // &::before,
         &::after {
           background: rgba($color-warning, 1);
           box-shadow: 0 0 0 3px rgba($color-warning, 1);

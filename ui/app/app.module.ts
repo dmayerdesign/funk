@@ -10,8 +10,10 @@ import { AppFireModule } from "@funk/ui/app/fire.module"
 import { FunctionsModule } from "@funk/ui/app/functions.module"
 import { IdentityModule } from "@funk/ui/app/identity/module"
 import { NotFoundComponent } from "@funk/ui/app/not-found/component"
-import routes from "@funk/ui/app/routes"
 import { PersistenceModule } from "@funk/ui/app/persistence/module"
+import routes from "@funk/ui/app/routes"
+import { DEVICE_WIDTH, WINDOW } from "@funk/ui/app/tokens"
+import { construct as constructDeviceWidth } from "@funk/ui/plugins/layout/device-width"
 import { IonicModule } from "@ionic/angular"
 import { IonicStorageModule } from "@ionic/storage"
 
@@ -37,6 +39,15 @@ import { IonicStorageModule } from "@ionic/storage"
     {
       provide: ErrorHandler,
       useClass: AppErrorHandler,
+    },
+    {
+      provide: WINDOW,
+      useValue: window,
+    },
+    {
+      provide: DEVICE_WIDTH,
+      useFactory: constructDeviceWidth,
+      deps: [ WINDOW ],
     },
   ],
   bootstrap: [ AppComponent ],

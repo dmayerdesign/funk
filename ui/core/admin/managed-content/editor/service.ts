@@ -1,5 +1,5 @@
 import { BehaviorSubject, combineLatest, from, Observable, of } from "rxjs"
-import { first, map, pluck, switchMap } from "rxjs/operators"
+import { first, map, pluck, switchMap, shareReplay } from "rxjs/operators"
 
 import { FormControl } from "@angular/forms"
 import { asPromise } from "@funk/helpers/as-promise"
@@ -16,6 +16,7 @@ import {
 } from "@funk/model/managed-content/managed-content"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
+import { DeviceWidth } from "@funk/ui/plugins/layout/device-width"
 import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
 import {
   construct as constructListenById,
@@ -35,7 +36,8 @@ export function construct(
   setById: ReturnType<typeof constructSetById>,
   updateById: ReturnType<typeof constructUpdateById>,
   getInnerText: ReturnType<typeof constructGetInnerText>,
-  alert: AlertController
+  alert: AlertController,
+  deviceWidth: DeviceWidth
 )
 {
   return new class ManagedContentEditorService
@@ -43,7 +45,10 @@ export function construct(
     private _maybeActiveContentId = new BehaviorSubject<string | undefined>(undefined)
     public isActivated = userSession.pipe(
       pluck("auth", "claims", "role"),
-      map(roleHasAdminPrivilegeOrGreater)
+      map(roleHasAdminPrivilegeOrGreater),
+      switchMap((hasCorrectPrivileges) => deviceWidth.pipe(
+        map((widthSnapshot) => widthSnapshot > 960 && hasCorrectPrivileges))),
+      shareReplay(1)
     )
     public saving = new BehaviorSubject<boolean>(false)
     public activeContent = this._maybeActiveContentId.pipe(
@@ -82,11 +87,13 @@ export function construct(
       this.activeContentValueControl.subscribe()
       this.activeContentValue.subscribe()
       this.hasPreview.subscribe()
+      deviceWidth.subscribe()
     }
 
-    public manageContent(contentId: string): void
+    public async manageContent(contentId: string): Promise<void>
     {
-      this._maybeActiveContentId.next(contentId)
+      const isActivated = await asPromise(this.isActivated)
+      if (isActivated) this._maybeActiveContentId.next(contentId)
     }
 
     public async saveAndClearIfEditing(): Promise<void>
@@ -277,22 +284,28 @@ export function construct(
       contentId: string
     ): Observable<ManagedContent | undefined>
     {
-      return userSession
-        .pipe(
+      return combineLatest(
+        userSession.pipe(
           ignoreNullish(),
-          pluck("auth", "id"),
-          switchMap((userId) =>
-            combineLatest(
-              from(listenById<UserState>(
-                USER_STATES,
-                userId))
+          pluck("auth", "id")),
+        this.isActivated)
+        .pipe(
+          switchMap(([ userId, isActivated ]) =>
+            isActivated
+              ? combineLatest(
+                from(listenById<UserState>(
+                  USER_STATES,
+                  userId))
+                  .pipe(
+                    map((user) => user?.contentPreviews?.[contentId]?.content)),
+                from(listenById<ManagedContent>(
+                  CONTENTS,
+                  contentId)))
                 .pipe(
-                  map((user) => user?.contentPreviews?.[contentId]?.content)),
-              from(listenById<ManagedContent>(
+                  map(([ preview, content ]) => preview || content))
+              : from(listenById<ManagedContent>(
                 CONTENTS,
-                contentId)))
-              .pipe(
-                map(([ preview, content ]) => preview || content))))
+                contentId))))
     }
 
     private _clear(): void
