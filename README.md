@@ -4,16 +4,16 @@ Funk aims to be a
 [clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html),
 well-optimized starting point for writing web-based software. With just a bit of
 configuration, you get a [serverless](https://en.wikipedia.org/wiki/Serverless_computing)
-[progressive web app](https://en.wikipedia.org/wiki/Progressive_web_applications)
-written with [Angular](https://angular.io) to run on
+[cross-platform web app](https://en.wikipedia.org/wiki/Progressive_web_applications)
+written with [Ionic](https://ionicframework.com/) and [Angular](https://angular.io) to run on
 [Firebase](https://firebase.google.com).
 
 ## What's "serverless"?
 
-Managing a server and database—even if that means combining managed solutions for
-each—gives me, a front end developer, far more control (and opportunity to mess up) than
-I want. A fully-managed back end, like Firebase, takes care of all my infrastructure, so
-I can focus on writing code.
+Managing a server and database — even if that means combining managed solutions for
+each — gives me, a front-end developer, far more control (and opportunity to mess up) than
+I want. A fully-managed back end, like Firebase, takes care of all my web server
+infrastructure, so I can focus on writing code.
 
 ## Design goals
 
@@ -42,8 +42,6 @@ The overarching goal of Funk is to make the pursuit of clean code **easier** and
 **more fun**.
 
 ## Using Funk
-
-
 
 Follow these steps to run a web app locally.
 
@@ -74,7 +72,7 @@ npm install
 npm run ui::develop::development
 ```
 
-6. To run in development (hot reload) mode, you need to open 2 shell windows. You'll
+6. To run in development (hot reload) mode, you need to open 3 shell windows. You'll
 probably want to do this while you're editing code.
 
 ```sh
@@ -87,4 +85,9 @@ npm run ui::develop::local
 # The second window runs server-side functions locally.
 
 npm run functions::develop::local
+
+# The third window seeds your locally-emulated database with
+# development data.
+
+npm run deploy::local
 ```
