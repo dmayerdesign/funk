@@ -21,6 +21,12 @@
             "assets": [
               "ui/favicon.ico",
               "ui/manifest.webmanifest",
+              "ui/robots.txt",
+              {
+                "glob": "**/sitemap.xml",
+                "input": ".funk/build-pipeline-output/ui-assets",
+                "output": ""
+              },
               {
                 "glob": "**/*",
                 "input": "ui/assets",

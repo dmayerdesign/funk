@@ -7,13 +7,16 @@ const atlas = {
   },
   "sink": {
     label: "Kitchen Sink",
+    public: true,
     __atlas__: {},
   },
   "shop": {
     label: "Shop",
+    public: true,
     __atlas__: {
       "home": {
         label: "Home",
+        public: true,
         __atlas__: {},
       },
       "checkout": {
@@ -29,6 +32,7 @@ const atlas = {
   },
   "poetry": {
     label: "Poetry",
+    public: true,
     __atlas__: {
       "about": {
         label: "About Me",
