@@ -1,1 +1,1 @@
-Code that needs to run on an end user's hardware.
+Code that needs to run on the user's hardware.

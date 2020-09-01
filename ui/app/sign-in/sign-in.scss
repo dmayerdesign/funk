@@ -1,40 +1,41 @@
+@import "../../styles/themes/default/variables";
+
 sign-in {
-  ion-nav {
-    .ion-page {
-      justify-content: flex-start;
-    }
-  }
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .sign-in-inner {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 90vh;
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
+}
 
-  form {
-    width: 100%;
+.sign-in-with-google-button {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  text-transform: none;
+  color: $color-medium-shade;
+  letter-spacing: 0;
+  background: transparent;
 
-    ion-button[type="submit"] {
-      margin-top: 20px;
-    }
+  &:focus {
+    outline: none;
+  }
+  
+  img {
+    margin: 0;
+    width: auto;
+    height: 46px;
   }
 }
 
-.sign-in-toolbar {
-  position: absolute;
+.sign-out-button {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  letter-spacing: 0;
+  font-weight: bold;
 }
-
-sign-in-form,
-sign-up-form {
-  text-align: center;
-
-  .go-to-signup {
-    text-decoration: underline;
-  }
-}
-

@@ -10,7 +10,6 @@ import { SignInWithProvider } from "@funk/ui/core/identity/behaviors/sign-in-wit
 import { SignOut } from "@funk/ui/core/identity/behaviors/sign-out"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { auth } from "firebase/app"
-import {  } from "lodash"
 import { firstValueFrom } from "rxjs"
 import { filter } from "rxjs/operators"
 
@@ -19,13 +18,28 @@ import { filter } from "rxjs/operators"
   styleUrls: [ "./sign-in.scss" ],
   encapsulation: ViewEncapsulation.None,
   template: `
-    <ion-button class="ion-no-margin"
-      expand="block"
-      size="default"
-      (click)="signInWithGoogle()">
-      Sign In With Google
-    </ion-button>
-    <ion-button (click)="signOut()">Sign Out</ion-button>
+    <div class="sign-in-inner">
+      <button
+        class="
+          sign-in-with-google-button
+          ion-activatable ripple-parent
+        "
+        (click)="signInWithGoogle()">
+        <img slot="icon-only"
+          src="assets/auth/2x/btn_google_signin_dark_normal_web@2x.png"
+        />
+      </button>
+
+      <ion-button
+        class="sign-out-button"
+        size="small"
+        expand="block"
+        fill="clear"
+        [style.margin-top]="'20px'"
+        (click)="signOut()">
+        Sign Out
+      </ion-button>
+    </div>
   `,
 })
 export class SignInContainer

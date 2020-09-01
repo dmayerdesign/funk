@@ -1,6 +1,6 @@
 import { CLIENT_APP_URL, OWNER_EMAIL } from "@funk/config"
 import { ContactForm } from "@funk/model/contact/contact-form"
-import isHumanImpl from "@funk/api/contact/behaviors/is-human"
+import isHumanImpl from "@funk/api/contact/is-human"
 import sendEmailImpl from "@funk/api/plugins/email/behaviors/send"
 import { ForbiddenError } from "@funk/model/error/forbidden-error"
 import throwIfContactFormIsInvalid from
@@ -38,7 +38,7 @@ export function construct(
         name: `${name} (via the contact form at ${CLIENT_APP_DOMAIN})`,
         email: emailAddress,
       },
-      subject: `${name} submitted the contact form and is probably not a robot`,
+      subject: `${name} submitted the contact form`,
       text: render({ name, message }),
     })
   }

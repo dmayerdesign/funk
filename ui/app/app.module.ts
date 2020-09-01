@@ -1,6 +1,6 @@
 import { ErrorHandler, NgModule } from "@angular/core"
 import { BrowserModule } from "@angular/platform-browser"
-import { RouterModule } from "@angular/router"
+import { RouterModule, Router } from "@angular/router"
 import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import { AtlasModule } from "@funk/ui/app/atlas/module"
 import { AppCommonModule } from "@funk/ui/app/common.module"
@@ -12,7 +12,8 @@ import { IdentityModule } from "@funk/ui/app/identity/module"
 import { NotFoundComponent } from "@funk/ui/app/not-found/component"
 import { PersistenceModule } from "@funk/ui/app/persistence/module"
 import routes from "@funk/ui/app/routes"
-import { DEVICE_WIDTH, WINDOW } from "@funk/ui/app/tokens"
+import { DEVICE_WIDTH, WINDOW, PAGE_TITLE } from "@funk/ui/app/tokens"
+import { construct as constructPageTitle } from "@funk/ui/core/atlas/page-title"
 import { construct as constructDeviceWidth } from "@funk/ui/plugins/layout/device-width"
 import { IonicModule } from "@ionic/angular"
 import { IonicStorageModule } from "@ionic/storage"
@@ -48,6 +49,11 @@ import { IonicStorageModule } from "@ionic/storage"
       provide: DEVICE_WIDTH,
       useFactory: constructDeviceWidth,
       deps: [ WINDOW ],
+    },
+    {
+      provide: PAGE_TITLE,
+      useFactory: constructPageTitle,
+      deps: [ Router ],
     },
   ],
   bootstrap: [ AppComponent ],

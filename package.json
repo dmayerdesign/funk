@@ -2,7 +2,7 @@
   "name": "funk",
   "version": "0.0.0",
   "scripts": {
-    "format": "sh ./build-pipeline/package-scripts/lint-fix.sh",
+    "lint-fix": "sh ./build-pipeline/package-scripts/lint-fix.sh",
     "test": "sh ./build-pipeline/package-scripts/test.sh",
     "test::api": "sh ./build-pipeline/package-scripts/test-api.sh",
     "test::ui": "sh ./build-pipeline/package-scripts/test-ui.sh",
@@ -121,6 +121,7 @@
     "md5": "2.3.0",
     "node-firestore-import-export": "1.1.0",
     "prettier": "2.0.5",
+    "prettier-eslint": "11.0.0",
     "shelljs": "~0.8.4",
     "strip-comments": "~2.0.1",
     "ts-jest": "26.1.1",

@@ -1,5 +1,5 @@
-import { IsHuman } from "@funk/api/contact/behaviors/is-human"
-import { construct } from "@funk/api/contact/behaviors/send-email-to-owner"
+import { IsHuman } from "@funk/api/contact/is-human"
+import { construct } from "@funk/api/contact/send-email-to-owner"
 import { Send } from "@funk/api/plugins/email/behaviors/send"
 import { OWNER_EMAIL } from "@funk/config"
 import { ContactForm } from "@funk/model/contact/contact-form"
