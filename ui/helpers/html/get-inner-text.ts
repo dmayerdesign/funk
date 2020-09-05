@@ -7,3 +7,5 @@ export function construct(_document: Document)
     return syntheticValueElement.innerText
   }
 }
+
+export type HtmlGetInnerText = ReturnType<typeof construct>
