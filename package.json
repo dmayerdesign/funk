@@ -21,7 +21,14 @@
     "functions::build::development": "sh ./build-pipeline/package-scripts/functions-build-development.sh",
     "functions::build::production": "sh ./build-pipeline/package-scripts/functions-build-production.sh",
     "functions::develop::local": "sh ./build-pipeline/package-scripts/functions-develop-local.sh",
-    "ng": "./node_modules/.bin/ng"
+    "ng": "./node_modules/.bin/ng",
+    "firebase": "./node_modules/.bin/firebase",
+    "tsc": "./node_modules/.bin/tsc",
+    "firestore-import": "./node_modules/.bin/firestore-import",
+    "chokidar": "./node_modules/.bin/chokidar",
+    "tscpaths": "./node_modules/.bin/tscpaths",
+    "eslint": "./node_modules/.bin/eslint",
+    "jest": "./node_modules/.bin/jest"
   },
   "private": true,
   "dependencies": {

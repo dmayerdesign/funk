@@ -19,7 +19,7 @@ const cachedServiceAccountBase64 = JSON.parse(
 
 if (serviceAccountBase64 !== cachedServiceAccountBase64)
 {
-  exec(`node_modules/.bin/firebase functions:config:set \
+  exec(`firebase functions:config:set \
     admin.serializedcredentials=${serviceAccountBase64}`)
-  exec("node_modules/.bin/firebase functions:config:get > functions/.runtimeconfig.json")
+  exec("firebase functions:config:get > functions/.runtimeconfig.json")
 }

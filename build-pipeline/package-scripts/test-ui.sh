@@ -1,4 +1,4 @@
-node_modules/.bin/jest \
+jest \
   --config jest.ui-config.js \
   --ci \
   --runInBand \

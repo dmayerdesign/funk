@@ -17,5 +17,5 @@ const pathToTsConfigTmp = resolve(__dirname, "../../", "functions/tsconfig.build
 const tsConfigBuild = readFileSync(pathToTsConfigBuild).toString("utf8")
 const tsConfigBuildTmp = tsConfigBuild.replace(/\.ts" \]/g, "\" ]")
 writeFileSync(pathToTsConfigTmp, tsConfigBuildTmp)
-exec("./node_modules/.bin/tscpaths -p ./functions/tsconfig.build.tmp.json -s . -o ./functions/lib")
+exec("tscpaths -p ./functions/tsconfig.build.tmp.json -s . -o ./functions/lib")
 removeSync(pathToTsConfigTmp)
