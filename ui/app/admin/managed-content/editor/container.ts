@@ -6,9 +6,9 @@ import {
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { IonTextarea } from "@ionic/angular"
+import * as ClassicEditor from "lib/ckeditor5/build/ckeditor"
 import { of } from "rxjs"
 import { delay, switchMap, map } from "rxjs/operators"
-import * as ClassicEditor from "lib/ckeditor5/build/ckeditor"
 
 const ANIMATION_DURATION_MS = 500
 
@@ -56,7 +56,9 @@ const ANIMATION_DURATION_MS = 500
           'animate-out': !(maybeFormControl | async),
           'animate-in': maybeFormControl | async
         }"
-        (clickOutside)="cancelEdit()">
+        (clickOutside)="cancelEdit()"
+        [exclude]="'.ck-body-wrapper *'"
+        [excludeBeforeClick]="true">
 
         <ion-card class="flat flat-with-shadow">
           <div id="editor-container">
