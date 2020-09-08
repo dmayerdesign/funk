@@ -28,7 +28,8 @@
     "chokidar": "./node_modules/.bin/chokidar",
     "tscpaths": "./node_modules/.bin/tscpaths",
     "eslint": "./node_modules/.bin/eslint",
-    "jest": "./node_modules/.bin/jest"
+    "jest": "./node_modules/.bin/jest",
+    "postinstall": "sh ./build-pipeline/package-scripts/postinstall.sh"
   },
   "private": true,
   "dependencies": {
@@ -47,7 +48,8 @@
     "@capacitor/core": "2.2.0",
     "@ckeditor/ckeditor5-angular": "1.2.3",
     "@easypost/api": "3.9.1",
-    "@google-cloud/kms": "~2.1.2",
+    "@google-cloud/firestore": "4.2.0",
+    "@google-cloud/kms": "2.1.2",
     "@ionic-native/file-transfer": "5.27.0",
     "@ionic/angular": "~5.2.2",
     "@ionic/pwa-elements": "1.5.2",
@@ -63,9 +65,9 @@
     "diff-json": "~2.0.0",
     "diff2html": "3.1.9",
     "express": "~5.0.0-alpha.7",
-    "firebase": "~7.15.4",
-    "firebase-admin": "~8.12.1",
-    "firebase-functions": "3.8.0",
+    "firebase": "7.19.1",
+    "firebase-admin": "9.1.1",
+    "firebase-functions": "3.11.0",
     "fs-extra": "~9.0.1",
     "gsap": "~3.3.4",
     "handlebars": "4.7.6",

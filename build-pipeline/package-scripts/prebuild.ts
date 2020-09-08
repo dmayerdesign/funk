@@ -1,5 +1,6 @@
 import program from "commander"
 import writeConfig from "../code-gen/behaviors/write-config"
+import writeFirebaseJson from "../code-gen/behaviors/write-firebase-json"
 import writeValidators from "../code-gen/behaviors/write-validators"
 import { Configuration } from "../../model/configuration"
 
@@ -9,6 +10,7 @@ program.parse(process.argv)
 const { configuration, skipCodeGen } = program.opts()
 
 writeConfig(configuration)
+writeFirebaseJson(configuration)
 if (!skipCodeGen)
 {
   writeValidators()

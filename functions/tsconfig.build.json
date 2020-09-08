@@ -7,7 +7,7 @@
     "**/e2e.ts",
     "**/spec.ts",
     "**/*.spec.ts",
-    "node_modules"
+    "**/node_modules/**/*"
   ],
   "compilerOptions": {
     "baseUrl": ".",

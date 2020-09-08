@@ -32,8 +32,8 @@ export function construct(
     const keyName = client.cryptoKeyPath(
       CLOUD_PROJECT_ID,
       "global",
-      CLOUD_PROJECT_ID, // TODO: Rename key ring to 'primary'.
-      "master"
+      "main",
+      "main"
     )
 
     const [ encryptResponse ] = await client.encrypt({

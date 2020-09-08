@@ -15,6 +15,12 @@ each — gives me, a front-end developer, far more control (and opportunity to m
 I want. A fully-managed back end, like Firebase, takes care of all my web server
 infrastructure, so I can focus on writing code.
 
+## What's "cross-platform"?
+
+Funk uses the amazing cross-platform framework [Ionic](https://ionicframework.com/), which
+allows it to be deployed as a website, an iOS app, and an Android app, all from the same
+codebase.
+
 ## Design goals
 
 - **Zero to app in 10 minutes:** Funk aims to lower the barrier of entry for full-stack
@@ -32,7 +38,7 @@ infrastructure, so I can focus on writing code.
   it's TypeScript's amazing feature set that makes it a winner for enterprise-level full-
   stack development.
 - **Serverless:** By integrating with Google Cloud Firestore and Cloud Functions, Funk
-  lets me build and deploy an app with minimal configuration and minimal cost.
+  makes it possible to build and deploy an app with minimal configuration and minimal cost.
 
 ## Philosophy
 
@@ -40,54 +46,3 @@ The philosophy underlying Funk is simple: what we're trying to do as developers 
 **build [clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) software**.
 The overarching goal of Funk is to make the pursuit of clean code **easier** and
 **more fun**.
-
-## Using Funk
-
-Follow these steps to run a web app locally.
-
-Note that in this configuration, you still need to be connected to the internet for the
-database and authentication to work.
-
-1. [Install Node.](https://nodejs.org/en/download/)
-
-2. Download the code: https://github.com/dmayerdesign/funk
-
-3. In your favorite shell (e.g. Terminal for Mac, Command Prompt for Windows), `cd` into
-the repo directory. For example, if you downloaded the code to `Downloads`, you might
-write this:
-
-```sh
-cd /Users/danielmayer/Downloads/funk
-```
-
-4. Install.
-
-```sh
-npm install
-```
-
-5. If you'd like to run just the Angular app locally, you can simply run the following:
-
-```sh
-npm run ui::develop::development
-```
-
-6. To run in development (hot reload) mode, you need to open 3 shell windows. You'll
-probably want to do this while you're editing code.
-
-```sh
-# The first window builds the front end (an Angular app) and
-# watches for file changes. It serves the web app at the URL
-# http://localhost:8100.
-
-npm run ui::develop::local
-
-# The second window runs server-side functions locally.
-
-npm run functions::develop::local
-
-# The third window seeds your locally-emulated database with
-# development data.
-
-npm run deploy::local
-```

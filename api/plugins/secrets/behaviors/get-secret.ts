@@ -26,8 +26,8 @@ export function construct(
     const keyName = client.cryptoKeyPath(
       CLOUD_PROJECT_ID,
       "global",
-      CLOUD_PROJECT_ID,
-      "master"
+      "main",
+      "main"
     )
     const encryptedSecret = await getById<EncryptedSecret>("vault", secretKey)
 

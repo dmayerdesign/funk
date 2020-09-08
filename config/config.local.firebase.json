@@ -1,0 +1,39 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "ui/dist/client-app-browser",
+    "ignore": [
+      "**/*firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "index.html",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }]
+      },
+      {
+        "source": "**",
+        "headers": [{
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' https://funk-development-0907.firebaseapp.com https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://recaptcha.net; img-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://images.pexels.com/* https://player.vimeo.com/external/* data:; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com"
+        }]
+      }
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}

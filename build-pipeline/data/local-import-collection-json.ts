@@ -4,7 +4,7 @@ import program from "commander"
 import * as firebaseTesting from "@firebase/testing"
 import { firestoreImport } from "node-firestore-import-export"
 import { Configuration } from "../../model/configuration"
-import { CLOUD_PROJECT_ID } from "../../.funk/build-pipeline-output/config/config"
+import { CLOUD_PROJECT_ID } from "../../config/config.local"
 
 interface Options {
   configuration: Configuration

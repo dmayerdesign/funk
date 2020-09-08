@@ -1,12 +1,13 @@
 export const configuration = {
   production: false,
+  local: false,
   firebaseConfig: {
-    apiKey: "AIzaSyAwYuwt4i2GJeAga_auP8Mw0E_sn9kvQ6c",
-    authDomain: "funk-development.firebaseapp.com",
-    databaseURL: "https://funk-development.firebaseio.com",
-    projectId: "funk-development",
-    storageBucket: "funk-development.appspot.com",
-    messagingSenderId: "568649519522",
-    appId: "1:568649519522:web:ba86789de3edbb007ae2fb",
+    apiKey: "AIzaSyBZQgIw4lH7fKN_gwjMZjKvk1HCIAnLDsg",
+    authDomain: "funk-development-0907.firebaseapp.com",
+    databaseURL: "https://funk-development-0907.firebaseio.com",
+    projectId: "funk-development-0907",
+    storageBucket: "funk-development-0907.appspot.com",
+    messagingSenderId: "984336631582",
+    appId: "1:984336631582:web:fc0bdaf5d3a1d66e03ab0f",
   },
 }

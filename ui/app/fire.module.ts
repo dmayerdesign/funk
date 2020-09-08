@@ -20,10 +20,12 @@ import { configuration } from "@funk/ui/configurations/configuration"
     AngularFireAuth,
     {
       provide: SETTINGS,
-      useValue: configuration.production ? undefined : {
-        host: "localhost:8080",
-        ssl: false,
-      },
+      useValue: configuration.local
+        ? {
+          host: "localhost:8080",
+          ssl: false,
+        }
+        : undefined,
     },
   ],
 })

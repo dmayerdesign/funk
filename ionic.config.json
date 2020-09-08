@@ -2,7 +2,7 @@
   "defaultProject": "client-app",
   "projects": {
     "client-app": {
-      "name": "Ionic Web App",
+      "name": "funk-development-0907",
       "integrations": {
         "capacitor": {}
       },

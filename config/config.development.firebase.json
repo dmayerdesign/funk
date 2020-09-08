@@ -6,7 +6,7 @@
   "hosting": {
     "public": "ui/dist/client-app-browser",
     "ignore": [
-      "firebase.json",
+      "**/*firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
@@ -28,7 +28,7 @@
         "source": "**",
         "headers": [{
           "key": "Content-Security-Policy",
-          "value": "default-src 'self' https://funk-development.firebaseapp.com https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://recaptcha.net; img-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://images.pexels.com/* https://player.vimeo.com/external/* data:; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com"
+          "value": "default-src 'self' https://funk-development-0907.firebaseapp.com https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://recaptcha.net; img-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://images.pexels.com/* https://player.vimeo.com/external/* data:; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com"
         }]
       }
     ]

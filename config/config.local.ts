@@ -2,7 +2,7 @@
 export const CLIENT_APP_URL = "http://localhost:8100"
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
 export const IS_PRODUCTION = false
-export const CLOUD_PROJECT_ID = "funk-development"
+export const CLOUD_PROJECT_ID = "funk-development-0907"
 export const CLOUD_PROJECT_REGION = "us-east1"
 export const FUNCTIONS_REGION = "us-central1"
 export const FUNCTIONS_BASE_URL = `http://localhost:5001/${CLOUD_PROJECT_ID}/${FUNCTIONS_REGION}`
