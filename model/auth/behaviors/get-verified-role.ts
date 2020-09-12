@@ -6,6 +6,7 @@ export default function(
   claims?: CustomClaims
 ): UserRole
 {
+  console.log("getting verified role...", verifications, claims)
   if (!claims || !claims.role)
   {
     return UserRole.ANONYMOUS

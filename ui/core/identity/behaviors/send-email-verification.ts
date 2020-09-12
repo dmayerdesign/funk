@@ -9,7 +9,10 @@ export function construct(
   return async function(): Promise<void>
   {
     const user = await asPromise(auth.user.pipe(ignoreNullish()))
-    user?.sendEmailVerification()
+    if (user?.email && !user.emailVerified)
+    {
+      user.sendEmailVerification()
+    }
   }
 }
 

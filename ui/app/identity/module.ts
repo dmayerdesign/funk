@@ -49,7 +49,7 @@ import {
     {
       provide: SIGN_IN_WITH_PROVIDER,
       useFactory: constructSignInWithProvider,
-      deps: [ AUTH_CLIENT ],
+      deps: [ AUTH_CLIENT, SEND_EMAIL_VERIFICATION ],
     },
     {
       provide: SIGN_OUT,

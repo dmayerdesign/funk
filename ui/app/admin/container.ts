@@ -58,6 +58,12 @@ import { Platform } from "@ionic/angular"
         <h1>Upload Skus</h1>
         <import-skus></import-skus>
       </div>
+      <div>
+        <h1>Development</h1>
+        <ion-button expand="full" (click)="grantSuperRole()">
+          Authorize supers
+        </ion-button>
+      </div>
     </ion-content>
   `,
 })
