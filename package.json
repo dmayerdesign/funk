@@ -21,6 +21,7 @@
     "functions::build::development": "sh ./build-pipeline/package-scripts/functions-build-development.sh",
     "functions::build::production": "sh ./build-pipeline/package-scripts/functions-build-production.sh",
     "functions::develop::local": "sh ./build-pipeline/package-scripts/functions-develop-local.sh",
+    "postinstall": "sh ./build-pipeline/package-scripts/postinstall.sh",
     "ng": "./node_modules/.bin/ng",
     "firebase": "./node_modules/.bin/firebase",
     "tsc": "./node_modules/.bin/tsc",
@@ -29,7 +30,7 @@
     "tscpaths": "./node_modules/.bin/tscpaths",
     "eslint": "./node_modules/.bin/eslint",
     "jest": "./node_modules/.bin/jest",
-    "postinstall": "sh ./build-pipeline/package-scripts/postinstall.sh"
+    "ionic": "./node_modules/.bin/ionic"
   },
   "private": true,
   "dependencies": {
@@ -94,6 +95,7 @@
     "@firebase/testing": "~0.20.4",
     "@ionic-native/core": "5.27.0",
     "@ionic/angular-toolkit": "2.2.0",
+    "@ionic/cli": "^6.11.8",
     "@types/cookie-parser": "~1.4.2",
     "@types/cors": "~2.8.6",
     "@types/express": "~4.17.6",

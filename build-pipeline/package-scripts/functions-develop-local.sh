@@ -1,3 +1,10 @@
+source development.env && \
+firebase use funk-development-0907 && \
+\
+GOOGLE_APPLICATION_CREDENTIALS=$PATH_TO_OWNER_CREDENTIALS_JSON \
+sh build-pipeline/package-scripts/ts-node.sh \
+  build-pipeline/package-scripts/functions-authorize-service-account.ts && \
+\
 npm run functions::build::local && \
 firebase emulators:start --only functions,firestore
 
