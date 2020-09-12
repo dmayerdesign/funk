@@ -1,4 +1,3 @@
-
 import { AuthClient, AuthProvider } from "@funk/ui/plugins/auth/auth-client"
 import { SendEmailVerification } from '@funk/ui/core/identity/behaviors/send-email-verification'
 

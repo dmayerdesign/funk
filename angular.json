@@ -49,12 +49,6 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "ui/configurations/configuration.ts",
-                  "with": "ui/configurations/configuration.local.ts"
-                }
               ]
             },
             "development": {
@@ -64,12 +58,6 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "fileReplacements": [
-                {
-                  "replace": "ui/configurations/configuration.ts",
-                  "with": "ui/configurations/configuration.development.ts"
-                }
-              ],
               "optimization": false,
               "outputHashing": "all",
               "buildOptimizer": true,
@@ -77,12 +65,6 @@
               "ngswConfigPath": "ui/ngsw-config.json"
             },
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "ui/configurations/configuration.ts",
-                  "with": "ui/configurations/configuration.production.ts"
-                }
-              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -138,29 +120,9 @@
             "tsConfig": "ui/tsconfig.server.json"
           },
           "configurations": {
-            "local": {
-              "fileReplacements": [
-                {
-                  "replace": "ui/configurations/configuration.ts",
-                  "with": "ui/configurations/configuration.local.ts"
-                }
-              ]
-            },
-            "development": {
-              "fileReplacements": [
-                {
-                  "replace": "ui/configurations/configuration.ts",
-                  "with": "ui/configurations/configuration.development.ts"
-                }
-              ]
-            },
+            "local": {},
+            "development": {},
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "ui/configurations/configuration.ts",
-                  "with": "ui/configurations/configuration.production.ts"
-                }
-              ],
               "sourceMap": false,
               "optimization": true
             }

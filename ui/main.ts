@@ -1,10 +1,10 @@
 import { enableProdMode } from "@angular/core"
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic"
 import { BrowserModule } from "@funk/ui/app/browser.module"
-import { configuration } from "@funk/ui/configurations/configuration"
 import { defineCustomElements } from "@ionic/pwa-elements/loader"
+import { IS_PRODUCTION } from '@funk/config'
 
-// if (!configuration.production)
+// if (!IS_PRODUCTION)
 // {
 //  For easier debugging in development mode, you can import the following file
 //  to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -13,12 +13,12 @@ import { defineCustomElements } from "@ionic/pwa-elements/loader"
 // require("zone.js/dist/zone-error") // Included with Angular CLI.
 // }
 
-// Assuming these aren't needed, but this article suggests they might be:
+// TODO: Confirm whether these imports are needed. This article suggests they might be:
 // https://medium.com/better-programming/zone-js-for-angular-devs-573d89bbb890
 // import "zone.js/dist/zone-patch-rxjs"
 // import "zone.js/dist/zone-patch-cordova"
 
-if (configuration.production)
+if (IS_PRODUCTION)
 {
   enableProdMode()
 }

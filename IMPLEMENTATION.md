@@ -1,17 +1,20 @@
 # Implementation
 
-To run the app (for manual testing), follow these steps:
+This project is set up to support 2 cloud projects: one for the `development` configuration, and one for the `production` configuration.
+(The "local" configuration found in `config.local.ts` uses the `development` configuration).
+These instructions apply to any configuration, so replace ${CONFIGURATION} with either `development` or `production`.
 
 ## Configure plugins
 
 ### Infrastructure
 
-1. Create a Firebase project named `funk-development`.
+1. Create a Firebase project named `funk-${CONFIGURATION}`.
 2. Enable Functions and Firestore.
-3. Create a “web” app within the project and add its configuration to `ui/configurations/configuration.local.ts` and `ui/configurations/configuration.development.ts`.
+3. Create a “web” app within the project and add its configuration to `config/config.local.ts` and `config/config.${CONFIGURATION}.ts`.
     * Set the “Public-facing name” for the project (this shows up in the email verification email and other user-facing places).
     * Set the support email address for the project.
-4. Generate a private key for the root service account and save it to your machine. Save the path to the private key file in the PATH_TO_OWNER_CREDENTIALS_JSON variable in `development.env`.
+4. Generate a private key for the root service account and save it to your machine. Save the path to the private key file in the PATH_TO_OWNER_CREDENTIALS_JSON variable in `${CONFIGURATION}.env`.
+5. Generate a private key for the "App Engine Default" service account and save it to your machine. Save the path to the private key file in the PATH_TO_APPLICATION_CREDENTIALS_JSON variable in `${CONFIGURATION}.env`.
 
 ### Authentication
 1. Enable the following authentication providers in the Firebase console:
