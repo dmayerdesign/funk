@@ -1,4 +1,4 @@
-import { Component, Inject, ViewEncapsulation } from "@angular/core"
+import { Component, Inject, ViewEncapsulation, OnInit } from "@angular/core"
 import { Router, ActivatedRoute } from "@angular/router"
 import roleHasPublicPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-public-privilege-or-greater"
@@ -10,9 +10,9 @@ import { SignInWithProvider } from "@funk/ui/core/identity/behaviors/sign-in-wit
 import { SignOut } from "@funk/ui/core/identity/behaviors/sign-out"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { auth } from "firebase/app"
-import { from } from "rxjs"
 import { filter, first, switchMap, pluck } from "rxjs/operators"
-import { UntilDestroy } from '@ngneat/until-destroy'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+import { asPromise } from '@funk/helpers/as-promise'
 
 @UntilDestroy()
 @Component({
@@ -44,7 +44,7 @@ import { UntilDestroy } from '@ngneat/until-destroy'
     </div>
   `,
 })
-export class SignInContainer
+export class SignInContainer implements OnInit
 {
   public constructor(
     @Inject(SIGN_IN_WITH_PROVIDER) private _signInWithProvider: SignInWithProvider,
@@ -56,15 +56,27 @@ export class SignInContainer
   )
   { }
 
+  public async ngOnInit(): Promise<void>
+  {
+  }
+
   public async signInWithGoogle(): Promise<void>
   {
     const provider = new auth.GoogleAuthProvider()
 
     await this._signInWithProvider(provider)
+    await this._redirectAfterSignIn()
+  }
 
-    from(this._signInWithProvider(provider))
+  public async signOut(): Promise<void>
+  {
+    this._signOut()
+  }
+
+  private async _redirectAfterSignIn(): Promise<void>
+  {
+    await asPromise(this._userSession
       .pipe(
-        switchMap(() => this._userSession),
         filter((session) => roleHasPublicPrivilegeOrGreater(session.auth.claims.role)),
         first(),
         switchMap(() => this._activatedRoute.queryParams
@@ -72,14 +84,9 @@ export class SignInContainer
             first(),
             pluck("on-sign-in-go-to"))),
         switchMap((onSignInGoTo) => !!onSignInGoTo ? Promise.resolve(onSignInGoTo) : this._home()),
+        untilDestroyed(this),
         switchMap(
           (targetUrl) => this._router.navigateByUrl(targetUrl)
-        ))
-      .subscribe()
-  }
-
-  public async signOut(): Promise<void>
-  {
-    this._signOut()
+        )))
   }
 }

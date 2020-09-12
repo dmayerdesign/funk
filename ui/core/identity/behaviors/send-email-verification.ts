@@ -11,7 +11,7 @@ export function construct(
     const user = await asPromise(auth.user.pipe(ignoreNullish()))
     if (user?.email && !user.emailVerified)
     {
-      user.sendEmailVerification()
+      await user.sendEmailVerification()
     }
   }
 }
