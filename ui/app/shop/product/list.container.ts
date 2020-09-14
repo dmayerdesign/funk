@@ -1,16 +1,15 @@
 import { Component, Inject } from "@angular/core"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
-import getQueryConditions from
-  "@funk/ui/core/shop/products/list-filter/behaviors/get-query-conditions"
-import { ListFilter } from "@funk/ui/core/shop/products/list-filter/list-filter"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
-import { Pagination, TAKE_ALL, VirtualPagination } from "@funk/ui/plugins/persistence/pagination"
-import { ListPublished } from "@funk/ui/functions/commerce/product/list-published"
 import { LIST_PUBLISHED } from "@funk/ui/app/shop/product/tokens"
-import { flatten } from "lodash"
-import { BehaviorSubject, Observable, combineLatest } from "rxjs"
-import { map, switchMap } from "rxjs/operators"
+import getQueryConditions from "@funk/ui/core/shop/products/list-filter/behaviors/get-query-conditions"
+import { ListFilter } from "@funk/ui/core/shop/products/list-filter/list-filter"
+import { ListPublished } from "@funk/ui/functions/commerce/product/list-published"
+import { Pagination, TAKE_ALL, VirtualPagination } from "@funk/ui/plugins/persistence/pagination"
 import { LoadingController } from "@ionic/angular"
+import { flatten } from "lodash"
+import { BehaviorSubject, combineLatest, Observable } from "rxjs"
+import { map, switchMap } from "rxjs/operators"
 
 @Component({
   selector: "product-list-container",

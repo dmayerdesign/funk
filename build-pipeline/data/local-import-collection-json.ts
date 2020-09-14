@@ -31,7 +31,7 @@ main(program.opts() as Options)
 async function main(options: Options)
 {
   const { collection: collections } = options
-  
+
   for (const collection of collections)
   {
     try
@@ -39,7 +39,7 @@ async function main(options: Options)
       const importFileJson = JSON.parse(
         readFileSync(resolve(__dirname, `./development-data/${collection}.json`))
           .toString("utf8"))
-  
+
       const app = firebaseTesting.initializeAdminApp({ projectId: CLOUD_PROJECT_ID })
       const collectionRef = app.firestore().collection(collection)
       await firestoreImport(
@@ -55,6 +55,7 @@ async function main(options: Options)
   }
 }
 
-function collectCollectionNames(value: string, acc: string[]): string[] {
-  return acc.concat([value]);
+function collectCollectionNames(value: string, acc: string[]): string[]
+{
+  return acc.concat([value])
 }

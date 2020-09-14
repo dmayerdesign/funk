@@ -27,14 +27,21 @@ import { configToJson } from "../../config/helpers/config-to-json"
   // - initial deploy
   // - npm i -g cordova
 
+  // TODO: Make sure this runs inside of an npm script, to make use of
+  // the binary aliases.
+
   exec(`
     # Install.
     echo "Installing dependencies..."
     npm i
+
     # Download the gcloud SDK for Mac OS.
     curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-272.0.0-darwin-x86_64.tar.gz -o google-cloud-sdk.tar.gz
     tar -xzvf google-cloud-sdk.tar.gz
     chmod +x ./google-cloud-sdk/bin/gcloud
+
+    # Install cocoapods (for iOS development).
+    brew install cocoapods
 
     # Configure.
     ./google-cloud-sdk/bin/gcloud init
@@ -60,5 +67,18 @@ import { configToJson } from "../../config/helpers/config-to-json"
 
     # Set up the firestore emulator.
     firebase setup:emulators:firestore
+
+    # Run the initial build.
+    npm run build::development
+
+    # Add iOS.
+    ionic capacitor add ios
+    # If you get the error "Error running update: Analyzing dependencies", run the
+    # following command:
+    # sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+    # See: https://github.com/ionic-team/capacitor/issues/1072
+
+    # Add Android.
+    ionic capacitor add android
   `)
 })()

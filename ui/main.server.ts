@@ -1,5 +1,5 @@
 import { enableProdMode } from "@angular/core"
-import { IS_PRODUCTION } from '@funk/config'
+import { IS_PRODUCTION } from "@funk/config"
 
 if (IS_PRODUCTION)
 {

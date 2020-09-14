@@ -6,7 +6,7 @@ It represents the closest reasonable ESLint configuration to this
 project's original TSLint configuration.
 
 We recommend eventually switching this configuration to extend from
-the recommended rulesets in typescript-eslint. 
+the recommended rulesets in typescript-eslint.
 https://github.com/typescript-eslint/tslint-to-eslint-config/blob/master/docs/FAQs.md
 
 Happy linting! 💖
@@ -32,7 +32,7 @@ module.exports = {
     ],
     "rules": {
         // For some reason, errors with `Definition for rule
-        // '@typescript-eslint/class-name-casing' was not found`
+        // '@typescript-eslint/class-name-casing' was not found`.
         // "@typescript-eslint/class-name-casing": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
         "@typescript-eslint/dot-notation": "off",
@@ -107,12 +107,13 @@ module.exports = {
         "guard-for-in": "off",
         "id-blacklist": "off",
         "id-match": "off",
-        // For some reason, errors with `Definition for rule 'import/order' was not found`
+        // For some reason, errors with `Definition for rule 'import/order' was not found`.
         // "import/order": "error",
         "max-len": [
-            "error",
+            "warn",
             {
-                "code": 100
+                "code": 100,
+                "ignorePattern": "^import.+$"
             }
         ],
         "no-bitwise": "error",

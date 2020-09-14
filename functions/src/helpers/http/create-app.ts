@@ -14,7 +14,7 @@ export function construct(appFactory = () => express())
     return appFactory().use(
       cookieParser(),
       cors({
-        origin: TRUSTED_ORIGINS.split(","),
+        origin: TRUSTED_ORIGINS,
         ...corsOptions,
       })
     )

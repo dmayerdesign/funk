@@ -16,6 +16,10 @@ These instructions apply to any configuration, so replace ${CONFIGURATION} with 
 4. Generate a private key for the root service account and save it to your machine. Save the path to the private key file in the PATH_TO_OWNER_CREDENTIALS_JSON variable in `${CONFIGURATION}.env`.
 5. Generate a private key for the "App Engine Default" service account and save it to your machine. Save the path to the private key file in the PATH_TO_APPLICATION_CREDENTIALS_JSON variable in `${CONFIGURATION}.env`.
 
+### Mobile
+
+1. Edit `capacitor.config.json`.
+
 ### Authentication
 1. Enable the following authentication providers in the Firebase console:
     * Anonymous
@@ -27,7 +31,7 @@ These instructions apply to any configuration, so replace ${CONFIGURATION} with 
     * Cloud Datastore User (Firestore read/write)
     * Firebase Authentication Admin
 2. Enable Cloud KMS on the project
-3. Create a KMS keyring and key.
+3. Create a KMS keyring and key (both named "main").
 ```sh
 gcloud kms keyrings create main --location global
 gcloud kms keys create main --location global \

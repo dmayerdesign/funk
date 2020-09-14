@@ -3,7 +3,7 @@ import {
   createAuthClientStub,
 } from "@funk/ui/core/identity/stubs"
 import { construct } from "@funk/ui/core/identity/behaviors/sign-in-with-provider"
-import { SendEmailVerification } from '@funk/ui/core/identity/behaviors/send-email-verification'
+import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
 
 describe("signInWithProvider", () =>
 {

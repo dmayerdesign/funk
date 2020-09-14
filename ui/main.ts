@@ -2,7 +2,7 @@ import { enableProdMode } from "@angular/core"
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic"
 import { BrowserModule } from "@funk/ui/app/browser.module"
 import { defineCustomElements } from "@ionic/pwa-elements/loader"
-import { IS_PRODUCTION } from '@funk/config'
+import { IS_PRODUCTION } from "@funk/config"
 
 // if (!IS_PRODUCTION)
 // {

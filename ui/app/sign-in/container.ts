@@ -11,8 +11,8 @@ import { SignOut } from "@funk/ui/core/identity/behaviors/sign-out"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { auth } from "firebase/app"
 import { filter, first, switchMap, pluck } from "rxjs/operators"
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
-import { asPromise } from '@funk/helpers/as-promise'
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
+import { asPromise } from "@funk/helpers/as-promise"
 
 @UntilDestroy()
 @Component({

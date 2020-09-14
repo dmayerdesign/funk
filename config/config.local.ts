@@ -24,4 +24,8 @@ export const FIREBASE_CONFIG = {
 export const CLIENT_APP_URL = "http://localhost:8100"
 export const IS_LOCAL = true
 export const FUNCTIONS_BASE_URL = `http://localhost:5001/${CLOUD_PROJECT_ID}/${FUNCTIONS_REGION}`
-export const TRUSTED_ORIGINS = `${CLIENT_APP_URL}`
+export const TRUSTED_ORIGINS = [
+  CLIENT_APP_URL,
+  "http://localhost",
+  "capacitor://localhost",
+]
