@@ -1,48 +1,119 @@
-import { Component, ViewEncapsulation } from "@angular/core"
-import atlas, { PoetryAtlas } from "@funk/ui/app/atlas/atlas"
+import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core"
+import { Atlas } from "@funk/model/ui/atlas/atlas"
+import atlas from "@funk/ui/app/atlas/atlas"
+import { GET_BY_ID } from "@funk/ui/app/persistence/tokens"
+import { DEVICE_WIDTH, PAGE_TITLE } from "@funk/ui/app/tokens"
+import { PageTitle } from "@funk/ui/core/atlas/page-title"
+import { DeviceWidth } from "@funk/ui/plugins/layout/device-width"
+import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
+import { LoadingController } from "@ionic/angular"
+import { map } from "rxjs/operators"
 
-const poetryAtlas = atlas.poetry.__atlas__
-const poetryPaths = Object.keys(poetryAtlas) as (keyof PoetryAtlas)[]
+const poetryPaths = Object.keys(atlas) as (keyof (typeof atlas))[]
 
 @Component({
   template: `
     <div id="poetry-container">
-      <div id="banner-and-navigation">
-        <div role="banner">
-          <h1>
-            <managed-content contentId="poetry-title"></managed-content>
-          </h1>
-          <p>
-            <managed-content contentId="poetry-subtitle"></managed-content>
-          </p>
+
+      <ng-container *ngIf="!(isMobileLayout | async)">
+        <div id="banner-and-navigation">
+          <div role="banner">
+            <h1>
+              <managed-content contentId="poetry-title"></managed-content>
+            </h1>
+            <p>
+              <managed-content contentId="poetry-subtitle"></managed-content>
+            </p>
+          </div>
+
+          <nav>
+            <ul>
+              <ng-container *ngFor="let navItem of navigationItems">
+                <li>
+                  <a [routerLink]="navItem.routerLink"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">
+                    {{ navItem.text }}
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </nav>
         </div>
 
-        <nav>
-          <ul>
-            <ng-container *ngFor="let navItem of navigationItems">
-              <li>
-                <a [routerLink]="navItem.routerLink"
-                  routerLinkActive="active">
-                  {{ navItem.text }}
-                </a>
-              </li>
-            </ng-container>
-          </ul>
-        </nav>
-      </div>
+        <div id="poetry-routes">
+          <ion-router-outlet></ion-router-outlet>
+        </div>
+      </ng-container>
 
-      <div id="poetry-routes">
-        <ion-router-outlet></ion-router-outlet>
-      </div>
+      <ng-container *ngIf="isMobileLayout | async">
+        <ion-header style="
+            --background: transparent
+          ">
+          <ion-toolbar class="max-width-container"
+            style="
+              --background: transparent;
+              --border-width: 0;
+            ">
+            <ion-buttons slot="end">
+              <ion-menu-button style="
+                --color: var(--ion-color-dark-contrast);
+              ">
+              </ion-menu-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+
+        <div id="banner-and-routes">
+          <div id="banner">
+            <div role="banner">
+              <h1>
+                <managed-content contentId="poetry-title"></managed-content>
+              </h1>
+              <p>
+                <managed-content contentId="poetry-subtitle"></managed-content>
+              </p>
+            </div>
+            <h2 *ngIf="pageTitle | async">
+              {{ pageTitle | async }}
+            </h2>
+          </div>
+          <div id="poetry-routes">
+            <ion-router-outlet></ion-router-outlet>
+          </div>
+        </div>
+      </ng-container>
+
     </div>
   `,
   styleUrls: [ "./container.scss" ],
   encapsulation: ViewEncapsulation.None,
 })
-export class PoetryContainer
+export class PoetryContainer implements OnInit
 {
-  public readonly navigationItems = poetryPaths.map((path) => ({
-    text: poetryAtlas[path].label,
-    routerLink: [ "/poetry", path ],
-  }))
+  public readonly navigationItems = poetryPaths
+    .filter((path) => (atlas[path] as unknown as Atlas).public)
+    .map((path) => ({
+      text: atlas[path].label,
+      routerLink: [ "/", path ],
+    }))
+  public isMobileLayout = this._deviceWidth.pipe(
+    map((width) => width < 961))
+
+  public constructor(
+    @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth,
+    @Inject(GET_BY_ID) private _getById: GetById,
+    private _loadingController: LoadingController,
+    @Inject(PAGE_TITLE) public pageTitle: PageTitle
+  )
+  { }
+
+  public async ngOnInit(): Promise<void>
+  {
+    const canary = this._getById("contents", "page-title")
+    const loading = await this._loadingController.create({ id: "POETRY_LOADING" })
+    loading.present()
+    await canary
+    await this._loadingController.dismiss("POETRY_LOADING")
+  }
 }

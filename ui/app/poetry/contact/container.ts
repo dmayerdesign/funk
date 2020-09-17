@@ -1,16 +1,21 @@
 import { Component, Inject, OnInit } from "@angular/core"
 import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms"
+import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { ContactForm } from "@funk/model/contact/contact-form"
 import { CONTACT_OWNER } from "@funk/ui/app/poetry/tokens"
+import { DEVICE_WIDTH, PAGE_TITLE } from "@funk/ui/app/tokens"
 import { GetToken, GET_TOKEN } from "@funk/ui/app/turing-test/get-token"
+import { PageTitle } from "@funk/ui/core/atlas/page-title"
 import { ContactOwner } from "@funk/ui/functions/contact/owner"
+import { DeviceWidth } from "@funk/ui/plugins/layout/device-width"
+import { map } from "rxjs/operators"
 
 @Component({
   template: `
     <ion-content class="poetry-route" style="--background: transparent">
       <div class="poetry-route-inner">
-        <h2>
-          Contact Me
+        <h2 *ngIf="(pageTitle | async) && (isDesktopLayout | async)">
+          {{ pageTitle | async }}
         </h2>
         <form
           [formGroup]="contactFormGroup"
@@ -88,10 +93,16 @@ export class ContactContainer implements OnInit
     message: new FormControl("", [ Validators.required ]),
     turingTestToken: new FormControl(""),
   } as { [key in keyof ContactForm]: AbstractControl })
+  public isDesktopLayout = this._deviceWidth.pipe(
+    map((deviceWidth) => deviceWidth > 960),
+    shareReplayOnce()
+  )
 
   public constructor(
     @Inject(CONTACT_OWNER) private _sendEmailToOwner: ContactOwner,
-    @Inject(GET_TOKEN) private _getTuringTestToken: GetToken
+    @Inject(GET_TOKEN) private _getTuringTestToken: GetToken,
+    @Inject(PAGE_TITLE) public pageTitle: PageTitle,
+    @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth
   )
   { }
 

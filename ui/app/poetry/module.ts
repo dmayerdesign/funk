@@ -26,7 +26,7 @@ const routes: Routes = [
         path: "about",
         component: AboutContainer,
         data: {
-          title: atlas.poetry.__atlas__.contact.label,
+          title: atlas.poetry.__atlas__.about.label,
         },
       },
       {
