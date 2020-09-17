@@ -6,8 +6,8 @@ export interface Request<BodyType = any> extends ExpressRequest {
 }
 
 export type HandlerReturnTypes =
-  | String | Promise<String>
-  | Boolean | Promise<Boolean>
+  | string | Promise<string>
+  | boolean | Promise<boolean>
   | object | Promise<object>
   | undefined | Promise<undefined>
   | void | Promise<void>
