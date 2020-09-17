@@ -46,7 +46,7 @@ import { configToJson } from "../../config/helpers/config-to-json"
     # Configure.
     ./google-cloud-sdk/bin/gcloud init
     ./google-cloud-sdk/bin/gcloud config set project ${CLOUD_PROJECT_ID}
-    firebase use ${CLOUD_PROJECT_ID} --config=config.development.firebase.json
+    firebase use ${CLOUD_PROJECT_ID}
 
     # Add a service account.
     # Name it "Functions".

@@ -4,7 +4,7 @@ npm i && \
 npm run test && \
 npm run build::development && \
 \
-firebase use funk-development-0907 --config=config.development.firebase.json && \
+firebase use funk-development-0907 && \
 \
 GOOGLE_APPLICATION_CREDENTIALS=$PATH_TO_OWNER_CREDENTIALS_JSON \
 sh build-pipeline/package-scripts/ts-node.sh \
@@ -36,4 +36,4 @@ firestore-import \
   -n organizations \
   -b build-pipeline/data/development-data/organizations.json && \
 \
-firebase deploy --config=config.development.firebase.json
+firebase deploy

@@ -4,7 +4,7 @@ This project is set up to support 2 cloud projects: one for the `development` co
 (The "local" configuration found in `config.local.ts` uses the `development` configuration).
 These instructions apply to any configuration, so replace ${CONFIGURATION} with either `development` or `production`.
 
-## Configure plugins
+## Configure core plugins
 
 ### Infrastructure
 
@@ -21,23 +21,28 @@ These instructions apply to any configuration, so replace ${CONFIGURATION} with 
 1. Edit `capacitor.config.json`.
 
 ### Authentication
+
 1. Enable the following authentication providers in the Firebase console:
     * Anonymous
     * Google
 
 ### Cloud Functions
+
 1. Update the default App Engine service account so that it only has the following roles:
     * KMS Encrypt/Decrypt
     * Cloud Datastore User (Firestore read/write)
     * Firebase Authentication Admin
 2. Enable Cloud KMS on the project
 3. Create a KMS keyring and key (both named "main").
+
 ```sh
 gcloud kms keyrings create main --location global
 gcloud kms keys create main --location global \
   --keyring main \
   --purpose encryption
 ```
+
+## Configure operational plugins
 
 ### Tax
 
@@ -66,3 +71,17 @@ gcloud kms keys create main --location global \
 2. Locate the site key and the API key.
 3. Save the API key using the form at /admin with the key TURING_TEST_SERVICE_PROVIDER_SECRET.
 4. Save the site key in the TURING_TEST_PUBLISHABLE_KEY variable in `config.*.ts`.
+
+# Deployment
+
+## Configure DNS
+
+### To host both "www.yourdomain.com" and "yourdomain.com" (without forwarding):
+
+1. Follow the steps in Firebase to connect a "custom domain", including adding the TXT record
+   to verify ownership. Use the "naked domain" (not `www`) for this step.
+2. When adding the A record to point the naked domain to the host IP addresses, use `@` rather than
+   the full domain name.
+3. Go through the same process for the `www` subdomain. Add an A record identical to the record for the root domain,
+   with the only difference being that `www` is entered into the "host" field rather than `@`.
+4. Set up `www.yourdomain.com` as an additional custom domain in the Firebase hosting console.
