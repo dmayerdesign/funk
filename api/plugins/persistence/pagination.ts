@@ -1,6 +1,6 @@
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
-export interface Pagination<DocumentType extends object = DatabaseDocument> {
+export interface Pagination<DocumentType extends Record<string, unknown> = DatabaseDocument> {
   orderBy: keyof DocumentType
   orderByDirection: "asc" | "desc"
   skip: number
@@ -8,7 +8,7 @@ export interface Pagination<DocumentType extends object = DatabaseDocument> {
 }
 
 /**
- * To be used when 'orderBy' is not a field, but a business rule (like "most relevant").
+ * To be used when 'orderBy' is a business rule rather than a database field (like "most relevant").
  */
 export interface VirtualPagination {
   orderBy: string

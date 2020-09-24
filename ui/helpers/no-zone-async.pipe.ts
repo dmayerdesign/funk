@@ -54,7 +54,8 @@ export class NoZoneAsyncPipe implements OnDestroy, PipeTransform
       {
         this._obj = obj
         this._subscription =
-            obj.subscribe({next: (value: Object) => this._updateLatestValue(obj, value)})
+          obj.subscribe({next: (value: Record<string, unknown>) =>
+            this._updateLatestValue(obj, value)})
       }
       this._latestReturnedValue = this._latestValue
       return this._latestValue
@@ -87,7 +88,7 @@ export class NoZoneAsyncPipe implements OnDestroy, PipeTransform
     this._obj = null
   }
 
-  private _updateLatestValue(async: any, value: Object): void
+  private _updateLatestValue(async: any, value: Record<string, unknown>): void
   {
     if (async === this._obj)
     {

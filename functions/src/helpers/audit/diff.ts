@@ -3,7 +3,7 @@ const { diff } = require("diff-json")
 
 export function construct()
 {
-  return function<DocumentType = object>(
+  return function<DocumentType = Record<string, unknown>>(
     beforeData: any, afterData: any): Diff<DocumentType>[]
   {
     const changes = diff(

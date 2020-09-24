@@ -3,6 +3,7 @@ import { ForbiddenError } from "@funk/model/error/forbidden-error"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import { NotFoundError } from "@funk/model/error/not-found-error"
 import { StatusCode } from "@funk/model/http/status-code"
+import { Type } from "@funk/helpers/type"
 import * as express from "express"
 
 const handler: express.ErrorRequestHandler = (error, _request, response, next) =>
@@ -20,7 +21,7 @@ export default handler
 function getStatusCodeForError(error?: Error | ErrorWithStatusCode): StatusCode
 {
   const errorsToResponseCodes =
-    new Map<Function, StatusCode>([
+    new Map<Type<any>, StatusCode>([
       [ InvalidInputError, StatusCode.BAD_REQUEST ],
       [ NotFoundError, StatusCode.NOT_FOUND ],
       [ ForbiddenError, StatusCode.FORBIDDEN ],

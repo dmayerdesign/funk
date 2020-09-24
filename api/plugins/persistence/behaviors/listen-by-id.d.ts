@@ -4,7 +4,7 @@ import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export function construct(store: AngularFirestore): typeof listenById
 
-declare function listenById<DocumentType extends object = DatabaseDocument>(
+declare function listenById<DocumentType extends Record<string, unknown> = DatabaseDocument>(
   collectionPath: string,
   documentPath: string
 ): Observable<DocumentType | undefined>

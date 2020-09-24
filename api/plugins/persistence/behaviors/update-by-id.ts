@@ -3,7 +3,7 @@ import { store as storeImpl } from "@funk/api/plugins/persistence/server-store"
 
 export function construct(store = storeImpl)
 {
-  return async function<DocumentType extends object = DatabaseDocument>(
+  return async function<DocumentType extends Record<string, unknown> = DatabaseDocument>(
     collectionPath: string,
     documentPath: string,
     documentData: Partial<DocumentType>

@@ -4,7 +4,7 @@ import { chunk } from "lodash"
 
 export function construct(store = storeImpl)
 {
-  return async function<DocumentType extends object = DatabaseDocument>(
+  return async function<DocumentType extends Record<string, unknown> = DatabaseDocument>(
     collectionPath: string,
     documents: { [id: string]: DocumentType },
     options?: { overwrite?: boolean }

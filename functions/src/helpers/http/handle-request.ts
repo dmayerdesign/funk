@@ -8,7 +8,7 @@ export interface Request<BodyType = any> extends ExpressRequest {
 export type HandlerReturnTypes =
   | string | Promise<string>
   | boolean | Promise<boolean>
-  | object | Promise<object>
+  | Record<string, unknown> | Promise<Record<string, unknown>>
   | undefined | Promise<undefined>
   | void | Promise<void>
 

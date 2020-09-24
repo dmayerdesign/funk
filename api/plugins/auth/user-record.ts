@@ -20,8 +20,8 @@ export interface UserRecord {
     phoneNumber: string
     photoURL: string
     providerId: "google.com"|"facebook.com"|string
-    toJSON(): object
+    toJSON(): Record<string, unknown>
   }[]
   customClaims?: { [key: string]: any }
-  toJSON(): object
+  toJSON(): Record<string, unknown>
 }

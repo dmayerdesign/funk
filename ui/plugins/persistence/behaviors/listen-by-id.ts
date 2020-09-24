@@ -5,7 +5,7 @@ import { Observable } from "rxjs"
 
 export function construct(store: AngularFirestore)
 {
-  return function listenById<DocumentType extends object = DatabaseDocument>(
+  return function listenById<DocumentType extends Record<string, unknown> = DatabaseDocument>(
     collectionPath: string,
     documentPath: string
   ): Observable<DocumentType | undefined>
