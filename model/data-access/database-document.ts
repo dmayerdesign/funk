@@ -1,7 +1,7 @@
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 import { Timestamp } from "@funk/model/data-access/timestamp"
 
-export interface DatabaseDocument extends Record<string, unknown> {
+export interface DatabaseDocument {
   id: PrimaryKey
   slug?: string
   updatedAt?: Timestamp

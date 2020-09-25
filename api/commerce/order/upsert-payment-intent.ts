@@ -1,6 +1,6 @@
 import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
 import populateImpl from "@funk/api/commerce/order/populate"
-import ignoringKeysImpl from "@funk/functions/helpers/listen/ignoring-keys"
+import onlyKeysImpl from "@funk/functions/helpers/listen/only-keys"
 import getTaxImpl from "@funk/api/commerce/order/get-tax"
 import getTotalBeforeTaxAndShippingImpl from
   "@funk/api/commerce/order/get-total-before-tax-and-shipping"
@@ -27,7 +27,7 @@ export function construct(
   getTax = getTaxImpl,
   getSecret = getSecretImpl,
   populate = populateImpl,
-  ignoringKeys = ignoringKeysImpl,
+  onlyKeys = onlyKeysImpl,
   updateById = updateByIdImpl
 )
 {
@@ -40,7 +40,16 @@ export function construct(
       (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!
     )
 
-  return ignoringKeys<MarshalledOrder>([ "paymentIntentId" ], async ({ after }) =>
+  const keysToListenTo: (keyof MarshalledOrder)[] = [
+    "skuQuantityMap",
+    "taxPercent",
+    "shipmentPrice",
+    "savePaymentInfo",
+    "customer",
+    "discounts",
+  ]
+
+  return onlyKeys<MarshalledOrder>(keysToListenTo, async ({ after }) =>
   {
     const order = after.data() as MarshalledOrder
     const priceAfterTax = await getTransactionPriceAfterTaxOrThrow(await populate(order))

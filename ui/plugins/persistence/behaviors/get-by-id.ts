@@ -5,7 +5,7 @@ import { asPromise } from "@funk/helpers/as-promise"
 
 export function construct(store: AngularFirestore)
 {
-  return function<DocumentType extends Record<string, unknown> = DatabaseDocument>(
+  return function<DocumentType extends Record<string, any> = DatabaseDocument>(
     collectionPath: string,
     documentPath: string
   ): Promise<DocumentType | undefined>

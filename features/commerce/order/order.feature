@@ -5,7 +5,8 @@ Rule: A User may submit an Order
   Background:
 
     Given a user named Sam
-    And a payment service provider named Stripe
+    And a primary Enterprise named The Shoe Store
+    And a payment service provider named PSP
     And that Sam lives in a state with 10% sales tax
     And a SKU named Cool Shoes with a price of USD 40.00
     And that Cool Shoes is in stock
@@ -17,23 +18,22 @@ Rule: A User may submit an Order
   Example: Sam orders one pair of shoes from an Enterprise configured to include sales tax
     in the list price of SKUs.
 
-    Given a primary Enterprise configured to include sales tax in the list price of SKUs
+    Given that The Shoe Store is configured to include sales tax in the list price of SKUs
     And that Sam has an Order for 1 Cool Shoes
     When Sam completes the "checkout" flow for the Order
-    Then a payment of USD 49.00 is charged to Sam using the Enterprise's Stripe account
+    Then a payment of USD 49.00 is charged to Sam using The Shoe Store's PSP account
     And a success message is communicated to Sam
-    And the Enterprise is alerted of the new Order
+    And The Shoe Store is alerted of the new Order
 
   Example: Sam orders one pair of shoes from an Enterprise configured to NOT include sales
     tax in the list price of SKUs.
 
-    Given a primary Enterprise configured to NOT include sales tax in the list price
-      of SKUs
+    Given that The Shoe Store is configured to NOT include sales tax in the list price of SKUs
     And that Sam has an Order for 1 Cool Shoes
     When Sam completes the "checkout" flow for the Order
-    Then a payment of USD 45.00 is charged to Sam using the Enterprise's Stripe account
+    Then a payment of USD 45.00 is charged to Sam using The Shoe Store's PSP account
     And a success message is communicated to Sam
-    And the Enterprise is alerted of the new Order
+    And The Shoe Store is alerted of the new Order
 
 Rule: A User may not submit an Order if the final price is less than USD 0.50
 

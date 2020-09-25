@@ -48,7 +48,9 @@ Feature: Commerce administration
       And that the spreadsheet contains bad data
       When Adam decides to undo the bad upload
       Then the bad data is forgotten
-  
+
   Rule: An administrator can use a spreadsheet to manage Products.
 
   Rule: Sku data is not duplicated in the Product spreadsheet.
+
+  Rule: An administrator can export a spreadsheet of Order data for any time interval.

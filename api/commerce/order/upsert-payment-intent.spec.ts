@@ -1,5 +1,5 @@
 import { GetSecret } from "@funk/api/plugins/secrets/behaviors/get-secret"
-import ignoringKeysImpl from "@funk/functions/helpers/listen/ignoring-keys"
+import onlyKeysImpl from "@funk/functions/helpers/listen/only-keys"
 import { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import { construct as ConstructCreatePaymentIntent } from
   "@funk/api/plugins/payment/behaviors/create-payment-intent"
@@ -10,7 +10,7 @@ import { GetTotalBeforeTaxAndShipping } from
 import { GetTax } from
   "@funk/api/commerce/order/get-tax"
 import { MarshalledOrder, ORDERS } from "@funk/model/commerce/order/order"
-import { construct } from "@funk/api/commerce/order/handle-write"
+import { construct } from "@funk/api/commerce/order/upsert-payment-intent"
 import { Change, ChangeContext } from "@funk/api/plugins/persistence/change"
 import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
 import { CurrencyCode } from "@funk/model/money/currency-code"
@@ -35,7 +35,7 @@ describe("orderHandleWrite", () =>
   let getTax: GetTax
   let getSecret: GetSecret
   let populate: Populate
-  let ignoringKeys: typeof ignoringKeysImpl
+  let onlyKeys: typeof onlyKeysImpl
   let updateById: UpdateById
 
   it("should not create a payment intent if the customer has no billing zip code",
@@ -96,7 +96,7 @@ describe("orderHandleWrite", () =>
     await handleWrite(change, changeContext)
 
     expect(populate).toHaveBeenCalled()
-    expect(ignoringKeys).toHaveBeenCalledWith(
+    expect(onlyKeys).toHaveBeenCalledWith(
       [ "paymentIntentId" ], expect.any(Function)
     )
     expect(constructCreatePaymentIntent).toHaveBeenCalled()
@@ -106,7 +106,7 @@ describe("orderHandleWrite", () =>
       { paymentIntentId: PAYMENT_INTENT_ID })
   })
 
-  it("should update a payment intent", async () =>
+  it("should update a payment intent if data has changed", async () =>
   {
     before = undefined
     after = { id: ORDER_ID, paymentIntentId: PAYMENT_INTENT_ID } as MarshalledOrder
@@ -114,10 +114,10 @@ describe("orderHandleWrite", () =>
 
     await handleWrite(change, changeContext)
 
-    expect(populate).toHaveBeenCalled()
-    expect(ignoringKeys).toHaveBeenCalledWith(
+    expect(onlyKeys).toHaveBeenCalledWith(
       [ "paymentIntentId" ], expect.any(Function)
     )
+    expect(populate).toHaveBeenCalled()
     expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
     expect(constructUpdatePaymentIntent).toHaveBeenCalled()
     expect(getSecret).toHaveBeenCalled()
@@ -133,7 +133,7 @@ describe("orderHandleWrite", () =>
       getTax,
       getSecret,
       populate,
-      ignoringKeys,
+      onlyKeys,
       updateById
     )
   }
@@ -161,7 +161,7 @@ describe("orderHandleWrite", () =>
     )
     getSecret = jasmine.createSpy()
     populate = jasmine.createSpy().and.callFake(async (order) => order)
-    ignoringKeys = jasmine.createSpy().and.callFake(
+    onlyKeys = jasmine.createSpy().and.callFake(
       (_: any, fn: ChangeHandler) => fn
     )
     updateById = jasmine.createSpy()

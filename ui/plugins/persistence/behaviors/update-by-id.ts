@@ -3,7 +3,7 @@ import { AngularFirestore } from "@angular/fire/firestore"
 
 export function construct(store: AngularFirestore)
 {
-  return async function<DocumentType extends Record<string, unknown> = DatabaseDocument>(
+  return async function<DocumentType extends Record<string, any> = DatabaseDocument>(
     collectionPath: string,
     documentPath: string,
     documentData: Partial<DocumentType>

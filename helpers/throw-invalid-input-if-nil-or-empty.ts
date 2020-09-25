@@ -6,9 +6,9 @@ export default function<NonNullExprType>(
   errorMessage: string
 ): NonNullExprType
 {
-  const isNullish = nullableExpression == null
+  const isNilOrEmpty = nullableExpression == null
     || nullableExpression === ""
-  return isNullish
+  return isNilOrEmpty
     ? (() => { throw new InvalidInputError(errorMessage) })()
     : nullableExpression as NonNullExprType
 }
