@@ -1,4 +1,5 @@
 import { initializeAdminApp, initializeTestApp } from "@firebase/testing"
+import type { app } from "firebase"
 
 export const projectId = "my-test-project"
 export const testUserUid = "tester"
@@ -12,4 +13,4 @@ export const createDefaultApp = () => initializeTestApp({
     email: testUserEmail,
   },
 })
-export const createAdminApp = () => initializeAdminApp({ projectId: projectId })
+export const createAdminApp = () => initializeAdminApp({ projectId: projectId }) as app.App

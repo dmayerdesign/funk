@@ -22,7 +22,7 @@ import { Populate } from "@funk/api/commerce/order/populate"
 const PAYMENT_INTENT_ID = "payment intent id"
 const ORDER_ID = "order id"
 
-describe("orderHandleWrite", () =>
+describe("updatePaymentIntent", () =>
 {
   let before: MarshalledOrder | undefined
   let after: MarshalledOrder | undefined
@@ -97,7 +97,7 @@ describe("orderHandleWrite", () =>
 
     expect(populate).toHaveBeenCalled()
     expect(onlyKeys).toHaveBeenCalledWith(
-      [ "paymentIntentId" ], expect.any(Function)
+      expect.not.arrayContaining([ "paymentIntentId" ]), expect.any(Function)
     )
     expect(constructCreatePaymentIntent).toHaveBeenCalled()
     expect(constructUpdatePaymentIntent).not.toHaveBeenCalled()
@@ -114,9 +114,6 @@ describe("orderHandleWrite", () =>
 
     await handleWrite(change, changeContext)
 
-    expect(onlyKeys).toHaveBeenCalledWith(
-      [ "paymentIntentId" ], expect.any(Function)
-    )
     expect(populate).toHaveBeenCalled()
     expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
     expect(constructUpdatePaymentIntent).toHaveBeenCalled()
