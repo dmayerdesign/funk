@@ -12,9 +12,9 @@ import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id
 import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
 import onlyKeysImpl from "@funk/functions/helpers/listen/only-keys"
 import { MarshalledOrder, Order, ORDERS } from "@funk/model/commerce/order/order"
-import add from "@funk/model/commerce/price/behaviors/add"
 import { Price } from "@funk/model/commerce/price/price"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
+import add from "@funk/model/money/behaviors/add"
 import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 
 export function construct(

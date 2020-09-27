@@ -3,8 +3,8 @@ import { GetById } from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import { List } from "@funk/api/plugins/persistence/behaviors/list"
 import { SetMany } from "@funk/api/plugins/persistence/behaviors/set-many"
 import { PRESENTABLE_ERROR_MARKER } from "@funk/helpers/throw-presentable-error"
-import { MarshalledOrder, ORDERS, Status } from "@funk/model/commerce/order/order"
-import { createFakeMarshalledOrder } from "@funk/model/commerce/order/stubs"
+import { MarshalledCart, ORDERS, Status } from "@funk/model/commerce/order/order"
+import { createFakeMarshalledCart } from "@funk/model/commerce/order/stubs"
 import { FiniteInventory } from "@funk/model/commerce/sku/inventory"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
@@ -26,38 +26,38 @@ describe("setStatusToCheckout", () =>
 
   describe("success", () =>
   {
-    let FAKE_ORDER: MarshalledOrder
-    let FAKE_SKU: MarshalledSku
-    let FAKE_SKU_BUCKET: MarshalledSku
+    let fakeCart: MarshalledCart
+    let fakeSku: MarshalledSku
+    let fakeBucketSku: MarshalledSku
 
     beforeEach(() =>
     {
-      FAKE_SKU = createFakeMarshalledSku(
+      fakeSku = createFakeMarshalledSku(
         "test 1",
         {
           inventory: { type: "finite", quantity: 1, quantityReserved: 0 },
         })
-      FAKE_SKU_BUCKET = createFakeMarshalledSku(
+      fakeBucketSku = createFakeMarshalledSku(
         "test 2",
         {
           inventory: { type: "bucket", bucket: "limited" },
         })
-      FAKE_ORDER = createFakeMarshalledOrder("fake order", {
-        skus: [ FAKE_SKU.id, FAKE_SKU_BUCKET.id ],
+      fakeCart = createFakeMarshalledCart("fake order", {
+        skus: [ fakeSku.id, fakeBucketSku.id ],
         skuQuantityMap: {
-          [FAKE_SKU.id]: 1,
-          [FAKE_SKU_BUCKET.id]: 1,
+          [fakeSku.id]: 1,
+          [fakeBucketSku.id]: 1,
         },
       })
       when(getById as jest.Mock)
-        .calledWith(ORDERS, FAKE_ORDER.id)
-        .mockResolvedValue(FAKE_ORDER)
+        .calledWith(ORDERS, fakeCart.id)
+        .mockResolvedValue(fakeCart)
       when(list as jest.Mock)
         .calledWith(expect.objectContaining({
           collection: SKUS,
-          conditions: [ [ "id", "in", FAKE_ORDER.skus ] ],
+          conditions: [ [ "id", "in", fakeCart.skus ] ],
         }))
-        .mockResolvedValue([ FAKE_SKU, FAKE_SKU_BUCKET ])
+        .mockResolvedValue([ fakeSku, fakeBucketSku ])
     })
 
     it("should set the order status to `Cart Checkout` if all SKUs still have enough inventory",
@@ -65,13 +65,13 @@ describe("setStatusToCheckout", () =>
       {
         const setStatusToCheckout = construct(getById, list, setMany)
 
-        await setStatusToCheckout(FAKE_ORDER.id)
+        await setStatusToCheckout(fakeCart.id)
 
         expect(getById).toHaveBeenCalled()
         expect(list).toHaveBeenCalled()
         expect(setMany).toHaveBeenCalledTimes(1)
         expect(setMany).toHaveBeenCalledWith(expect.objectContaining({
-          [ORDERS]: { [FAKE_ORDER.id]: { status: Status.CART_CHECKOUT } },
+          [ORDERS]: { [fakeCart.id]: { status: Status.CART_CHECKOUT } },
         }))
       })
 
@@ -80,18 +80,18 @@ describe("setStatusToCheckout", () =>
       {
         const setStatusToCheckout = construct(getById, list, setMany)
 
-        await setStatusToCheckout(FAKE_ORDER.id)
+        await setStatusToCheckout(fakeCart.id)
 
         expect(getById).toHaveBeenCalled()
         expect(list).toHaveBeenCalled()
         expect(setMany).toHaveBeenCalledTimes(1)
         expect(setMany).toHaveBeenCalledWith(expect.objectContaining({
           [SKUS]: {
-            [FAKE_SKU.id]: {
+            [fakeSku.id]: {
               inventory: {
-                ...FAKE_SKU.inventory,
-                quantityReserved: (FAKE_SKU.inventory as FiniteInventory).quantityReserved
-                  + FAKE_ORDER.skuQuantityMap[FAKE_SKU.id],
+                ...fakeSku.inventory,
+                quantityReserved: (fakeSku.inventory as FiniteInventory).quantityReserved
+                  + fakeCart.skuQuantityMap[fakeSku.id],
               },
             },
           },
@@ -107,7 +107,7 @@ describe("setStatusToCheckout", () =>
     {
       when(getById as jest.Mock)
         .calledWith(ORDERS, ORDER_ID)
-        .mockResolvedValue(createFakeMarshalledOrder("fake order", {
+        .mockResolvedValue(createFakeMarshalledCart("fake order", {
           skus: [ "test 1" ],
           skuQuantityMap: {
             "test 1": 1,

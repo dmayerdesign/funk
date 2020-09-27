@@ -1,9 +1,9 @@
-import { Price } from "@funk/model/commerce/price/price"
+import getPaymentProviderImpl from "@funk/api/plugins/payment/behaviors/get-payment-provider"
 import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
 import { PaymentIntent } from "@funk/api/plugins/payment/intent"
 import { PaymentIntentInvalidPriceError } from "@funk/api/plugins/payment/validation"
+import { Price } from "@funk/model/commerce/price/price"
 import Stripe from "stripe"
-import getPaymentProviderImpl from "./get-payment-provider"
 
 export interface Options {
   price: Price

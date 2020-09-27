@@ -1,8 +1,8 @@
+import { construct } from "@funk/api/plugins/tax/behaviors/get-tax-rate-for-postal-code"
 import { TAX_PUBLISHABLE_KEY, TAX_RATE_CALCULATOR_URL } from "@funk/config"
 import { createHttpClientStub } from "@funk/functions/helpers/http/stubs"
 import { Customer } from "@funk/model/commerce/order/customer/customer"
 import { TAX_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
-import { construct } from "@funk/api/plugins/tax/behaviors/get-tax-rate-for-postal-code"
 
 const POSTAL_CODE = "00000"
 export function customerWithGoodPostalCode(): Customer
@@ -30,8 +30,7 @@ describe("getTaxRateForPostalCode", () =>
     const expectedAuthHeader = "Basic " + Buffer
       .from(`${TAX_PUBLISHABLE_KEY}:${TAX_SERVICE_PROVIDER_LICENSE_KEY}`)
       .toString("base64")
-    const getSecretSpy = jest.fn()
-      .and.returnValue(TAX_SERVICE_PROVIDER_LICENSE_KEY)
+    const getSecretSpy = jest.fn().mockReturnValue(TAX_SERVICE_PROVIDER_LICENSE_KEY)
     const httpClientStub = createHttpClientStub({
       data: { totalRate: 0.6 },
     })

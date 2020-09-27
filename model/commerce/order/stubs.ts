@@ -1,5 +1,5 @@
 import { createFakeAddress } from "@funk/model/address/stubs"
-import { MarshalledOrder, Status } from "@funk/model/commerce/order/order"
+import { MarshalledCart, MarshalledOrder, Status } from "@funk/model/commerce/order/order"
 import { NULL_PRICE } from "@funk/model/commerce/price/price"
 import { merge } from "lodash"
 
@@ -35,9 +35,20 @@ export function createFakeMarshalledOrder(
       /** The actual price of the shipment associated with this Order. */
       shipmentPrice: NULL_PRICE,
       /** The "shipping cost" shown to the customer at checkout. */
-      shippingCostCharged: NULL_PRICE,
+      shipmentPriceDisplayed: NULL_PRICE,
       skuQuantityMap: {},
     },
     customProps
   )
+}
+
+export function createFakeMarshalledCart(
+  id = "order-id",
+  customProps: Partial<MarshalledCart> = {}
+): MarshalledCart
+{
+  return createFakeMarshalledOrder(id, {
+    status: Status.PAYMENT_PENDING,
+    ...customProps,
+  }) as MarshalledCart
 }

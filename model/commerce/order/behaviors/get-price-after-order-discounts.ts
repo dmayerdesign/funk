@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/indent */
 import { OrderDiscount } from "@funk/model/commerce/discount/discount"
+import getOrderDiscounts from "@funk/model/commerce/order/behaviors/get-order-discounts"
 import { Order } from "@funk/model/commerce/order/order"
 import subtract from "@funk/model/commerce/price/behaviors/subtract"
 import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
-import getOrderDiscounts from "@funk/model/commerce/order/behaviors/get-order-discounts"
 
 export default function(
   order: DbDocumentInput<Order>,
   orderPrice: Price
 ): Price
 {
-  const totalDiscount = getOrderDiscounts(order).reduce<Price>(
+  const totalDiscountForSkus = getOrderDiscounts(order).reduce<Price>(
     (discountAmount, discount) =>
     {
       if (orderPriceDoesNotFallWithinDiscountLimits(discount, orderPrice))
@@ -32,7 +32,7 @@ export default function(
       return discountAmount
     },
     { ...NULL_PRICE, currency: orderPrice.currency })
-  return subtract(orderPrice, totalDiscount)
+  return subtract(orderPrice, totalDiscountForSkus)
 }
 
 function orderPriceDoesNotFallWithinDiscountLimits(
@@ -44,14 +44,14 @@ function orderPriceDoesNotFallWithinDiscountLimits(
     || orderPriceIsGteDiscountUpperLimit(discount, orderPrice)
 }
 
-function orderPriceIsGteDiscountUpperLimit(discount: OrderDiscount, price: Price): boolean
-{
-  return !!discount.orderTotalUpperLimit
-    && subtract(price, discount.orderTotalUpperLimit).amount >= 0
-}
-
 function orderPriceIsBelowDiscountLowerLimit(discount: OrderDiscount, price: Price): boolean
 {
   return !!discount.orderTotalLowerLimit
     && subtract(price, discount.orderTotalLowerLimit).amount < 0
+}
+
+function orderPriceIsGteDiscountUpperLimit(discount: OrderDiscount, price: Price): boolean
+{
+  return !!discount.orderTotalUpperLimit
+    && subtract(price, discount.orderTotalUpperLimit).amount >= 0
 }

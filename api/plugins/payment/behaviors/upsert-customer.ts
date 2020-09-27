@@ -1,5 +1,5 @@
+import getPaymentProviderImpl from "@funk/api/plugins/payment/behaviors/get-payment-provider"
 import Stripe from "stripe"
-import getPaymentProviderImpl from "./get-payment-provider"
 
 export interface CreateInput {
   paymentProviderSecret: string

@@ -36,7 +36,7 @@ interface BaseOrder extends DatabaseDocument {
   /** The actual price of the shipment associated with this Order. */
   shipmentPrice?: Price
   /** The "shipping cost" shown to the customer at checkout. */
-  shippingCostCharged?: Price
+  shipmentPriceDisplayed?: Price
   skuQuantityMap: { [skuId: string]: number }
 }
 

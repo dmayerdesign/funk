@@ -1,11 +1,11 @@
 import { ImportedSku } from "@funk/api/commerce/sku/_imported-sku"
 import mapImportedSkuToSku from "@funk/api/commerce/sku/_map-imported-sku-to-sku"
 import setManyImpl from "@funk/api/plugins/persistence/behaviors/set-many"
-import { SKUS, MarshalledSku } from "@funk/model/commerce/sku/sku"
+import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import marshalledSkuIsInvalid from "@funk/model/commerce/sku/validators/marshalled-sku-is-invalid"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import csvToJson from "csvtojson"
-import { values, Dictionary } from "lodash"
+import { Dictionary, values } from "lodash"
 
 export function construct(
   setMany = setManyImpl
@@ -27,7 +27,9 @@ export function construct(
 
     throwIfCollectionDataContainsInvalidSku(jsonCollectionData)
 
-    await setMany(SKUS, jsonCollectionData)
+    await setMany({
+      [SKUS]: jsonCollectionData,
+    })
   }
 }
 

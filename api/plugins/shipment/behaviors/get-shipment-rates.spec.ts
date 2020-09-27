@@ -1,9 +1,9 @@
+import { construct } from "@funk/api/plugins/shipment/behaviors/get-shipment-rates"
+import { SimpleRate } from "@funk/api/plugins/shipment/simple-rate"
 import { Enterprise, ShippingCostStrategy } from "@funk/model/commerce/enterprise/enterprise"
 import { Order } from "@funk/model/commerce/order/order"
-import { CurrencyCode } from "@funk/model/money/currency-code"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
-import { construct } from "@funk/api/plugins/shipment/behaviors/get-shipping-rates"
-import { SimpleRate } from "@funk/api/plugins/shipment/simple-rate"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 import { constructGetShipmentProviderStub } from "../stubs"
 
 describe("getShippingRates", () =>

@@ -4,12 +4,12 @@ let provider: Stripe
 
 export function construct(paymentServiceProviderCtor = Stripe)
 {
-  return function(secret: string, options = {} as Stripe.StripeConfig): Stripe
+  return function(secret: string, options = {} as Partial<Stripe.StripeConfig>): Stripe
   {
     return provider = provider || new paymentServiceProviderCtor(
       secret,
       {
-        apiVersion: "2019-12-03",
+        apiVersion: "2020-03-02",
         maxNetworkRetries: 2,
         ...options,
       }

@@ -1,16 +1,14 @@
-import getTotalBeforeTaxAndShippingImpl from
-  "@funk/api/commerce/order/get-total-before-tax-and-shipping"
-import { ORDER_GET_TAX_MISSING_POSTAL_CODE } from "@funk/copy/error-messages"
-import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
-import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
-import getShippingPostalCode from "@funk/model/commerce/order/behaviors/get-shipping-postal-code"
-import { Price, NULL_PRICE } from "@funk/model/commerce/price/price"
-import { SKUS } from "@funk/model/commerce/sku/sku"
-import add from "@funk/model/commerce/price/behaviors/add"
+import getTotalBeforeTaxAndShippingImpl from "@funk/api/commerce/order/get-total-before-tax-and-shipping"
 import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
-import getTaxRateForPostalCodeImpl from
-  "@funk/api/plugins/tax/behaviors/get-tax-rate-for-postal-code"
+import getTaxRateForPostalCodeImpl from "@funk/api/plugins/tax/behaviors/get-tax-rate-for-postal-code"
+import { ORDER_GET_TAX_MISSING_POSTAL_CODE } from "@funk/copy/error-messages"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
+import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
+import getShipmentPostalCode from "@funk/model/commerce/order/behaviors/get-shipment-postal-code"
+import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
+import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
+import { SKUS } from "@funk/model/commerce/sku/sku"
+import add from "@funk/model/money/behaviors/add"
 
 export function construct(
   getTotalBeforeTaxAndShipping = getTotalBeforeTaxAndShippingImpl,
@@ -28,7 +26,7 @@ export function construct(
       ])
 
     const postalCode = throwInvalidInputIfNilOrEmpty(
-      getShippingPostalCode(populatedOrder),
+      getShipmentPostalCode(populatedOrder),
       ORDER_GET_TAX_MISSING_POSTAL_CODE
     )
     const taxRate = await getTaxRateForPostalCode(postalCode)

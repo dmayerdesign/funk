@@ -1,12 +1,11 @@
-import getShippingPostalCode from
-  "@funk/model/commerce/order/behaviors/get-shipping-postal-code"
+import getShipmentPostalCode from "@funk/model/commerce/order/behaviors/get-shipment-postal-code"
 import { Order } from "@funk/model/commerce/order/order"
 
-describe("getShippingPostalCode", () =>
+describe("getShipmentPostalCode", () =>
 {
   it("should get the postal code from the order's shipping address", () =>
   {
     const ORDER = { customer: { shippingAddress: { zip: "00000" } } } as Order
-    expect(getShippingPostalCode(ORDER)).toBe("00000")
+    expect(getShipmentPostalCode(ORDER)).toBe("00000")
   })
 })
