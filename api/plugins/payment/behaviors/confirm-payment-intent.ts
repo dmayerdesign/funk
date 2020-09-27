@@ -1,5 +1,7 @@
 import getPaymentProviderImpl from "@funk/api/plugins/payment/behaviors/get-payment-provider"
+import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
 import { PaymentIntent } from "@funk/api/plugins/payment/intent"
+import { PaymentIntentInvalidPriceError } from "@funk/api/plugins/payment/validation"
 import { Price } from "@funk/model/commerce/price/price"
 
 export interface Options {
@@ -11,15 +13,21 @@ export interface Options {
 }
 
 export function construct(
-  paymentProviderSecret: string,
   getPaymentProvider = getPaymentProviderImpl
 )
 {
-  const stripe = getPaymentProvider(paymentProviderSecret)
-
   return async function(id: string): Promise<PaymentIntent>
   {
-    return await stripe.paymentIntents.confirm(id)
+    const psp = await getPaymentProvider()
+    const paymentIntent = await psp.paymentIntents.retrieve(id)
+
+    if (paymentIntent.amount < MIN_TRANSACTION_CENTS)
+    {
+      throw new PaymentIntentInvalidPriceError(
+        `Amount ${paymentIntent.amount} is less than the minimum for a transaction.`)
+    }
+
+    return await psp.paymentIntents.confirm(id)
   }
 }
 

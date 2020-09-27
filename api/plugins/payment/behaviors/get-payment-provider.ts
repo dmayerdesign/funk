@@ -1,13 +1,18 @@
+import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
+import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 import Stripe from "stripe"
 
 let provider: Stripe
 
-export function construct(paymentServiceProviderCtor = Stripe)
+export function construct(
+  getSecret = getSecretImpl
+)
 {
-  return function(secret: string, options = {} as Partial<Stripe.StripeConfig>): Stripe
+  return async function(options = {} as Partial<Stripe.StripeConfig>): Promise<Stripe>
   {
-    return provider = provider || new paymentServiceProviderCtor(
-      secret,
+    const secret = await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY)
+    return provider = provider ?? new Stripe(
+      secret!,
       {
         apiVersion: "2020-03-02",
         maxNetworkRetries: 2,

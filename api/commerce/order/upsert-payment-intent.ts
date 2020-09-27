@@ -1,42 +1,26 @@
 import getTaxImpl from "@funk/api/commerce/order/get-tax"
 import getTotalBeforeTaxAndShippingImpl from "@funk/api/commerce/order/get-total-before-tax-and-shipping"
 import populateImpl from "@funk/api/commerce/order/populate"
-import {
-  construct as constructCreatePaymentIntentImpl, Options as CreatePaymentIntentOptions
-} from "@funk/api/plugins/payment/behaviors/create-payment-intent"
-import {
-  construct as constructUpdatePaymentIntentImpl, Options as UpdatePaymentIntentOptions
-} from "@funk/api/plugins/payment/behaviors/update-payment-intent"
+import createPaymentIntentImpl, { Options as CreatePaymentIntentOptions } from "@funk/api/plugins/payment/behaviors/create-payment-intent"
+import updatePaymentIntentImpl, { Options as UpdatePaymentIntentOptions } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
 import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
 import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
-import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
 import onlyKeysImpl from "@funk/functions/helpers/listen/only-keys"
 import { MarshalledOrder, Order, ORDERS } from "@funk/model/commerce/order/order"
 import { Price } from "@funk/model/commerce/price/price"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import add from "@funk/model/money/behaviors/add"
-import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 
 export function construct(
-  constructCreatePaymentIntent = constructCreatePaymentIntentImpl,
-  constructUpdatePaymentIntent = constructUpdatePaymentIntentImpl,
+  createPaymentIntent = createPaymentIntentImpl,
+  updatePaymentIntent = updatePaymentIntentImpl,
   getTotalBeforeTaxAndShipping = getTotalBeforeTaxAndShippingImpl,
   getTax = getTaxImpl,
-  getSecret = getSecretImpl,
   populate = populateImpl,
   onlyKeys = onlyKeysImpl,
   updateById = updateByIdImpl
 )
 {
-  const _constructCreatePaymentIntent = async () =>
-    constructCreatePaymentIntent(
-      (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!
-    )
-  const _constructUpdatePaymentIntent = async () =>
-    constructUpdatePaymentIntent(
-      (await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY))!
-    )
-
   const keysToListenTo: (keyof MarshalledOrder)[] = [
     "skuQuantityMap",
     "taxPercent",
@@ -58,13 +42,11 @@ export function construct(
 
     if (!order.paymentIntentId)
     {
-      const createPaymentIntent = await _constructCreatePaymentIntent()
       const paymentIntent = await createPaymentIntent(paymentIntentData)
       await setPaymentIntentId(order.id, paymentIntent.id)
     }
     else
     {
-      const updatePaymentIntent = await _constructUpdatePaymentIntent()
       await updatePaymentIntent(order.paymentIntentId, paymentIntentData)
     }
   })

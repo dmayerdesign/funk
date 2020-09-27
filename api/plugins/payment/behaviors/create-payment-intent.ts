@@ -15,12 +15,9 @@ export interface Options {
 }
 
 export function construct(
-  paymentProviderSecret: string,
   getPaymentProvider = getPaymentProviderImpl
 )
 {
-  const stripe = getPaymentProvider(paymentProviderSecret)
-
   return async function(options: Options): Promise<PaymentIntent>
   {
     const {
@@ -52,11 +49,14 @@ export function construct(
         `Amount ${update.amount} is less than the minimum for a transaction.`)
     }
 
-    return await stripe.paymentIntents.create(
+    const psp = await getPaymentProvider()
+    return await psp.paymentIntents.create(
       update,
       { idempotencyKey }
     )
   }
 }
+
+export default construct()
 
 export type CreatePaymentIntent = ReturnType<typeof construct>

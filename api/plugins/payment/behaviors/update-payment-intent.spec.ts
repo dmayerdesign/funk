@@ -1,32 +1,39 @@
+import { construct, Options } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
+import { createGetPaymentProviderStub, PaymentProviderStub } from "@funk/api/plugins/payment/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
-import { Options, construct } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
-import { constructGetPaymentProviderStub } from "../stubs"
+import Stripe from "stripe"
+import { GetPaymentProvider } from "./get-payment-provider"
 
 describe("updatePaymentIntent", () =>
 {
+  let psp: Stripe
+  let getPaymentProvider: GetPaymentProvider
+
+  beforeEach(() =>
+  {
+    psp = new PaymentProviderStub() as unknown as Stripe
+    getPaymentProvider = createGetPaymentProviderStub(psp)
+  })
+
   it("should update a payment intent", async () =>
   {
-    const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
-    const updatePaymentIntent = construct(
-      paymentProviderSecret,
-      getPaymentProvider
-    )
+    const updatePaymentIntent = construct(getPaymentProvider)
     const PSP_UPDATE_RESULT = "FAKE_RESULT"
     const expectedUpdateParams = {
       amount: 1500,
       currency: CurrencyCode.USD,
       payment_method_types: [ "card" ],
     }
-    spyOn(pspInstance.paymentIntents, "update").and.returnValue(PSP_UPDATE_RESULT)
+    spyOn(psp.paymentIntents, "update").and.returnValue(PSP_UPDATE_RESULT)
 
     const paymentIntent = await updatePaymentIntent(
       PAYMENT_INTENT_ID,
       GOOD_OPTIONS_WITH_NULLISH
     )
 
-    expect(getPaymentProvider).toHaveBeenCalledWith(paymentProviderSecret)
-    expect(pspInstance.paymentIntents.update).toHaveBeenCalledTimes(1)
-    expect(pspInstance.paymentIntents.update).toHaveBeenCalledWith(
+    expect(getPaymentProvider).toHaveBeenCalled()
+    expect(psp.paymentIntents.update).toHaveBeenCalledTimes(1)
+    expect(psp.paymentIntents.update).toHaveBeenCalledWith(
       PAYMENT_INTENT_ID,
       expectedUpdateParams
     )
@@ -37,12 +44,9 @@ describe("updatePaymentIntent", () =>
     async () =>
     {
       let didThrow = false
-      const { getPaymentProvider, pspInstance } = constructGetPaymentProviderStub()
-      const updatePaymentIntent = construct(
-        paymentProviderSecret,
-        getPaymentProvider)
+      const updatePaymentIntent = construct(getPaymentProvider)
 
-      spyOn(pspInstance.paymentIntents, "update")
+      spyOn(psp.paymentIntents, "update")
 
       try
       {
@@ -53,13 +57,11 @@ describe("updatePaymentIntent", () =>
         didThrow = true
       }
 
-      expect(getPaymentProvider).toHaveBeenCalledWith(paymentProviderSecret)
-      expect(pspInstance.paymentIntents.update).not.toHaveBeenCalled()
+      expect(psp.paymentIntents.update).not.toHaveBeenCalled()
       expect(didThrow).toBe(true)
     })
 
-  const paymentProviderSecret = "TEST_PSP_SECRET"
-  const PAYMENT_INTENT_ID = "TEST_PAYMENT_INTENT_ID"
+  const PAYMENT_INTENT_ID = "tst payment intent id"
   const GOOD_OPTIONS_WITH_NULLISH = {
     price: { amount: 1500, currency: CurrencyCode.USD },
     savePaymentMethod: undefined,

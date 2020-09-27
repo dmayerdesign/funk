@@ -16,3 +16,5 @@ export default function<DocumentType extends DatabaseDocument>(
     if (atLeastOneHasChanged) return handler(change, context)
   }
 }
+
+export type OnlyKeys = ReturnType<typeof exports.default>

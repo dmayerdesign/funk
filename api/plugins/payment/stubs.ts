@@ -1,16 +1,6 @@
-export const constructGetPaymentProviderStub = (pspCtor = PaymentProviderStub) =>
-{
-  const pspInstance = new pspCtor()
-  const getPaymentProvider = jasmine
-    .createSpy("getPaymentProvider", () => pspInstance as any)
-    .and.callThrough()
-  return ({
-    getPaymentProvider,
-    pspInstance,
-  })
-}
+import Stripe from "stripe"
 
-class PaymentProviderStub
+export class PaymentProviderStub
 {
   public customers = {
     create: async () => ({ id: "test-customer" }),
@@ -23,3 +13,6 @@ class PaymentProviderStub
     confirm: async () => ({ id: "test-payment-intent" }),
   }
 }
+
+export const createGetPaymentProviderStub =
+  (paymentProviderStub: Stripe) => jest.fn().mockReturnValue(paymentProviderStub)

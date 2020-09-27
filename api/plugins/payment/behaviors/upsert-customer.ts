@@ -6,7 +6,6 @@ export interface CreateInput {
   customerData: Stripe.CustomerCreateParams
 }
 export interface UpdateInput {
-  paymentProviderSecret: string
   id: string
   customerData: Stripe.CustomerUpdateParams
 }
@@ -15,9 +14,9 @@ export function construct(getPaymentProvider = getPaymentProviderImpl)
 {
   return async function(input: CreateInput | UpdateInput): Promise<Stripe.Customer>
   {
-    const { paymentProviderSecret, customerData } = input,
+    const { customerData } = input,
       { id } = input as UpdateInput
-    const stripe = getPaymentProvider(paymentProviderSecret)
+    const stripe = await getPaymentProvider()
 
     if (!!id)
     {

@@ -1,23 +1,18 @@
-import { GetSecret } from "@funk/api/plugins/secrets/behaviors/get-secret"
-import onlyKeysImpl from "@funk/functions/helpers/listen/only-keys"
-import { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"
-import { construct as ConstructCreatePaymentIntent } from
-  "@funk/api/plugins/payment/behaviors/create-payment-intent"
-import { construct as ConstructUpdatePaymentIntent } from
-  "@funk/api/plugins/payment/behaviors/update-payment-intent"
-import { GetTotalBeforeTaxAndShipping } from
-  "@funk/api/commerce/order/get-total-before-tax-and-shipping"
-import { GetTax } from
-  "@funk/api/commerce/order/get-tax"
-import { MarshalledOrder, ORDERS } from "@funk/model/commerce/order/order"
+import { GetTax } from "@funk/api/commerce/order/get-tax"
+import { GetTotalBeforeTaxAndShipping } from "@funk/api/commerce/order/get-total-before-tax-and-shipping"
+import { Populate } from "@funk/api/commerce/order/populate"
 import { construct } from "@funk/api/commerce/order/upsert-payment-intent"
+import { CreatePaymentIntent } from "@funk/api/plugins/payment/behaviors/create-payment-intent"
+import { UpdatePaymentIntent } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
+import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
+import { PaymentIntent } from "@funk/api/plugins/payment/intent"
+import { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import { Change, ChangeContext } from "@funk/api/plugins/persistence/change"
 import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
-import { CurrencyCode } from "@funk/model/money/currency-code"
+import { OnlyKeys } from "@funk/functions/helpers/listen/only-keys"
+import { MarshalledOrder, ORDERS } from "@funk/model/commerce/order/order"
 import { Price } from "@funk/model/commerce/price/price"
-import { PaymentIntent } from "@funk/api/plugins/payment/intent"
-import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
-import { Populate } from "@funk/api/commerce/order/populate"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 
 const PAYMENT_INTENT_ID = "payment intent id"
 const ORDER_ID = "order id"
@@ -29,13 +24,12 @@ describe("upsertPaymentIntent", () =>
   let change: Change<MarshalledOrder>
   let changeContext: ChangeContext
 
-  let constructCreatePaymentIntent: typeof ConstructCreatePaymentIntent
-  let constructUpdatePaymentIntent: typeof ConstructUpdatePaymentIntent
+  let createPaymentIntent: CreatePaymentIntent
+  let updatePaymentIntent: UpdatePaymentIntent
   let getTotalBeforeTaxAndShipping: GetTotalBeforeTaxAndShipping
   let getTax: GetTax
-  let getSecret: GetSecret
   let populate: Populate
-  let onlyKeys: typeof onlyKeysImpl
+  let onlyKeys: OnlyKeys
   let updateById: UpdateById
 
   it("should not create a payment intent if the customer has no billing zip code",
@@ -47,17 +41,17 @@ describe("upsertPaymentIntent", () =>
       {
         throw new Error("fake missing zip code error")
       })
-      const handleWrite = constructHandleWrite()
+      const upsertPaymentIntent = newUpsertPaymentIntent()
 
       try
       {
-        await handleWrite(change, changeContext)
+        await upsertPaymentIntent(change, changeContext)
       }
       catch
       {
         expect(populate).toHaveBeenCalled()
         expect(getTax).toHaveBeenCalled()
-        expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
+        expect(createPaymentIntent).not.toHaveBeenCalled()
       }
     })
 
@@ -76,17 +70,17 @@ describe("upsertPaymentIntent", () =>
         amount: 0,
         currency: CurrencyCode.USD,
       } as Price)
-      const handleWrite = constructHandleWrite()
+      const upsertPaymentIntent = newUpsertPaymentIntent()
 
       try
       {
-        await handleWrite(change, changeContext)
+        await upsertPaymentIntent(change, changeContext)
       }
       catch
       {
         expect(populate).toHaveBeenCalled()
         expect(getTotalBeforeTaxAndShipping).toHaveBeenCalled()
-        expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
+        expect(createPaymentIntent).not.toHaveBeenCalled()
       }
     })
 
@@ -94,17 +88,16 @@ describe("upsertPaymentIntent", () =>
   {
     before = undefined
     after = { id: ORDER_ID } as MarshalledOrder
-    const handleWrite = constructHandleWrite()
+    const upsertPaymentIntent = newUpsertPaymentIntent()
 
-    await handleWrite(change, changeContext)
+    await upsertPaymentIntent(change, changeContext)
 
     expect(populate).toHaveBeenCalled()
     expect(onlyKeys).toHaveBeenCalledWith(
       expect.not.arrayContaining([ "paymentIntentId" ]), expect.any(Function)
     )
-    expect(constructCreatePaymentIntent).toHaveBeenCalled()
-    expect(constructUpdatePaymentIntent).not.toHaveBeenCalled()
-    expect(getSecret).toHaveBeenCalled()
+    expect(createPaymentIntent).toHaveBeenCalled()
+    expect(updatePaymentIntent).not.toHaveBeenCalled()
     expect(updateById).toHaveBeenCalledWith(ORDERS, ORDER_ID,
       { paymentIntentId: PAYMENT_INTENT_ID })
   })
@@ -113,25 +106,23 @@ describe("upsertPaymentIntent", () =>
   {
     before = undefined
     after = { id: ORDER_ID, paymentIntentId: PAYMENT_INTENT_ID } as MarshalledOrder
-    const handleWrite = constructHandleWrite()
+    const upsertPaymentIntent = newUpsertPaymentIntent()
 
-    await handleWrite(change, changeContext)
+    await upsertPaymentIntent(change, changeContext)
 
     expect(populate).toHaveBeenCalled()
-    expect(constructCreatePaymentIntent).not.toHaveBeenCalled()
-    expect(constructUpdatePaymentIntent).toHaveBeenCalled()
-    expect(getSecret).toHaveBeenCalled()
+    expect(createPaymentIntent).not.toHaveBeenCalled()
+    expect(updatePaymentIntent).toHaveBeenCalled()
     expect(updateById).not.toHaveBeenCalled()
   })
 
-  function constructHandleWrite()
+  function newUpsertPaymentIntent()
   {
     return construct(
-      constructCreatePaymentIntent,
-      constructUpdatePaymentIntent,
+      createPaymentIntent,
+      updatePaymentIntent,
       getTotalBeforeTaxAndShipping,
       getTax,
-      getSecret,
       populate,
       onlyKeys,
       updateById
@@ -147,19 +138,14 @@ describe("upsertPaymentIntent", () =>
     changeContext = {} as unknown as ChangeContext
 
     const PAYMENT_INTENT = { id: PAYMENT_INTENT_ID } as PaymentIntent
-    constructCreatePaymentIntent = jest.fn().mockReturnValue(
-      async () => PAYMENT_INTENT
+    createPaymentIntent = jest.fn().mockResolvedValue(PAYMENT_INTENT)
+    updatePaymentIntent = jest.fn().mockResolvedValue(PAYMENT_INTENT)
+    getTotalBeforeTaxAndShipping = jest.fn().mockResolvedValue(
+      { amount: 1000, currency: CurrencyCode.USD }
     )
-    constructUpdatePaymentIntent = jest.fn().mockReturnValue(
-      async () => PAYMENT_INTENT
+    getTax = jest.fn().mockResolvedValue(
+      { amount: 60, currency: CurrencyCode.USD }
     )
-    getTotalBeforeTaxAndShipping = jest.fn().mockReturnValue(
-      Promise.resolve<Price>({ amount: 1000, currency: CurrencyCode.USD })
-    )
-    getTax = jest.fn().mockReturnValue(
-      Promise.resolve<Price>({ amount: 60, currency: CurrencyCode.USD })
-    )
-    getSecret = jest.fn()
     populate = jest.fn().mockImplementation(async (order) => order)
     onlyKeys = jest.fn().mockImplementation(
       (_: any, fn: ChangeHandler) => fn
