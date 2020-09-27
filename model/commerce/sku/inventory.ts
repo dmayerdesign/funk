@@ -1,12 +1,12 @@
 export interface FiniteInventory {
   type: "finite"
   quantity: number
-  quantityPending: number
+  quantityReserved: number
 }
 export interface FiniteInventoryDisplayedAsBucket {
   type: "finite"
   quantity: number
-  quantityPending: number
+  quantityReserved: number
   bucket: "in_stock" | "limited" | "out_of_stock"
 }
 export interface InfiniteInventory {

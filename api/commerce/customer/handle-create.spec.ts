@@ -7,7 +7,7 @@ describe("customerHandleCreate", () =>
   it("should create a cart when any user is created", async () =>
   {
     const USER = { uid: "user uid" } as UserRecord
-    const setById = jasmine.createSpy()
+    const setById = jest.fn()
     const handleCreate = construct(setById)
 
     await handleCreate(USER)

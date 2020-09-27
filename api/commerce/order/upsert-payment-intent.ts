@@ -1,24 +1,21 @@
-import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
-import populateImpl from "@funk/api/commerce/order/populate"
-import onlyKeysImpl from "@funk/functions/helpers/listen/only-keys"
 import getTaxImpl from "@funk/api/commerce/order/get-tax"
-import getTotalBeforeTaxAndShippingImpl from
-  "@funk/api/commerce/order/get-total-before-tax-and-shipping"
-import { MarshalledOrder, ORDERS, Order } from "@funk/model/commerce/order/order"
-import add from "@funk/model/commerce/price/behaviors/add"
-import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
+import getTotalBeforeTaxAndShippingImpl from "@funk/api/commerce/order/get-total-before-tax-and-shipping"
+import populateImpl from "@funk/api/commerce/order/populate"
 import {
-  Options as CreatePaymentIntentOptions,
-  construct as constructCreatePaymentIntentImpl,
+  construct as constructCreatePaymentIntentImpl, Options as CreatePaymentIntentOptions
 } from "@funk/api/plugins/payment/behaviors/create-payment-intent"
 import {
-  Options as UpdatePaymentIntentOptions,
-  construct as constructUpdatePaymentIntentImpl,
+  construct as constructUpdatePaymentIntentImpl, Options as UpdatePaymentIntentOptions
 } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
-import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
-import { Price } from "@funk/model/commerce/price/price"
 import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
+import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
+import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
+import onlyKeysImpl from "@funk/functions/helpers/listen/only-keys"
+import { MarshalledOrder, Order, ORDERS } from "@funk/model/commerce/order/order"
+import add from "@funk/model/commerce/price/behaviors/add"
+import { Price } from "@funk/model/commerce/price/price"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
+import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 
 export function construct(
   constructCreatePaymentIntent = constructCreatePaymentIntentImpl,
@@ -44,9 +41,9 @@ export function construct(
     "skuQuantityMap",
     "taxPercent",
     "shipmentPrice",
-    "savePaymentInfo",
     "customer",
     "discounts",
+    "status",
   ]
 
   return onlyKeys<MarshalledOrder>(keysToListenTo, async ({ after }) =>
@@ -56,7 +53,7 @@ export function construct(
     const paymentIntentData = {
       price: priceAfterTax,
       customerId: order.customer?.idForPayment,
-      savePaymentMethod: !!order.savePaymentInfo,
+      savePaymentMethod: !!order.customer?.savePaymentInfo,
     } as CreatePaymentIntentOptions & UpdatePaymentIntentOptions
 
     if (!order.paymentIntentId)

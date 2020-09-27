@@ -59,7 +59,7 @@ function parseInventory(inventoryShorthand: InventoryShorthand): Inventory
   const inventoryShorthandAsNumber = parseInt(`${inventoryShorthand}`, 10)
   if (typeof inventoryShorthandAsNumber === "number")
   {
-    return { type: "finite", quantity: inventoryShorthandAsNumber, quantityPending: 0 }
+    return { type: "finite", quantity: inventoryShorthandAsNumber, quantityReserved: 0 }
   }
   if (inventoryShorthand === "infinite")
   {

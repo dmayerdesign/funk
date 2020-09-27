@@ -1,9 +1,9 @@
-import { SetMany } from "@funk/api/plugins/persistence/behaviors/set-many"
 import { construct, SetCollectionFromCsv } from "@funk/api/commerce/sku/set-collection-from-csv"
-import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
-import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
-import { InvalidInputError } from "@funk/model/error/invalid-input-error"
+import { SetMany } from "@funk/api/plugins/persistence/behaviors/set-many"
 import { FiniteInventory } from "@funk/model/commerce/sku/inventory"
+import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
+import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
+import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import { keys, startCase, values } from "lodash"
 
 describe("setCollectionFromCsv", () =>
@@ -51,7 +51,11 @@ describe("setCollectionFromCsv", () =>
   {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU)
 
-    expect(setMany).toHaveBeenCalledWith(SKUS, { [FAKE_SKU.id]: FAKE_SKU })
+    expect(setMany).toHaveBeenCalledWith({
+      [SKUS]: {
+        [FAKE_SKU.id]: FAKE_SKU,
+      },
+    })
   })
 
   it("should fail on an invalid csv", async () =>
@@ -74,7 +78,11 @@ describe("setCollectionFromCsv", () =>
   {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU_EXTRA_FIELDS)
 
-    expect(setMany).toHaveBeenCalledWith(SKUS, { [FAKE_SKU.id]: FAKE_SKU })
+    expect(setMany).toHaveBeenCalledWith({
+      [SKUS]: {
+        [FAKE_SKU.id]: FAKE_SKU,
+      },
+    })
   })
 
   beforeEach(() =>

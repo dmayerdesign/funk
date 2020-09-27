@@ -30,7 +30,7 @@ describe("getTaxRateForPostalCode", () =>
     const expectedAuthHeader = "Basic " + Buffer
       .from(`${TAX_PUBLISHABLE_KEY}:${TAX_SERVICE_PROVIDER_LICENSE_KEY}`)
       .toString("base64")
-    const getSecretSpy = jasmine.createSpy()
+    const getSecretSpy = jest.fn()
       .and.returnValue(TAX_SERVICE_PROVIDER_LICENSE_KEY)
     const httpClientStub = createHttpClientStub({
       data: { totalRate: 0.6 },

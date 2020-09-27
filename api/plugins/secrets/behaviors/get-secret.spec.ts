@@ -11,7 +11,7 @@ describe("getSecret", () =>
 
   it("should get a secret", async () =>
   {
-    const getById = jasmine.createSpy().and.callFake(async () => ({
+    const getById = jest.fn().mockImplementation(async () => ({
       value: Buffer.from("encrypted secret").toString("base64"),
     }) as EncryptedSecret)
     const getSecret = construct(
@@ -35,7 +35,7 @@ describe("getSecret", () =>
 
   it("should get an undefined secret", async () =>
   {
-    const getById = jasmine.createSpy().and.callFake(async () => undefined)
+    const getById = jest.fn().mockImplementation(async () => undefined)
     const getSecret = construct(getConfig, getById, createKmsClient)
     const SECRET_KEY = "secret key"
 
@@ -49,11 +49,11 @@ describe("getSecret", () =>
   beforeEach(() =>
   {
     getConfig = createGetConfigStub()
-    cryptoKeyPath = jasmine.createSpy()
-    decrypt = jasmine.createSpy().and.returnValue(Promise.resolve([
+    cryptoKeyPath = jest.fn()
+    decrypt = jest.fn().mockReturnValue(Promise.resolve([
       { plaintext: "decrypted secret" },
     ]))
-    createKmsClient = jasmine.createSpy().and.returnValue({
+    createKmsClient = jest.fn().mockReturnValue({
       cryptoKeyPath,
       decrypt,
     })

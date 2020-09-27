@@ -8,9 +8,9 @@ export const FIND_ORGANIZATION_ERROR = "Failed to look up the organization."
 export const ORGANIZATION_NOT_FOUND = "The organization could not be found."
 export const FIND_ORDER_ERROR = "Failed to look up the order."
 export const INVALID_ORDER = "Not a valid order."
-export const PRODUCT_OUT_OF_STOCK_ERROR =
-  "Oh no — one of your chosen products is out of stock!"
 export const PRODUCTS_NOT_FOUND = "The products could not be found."
+export const SKUS_OUT_OF_STOCK_ERROR =
+  "The following of your chosen products is out of stock:"
 export const EMAIL_NOT_VERIFIED =
   "Your email hasn't yet been verified. Follow the link in the email we sent you to "
   + "verify your account."

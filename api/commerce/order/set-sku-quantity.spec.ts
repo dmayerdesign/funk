@@ -14,8 +14,8 @@ describe("orderSetSkuQuantity", () =>
 
   beforeEach(() =>
   {
-    getById = jasmine.createSpy().and.returnValue(Promise.resolve(ORDER))
-    setById = jasmine.createSpy()
+    getById = jest.fn().mockReturnValue(Promise.resolve(ORDER))
+    setById = jest.fn()
     setSkuQuantity = construct(getById, setById)
   })
 

@@ -14,7 +14,7 @@ describe("cartSetSkuQuantity", () =>
   beforeEach(() =>
   {
     cart = of(CART)
-    setSkuQuantity = jasmine.createSpy() as SetSkuQuantity
+    setSkuQuantity = jest.fn() as SetSkuQuantity
   })
 
   it("should add {n} SKUs to the cart", async () =>

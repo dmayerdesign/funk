@@ -21,8 +21,8 @@ export default function(
       else if (!!discount.percentage)
       {
         return {
-          amount: orderPrice.amount * discount.percentage,
           ...discountAmount,
+          amount: orderPrice.amount * discount.percentage,
         }
       }
       else if (!!discount.total)

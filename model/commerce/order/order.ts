@@ -29,7 +29,6 @@ interface BaseOrder extends DatabaseDocument {
   // Payment.
   paymentIntentId?: string
   idempotencyKey?: string
-  savePaymentInfo?: boolean
   // Shipment.
   shipmentId?: string
   shipmentTrackingCode?: string

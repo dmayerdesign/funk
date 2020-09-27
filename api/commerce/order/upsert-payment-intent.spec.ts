@@ -22,7 +22,7 @@ import { Populate } from "@funk/api/commerce/order/populate"
 const PAYMENT_INTENT_ID = "payment intent id"
 const ORDER_ID = "order id"
 
-describe("updatePaymentIntent", () =>
+describe("upsertPaymentIntent", () =>
 {
   let before: MarshalledOrder | undefined
   let after: MarshalledOrder | undefined
@@ -43,7 +43,10 @@ describe("updatePaymentIntent", () =>
     {
       before = undefined
       after = {} as MarshalledOrder
-      getTax = jasmine.createSpy().and.throwError("fake missing zip code error")
+      getTax = jest.fn().mockImplementation(() =>
+      {
+        throw new Error("fake missing zip code error")
+      })
       const handleWrite = constructHandleWrite()
 
       try
@@ -65,11 +68,11 @@ describe("updatePaymentIntent", () =>
     {
       before = undefined
       after = {} as MarshalledOrder
-      getTotalBeforeTaxAndShipping = jasmine.createSpy().and.returnValue({
+      getTotalBeforeTaxAndShipping = jest.fn().mockReturnValue({
         amount: MIN_TRANSACTION_CENTS - 1,
         currency: CurrencyCode.USD,
       } as Price)
-      getTax = jasmine.createSpy().and.returnValue({
+      getTax = jest.fn().mockReturnValue({
         amount: 0,
         currency: CurrencyCode.USD,
       } as Price)
@@ -144,24 +147,24 @@ describe("updatePaymentIntent", () =>
     changeContext = {} as unknown as ChangeContext
 
     const PAYMENT_INTENT = { id: PAYMENT_INTENT_ID } as PaymentIntent
-    constructCreatePaymentIntent = jasmine.createSpy().and.returnValue(
+    constructCreatePaymentIntent = jest.fn().mockReturnValue(
       async () => PAYMENT_INTENT
     )
-    constructUpdatePaymentIntent = jasmine.createSpy().and.returnValue(
+    constructUpdatePaymentIntent = jest.fn().mockReturnValue(
       async () => PAYMENT_INTENT
     )
-    getTotalBeforeTaxAndShipping = jasmine.createSpy().and.returnValue(
+    getTotalBeforeTaxAndShipping = jest.fn().mockReturnValue(
       Promise.resolve<Price>({ amount: 1000, currency: CurrencyCode.USD })
     )
-    getTax = jasmine.createSpy().and.returnValue(
+    getTax = jest.fn().mockReturnValue(
       Promise.resolve<Price>({ amount: 60, currency: CurrencyCode.USD })
     )
-    getSecret = jasmine.createSpy()
-    populate = jasmine.createSpy().and.callFake(async (order) => order)
-    onlyKeys = jasmine.createSpy().and.callFake(
+    getSecret = jest.fn()
+    populate = jest.fn().mockImplementation(async (order) => order)
+    onlyKeys = jest.fn().mockImplementation(
       (_: any, fn: ChangeHandler) => fn
     )
-    updateById = jasmine.createSpy()
+    updateById = jest.fn()
   })
 })
 

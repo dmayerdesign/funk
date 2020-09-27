@@ -11,6 +11,7 @@ export interface Pagination<DocumentType extends Record<string, any> = DatabaseD
  * To be used when 'orderBy' is a business rule rather than a database field (like "most relevant").
  */
 export interface VirtualPagination {
+  type: "virtual"
   orderBy: string
   orderByDirection: "asc" | "desc"
   skip: number

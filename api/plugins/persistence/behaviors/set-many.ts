@@ -1,23 +1,37 @@
-import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { store as storeImpl } from "@funk/api/plugins/persistence/server-store"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { chunk } from "lodash"
 
 export function construct(store = storeImpl)
 {
   return async function<DocumentType extends Record<string, any> = DatabaseDocument>(
-    collectionPath: string,
-    documents: { [id: string]: DocumentType },
+    documentsByCollectionPath: {
+      [collectionPath: string]: {
+        [id: string]: DocumentType
+      },
+    },
     options?: { overwrite?: boolean }
   ): Promise<void>
   {
     const MAX_BATCH_SIZE = 500
-    const idsInChunks = chunk(Object.keys(documents), MAX_BATCH_SIZE)
-    for (const ids of idsInChunks)
+    const TMP_COLLECTION_DOC_PATH_SEPARATOR = "[PATH_SEP]"
+
+    const batch = store().batch()
+    const allPaths = Object.keys(documentsByCollectionPath)
+      .reduce((paths, collectionPath) => [
+        ...paths,
+        ...Object.keys(documentsByCollectionPath[collectionPath]).map((docId) =>
+          collectionPath + TMP_COLLECTION_DOC_PATH_SEPARATOR + docId),
+      ], [] as string[])
+    const pathsInChunks = chunk(allPaths, MAX_BATCH_SIZE)
+
+    for (const paths of pathsInChunks)
     {
-      const batch = store().batch()
-      for (const documentPath of ids)
+      for (const path of paths)
       {
-        const documentData = documents[documentPath]
+        const collectionPath = path.split(TMP_COLLECTION_DOC_PATH_SEPARATOR)[0]
+        const documentPath = path.split(TMP_COLLECTION_DOC_PATH_SEPARATOR)[1]
+        const documentData = documentsByCollectionPath[collectionPath][documentPath]
         const docRef = store().collection(collectionPath).doc(documentPath)
         batch.set(
           docRef,

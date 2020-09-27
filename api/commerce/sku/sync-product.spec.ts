@@ -86,10 +86,10 @@ describe("skuSyncProduct", () =>
         price: { amount: 600, currency: CurrencyCode.USD },
       } as MarshalledSku,
     ] as MarshalledSku[]
-    list = jasmine.createSpy().and.returnValue(
+    list = jest.fn().mockReturnValue(
       Promise.resolve(ALL_SKUS)
     )
-    updateById = jasmine.createSpy()
+    updateById = jest.fn()
     syncProduct = construct(list, updateById)
   })
 })
