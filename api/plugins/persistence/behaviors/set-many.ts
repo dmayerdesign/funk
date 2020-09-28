@@ -7,7 +7,7 @@ export function construct(store = storeImpl)
   return async function<DocumentType extends Record<string, any> = DatabaseDocument>(
     documentsByCollectionPath: {
       [collectionPath: string]: {
-        [id: string]: DocumentType
+        [documentPath: string]: DocumentType
       },
     },
     options?: { overwrite?: boolean }

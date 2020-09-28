@@ -1,25 +1,21 @@
-import { ignoreNullish } from "@funk/helpers/rxjs-shims"
-import { switchMap, map, shareReplay } from "rxjs/operators"
-import { from } from "rxjs"
 import createDocPath from "@funk/helpers/create-doc-path"
-import { ORDERS, Cart, Status, MarshalledCart } from
-  "@funk/model/commerce/order/order"
-import { Customer } from "@funk/model/commerce/order/customer/customer"
-import { SKUS } from "@funk/model/commerce/sku/sku"
+import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
-import { construct as constructQueryCollectionForMeta } from
-  "@funk/ui/plugins/persistence/behaviors/query-collection-for-metadata"
-import { construct as constructListenById } from
-  "@funk/ui/plugins/persistence/behaviors/listen-by-id"
-import { construct as constructPopulate } from
-  "@funk/ui/plugins/persistence/behaviors/populate"
+import { Customer } from "@funk/model/commerce/order/customer/customer"
+import { Cart, MarshalledCart, ORDERS, Status } from "@funk/model/commerce/order/order"
+import { SKUS } from "@funk/model/commerce/sku/sku"
 import { UserSession } from "@funk/ui/core/identity/user-session"
+import { ListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
+import { Populate } from "@funk/ui/plugins/persistence/behaviors/populate"
+import { QueryCollectionForMetadata } from "@funk/ui/plugins/persistence/behaviors/query-collection-for-metadata"
+import { from } from "rxjs"
+import { map, shareReplay, switchMap } from "rxjs/operators"
 
 export function construct(
   userSession: UserSession,
-  queryCollectionForMetadata: ReturnType<typeof constructQueryCollectionForMeta>,
-  listenById: ReturnType<typeof constructListenById>,
-  populate: ReturnType<typeof constructPopulate>
+  queryCollectionForMetadata: QueryCollectionForMetadata,
+  listenById: ListenById,
+  populate: Populate<Cart, MarshalledCart>
 )
 {
   const cart$ = userSession.pipe(
@@ -34,7 +30,7 @@ export function construct(
           switchMap(({ collectionPath, documentPath }) =>
             listenById<MarshalledCart>(collectionPath, documentPath)),
           switchMap((cart) =>
-            populate<Cart, MarshalledCart>(cart!, [
+            populate(cart!, [
               { key: "skus", collectionPath: SKUS },
               { key: "discounts", collectionPath: DISCOUNTS },
             ]))
