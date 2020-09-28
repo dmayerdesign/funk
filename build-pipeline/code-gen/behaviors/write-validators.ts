@@ -22,9 +22,8 @@ ${
   filenames
     .filter((filename) => filename.endsWith(".ts"))
     .filter((filename) => !filename.includes(".spec."))
+    .filter((filename) => !filename.includes("/spec."))
     .filter((filename) => !filename.includes("/validators/"))
-    // Causing a bug for some reason:
-    .filter((filename) => !filename.includes("get-price-after-order-discounts"))
     .map((filename) => `import "@funk/model/${filename.split(sep + "model" + sep)[1]}"`)
     .join("\n")
 }\n`

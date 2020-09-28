@@ -1,10 +1,10 @@
-import getApplicableDiscountsForSku from
-  "@funk/model/commerce/discount/behaviors/get-applicable-discounts-for-sku"
+import getApplicableDiscountsForSku from "@funk/model/commerce/discount/behaviors/get-applicable-discounts-for-sku"
 import { SkuDiscount } from "@funk/model/commerce/discount/discount"
-import { CurrencyCode } from "@funk/model/money/currency-code"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
+import { CurrencyCode } from "@funk/model/money/currency-code"
+import { createFakeSkuDiscount } from "../stubs"
 
 describe("getApplicableDiscountsForSku", () =>
 {
@@ -89,31 +89,29 @@ describe("getApplicableDiscountsForSku", () =>
   })
 })
 
-export const DISCOUNT_START_DATE = Date.now() - 60000000
-export const DISCOUNT_END_DATE = Date.now() + 60000000
 export const createSkuExcludedById = (idSuffix = "0") => ({
-  id: "test_sku_id_EXCLUDE_FROM_DISCOUNT",
-  productId: `test_product_id_${idSuffix}`,
+  id: "test sku id EXCLUDE_FROM_DISCOUNT",
+  productId: `test product id ${idSuffix}`,
   price: { amount: 1000, currency: "USD" },
-  taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
+  taxonomyTerms: [ `tax term id ${idSuffix}` ],
 }) as MarshalledSku
 export const createSkuExcludedByTaxTerm = (idSuffix = "0") => ({
-  id: `test_sku_id_${idSuffix}`,
-  productId: `test_product_id_${idSuffix}`,
+  id: `test sku id ${idSuffix}`,
+  productId: `test product id ${idSuffix}`,
   price: { amount: 1000, currency: "USD" },
-  taxonomyTerms: [ "tax_term_id_EXCLUDE_FROM_DISCOUNT" ],
+  taxonomyTerms: [ "tax term id EXCLUDE_FROM_DISCOUNT" ],
 }) as MarshalledSku
 export const createMarshalledProduct = (idSuffix = "0") => ({
-  id: `test_product_id_${idSuffix}`,
-  taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
+  id: `test product id ${idSuffix}`,
+  taxonomyTerms: [ `tax term id ${idSuffix}` ],
 }) as MarshalledProduct
 export const createProductExcludedById = (idSuffix = "0") => ({
-  id: "test_product_id_EXCLUDE_FROM_DISCOUNT",
-  taxonomyTerms: [ `tax_term_id_${idSuffix}` ],
+  id: "test product id EXCLUDE_FROM_DISCOUNT",
+  taxonomyTerms: [ `tax term id ${idSuffix}` ],
 }) as MarshalledProduct
 export const createProductExcludedByTaxTerm = (idSuffix = "0") => ({
-  id: `test_product_id_${idSuffix}`,
-  taxonomyTerms: [ "tax_term_id_EXCLUDE_FROM_DISCOUNT" ],
+  id: `test product id ${idSuffix}`,
+  taxonomyTerms: [ "tax term id EXCLUDE_FROM_DISCOUNT" ],
 }) as MarshalledProduct
 export function createAllInclusiveTenPercentDiscount({
   isCompoundable = false,
@@ -122,12 +120,9 @@ export function createAllInclusiveTenPercentDiscount({
 }): SkuDiscount
 {
   return {
-    id: "test-discount-percentage",
-    type: "sku",
+    ...createFakeSkuDiscount("test discount percentage"),
     percentage: 10,
     includes: { all: true },
-    startAt: DISCOUNT_START_DATE,
-    endAt: DISCOUNT_END_DATE,
     isCompoundable,
   }
 }
@@ -138,31 +133,28 @@ export function createExclusiveAmountDiscount({
 }): SkuDiscount
 {
   return {
-    id: "test-discount-amount",
-    type: "sku",
+    ...createFakeSkuDiscount("test discount amount"),
     total: { amount: 1000, currency: CurrencyCode.USD },
     includes: {
       skus: [
-        "test_sku_id_2",
-        "test_sku_id_4",
-        "test_sku_id_EXCLUDE_FROM_DISCOUNT",
+        "test sku id 2",
+        "test sku id 4",
+        "test sku id EXCLUDE_FROM_DISCOUNT",
       ],
       taxonomyTerms: [
-        "tax_term_id_1",
-        "tax_term_id_2",
-        "tax_term_id_3",
+        "tax term id 1",
+        "tax term id 2",
+        "tax term id 3",
       ],
     },
     excludes: {
       skus: [
-        "test_sku_id_EXCLUDE_FROM_DISCOUNT",
+        "test sku id EXCLUDE_FROM_DISCOUNT",
       ],
       taxonomyTerms: [
-        "tax_term_id_EXCLUDE_FROM_DISCOUNT",
+        "tax term id EXCLUDE_FROM_DISCOUNT",
       ],
     },
-    startAt: DISCOUNT_START_DATE,
-    endAt: DISCOUNT_END_DATE,
     isCompoundable,
   }
 }

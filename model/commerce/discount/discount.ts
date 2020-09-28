@@ -14,12 +14,12 @@ export interface DiscountRules {
 interface BaseDiscount extends DatabaseDocument {
   /** A positive amount is deducted from the `Order` total or `Product` price. */
   total?: Price
-  /** A positive percentage is deducted from the `Order` total or `Product` price. */
+  /**
+   * A number 0 - 100.
+   * A positive percentage is deducted from the `Order` total or `Product` price.
+   */
   percentage?: number
   isCompoundable?: boolean
-  includes: DiscountRules
-  /** An optional list of exclusion rules. These will always override `includes`. */
-  excludes?: DiscountRules
   startAt: Timestamp
   endAt?: Timestamp
   /** The discount will not apply to products priced below this amount. */
@@ -29,6 +29,9 @@ interface BaseDiscount extends DatabaseDocument {
 export interface SkuDiscount extends BaseDiscount {
   /** A 'sku' discount is a sale; an 'order' discount is a coupon. */
   type: "sku"
+  includes: DiscountRules
+  /** An optional list of exclusion rules. These will always override `includes`. */
+  excludes?: DiscountRules
 }
 
 export interface OrderDiscount extends BaseDiscount {
@@ -36,7 +39,10 @@ export interface OrderDiscount extends BaseDiscount {
   type: "order"
   /** A positive amount is deducted from an `Order`'s shipping cost. */
   totalShipping?: Price
-  /** A positive percentage is deducted from an `Order`'s shipping cost. */
+  /**
+   * A number 0 - 100.
+   * A positive percentage is deducted from an `Order`'s shipping cost.
+   */
   percentageShipping?: number
   code?: string
   orderTotalUpperLimit?: Price

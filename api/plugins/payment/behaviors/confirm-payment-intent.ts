@@ -31,4 +31,6 @@ export function construct(
   }
 }
 
+export default construct()
+
 export type ConfirmPaymentIntent = ReturnType<typeof construct>

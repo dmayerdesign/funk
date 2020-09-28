@@ -1,7 +1,6 @@
 import { construct } from "@funk/api/commerce/order/submit"
-import { ConfirmPaymentIntent, construct as constructConfirmPaymentIntentImpl } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
+import { ConfirmPaymentIntent } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
 import { GetById } from "@funk/api/plugins/persistence/behaviors/get-by-id"
-import { GetSecret } from "@funk/api/plugins/secrets/behaviors/get-secret"
 import { MarshalledCart, ORDERS } from "@funk/model/commerce/order/order"
 import { createFakeMarshalledCart } from "@funk/model/commerce/order/stubs"
 import { when } from "jest-when"
@@ -12,24 +11,20 @@ describe("orderSubmit", () =>
   {
     let fakeCart: MarshalledCart
     let getById: GetById
-    let getSecret: GetSecret
     let confirmPaymentIntent: ConfirmPaymentIntent
-    let constructConfirmPaymentIntent: typeof constructConfirmPaymentIntentImpl
 
     beforeEach(() =>
     {
       fakeCart = createFakeMarshalledCart("fake cart 1")
       getById = jest.fn()
-      getSecret = jest.fn()
       confirmPaymentIntent = jest.fn()
-      constructConfirmPaymentIntent = jest.fn().mockReturnValue(confirmPaymentIntent)
 
       when(getById as jest.Mock).calledWith(ORDERS, fakeCart.id).mockResolvedValue(fakeCart)
     })
 
     it("should submit payment via the payment service provider", async () =>
     {
-      const submit = construct(getById, getSecret, constructConfirmPaymentIntent)
+      const submit = construct(getById, confirmPaymentIntent)
 
       await submit(fakeCart.id)
 

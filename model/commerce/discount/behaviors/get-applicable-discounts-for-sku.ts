@@ -1,8 +1,8 @@
+import ApplicableDiscountsBuilder from "@funk/model/commerce/discount/applicable-discounts-builder"
 import { Discount, SkuDiscount } from "@funk/model/commerce/discount/discount"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { sortBy } from "lodash"
-import ApplicableDiscountsBuilder from "./applicable-discounts-builder"
 
 /**
  * Only one discount may be applied, unless one or more are `compoundable`.
@@ -12,7 +12,8 @@ import ApplicableDiscountsBuilder from "./applicable-discounts-builder"
  */
 export default function(
   discounts: SkuDiscount[],
-  { sku, product }: { sku: MarshalledSku; product: MarshalledProduct }): SkuDiscount[]
+  { sku, product }: { sku: MarshalledSku; product: MarshalledProduct }
+): SkuDiscount[]
 {
   return new ApplicableDiscountsForSkuBuilder(sku, product, discounts)
     .onlyAllowSkuDiscounts()
@@ -24,7 +25,7 @@ export default function(
     .build()
 }
 
-class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder
+class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<SkuDiscount>
 {
 
   public constructor(
@@ -39,7 +40,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder
   public onlyAllowSkuDiscounts(): this
   {
     this._applicableDiscounts = this._applicableDiscounts.filter((discount) =>
-      (discount as Discount).type !== "order")
+      (discount as Discount).type === "sku")
     return this
   }
 
@@ -119,7 +120,9 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder
   {
     this._applicableDiscounts = sortBy(
       this._applicableDiscounts,
-      (element) => 1 / Math.ceil(element.percentage || 0))
+      (element) => typeof element.percentage === "number"
+        ? -element.percentage
+        : 1)
     return this
   }
 
