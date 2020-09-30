@@ -17,5 +17,5 @@ export interface Enterprise extends Organization {
   /** @required */
   shippingCarriers?: string[]
   shippingCarrierDefault: string
-  addSalesTax?: boolean
+  salesTaxNexusStates: string[]
 }

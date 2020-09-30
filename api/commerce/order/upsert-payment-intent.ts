@@ -1,4 +1,4 @@
-import getTaxImpl from "@funk/api/commerce/order/get-tax"
+import getTaxImpl from "@funk/api/commerce/order/get-sales-tax"
 import getTotalBeforeTaxAndShippingImpl from "@funk/api/commerce/order/get-total-before-tax-and-shipping"
 import populateImpl from "@funk/api/commerce/order/populate"
 import createPaymentIntentImpl, { Options as CreatePaymentIntentOptions } from "@funk/api/plugins/payment/behaviors/create-payment-intent"

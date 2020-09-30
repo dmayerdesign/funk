@@ -47,9 +47,10 @@ gcloud kms keys create main --location global \
 ### Tax
 
 1. Sign up for an [Avalara AvaTax account](https://buy.avalara.com/signup).
-2. Create a license key by [following these instructions](https://developer.avalara.com/avatax/authentication-in-rest/).
-3. Locate the account ID.
-4. Save the secret key using the form at /admin with the key TAX_SERVICE_PROVIDER_SECRET.
+2. Create a license key by visiting https://integrations.avalara.com/#/software-keys and
+  [following these instructions](https://developer.avalara.com/avatax/authentication-in-rest/).
+3. Save the license key using the form at /admin with the key TAX_SERVICE_PROVIDER_SECRET.
+4. Locate the account ID.
 5. Save the account ID in the TAX_PUBLISHABLE_KEY variable in `config.*.ts`.
 
 ### Payment

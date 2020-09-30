@@ -1,5 +1,7 @@
-import { Request as ExpressRequest, RequestHandler as ExpressRequestHandler, NextFunction,
-  Response } from "express"
+import {
+  NextFunction, Request as ExpressRequest, RequestHandler as ExpressRequestHandler,
+  Response
+} from "express"
 
 export interface Request<BodyType = any> extends ExpressRequest {
   body: BodyType
@@ -8,7 +10,7 @@ export interface Request<BodyType = any> extends ExpressRequest {
 export type HandlerReturnTypes =
   | string | Promise<string>
   | boolean | Promise<boolean>
-  | Record<string, unknown> | Promise<Record<string, unknown>>
+  | Record<string, any> | Promise<Record<string, any>>
   | undefined | Promise<undefined>
   | void | Promise<void>
 

@@ -1,4 +1,4 @@
-import { GetTax } from "@funk/api/commerce/order/get-tax"
+import { GetTax } from "@funk/api/commerce/order/get-sales-tax"
 import { GetTotalBeforeTaxAndShipping } from "@funk/api/commerce/order/get-total-before-tax-and-shipping"
 import { Populate } from "@funk/api/commerce/order/populate"
 import { construct } from "@funk/api/commerce/order/upsert-payment-intent"

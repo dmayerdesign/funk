@@ -11,7 +11,7 @@ export const TRUSTED_ORIGINS = [
   CLIENT_APP_URL,
   "https://funk-production-0907.firebaseapp.com",
 ]
-export const TAX_RATE_CALCULATOR_URL = "https://rest.avatax.com/api/v2/taxrates/bypostalcode"
+export const SALES_TAX_RATE_CALCULATOR_URL = "https://rest.avatax.com/api/v2/taxrates/bypostalcode"
 export const TAX_PUBLISHABLE_KEY = ""
 export const PAYMENT_PUBLISHABLE_KEY = ""
 export const TURING_TEST_PUBLISHABLE_KEY = ""
