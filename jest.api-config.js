@@ -11,6 +11,7 @@ module.exports = {
     "<rootDir>/functions",
     "<rootDir>/helpers",
     "<rootDir>/model",
+    "<rootDir>/features",
   ],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: "<rootDir>"

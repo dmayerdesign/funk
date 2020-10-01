@@ -1,4 +1,4 @@
-import store from "@funk/api/test/data-access/in-memory-store"
+import { getStore } from "@funk/api/test/data-access/in-memory-store"
 import { unset } from "lodash"
 
 export default async function(
@@ -6,5 +6,5 @@ export default async function(
   documentPath: string
 ): Promise<void>
 {
-  unset(store[collectionPath], documentPath.replace(/\//g, "."))
+  unset(getStore()[collectionPath], documentPath.replace(/\//g, "."))
 }

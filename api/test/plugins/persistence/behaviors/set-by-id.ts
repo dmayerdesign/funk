@@ -1,4 +1,4 @@
-import store from "@funk/api/test/data-access/in-memory-store"
+import { getStore } from "@funk/api/test/data-access/in-memory-store"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { get, set } from "lodash"
 
@@ -9,9 +9,9 @@ export default async function<DocumentType extends Record<string, any> = Databas
   options?: { overwrite?: boolean }
 ): Promise<void>
 {
-  const doc = get(store[collectionPath], documentPath.replace(/\//g, "."))
+  const doc = get(getStore()[collectionPath], documentPath.replace(/\//g, "."))
   set(
-    store[collectionPath],
+    getStore()[collectionPath],
     documentPath,
     options?.overwrite
       ? documentData

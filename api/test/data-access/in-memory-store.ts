@@ -7,9 +7,19 @@ import commerceProducts from "../../../build-pipeline/data/development-data/comm
 import contents from "../../../build-pipeline/data/development-data/contents.json"
 import identityUserStates from "../../../build-pipeline/data/development-data/identity.user-states.json"
 
-export default {
-  [ORDERS]: commerceOrders,
-  [PRODUCTS]: commerceProducts,
-  [CONTENTS]: contents,
-  [USER_STATES]: identityUserStates,
-} as any
+let store: Record<string, Record<string, any>>
+
+export function initializeStore(): void
+{
+  store = {
+    [ORDERS]: commerceOrders,
+    [PRODUCTS]: commerceProducts,
+    [CONTENTS]: contents,
+    [USER_STATES]: identityUserStates,
+  }
+}
+
+export function getStore(): typeof store
+{
+  return store
+}
