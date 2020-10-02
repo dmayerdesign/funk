@@ -15,7 +15,7 @@ describe("createPaymentIntent", () =>
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should create a payment intent", async () =>
+  it("should create a payment intent", async function ()
   {
     const createPaymentIntent = construct(getPaymentProvider)
     const PSP_CREATE_RESULT = "FAKE_RESULT"
@@ -44,7 +44,7 @@ describe("createPaymentIntent", () =>
   })
 
   it("should not create a payment intent if the amount is less than the minimum",
-    async () =>
+    async function ()
     {
       const createPaymentIntent = construct(getPaymentProvider)
       spyOn(psp.paymentIntents, "create")

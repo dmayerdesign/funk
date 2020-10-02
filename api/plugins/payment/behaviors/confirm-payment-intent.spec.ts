@@ -15,7 +15,7 @@ describe("confirmPaymentIntent", () =>
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should confirm a payment intent", async () =>
+  it("should confirm a payment intent", async function ()
   {
     const PAYMENT_INTENT_ID = "test payment intent id"
     const GOOD_AMOUNT = MIN_TRANSACTION_CENTS
@@ -34,7 +34,7 @@ describe("confirmPaymentIntent", () =>
   })
 
   it("should NOT confirm a payment intent if the amount is less than the minimum",
-    async () =>
+    async function ()
     {
       const PAYMENT_INTENT_ID = "test payment intent id"
       const TOO_SMALL_AMOUNT = MIN_TRANSACTION_CENTS - 1

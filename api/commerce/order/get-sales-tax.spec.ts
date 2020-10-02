@@ -10,7 +10,7 @@ import { ORGANIZATIONS } from "@funk/model/organization/organization"
 // TODO: Tighten up this test using jest-when.
 describe("orderGetTax", () =>
 {
-  it("should populate the order and get sales tax", async () =>
+  it("should populate the order and get sales tax", async function ()
   {
     const ORDER: Partial<Order> = {
       customer: {
@@ -44,7 +44,7 @@ describe("orderGetTax", () =>
     expect(populate).toHaveBeenCalledWith(marshalledOrder, expect.anything())
   })
 
-  it("should throw if no zip code is provided", async () =>
+  it("should throw if no zip code is provided", async function ()
   {
     let error!: Error | undefined
 

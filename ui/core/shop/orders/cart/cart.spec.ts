@@ -1,13 +1,10 @@
-import { construct } from "@funk/ui/core/shop/orders/cart/cart"
-import { construct as constructQueryCollectionForMeta }
-  from "@funk/ui/plugins/persistence/behaviors/query-collection-for-metadata"
-import { construct as constructListenById }
-  from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
-import { construct as constructPopulate }
-  from "@funk/ui/plugins/persistence/behaviors/populate"
 import { Cart } from "@funk/model/commerce/order/order"
-import { UserSession } from "@funk/ui/core/identity/user-session"
 import { createFakePerson } from "@funk/ui/core/identity/stubs"
+import { UserSession } from "@funk/ui/core/identity/user-session"
+import { construct } from "@funk/ui/core/shop/orders/cart/cart"
+import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
+import { construct as constructPopulate } from "@funk/ui/plugins/persistence/behaviors/populate"
+import { construct as constructQueryCollectionForMeta } from "@funk/ui/plugins/persistence/behaviors/query-collection-for-metadata"
 import { of } from "rxjs"
 
 describe("Cart$", () =>
@@ -33,7 +30,7 @@ describe("Cart$", () =>
     populate = jest.fn().mockReturnValue(Promise.resolve(CART))
   })
 
-  it("should emit a cart, given that the user has a cart", async () =>
+  it("should emit a cart, given that the user has a cart", async function ()
   {
     const cart = construct(
       userSession,

@@ -61,7 +61,7 @@ describe("setStatusToCheckout", () =>
     })
 
     it("should set the order status to `Cart Checkout` if all SKUs still have enough inventory",
-      async () =>
+      async function ()
       {
         const setStatusToCheckout = construct(getById, list, setMany)
 
@@ -76,7 +76,7 @@ describe("setStatusToCheckout", () =>
       })
 
     it("should prevent the associated inventory from being added to other orders",
-      async () =>
+      async function ()
       {
         const setStatusToCheckout = construct(getById, list, setMany)
 
@@ -118,7 +118,7 @@ describe("setStatusToCheckout", () =>
     it(
       "should NOT set the order status to `Cart Checkout` if one SKU does not have enough " +
       "inventory",
-      async () =>
+      async function ()
       {
         when(list as jest.Mock)
           .calledWith(expect.objectContaining({ collection: SKUS }))
@@ -135,7 +135,7 @@ describe("setStatusToCheckout", () =>
       })
 
     it("should throw a helpful error if one SKU does not have enough inventory",
-      async () =>
+      async function ()
       {
         when(list as jest.Mock)
           .calledWith(expect.objectContaining({ collection: SKUS }))

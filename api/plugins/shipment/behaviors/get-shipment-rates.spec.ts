@@ -10,7 +10,7 @@ describe("getShippingRates", () =>
 {
   describe("for by-weight shipping cost strategy", () =>
   {
-    it("should get a single shipping rate for an order", async () =>
+    it("should get a single shipping rate for an order", async function ()
     {
       const {
         ORDER,
@@ -50,7 +50,7 @@ describe("getShippingRates", () =>
   })
   describe("for flat-rate shipping cost strategy", () =>
   {
-    it("should get a single shipping rate for an order", async () =>
+    it("should get a single shipping rate for an order", async function ()
     {
       const {
         ORDER,
@@ -116,7 +116,7 @@ const setUp = (shippingCostStrategy: ShippingCostStrategy) =>
     shipmentProviderSecret,
     getShipmentProvider
   )
-  saveShipment.and.callFake(async () => ({
+  saveShipment.and.callFake(async function () ({
     rates: [
       {
         service: "FirstClassPackageInternationalService",

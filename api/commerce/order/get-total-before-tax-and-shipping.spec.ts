@@ -1,13 +1,12 @@
-import { construct as constructGetTotalBeforeTaxAndShipping } from
-  "@funk/api/commerce/order/get-total-before-tax-and-shipping"
-import { Order } from "@funk/model/commerce/order/order"
-import { CurrencyCode } from "@funk/model/money/currency-code"
-import { MarshalledSku } from "@funk/model/commerce/sku/sku"
+import { construct as constructGetTotalBeforeTaxAndShipping } from "@funk/api/commerce/order/get-total-before-tax-and-shipping"
 import { Discount } from "@funk/model/commerce/discount/discount"
+import { Order } from "@funk/model/commerce/order/order"
+import { MarshalledSku } from "@funk/model/commerce/sku/sku"
+import { CurrencyCode } from "@funk/model/money/currency-code"
 
 describe("getTotalBeforeTaxAndShipping", () =>
 {
-  it("should get the before-tax total for an order", async () =>
+  it("should get the before-tax total for an order", async function ()
   {
     const SKU1 = {
       id: "sku-1",

@@ -1,4 +1,4 @@
-import { UrlTree, RouterStateSnapshot } from "@angular/router"
+import { RouterStateSnapshot, UrlTree } from "@angular/router"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserRole } from "@funk/model/auth/user-role"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
@@ -14,7 +14,7 @@ describe("AnonymousGuard", () =>
     routerState = { url: "go-to-url" } as RouterStateSnapshot
   })
 
-  it("must activate if the user is SUPER", async () =>
+  it("must activate if the user is SUPER", async function ()
   {
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.SUPER),
@@ -24,7 +24,7 @@ describe("AnonymousGuard", () =>
     expect(canActivate).toBe(true)
   })
 
-  it("must activate if the user is OWNER", async () =>
+  it("must activate if the user is OWNER", async function ()
   {
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.OWNER),
@@ -34,7 +34,7 @@ describe("AnonymousGuard", () =>
     expect(canActivate).toBe(true)
   })
 
-  it("must activate if the user is ADMINISTRATOR", async () =>
+  it("must activate if the user is ADMINISTRATOR", async function ()
   {
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.ADMINISTRATOR),
@@ -44,7 +44,7 @@ describe("AnonymousGuard", () =>
     expect(canActivate).toBe(true)
   })
 
-  it("must activate if the user is PUBLIC", async () =>
+  it("must activate if the user is PUBLIC", async function ()
   {
     const canActivate = await asPromise(new AnonymousGuard(
       createUserSession(UserRole.PUBLIC),
@@ -54,7 +54,7 @@ describe("AnonymousGuard", () =>
     expect(canActivate).toBe(true)
   })
 
-  it("must NOT activate if the user is ANONYMOUS", async () =>
+  it("must NOT activate if the user is ANONYMOUS", async function ()
   {
     const URL_TREE = new UrlTree()
     const routerStub = createRouterStub()

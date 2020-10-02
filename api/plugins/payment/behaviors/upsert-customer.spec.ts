@@ -14,7 +14,7 @@ describe("upsertCustomer", () =>
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should create a customer", async () =>
+  it("should create a customer", async function ()
   {
     const customerData = { address: {} } as any
     const upsertCustomer = construct(getPaymentProvider)
@@ -30,7 +30,7 @@ describe("upsertCustomer", () =>
     expect(psp.customers.create).toHaveBeenCalledWith(customerData)
   })
 
-  it("should update a customer", async () =>
+  it("should update a customer", async function ()
   {
     const id = "test-customer"
     const customerData = { id, address: {} } as any

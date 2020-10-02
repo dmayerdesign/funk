@@ -1,12 +1,12 @@
 import { construct, SyncProduct } from "@funk/api/commerce/sku/sync-product"
+import { List } from "@funk/api/plugins/persistence/behaviors/list"
+import { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"
+import { ChangeContext } from "@funk/api/plugins/persistence/change"
+import { DocumentSnapshot } from "@funk/api/plugins/persistence/document-snapshot"
 import { PRODUCTS } from "@funk/model/commerce/product/product"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
-import { ChangeContext } from "@funk/api/plugins/persistence/change"
-import { DocumentSnapshot } from "@funk/api/plugins/persistence/document-snapshot"
-import { List } from "@funk/api/plugins/persistence/behaviors/list"
-import { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"
 
 describe("skuSyncProduct", () =>
 {
@@ -22,7 +22,7 @@ describe("skuSyncProduct", () =>
   let updateById: UpdateById
   let syncProduct: SyncProduct
 
-  it("should do nothing if there is no change in attribute values nor price", async () =>
+  it("should do nothing if there is no change in attribute values nor price", async function ()
   {
     await syncProduct(
       {
@@ -36,7 +36,7 @@ describe("skuSyncProduct", () =>
     expect(updateById).not.toHaveBeenCalled()
   })
 
-  it("should update the parent product whenever attribute values change", async () =>
+  it("should update the parent product whenever attribute values change", async function ()
   {
     await syncProduct(
       {

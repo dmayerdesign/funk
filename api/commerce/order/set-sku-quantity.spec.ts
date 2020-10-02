@@ -1,6 +1,6 @@
+import { construct } from "@funk/api/commerce/order/set-sku-quantity"
 import { GetById } from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import { construct as constructSetById } from "@funk/api/plugins/persistence/behaviors/set-by-id"
-import { construct } from "@funk/api/commerce/order/set-sku-quantity"
 import { ORDERS } from "@funk/model/commerce/order/order"
 
 describe("orderSetSkuQuantity", () =>
@@ -19,7 +19,7 @@ describe("orderSetSkuQuantity", () =>
     setSkuQuantity = construct(getById, setById)
   })
 
-  it("should persist a change to SKU quantity", async () =>
+  it("should persist a change to SKU quantity", async function ()
   {
     await setSkuQuantity({ orderId: ORDER_ID, skuId: SKU_ID, quantity: 1 })
 

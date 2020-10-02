@@ -6,7 +6,7 @@ describe("rxjsShims", () =>
 {
   describe("ignoreNullish", () =>
   {
-    it("should ignore null", async () =>
+    it("should ignore null", async function ()
     {
       const subject = of(true, null)
       const justTrue: Observable<boolean> = subject.pipe(
@@ -21,7 +21,7 @@ describe("rxjsShims", () =>
           expect(onlyTrue).toBe(true)
         })
     })
-    it("should ignore undefined", async () =>
+    it("should ignore undefined", async function ()
     {
       const subject = of(true, undefined)
       const justTrue: Observable<boolean> = subject.pipe(
@@ -36,14 +36,14 @@ describe("rxjsShims", () =>
           expect(onlyTrue).toBe(true)
         })
     })
-    it("should allow false", async () =>
+    it("should allow false", async function ()
     {
       const subject = new BehaviorSubject<boolean>(false)
       const justFalse = subject.pipe(ignoreNullish())
       expect(await justFalse.pipe(first()).toPromise())
         .toBe(false)
     })
-    it("should allow ''", async () =>
+    it("should allow ''", async function ()
     {
       const subject = new BehaviorSubject<string>("")
       const justEmptyString = subject.pipe(ignoreNullish())

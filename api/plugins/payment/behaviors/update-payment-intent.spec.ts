@@ -15,7 +15,7 @@ describe("updatePaymentIntent", () =>
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should update a payment intent", async () =>
+  it("should update a payment intent", async function ()
   {
     const updatePaymentIntent = construct(getPaymentProvider)
     const PSP_UPDATE_RESULT = "FAKE_RESULT"
@@ -41,7 +41,7 @@ describe("updatePaymentIntent", () =>
   })
 
   it("should not update a payment intent if the amount is less than the minimum",
-    async () =>
+    async function ()
     {
       let didThrow = false
       const updatePaymentIntent = construct(getPaymentProvider)

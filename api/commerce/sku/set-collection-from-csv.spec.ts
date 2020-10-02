@@ -40,14 +40,14 @@ describe("setCollectionFromCsv", () =>
   let setMany: SetMany
   let setCollectionFromCsv: SetCollectionFromCsv
 
-  it("should do nothing with an empty csv", async () =>
+  it("should do nothing with an empty csv", async function ()
   {
     await setCollectionFromCsv(CSV_EMPTY)
 
     expect(setMany).not.toHaveBeenCalled()
   })
 
-  it("should process a valid csv", async () =>
+  it("should process a valid csv", async function ()
   {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU)
 
@@ -58,7 +58,7 @@ describe("setCollectionFromCsv", () =>
     })
   })
 
-  it("should fail on an invalid csv", async () =>
+  it("should fail on an invalid csv", async function ()
   {
     let error
     try
@@ -74,7 +74,7 @@ describe("setCollectionFromCsv", () =>
     expect(setMany).not.toHaveBeenCalled()
   })
 
-  it("should ignore unknown fields", async () =>
+  it("should ignore unknown fields", async function ()
   {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU_EXTRA_FIELDS)
 

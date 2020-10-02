@@ -1,7 +1,7 @@
+import { UserRole } from "@funk/model/auth/user-role"
 import { construct } from "@funk/ui/core/identity/behaviors/initialize"
 import { UserIdToken } from "@funk/ui/core/identity/user-id-token"
 import { UserSession } from "@funk/ui/core/identity/user-session"
-import { UserRole } from "@funk/model/auth/user-role"
 import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
 import { of } from "rxjs"
 
@@ -11,7 +11,7 @@ describe("identityInitialize", () =>
   let userSession: UserSession
   let userIdToken: UserIdToken
 
-  it("should initialize for an anonymous user", async () =>
+  it("should initialize for an anonymous user", async function ()
   {
     auth = {
       idTokenResult: of(null),
@@ -32,7 +32,7 @@ describe("identityInitialize", () =>
     })
   })
 
-  it("should initialize for a logged-in user", async () =>
+  it("should initialize for a logged-in user", async function ()
   {
     auth = {
       idTokenResult: of({

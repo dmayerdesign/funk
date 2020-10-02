@@ -33,7 +33,7 @@ describe("upsertPaymentIntent", () =>
   let updateById: UpdateById
 
   it("should not create a payment intent if the customer has no billing zip code",
-    async () =>
+    async function ()
     {
       before = undefined
       after = {} as MarshalledOrder
@@ -58,7 +58,7 @@ describe("upsertPaymentIntent", () =>
   it(
     "should not create a payment intent if the order total is less than the minimum "
     + "transaction amount",
-    async () =>
+    async function ()
     {
       before = undefined
       after = {} as MarshalledOrder
@@ -84,7 +84,7 @@ describe("upsertPaymentIntent", () =>
       }
     })
 
-  it("should create a payment intent", async () =>
+  it("should create a payment intent", async function ()
   {
     before = undefined
     after = { id: ORDER_ID } as MarshalledOrder
@@ -102,7 +102,7 @@ describe("upsertPaymentIntent", () =>
       { paymentIntentId: PAYMENT_INTENT_ID })
   })
 
-  it("should update a payment intent if data has changed", async () =>
+  it("should update a payment intent if data has changed", async function ()
   {
     before = undefined
     after = { id: ORDER_ID, paymentIntentId: PAYMENT_INTENT_ID } as MarshalledOrder

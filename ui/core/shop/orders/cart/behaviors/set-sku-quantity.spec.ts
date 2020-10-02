@@ -1,8 +1,8 @@
 import { Cart } from "@funk/model/commerce/order/order"
 import { createFakeSku } from "@funk/model/commerce/sku/stubs"
+import { construct } from "@funk/ui/core/shop/orders/cart/behaviors/set-sku-quantity"
 import { Cart$ } from "@funk/ui/core/shop/orders/cart/cart"
 import { SetSkuQuantity } from "@funk/ui/functions/commerce/order/set-sku-quantity"
-import { construct } from "@funk/ui/core/shop/orders/cart/behaviors/set-sku-quantity"
 import { of } from "rxjs"
 
 describe("cartSetSkuQuantity", () =>
@@ -17,7 +17,7 @@ describe("cartSetSkuQuantity", () =>
     setSkuQuantity = jest.fn() as SetSkuQuantity
   })
 
-  it("should add {n} SKUs to the cart", async () =>
+  it("should add {n} SKUs to the cart", async function ()
   {
     const n = Math.ceil(Math.random() * 5)
     const SKU = createFakeSku()

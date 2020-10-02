@@ -1,16 +1,16 @@
-import { AuthClient, AuthProvider } from "@funk/ui/plugins/auth/auth-client"
-import {
-  createAuthClientStub,
-} from "@funk/ui/core/identity/stubs"
-import { construct } from "@funk/ui/core/identity/behaviors/sign-in-with-provider"
 import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
+import { construct } from "@funk/ui/core/identity/behaviors/sign-in-with-provider"
+import {
+    createAuthClientStub
+} from "@funk/ui/core/identity/stubs"
+import { AuthClient, AuthProvider } from "@funk/ui/plugins/auth/auth-client"
 
 describe("signInWithProvider", () =>
 {
   let authClient: AuthClient
   let sendEmailVerification: SendEmailVerification
 
-  it("should call through to AuthClient#signInWithPopup", async () =>
+  it("should call through to AuthClient#signInWithPopup", async function ()
   {
     const signInWithProvider = construct(authClient, sendEmailVerification)
 
