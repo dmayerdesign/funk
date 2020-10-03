@@ -1,7 +1,7 @@
 import { construct } from "@funk/ui/core/identity/behaviors/create-user-with-email-and-password"
 import { construct as constructSendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
 import {
-    createAuthClientStub
+  createAuthClientStub
 } from "@funk/ui/core/identity/stubs"
 
 describe("createUserWithEmailAndPassword", () =>

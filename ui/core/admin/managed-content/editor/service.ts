@@ -12,18 +12,18 @@ import { Person } from "@funk/model/identity/person"
 import { USER_STATES, UserState } from "@funk/model/identity/user-state"
 import { ContentPreview } from "@funk/model/managed-content/content-preview"
 import {
-  CONTENTS, ManagedContent, ManagedContentType,
+  CONTENTS, ManagedContent, ManagedContentType
 } from "@funk/model/managed-content/managed-content"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
 import { DeviceWidth } from "@funk/ui/plugins/layout/device-width"
 import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
 import {
-  construct as constructListenById,
+  construct as constructListenById
 } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { construct as constructSetById } from "@funk/ui/plugins/persistence/behaviors/set-by-id"
 import {
-  construct as constructUpdateById,
+  construct as constructUpdateById
 } from "@funk/ui/plugins/persistence/behaviors/update-by-id"
 import { AlertController } from "@ionic/angular"
 

@@ -24,7 +24,7 @@ import {
   USER_SESSION,
   USER_ID_TOKEN,
   USER_STATE,
-  AUTH_CLIENT,
+  AUTH_CLIENT
 } from "@funk/ui/app/identity/tokens"
 
 /**

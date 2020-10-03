@@ -4,7 +4,7 @@ import {
   Router,
   UrlTree,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot,
+  RouterStateSnapshot
 } from "@angular/router"
 import roleHasPublicPrivilegeOrGreater from
   "@funk/model/auth/helpers/role-has-public-privilege-or-greater"

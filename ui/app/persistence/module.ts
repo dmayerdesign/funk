@@ -5,7 +5,7 @@ import {
   POPULATE,
   QUERY_COLLECTION_FOR_METADATA,
   SET_BY_ID,
-  UPDATE_BY_ID,
+  UPDATE_BY_ID
 } from "@funk/ui/app/persistence/tokens"
 import { construct as constructListenById } from
   "@funk/ui/plugins/persistence/behaviors/listen-by-id"

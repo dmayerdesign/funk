@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from "@angular/core"
 import { ManagedContentType } from "@funk/model/managed-content/managed-content"
 import {
-  ManagedContentEditorService,
+  ManagedContentEditorService
 } from "@funk/ui/core/admin/managed-content/editor/service"
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"

@@ -4,7 +4,7 @@ import {
   Inject,
   Input,
   OnDestroy,
-  OnInit,
+  OnInit
 } from "@angular/core"
 import { ManagedContent, ManagedContentType } from "@funk/model/managed-content/managed-content"
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"

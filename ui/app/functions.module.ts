@@ -7,14 +7,14 @@ import { LIST_PUBLISHED } from "@funk/ui/app/shop/product/tokens"
 import { SKU_IMPORT } from "@funk/ui/app/shop/sku/tokens"
 import { construct as constructAdminGetSecret } from "@funk/ui/functions/admin/get-secret"
 import {
-  construct as constructAdminGrantSuperRoleToMe,
+  construct as constructAdminGrantSuperRoleToMe
 } from "@funk/ui/functions/admin/grant-super-role-to-me"
 import { construct as constructAdminSetSecret } from "@funk/ui/functions/admin/set-secret"
 import {
-  construct as constructCommerceOrderSetSkuQuantity,
+  construct as constructCommerceOrderSetSkuQuantity
 } from "@funk/ui/functions/commerce/order/set-sku-quantity"
 import {
-  construct as constructCommerceProductListPublished,
+  construct as constructCommerceProductListPublished
 } from "@funk/ui/functions/commerce/product/list-published"
 import { construct as constructCommerceSkuImport } from "@funk/ui/functions/commerce/sku/import"
 import { construct as constructContactOwner } from "@funk/ui/functions/contact/owner"

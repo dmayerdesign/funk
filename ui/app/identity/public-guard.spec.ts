@@ -3,9 +3,9 @@ import { UserRole } from "@funk/model/auth/user-role"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
 import { PublicGuard } from "@funk/ui/app/identity/public-guard"
 import {
-    createRouterStub,
-    createStubbedPublicGuard,
-    createUserSession
+  createRouterStub,
+  createStubbedPublicGuard,
+  createUserSession
 } from "@funk/ui/core/identity/stubs"
 import { of } from "rxjs"
 import { first } from "rxjs/operators"

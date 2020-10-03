@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
   ChangeDetectionStrategy,
-  SimpleChange,
+  SimpleChange
 } from "@angular/core"
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
 import { ListFilter } from "@funk/ui/core/shop/products/list-filter/list-filter"
