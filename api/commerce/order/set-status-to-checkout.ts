@@ -31,13 +31,13 @@ export function construct(
         [ "id", "in", cart!.skus ],
       ],
     })
-    const outOfStockSkusExcludingThisOrder = skus.filter((sku) => !getIsInStock(sku))
+    const skusOutOfStock = skus.filter((sku) => !getIsInStock(sku))
 
-    if (outOfStockSkusExcludingThisOrder.length > 0)
+    if (skusOutOfStock.length > 0)
     {
       throwPresentableError(new InvalidOrderError(
         SKUS_OUT_OF_STOCK_ERROR + " " +
-        outOfStockSkusExcludingThisOrder.map((sku) => sku.name).join(", ")
+        skusOutOfStock.map((sku) => sku.name).join(", ")
       ))
     }
     else

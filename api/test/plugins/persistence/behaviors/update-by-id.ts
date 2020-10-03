@@ -5,7 +5,7 @@ import { get, set } from "lodash"
 export default async function<DocumentType extends Record<string, any> = DatabaseDocument>(
   collectionPath: string,
   documentPath: string,
-  documentData: DocumentType
+  documentData: Partial<DocumentType>
 ): Promise<void>
 {
   const doc = get(getStore()[collectionPath], documentPath.replace(/\//g, "."))

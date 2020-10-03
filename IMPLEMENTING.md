@@ -1,7 +1,7 @@
-# Implementation
+# Implementing
 
 This project is set up to support 2 cloud projects: one for the `development` configuration, and one for the `production` configuration.
-(The "local" configuration found in `config.local.ts` uses the `development` configuration).
+(The "local" configuration found in `config.local.ts` uses the `development` configuration with a few modifications).
 These instructions apply to any configuration, so replace ${CONFIGURATION} with either `development` or `production`.
 
 ## Configure core plugins

@@ -20,6 +20,8 @@
 public itemOne$ = firestore.doc<Item>('items/1')
   .valueChanges()
   .pipe(shareReplay(1))
+  // Without `shareReplay`, one producer (Firestore read) is created per call to `.subscribe()`.
+  // `shareReplay` ensures that only one producer is ever created.
 ```
 
 ### Example aggregation function for listing docs in a collection

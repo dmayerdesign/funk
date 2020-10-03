@@ -3,6 +3,7 @@ Feature: Shopping Cart
 A Cart is an Order with status "Cart" or "Cart Checkout". As soon as a user is created,
 an order associated with them is created with status "Cart".
 
+# API tested.
 Rule: A User must always have a shopping cart.
 
   Example: When a User is created, a Cart is created for them.
@@ -38,6 +39,7 @@ Rule: A User must have quick access to their cart anywhere in the Commerce app.
     And Newt attempts to view the Cart
     Then details of the Cart should be communicated to Newt
 
+# API tested.
 Rule: A User may only add in-stock products to their cart.
 
   Example: Sally can add the in-stock SKU Rollerblades to their cart.
@@ -55,6 +57,7 @@ Rule: A User may only add in-stock products to their cart.
     Then Covfefe's out-of-stock status is communicated to Sally
     And Sally is not able to add Covfefe to their cart
 
+# API tested (WIP).
 Rule: A User must go through a "checkout" flow before submitting an Order.
 
   Background:
