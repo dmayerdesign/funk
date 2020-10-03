@@ -88,22 +88,25 @@ describe("Cart", function ()
     })
   })
 
-  describe("A User must go through a \"checkout\" flow before submitting an Order.", function ()
-  {
-    let chuck: Person
-
-    beforeEach(async function ()
+  describe.skip(
+    "A User must go through a \"checkout\" flow before submitting an Order.",
+    function ()
     {
-      await initializeStore()
-      const { person, cart } = await constructGivenACustomer(customerHandleCreate)("Newt")
-      await givenThatTheCartHasInStockSkus({ theCart: cart })
+      let chuck: Person
 
-      chuck = person
-    })
+      beforeEach(async function ()
+      {
+        await initializeStore()
+        const { person, cart } = await constructGivenACustomer(customerHandleCreate)("Newt")
+        await givenThatTheCartHasInStockSkus({ theCart: cart })
 
-    test("Chuck begins the \"checkout\" flow.", function ()
-    {
+        chuck = person
+      })
 
-    })
-  })
+      test("Chuck begins the \"checkout\" flow.", function ()
+      {
+        expect(chuck).toBeTruthy()
+      })
+    }
+  )
 })

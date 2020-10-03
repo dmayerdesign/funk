@@ -8,69 +8,119 @@ import { CurrencyCode } from "@funk/model/money/currency-code"
 import { ORGANIZATIONS } from "@funk/model/organization/organization"
 
 // TODO: Tighten up this test using jest-when.
-describe("orderGetTax", function ()
+describe("orderGetSalesTax", function ()
 {
-  it("should populate the order and get sales tax", async function ()
+  describe("should populate the order and get sales tax", function ()
   {
-    const ORDER: Partial<Order> = {
-      customer: {
-        shippingAddress: {
-          zip: "zip code",
-        } as Address,
-      },
-      skus: [
-        { id: "sku 1", productId: "product 1" },
-        { id: "sku 2", productId: "product 2" },
-      ] as MarshalledSku[],
-    }
-    const {
-      marshalledOrder,
-      getTotalBeforeTaxAndShipping,
-      populate,
-      getSalesTaxRateForAddress,
-      getById,
-    } = setUp(ORDER, 10000, 0.06)
-    const getTaxUnderTest = construct(
-      getTotalBeforeTaxAndShipping,
-      populate,
-      getSalesTaxRateForAddress,
-      getById
+    it(
+      "should be ZERO if the primary Enterprise DOES NOT have nexus in the customer's location",
+      async function ()
+      {
+        const ORDER: Partial<Order> = {
+          customer: {
+            shippingAddress: {
+              zip: "zip code",
+              state: "NOT_FL",
+            } as Address,
+          },
+          skus: [
+            { id: "sku 1", productId: "product 1" },
+            { id: "sku 2", productId: "product 2" },
+          ] as MarshalledSku[],
+        }
+        const {
+          marshalledOrder,
+          getTotalBeforeTaxAndShipping,
+          populate,
+          getSalesTaxRateForAddress,
+          getById,
+        } = setUp(ORDER, 10000, 0.06)
+        const getTaxUnderTest = construct(
+          getTotalBeforeTaxAndShipping,
+          populate,
+          getSalesTaxRateForAddress,
+          getById
+        )
+
+        const getTaxResult = await getTaxUnderTest(marshalledOrder)
+
+        expect(getById).toHaveBeenCalledWith(ORGANIZATIONS, "primary")
+        expect(populate).toHaveBeenCalledWith(marshalledOrder, expect.anything())
+        expect(getTaxResult).toEqual({ currency: CurrencyCode.USD, amount: 0 })
+      }
     )
 
-    const getTaxResult = await getTaxUnderTest(marshalledOrder)
+    it(
+      "should be nonzero if the primary Enterprise has nexus in the customer's location",
+      async function ()
+      {
+        const ORDER: Partial<Order> = {
+          customer: {
+            shippingAddress: {
+              zip: "zip code",
+              state: "FL",
+            } as Address,
+          },
+          skus: [
+            { id: "sku 1", productId: "product 1" },
+            { id: "sku 2", productId: "product 2" },
+          ] as MarshalledSku[],
+        }
+        const {
+          marshalledOrder,
+          getTotalBeforeTaxAndShipping,
+          populate,
+          getSalesTaxRateForAddress,
+          getById,
+        } = setUp(ORDER, 10000, 0.06)
+        const getTaxUnderTest = construct(
+          getTotalBeforeTaxAndShipping,
+          populate,
+          getSalesTaxRateForAddress,
+          getById
+        )
 
-    expect(getById).toHaveBeenCalledWith(ORGANIZATIONS, "primary")
-    expect(getTaxResult).toEqual({ currency: CurrencyCode.USD, amount: 600 })
-    expect(populate).toHaveBeenCalledWith(marshalledOrder, expect.anything())
+        const getTaxResult = await getTaxUnderTest(marshalledOrder)
+
+        expect(getById).toHaveBeenCalledWith(ORGANIZATIONS, "primary")
+        expect(getTaxResult).toEqual({ currency: CurrencyCode.USD, amount: 600 })
+        expect(populate).toHaveBeenCalledWith(marshalledOrder, expect.anything())
+      }
+    )
   })
 
-  it("should throw if no zip code is provided", async function ()
+  describe("should fail to get sales tax", function ()
   {
-    let error!: Error | undefined
-
-    const ORDER = {} as Order
-    const {
-      marshalledOrder,
-      getTotalBeforeTaxAndShipping,
-      populate,
-      getSalesTaxRateForAddress,
-    } = setUp(ORDER, 10000, 0.06)
-    const getTaxUnderTest = construct(
-      getTotalBeforeTaxAndShipping,
-      populate,
-      getSalesTaxRateForAddress
-    )
-
-    try
+    it("if no zip code is provided", async function ()
     {
-      await getTaxUnderTest(marshalledOrder)
-    }
-    catch(_error)
-    {
-      error = _error
-    }
+      let error!: Error | undefined
 
-    expect(error?.constructor).toBe(InvalidInputError)
+      const ORDER = {} as Order
+      const {
+        marshalledOrder,
+        getTotalBeforeTaxAndShipping,
+        populate,
+        getSalesTaxRateForAddress,
+        getById,
+      } = setUp(ORDER, 10000, 0.06)
+      const getTaxUnderTest = construct(
+        getTotalBeforeTaxAndShipping,
+        populate,
+        getSalesTaxRateForAddress,
+        getById
+      )
+
+      try
+      {
+        await getTaxUnderTest(marshalledOrder)
+      }
+      catch(_error)
+      {
+        error = _error
+      }
+
+      expect(error?.constructor).toBe(InvalidInputError)
+    })
   })
 })
 

@@ -1,31 +1,31 @@
 import { OrderDiscount, SkuDiscount } from "@funk/model/commerce/discount/discount"
 
 export function createFakeOrderDiscount(
-  id = "test discount"
+  id = "test discount",
+  startAt = Date.now() - 60000000,
+  endAt = Date.now() + 60000000
 ): OrderDiscount
 {
-  const DISCOUNT_START_DATE = Date.now() - 60000000
-  const DISCOUNT_END_DATE = Date.now() + 60000000
   return {
     id,
     type: "order",
-    startAt: DISCOUNT_START_DATE,
-    endAt: DISCOUNT_END_DATE,
+    startAt,
+    endAt,
     isCompoundable: false,
   }
 }
 
 export function createFakeSkuDiscount(
-  id = "test discount"
+  id = "test discount",
+  startAt = Date.now() - 60000000,
+  endAt = Date.now() + 60000000
 ): SkuDiscount
 {
-  const DISCOUNT_START_DATE = Date.now() - 60000000
-  const DISCOUNT_END_DATE = Date.now() + 60000000
   return {
     id,
     type: "sku",
-    startAt: DISCOUNT_START_DATE,
-    endAt: DISCOUNT_END_DATE,
+    startAt,
+    endAt,
     includes: [],
     excludes: [],
     isCompoundable: false,

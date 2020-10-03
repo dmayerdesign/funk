@@ -1,18 +1,18 @@
-import { Cart } from "@funk/model/commerce/order/order"
+import { Cart, MarshalledCart } from "@funk/model/commerce/order/order"
 import { createFakePerson } from "@funk/ui/core/identity/stubs"
 import { UserSession } from "@funk/ui/core/identity/user-session"
 import { construct } from "@funk/ui/core/shop/orders/cart/cart"
-import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
-import { construct as constructPopulate } from "@funk/ui/plugins/persistence/behaviors/populate"
-import { construct as constructQueryCollectionForMeta } from "@funk/ui/plugins/persistence/behaviors/query-collection-for-metadata"
+import { ListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
+import { Populate } from "@funk/ui/plugins/persistence/behaviors/populate"
+import { QueryCollectionForMetadata } from "@funk/ui/plugins/persistence/behaviors/query-collection-for-metadata"
 import { of } from "rxjs"
 
 describe("Cart$", () =>
 {
   let userSession: UserSession
-  let queryCollectionForMetadata: ReturnType<typeof constructQueryCollectionForMeta>
-  let listenById: ReturnType<typeof constructListenById>
-  let populate: ReturnType<typeof constructPopulate>
+  let queryCollectionForMetadata: QueryCollectionForMetadata
+  let listenById: ListenById
+  let populate: Populate<Cart, MarshalledCart>
   const COLLECTION_PATH = "collection path"
   const DOCUMENT_PATH = "doc path"
   const CART = {} as unknown as Cart

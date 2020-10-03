@@ -4,6 +4,7 @@ import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
 import getSalesTaxRateForAddressImpl from "@funk/api/plugins/tax/behaviors/get-sales-tax-rate-for-address"
 import { ORDER_GET_TAX_MISSING_POSTAL_CODE } from "@funk/copy/error-messages"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
+import { Address } from "@funk/model/address/address"
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
 import { Enterprise } from "@funk/model/commerce/enterprise/enterprise"
 import getShipmentAddress from "@funk/model/commerce/order/behaviors/get-shipment-address"
@@ -34,11 +35,8 @@ export function construct(
       getShipmentAddress(populatedOrder),
       ORDER_GET_TAX_MISSING_POSTAL_CODE
     )
-    const taxRate = primaryEnterprise?.salesTaxNexusStates?.includes(shipmentAddress.state)
-      ? await getSalesTaxRateForAddress(shipmentAddress)
-      : 0
-
     const orderTotalBeforeTax = await getTotalBeforeTaxAndShipping(populatedOrder)
+    const taxRate = await getTaxRate(primaryEnterprise!, shipmentAddress)
 
     return add(
       {
@@ -48,6 +46,13 @@ export function construct(
       populatedOrder.additionalTaxAmount
         ?? { ...NULL_PRICE, currency: orderTotalBeforeTax.currency }
     )
+  }
+
+  async function getTaxRate(primaryEnterprise: Enterprise, shipmentAddress: Address)
+  {
+    return primaryEnterprise?.salesTaxNexusStates?.includes(shipmentAddress.state)
+      ? await getSalesTaxRateForAddress(shipmentAddress)
+      : 0
   }
 }
 
