@@ -13,7 +13,7 @@
     "baseUrl": ".",
     "paths": {
       "@funk/api/*": [ "../api/*" ],
-      "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
+      "@funk/configuration": [ "../.funk/build-pipeline-output/configuration/configuration.ts" ],
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/functions/*": [ "./src/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],

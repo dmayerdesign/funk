@@ -1,4 +1,4 @@
-# Developer notes
+# Development notes
 
 ## Firestore cost optimization
 

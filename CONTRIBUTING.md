@@ -2,6 +2,9 @@
 
 Contributing is simple, because Funk is simple.
 
+(Note that Funk is a work in progress. It is not yet fully functional. There are lots of big holes
+that need to be filled! — Danny)
+
 **1. Grab an issue or create your own.**
 
 **2. Change a file inside `/features` or create your own.**
@@ -24,9 +27,10 @@ __________________________________________________
 
 A test is 2 things: a design tool and a form of documentation.
 
-All production code should be covered by tests.
+All production code should be covered by tests, because we need both of those things in order to
+write code at scale.
 
-You should aim for roughly one test per component changed per commit.
+All commits should aim to have one test per component changed.
 
 ## Rules For Testing
 

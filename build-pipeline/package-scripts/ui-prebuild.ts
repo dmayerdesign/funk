@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import program from "commander"
-import writeSitemap from "../code-gen/behaviors/write-sitemap"
-import { configToJson } from "../../config/helpers/config-to-json"
+import { configToJson } from "../../configuration/helpers/configuration-to-json"
 import { Configuration } from "../../model/configuration"
+import writeSitemap from "../code-gen/behaviors/write-sitemap"
 
 program.option("-c, --configuration <configuration>", "e.g. production", Configuration.LOCAL)
 program.parse(process.argv)

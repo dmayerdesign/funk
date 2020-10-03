@@ -1,8 +1,8 @@
-import { CLOUD_PROJECT_ID } from "@funk/config"
+import setByIdImpl from "@funk/api/plugins/persistence/behaviors/set-by-id"
+import { CLOUD_PROJECT_ID } from "@funk/configuration"
 import getConfigImpl from "@funk/functions/helpers/runtime/get-config"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
 import { EncryptedSecret } from "@funk/model/secret/encrypted-secret"
-import setByIdImpl from "@funk/api/plugins/persistence/behaviors/set-by-id"
 import { v1 } from "@google-cloud/kms"
 import { ClientOptions } from "google-gax"
 

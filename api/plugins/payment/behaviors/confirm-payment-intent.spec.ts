@@ -1,10 +1,10 @@
 import { construct } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
 import { GetPaymentProvider } from "@funk/api/plugins/payment/behaviors/get-payment-provider"
-import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
+import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/configuration"
 import { createGetPaymentProviderStub, PaymentProviderStub } from "@funk/api/plugins/payment/stubs"
 import Stripe from "stripe"
 
-describe("confirmPaymentIntent", () =>
+describe("confirmPaymentIntent", function ()
 {
   let psp: Stripe
   let getPaymentProvider: GetPaymentProvider

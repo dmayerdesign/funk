@@ -76,7 +76,7 @@ const setUp = (isDeliverable: boolean) =>
 
   if (isDeliverable)
   {
-    saveAddress.and.callFake(async function () ({
+    saveAddress.and.callFake(async () => ({
       name: null,
       company: "Verified Company",
       street1: "Verified Street",
@@ -94,7 +94,7 @@ const setUp = (isDeliverable: boolean) =>
   }
   else
   {
-    saveAddress.and.callFake(async function () ({
+    saveAddress.and.callFake(async () => ({
       error: {
         code: "ADDRESS.VERIFY.FAILURE",
         message: "Unable to verify address.",

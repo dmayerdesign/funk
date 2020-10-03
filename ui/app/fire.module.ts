@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core"
 import { AngularFireModule } from "@angular/fire"
 import { AngularFireAuth, AngularFireAuthModule } from "@angular/fire/auth"
 import { AngularFirestore, AngularFirestoreModule, SETTINGS } from "@angular/fire/firestore"
-import { IS_LOCAL, FIREBASE_CONFIG } from "@funk/config"
+import { FIREBASE_CONFIG, IS_LOCAL } from "@funk/configuration"
 
 @NgModule({
   imports: [

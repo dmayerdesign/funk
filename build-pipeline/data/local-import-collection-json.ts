@@ -1,11 +1,11 @@
-import { readFileSync } from "fs-extra"
-import { resolve } from "path"
+import * as firebaseTesting from "@firebase/testing"
 import chalk from "chalk"
 import program from "commander"
-import * as firebaseTesting from "@firebase/testing"
+import { readFileSync } from "fs-extra"
 import { firestoreImport } from "node-firestore-import-export"
+import { resolve } from "path"
+import { CLOUD_PROJECT_ID } from "../../configuration/local"
 import { Configuration } from "../../model/configuration"
-import { CLOUD_PROJECT_ID } from "../../config/config.local"
 
 interface Options {
   configuration: Configuration

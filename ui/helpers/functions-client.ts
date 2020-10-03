@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http"
 import { Inject, Injectable } from "@angular/core"
-import { FUNCTIONS_BASE_URL } from "@funk/config"
+import { FUNCTIONS_BASE_URL } from "@funk/configuration"
+import { asPromise } from "@funk/helpers/as-promise"
 import { USER_ID_TOKEN } from "@funk/ui/app/identity/tokens"
 import { UserIdToken } from "@funk/ui/core/identity/user-id-token"
-import { asPromise } from "@funk/helpers/as-promise"
 import { map } from "rxjs/operators"
 
 @Injectable({ providedIn: "root" })

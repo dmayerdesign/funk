@@ -4,7 +4,7 @@ import { Populate } from "@funk/api/commerce/order/populate"
 import { construct } from "@funk/api/commerce/order/upsert-payment-intent"
 import { CreatePaymentIntent } from "@funk/api/plugins/payment/behaviors/create-payment-intent"
 import { UpdatePaymentIntent } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
-import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
+import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/configuration"
 import { PaymentIntent } from "@funk/api/plugins/payment/intent"
 import { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import { Change, ChangeContext } from "@funk/api/plugins/persistence/change"
@@ -17,7 +17,7 @@ import { CurrencyCode } from "@funk/model/money/currency-code"
 const PAYMENT_INTENT_ID = "payment intent id"
 const ORDER_ID = "order id"
 
-describe("upsertPaymentIntent", () =>
+describe("upsertPaymentIntent", function ()
 {
   let before: MarshalledOrder | undefined
   let after: MarshalledOrder | undefined

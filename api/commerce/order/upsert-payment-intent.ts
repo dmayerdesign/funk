@@ -3,7 +3,7 @@ import getTotalBeforeTaxAndShippingImpl from "@funk/api/commerce/order/get-total
 import populateImpl from "@funk/api/commerce/order/populate"
 import createPaymentIntentImpl, { Options as CreatePaymentIntentOptions } from "@funk/api/plugins/payment/behaviors/create-payment-intent"
 import updatePaymentIntentImpl, { Options as UpdatePaymentIntentOptions } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
-import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
+import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/configuration"
 import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import onlyKeysImpl from "@funk/functions/helpers/listen/only-keys"
 import { MarshalledOrder, Order, ORDERS } from "@funk/model/commerce/order/order"

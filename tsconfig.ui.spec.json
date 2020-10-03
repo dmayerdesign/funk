@@ -7,7 +7,7 @@
       "node"
     ],
     "paths": {
-      "@funk/config": [ "./config/config.development.ts" ],
+      "@funk/configuration": [ "./configuration/development.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
       "@funk/model/*": [ "./model/*" ],
@@ -16,7 +16,7 @@
     }
   },
   "include": [
-    "config/**/*.ts",
+    "configuration/**/*.ts",
     "ui/polyfills.ts",
     "ui/**/*.spec.ts",
     "ui/**/spec.ts",

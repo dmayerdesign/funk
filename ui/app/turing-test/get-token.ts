@@ -1,5 +1,5 @@
 import { InjectionToken } from "@angular/core"
-import { TURING_TEST_PUBLISHABLE_KEY } from "@funk/config"
+import { TURING_TEST_PUBLISHABLE_KEY } from "@funk/configuration"
 import { load } from "recaptcha-v3"
 
 export function construct(

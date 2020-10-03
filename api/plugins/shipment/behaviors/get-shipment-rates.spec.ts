@@ -116,7 +116,7 @@ const setUp = (shippingCostStrategy: ShippingCostStrategy) =>
     shipmentProviderSecret,
     getShipmentProvider
   )
-  saveShipment.and.callFake(async function () ({
+  saveShipment.and.callFake(async () => ({
     rates: [
       {
         service: "FirstClassPackageInternationalService",

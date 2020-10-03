@@ -1,7 +1,7 @@
 import { IsHuman } from "@funk/api/contact/is-human"
 import { construct } from "@funk/api/contact/send-email-to-owner"
 import { Send } from "@funk/api/plugins/email/behaviors/send"
-import { OWNER_EMAIL } from "@funk/config"
+import { OWNER_EMAIL } from "@funk/configuration"
 import { ContactForm } from "@funk/model/contact/contact-form"
 
 describe("sendEmailToOwner", () =>

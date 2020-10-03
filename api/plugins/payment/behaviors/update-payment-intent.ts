@@ -1,5 +1,5 @@
 import getPaymentProviderImpl from "@funk/api/plugins/payment/behaviors/get-payment-provider"
-import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/config"
+import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/configuration"
 import { PaymentIntent } from "@funk/api/plugins/payment/intent"
 import { PaymentIntentInvalidPriceError } from "@funk/api/plugins/payment/validation"
 import omitNullish from "@funk/helpers/omit-nullish"

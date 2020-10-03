@@ -8,7 +8,7 @@ import { CurrencyCode } from "@funk/model/money/currency-code"
 import { ORGANIZATIONS } from "@funk/model/organization/organization"
 
 // TODO: Tighten up this test using jest-when.
-describe("orderGetTax", () =>
+describe("orderGetTax", function ()
 {
   it("should populate the order and get sales tax", async function ()
   {

@@ -8,7 +8,7 @@
     ],
     "paths": {
       "@funk/api/*": [ "./api/*" ],
-      "@funk/config": [ "./config/config.development.ts" ],
+      "@funk/configuration": [ "./configuration/development.ts" ],
       "@funk/copy/*": [ "./copy/*" ],
       "@funk/functions/*": [ "./functions/src/*" ],
       "@funk/helpers/*": [ "./helpers/*" ],
@@ -18,7 +18,7 @@
   },
   "include": [
     "api/**/*.ts",
-    "config/**/*.ts",
+    "configuration/**/*.ts",
     "functions/src/app/**/*.spec.ts",
     "functions/src/app/**/spec.ts"
   ],

@@ -1,8 +1,8 @@
 # Funk
 
 Funk aims to be a
-[clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html),
-well-optimized starting point for writing web-based software. With just a bit of
+[good](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html),
+starting point for writing web-based software. With just a bit of
 configuration, you get a [serverless](https://en.wikipedia.org/wiki/Serverless_computing)
 [cross-platform web app](https://en.wikipedia.org/wiki/Progressive_web_applications)
 written with [Ionic](https://ionicframework.com/) and [Angular](https://angular.io) to run on
@@ -20,6 +20,12 @@ infrastructure, so I can focus on writing code.
 Funk uses the amazing cross-platform framework [Ionic](https://ionicframework.com/), which
 allows it to be deployed as a website, an iOS app, and an Android app, all from the same
 codebase.
+
+## What's Angular?
+
+Ionic and Angular are the technologies that allow Funk to be deployed as an Android app, an iOS app,
+, but they're not the essence of
+Funk. Like Firebase
 
 ## Design goals
 

@@ -1,10 +1,9 @@
-import { CLIENT_APP_URL, OWNER_EMAIL } from "@funk/config"
-import { ContactForm } from "@funk/model/contact/contact-form"
 import isHumanImpl from "@funk/api/contact/is-human"
 import sendEmailImpl from "@funk/api/plugins/email/behaviors/send"
+import { CLIENT_APP_URL, OWNER_EMAIL } from "@funk/configuration"
+import { ContactForm } from "@funk/model/contact/contact-form"
+import throwIfContactFormIsInvalid from "@funk/model/contact/validators/throw-if-contact-form-is-invalid"
 import { ForbiddenError } from "@funk/model/error/forbidden-error"
-import throwIfContactFormIsInvalid from
-  "@funk/model/contact/validators/throw-if-contact-form-is-invalid"
 
 const CLIENT_APP_DOMAIN = CLIENT_APP_URL.split("//")[1]
 

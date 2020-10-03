@@ -11,7 +11,7 @@ describe("setSecret", () =>
 
   it("should set a secret", async function ()
   {
-    const setById = jest.fn().mockImplementation(async function () ({
+    const setById = jest.fn().mockImplementation(async () => ({
       value: Buffer.from("encrypted secret").toString("base64"),
     }) as EncryptedSecret)
     const setSecret = construct(getConfig, setById, createKmsClient)

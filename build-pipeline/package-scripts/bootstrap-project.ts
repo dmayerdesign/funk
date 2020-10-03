@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
-import { exec } from "shelljs"
 import program from "commander"
-import { configToJson } from "../../config/helpers/config-to-json"
+import { exec } from "shelljs"
+import { configToJson } from "../../configuration/helpers/configuration-to-json"
 
 (async () =>
 {

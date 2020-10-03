@@ -5,7 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "@funk/ui/plugins/*": [ "./plugins/*" ],
-      "@funk/config": [ "../.funk/build-pipeline-output/config/config.ts" ],
+      "@funk/configuration": [ "../.funk/build-pipeline-output/configuration/configuration.ts" ],
       "@funk/copy/*": [ "../copy/*" ],
       "@funk/functions/*": [ "./functions/*" ],
       "@funk/helpers/*": [ "../helpers/*" ],

@@ -6,7 +6,7 @@ module.exports = {
   ...baseConfig,
   testEnvironment: "node",
   roots: [
-    "<rootDir>/config",
+    "<rootDir>/configuration",
     "<rootDir>/api",
     "<rootDir>/functions",
     "<rootDir>/helpers",

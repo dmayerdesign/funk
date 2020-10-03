@@ -1,6 +1,6 @@
 // import { Component, OnInit } from "@angular/core"
 // import { SKUS } from "@funk/model/commerce/sku/sku"
-// import { FUNCTIONS_BASE_URL } from "@funk/config"
+// import { FUNCTIONS_BASE_URL } from "@funk/configuration"
 // import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer/ngx"
 // import { Platform } from "@ionic/angular"
 

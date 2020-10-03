@@ -2,7 +2,7 @@ import * as firebaseTesting from "@firebase/testing"
 import { mkdirpSync, writeFileSync } from "fs-extra"
 import { firestoreExport } from "node-firestore-import-export"
 import { resolve } from "path"
-import { CLOUD_PROJECT_ID } from "../../config/config.local"
+import { CLOUD_PROJECT_ID } from "../../configuration/local"
 
 main()
 
