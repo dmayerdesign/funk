@@ -1,4 +1,4 @@
-[![build-and-test](https://github.com/dmayerdesign/funk/workflows/Build%20and%20Test/badge.svg?event=pull_request)](https://github.com/dmayerdesign/funk/actions)
+[![build-and-test](https://github.com/dmayerdesign/funk/workflows/Build%20and%20Test/badge.svg?event=pull_request)](https://github.com/dmayerdesign/funk/actions?query=workflow%3A%22Build+and+Test%22)
 
 # Funk
 
@@ -18,8 +18,9 @@ run on [Firebase](https://firebase.google.com).
   perform as efficiently as possible out of the box.
 - **Performance:** Offline support and pre-rendering make sure users get a fast, modern
   experience.
-- **Developer experience:** Using Funk should be dead simple and super fun. Funk strives
-  for convention over configuration
+- **Developer experience:** Using Funk should be dead simple. To help achieve this, Funk
+  strives for convention over configuration, which keeps us from wasting time deciding
+  between different ways of doing the same things.
 - **Framework independence:** Funk will always rely heavily on frameworks like Ionic and
   technologies like Firebase to do the heavy lifting, but Funk will always treat these
   libraries as plugins. That means that in the future, will be possible to integrate with,
