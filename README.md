@@ -2,13 +2,18 @@
 
 # Funk
 
-Funk aims to be a
-[good](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-starting point for writing web-based software. With just a bit of
-configuration, you get a [serverless](https://en.wikipedia.org/wiki/Serverless_computing)
-[cross-platform web app](https://en.wikipedia.org/wiki/Progressive_web_applications)
-written with [Ionic](https://ionicframework.com/) and [Angular](https://angular.io) to
-run on [Firebase](https://firebase.google.com).
+🎸 Funk provides clean abstractions and simple build tools designed to keep messy details
+away from your groove. It sits on top of [Ionic](https://ionicframework.com/),
+[Angular](https://angular.io), and [Firebase](https://firebase.google.com) so it can
+easily be deployed as a cross-platform (browser, mobile and desktop) application.
+
+## Using Funk
+
+To use Funk, fork this repo and follow the instructions in
+[Implementation](./IMPLEMENTATION.md).
+
+To update your fork with the latest changes from this repo,
+[follow the directions here](http://docs.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced).
 
 ## Design Goals
 
@@ -34,7 +39,7 @@ run on [Firebase](https://firebase.google.com).
 * [License](./LICENSE.md)
 * [Third-party licenses](./THIRD_PARTY_LICENSES.md)
 
-## What's "Serverless"?
+## What's ["Serverless"](https://en.wikipedia.org/wiki/Serverless_computing)?
 
 Managing a server and database — even if that means combining managed solutions for
 each — gives me, a front-end developer, far more control (and opportunity to mess up) than
