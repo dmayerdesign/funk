@@ -1,8 +1,8 @@
-import { DEFAULT_URL } from "@funk/ui/app/atlas/atlas"
+import { HOMEPAGE } from "@funk/configuration"
 
 export function construct()
 {
-  return async () => DEFAULT_URL
+  return async () => HOMEPAGE
 }
 
 export type HomeRelativeUrl = ReturnType<typeof construct>

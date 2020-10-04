@@ -2,6 +2,7 @@
 
 // The following variables are duplicated from the `development` configuration.
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
+export const HOMEPAGE = "poetry/contact"
 export const IS_PRODUCTION = false
 export const CLOUD_PROJECT_ID = "funk-development-0907"
 export const CLOUD_PROJECT_REGION = "us-east1"

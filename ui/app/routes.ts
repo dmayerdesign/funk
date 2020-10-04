@@ -1,12 +1,12 @@
 import { Routes } from "@angular/router"
-import { DEFAULT_URL } from "@funk/ui/app/atlas/atlas"
+import { HOMEPAGE } from "@funk/configuration"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
 import { NotFoundComponent } from "@funk/ui/app/not-found/component"
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: DEFAULT_URL,
+    redirectTo: HOMEPAGE,
     pathMatch: "full",
   },
   {

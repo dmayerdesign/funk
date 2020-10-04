@@ -1,8 +1,8 @@
-import { Component, ViewChild, OnInit, Inject } from "@angular/core"
-import { Router, NavigationEnd } from "@angular/router"
-import { AppAtlas } from "@funk/ui/app/atlas/atlas"
-import { BUILD_MENU_ITEM } from "@funk/ui/app/atlas/tokens"
+import { Component, Inject, OnInit, ViewChild } from "@angular/core"
+import { NavigationEnd, Router } from "@angular/router"
 import { BuildMenuItem } from "@funk/model/ui/atlas/behaviors/build-menu-item"
+import { BUILD_MENU_ITEM } from "@funk/ui/app/atlas/tokens"
+import { AppAtlas } from "@funk/ui/core/atlas/atlas"
 import { IonMenu } from "@ionic/angular"
 
 @Component({

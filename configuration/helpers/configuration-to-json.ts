@@ -4,7 +4,7 @@ import { Configuration } from "../../model/configuration"
 export function configToJson(configuration: Configuration)
 {
   const configFileName = resolve(__dirname, "../", `${configuration || "local"}.ts`)
-  const config = require(configFileName) as typeof import("../local")
+  const config = require(configFileName)
   try
   {
     return JSON.parse(JSON.stringify(config))

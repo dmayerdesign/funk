@@ -1,5 +1,3 @@
-export const DEFAULT_URL = "/poetry/contact"
-
 const atlas = {
   "admin": {
     label: "Admin",

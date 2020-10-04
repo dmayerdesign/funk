@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 export const CLIENT_APP_URL = "https://funk-production-0907.web.app"
+export const HOMEPAGE = ""
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
 export const IS_PRODUCTION = true
 export const IS_LOCAL = false
