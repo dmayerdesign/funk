@@ -1,4 +1,4 @@
-[![build-and-test](https://github.com/dmayerdesign/funk/workflows/Build%20and%20Test/badge.svg?event=pull_request)](https://github.com/dmayerdesign/funk/actions?query=workflow%3A%22Build+and+Test%22)
+[![build and tests](https://github.com/dmayerdesign/funk/workflows/build-and-test/badge.svg)](https://github.com/dmayerdesign/funk/actions?query=workflow%3A%22build-and-test%22)
 
 # Funk
 
