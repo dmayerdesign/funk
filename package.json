@@ -70,7 +70,7 @@
     "diff-json": "~2.0.0",
     "diff2html": "3.1.9",
     "express": "~5.0.0-alpha.7",
-    "firebase": "^7.22.0",
+    "firebase": "^7.17.2",
     "firebase-admin": "^9.2.0",
     "firebase-functions": "3.11.0",
     "fs-extra": "~9.0.1",
