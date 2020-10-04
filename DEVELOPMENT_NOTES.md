@@ -65,5 +65,3 @@ exports.aggregate = functions.firestore
   - Colors
   - Fonts
   - Font sizes
-
-A meaningless change to test the PR checks!

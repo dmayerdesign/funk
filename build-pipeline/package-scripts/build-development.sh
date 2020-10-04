@@ -1,3 +1,4 @@
+npm install && \
 sh build-pipeline/package-scripts/lint-fix.sh && \
 \
 sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/prebuild.ts -c "development" && \
