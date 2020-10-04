@@ -21,6 +21,8 @@ Integration tests live in `api/*/spec` and `ui/spec`.
 
 **6. Commit your changes.**
 
+Create a branch named like this: `your-github-username/description-of-your-changes`.
+
 Commit messages should be written in the style of
 [conventional commits](https://www.conventionalcommits.org).
 
