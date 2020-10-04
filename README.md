@@ -8,21 +8,7 @@ configuration, you get a [serverless](https://en.wikipedia.org/wiki/Serverless_c
 written with [Ionic](https://ionicframework.com/) and [Angular](https://angular.io) to
 run on [Firebase](https://firebase.google.com).
 
-## What's "serverless"?
-
-Managing a server and database — even if that means combining managed solutions for
-each — gives me, a front-end developer, far more control (and opportunity to mess up) than
-I want. A fully-managed back end, like Firebase, takes care of all my web server
-infrastructure, so I can focus on writing code.
-
-## What's "cross-platform"?
-
-Funk uses the amazing cross-platform framework [Ionic](https://ionicframework.com/), which
-allows it to be deployed as a website, an iOS app, and an Android app, all from the same
-codebase. Funk uses [Angular](https://angular.io) to make Ionic even easier to work with,
-and makes writing user interfaces a breeze.
-
-## Design goals
+## Design Goals
 
 - **Zero to app in 30 minutes:** Funk aims to lower the barrier of entry for full-stack
   development, allowing me to deploy a production-ready app in almost no time.
@@ -37,11 +23,34 @@ and makes writing user interfaces a breeze.
   libraries as plugins. That means that in the future, will be possible to integrate with,
   for example, a cloud platform other than Firebase.
 
-## Technologies
+## Table Of Contents
+
+* [Contributing](./CONTRIBUTING.md)
+* [Implementing](./IMPLEMENTING.md)
+* [Development notes](./DEVELOPMENT_NOTES.md)
+* [License](./LICENSE.md)
+* [Third-party licenses](./THIRD_PARTY_LICENSES.md)
+
+## What's "Serverless"?
+
+Managing a server and database — even if that means combining managed solutions for
+each — gives me, a front-end developer, far more control (and opportunity to mess up) than
+I want. A fully-managed back end, like Firebase, takes care of all my web server
+infrastructure, so I can focus on writing code.
+
+## What's "Cross-Platform"?
+
+Funk uses the amazing cross-platform framework [Ionic](https://ionicframework.com/), which
+allows it to be deployed as a website, an iOS app, and an Android app, all from the same
+codebase. Funk uses [Angular](https://angular.io) to make Ionic even easier to work with,
+and makes writing user interfaces a breeze.
+
+## Core Technologies
 
 - **TypeScript:** Native support by both Google Cloud Functions and Angular is a plus, but
-  it's TypeScript's amazing feature set that makes it a winner for enterprise-level full-
-  stack development.
+  it's TypeScript's amazing feature set and
+  [structural type system](https://www.typescriptlang.org/docs/handbook/type-compatibility.html)
+  that make it a no-brainer for enterprise-level full-stack development.
 - **Serverless:** By integrating with Google Cloud Firestore and Cloud Functions, Funk
   makes it possible to build and deploy an app with minimal configuration and minimal cost.
 
