@@ -1,6 +1,7 @@
 {
   "name": "funk",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "lint-fix": "sh ./build-pipeline/package-scripts/lint-fix.sh",
     "test": "sh ./build-pipeline/package-scripts/test.sh",

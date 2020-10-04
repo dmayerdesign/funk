@@ -60,3 +60,20 @@ The philosophy underlying Funk is simple: what we're trying to do as developers 
 **build [clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) software**.
 The overarching goal of Funk is to make the pursuit of clean code **easier** and
 **more fun**.
+
+## License
+
+Copyright (C) 2020 Daniel Mayer (https://github.com/dmayerdesign)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
