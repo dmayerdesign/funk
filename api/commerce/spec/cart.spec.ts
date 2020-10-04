@@ -88,7 +88,7 @@ describe("Cart", function ()
     })
   })
 
-  describe.skip(
+  describe(
     "A User must go through a \"checkout\" flow before submitting an Order.",
     function ()
     {
@@ -105,7 +105,7 @@ describe("Cart", function ()
 
       test("Chuck begins the \"checkout\" flow.", function ()
       {
-        expect(chuck).toBeTruthy()
+        expect(chuck).toBeFalsy()
       })
     }
   )
