@@ -10,80 +10,110 @@ describe("getApplicableDiscountsForSku", () =>
 {
   it("should not filter out all-inclusive discounts", () =>
   {
+    const ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT = createAllInclusiveTenPercentDiscount({
+      isCompoundable: true,
+    })
+    const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
+    const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
     const originalDiscounts = [
-      createAllInclusiveTenPercentDiscount({ isCompoundable: true }),
-      createAllInclusiveTenPercentDiscount({ isCompoundable: true }),
+      ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
+      ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
     ]
-    expect(
-      getApplicableDiscountsForSku(
-        originalDiscounts,
-        { sku: createFakeMarshalledSku(), product: createMarshalledProduct() }
-      ))
-      .toEqual(originalDiscounts)
+
+    const applicableDiscounts = getApplicableDiscountsForSku(
+      originalDiscounts,
+      { sku: FAKE_MARSHALLED_SKU, product: FAKE_MARSHALLED_PRODUCT }
+    )
+
+    expect(applicableDiscounts).toEqual(originalDiscounts)
   })
   it("should only allow one non-compoundable discount", () =>
   {
+    const ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT = createAllInclusiveTenPercentDiscount({
+      isCompoundable: false,
+    })
+    const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
+    const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
+
     const originalDiscounts = [
-      createAllInclusiveTenPercentDiscount({ isCompoundable: false }),
-      createAllInclusiveTenPercentDiscount({ isCompoundable: false }),
+      ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
+      ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
     ]
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createFakeMarshalledSku(), product: createMarshalledProduct() }
+        { sku: FAKE_MARSHALLED_SKU, product: FAKE_MARSHALLED_PRODUCT }
       ))
       .toEqual([
-        createAllInclusiveTenPercentDiscount({ isCompoundable: false }),
+        ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
       ])
   })
   it("should filter out discounts which exclude the SKU by id", () =>
   {
+    const ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT = createAllInclusiveTenPercentDiscount({
+      isCompoundable: true,
+    })
+    const EXCLUSIVE_AMOUNT_DISCOUNT = createExclusiveAmountDiscount({ isCompoundable: true })
+    const SKU_EXCLUDED_BY_ID = createSkuExcludedById()
+    const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
+
     const originalDiscounts = [
-      createAllInclusiveTenPercentDiscount({ isCompoundable: true }),
-      createExclusiveAmountDiscount({ isCompoundable: true }),
+      ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
+      EXCLUSIVE_AMOUNT_DISCOUNT,
     ]
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createSkuExcludedById(), product: createMarshalledProduct() }
+        { sku: SKU_EXCLUDED_BY_ID, product: FAKE_MARSHALLED_PRODUCT }
       ))
       .toEqual([
-        createAllInclusiveTenPercentDiscount({ isCompoundable: true }),
+        ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
       ])
   })
   it("should filter out discounts which exclude the product by id", () =>
   {
+    const EXCLUSIVE_AMOUNT_DISCOUNT = createExclusiveAmountDiscount({})
+    const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
+    const PRODUCT_EXCLUDED_BY_ID = createProductExcludedById()
+
     const originalDiscounts = [
-      createExclusiveAmountDiscount({}),
+      EXCLUSIVE_AMOUNT_DISCOUNT,
     ]
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createFakeMarshalledSku(), product: createProductExcludedById() }
+        { sku: FAKE_MARSHALLED_SKU, product: PRODUCT_EXCLUDED_BY_ID }
       ))
       .toEqual([])
   })
   it("should filter out discounts which exclude the SKU by taxonomy term", () =>
   {
+    const EXCLUSIVE_AMOUNT_DISCOUNT = createExclusiveAmountDiscount({})
+    const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
+    const SKU_EXCLUDED_BY_TAX_TERM = createSkuExcludedByTaxTerm()
+
     const originalDiscounts = [
-      createExclusiveAmountDiscount({}),
+      EXCLUSIVE_AMOUNT_DISCOUNT,
     ]
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createSkuExcludedByTaxTerm(), product: createMarshalledProduct() }
+        { sku: SKU_EXCLUDED_BY_TAX_TERM, product: FAKE_MARSHALLED_PRODUCT }
       ))
       .toEqual([])
   })
   it("should filter out discounts which exclude the product by taxonomy term", () =>
   {
+    const EXCLUSIVE_AMOUNT_DISCOUNT = createExclusiveAmountDiscount({})
+    const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
+    const PRODUCT_EXCLUDED_BY_TAX_TERM = createProductExcludedByTaxTerm()
     const originalDiscounts = [
-      createExclusiveAmountDiscount({}),
+      EXCLUSIVE_AMOUNT_DISCOUNT,
     ]
     expect(
       getApplicableDiscountsForSku(
         originalDiscounts,
-        { sku: createFakeMarshalledSku(), product: createProductExcludedByTaxTerm() }
+        { sku: FAKE_MARSHALLED_SKU, product: PRODUCT_EXCLUDED_BY_TAX_TERM }
       ))
       .toEqual([])
   })
