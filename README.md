@@ -1,3 +1,5 @@
+[![build-and-test](https://github.com/dmayerdesign/funk/workflows/Build%20and%20Test/badge.svg?event=pull_request)](https://github.com/dmayerdesign/funk/actions)
+
 # Funk
 
 Funk aims to be a
