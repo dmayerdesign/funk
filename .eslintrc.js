@@ -78,7 +78,7 @@ module.exports = {
         "objects": "always-multiline",
         "functions": "never",
         "imports": "never",
-        "exports": "always-multiline"
+        "exports": "never"
       }
     ],
     "constructor-super": "error",

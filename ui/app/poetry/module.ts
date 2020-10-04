@@ -10,7 +10,7 @@ import { HonorsContainer } from "@funk/ui/app/poetry/honors/container"
 import { PublicationsContainer } from "@funk/ui/app/poetry/publications/container"
 import { TeachingContainer } from "@funk/ui/app/poetry/teaching/container"
 import {
-    construct as constructGetToken, GET_TOKEN, INITIALIZE_TURING_TEST
+  construct as constructGetToken, GET_TOKEN, INITIALIZE_TURING_TEST
 } from "@funk/ui/app/turing-test/get-token"
 import atlas from "@funk/ui/core/atlas/atlas"
 import { IonicModule } from "@ionic/angular"

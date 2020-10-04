@@ -10,7 +10,7 @@ easily be deployed as a cross-platform (browser, mobile and desktop) application
 ## Using Funk
 
 To use Funk, fork this repo and follow the instructions in
-[Implementation](./IMPLEMENTATION.md).
+[Implementing](./IMPLEMENTING.md).
 
 To update your fork with the latest changes from this repo,
 [follow the directions here](http://docs.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced).
