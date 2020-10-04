@@ -63,7 +63,7 @@ should. Members of a team will also usually have varying ways of applying the SO
 principles.
 
 The obvious answer is for everyone working on a project to
-**follow a set of simple rules** that specify how to apply the SOLID principles at the code level.
+**follow a set of simple rules** that specify how to apply the SOLID principles when writing code.
 What exactly those rules are is much less important than
 **making sure that they're followed consistently.** What _is_ important about the rules themselves
 is that they be **simple enough** to be easily and consistently followed by anyone touching the

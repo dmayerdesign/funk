@@ -42,17 +42,9 @@ infrastructure, so I can focus on writing code.
 
 Funk uses the amazing cross-platform framework [Ionic](https://ionicframework.com/), which
 allows it to be deployed as a website, an iOS app, and an Android app, all from the same
-codebase. Funk uses [Angular](https://angular.io) to make Ionic even easier to work with,
-and makes writing user interfaces a breeze.
-
-## Core Technologies
-
-- **TypeScript:** Native support by both Google Cloud Functions and Angular is a plus, but
-  it's TypeScript's amazing feature set and
-  [structural type system](https://www.typescriptlang.org/docs/handbook/type-compatibility.html)
-  that make it a no-brainer for enterprise-level full-stack development.
-- **Serverless:** By integrating with Google Cloud Firestore and Cloud Functions, Funk
-  makes it possible to build and deploy an app with minimal configuration and minimal cost.
+codebase. Funk uses [Angular](https://angular.io) as a sort of convenience layer on top of
+Ionic's amazing component library, giving the developer an excellent suite of build tools
+and a framework for writing user interface logic.
 
 ## Philosophy
 
