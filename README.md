@@ -1,4 +1,12 @@
-[![build and tests](https://github.com/dmayerdesign/funk/workflows/build-and-test/badge.svg)](https://github.com/dmayerdesign/funk/actions?query=workflow%3A%22build-and-test%22)
+<!--
+These badges are written as part of the `test` scripts.
+DO NOT EDIT lines 5-9 of this file.
+-->
+<!-- start badges -->
+[![build](https://github.com/dmayerdesign/funk/workflows/build/badge.svg)](https://github.com/dmayerdesign/funk/actions?query=workflow%3A%22build%22)
+![UI coverage](https://img.shields.io/badge/UI%20coverage-87%25-green)
+![API coverage](https://img.shields.io/badge/API%20coverage-89%25-green)
+<!-- end badges -->
 
 # Funk
 

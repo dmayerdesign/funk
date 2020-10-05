@@ -3,6 +3,7 @@ module.exports = {
     "<rootDir>/**/?(*)spec.ts"
   ],
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    "^.+\\.ts$": "ts-jest",
   },
+  coverageReporters: [ "lcov" ],
 }
