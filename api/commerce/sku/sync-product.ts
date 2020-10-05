@@ -1,17 +1,16 @@
-import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
-import { MarshalledProductAttributeValues } from
-  "@funk/model/commerce/attribute/attribute-value"
-import subtract from "@funk/model/commerce/price/behaviors/subtract"
-import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
-import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import listImpl from "@funk/api/plugins/persistence/behaviors/list"
 import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import { TAKE_ALL } from "@funk/api/plugins/persistence/pagination"
+import { ChangeHandler } from "@funk/functions/helpers/listen/change-handler"
+import { MarshalledProductAttributeValues } from "@funk/model/commerce/attribute/attribute-value"
+import subtract from "@funk/model/commerce/price/behaviors/subtract"
+import { MarshalledProduct, PRODUCTS } from "@funk/model/commerce/product/product"
+import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { isEqual, uniq } from "lodash"
 
 export function construct(
-  list = listImpl,
-  updateById = updateByIdImpl
+  list: typeof listImpl,
+  updateById: typeof updateByIdImpl
 )
 {
   return async function({ before, after }): Promise<void>
@@ -62,6 +61,9 @@ export function construct(
   } as ChangeHandler<MarshalledSku>
 }
 
-export default construct()
+export default construct(
+  listImpl,
+  updateByIdImpl
+)
 
 export type SyncProduct = ReturnType<typeof construct>

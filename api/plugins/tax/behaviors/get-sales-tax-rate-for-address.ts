@@ -6,8 +6,8 @@ import { AvataxResponse } from "@funk/model/commerce/tax-rate/avatax-response"
 import { TAX_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 
 export function construct(
-  getSecret = getSecretImpl,
-  httpClient = httpClientImpl
+  getSecret: typeof getSecretImpl,
+  httpClient: typeof httpClientImpl
 )
 {
   return async function({ zip }: Address): Promise<number>
@@ -28,6 +28,9 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(
+  getSecretImpl,
+  httpClientImpl
+)
 
 export type getSalesTaxRateForAddress = ReturnType<typeof construct>

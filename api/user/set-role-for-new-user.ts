@@ -2,7 +2,7 @@ import { authAdmin as authAdminImpl } from "@funk/api/plugins/auth/auth-admin"
 import { UserRecord } from "@funk/api/plugins/auth/user-record"
 import { UserRole } from "@funk/model/auth/user-role"
 
-export function construct(authAdmin = authAdminImpl)
+export function construct(authAdmin: typeof authAdminImpl)
 {
   return async function(user: UserRecord): Promise<any>
   {
@@ -17,6 +17,6 @@ export function construct(authAdmin = authAdminImpl)
   }
 }
 
-export default construct()
+export default construct(authAdminImpl)
 
 export type SetRoleForNewUser = ReturnType<typeof construct>

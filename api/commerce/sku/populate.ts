@@ -1,9 +1,9 @@
-import { MarshalledSku, Sku } from "@funk/model/commerce/sku/sku"
-import { REVIEWS } from "@funk/model/commerce/review/review"
-import { TAXONOMY_TERMS } from "@funk/model/commerce/taxonomy/taxonomy-term"
 import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
+import { REVIEWS } from "@funk/model/commerce/review/review"
+import { MarshalledSku, Sku } from "@funk/model/commerce/sku/sku"
+import { TAXONOMY_TERMS } from "@funk/model/commerce/taxonomy/taxonomy-term"
 
-export function construct(populate = populateImpl)
+export function construct(populate: typeof populateImpl)
 {
   return function(sku: MarshalledSku): Promise<Sku>
   {
@@ -15,6 +15,6 @@ export function construct(populate = populateImpl)
   }
 }
 
-export default construct()
+export default construct(populateImpl)
 
 export type Populate = ReturnType<typeof construct>

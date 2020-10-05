@@ -13,7 +13,7 @@ export interface Options {
 }
 
 export function construct(
-  getPaymentProvider = getPaymentProviderImpl
+  getPaymentProvider: typeof getPaymentProviderImpl
 )
 {
   return async function(id: string): Promise<PaymentIntent>
@@ -31,6 +31,6 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(getPaymentProviderImpl)
 
 export type ConfirmPaymentIntent = ReturnType<typeof construct>

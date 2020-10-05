@@ -15,10 +15,10 @@ import add from "@funk/model/money/behaviors/add"
 import { ORGANIZATIONS } from "@funk/model/organization/organization"
 
 export function construct(
-  getTotalBeforeTaxAndShipping = getTotalBeforeTaxAndShippingImpl,
-  populate = populateImpl,
-  getSalesTaxRateForAddress = getSalesTaxRateForAddressImpl,
-  getById = getByIdImpl
+  getTotalBeforeTaxAndShipping: typeof getTotalBeforeTaxAndShippingImpl,
+  populate: typeof populateImpl,
+  getSalesTaxRateForAddress: typeof getSalesTaxRateForAddressImpl,
+  getById: typeof getByIdImpl
 )
 {
   return async function (order: Order | MarshalledOrder): Promise<Price>
@@ -56,6 +56,11 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(
+  getTotalBeforeTaxAndShippingImpl,
+  populateImpl,
+  getSalesTaxRateForAddressImpl,
+  getByIdImpl
+)
 
 export type GetTax = ReturnType<typeof construct>

@@ -1,9 +1,9 @@
 import listImpl from "@funk/api/commerce/product/list"
-import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { Condition } from "@funk/api/plugins/persistence/condition"
 import { Pagination, VirtualPagination } from "@funk/api/plugins/persistence/pagination"
+import { MarshalledProduct } from "@funk/model/commerce/product/product"
 
-export function construct(list = listImpl)
+export function construct(list: typeof listImpl)
 {
   interface Options {
     pagination: Pagination<MarshalledProduct> | VirtualPagination
@@ -23,6 +23,6 @@ export function construct(list = listImpl)
   }
 }
 
-export default construct()
+export default construct(listImpl)
 
 export type ListPublished = ReturnType<typeof construct>

@@ -4,8 +4,8 @@ import { EMAIL_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 import emailClientImpl from "@sendgrid/mail"
 
 export function construct(
-  emailClient = emailClientImpl,
-  getSecret = getSecretImpl
+  emailClient: typeof emailClientImpl,
+  getSecret: typeof getSecretImpl
 )
 {
   return async function(emailData: EmailData): Promise<void>
@@ -16,6 +16,9 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(
+  emailClientImpl,
+  getSecretImpl
+)
 
 export type Send = ReturnType<typeof construct>

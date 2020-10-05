@@ -1,13 +1,12 @@
-import setMarshalledSkuQuantity from
-  "@funk/model/commerce/order/behaviors/set-marshalled-sku-quantity"
-import { MarshalledOrder, ORDERS } from "@funk/model/commerce/order/order"
 import getByIdImpl from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
+import setMarshalledSkuQuantity from "@funk/model/commerce/order/behaviors/set-marshalled-sku-quantity"
+import { MarshalledOrder, ORDERS } from "@funk/model/commerce/order/order"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 
 export function construct(
-  getById = getByIdImpl,
-  updateById = updateByIdImpl
+  getById: typeof getByIdImpl,
+  updateById: typeof updateByIdImpl
 )
 {
   interface Options {
@@ -26,6 +25,9 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(
+  getByIdImpl,
+  updateByIdImpl
+)
 
 export type SetSkuQuantity = ReturnType<typeof construct>

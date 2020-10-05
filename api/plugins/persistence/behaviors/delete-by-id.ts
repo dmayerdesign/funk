@@ -1,6 +1,6 @@
 import { store as storeImpl } from "@funk/api/plugins/persistence/server-store"
 
-export function construct(store = storeImpl)
+export function construct(store: typeof storeImpl)
 {
   return async function(
     collectionPath: string,
@@ -15,4 +15,4 @@ export function construct(store = storeImpl)
 
 export type DeleteById = ReturnType<typeof construct>
 
-export default construct()
+export default construct(storeImpl)

@@ -1,10 +1,10 @@
+import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
 import { MarshalledProduct, Product } from "@funk/model/commerce/product/product"
 import { REVIEWS } from "@funk/model/commerce/review/review"
 import { TAXONOMY_TERMS } from "@funk/model/commerce/taxonomy/taxonomy-term"
 import { ORGANIZATIONS } from "@funk/model/organization/organization"
-import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
 
-export function construct(populate = populateImpl)
+export function construct(populate: typeof populateImpl)
 {
   return function(product: MarshalledProduct): Promise<Product>
   {
@@ -16,4 +16,4 @@ export function construct(populate = populateImpl)
   }
 }
 
-export default construct()
+export default construct(populateImpl)

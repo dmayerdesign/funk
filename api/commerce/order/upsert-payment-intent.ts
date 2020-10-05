@@ -12,13 +12,13 @@ import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import add from "@funk/model/money/behaviors/add"
 
 export function construct(
-  createPaymentIntent = createPaymentIntentImpl,
-  updatePaymentIntent = updatePaymentIntentImpl,
-  getTotalBeforeTaxAndShipping = getTotalBeforeTaxAndShippingImpl,
-  getTax = getTaxImpl,
-  populate = populateImpl,
-  onlyKeys = onlyKeysImpl,
-  updateById = updateByIdImpl
+  createPaymentIntent: typeof createPaymentIntentImpl,
+  updatePaymentIntent: typeof updatePaymentIntentImpl,
+  getTotalBeforeTaxAndShipping: typeof getTotalBeforeTaxAndShippingImpl,
+  getTax: typeof getTaxImpl,
+  populate: typeof populateImpl,
+  onlyKeys: typeof onlyKeysImpl,
+  updateById: typeof updateByIdImpl
 )
 {
   const keysToListenTo: (keyof MarshalledOrder)[] = [
@@ -74,6 +74,14 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(
+  createPaymentIntentImpl,
+  updatePaymentIntentImpl,
+  getTotalBeforeTaxAndShippingImpl,
+  getTaxImpl,
+  populateImpl,
+  onlyKeysImpl,
+  updateByIdImpl
+)
 
 export type HandleWrite = ReturnType<typeof construct>

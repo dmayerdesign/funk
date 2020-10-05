@@ -1,3 +1,4 @@
+import getShipmentProviderImpl from "@funk/api/plugins/shipment/behaviors/get-shipment-provider"
 import { SimpleRate } from "@funk/api/plugins/shipment/simple-rate"
 import { IS_PRODUCTION } from "@funk/configuration"
 import { Enterprise, ShippingCostStrategy } from "@funk/model/commerce/enterprise/enterprise"
@@ -5,7 +6,6 @@ import getNetWeight from "@funk/model/commerce/order/behaviors/get-net-weight"
 import { Order } from "@funk/model/commerce/order/order"
 import fromDecimalString from "@funk/model/commerce/price/behaviors/from-decimal-string"
 import { CurrencyCode } from "@funk/model/money/currency-code"
-import getShipmentProviderImpl from "./get-shipment-provider"
 
 export interface Options {
   order: Order
@@ -14,7 +14,7 @@ export interface Options {
 
 export function construct(
   shipmentProviderSecret: string,
-  getShipmentProvider = getShipmentProviderImpl
+  getShipmentProvider: typeof getShipmentProviderImpl
 )
 {
   return async function({

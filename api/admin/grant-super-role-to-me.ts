@@ -1,8 +1,8 @@
-import { UserRole } from "@funk/model/auth/user-role"
 import { authAdmin as authAdminImpl } from "@funk/api/plugins/auth/auth-admin"
+import { UserRole } from "@funk/model/auth/user-role"
 
 export function construct(
-  authAdmin = authAdminImpl
+  authAdmin: typeof authAdminImpl
 )
 {
   return async function(): Promise<void>
@@ -15,6 +15,6 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(authAdminImpl)
 
 export type GrantSuperRoleToMe = ReturnType<typeof construct>

@@ -8,7 +8,7 @@ import csvToJson from "csvtojson"
 import { Dictionary, values } from "lodash"
 
 export function construct(
-  setMany = setManyImpl
+  setMany: typeof setManyImpl
 )
 {
   return async function(csvData: string): Promise<void>
@@ -33,7 +33,7 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(setManyImpl)
 
 export type SetCollectionFromCsv = ReturnType<typeof construct>
 

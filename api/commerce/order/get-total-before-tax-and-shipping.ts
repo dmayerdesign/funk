@@ -14,7 +14,7 @@ import { of, zip } from "rxjs"
 import { first, map, switchMap } from "rxjs/operators"
 
 export function construct(
-  getById = getByIdImpl
+  getById: typeof getByIdImpl
 )
 {
   return async function(order: DbDocumentInput<Order>): Promise<Price>
@@ -52,6 +52,6 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(getByIdImpl)
 
 export type GetTotalBeforeTaxAndShipping = ReturnType<typeof construct>

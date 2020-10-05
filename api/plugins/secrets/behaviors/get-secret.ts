@@ -6,10 +6,9 @@ import { v1 } from "@google-cloud/kms"
 import { ClientOptions } from "google-gax"
 
 export function construct(
-  getConfig = getConfigImpl,
-  getById = getByIdImpl,
-  createKmsClient = (options?: ClientOptions) =>
-    new v1.KeyManagementServiceClient(options)
+  getConfig: typeof getConfigImpl,
+  getById: typeof getByIdImpl,
+  createKmsClient: (options?: ClientOptions) => v1.KeyManagementServiceClient
 )
 {
   return async function(secretKey: string): Promise<string | undefined>
@@ -45,6 +44,11 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(
+  getConfigImpl,
+  getByIdImpl,
+  (options?: ClientOptions) =>
+    new v1.KeyManagementServiceClient(options)
+)
 
 export type GetSecret = ReturnType<typeof construct>

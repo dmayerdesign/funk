@@ -10,7 +10,7 @@ export interface UpdateInput {
   customerData: Stripe.CustomerUpdateParams
 }
 
-export function construct(getPaymentProvider = getPaymentProviderImpl)
+export function construct(getPaymentProvider: typeof getPaymentProviderImpl)
 {
   return async function(input: CreateInput | UpdateInput): Promise<Stripe.Customer>
   {
@@ -29,6 +29,6 @@ export function construct(getPaymentProvider = getPaymentProviderImpl)
   }
 }
 
-export default construct()
+export default construct(getPaymentProviderImpl)
 
 export type UpsertCustomer = ReturnType<typeof construct>

@@ -1,5 +1,4 @@
-import getApplicableDiscountsForSkuImpl from
-  "@funk/model/commerce/discount/behaviors/get-applicable-discounts-for-sku"
+import getApplicableDiscountsForSkuImpl from "@funk/model/commerce/discount/behaviors/get-applicable-discounts-for-sku"
 import { SkuDiscount } from "@funk/model/commerce/discount/discount"
 import subtract from "@funk/model/commerce/price/behaviors/subtract"
 import { Price } from "@funk/model/commerce/price/price"
@@ -15,7 +14,7 @@ import { MarshalledSku } from "@funk/model/commerce/sku/sku"
  * this function; it will not check `startAt` and `endAt` values.
  */
 export function construct(
-  getApplicableDiscountsForSku = getApplicableDiscountsForSkuImpl
+  getApplicableDiscountsForSku: typeof getApplicableDiscountsForSkuImpl
 )
 {
   return function(options: {
@@ -52,4 +51,4 @@ function getSkuPriceAfterDiscounts(sku: MarshalledSku, discounts: SkuDiscount[])
   }, sku.price)
 }
 
-export default construct()
+export default construct(getApplicableDiscountsForSkuImpl)

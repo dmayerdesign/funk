@@ -5,7 +5,7 @@ import Stripe from "stripe"
 let provider: Stripe
 
 export function construct(
-  getSecret = getSecretImpl
+  getSecret: typeof getSecretImpl
 )
 {
   return async function(options = {} as Partial<Stripe.StripeConfig>): Promise<Stripe>
@@ -22,6 +22,6 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(getSecretImpl)
 
 export type GetPaymentProvider = ReturnType<typeof construct>

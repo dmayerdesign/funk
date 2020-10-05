@@ -1,7 +1,7 @@
-import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import getByIdImpl from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import listImpl from "@funk/api/plugins/persistence/behaviors/list"
 import { TAKE_ALL } from "@funk/api/plugins/persistence/pagination"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export interface PopulateFieldOptions<DocumentType> {
   collectionPath: string
@@ -10,7 +10,7 @@ export interface PopulateFieldOptions<DocumentType> {
   relationship?: "one-to-many" | "one-to-one"
 }
 
-export function construct(getById = getByIdImpl, list = listImpl)
+export function construct(getById: typeof getByIdImpl, list: typeof listImpl)
 {
   return async function<
     PopulatedType,
@@ -61,4 +61,7 @@ export type Populate<
     options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
   ) => Promise<PopulatedType>
 
-export default construct()
+export default construct(
+  getByIdImpl,
+  listImpl
+)

@@ -1,5 +1,5 @@
-import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
 import httpClientImpl, { Response } from "@funk/api/plugins/http/client"
+import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
 import { TURING_TEST_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 import { TuringTestResult } from "@funk/model/turing-test/turing-test-result"
 
@@ -10,8 +10,8 @@ interface TuringTestRequest {
 }
 
 export function construct(
-  httpClient = httpClientImpl,
-  getSecret = getSecretImpl
+  httpClient: typeof httpClientImpl,
+  getSecret: typeof getSecretImpl
 )
 {
   return async function(token: string): Promise<boolean>
@@ -25,6 +25,9 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(
+  httpClientImpl,
+  getSecretImpl
+)
 
 export type IsHuman = ReturnType<typeof construct>

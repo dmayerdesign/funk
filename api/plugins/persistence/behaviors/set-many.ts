@@ -2,7 +2,7 @@ import { store as storeImpl } from "@funk/api/plugins/persistence/server-store"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { chunk } from "lodash"
 
-export function construct(store = storeImpl)
+export function construct(store: typeof storeImpl)
 {
   return async function<DocumentType extends Record<string, any> = DatabaseDocument>(
     documentsByCollectionPath: {
@@ -46,4 +46,4 @@ export function construct(store = storeImpl)
 
 export type SetMany = ReturnType<typeof construct>
 
-export default construct()
+export default construct(storeImpl)

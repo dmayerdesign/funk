@@ -12,10 +12,9 @@ export interface Options {
 }
 
 export function construct(
-  getConfig = getConfigImpl,
-  setById = setByIdImpl,
-  createKmsClient = (options?: ClientOptions) =>
-    new v1.KeyManagementServiceClient(options)
+  getConfig: typeof getConfigImpl,
+  setById: typeof setByIdImpl,
+  createKmsClient: (options?: ClientOptions) => v1.KeyManagementServiceClient
 )
 {
   return async ({ key, value }: Options): Promise<void> =>
@@ -48,6 +47,11 @@ export function construct(
   }
 }
 
-export default construct()
+export default construct(
+  getConfigImpl,
+  setByIdImpl,
+  (options?: ClientOptions) =>
+    new v1.KeyManagementServiceClient(options)
+)
 
 export type SetSecret = ReturnType<typeof construct>

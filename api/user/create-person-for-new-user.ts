@@ -1,8 +1,8 @@
+import { UserRecord } from "@funk/api/plugins/auth/user-record"
 import setByIdImpl from "@funk/api/plugins/persistence/behaviors/set-by-id"
 import { Person, PERSONS } from "@funk/model/identity/person"
-import { UserRecord } from "@funk/api/plugins/auth/user-record"
 
-export function construct(setById = setByIdImpl)
+export function construct(setById: typeof setByIdImpl)
 {
   return async function(user: UserRecord): Promise<any>
   {
@@ -18,6 +18,6 @@ export function construct(setById = setByIdImpl)
   }
 }
 
-export default construct()
+export default construct(setByIdImpl)
 
 export type CreatePersonForNewUser = ReturnType<typeof construct>

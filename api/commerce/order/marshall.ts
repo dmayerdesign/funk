@@ -1,7 +1,7 @@
-import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
 import marshallImpl from "@funk/api/plugins/persistence/behaviors/marshall"
+import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
 
-export function construct(marshall = marshallImpl)
+export function construct(marshall: typeof marshallImpl)
 {
   return function(order: Order): MarshalledOrder
   {
@@ -12,6 +12,6 @@ export function construct(marshall = marshallImpl)
   }
 }
 
-export default construct()
+export default construct(marshallImpl)
 
 export type Marshall = ReturnType<typeof construct>

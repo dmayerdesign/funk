@@ -8,8 +8,8 @@ import { ForbiddenError } from "@funk/model/error/forbidden-error"
 const CLIENT_APP_DOMAIN = CLIENT_APP_URL.split("//")[1]
 
 export function construct(
-  sendEmail = sendEmailImpl,
-  isHuman = isHumanImpl
+  sendEmail: typeof sendEmailImpl,
+  isHuman: typeof isHumanImpl
 )
 {
   /**
@@ -54,6 +54,9 @@ ${message}
   `
 }
 
-export default construct()
+export default construct(
+  sendEmailImpl,
+  isHumanImpl
+)
 
 export type SendEmailToOwner = ReturnType<typeof construct>

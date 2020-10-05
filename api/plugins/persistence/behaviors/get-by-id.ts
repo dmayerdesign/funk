@@ -1,7 +1,7 @@
-import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { store as storeImpl } from "@funk/api/plugins/persistence/server-store"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
-export function construct(store = storeImpl)
+export function construct(store: typeof storeImpl)
 {
   return async function<DocumentType extends Record<string, any> = DatabaseDocument>(
     collectionPath: string,
@@ -15,6 +15,6 @@ export function construct(store = storeImpl)
   }
 }
 
-export default construct()
+export default construct(storeImpl)
 
 export type GetById = ReturnType<typeof construct>

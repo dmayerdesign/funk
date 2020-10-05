@@ -1,9 +1,9 @@
+import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
 import { MarshalledOrder, Order } from "@funk/model/commerce/order/order"
 import { SKUS } from "@funk/model/commerce/sku/sku"
-import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
 
-export function construct(populate = populateImpl)
+export function construct(populate: typeof populateImpl)
 {
   return function(order: MarshalledOrder): Promise<Order>
   {
@@ -14,6 +14,6 @@ export function construct(populate = populateImpl)
   }
 }
 
-export default construct()
+export default construct(populateImpl)
 
 export type Populate = ReturnType<typeof construct>
