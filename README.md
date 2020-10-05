@@ -13,7 +13,7 @@ DO NOT EDIT lines 5-9 of this file.
 🎸 Funk provides clean abstractions and simple build tools designed to keep messy details
 away from your groove. It sits on top of [Ionic](https://ionicframework.com/),
 [Angular](https://angular.io), and [Firebase](https://firebase.google.com) so it can
-easily be deployed as a cross-platform (browser, mobile and desktop) application.
+easily be deployed as a cross-platform (browser, mobile, and desktop) application.
 
 ## Using Funk
 
@@ -26,7 +26,7 @@ To update your fork with the latest changes from this repo,
 ## Design Goals
 
 - **Zero to app in 30 minutes:** Funk aims to lower the barrier of entry for full-stack
-  development, allowing me to deploy a production-ready app in almost no time.
+  development, allowing a single developer to deploy a production-ready app in almost no time.
 - **Cost-effectiveness:** Costly behaviors like reads and writes from Firestore should
   perform as efficiently as possible out of the box.
 - **Performance:** Offline support and pre-rendering make sure users get a fast, modern
@@ -36,8 +36,8 @@ To update your fork with the latest changes from this repo,
   between different ways of doing the same things.
 - **Framework independence:** Funk will always rely heavily on frameworks like Ionic and
   technologies like Firebase to do the heavy lifting, but Funk will always treat these
-  libraries as plugins. That means that in the future, will be possible to integrate with,
-  for example, a cloud platform other than Firebase.
+  libraries as plugins. That means that in the future it will be easy to integrate with,
+  for example, an API platform other than Firebase Functions, or a UI platform other than Ionic.
 
 ## Table Of Contents
 
