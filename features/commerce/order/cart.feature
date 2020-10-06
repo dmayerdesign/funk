@@ -57,7 +57,7 @@ Rule: A User may only add in-stock products to their cart.
     Then Covfefe's out-of-stock status is communicated to Sally
     And Sally is not able to add Covfefe to their cart
 
-# API tested (WIP).
+# API tested.
 Rule: A User must go through a "checkout" flow before submitting an Order.
 
   Background:
@@ -77,6 +77,7 @@ Rule: A User must go through a "checkout" flow before submitting an Order.
     When Chuck submits their Order
     Then the status of Chuck's Order changes to "Payment Pending"
 
+# API tested.
 Rule: When an Order enters "Cart Checkout" status, its SKUs are reserved with respect
   to Inventory.
 

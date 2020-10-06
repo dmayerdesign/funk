@@ -9,7 +9,12 @@ export default async function<DocumentType extends Record<string, any> = Databas
   options?: { overwrite?: boolean }
 ): Promise<void>
 {
+  if (!getStore()[collectionPath])
+  {
+    getStore()[collectionPath] = {}
+  }
   const doc = get(getStore()[collectionPath], documentPath.replace(/\//g, "."))
+    ?? {}
   set(
     getStore()[collectionPath],
     documentPath,

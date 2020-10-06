@@ -23,7 +23,7 @@ export function construct(
       collection: SKUS,
       pagination: {
         skip: 0,
-        take: 0,
+        take: cart?.skus?.length ?? 0,
         orderBy: "updatedAt",
         orderByDirection: "desc",
       },

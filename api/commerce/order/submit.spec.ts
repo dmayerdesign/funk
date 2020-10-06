@@ -38,6 +38,7 @@ describe("orderSubmit", function ()
       await expect(submit(fakeCartNoSkus.id)).rejects.toThrow()
 
       expect(updateById).not.toHaveBeenCalled()
+      expect(setMany).not.toHaveBeenCalled()
     })
 
     it("should throw an error if confirmPaymentIntent fails", async function ()
@@ -55,6 +56,7 @@ describe("orderSubmit", function ()
           status: Status.PAYMENT_PENDING,
         })
       )
+      expect(setMany).not.toHaveBeenCalled()
     })
   })
 

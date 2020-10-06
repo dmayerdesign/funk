@@ -39,6 +39,8 @@ const meetsCondition = <DocumentType extends DatabaseDocument>(doc: DocumentType
       case "==": return value === queryValue
       case ">": return  (value as number) > queryValue
       case ">=": return (value as number) >= queryValue
+      case "in":
+        return !!(queryValue as any[]).find((element) => isEqual(element, value))
       case "array-contains":
         return !!(value as any[]).find((element) => isEqual(element, queryValue))
       case "array-contains-any":

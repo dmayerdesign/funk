@@ -1,16 +1,22 @@
 import { construct as constructCustomerHandleCreate, HandleCreate } from "@funk/api/commerce/customer/handle-create"
 import { construct as constructOrderPopulate, Populate } from "@funk/api/commerce/order/populate"
 import { construct as constructSetSkuQuantity, SetSkuQuantity } from "@funk/api/commerce/order/set-sku-quantity"
+import { construct as constructSetStatusToCheckout, SetStatusToCheckout } from "@funk/api/commerce/order/set-status-to-checkout"
 import { construct as constructOrderSubmit, Submit } from "@funk/api/commerce/order/submit"
 import { constructGivenACustomer, givenASku, givenThatTheCartHasInStockSkus, listOrdersForUser } from "@funk/api/commerce/spec/helpers"
 import { ConfirmPaymentIntent } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
 import { initializeStore } from "@funk/api/test/data-access/in-memory-store"
 import getById from "@funk/api/test/plugins/persistence/behaviors/get-by-id"
+import list from "@funk/api/test/plugins/persistence/behaviors/list"
 import populate from "@funk/api/test/plugins/persistence/behaviors/populate"
 import setById from "@funk/api/test/plugins/persistence/behaviors/set-by-id"
 import setMany from "@funk/api/test/plugins/persistence/behaviors/set-many"
 import updateById from "@funk/api/test/plugins/persistence/behaviors/update-by-id"
-import { Status } from "@funk/model/commerce/order/order"
+import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/copy/error-messages"
+import { Cart, Status } from "@funk/model/commerce/order/order"
+import { FiniteInventory } from "@funk/model/commerce/sku/inventory"
+import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
+import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { Person } from "@funk/model/identity/person"
 
 describe("Cart", function ()
@@ -20,6 +26,7 @@ describe("Cart", function ()
   let customerHandleCreate: HandleCreate
   let orderPopulate: Populate
   let orderSubmit: Submit
+  let setStatusToCheckout: SetStatusToCheckout
   let setSkuQuantity: SetSkuQuantity
 
   describe("A User must always have a shopping cart.", function ()
@@ -38,6 +45,7 @@ describe("Cart", function ()
         setMany,
         orderPopulate,
         confirmPaymentIntent)
+      setStatusToCheckout = constructSetStatusToCheckout(getById, list, setMany)
     })
 
     test("When a User is created, a Cart is created for them.", async function ()
@@ -93,6 +101,7 @@ describe("Cart", function ()
     function ()
     {
       let chuck: Person
+      let chucksCart: Cart
 
       beforeEach(async function ()
       {
@@ -101,12 +110,86 @@ describe("Cart", function ()
         await givenThatTheCartHasInStockSkus({ theCart: cart })
 
         chuck = person
+        chucksCart = cart
       })
 
-      test("Chuck begins the \"checkout\" flow.", function ()
+      test("Chuck begins the \"checkout\" flow.", async function ()
       {
-        expect(chuck).toBeTruthy()
+        await setStatusToCheckout(chucksCart.id)
+
+        const [ theUpdatedCart ] = await listOrdersForUser(chuck.id)
+        expect(theUpdatedCart.status).toBe(Status.CART_CHECKOUT)
+      })
+
+      test("Chuck completes the \"checkout\" flow.", async function ()
+      {
+        confirmPaymentIntent = jest.fn().mockImplementation(
+          async () => { throw new Error() })
+        orderSubmit = constructOrderSubmit(
+          getById,
+          updateById,
+          setMany,
+          orderPopulate,
+          confirmPaymentIntent)
+
+        try
+        { await orderSubmit(chucksCart.id) }
+        catch
+        { }
+
+        const [ theUpdatedCart ] = await listOrdersForUser(chuck.id)
+        expect(theUpdatedCart.status).toBe(Status.PAYMENT_PENDING)
       })
     }
   )
+
+  describe(
+    "When an Order enters \"Cart Checkout\" status, its SKUs are reserved with respect to " +
+    "inventory",
+    function ()
+    {
+      beforeEach(async function ()
+      {
+        await initializeStore()
+
+        customerHandleCreate = constructCustomerHandleCreate(setById)
+        setSkuQuantity = constructSetSkuQuantity(getById, updateById)
+        setStatusToCheckout = constructSetStatusToCheckout(getById, list, setMany)
+      })
+
+      test(
+        "Sam and Cam each put one pair of shoes in their cart, and Sam begins checkout.",
+        async function ()
+        {
+          const { cart: samsCart } = await constructGivenACustomer(customerHandleCreate)("Sam")
+          const { cart: camsCart } = await constructGivenACustomer(customerHandleCreate)("Cam")
+          await setById(
+            SKUS,
+            "cool-shoes",
+            createFakeMarshalledSku("cool-shoes", {
+              inventory: { type: "finite", quantity: 1, quantityReserved: 0 },
+            })
+          )
+          let coolShoes = await getById<MarshalledSku>(SKUS, "cool-shoes")
+          await setSkuQuantity({
+            orderId: samsCart.id,
+            skuId: coolShoes!.id,
+            quantity: 1,
+          })
+          await setSkuQuantity({
+            orderId: camsCart.id,
+            skuId: coolShoes!.id,
+            quantity: 1,
+          })
+
+          await setStatusToCheckout(samsCart.id)
+
+          await expect(setStatusToCheckout(camsCart.id)).rejects.toThrow(
+            new RegExp(SKUS_OUT_OF_STOCK_ERROR, "g")
+          )
+          coolShoes = await getById<MarshalledSku>(SKUS, "cool-shoes")
+          expect((coolShoes?.inventory as FiniteInventory).quantity).toBe(1)
+          expect((coolShoes?.inventory as FiniteInventory).quantityReserved).toBe(1)
+        })
+    })
 })

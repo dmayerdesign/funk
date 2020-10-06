@@ -11,3 +11,10 @@ Feature: Contact form
       And the message will identify Anaya as the sender
 
   Rule: Bots should not be allowed to contact the owner
+
+    Example: The turing test blocks a bot from submitting the contact form.
+
+      When a bot attempts to submit the form
+      Then the bot does not pass the turing test
+      And the form submission fails
+      And a message is displayed in case the bot is a real user

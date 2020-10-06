@@ -11,10 +11,20 @@ Rule: An administrator can edit managed content in the production environment.
   Example: An admin User can edit content in place.
 
     Given an admin named Adam
-    And that Adam has no previews
+    And that Adam is not in the "preview" state
     When Adam edits a content value and submits it
     Then the content preview replaces the content in the UI
     And Adam enters the "preview" state
+
+  Example: An admin user publishes their previewed changes.
+
+    Given an admin named Adam
+    And that Adam has edited content and is in the "preview" state
+    And that no other admins have edited the same content
+    When Adam hits the "publish" button
+    And confirms that he intends to publish
+    Then the corresponding production data is replaced with the preview values
+    And Adam exists the "preview" state
 
 Rule: When 2 admin Users simultaneously intend to edit the same managed content, they are both warned.
 
