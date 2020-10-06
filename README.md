@@ -15,6 +15,10 @@ away from your groove. It sits on top of [Ionic](https://ionicframework.com/),
 [Angular](https://angular.io), and [Firebase](https://firebase.google.com) so it can
 easily be deployed as a cross-platform (browser, mobile, and desktop) application.
 
+🚧 **Funk is in initial development,** and looking for contributors! If you're interested, shoot me
+a message on [Gitter](https://gitter.im/funk-development/community). If you're ready to contribute,
+head to [Contributing](./CONTRIBUTING.md) to get started!
+
 ## Using Funk
 
 To use Funk, fork this repo and follow the instructions in
