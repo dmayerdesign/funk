@@ -4,7 +4,8 @@ Rule: An administrator can edit managed content in the production environment.
 
   Example: An admin User with no previews sees the same content as the public.
 
-    Given an admin named Adam with no previews
+    Given an admin named Adam
+    And that Adam is not in the "preview" state
     When Adam visits a view with managed contents
     Then Adam sees the published values of each content
 
