@@ -7,11 +7,12 @@ import {
   OnInit
 } from "@angular/core"
 import { ManagedContent, ManagedContentType } from "@funk/model/managed-content/managed-content"
-import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
-import { ManagedContentEditorService } from "@funk/ui/core/admin/managed-content/editor/service"
+import { GET_MAYBE_PREVIEW_OR_LIVE_CONTENT, OPEN_EDITOR } from '@funk/ui/app/admin/managed-content/tokens'
+import { GetMaybePreviewOrLiveContent } from '@funk/ui/core/admin/managed-content/editor/behaviors/get-maybe-preview-or-live-content'
+import { OpenEditor } from '@funk/ui/core/admin/managed-content/editor/behaviors/open-editor'
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
+import { defer, Observable } from "rxjs"
 import { map, shareReplay } from "rxjs/operators"
-import { Observable, defer } from "rxjs"
 
 @UntilDestroy()
 @Component({
@@ -37,8 +38,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy
   @Input() public contentId!: string
 
   public content: Observable<ManagedContent | undefined> = defer(() =>
-    this._editorService
-      .listenForPreviewOrLiveContent(this.contentId))
+    this.getMaybePreviewOrLiveContent(this.contentId))
     .pipe(
       untilDestroyed(this),
       shareReplay(1)
@@ -53,8 +53,8 @@ export class ManagedContentComponent implements OnInit, OnDestroy
   public readonly ManagedContentType = ManagedContentType
 
   public constructor(
-    @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
-    private _editorService: ManagedContentEditorService
+    @Inject(GET_MAYBE_PREVIEW_OR_LIVE_CONTENT) public getMaybePreviewOrLiveContent: GetMaybePreviewOrLiveContent,
+    @Inject(OPEN_EDITOR) public openEditor: OpenEditor,
   ) { }
 
   public async ngOnInit(): Promise<void>
@@ -68,6 +68,6 @@ export class ManagedContentComponent implements OnInit, OnDestroy
   @HostListener("click")
   public async handleEditClick(): Promise<void>
   {
-    this._editorService.manageContent(this.contentId)
+    this.openEditor(this.contentId)
   }
 }

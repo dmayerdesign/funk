@@ -100,7 +100,7 @@ module.exports = {
       "warn",
       {
         "code": 100,
-        "ignorePattern": "^import.+$"
+        "ignorePattern": "^(import|(\s+)@Inject\().+$"
       }
     ],
     "no-bitwise": "error",

@@ -1,48 +1,47 @@
-import { USER_STATES, UserState } from "@funk/model/identity/user-state"
+import { asPromise } from "@funk/helpers/as-promise"
+import { UserRole } from "@funk/model/auth/user-role"
+import { UserState, USER_STATES } from "@funk/model/identity/user-state"
 import {
   CONTENTS,
   ManagedContent,
   ManagedContentType,
   ManagedText
 } from "@funk/model/managed-content/managed-content"
-import { FAKE_USER_UID } from "@funk/ui/core/identity/stubs"
 import {
   construct,
   ManagedContentEditorService
 } from "@funk/ui/core/admin/managed-content/editor/service"
-import { construct as constructListenById } from
-  "@funk/ui/plugins/persistence/behaviors/listen-by-id"
-import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
-import { construct as constructSetById } from "@funk/ui/plugins/persistence/behaviors/set-by-id"
-import { construct as constructUpdateById } from
-  "@funk/ui/plugins/persistence/behaviors/update-by-id"
-import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
-import { asPromise } from "@funk/helpers/as-promise"
+import { FAKE_USER_UID } from "@funk/ui/core/identity/stubs"
 import { UserSession } from "@funk/ui/core/identity/user-session"
-import { UserRole } from "@funk/model/auth/user-role"
+import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
+import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
+import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
+import { construct as constructSetById } from "@funk/ui/plugins/persistence/behaviors/set-by-id"
+import { construct as constructUpdateById } from "@funk/ui/plugins/persistence/behaviors/update-by-id"
+import { AlertController } from "@ionic/angular"
 import { subHours } from "date-fns"
 import { when } from "jest-when"
 import { Dictionary } from "lodash"
 import { of } from "rxjs"
-import { AlertController } from "@ionic/angular"
 
 describe("ManagedContentEditorService", () =>
 {
-  let userSession: UserSession
-  let listenById: ReturnType<typeof constructListenById>
   let getById: GetById
+  let listenById: ReturnType<typeof constructListenById>
   let setById: ReturnType<typeof constructSetById>
   let updateById: ReturnType<typeof constructUpdateById>
-  let getInnerText: ReturnType<typeof constructGetInnerText>
+
   let alertController: AlertController
+  let userSession: UserSession
+  let getInnerText: ReturnType<typeof constructGetInnerText>
 
   it("should manage content for the first time", async () =>
   {
     const service = newService()
     const getActiveContentValueControl = async () =>
-      await asPromise(service.activeContentValueControl)
+      await asPromise(service.getMaybeActiveContentValueControl())
 
-    await service.manageContent("content-2")
+    await service.openEditor("content-2")
 
     expect(await getActiveContentValueControl()).toEqual(
       expect.objectContaining({ value: "Test 2" })
@@ -53,9 +52,9 @@ describe("ManagedContentEditorService", () =>
   {
     const service = newService()
     const getActiveContentValueControl = async () =>
-      await asPromise(service.activeContentValueControl)
+      await asPromise(service.getMaybeActiveContentValueControl())
 
-    await service.manageContent("content-1")
+    await service.openEditor("content-1")
 
     expect((await getActiveContentValueControl())?.value).toEqual("Test 1 preview saved")
   })
@@ -63,14 +62,14 @@ describe("ManagedContentEditorService", () =>
   it("should save managed content", async () =>
   {
     const service = newService()
-    await service.manageContent("content-1")
-    const activeContentValueControl = await asPromise(service.activeContentValueControl)
+    await service.openEditor("content-1")
+    const activeContentValueControl = await asPromise(service.getMaybeActiveContentValueControl())
     activeContentValueControl?.setValue("Test 1 preview")
 
     await service.saveAndClearIfEditing()
 
     const clearedActiveContentValueControl =
-      await asPromise(service.activeContentValueControl)
+      await asPromise(service.getMaybeActiveContentValueControl())
     expect(clearedActiveContentValueControl).toBe(undefined)
     expect(updateById).toHaveBeenCalledTimes(1)
     expect(updateById).toHaveBeenCalledWith(
@@ -90,7 +89,7 @@ describe("ManagedContentEditorService", () =>
   {
     const service = newService()
 
-    await service.maybePublishAll()
+    await service.publishAllOnConfirmation()
 
     expect(alertController.create).toHaveBeenCalled()
   })
@@ -122,7 +121,7 @@ describe("ManagedContentEditorService", () =>
     userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
     const service = newService()
 
-    await service.maybePublishAll()
+    await service.publishAllOnConfirmation()
 
     expect(alertController.create).not.toHaveBeenCalled()
   })
@@ -143,9 +142,9 @@ describe("ManagedContentEditorService", () =>
         FAKE_USER_STATES[FAKE_USER_UID].contentPreviews!,
         { id: FAKE_USER_UID }
       )
-      const contentsUpdatedAfterPreview = await asPromise(
-        service.contentsUpdatedAfterPreview)
-      const contentIdUpdatedAfterPreview = contentsUpdatedAfterPreview[0][1].id
+      const publishConflicts = await asPromise(
+        service.getPublishConflicts())
+      const contentIdUpdatedAfterPreview = publishConflicts[0][1].id
 
       expect(setById).not.toHaveBeenCalled()
       expect(updateById).not.toHaveBeenCalledWith()
@@ -203,7 +202,7 @@ describe("ManagedContentEditorService", () =>
   {
     const service = newService()
 
-    await service.maybeRemoveAllPreviews()
+    await service.removeAllPreviewsOnConfirmation()
 
     expect(alertController.create).toHaveBeenCalled()
   })
@@ -217,7 +216,7 @@ describe("ManagedContentEditorService", () =>
     expect(updateById).toHaveBeenCalledWith(
       USER_STATES, FAKE_USER_UID, { contentPreviews: {} }
     )
-    expect(service.contentsUpdatedAfterPreview.getValue()).toEqual([])
+    expect(service.getPublishConflicts().getValue()).toEqual([])
   })
 
   beforeEach(() =>

@@ -1,14 +1,19 @@
-import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from "@angular/core"
-import { ManagedContentType } from "@funk/model/managed-content/managed-content"
-import {
-  ManagedContentEditorService
-} from "@funk/ui/core/admin/managed-content/editor/service"
-import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
+import { Component, Inject, OnInit, ViewChild, ViewEncapsulation } from "@angular/core"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
+import { ManagedContentType } from "@funk/model/managed-content/managed-content"
+import { CANCEL_EDIT, GET_HAS_PREVIEW, GET_IS_AUTHORIZED, GET_MAYBE_ACTIVE_CONTENT_TYPE, GET_MAYBE_ACTIVE_CONTENT_VALUE_CONTROL, PUBLISH_ALL_ON_CONFIRMATION, REMOVE_ALL_PREVIEWS_ON_CONFIRMATION, SAVE_AND_CLEAR_IF_EDITING } from "@funk/ui/app/admin/managed-content/tokens"
+import { CancelEdit } from '@funk/ui/core/admin/managed-content/editor/behaviors/cancel-edit'
+import { GetHasPreview } from '@funk/ui/core/admin/managed-content/editor/behaviors/get-has-preview'
+import { GetIsAuthorized } from '@funk/ui/core/admin/managed-content/editor/behaviors/get-is-authorized'
+import { GetMaybeActiveContentType } from '@funk/ui/core/admin/managed-content/editor/behaviors/get-maybe-active-content-type'
+import { GetMaybeActiveContentValueControl } from '@funk/ui/core/admin/managed-content/editor/behaviors/get-maybe-active-content-value-control'
+import { PublishAllOnConfirmation } from '@funk/ui/core/admin/managed-content/editor/behaviors/publish-all-on-confirmation'
+import { RemoveAllPreviewsOnConfirmation } from '@funk/ui/core/admin/managed-content/editor/behaviors/remove-all-previews-on-confirmation'
+import { SaveAndClearIfEditing } from '@funk/ui/core/admin/managed-content/editor/behaviors/save-and-clear-if-editing'
 import { IonTextarea } from "@ionic/angular"
 import * as ClassicEditor from "lib/ckeditor5/build/ckeditor"
 import { of } from "rxjs"
-import { delay, switchMap, map } from "rxjs/operators"
+import { delay, map, switchMap } from "rxjs/operators"
 
 const ANIMATION_DURATION_MS = 500
 
@@ -18,7 +23,7 @@ const ANIMATION_DURATION_MS = 500
     <div id="managed-content-editor-wrapper"
       [ngClass]="{
         'has-preview': hasPreview | async,
-        'admin-edit-mode-is-on': isActivated | async,
+        'admin-edit-mode-is-on': isAuthorized | async,
         'content-drawer-is-open': formControlIsVisible | async
       }">
       <div *ngIf="hasPreview | async"
@@ -99,16 +104,16 @@ const ANIMATION_DURATION_MS = 500
 export class ManagedContentEditorContainer implements OnInit
 {
   @ViewChild("contentValueInput") public contentValueInput!: IonTextarea
-  public maybeFormControl = this._editorService.activeContentValueControl
-  public hasPreview = this._editorService.hasPreview
+  public maybeFormControl = this.getMaybeActiveContentValueControl()
+  public hasPreview = this.getHasPreview()
   public formControlIsVisible = this.maybeFormControl.pipe(
     switchMap((formControl) => !formControl
       ? of(!!formControl).pipe(delay(ANIMATION_DURATION_MS))
       : of(!!formControl)),
     shareReplayOnce()
   )
-  public isActivated = this._editorService.isActivated
-  public editorToolbarConfig = this._editorService.activeContentType.pipe(
+  public isAuthorized = this.getIsAuthorized()
+  public editorToolbarConfig = this.getMaybeActiveContentType().pipe(
     map((type) =>
     {
       switch(type)
@@ -151,8 +156,14 @@ export class ManagedContentEditorContainer implements OnInit
   }
 
   public constructor(
-    @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
-    private _editorService: ManagedContentEditorService
+    @Inject(GET_MAYBE_ACTIVE_CONTENT_VALUE_CONTROL) public getMaybeActiveContentValueControl: GetMaybeActiveContentValueControl,
+    @Inject(GET_HAS_PREVIEW) public getHasPreview: GetHasPreview,
+    @Inject(GET_IS_AUTHORIZED) public getIsAuthorized: GetIsAuthorized,
+    @Inject(GET_MAYBE_ACTIVE_CONTENT_TYPE) public getMaybeActiveContentType: GetMaybeActiveContentType,
+    @Inject(SAVE_AND_CLEAR_IF_EDITING) public saveAndClearIfEditing: SaveAndClearIfEditing,
+    @Inject(CANCEL_EDIT) public cancelEdit: CancelEdit,
+    @Inject(PUBLISH_ALL_ON_CONFIRMATION) public publishAllOnConfirmation: PublishAllOnConfirmation,
+    @Inject(REMOVE_ALL_PREVIEWS_ON_CONFIRMATION) public removeAllPreviewsOnConfirmation: RemoveAllPreviewsOnConfirmation
   )
   { }
 
@@ -161,22 +172,17 @@ export class ManagedContentEditorContainer implements OnInit
 
   public async saveEdit(): Promise<void>
   {
-    await this._editorService.saveAndClearIfEditing()
-  }
-
-  public async cancelEdit(): Promise<void>
-  {
-    this._editorService.cancel()
+    await this.saveAndClearIfEditing()
   }
 
   public async maybeSaveAndPublish(): Promise<void>
   {
     await this.saveEdit()
-    await this._editorService.maybePublishAll()
+    await this.publishAllOnConfirmation()
   }
 
   public async discardChanges(): Promise<void>
   {
-    await this._editorService.maybeRemoveAllPreviews()
+    await this.removeAllPreviewsOnConfirmation()
   }
 }
