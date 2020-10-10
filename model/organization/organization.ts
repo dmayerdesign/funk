@@ -5,7 +5,7 @@ import { OrganizationBranding } from "@funk/model/organization/organization-bran
 export interface Organization extends DatabaseDocument {
   id: PrimaryKey
   isPrimary?: boolean
-  type: "enterprise"|"nonprofit"
+  type: "enterprise" | "nonprofit"
   name: string
   branding: OrganizationBranding
   publicWebsiteUrl: string

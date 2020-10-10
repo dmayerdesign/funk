@@ -1,7 +1,6 @@
 import { HOMEPAGE } from "@funk/configuration"
 
-export function construct()
-{
+export function construct() {
   return async () => HOMEPAGE
 }
 

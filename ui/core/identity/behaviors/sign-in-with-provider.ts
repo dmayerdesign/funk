@@ -4,10 +4,8 @@ import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-ema
 export function construct(
   auth: AuthClient,
   sendEmailVerification: SendEmailVerification
-)
-{
-  return async function(provider: AuthProvider): Promise<void>
-  {
+) {
+  return async function (provider: AuthProvider): Promise<void> {
     auth.useDeviceLanguage()
     await auth.signInWithPopup(provider)
     await sendEmailVerification()

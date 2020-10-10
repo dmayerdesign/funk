@@ -15,10 +15,13 @@ export const TRUSTED_ORIGINS = [
   "capacitor://localhost",
   "https://funk-development-0907.firebaseapp.com",
 ]
-export const SALES_TAX_RATE_CALCULATOR_URL = "https://rest.avatax.com/api/v2/taxrates/bypostalcode"
+export const SALES_TAX_RATE_CALCULATOR_URL =
+  "https://rest.avatax.com/api/v2/taxrates/bypostalcode"
 export const TAX_PUBLISHABLE_KEY = "2000143843"
-export const PAYMENT_PUBLISHABLE_KEY = "pk_test_FCCMRbB54V2BMvswJxpJht0T002zd0buM1"
-export const TURING_TEST_PUBLISHABLE_KEY = "6LdS_rsZAAAAAEUeQO7xkWMJno0N068Xv5l136OR"
+export const PAYMENT_PUBLISHABLE_KEY =
+  "pk_test_FCCMRbB54V2BMvswJxpJht0T002zd0buM1"
+export const TURING_TEST_PUBLISHABLE_KEY =
+  "6LdS_rsZAAAAAEUeQO7xkWMJno0N068Xv5l136OR"
 export const FIREBASE_CONFIG = {
   apiKey: "AIzaSyBZQgIw4lH7fKN_gwjMZjKvk1HCIAnLDsg",
   authDomain: "funk-development-0907.firebaseapp.com",

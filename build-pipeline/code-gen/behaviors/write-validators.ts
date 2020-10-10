@@ -1,4 +1,10 @@
-import { existsSync, mkdirpSync, readFileSync, unlinkSync, writeFileSync } from "fs-extra"
+import {
+  existsSync,
+  mkdirpSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync,
+} from "fs-extra"
 import { kebabCase } from "lodash"
 import md5 from "md5"
 import { resolve, sep } from "path"
@@ -7,26 +13,27 @@ import * as schemaGenerator from "ts-json-schema-generator"
 
 const CACHE_PATH = resolve(__dirname, "../../../", ".funk/.cache/validators")
 
-export default function()
-{
+export default function () {
   const pathToModel = resolve(__dirname, "../../../model")
-  const filenames = recursiveReaddir(pathToModel)
-    .filter((filename) => !filename.match(/\/validators\//g))
+  const filenames = recursiveReaddir(pathToModel).filter(
+    (filename) => !filename.match(/\/validators\//g)
+  )
 
   const modelEntrypointFilename = resolve(pathToModel, "validators/main.ts")
   mkdirpSync(resolve(pathToModel, "validators"))
   writeFileSync(
     modelEntrypointFilename,
     `/* eslint-disable max-len */
-${
-  filenames
-    .filter((filename) => filename.endsWith(".ts"))
-    .filter((filename) => !filename.includes(".spec."))
-    .filter((filename) => !filename.includes("/spec."))
-    .filter((filename) => !filename.includes("/validators/"))
-    .map((filename) => `import "@funk/model/${filename.split(sep + "model" + sep)[1]}"`)
-    .join("\n")
-}\n`
+${filenames
+  .filter((filename) => filename.endsWith(".ts"))
+  .filter((filename) => !filename.includes(".spec."))
+  .filter((filename) => !filename.includes("/spec."))
+  .filter((filename) => !filename.includes("/validators/"))
+  .map(
+    (filename) =>
+      `import "@funk/model/${filename.split(sep + "model" + sep)[1]}"`
+  )
+  .join("\n")}\n`
   )
 
   const generator = schemaGenerator.createGenerator({
@@ -35,17 +42,16 @@ ${
     type: "*",
   })
 
-  for (const filename of filenames)
-  {
+  for (const filename of filenames) {
     const modelDirname = filename.substring(0, filename.lastIndexOf("/"))
     const validatorsDirname = resolve(modelDirname, "validators")
     const fileString = readFileSync(filename).toString("utf-8")
 
-    const interfaceNames = fileString.match(new RegExp("(?<=export(\\s)+interface(\\s)+)\\w+", "g"))
-    interfaceNames?.forEach((interfaceName) =>
-    {
-      try
-      {
+    const interfaceNames = fileString.match(
+      new RegExp("(?<=export(\\s)+interface(\\s)+)\\w+", "g")
+    )
+    interfaceNames?.forEach((interfaceName) => {
+      try {
         const schemaDefs = generator.createSchema(interfaceName).definitions!
         const schemaDefFilename = resolve(
           validatorsDirname,
@@ -68,15 +74,16 @@ ${
         const hashedSchemaDef = md5(JSON.stringify(schemaDef))
         const cachedHashedSchemaDefPath = resolve(
           CACHE_PATH,
-          `${
-            filename.split(sep + "model" + sep)[1].replace(new RegExp(sep, "g"), "_")
-          }_${interfaceName}`
+          `${filename
+            .split(sep + "model" + sep)[1]
+            .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`
         )
         let cachedHashedSchemaDef: string | undefined
-        try
-        { cachedHashedSchemaDef = readFileSync(cachedHashedSchemaDefPath).toString("utf-8") }
-        catch
-        { }
+        try {
+          cachedHashedSchemaDef = readFileSync(
+            cachedHashedSchemaDefPath
+          ).toString("utf-8")
+        } catch {}
         if (hashedSchemaDef === cachedHashedSchemaDef) return
 
         // Delete existing validator files.
@@ -87,17 +94,23 @@ ${
         writeValidators()
         cacheSource()
 
-        function writeValidators(): void
-        {
+        function writeValidators(): void {
           mkdirpSync(validatorsDirname)
           console.log("Writing " + schemaDefFilename)
-          writeFileSync(schemaDefFilename, JSON.stringify(schemaDef, null, 2) + "\n")
+          writeFileSync(
+            schemaDefFilename,
+            JSON.stringify(schemaDef, null, 2) + "\n"
+          )
           console.log("Writing " + validator1Filename)
           writeFileSync(
             validator1Filename,
             `/* eslint-disable max-len */
-import { ${interfaceName} } from "@funk/model/${filename.split(sep + "model" + sep)[1]}"
-import schema from "@funk/model/${schemaDefFilename.split(sep + "model" + sep)[1]}"
+import { ${interfaceName} } from "@funk/model/${
+              filename.split(sep + "model" + sep)[1]
+            }"
+import schema from "@funk/model/${
+              schemaDefFilename.split(sep + "model" + sep)[1]
+            }"
 
 export default function(data: ${interfaceName}): string[] | false
 {
@@ -120,9 +133,16 @@ export default function(data: ${interfaceName}): string[] | false
             validator2Filename,
             `/* eslint-disable max-len */
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
-import { ${interfaceName} } from "@funk/model/${filename.split(sep + "model" + sep)[1]}"
-import isInvalid from "@funk/model/${modelDirname.split(sep + "model" + sep)[1]}` +
-  `/validators/${filename.split("/").pop()!.replace(".ts", "")}-is-invalid"
+import { ${interfaceName} } from "@funk/model/${
+              filename.split(sep + "model" + sep)[1]
+            }"
+import isInvalid from "@funk/model/${
+              modelDirname.split(sep + "model" + sep)[1]
+            }` +
+              `/validators/${filename
+                .split("/")
+                .pop()!
+                .replace(".ts", "")}-is-invalid"
 
 export function construct()
 {
@@ -134,7 +154,9 @@ export function construct()
       throw new InvalidInputError(
         "The ${interfaceName} was invalid. Details:\\n" +
         \`  Errors: \${falseOrErrors}\\n\` +
-        "  Full path: ${filename.split(sep + "model" + sep)[1].replace(".ts", "")}\\n"
+        "  Full path: ${filename
+          .split(sep + "model" + sep)[1]
+          .replace(".ts", "")}\\n"
       )
     }
   }
@@ -146,14 +168,11 @@ export type Validate = ReturnType<typeof construct>
 `
           )
         }
-        function cacheSource()
-        {
+        function cacheSource() {
           mkdirpSync(CACHE_PATH)
           writeFileSync(cachedHashedSchemaDefPath, hashedSchemaDef)
         }
-      }
-      catch (error)
-      {
+      } catch (error) {
         console.error(error)
       }
     })

@@ -19,7 +19,7 @@ export interface UserRecord {
     email: string
     phoneNumber: string
     photoURL: string
-    providerId: "google.com"|"facebook.com"|string
+    providerId: "google.com" | "facebook.com" | string
     toJSON(): Record<string, any>
   }[]
   customClaims?: { [key: string]: any }

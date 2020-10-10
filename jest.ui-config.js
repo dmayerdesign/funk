@@ -4,11 +4,9 @@ const { compilerOptions } = require("./tsconfig.ui.spec.json")
 
 module.exports = {
   ...baseConfig,
-  roots: [
-    "<rootDir>/ui",
-  ],
+  roots: ["<rootDir>/ui"],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: "<rootDir>"
+    prefix: "<rootDir>",
   }),
   globals: {
     "ts-jest": {

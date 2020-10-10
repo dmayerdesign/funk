@@ -5,11 +5,14 @@ import { Change } from "@funk/api/plugins/persistence/change"
 import { handleUpdate } from "@funk/api/plugins/persistence/document-listeners"
 import { QueryDocumentSnapshot } from "@funk/api/plugins/persistence/document-snapshot"
 
-export default function<DocumentType extends DatabaseDocument = DatabaseDocument>(
+export default function <
+  DocumentType extends DatabaseDocument = DatabaseDocument
+>(
   collectionPath: string,
   handler: ChangeHandler<DocumentType>
-): CloudFunction<Change<QueryDocumentSnapshot<DocumentType>>>
-{
-  return handleUpdate<DocumentType>(`${collectionPath}/{id}`, handler) as
-    CloudFunction<Change<QueryDocumentSnapshot<DocumentType>>>
+): CloudFunction<Change<QueryDocumentSnapshot<DocumentType>>> {
+  return handleUpdate<DocumentType>(
+    `${collectionPath}/{id}`,
+    handler
+  ) as CloudFunction<Change<QueryDocumentSnapshot<DocumentType>>>
 }

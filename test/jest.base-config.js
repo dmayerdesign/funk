@@ -1,9 +1,7 @@
 module.exports = {
-  testMatch: [
-    "<rootDir>/**/?(*)spec.ts"
-  ],
+  testMatch: ["<rootDir>/**/?(*)spec.ts"],
   transform: {
     "^.+\\.ts$": "ts-jest",
   },
-  coverageReporters: [ "lcov" ],
+  coverageReporters: ["lcov"],
 }

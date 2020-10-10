@@ -1,6 +1,4 @@
-@import url(
-  "https://fonts.googleapis.com/css2?family=Roboto:wght@300,400;700&display=swap"
-);
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300,400;700&display=swap");
 
 // Header.
 // [transparent-header-container]
@@ -24,7 +22,8 @@ ion-card {
     max-height: 400px;
     overflow: hidden;
   }
-  img, video {
+  img,
+  video {
     width: 100%;
   }
 

@@ -7,6 +7,4 @@ interface BaseEmailData {
   subject: string
 }
 
-export type EmailData = BaseEmailData & (
-  { text: string } | { html: string }
-)
+export type EmailData = BaseEmailData & ({ text: string } | { html: string })

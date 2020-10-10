@@ -1,21 +1,24 @@
 import { GetPaymentProvider } from "@funk/api/plugins/payment/behaviors/get-payment-provider"
-import { construct, CreateInput } from "@funk/api/plugins/payment/behaviors/upsert-customer"
-import { createGetPaymentProviderStub, PaymentProviderStub } from "@funk/api/plugins/payment/stubs"
+import {
+  construct,
+  CreateInput,
+} from "@funk/api/plugins/payment/behaviors/upsert-customer"
+import {
+  createGetPaymentProviderStub,
+  PaymentProviderStub,
+} from "@funk/api/plugins/payment/stubs"
 import { Stripe } from "stripe"
 
-describe("upsertCustomer", () =>
-{
+describe("upsertCustomer", () => {
   let psp: Stripe
   let getPaymentProvider: GetPaymentProvider
 
-  beforeEach(() =>
-  {
-    psp = new PaymentProviderStub() as unknown as Stripe
+  beforeEach(() => {
+    psp = (new PaymentProviderStub() as unknown) as Stripe
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should create a customer", async function ()
-  {
+  it("should create a customer", async function () {
     const customerData = { address: {} } as any
     const upsertCustomer = construct(getPaymentProvider)
 
@@ -30,8 +33,7 @@ describe("upsertCustomer", () =>
     expect(psp.customers.create).toHaveBeenCalledWith(customerData)
   })
 
-  it("should update a customer", async function ()
-  {
+  it("should update a customer", async function () {
     const id = "test-customer"
     const customerData = { id, address: {} } as any
     const upsertCustomer = construct(getPaymentProvider)

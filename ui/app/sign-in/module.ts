@@ -21,10 +21,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     IonicModule,
   ],
-  declarations: [
-    SignInContainer,
-    SignUpFormComponent,
-  ],
+  declarations: [SignInContainer, SignUpFormComponent],
 })
-export class SignInModule
-{ }
+export class SignInModule {}

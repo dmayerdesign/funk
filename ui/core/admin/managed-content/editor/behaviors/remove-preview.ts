@@ -14,22 +14,16 @@ export function construct(
   userSession: UserSession,
   updateById: UpdateById,
   removeFromPublishConflicts: RemoveFromPublishConflicts
-)
-{
-  return async function (contentId: PrimaryKey): Promise<void>
-  {
+) {
+  return async function (contentId: PrimaryKey): Promise<void> {
     const { person } = await asPromise(userSession)
 
     const maybeContentPreviews = await getMaybeContentPreviews(person)
     const newContentPreviews = { ...maybeContentPreviews }
     delete newContentPreviews[contentId]
-    await updateById<UserState>(
-      USER_STATES,
-      person.id,
-      {
-        contentPreviews: newContentPreviews,
-      }
-    )
+    await updateById<UserState>(USER_STATES, person.id, {
+      contentPreviews: newContentPreviews,
+    })
 
     removeFromPublishConflicts(contentId)
   }

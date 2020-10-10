@@ -7,13 +7,15 @@ import { first, switchMap } from "rxjs/operators"
 export function construct(
   getMaybeActiveContentId = getMaybeActiveContentIdImpl,
   getMaybePreviewOrLiveContent: GetMaybePreviewOrLiveContent
-)
-{
+) {
   const activeContent = getMaybeActiveContentId().pipe(
-    switchMap((contentId) => !!contentId
-      ? getMaybePreviewOrLiveContent(contentId).pipe(first())
-      : of(undefined)),
-    shareReplayOnce())
+    switchMap((contentId) =>
+      !!contentId
+        ? getMaybePreviewOrLiveContent(contentId).pipe(first())
+        : of(undefined)
+    ),
+    shareReplayOnce()
+  )
   activeContent.subscribe()
   return () => activeContent
 }

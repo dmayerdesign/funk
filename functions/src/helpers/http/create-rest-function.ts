@@ -1,6 +1,8 @@
 import createApp from "@funk/functions/helpers/http/create-app"
-import handleRequest, { HandlerReturnTypes, RequestHandlers } from
-  "@funk/functions/helpers/http/handle-request"
+import handleRequest, {
+  HandlerReturnTypes,
+  RequestHandlers,
+} from "@funk/functions/helpers/http/handle-request"
 import { RequestMethod } from "@funk/model/http/request-method"
 import { HttpsFunction } from "@funk/api/plugins/cloud-function/https-function"
 import createFunction from "@funk/functions/helpers/http/create-function"
@@ -22,21 +24,16 @@ export type CrudMethod = keyof CrudHandlerMap
 export function construct<
   LastHandlerReturnType extends HandlerReturnTypes = HandlerReturnTypes,
   RequestBodyType = any
->()
-{
-  return function(
-    crudHandlerMap: CrudHandlerMap
-  ): HttpsFunction
-  {
+>() {
+  return function (crudHandlerMap: CrudHandlerMap): HttpsFunction {
     const app = createApp()
 
-    Object.keys(crudHandlerMap).forEach((key) =>
-    {
+    Object.keys(crudHandlerMap).forEach((key) => {
       const crudMethod = key as CrudMethod
       const value = crudHandlerMap[crudMethod] as RequestHandlers
       const requestMethod = getRequestMethodForCrudMethod(crudMethod)
       const requestMethodFnName = camelCase(requestMethod) as keyof IRouter
-      const handlers = [ ...value ]
+      const handlers = [...value]
       const handler = handlers.pop()!
       const middlewares = handlers
 
@@ -52,10 +49,8 @@ export function construct<
   }
 }
 
-function getRequestMethodForCrudMethod(crudMethod: CrudMethod): RequestMethod
-{
-  switch (crudMethod)
-  {
+function getRequestMethodForCrudMethod(crudMethod: CrudMethod): RequestMethod {
+  switch (crudMethod) {
     case "list":
     case "get":
       return RequestMethod.GET
@@ -72,21 +67,20 @@ function getRequestMethodForCrudMethod(crudMethod: CrudMethod): RequestMethod
   }
 }
 
-function getPathForCrudMethod(crudMethod: CrudMethod): string
-{
-  if (crudMethod === "list"
-    || crudMethod === "update"
-    || crudMethod === "delete")
-  {
+function getPathForCrudMethod(crudMethod: CrudMethod): string {
+  if (
+    crudMethod === "list" ||
+    crudMethod === "update" ||
+    crudMethod === "delete"
+  ) {
     return "/:id"
   }
   return "/"
 }
 
-export default function<
+export default function <
   LastHandlerReturnType extends HandlerReturnTypes = HandlerReturnTypes,
-  RequestBodyType = any,
->(handlerMap: CrudHandlerMap): HttpsFunction
-{
+  RequestBodyType = any
+>(handlerMap: CrudHandlerMap): HttpsFunction {
   return construct<LastHandlerReturnType, RequestBodyType>()(handlerMap)
 }

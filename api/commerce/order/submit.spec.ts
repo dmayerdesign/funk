@@ -4,15 +4,22 @@ import { ConfirmPaymentIntent } from "@funk/api/plugins/payment/behaviors/confir
 import { GetById } from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import { SetMany } from "@funk/api/plugins/persistence/behaviors/set-many"
 import { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"
-import { MarshalledCart, Order, ORDERS, Status } from "@funk/model/commerce/order/order"
-import { createFakeMarshalledCart, createFakeOrder } from "@funk/model/commerce/order/stubs"
+import {
+  MarshalledCart,
+  Order,
+  ORDERS,
+  Status,
+} from "@funk/model/commerce/order/order"
+import {
+  createFakeMarshalledCart,
+  createFakeOrder,
+} from "@funk/model/commerce/order/stubs"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { when } from "jest-when"
 import { values } from "lodash"
 
-describe("orderSubmit", function ()
-{
+describe("orderSubmit", function () {
   let fakeCartNoSkus: MarshalledCart
   let fakeMarshalledCart: MarshalledCart
   let fakePopulatedCart: Order
@@ -24,16 +31,19 @@ describe("orderSubmit", function ()
   let populate: Populate
   let confirmPaymentIntent: ConfirmPaymentIntent
 
-  describe("failure", function ()
-  {
-    beforeEach(function ()
-    {
+  describe("failure", function () {
+    beforeEach(function () {
       setUp()
     })
 
-    it("should throw an error if the Order has no Skus", async function ()
-    {
-      const submit = construct(getById, updateById, setMany, populate, confirmPaymentIntent)
+    it("should throw an error if the Order has no Skus", async function () {
+      const submit = construct(
+        getById,
+        updateById,
+        setMany,
+        populate,
+        confirmPaymentIntent
+      )
 
       await expect(submit(fakeCartNoSkus.id)).rejects.toThrow()
 
@@ -41,11 +51,17 @@ describe("orderSubmit", function ()
       expect(setMany).not.toHaveBeenCalled()
     })
 
-    it("should throw an error if confirmPaymentIntent fails", async function ()
-    {
-      confirmPaymentIntent = jest.fn().mockImplementation(
-        async () => { throw new Error() })
-      const submit = construct(getById, updateById, setMany, populate, confirmPaymentIntent)
+    it("should throw an error if confirmPaymentIntent fails", async function () {
+      confirmPaymentIntent = jest.fn().mockImplementation(async () => {
+        throw new Error()
+      })
+      const submit = construct(
+        getById,
+        updateById,
+        setMany,
+        populate,
+        confirmPaymentIntent
+      )
 
       await expect(submit(fakeMarshalledCart.id)).rejects.toThrow()
 
@@ -60,19 +76,22 @@ describe("orderSubmit", function ()
     })
   })
 
-  describe("success", function ()
-  {
-    beforeEach(async function ()
-    {
+  describe("success", function () {
+    beforeEach(async function () {
       setUp()
 
-      const submit = construct(getById, updateById, setMany, populate, confirmPaymentIntent)
+      const submit = construct(
+        getById,
+        updateById,
+        setMany,
+        populate,
+        confirmPaymentIntent
+      )
 
       await submit(fakeMarshalledCart.id)
     })
 
-    it("should submit payment via the payment service provider", async function ()
-    {
+    it("should submit payment via the payment service provider", async function () {
       expect(updateById).toHaveBeenCalledWith(
         ORDERS,
         fakeMarshalledCart.id,
@@ -83,44 +102,45 @@ describe("orderSubmit", function ()
       expect(confirmPaymentIntent).toHaveBeenCalledTimes(1)
     })
 
-    it("should update the Order Status to PAID", async function ()
-    {
-      expect(setMany).toHaveBeenCalledWith(expect.objectContaining({
-        [ORDERS]: expect.objectContaining({
-          [fakeMarshalledCart.id]: {
-            status: Status.PAID,
-          },
-        }),
-      }))
-    })
-
-    it("should update the SKU inventory", async function ()
-    {
-      expect(setMany).toHaveBeenCalledWith(expect.objectContaining({
-        [SKUS]: expect.objectContaining({
-          [fakeSku.id]: {
-            inventory: {
-              ...fakeSku.inventory,
-              quantity: 0,
-              quantityReserved: 0,
+    it("should update the Order Status to PAID", async function () {
+      expect(setMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          [ORDERS]: expect.objectContaining({
+            [fakeMarshalledCart.id]: {
+              status: Status.PAID,
             },
-          },
-        }),
-      }))
+          }),
+        })
+      )
     })
 
-    it("should create a new Cart for the customer", async function ()
-    {
+    it("should update the SKU inventory", async function () {
+      expect(setMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          [SKUS]: expect.objectContaining({
+            [fakeSku.id]: {
+              inventory: {
+                ...fakeSku.inventory,
+                quantity: 0,
+                quantityReserved: 0,
+              },
+            },
+          }),
+        })
+      )
+    })
+
+    it("should create a new Cart for the customer", async function () {
       const ordersBatchSet = (setMany as jest.Mock).mock.calls[0][0][ORDERS]
-      const ordersBatchSetNewCart = values<Partial<Order>>(ordersBatchSet)
-        .find((orderOrPartial) => orderOrPartial.status === Status.CART)
+      const ordersBatchSetNewCart = values<Partial<Order>>(ordersBatchSet).find(
+        (orderOrPartial) => orderOrPartial.status === Status.CART
+      )
 
       expect(ordersBatchSetNewCart).toBeTruthy()
     })
   })
 
-  function setUp(): void
-  {
+  function setUp(): void {
     fakeSku = createFakeMarshalledSku("fake sku", {
       inventory: {
         type: "finite",
@@ -130,13 +150,13 @@ describe("orderSubmit", function ()
     })
     fakeCartNoSkus = createFakeMarshalledCart("fake cart no skus")
     fakeMarshalledCart = createFakeMarshalledCart("fake cart good", {
-      skus: [ fakeSku.id ],
+      skus: [fakeSku.id],
       skuQuantityMap: {
         [fakeSku.id]: 1,
       },
     })
     fakePopulatedCart = createFakeOrder("fake cart good", {
-      skus: [ fakeSku ],
+      skus: [fakeSku],
       skuQuantityMap: {
         [fakeSku.id]: 1,
       },

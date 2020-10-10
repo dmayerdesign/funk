@@ -2,28 +2,24 @@ import { MarshalledOrder } from "@funk/model/commerce/order/order"
 import { PrimaryKey } from "@funk/model/data-access/primary-key"
 import { uniq } from "lodash"
 
-export default function(
+export default function (
   marshalledOrder: MarshalledOrder,
   options: {
     skuId: PrimaryKey
     quantity: number
   }
-): MarshalledOrder
-{
+): MarshalledOrder {
   const { skuId, quantity } = options
   const _marshalledOrder = { ...marshalledOrder }
   let _skuQuantityMap = { ...marshalledOrder.skuQuantityMap }
-  let _skuIds = !!_marshalledOrder.skus ? [ ..._marshalledOrder.skus ] : []
+  let _skuIds = !!_marshalledOrder.skus ? [..._marshalledOrder.skus] : []
 
-  if (quantity === 0)
-  {
+  if (quantity === 0) {
     const indexOfMarshalledSku = _skuIds.indexOf(skuId)
     _skuIds = removeSkuId(_skuIds, indexOfMarshalledSku)
     _skuQuantityMap = setQuantityToZero(_skuQuantityMap, skuId)
-  }
-  else
-  {
-    _skuIds = uniq([ ..._skuIds, skuId ])
+  } else {
+    _skuIds = uniq([..._skuIds, skuId])
     _skuQuantityMap[skuId] = quantity
   }
 
@@ -36,22 +32,17 @@ export default function(
 
 function setQuantityToZero(
   quantities: { [x: string]: number },
-  skuId: PrimaryKey): { [x: string]: number }
-{
+  skuId: PrimaryKey
+): { [x: string]: number } {
   const _quantities = { ...quantities }
   delete _quantities[skuId]
   return _quantities
 }
 
-function removeSkuId(
-  skuIds: PrimaryKey[],
-  indexOfSku: number): PrimaryKey[]
-{
-  const _skuIds = [ ...skuIds ]
-  if (indexOfSku > -1)
-  {
+function removeSkuId(skuIds: PrimaryKey[], indexOfSku: number): PrimaryKey[] {
+  const _skuIds = [...skuIds]
+  if (indexOfSku > -1) {
     _skuIds.splice(indexOfSku, 1)
   }
   return _skuIds
 }
-

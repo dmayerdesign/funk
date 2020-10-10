@@ -1,30 +1,29 @@
-const { camelCase } = require('lodash')
-const { resolve } = require('path')
-const recursiveReaddir = require('recursive-readdir-sync')
+const { camelCase } = require("lodash")
+const { resolve } = require("path")
+const recursiveReaddir = require("recursive-readdir-sync")
 
-require('./functions/src/app/bootstrap')
+require("./functions/src/app/bootstrap")
 
-const API_PATH_RELATIVE = './functions/src/app'
+const API_PATH_RELATIVE = "./functions/src/app"
 const API_PATH_ABSOLUTE = resolve(__dirname, API_PATH_RELATIVE)
 const functionNameFromEnv = process.env.FUNCTION_NAME
 
-recursiveReaddir(API_PATH_ABSOLUTE).forEach((file) =>
-{
+recursiveReaddir(API_PATH_ABSOLUTE).forEach((file) => {
   if (
-    (!functionNameFromEnv || functionNameFromEnv === functionName)
-    && !!file.match(/\.js$/gi)
-    && !file.match(/\/index.js$/gi)
-    && !file.match(/(\/|\.)spec\.js$/gi)) {
-
-    const filePathFromParentDir = file.split(API_PATH_ABSOLUTE)[1] || ''
+    (!functionNameFromEnv || functionNameFromEnv === functionName) &&
+    !!file.match(/\.js$/gi) &&
+    !file.match(/\/index.js$/gi) &&
+    !file.match(/(\/|\.)spec\.js$/gi)
+  ) {
+    const filePathFromParentDir = file.split(API_PATH_ABSOLUTE)[1] || ""
     const filePathFromParentDirSansExt = filePathFromParentDir.substring(
       0,
-      filePathFromParentDir.lastIndexOf('.')
+      filePathFromParentDir.lastIndexOf(".")
     )
-    const functionName = camelCase(
-      filePathFromParentDirSansExt
-    )
+    const functionName = camelCase(filePathFromParentDirSansExt)
 
-    exports[functionName] = require(`${API_PATH_ABSOLUTE}/${filePathFromParentDir}`).default
+    exports[
+      functionName
+    ] = require(`${API_PATH_ABSOLUTE}/${filePathFromParentDir}`).default
   }
 })

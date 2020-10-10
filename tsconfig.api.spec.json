@@ -2,18 +2,15 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [
-      "jest",
-      "node"
-    ],
+    "types": ["jest", "node"],
     "paths": {
-      "@funk/api/*": [ "./api/*" ],
-      "@funk/configuration": [ "./configuration/development.ts" ],
-      "@funk/copy/*": [ "./copy/*" ],
-      "@funk/functions/*": [ "./functions/src/*" ],
-      "@funk/helpers/*": [ "./helpers/*" ],
-      "@funk/model/*": [ "./model/*" ],
-      "@funk/test/*": [ "./test/*" ]
+      "@funk/api/*": ["./api/*"],
+      "@funk/configuration": ["./configuration/development.ts"],
+      "@funk/copy/*": ["./copy/*"],
+      "@funk/functions/*": ["./functions/src/*"],
+      "@funk/helpers/*": ["./helpers/*"],
+      "@funk/model/*": ["./model/*"],
+      "@funk/test/*": ["./test/*"]
     }
   },
   "include": [
@@ -22,7 +19,5 @@
     "functions/src/app/**/*.spec.ts",
     "functions/src/app/**/spec.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

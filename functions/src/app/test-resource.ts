@@ -5,14 +5,10 @@ import { StatusCode } from "@funk/model/http/status-code"
 
 export default createRestFunction({
   get: [
-    (_, response) =>
-    {
+    (_, response) => {
       response.status(StatusCode.NON_AUTHORITATIVE_INFORMATION)
       return "Got a \"get\"!"
     },
   ],
-  create: [
-    authenticateForRoles([ UserRole.OWNER ]),
-    () => "Got a \"create\"!",
-  ],
+  create: [authenticateForRoles([UserRole.OWNER]), () => 'Got a "create"!'],
 })

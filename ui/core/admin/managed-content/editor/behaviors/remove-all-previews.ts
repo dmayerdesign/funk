@@ -8,19 +8,13 @@ export function construct(
   updateById: UpdateById,
   userSession: UserSession,
   getPublishConflicts: GetPublishConflicts
-)
-{
-  return async function (): Promise<void>
-  {
+) {
+  return async function (): Promise<void> {
     const { person } = await asPromise(userSession)
     const newContentPreviews = {}
-    await updateById<UserState>(
-      USER_STATES,
-      person.id,
-      {
-        contentPreviews: newContentPreviews,
-      }
-    )
+    await updateById<UserState>(USER_STATES, person.id, {
+      contentPreviews: newContentPreviews,
+    })
     getPublishConflicts().next([])
   }
 }

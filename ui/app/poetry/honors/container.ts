@@ -18,8 +18,7 @@ import { DeviceWidth } from "@funk/ui/plugins/layout/device-width"
     </ion-content>
   `,
 })
-export class HonorsContainer
-{
+export class HonorsContainer {
   public isDesktopLayout = this._deviceWidth.pipe(
     map((deviceWidth) => deviceWidth > 960),
     shareReplayOnce()
@@ -28,6 +27,5 @@ export class HonorsContainer
   public constructor(
     @Inject(PAGE_TITLE) public pageTitle: PageTitle,
     @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth
-  )
-  { }
+  ) {}
 }

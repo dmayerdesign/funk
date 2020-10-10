@@ -1,5 +1,4 @@
-import { construct as constructListenById } from
-  "@funk/ui/plugins/persistence/behaviors/listen-by-id"
+import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { UserRole } from "@funk/model/auth/user-role"
 import { Auth } from "@funk/model/identity/auth"
@@ -13,12 +12,10 @@ import { switchMap, shareReplay, map } from "rxjs/operators"
 export function construct(
   auth: AuthClient,
   listenById: ReturnType<typeof constructListenById>
-)
-{
+) {
   return auth.user.pipe(
     ignoreNullish(),
-    switchMap(async (user) =>
-    {
+    switchMap(async (user) => {
       const unverifiedClaims = {
         role: user.isAnonymous
           ? UserRole.ANONYMOUS
@@ -26,7 +23,10 @@ export function construct(
       }
       const verifiedClaims = {
         ...unverifiedClaims,
-        role: getVerifiedRole({ emailVerified: user.emailVerified }, unverifiedClaims),
+        role: getVerifiedRole(
+          { emailVerified: user.emailVerified },
+          unverifiedClaims
+        ),
       }
       return {
         id: user.uid,
@@ -34,10 +34,8 @@ export function construct(
         claims: verifiedClaims,
       } as Auth
     }),
-    switchMap((_auth) =>
-    {
-      if (_auth.claims.role === UserRole.ANONYMOUS)
-      {
+    switchMap((_auth) => {
+      if (_auth.claims.role === UserRole.ANONYMOUS) {
         return of<IUserSession>({
           auth: _auth,
           person: {
@@ -46,13 +44,12 @@ export function construct(
           },
         })
       }
-      return listenById<Person>(PERSONS, _auth.id)
-        .pipe(
-          map((person) => ({
-            auth: _auth,
-            person: person!,
-          }))
-        )
+      return listenById<Person>(PERSONS, _auth.id).pipe(
+        map((person) => ({
+          auth: _auth,
+          person: person!,
+        }))
+      )
     }),
     // tapAndLog("user session"),
     shareReplay(1)

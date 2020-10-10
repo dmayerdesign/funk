@@ -1,5 +1,4 @@
-export default function(booleanString?: string): boolean | undefined
-{
+export default function (booleanString?: string): boolean | undefined {
   if (!booleanString) return undefined
-  return !!booleanString?.match(/true/ig)
+  return !!booleanString?.match(/true/gi)
 }

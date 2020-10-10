@@ -10,20 +10,17 @@ export interface UpdateInput {
   customerData: Stripe.CustomerUpdateParams
 }
 
-export function construct(getPaymentProvider: typeof getPaymentProviderImpl)
-{
-  return async function(input: CreateInput | UpdateInput): Promise<Stripe.Customer>
-  {
+export function construct(getPaymentProvider: typeof getPaymentProviderImpl) {
+  return async function (
+    input: CreateInput | UpdateInput
+  ): Promise<Stripe.Customer> {
     const { customerData } = input,
       { id } = input as UpdateInput
     const stripe = await getPaymentProvider()
 
-    if (!!id)
-    {
+    if (!!id) {
       return await stripe.customers.update(id, customerData)
-    }
-    else
-    {
+    } else {
       return await stripe.customers.create(customerData)
     }
   }

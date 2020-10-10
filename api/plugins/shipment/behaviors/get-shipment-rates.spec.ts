@@ -1,17 +1,17 @@
 import { construct } from "@funk/api/plugins/shipment/behaviors/get-shipment-rates"
 import { SimpleRate } from "@funk/api/plugins/shipment/simple-rate"
-import { Enterprise, ShippingCostStrategy } from "@funk/model/commerce/enterprise/enterprise"
+import {
+  Enterprise,
+  ShippingCostStrategy,
+} from "@funk/model/commerce/enterprise/enterprise"
 import { Order } from "@funk/model/commerce/order/order"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import { constructGetShipmentProviderStub } from "../stubs"
 
-describe("getShippingRates", () =>
-{
-  describe("for by-weight shipping cost strategy", () =>
-  {
-    it("should get a single shipping rate for an order", async function ()
-    {
+describe("getShippingRates", () => {
+  describe("for by-weight shipping cost strategy", () => {
+    it("should get a single shipping rate for an order", async function () {
       const {
         ORDER,
         ENTERPRISE,
@@ -33,12 +33,19 @@ describe("getShippingRates", () =>
       spyOn(sspInstance, "Address")
       spyOn(sspInstance, "Parcel")
 
-      const rates = await getShippingRates({ order: ORDER, enterprise: ENTERPRISE })
+      const rates = await getShippingRates({
+        order: ORDER,
+        enterprise: ENTERPRISE,
+      })
 
       expect(getShipmentProvider).toHaveBeenCalledWith(shipmentProviderSecret)
       expect(sspInstance.Address).toHaveBeenCalledTimes(2)
-      expect(sspInstance.Address).toHaveBeenCalledWith(ENTERPRISE.shippingFromAddress)
-      expect(sspInstance.Address).toHaveBeenCalledWith(ORDER.customer.shippingAddress)
+      expect(sspInstance.Address).toHaveBeenCalledWith(
+        ENTERPRISE.shippingFromAddress
+      )
+      expect(sspInstance.Address).toHaveBeenCalledWith(
+        ORDER.customer.shippingAddress
+      )
       expect(sspInstance.Parcel).toHaveBeenCalledTimes(1)
       expect(sspInstance.Parcel).toHaveBeenCalledWith({
         mode: "test",
@@ -48,10 +55,8 @@ describe("getShippingRates", () =>
       expect(rates).toEqual(expected)
     })
   })
-  describe("for flat-rate shipping cost strategy", () =>
-  {
-    it("should get a single shipping rate for an order", async function ()
-    {
+  describe("for flat-rate shipping cost strategy", () => {
+    it("should get a single shipping rate for an order", async function () {
       const {
         ORDER,
         ENTERPRISE,
@@ -73,12 +78,19 @@ describe("getShippingRates", () =>
       spyOn(sspInstance, "Address")
       spyOn(sspInstance, "Parcel")
 
-      const rates = await getShippingRates({ order: ORDER, enterprise: ENTERPRISE })
+      const rates = await getShippingRates({
+        order: ORDER,
+        enterprise: ENTERPRISE,
+      })
 
       expect(getShipmentProvider).toHaveBeenCalledWith(shipmentProviderSecret)
       expect(sspInstance.Address).toHaveBeenCalledTimes(2)
-      expect(sspInstance.Address).toHaveBeenCalledWith(ENTERPRISE.shippingFromAddress)
-      expect(sspInstance.Address).toHaveBeenCalledWith(ORDER.customer.shippingAddress)
+      expect(sspInstance.Address).toHaveBeenCalledWith(
+        ENTERPRISE.shippingFromAddress
+      )
+      expect(sspInstance.Address).toHaveBeenCalledWith(
+        ORDER.customer.shippingAddress
+      )
       expect(sspInstance.Parcel).toHaveBeenCalledTimes(1)
       expect(sspInstance.Parcel).toHaveBeenCalledWith({
         mode: "test",
@@ -90,14 +102,16 @@ describe("getShippingRates", () =>
   })
 })
 
-const setUp = (shippingCostStrategy: ShippingCostStrategy) =>
-{
+const setUp = (shippingCostStrategy: ShippingCostStrategy) => {
   const ORDER = {
     customer: {
       shippingAddress: {},
     },
     skus: [
-      { ...createFakeMarshalledSku(), price: { amount: 1000, currency: CurrencyCode.USD } },
+      {
+        ...createFakeMarshalledSku(),
+        price: { amount: 1000, currency: CurrencyCode.USD },
+      },
     ],
   } as Order
   const ENTERPRISE = {

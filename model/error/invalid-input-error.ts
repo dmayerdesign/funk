@@ -1,2 +1,1 @@
-export class InvalidInputError extends Error
-{ }
+export class InvalidInputError extends Error {}

@@ -18,12 +18,33 @@ export interface Response<T = any> {
 
 export interface HttpClient {
   get<T = any, R = Response<T>>(url: string, config?: RequestConfig): Promise<R>
-  delete<T = any, R = Response<T>>(url: string, config?: RequestConfig): Promise<R>
-  head<T = any, R = Response<T>>(url: string, config?: RequestConfig): Promise<R>
-  options<T = any, R = Response<T>>(url: string, config?: RequestConfig): Promise<R>
-  post<T = any, R = Response<T>>(url: string, data?: any, config?: RequestConfig): Promise<R>
-  put<T = any, R = Response<T>>(url: string, data?: any, config?: RequestConfig): Promise<R>
-  patch<T = any, R = Response<T>>(url: string, data?: any, config?: RequestConfig): Promise<R>
+  delete<T = any, R = Response<T>>(
+    url: string,
+    config?: RequestConfig
+  ): Promise<R>
+  head<T = any, R = Response<T>>(
+    url: string,
+    config?: RequestConfig
+  ): Promise<R>
+  options<T = any, R = Response<T>>(
+    url: string,
+    config?: RequestConfig
+  ): Promise<R>
+  post<T = any, R = Response<T>>(
+    url: string,
+    data?: any,
+    config?: RequestConfig
+  ): Promise<R>
+  put<T = any, R = Response<T>>(
+    url: string,
+    data?: any,
+    config?: RequestConfig
+  ): Promise<R>
+  patch<T = any, R = Response<T>>(
+    url: string,
+    data?: any,
+    config?: RequestConfig
+  ): Promise<R>
 }
 
 // Never throw an HTTP error response.

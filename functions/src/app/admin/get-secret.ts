@@ -5,7 +5,7 @@ import { RequestWithBody } from "@funk/functions/model/request-response/request-
 import { UserRole } from "@funk/model/auth/user-role"
 
 export default createRpcFunction(
-  authenticateForRoles([ UserRole.SUPER, UserRole.OWNER ]),
+  authenticateForRoles([UserRole.SUPER, UserRole.OWNER]),
   async ({ body }: RequestWithBody<string>): Promise<string | undefined> =>
     await getSecret(body)
 )

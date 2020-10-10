@@ -3,10 +3,8 @@ import { OrderDiscount } from "@funk/model/commerce/discount/discount"
 import { createFakeOrderDiscount } from "@funk/model/commerce/discount/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
 
-describe("getApplicableDiscountsForOrder", () =>
-{
-  it("should apply compoundable discounts", () =>
-  {
+describe("getApplicableDiscountsForOrder", () => {
+  it("should apply compoundable discounts", () => {
     const ORDER_PRICE = { amount: 1000, currency: CurrencyCode.USD }
     const ALL_DISCOUNTS: OrderDiscount[] = [
       {
@@ -21,12 +19,12 @@ describe("getApplicableDiscountsForOrder", () =>
       },
     ]
 
-    expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE))
-      .toEqual(ALL_DISCOUNTS)
+    expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE)).toEqual(
+      ALL_DISCOUNTS
+    )
   })
 
-  it("should only allow one non-compoundable discount", () =>
-  {
+  it("should only allow one non-compoundable discount", () => {
     const ORDER_PRICE = { amount: 1000, currency: CurrencyCode.USD }
     const ALL_DISCOUNTS: OrderDiscount[] = [
       {
@@ -41,12 +39,12 @@ describe("getApplicableDiscountsForOrder", () =>
       },
     ]
 
-    expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE))
-      .toEqual([ ALL_DISCOUNTS[0] ])
+    expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE)).toEqual([
+      ALL_DISCOUNTS[0],
+    ])
   })
 
-  it("should filter out discounts for which the order does not meet the minimum amount", () =>
-  {
+  it("should filter out discounts for which the order does not meet the minimum amount", () => {
     const ORDER_PRICE = { amount: 1000, currency: CurrencyCode.USD }
     const ALL_DISCOUNTS: OrderDiscount[] = [
       {
@@ -59,12 +57,12 @@ describe("getApplicableDiscountsForOrder", () =>
       },
     ]
 
-    expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE))
-      .toEqual([])
+    expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE)).toEqual(
+      []
+    )
   })
 
-  it("should filter out discounts for which the order exceeds the maximum amount", () =>
-  {
+  it("should filter out discounts for which the order exceeds the maximum amount", () => {
     const ORDER_PRICE = { amount: 10000, currency: CurrencyCode.USD }
     const ALL_DISCOUNTS: OrderDiscount[] = [
       {
@@ -77,7 +75,8 @@ describe("getApplicableDiscountsForOrder", () =>
       },
     ]
 
-    expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE))
-      .toEqual([])
+    expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE)).toEqual(
+      []
+    )
   })
 })

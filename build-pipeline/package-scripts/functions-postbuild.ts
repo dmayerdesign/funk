@@ -12,10 +12,18 @@ writeFunctionsIndex()
 writeFunctionsAssets()
 
 // Apply tsconfig.json's `paths` to compiled JS.
-const pathToTsConfigBuild = resolve(__dirname, "../../", "functions/tsconfig.build.json")
-const pathToTsConfigTmp = resolve(__dirname, "../../", "functions/tsconfig.build.tmp.json")
+const pathToTsConfigBuild = resolve(
+  __dirname,
+  "../../",
+  "functions/tsconfig.build.json"
+)
+const pathToTsConfigTmp = resolve(
+  __dirname,
+  "../../",
+  "functions/tsconfig.build.tmp.json"
+)
 const tsConfigBuild = readFileSync(pathToTsConfigBuild).toString("utf8")
-const tsConfigBuildTmp = tsConfigBuild.replace(/\.ts" \]/g, "\" ]")
+const tsConfigBuildTmp = tsConfigBuild.replace(/\.ts" \]/g, '" ]')
 writeFileSync(pathToTsConfigTmp, tsConfigBuildTmp)
 exec("tscpaths -p ./functions/tsconfig.build.tmp.json -s . -o ./functions/lib")
 removeSync(pathToTsConfigTmp)

@@ -1,11 +1,13 @@
-import { OrderDiscount, SkuDiscount } from "@funk/model/commerce/discount/discount"
+import {
+  OrderDiscount,
+  SkuDiscount,
+} from "@funk/model/commerce/discount/discount"
 
 export function createFakeOrderDiscount(
   id = "test discount",
   startAt = Date.now() - 60000000,
   endAt = Date.now() + 60000000
-): OrderDiscount
-{
+): OrderDiscount {
   return {
     id,
     type: "order",
@@ -19,8 +21,7 @@ export function createFakeSkuDiscount(
   id = "test discount",
   startAt = Date.now() - 60000000,
   endAt = Date.now() + 60000000
-): SkuDiscount
-{
+): SkuDiscount {
   return {
     id,
     type: "sku",

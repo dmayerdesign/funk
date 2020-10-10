@@ -17,32 +17,25 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
     "strict": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "baseUrl": ".",
     "paths": {
-      "@funk/api/*": [ "./api/*" ],
-      "@funk/configuration": [ "./.funk/build-pipeline-output/configuration/configuration.ts" ],
-      "@funk/copy/*": [ "./copy/*" ],
-      "@funk/functions/*": [ "./functions/src/*" ],
-      "@funk/helpers/*": [ "./helpers/*" ],
-      "@funk/model/*": [ "./model/*" ],
-      "@funk/test/*": [ "./test/*" ],
-      "@funk/ui/*": [ "./ui/*" ]
+      "@funk/api/*": ["./api/*"],
+      "@funk/configuration": [
+        "./.funk/build-pipeline-output/configuration/configuration"
+      ],
+      "@funk/copy/*": ["./copy/*"],
+      "@funk/functions/*": ["./functions/src/*"],
+      "@funk/helpers/*": ["./helpers/*"],
+      "@funk/model/*": ["./model/*"],
+      "@funk/test/*": ["./test/*"],
+      "@funk/ui/*": ["./ui/*"]
     }
   },
-  "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "./node_modules/**/*"
-  ]
+  "include": ["./**/*.ts"],
+  "exclude": ["./node_modules/**/*"]
 }

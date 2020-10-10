@@ -12,19 +12,15 @@ export interface Options {
   savePaymentMethod?: boolean
 }
 
-export function construct(
-  getPaymentProvider: typeof getPaymentProviderImpl
-)
-{
-  return async function(id: string): Promise<PaymentIntent>
-  {
+export function construct(getPaymentProvider: typeof getPaymentProviderImpl) {
+  return async function (id: string): Promise<PaymentIntent> {
     const psp = await getPaymentProvider()
     const paymentIntent = await psp.paymentIntents.retrieve(id)
 
-    if (paymentIntent.amount < MIN_TRANSACTION_CENTS)
-    {
+    if (paymentIntent.amount < MIN_TRANSACTION_CENTS) {
       throw new PaymentIntentInvalidPriceError(
-        `Amount ${paymentIntent.amount} is less than the minimum for a transaction.`)
+        `Amount ${paymentIntent.amount} is less than the minimum for a transaction.`
+      )
     }
 
     return await psp.paymentIntents.confirm(id)

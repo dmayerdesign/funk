@@ -1,8 +1,9 @@
 import { BehaviorSubject } from "rxjs"
 
-export function construct()
-{
-  const maybeActiveContentId = new BehaviorSubject<string | undefined>(undefined)
+export function construct() {
+  const maybeActiveContentId = new BehaviorSubject<string | undefined>(
+    undefined
+  )
   maybeActiveContentId.subscribe()
   return () => maybeActiveContentId
 }

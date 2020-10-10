@@ -2,10 +2,7 @@ import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { shareReplay, switchMap } from "rxjs/operators"
 
-export function construct(
-  auth: AuthClient
-)
-{
+export function construct(auth: AuthClient) {
   return auth.user.pipe(
     ignoreNullish(),
     switchMap((authUser) => authUser.getIdToken()),

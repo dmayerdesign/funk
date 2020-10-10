@@ -1,8 +1,7 @@
 import { Address } from "@funk/model/address/address"
 import { merge } from "lodash"
 
-export function createFakeAddress(customProps: Partial<Address> = {}): Address
-{
+export function createFakeAddress(customProps: Partial<Address> = {}): Address {
   return merge(
     {
       name: "fake name",

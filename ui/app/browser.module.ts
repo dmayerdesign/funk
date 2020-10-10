@@ -4,11 +4,7 @@ import { AppModule } from "@funk/ui/app/app.module"
 import { AppComponent } from "@funk/ui/app/component"
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    AppModule,
-  ],
-  bootstrap: [ AppComponent ],
+  imports: [BrowserAnimationsModule, AppModule],
+  bootstrap: [AppComponent],
 })
-export class BrowserModule
-{ }
+export class BrowserModule {}

@@ -7,12 +7,7 @@ import { ProductListContainer } from "@funk/ui/app/shop/product/list.container"
 import { IonicModule } from "@ionic/angular"
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonicModule],
   declarations: [
     ProductListItemComponent,
     ProductListComponent,
@@ -24,5 +19,4 @@ import { IonicModule } from "@ionic/angular"
     ProductListContainer,
   ],
 })
-export class ProductModule
-{ }
+export class ProductModule {}

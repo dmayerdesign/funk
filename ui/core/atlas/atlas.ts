@@ -1,26 +1,26 @@
 const atlas = {
-  "admin": {
+  admin: {
     label: "Admin",
     __atlas__: {},
   },
-  "sink": {
+  sink: {
     label: "Kitchen Sink",
     public: true,
     __atlas__: {},
   },
-  "shop": {
+  shop: {
     label: "Shop",
     public: true,
     __atlas__: {
-      "home": {
+      home: {
         label: "Home",
         public: true,
         __atlas__: {},
       },
-      "checkout": {
+      checkout: {
         label: "Checkout",
         __atlas__: {
-          "foo": {
+          foo: {
             label: "Foo",
             __atlas__: {},
           },
@@ -28,23 +28,23 @@ const atlas = {
       },
     },
   },
-  "poetry": {
+  poetry: {
     label: "Poetry",
     public: true,
     __atlas__: {
-      "about": {
+      about: {
         label: "About Me",
       },
-      "contact": {
+      contact: {
         label: "Contact Me",
       },
-      "honors": {
+      honors: {
         label: "Honors",
       },
-      "publications": {
+      publications: {
         label: "Publications",
       },
-      "teaching": {
+      teaching: {
         label: "Teaching",
       },
     },

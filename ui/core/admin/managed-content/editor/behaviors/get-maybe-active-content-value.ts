@@ -5,8 +5,7 @@ import { switchMap } from "rxjs/operators"
 
 export function construct(
   getMaybeActiveContentValueControl: GetMaybeActiveContentValueControl
-)
-{
+) {
   const maybeActiveContentValue = getMaybeActiveContentValueControl().pipe(
     switchMap((content) => content?.valueChanges ?? of(undefined)),
     shareReplayOnce()

@@ -1,7 +1,6 @@
 import { BehaviorSubject } from "rxjs"
 
-export function construct()
-{
+export function construct() {
   const isSaving = new BehaviorSubject<boolean>(false)
   isSaving.subscribe()
   return () => isSaving

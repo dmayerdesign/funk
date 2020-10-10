@@ -22,17 +22,17 @@ export const createFakePerson = ({
   id = FAKE_USER_UID,
   displayName = "Test",
   email = "test@test.com",
-} = {}) =>
-  ({ id, displayName, email }) as Person
+} = {}) => ({ id, displayName, email } as Person)
 
-export const createAuthUserStub = (role = UserRole.ANONYMOUS) => ({
-  uid: FAKE_USER_UID,
-  getIdToken: async (..._args: any[]) => FAKE_ID_TOKEN,
-  getIdTokenResult: async (..._args: any[]) => createIdTokenResultStub(role),
-  sendEmailVerification: async (..._args: any[]) => { },
-  emailVerified: role !== UserRole.ANONYMOUS,
-  isAnonymous: role === UserRole.ANONYMOUS,
-}) as unknown as AuthClientUser
+export const createAuthUserStub = (role = UserRole.ANONYMOUS) =>
+  (({
+    uid: FAKE_USER_UID,
+    getIdToken: async (..._args: any[]) => FAKE_ID_TOKEN,
+    getIdTokenResult: async (..._args: any[]) => createIdTokenResultStub(role),
+    sendEmailVerification: async (..._args: any[]) => {},
+    emailVerified: role !== UserRole.ANONYMOUS,
+    isAnonymous: role === UserRole.ANONYMOUS,
+  } as unknown) as AuthClientUser)
 
 export const createUserCredentialStub = (
   authUserStub = createAuthUserStub()
@@ -41,33 +41,33 @@ export const createUserCredentialStub = (
   user: authUserStub,
 })
 
-export const createAuthClientStub = (authUserStub = createAuthUserStub()) => ({
-  user: new BehaviorSubject(authUserStub) as Observable<AuthClientUser>,
-  createUserWithEmailAndPassword: async (..._args: any[]) =>
-    createUserCredentialStub(authUserStub),
-  signInWithEmailAndPassword: async (..._args: any[]) =>
-    createUserCredentialStub(authUserStub),
-  signOut: async () => { },
-  signInAnonymously: async () => { },
-  signInWithPopup: async () => { },
-  sendEmailVerification: async () => { },
-  useDeviceLanguage: () => { },
-  currentUser: authUserStub,
-  authState: new BehaviorSubject(authUserStub),
-  idTokenResult: of({}) as AuthClient["idTokenResult"],
-}) as unknown as AuthClient
+export const createAuthClientStub = (authUserStub = createAuthUserStub()) =>
+  (({
+    user: new BehaviorSubject(authUserStub) as Observable<AuthClientUser>,
+    createUserWithEmailAndPassword: async (..._args: any[]) =>
+      createUserCredentialStub(authUserStub),
+    signInWithEmailAndPassword: async (..._args: any[]) =>
+      createUserCredentialStub(authUserStub),
+    signOut: async () => {},
+    signInAnonymously: async () => {},
+    signInWithPopup: async () => {},
+    sendEmailVerification: async () => {},
+    useDeviceLanguage: () => {},
+    currentUser: authUserStub,
+    authState: new BehaviorSubject(authUserStub),
+    idTokenResult: of({}) as AuthClient["idTokenResult"],
+  } as unknown) as AuthClient)
 
-export const createRouterStub = () => ({
-  parseUrl: (_url: string) => new UrlTree(),
-} as Router)
+export const createRouterStub = () =>
+  ({
+    parseUrl: (_url: string) => new UrlTree(),
+  } as Router)
 
-export const createStubbedPublicGuard = (
-  userRole = UserRole.ANONYMOUS
-) =>
+export const createStubbedPublicGuard = (userRole = UserRole.ANONYMOUS) =>
   new PublicGuard(
     createUserSession(userRole),
-    {
+    ({
       canActivate: jest.fn().mockReturnValue(of(true)),
-    } as Partial<AnonymousGuard> as AnonymousGuard,
+    } as Partial<AnonymousGuard>) as AnonymousGuard,
     createRouterStub()
   )

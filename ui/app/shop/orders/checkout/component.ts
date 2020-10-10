@@ -18,19 +18,15 @@ import { pluck } from "rxjs/operators"
   // `,
   template: `
     <ion-card>
-
       <h3>Checkout works!</h3>
       <p>Shipping cost strategy: {{ shippingCostStrategy | async }}</p>
-
     </ion-card>
   `,
 })
-export class CheckoutComponent
-{
-  public shippingCostStrategy = this._enterprise.pipe(pluck("shippingCostStrategy"))
-
-  public constructor(
-    @Inject(ENTERPRISE) private _enterprise: Enterprise$
+export class CheckoutComponent {
+  public shippingCostStrategy = this._enterprise.pipe(
+    pluck("shippingCostStrategy")
   )
-  { }
+
+  public constructor(@Inject(ENTERPRISE) private _enterprise: Enterprise$) {}
 }

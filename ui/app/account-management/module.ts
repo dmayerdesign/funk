@@ -12,9 +12,6 @@ import { IonicModule } from "@ionic/angular"
       { path: "", component: AccountManagementComponent },
     ]),
   ],
-  declarations: [
-    AccountManagementComponent,
-  ],
+  declarations: [AccountManagementComponent],
 })
-export class AccountManagementModule
-{ }
+export class AccountManagementModule {}

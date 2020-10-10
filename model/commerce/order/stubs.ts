@@ -1,13 +1,17 @@
 import { createFakeAddress } from "@funk/model/address/stubs"
-import { MarshalledCart, MarshalledOrder, Order, Status } from "@funk/model/commerce/order/order"
+import {
+  MarshalledCart,
+  MarshalledOrder,
+  Order,
+  Status,
+} from "@funk/model/commerce/order/order"
 import { NULL_PRICE } from "@funk/model/commerce/price/price"
 import { merge } from "lodash"
 
 export function createFakeMarshalledOrder(
   id = "order-id",
   customProps: Partial<MarshalledOrder> = {}
-): MarshalledOrder
-{
+): MarshalledOrder {
   return merge<MarshalledOrder, Partial<MarshalledOrder>>(
     {
       id,
@@ -47,8 +51,7 @@ export function createFakeMarshalledOrder(
 export function createFakeMarshalledCart(
   id = "order-id",
   customProps: Partial<MarshalledCart> = {}
-): MarshalledCart
-{
+): MarshalledCart {
   return createFakeMarshalledOrder(id, {
     status: Status.PAYMENT_PENDING,
     ...customProps,
@@ -58,7 +61,9 @@ export function createFakeMarshalledCart(
 export function createFakeOrder(
   id = "order-id",
   customProps: Partial<Order> = {}
-): Order
-{
-  return merge<Order, Partial<Order>>(createFakeMarshalledOrder(id) as Order, customProps)
+): Order {
+  return merge<Order, Partial<Order>>(
+    createFakeMarshalledOrder(id) as Order,
+    customProps
+  )
 }

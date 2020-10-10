@@ -3,12 +3,9 @@ import getOrderDiscountPrice from "@funk/model/commerce/order/behaviors/get-orde
 import { createFakeOrder } from "@funk/model/commerce/order/stubs"
 import { NULL_PRICE } from "@funk/model/commerce/price/price"
 
-describe("getOrderDiscountPrice", () =>
-{
-  it("should apply `total` discounts", async function ()
-  {
+describe("getOrderDiscountPrice", () => {
+  it("should apply `total` discounts", async function () {
     const order = createFakeOrder("test order 1", {
-
       discounts: [
         {
           ...createFakeOrderDiscount("test discount 1"),
@@ -23,13 +20,15 @@ describe("getOrderDiscountPrice", () =>
       ],
     })
 
-    const priceAfter = getOrderDiscountPrice(order, { ...NULL_PRICE, amount: 4000 })
+    const priceAfter = getOrderDiscountPrice(order, {
+      ...NULL_PRICE,
+      amount: 4000,
+    })
 
     expect(priceAfter.amount).toBe(2000)
   })
 
-  it("should apply `percentage` discounts", async function ()
-  {
+  it("should apply `percentage` discounts", async function () {
     const order = createFakeOrder("test order 1", {
       discounts: [
         {
@@ -45,7 +44,10 @@ describe("getOrderDiscountPrice", () =>
       ],
     })
 
-    const priceAfter = getOrderDiscountPrice(order, { ...NULL_PRICE, amount: 10000 })
+    const priceAfter = getOrderDiscountPrice(order, {
+      ...NULL_PRICE,
+      amount: 10000,
+    })
 
     expect(priceAfter.amount).toBe(4500)
   })

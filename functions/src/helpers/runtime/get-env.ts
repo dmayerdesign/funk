@@ -3,7 +3,6 @@ export interface FunctionsEnvironment {
   FIREBASE_CONFIG: string
 }
 
-export default function(): FunctionsEnvironment
-{
-  return process.env as unknown as FunctionsEnvironment
+export default function (): FunctionsEnvironment {
+  return (process.env as unknown) as FunctionsEnvironment
 }

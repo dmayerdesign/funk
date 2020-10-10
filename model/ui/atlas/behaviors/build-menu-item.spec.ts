@@ -1,31 +1,31 @@
 import { Atlas } from "@funk/model/ui/atlas/atlas"
-import { construct, BuildMenuItem } from "@funk/model/ui/atlas/behaviors/build-menu-item"
+import {
+  construct,
+  BuildMenuItem,
+} from "@funk/model/ui/atlas/behaviors/build-menu-item"
 
-describe("buildMenuItem", () =>
-{
+describe("buildMenuItem", () => {
   let atlas: Atlas
   let buildMenuItem: BuildMenuItem<any>
 
-  beforeEach(() =>
-  {
+  beforeEach(() => {
     atlas = {
       "route-1": {
-        "label": "Route 1",
+        label: "Route 1",
         __atlas__: {
           "sub-1": {
-            "label": "Sub-route 1",
+            label: "Sub-route 1",
           },
         },
       },
       "route-2": {
-        "label": "Route 2",
+        label: "Route 2",
       },
     }
     buildMenuItem = construct(atlas)
   })
 
-  it("should build a menu item", () =>
-  {
+  it("should build a menu item", () => {
     const menuItem = buildMenuItem("route-1", "sub-1")
 
     expect(menuItem.label).toBe("Sub-route 1")

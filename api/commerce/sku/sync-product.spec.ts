@@ -8,8 +8,7 @@ import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
 
-describe("skuSyncProduct", () =>
-{
+describe("skuSyncProduct", () => {
   let ATTRIBUTE_ID_1: string
   let ATTRIBUTE_ID_2: string
   let ATTRIBUTE_VALUE_1_1: string
@@ -22,12 +21,15 @@ describe("skuSyncProduct", () =>
   let updateById: UpdateById
   let syncProduct: SyncProduct
 
-  it("should do nothing if there is no change in attribute values nor price", async function ()
-  {
+  it("should do nothing if there is no change in attribute values nor price", async function () {
     await syncProduct(
       {
-        before: { data: () => CHANGED_SKU } as unknown as  DocumentSnapshot<MarshalledSku>,
-        after: { data: () => CHANGED_SKU } as unknown as  DocumentSnapshot<MarshalledSku>,
+        before: ({ data: () => CHANGED_SKU } as unknown) as DocumentSnapshot<
+          MarshalledSku
+        >,
+        after: ({ data: () => CHANGED_SKU } as unknown) as DocumentSnapshot<
+          MarshalledSku
+        >,
       },
       {} as ChangeContext
     )
@@ -36,12 +38,15 @@ describe("skuSyncProduct", () =>
     expect(updateById).not.toHaveBeenCalled()
   })
 
-  it("should update the parent product whenever attribute values change", async function ()
-  {
+  it("should update the parent product whenever attribute values change", async function () {
     await syncProduct(
       {
-        before: { data: () => undefined } as unknown as  DocumentSnapshot<MarshalledSku>,
-        after: { data: () => CHANGED_SKU } as unknown as  DocumentSnapshot<MarshalledSku>,
+        before: ({ data: () => undefined } as unknown) as DocumentSnapshot<
+          MarshalledSku
+        >,
+        after: ({ data: () => CHANGED_SKU } as unknown) as DocumentSnapshot<
+          MarshalledSku
+        >,
       },
       {} as ChangeContext
     )
@@ -49,8 +54,8 @@ describe("skuSyncProduct", () =>
     expect(list).toHaveBeenCalled()
     expect(updateById).toHaveBeenCalledWith(PRODUCTS, PRODUCT_ID, {
       attributeValues: {
-        [ATTRIBUTE_ID_1]: [ ATTRIBUTE_VALUE_1_1, ATTRIBUTE_VALUE_1_2 ],
-        [ATTRIBUTE_ID_2]: [ ATTRIBUTE_VALUE_2 ],
+        [ATTRIBUTE_ID_1]: [ATTRIBUTE_VALUE_1_1, ATTRIBUTE_VALUE_1_2],
+        [ATTRIBUTE_ID_2]: [ATTRIBUTE_VALUE_2],
       },
       priceRange: {
         min: { amount: 500, currency: CurrencyCode.USD },
@@ -59,8 +64,7 @@ describe("skuSyncProduct", () =>
     })
   })
 
-  beforeEach(() =>
-  {
+  beforeEach(() => {
     ATTRIBUTE_ID_1 = "attribute id 1" as string
     ATTRIBUTE_ID_2 = "attribute id 2" as string
     ATTRIBUTE_VALUE_1_1 = "attribute value 1-1"
@@ -86,11 +90,8 @@ describe("skuSyncProduct", () =>
         price: { amount: 600, currency: CurrencyCode.USD },
       } as MarshalledSku,
     ] as MarshalledSku[]
-    list = jest.fn().mockReturnValue(
-      Promise.resolve(ALL_SKUS)
-    )
+    list = jest.fn().mockReturnValue(Promise.resolve(ALL_SKUS))
     updateById = jest.fn()
     syncProduct = construct(list, updateById)
   })
 })
-

@@ -5,25 +5,23 @@ import { IonNav } from "@ionic/angular"
 
 @Component({
   selector: "sign-up-form",
-  styles: [`
-    .back-to-sign-in {
-      align-self: flex-start;
-    }
-  `],
+  styles: [
+    `
+      .back-to-sign-in {
+        align-self: flex-start;
+      }
+    `,
+  ],
   template: `
     <div class="sign-in-inner">
       <h2>Sign Up</h2>
-      <form [formGroup]="signUpFormGroup"
-        (ngSubmit)="handleSubmit()">
-        <ion-list class="ion-no-margin ion-no-padding"
-          lines="full">
+      <form [formGroup]="signUpFormGroup" (ngSubmit)="handleSubmit()">
+        <ion-list class="ion-no-margin ion-no-padding" lines="full">
           <ion-item>
             <ion-label position="stacked">
               Email Address
             </ion-label>
-            <ion-input formControlName="email"
-              placeholder="email"
-              type="email">
+            <ion-input formControlName="email" placeholder="email" type="email">
             </ion-input>
           </ion-item>
 
@@ -31,18 +29,21 @@ import { IonNav } from "@ionic/angular"
             <ion-label position="stacked">
               Password
             </ion-label>
-            <ion-input formControlName="password"
+            <ion-input
+              formControlName="password"
               placeholder="password"
-              type="password">
+              type="password"
+            >
             </ion-input>
           </ion-item>
-
         </ion-list>
 
-        <ion-button class="ion-no-margin"
+        <ion-button
+          class="ion-no-margin"
           expand="block"
           size="default"
-          type="submit">
+          type="submit"
+        >
           Create Account
         </ion-button>
 
@@ -59,18 +60,13 @@ import { IonNav } from "@ionic/angular"
     </div>
   `,
 })
-export class SignUpFormComponent
-{
+export class SignUpFormComponent {
   @Input() public signUpFormGroup!: FormGroup
   @Output() public signUpFormSubmit = new EventEmitter<Login>()
 
-  public constructor(
-    @Inject(IonNav) public ionNav: IonNav
-  )
-  { }
+  public constructor(@Inject(IonNav) public ionNav: IonNav) {}
 
-  public async handleSubmit(): Promise<void>
-  {
+  public async handleSubmit(): Promise<void> {
     this.signUpFormSubmit.emit(this.signUpFormGroup.value)
   }
 }

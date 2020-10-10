@@ -13,13 +13,14 @@ import { DeviceWidth } from "@funk/ui/plugins/layout/device-width"
         <h2 *ngIf="(pageTitle | async) && (isDesktopLayout | async)">
           {{ pageTitle | async }}
         </h2>
-        <managed-content contentId="poetry-publications-article"></managed-content>
+        <managed-content
+          contentId="poetry-publications-article"
+        ></managed-content>
       </article>
     </ion-content>
   `,
 })
-export class PublicationsContainer
-{
+export class PublicationsContainer {
   public isDesktopLayout = this._deviceWidth.pipe(
     map((deviceWidth) => deviceWidth > 960),
     shareReplayOnce()
@@ -28,6 +29,5 @@ export class PublicationsContainer
   public constructor(
     @Inject(PAGE_TITLE) public pageTitle: PageTitle,
     @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth
-  )
-  { }
+  ) {}
 }

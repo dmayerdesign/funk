@@ -24,9 +24,6 @@ const routes: Routes = [
     AppCommonModule,
     ManagedContentModule,
   ],
-  declarations: [
-    KitchenSinkContainer,
-  ],
+  declarations: [KitchenSinkContainer],
 })
-export class KitchenSinkModule
-{ }
+export class KitchenSinkModule {}

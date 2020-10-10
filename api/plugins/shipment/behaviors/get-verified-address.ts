@@ -5,14 +5,11 @@ import getShipmentProviderImpl from "./get-shipment-provider"
 export function construct(
   shipmentProviderSecret: string,
   getShipmentProvider: typeof getShipmentProviderImpl
-)
-{
-  return async function(address: Address): Promise<Address | undefined>
-  {
+) {
+  return async function (address: Address): Promise<Address | undefined> {
     const shipmentApi = getShipmentProvider(shipmentProviderSecret)
     const verifiedAddressOrError = await new shipmentApi.Address(address).save()
-    if (!verifiedAddressOrError || verifiedAddressOrError.error)
-    {
+    if (!verifiedAddressOrError || verifiedAddressOrError.error) {
       return undefined
     }
     return omitNullish({

@@ -1,9 +1,7 @@
-import roleHasAdminPrivilegeOrGreater from
-  "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
+import roleHasAdminPrivilegeOrGreater from "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
 import { UserRole } from "@funk/model/auth/user-role"
 
-describe("roleHasAdminPrivilegeOrGreater", () =>
-{
+describe("roleHasAdminPrivilegeOrGreater", () => {
   it("should return true if the user has the role ADMINISTRATOR", () =>
     expect(roleHasAdminPrivilegeOrGreater(UserRole.ADMINISTRATOR)).toBe(true))
   it("should return true if the user has the role OWNER", () =>

@@ -15,37 +15,33 @@ import { MarshalledSku } from "@funk/model/commerce/sku/sku"
  */
 export function construct(
   getApplicableDiscountsForSku: typeof getApplicableDiscountsForSkuImpl
-)
-{
-  return function(options: {
+) {
+  return function (options: {
     sku: MarshalledSku
     product: MarshalledProduct
     activeDiscounts?: SkuDiscount[]
-  }): Price
-  {
+  }): Price {
     const { sku, product, activeDiscounts = [] } = options
-    const applicableDiscounts =
-      getApplicableDiscountsForSku(activeDiscounts, { sku, product })
+    const applicableDiscounts = getApplicableDiscountsForSku(activeDiscounts, {
+      sku,
+      product,
+    })
     return getSkuPriceAfterDiscounts(sku, applicableDiscounts)
   }
 }
 
-function getSkuPriceAfterDiscounts(sku: MarshalledSku, discounts: SkuDiscount[]): Price
-{
-  return discounts.reduce<Price>((calculatedPrice, discount) =>
-  {
-    if (!!discount.total)
-    {
+function getSkuPriceAfterDiscounts(
+  sku: MarshalledSku,
+  discounts: SkuDiscount[]
+): Price {
+  return discounts.reduce<Price>((calculatedPrice, discount) => {
+    if (!!discount.total) {
       return subtract(calculatedPrice, discount.total)
-    }
-    else if (!!discount.percentage)
-    {
-      return subtract(
-        calculatedPrice,
-        {
-          ...calculatedPrice,
-          amount: calculatedPrice.amount * (discount.percentage / 100),
-        })
+    } else if (!!discount.percentage) {
+      return subtract(calculatedPrice, {
+        ...calculatedPrice,
+        amount: calculatedPrice.amount * (discount.percentage / 100),
+      })
     }
     return calculatedPrice
   }, sku.price)

@@ -12,25 +12,19 @@ https://github.com/typescript-eslint/tslint-to-eslint-config/blob/master/docs/FA
 Happy linting! 💖
 */
 module.exports = {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
   },
-  "extends": [
-    "prettier",
-    "prettier/@typescript-eslint"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "tsconfig.json",
-    "sourceType": "module"
+  extends: ["prettier", "prettier/@typescript-eslint"],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: "tsconfig.json",
+    sourceType: "module",
   },
-  "plugins": [
-    "@typescript-eslint",
-    "@typescript-eslint/tslint"
-  ],
-  "rules": {
+  plugins: ["@typescript-eslint", "@typescript-eslint/tslint"],
+  rules: {
     "@typescript-eslint/ban-types": "warn",
     "@typescript-eslint/no-inferrable-types": "error",
     "@typescript-eslint/no-misused-new": "error",
@@ -39,13 +33,10 @@ module.exports = {
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
-        "accessibility": "explicit"
-      }
+        accessibility: "explicit",
+      },
     ],
-    "@typescript-eslint/quotes": [
-      "warn",
-      "double"
-    ],
+    "@typescript-eslint/quotes": ["warn", "double"],
     "@typescript-eslint/member-ordering": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-empty-interface": "off",
@@ -59,22 +50,16 @@ module.exports = {
     "comma-dangle": [
       "warn",
       {
-        "arrays": "always-multiline",
-        "objects": "always-multiline",
-        "functions": "never",
-        "imports": "never",
-        "exports": "never"
-      }
+        arrays: "always-multiline",
+        objects: "always-multiline",
+        functions: "never",
+        imports: "never",
+        exports: "never",
+      },
     ],
-    "curly": [
-      "warn",
-      "multi-line"
-    ],
+    curly: ["warn", "multi-line"],
     "eol-last": "warn",
-    "eqeqeq": [
-      "error",
-      "smart"
-    ],
+    eqeqeq: ["error", "smart"],
 
     "no-bitwise": "error",
     "no-caller": "error",
@@ -84,8 +69,8 @@ module.exports = {
     "no-shadow": [
       "error",
       {
-        "hoist": "all"
-      }
+        hoist: "all",
+      },
     ],
     "no-throw-literal": "error",
     "no-trailing-spaces": "warn",
@@ -93,18 +78,16 @@ module.exports = {
     "no-unused-labels": "error",
     "no-var": "error",
     "prefer-const": "error",
-    "radix": "error",
+    radix: "error",
     "spaced-comment": [
       "warn",
       "always",
       {
-        "markers": [
-          "/"
-        ]
-      }
-    ]
+        markers: ["/"],
+      },
+    ],
     // For some reason, errors with `Definition for rule
     // '@typescript-eslint/class-name-casing' was not found`.
     // "@typescript-eslint/class-name-casing": "error",
-  }
-};
+  },
+}

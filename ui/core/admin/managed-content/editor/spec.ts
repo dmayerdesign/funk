@@ -5,11 +5,11 @@ import {
   CONTENTS,
   ManagedContent,
   ManagedContentType,
-  ManagedText
+  ManagedText,
 } from "@funk/model/managed-content/managed-content"
 import {
   construct,
-  ManagedContentEditorService
+  ManagedContentEditorService,
 } from "@funk/ui/core/admin/managed-content/editor/service"
 import { FAKE_USER_UID } from "@funk/ui/core/identity/stubs"
 import { UserSession } from "@funk/ui/core/identity/user-session"
@@ -24,8 +24,7 @@ import { when } from "jest-when"
 import { Dictionary } from "lodash"
 import { of } from "rxjs"
 
-describe("ManagedContentEditorService", () =>
-{
+describe("ManagedContentEditorService", () => {
   let getById: GetById
   let listenById: ReturnType<typeof constructListenById>
   let setById: ReturnType<typeof constructSetById>
@@ -35,8 +34,7 @@ describe("ManagedContentEditorService", () =>
   let userSession: UserSession
   let getInnerText: ReturnType<typeof constructGetInnerText>
 
-  it("should manage content for the first time", async () =>
-  {
+  it("should manage content for the first time", async () => {
     const service = newService()
     const getActiveContentValueControl = async () =>
       await asPromise(service.getMaybeActiveContentValueControl())
@@ -48,28 +46,31 @@ describe("ManagedContentEditorService", () =>
     )
   })
 
-  it("should manage content for the second time", async () =>
-  {
+  it("should manage content for the second time", async () => {
     const service = newService()
     const getActiveContentValueControl = async () =>
       await asPromise(service.getMaybeActiveContentValueControl())
 
     await service.openEditor("content-1")
 
-    expect((await getActiveContentValueControl())?.value).toEqual("Test 1 preview saved")
+    expect((await getActiveContentValueControl())?.value).toEqual(
+      "Test 1 preview saved"
+    )
   })
 
-  it("should save managed content", async () =>
-  {
+  it("should save managed content", async () => {
     const service = newService()
     await service.openEditor("content-1")
-    const activeContentValueControl = await asPromise(service.getMaybeActiveContentValueControl())
+    const activeContentValueControl = await asPromise(
+      service.getMaybeActiveContentValueControl()
+    )
     activeContentValueControl?.setValue("Test 1 preview")
 
     await service.saveAndClearIfEditing()
 
-    const clearedActiveContentValueControl =
-      await asPromise(service.getMaybeActiveContentValueControl())
+    const clearedActiveContentValueControl = await asPromise(
+      service.getMaybeActiveContentValueControl()
+    )
     expect(clearedActiveContentValueControl).toBe(undefined)
     expect(updateById).toHaveBeenCalledTimes(1)
     expect(updateById).toHaveBeenCalledWith(
@@ -85,8 +86,7 @@ describe("ManagedContentEditorService", () =>
     )
   })
 
-  it("should ask the user to confirm before publishing all previews", async () =>
-  {
+  it("should ask the user to confirm before publishing all previews", async () => {
     const service = newService()
 
     await service.publishAllOnConfirmation()
@@ -94,31 +94,32 @@ describe("ManagedContentEditorService", () =>
     expect(alertController.create).toHaveBeenCalled()
   })
 
-  it("should publish all previews", async () =>
-  {
+  it("should publish all previews", async () => {
     const FAKE_USER_STATES = createFakeUserStates("content-1")
     const service = newService()
 
-    await service.publishAll(
-      FAKE_USER_STATES[FAKE_USER_UID].contentPreviews!,
-      { id: FAKE_USER_UID }
-    )
+    await service.publishAll(FAKE_USER_STATES[FAKE_USER_UID].contentPreviews!, {
+      id: FAKE_USER_UID,
+    })
 
     expect(setById).toHaveBeenCalledTimes(1)
     expect(setById).toHaveBeenCalledWith(
       CONTENTS,
       "content-1",
-      createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.["content-1"].content
+      createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.[
+        "content-1"
+      ].content
     )
     expect(updateById).toHaveBeenCalledTimes(1)
-    expect(updateById).toHaveBeenCalledWith(
-      USER_STATES, FAKE_USER_UID, { contentPreviews: {} }
-    )
+    expect(updateById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID, {
+      contentPreviews: {},
+    })
   })
 
-  it("should not publish all previews if the user is not an admin", async () =>
-  {
-    userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
+  it("should not publish all previews if the user is not an admin", async () => {
+    userSession = of({
+      auth: { claims: { role: UserRole.PUBLIC } },
+    }) as UserSession
     const service = newService()
 
     await service.publishAllOnConfirmation()
@@ -126,53 +127,52 @@ describe("ManagedContentEditorService", () =>
     expect(alertController.create).not.toHaveBeenCalled()
   })
 
-  it("should not publish if the content has been edited since the preview was created",
-    async () =>
-    {
-      const FAKE_USER_STATES = createFakeUserStates("content-with-publish-conflict")
-      when(listenById as jest.Mock)
-        .calledWith(USER_STATES)
-        .mockReturnValueOnce(of(FAKE_USER_STATES[FAKE_USER_UID]))
-      when(getById as jest.Mock)
-        .calledWith(USER_STATES)
-        .mockReturnValueOnce(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
-      const service = newService()
+  it("should not publish if the content has been edited since the preview was created", async () => {
+    const FAKE_USER_STATES = createFakeUserStates(
+      "content-with-publish-conflict"
+    )
+    when(listenById as jest.Mock)
+      .calledWith(USER_STATES)
+      .mockReturnValueOnce(of(FAKE_USER_STATES[FAKE_USER_UID]))
+    when(getById as jest.Mock)
+      .calledWith(USER_STATES)
+      .mockReturnValueOnce(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
+    const service = newService()
 
-      await service.publishAll(
-        FAKE_USER_STATES[FAKE_USER_UID].contentPreviews!,
-        { id: FAKE_USER_UID }
-      )
-      const publishConflicts = await asPromise(
-        service.getPublishConflicts())
-      const contentIdUpdatedAfterPreview = publishConflicts[0][1].id
-
-      expect(setById).not.toHaveBeenCalled()
-      expect(updateById).not.toHaveBeenCalledWith()
-      expect(contentIdUpdatedAfterPreview).toBe("content-with-publish-conflict")
+    await service.publishAll(FAKE_USER_STATES[FAKE_USER_UID].contentPreviews!, {
+      id: FAKE_USER_UID,
     })
+    const publishConflicts = await asPromise(service.getPublishConflicts())
+    const contentIdUpdatedAfterPreview = publishConflicts[0][1].id
 
-  it("should publish one preview, regardless of publish conflict",
-    async () =>
-    {
-      const service = newService()
+    expect(setById).not.toHaveBeenCalled()
+    expect(updateById).not.toHaveBeenCalledWith()
+    expect(contentIdUpdatedAfterPreview).toBe("content-with-publish-conflict")
+  })
 
-      await service.publishOne("content-1")
+  it("should publish one preview, regardless of publish conflict", async () => {
+    const service = newService()
 
-      expect(setById).toHaveBeenCalledTimes(1)
-      expect(setById).toHaveBeenCalledWith(
-        CONTENTS,
-        "content-1",
-        createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.["content-1"].content
-      )
-      expect(updateById).toHaveBeenCalledTimes(1)
-      expect(updateById).toHaveBeenCalledWith(
-        USER_STATES, FAKE_USER_UID, { contentPreviews: {} }
-      )
+    await service.publishOne("content-1")
+
+    expect(setById).toHaveBeenCalledTimes(1)
+    expect(setById).toHaveBeenCalledWith(
+      CONTENTS,
+      "content-1",
+      createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.[
+        "content-1"
+      ].content
+    )
+    expect(updateById).toHaveBeenCalledTimes(1)
+    expect(updateById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID, {
+      contentPreviews: {},
     })
+  })
 
-  it("should not publish one preview if the user is not an admin", async () =>
-  {
-    userSession = of({ auth: { claims: { role: UserRole.PUBLIC } } }) as UserSession
+  it("should not publish one preview if the user is not an admin", async () => {
+    userSession = of({
+      auth: { claims: { role: UserRole.PUBLIC } },
+    }) as UserSession
     const service = newService()
 
     await service.publishOne("content-1")
@@ -181,25 +181,18 @@ describe("ManagedContentEditorService", () =>
     expect(updateById).not.toHaveBeenCalledWith()
   })
 
-  it("should remove a preview", async () =>
-  {
+  it("should remove a preview", async () => {
     const service = newService()
 
     await service.removePreview("content-1")
 
-    expect(getById).toHaveBeenCalledWith(
-      USER_STATES,
-      FAKE_USER_UID
-    )
-    expect(updateById).toHaveBeenCalledWith(
-      USER_STATES,
-      FAKE_USER_UID,
-      { contentPreviews: {} }
-    )
+    expect(getById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID)
+    expect(updateById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID, {
+      contentPreviews: {},
+    })
   })
 
-  it("should ask the user to confirm before removing all previews", async () =>
-  {
+  it("should ask the user to confirm before removing all previews", async () => {
     const service = newService()
 
     await service.removeAllPreviewsOnConfirmation()
@@ -207,20 +200,18 @@ describe("ManagedContentEditorService", () =>
     expect(alertController.create).toHaveBeenCalled()
   })
 
-  it("should remove all previews", async () =>
-  {
+  it("should remove all previews", async () => {
     const service = newService()
 
     await service.removeAllPreviews()
 
-    expect(updateById).toHaveBeenCalledWith(
-      USER_STATES, FAKE_USER_UID, { contentPreviews: {} }
-    )
+    expect(updateById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID, {
+      contentPreviews: {},
+    })
     expect(service.getPublishConflicts().getValue()).toEqual([])
   })
 
-  beforeEach(() =>
-  {
+  beforeEach(() => {
     userSession = of({
       auth: { claims: { role: UserRole.ADMINISTRATOR } },
       person: { id: FAKE_USER_UID },
@@ -230,10 +221,10 @@ describe("ManagedContentEditorService", () =>
     setById = jest.fn()
     updateById = jest.fn()
     getInnerText = (htmlString: string) => htmlString
-    alertController = {
+    alertController = ({
       create: jest.fn().mockReturnValue({ present: jest.fn() }),
       dismiss: jest.fn(),
-    } as Partial<AlertController> as AlertController
+    } as Partial<AlertController>) as AlertController
 
     const FAKE_USER_STATES = createFakeUserStates()
     when(listenById as jest.Mock)
@@ -250,7 +241,9 @@ describe("ManagedContentEditorService", () =>
       .mockReturnValue(Promise.resolve(FAKE_CONTENTS["content-2"]))
     when(getById as jest.Mock)
       .calledWith(CONTENTS, "content-with-publish-conflict")
-      .mockReturnValue(Promise.resolve(FAKE_CONTENTS["content-with-publish-conflict"]))
+      .mockReturnValue(
+        Promise.resolve(FAKE_CONTENTS["content-with-publish-conflict"])
+      )
     when(listenById as jest.Mock)
       .calledWith(CONTENTS, "content-1")
       .mockReturnValue(of(FAKE_CONTENTS["content-1"]))
@@ -262,10 +255,16 @@ describe("ManagedContentEditorService", () =>
       .mockReturnValue(of(FAKE_CONTENTS["content-with-publish-conflict"]))
   })
 
-  function newService(): ManagedContentEditorService
-  {
+  function newService(): ManagedContentEditorService {
     return construct(
-      userSession, listenById, getById, setById, updateById, getInnerText, alertController, of(961)
+      userSession,
+      listenById,
+      getById,
+      setById,
+      updateById,
+      getInnerText,
+      alertController,
+      of(961)
     )
   }
 })
@@ -297,7 +296,9 @@ const FAKE_CONTENTS: Dictionary<ManagedContent> = {
   },
 }
 
-const createFakeUserStates = (contentIdPreviewing = "content-1"): {
+const createFakeUserStates = (
+  contentIdPreviewing = "content-1"
+): {
   [id: string]: UserState
 } => ({
   [FAKE_USER_UID]: {

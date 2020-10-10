@@ -9,7 +9,6 @@ import { Product } from "@funk/model/commerce/product/product"
     </div>
   `,
 })
-export class ProductListItemComponent
-{
+export class ProductListItemComponent {
   @Input() public product?: Product
 }

@@ -12,10 +12,8 @@ export function construct(
   userSession: UserSession,
   publishAndDeleteContentPreview: PublishAndDeleteContentPreview,
   removeFromPublishConflicts: RemoveFromPublishConflicts
-)
-{
-  return async function (contentId: PrimaryKey): Promise<void>
-  {
+) {
+  return async function (contentId: PrimaryKey): Promise<void> {
     const { person, auth } = await asPromise(userSession)
     // Do nothing if the user is not an admin.
     if (!roleHasAdminPrivilegeOrGreater(auth.claims.role)) return

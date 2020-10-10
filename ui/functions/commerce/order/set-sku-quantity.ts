@@ -10,11 +10,12 @@ interface PayloadType {
 }
 type ResolvedValueType = MarshalledProduct[]
 
-export function construct(client: FunctionsClient)
-{
-  return async function(payload: PayloadType): Promise<ResolvedValueType>
-  {
-    return client.rpcAuthorized<PayloadType, ResolvedValueType>(functionName, payload)
+export function construct(client: FunctionsClient) {
+  return async function (payload: PayloadType): Promise<ResolvedValueType> {
+    return client.rpcAuthorized<PayloadType, ResolvedValueType>(
+      functionName,
+      payload
+    )
   }
 }
 

@@ -10,23 +10,15 @@ const CLIENT_APP_DOMAIN = CLIENT_APP_URL.split("//")[1]
 export function construct(
   sendEmail: typeof sendEmailImpl,
   isHuman: typeof isHumanImpl
-)
-{
+) {
   /**
    * @throws {InvalidInputError}
    */
-  return async function(contactForm: ContactForm): Promise<void>
-  {
+  return async function (contactForm: ContactForm): Promise<void> {
     throwIfContactFormIsInvalid(contactForm)
-    const {
-      name,
-      emailAddress,
-      message,
-      turingTestToken,
-    } = contactForm
+    const { name, emailAddress, message, turingTestToken } = contactForm
     const _isHuman = await isHuman(turingTestToken)
-    if (!_isHuman)
-    {
+    if (!_isHuman) {
       throw new ForbiddenError(
         "The user submitting this form appears to be a robot."
       )
@@ -43,8 +35,10 @@ export function construct(
   }
 }
 
-function render({ name, message }: Pick<ContactForm, "name" | "message">): string
-{
+function render({
+  name,
+  message,
+}: Pick<ContactForm, "name" | "message">): string {
   return `
 From: ${name}
 
@@ -54,9 +48,6 @@ ${message}
   `
 }
 
-export default construct(
-  sendEmailImpl,
-  isHumanImpl
-)
+export default construct(sendEmailImpl, isHumanImpl)
 
 export type SendEmailToOwner = ReturnType<typeof construct>

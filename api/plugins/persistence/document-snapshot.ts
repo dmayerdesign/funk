@@ -1,15 +1,13 @@
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import {
   DocumentSnapshot as FirestoreDocumentSnapshot,
-  QueryDocumentSnapshot as FirestoreQueryDocumentSnapshot
+  QueryDocumentSnapshot as FirestoreQueryDocumentSnapshot,
 } from "@google-cloud/firestore"
 
 export interface DocumentSnapshot<
   DocumentType extends { [key: string]: any } = DatabaseDocument
->
-  extends FirestoreDocumentSnapshot { }
+> extends FirestoreDocumentSnapshot {}
 
 export interface QueryDocumentSnapshot<
   DocumentType extends { [key: string]: any } = DatabaseDocument
->
-  extends FirestoreQueryDocumentSnapshot { }
+> extends FirestoreQueryDocumentSnapshot {}

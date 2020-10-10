@@ -99,10 +99,10 @@ $has-preview-notice-height: 32px;
           box-shadow: 0 0 0 3px rgba($color-warning, 1);
         }
       }
-      
+
       @keyframes beacon {
         0% {
-          transform: scale(.1);
+          transform: scale(0.1);
           opacity: 1;
         }
         80% {

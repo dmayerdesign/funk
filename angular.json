@@ -38,9 +38,7 @@
                 "output": "svg"
               }
             ],
-            "styles": [
-              "ui/styles/main.scss"
-            ]
+            "styles": ["ui/styles/main.scss"]
           },
           "configurations": {
             "local": {

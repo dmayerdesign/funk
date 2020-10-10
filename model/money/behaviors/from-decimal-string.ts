@@ -1,11 +1,10 @@
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import { Price } from "@funk/model/commerce/price/price"
 
-export default function(
+export default function (
   decimalString: string | undefined,
   currency: CurrencyCode
-): Price | undefined
-{
+): Price | undefined {
   if (!decimalString) return undefined
 
   const floatString = decimalString.replace(/[^0-9\.]/gi, "")

@@ -2,4 +2,7 @@ import auditOnWrite from "@funk/functions/helpers/audit/on-write"
 import createWriteHandler from "@funk/functions/helpers/listen/create-write-handler"
 import { ORDERS, Order } from "@funk/model/commerce/order/order"
 
-export default createWriteHandler(ORDERS, auditOnWrite<Order>(`audit.${ORDERS}`))
+export default createWriteHandler(
+  ORDERS,
+  auditOnWrite<Order>(`audit.${ORDERS}`)
+)

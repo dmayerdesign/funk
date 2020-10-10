@@ -1,5 +1,4 @@
-import { AuthenticationRequest } from
-  "@funk/functions/model/request-response/authentication-request"
+import { AuthenticationRequest } from "@funk/functions/model/request-response/authentication-request"
 import { StatusCode, StatusCodeMessage } from "@funk/model/http/status-code"
 import { authAdmin } from "@funk/api/plugins/auth/auth-admin"
 import { NextFunction, Response } from "express"
@@ -14,43 +13,35 @@ import { NextFunction, Response } from "express"
  * If decoded successfully, the ID Token's content will be assigned to the `user` property
  * of `request`.
  */
-export default async function(
+export default async function (
   request: AuthenticationRequest,
   response: Response,
   next: NextFunction
-): Promise<void>
-{
-  try
-  {
+): Promise<void> {
+  try {
     const encodedIdToken = getEncodedIdTokenOrThrow()
     const decodedIdToken = await authAdmin().verifyIdToken(encodedIdToken)
     request.user = decodedIdToken
     return next()
-  }
-  catch (error)
-  {
+  } catch (error) {
     console.error(error)
     response.status(StatusCode.UNAUTHORIZED)
     response.send(StatusCodeMessage[StatusCode.UNAUTHORIZED])
     return
   }
 
-  function getEncodedIdTokenOrThrow(): string
-  {
+  function getEncodedIdTokenOrThrow(): string {
     const authHeader = request.headers.authorization as string | undefined
-    if (authHeader && authHeader.startsWith("Bearer "))
-    {
+    if (authHeader && authHeader.startsWith("Bearer ")) {
       return authHeader.split("Bearer ")[1]
-    }
-    else if (request.cookies && request.cookies.__session)
-    {
+    } else if (request.cookies && request.cookies.__session) {
       return request.cookies.__session
     }
     throw new Error(
       "No Firebase ID token was found.\n" +
-      "Make sure you authorize your request by providing an HTTP header with the key" +
-      "\"Authorization\" and the value \"Bearer <Firebase ID Token>\"\n" +
-      "or by passing a \"__session\" cookie."
+        "Make sure you authorize your request by providing an HTTP header with the key" +
+        '"Authorization" and the value "Bearer <Firebase ID Token>"\n' +
+        'or by passing a "__session" cookie.'
     )
   }
 }

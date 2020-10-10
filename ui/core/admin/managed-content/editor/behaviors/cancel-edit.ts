@@ -2,8 +2,7 @@ import getMaybeActiveContentIdImpl from "@funk/ui/core/admin/managed-content/edi
 
 export function construct(
   getMaybeActiveContentId = getMaybeActiveContentIdImpl
-)
-{
+) {
   return () => getMaybeActiveContentId().next(undefined)
 }
 

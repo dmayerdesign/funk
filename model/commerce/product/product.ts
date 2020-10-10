@@ -1,6 +1,6 @@
 import {
   MarshalledProductAttributeValues,
-  ProductAttributeValues
+  ProductAttributeValues,
 } from "@funk/model/commerce/attribute/attribute-value"
 import { Review } from "@funk/model/commerce/review/review"
 import { TaxonomyTerm } from "@funk/model/commerce/taxonomy/taxonomy-term"
@@ -37,12 +37,14 @@ export interface Product extends DatabaseDocument {
   discountedPriceRange: InclusiveRange<Price>
 }
 
-export type MarshalledProduct =
-  Omit<Product, "attributeValues"|"taxonomyTerms"|"reviews"|"brand"> & {
-    /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
-    attributeValues?: MarshalledProductAttributeValues
-    /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. Required */
-    taxonomyTerms?: PrimaryKey[]
-    reviews?: PrimaryKey[]
-    brand?: PrimaryKey
-  }
+export type MarshalledProduct = Omit<
+  Product,
+  "attributeValues" | "taxonomyTerms" | "reviews" | "brand"
+> & {
+  /** A `Product` may have multiple `AttributeValues` per `Attribute`. */
+  attributeValues?: MarshalledProductAttributeValues
+  /** A `Product` may have multiple `TaxonomyTerms` per `Taxonomy`. Required */
+  taxonomyTerms?: PrimaryKey[]
+  reviews?: PrimaryKey[]
+  brand?: PrimaryKey
+}

@@ -28,7 +28,7 @@ Commit messages should be written in the style of
 
 **7. Submit a pull request.**
 
-___
+---
 
 ## Testing Philosophy
 
@@ -48,7 +48,7 @@ All commits should aim to have one test per component changed.
 
 See [IMPLEMENTING](./IMPLEMENTING.md).
 
-___
+---
 
 ## The Development Experience
 
@@ -73,19 +73,18 @@ code.
 
 Here's the small set of rules that Funk aims to follow:
 
-* **Files containing logic should export only one function.**
-  * Benefits I've observed:
-    * Keeps tests small and readable.
-    * Surfaces architectural boundaries.
-    * Maximizes modularity.
-    * Forces code to be more organized.
-* **Third-party code, including frameworks, should be imported in as few files as**
+- **Files containing logic should export only one function.**
+  - Benefits I've observed:
+    - Keeps tests small and readable.
+    - Surfaces architectural boundaries.
+    - Maximizes modularity.
+    - Forces code to be more organized.
+- **Third-party code, including frameworks, should be imported in as few files as**
   **possible.**
-  * Benefits I've observed:
-    * Framework independence.
-    * Makes testing easier.
-* **[Behavior-driven development](https://en.wikipedia.org/wiki/Behavior-driven_development) should be practiced.**
-  * Benefits I've observed:
-    * Centers testing and results in high test coverage.
-    * Promotes a full top-down understanding of the software.
-
+  - Benefits I've observed:
+    - Framework independence.
+    - Makes testing easier.
+- **[Behavior-driven development](https://en.wikipedia.org/wiki/Behavior-driven_development) should be practiced.**
+  - Benefits I've observed:
+    - Centers testing and results in high test coverage.
+    - Promotes a full top-down understanding of the software.

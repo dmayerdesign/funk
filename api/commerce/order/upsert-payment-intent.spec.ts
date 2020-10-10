@@ -17,8 +17,7 @@ import { CurrencyCode } from "@funk/model/money/currency-code"
 const PAYMENT_INTENT_ID = "payment intent id"
 const ORDER_ID = "order id"
 
-describe("upsertPaymentIntent", function ()
-{
+describe("upsertPaymentIntent", function () {
   let before: MarshalledOrder | undefined
   let after: MarshalledOrder | undefined
   let change: Change<MarshalledOrder>
@@ -32,34 +31,27 @@ describe("upsertPaymentIntent", function ()
   let onlyKeys: OnlyKeys
   let updateById: UpdateById
 
-  it("should not create a payment intent if the customer has no billing zip code",
-    async function ()
-    {
-      before = undefined
-      after = {} as MarshalledOrder
-      getTax = jest.fn().mockImplementation(() =>
-      {
-        throw new Error("fake missing zip code error")
-      })
-      const upsertPaymentIntent = newUpsertPaymentIntent()
-
-      try
-      {
-        await upsertPaymentIntent(change, changeContext)
-      }
-      catch
-      {
-        expect(populate).toHaveBeenCalled()
-        expect(getTax).toHaveBeenCalled()
-        expect(createPaymentIntent).not.toHaveBeenCalled()
-      }
+  it("should not create a payment intent if the customer has no billing zip code", async function () {
+    before = undefined
+    after = {} as MarshalledOrder
+    getTax = jest.fn().mockImplementation(() => {
+      throw new Error("fake missing zip code error")
     })
+    const upsertPaymentIntent = newUpsertPaymentIntent()
+
+    try {
+      await upsertPaymentIntent(change, changeContext)
+    } catch {
+      expect(populate).toHaveBeenCalled()
+      expect(getTax).toHaveBeenCalled()
+      expect(createPaymentIntent).not.toHaveBeenCalled()
+    }
+  })
 
   it(
-    "should not create a payment intent if the order total is less than the minimum "
-    + "transaction amount",
-    async function ()
-    {
+    "should not create a payment intent if the order total is less than the minimum " +
+      "transaction amount",
+    async function () {
       before = undefined
       after = {} as MarshalledOrder
       getTotalBeforeTaxAndShipping = jest.fn().mockReturnValue({
@@ -72,20 +64,17 @@ describe("upsertPaymentIntent", function ()
       } as Price)
       const upsertPaymentIntent = newUpsertPaymentIntent()
 
-      try
-      {
+      try {
         await upsertPaymentIntent(change, changeContext)
-      }
-      catch
-      {
+      } catch {
         expect(populate).toHaveBeenCalled()
         expect(getTotalBeforeTaxAndShipping).toHaveBeenCalled()
         expect(createPaymentIntent).not.toHaveBeenCalled()
       }
-    })
+    }
+  )
 
-  it("should create a payment intent", async function ()
-  {
+  it("should create a payment intent", async function () {
     before = undefined
     after = { id: ORDER_ID } as MarshalledOrder
     const upsertPaymentIntent = newUpsertPaymentIntent()
@@ -94,18 +83,22 @@ describe("upsertPaymentIntent", function ()
 
     expect(populate).toHaveBeenCalled()
     expect(onlyKeys).toHaveBeenCalledWith(
-      expect.not.arrayContaining([ "paymentIntentId" ]), expect.any(Function)
+      expect.not.arrayContaining(["paymentIntentId"]),
+      expect.any(Function)
     )
     expect(createPaymentIntent).toHaveBeenCalled()
     expect(updatePaymentIntent).not.toHaveBeenCalled()
-    expect(updateById).toHaveBeenCalledWith(ORDERS, ORDER_ID,
-      { paymentIntentId: PAYMENT_INTENT_ID })
+    expect(updateById).toHaveBeenCalledWith(ORDERS, ORDER_ID, {
+      paymentIntentId: PAYMENT_INTENT_ID,
+    })
   })
 
-  it("should update a payment intent if data has changed", async function ()
-  {
+  it("should update a payment intent if data has changed", async function () {
     before = undefined
-    after = { id: ORDER_ID, paymentIntentId: PAYMENT_INTENT_ID } as MarshalledOrder
+    after = {
+      id: ORDER_ID,
+      paymentIntentId: PAYMENT_INTENT_ID,
+    } as MarshalledOrder
     const upsertPaymentIntent = newUpsertPaymentIntent()
 
     await upsertPaymentIntent(change, changeContext)
@@ -116,8 +109,7 @@ describe("upsertPaymentIntent", function ()
     expect(updateById).not.toHaveBeenCalled()
   })
 
-  function newUpsertPaymentIntent()
-  {
+  function newUpsertPaymentIntent() {
     return construct(
       createPaymentIntent,
       updatePaymentIntent,
@@ -129,28 +121,24 @@ describe("upsertPaymentIntent", function ()
     )
   }
 
-  beforeEach(() =>
-  {
-    change = {
+  beforeEach(() => {
+    change = ({
       before: { data: () => before },
       after: { data: () => after },
-    } as unknown as Change<MarshalledOrder>
-    changeContext = {} as unknown as ChangeContext
+    } as unknown) as Change<MarshalledOrder>
+    changeContext = ({} as unknown) as ChangeContext
 
     const PAYMENT_INTENT = { id: PAYMENT_INTENT_ID } as PaymentIntent
     createPaymentIntent = jest.fn().mockResolvedValue(PAYMENT_INTENT)
     updatePaymentIntent = jest.fn().mockResolvedValue(PAYMENT_INTENT)
-    getTotalBeforeTaxAndShipping = jest.fn().mockResolvedValue(
-      { amount: 1000, currency: CurrencyCode.USD }
-    )
-    getTax = jest.fn().mockResolvedValue(
-      { amount: 60, currency: CurrencyCode.USD }
-    )
+    getTotalBeforeTaxAndShipping = jest
+      .fn()
+      .mockResolvedValue({ amount: 1000, currency: CurrencyCode.USD })
+    getTax = jest
+      .fn()
+      .mockResolvedValue({ amount: 60, currency: CurrencyCode.USD })
     populate = jest.fn().mockImplementation(async (order) => order)
-    onlyKeys = jest.fn().mockImplementation(
-      (_: any, fn: ChangeHandler) => fn
-    )
+    onlyKeys = jest.fn().mockImplementation((_: any, fn: ChangeHandler) => fn)
     updateById = jest.fn()
   })
 })
-

@@ -2,15 +2,11 @@
 import program from "commander"
 import { exec } from "shelljs"
 import { configToJson } from "../../configuration/helpers/configuration-to-json"
-
-(async () =>
-{
+;(async () => {
   program.option("-c, --configuration <configuration>", "e.g. production")
   program.parse(process.argv)
   const { configuration } = program.opts()
-  const {
-    CLOUD_PROJECT_ID,
-  } = configToJson(configuration)
+  const { CLOUD_PROJECT_ID } = configToJson(configuration)
 
   const KMS_LOCATION = "global"
   const KEY_RING_ID = "main"

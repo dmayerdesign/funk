@@ -1,5 +1,7 @@
-import { MarshalledSkuAttributeValues, SkuAttributeValues } from
-  "@funk/model/commerce/attribute/attribute-value"
+import {
+  MarshalledSkuAttributeValues,
+  SkuAttributeValues,
+} from "@funk/model/commerce/attribute/attribute-value"
 import { Price } from "@funk/model/commerce/price/price"
 import { Inventory } from "@funk/model/commerce/sku/inventory"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
@@ -36,7 +38,7 @@ interface BaseSku extends DatabaseDocument {
   isAdult?: boolean
   multipackQuantity?: number
   isBundle?: boolean
-  shippingLabel?: "perishable"|"oversized"|"fragile"
+  shippingLabel?: "perishable" | "oversized" | "fragile"
   maxHandlingTime?: Duration
   minHandlingTime?: Duration
   // shipping?: string // e.g. `US:CA:Overnight:16.00 USD`

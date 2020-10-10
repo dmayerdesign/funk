@@ -18,17 +18,15 @@ import { defineCustomElements } from "@ionic/pwa-elements/loader"
 // import "zone.js/dist/zone-patch-rxjs"
 // import "zone.js/dist/zone-patch-cordova"
 
-if (IS_PRODUCTION)
-{
+if (IS_PRODUCTION) {
   enableProdMode()
 }
 
-document.addEventListener("DOMContentLoaded", () =>
-{
-  platformBrowserDynamic().bootstrapModule(BrowserModule)
-    .then(() =>
-    {
+document.addEventListener("DOMContentLoaded", () => {
+  platformBrowserDynamic()
+    .bootstrapModule(BrowserModule)
+    .then(() => {
       defineCustomElements(window)
     })
-    .catch(err => console.error(err))
+    .catch((err) => console.error(err))
 })

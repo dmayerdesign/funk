@@ -6,41 +6,30 @@ import subtract from "@funk/model/commerce/price/behaviors/subtract"
 import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
 import add from "@funk/model/money/behaviors/add"
 
-export default function(
+export default function (
   order: Pick<Order, "discounts">,
   unDiscountedOrderPrice: Price
-): Price
-{
+): Price {
   const zeroPrice = {
     ...NULL_PRICE,
     currency: unDiscountedOrderPrice.currency,
   }
   const discountTotal = getApplicableDiscountsForOrder(
-      getOrderDiscounts(order.discounts), unDiscountedOrderPrice
-    )
-    .reduce<Price>(
-      (discountAmount, discount) =>
-      {
-        if (!!discount.percentage)
-        {
-          return add(
-            discountAmount,
-            {
-              ...discountAmount,
-              amount: Math.floor(
-                subtract(unDiscountedOrderPrice, discountAmount).amount *
-                (discount.percentage / 100)
-              ),
-            }
-          )
-        }
-        else if (!!discount.total)
-        {
-          return add(discountAmount, discount.total)
-        }
-        return discountAmount
-      },
-      zeroPrice)
+    getOrderDiscounts(order.discounts),
+    unDiscountedOrderPrice
+  ).reduce<Price>((discountAmount, discount) => {
+    if (!!discount.percentage) {
+      return add(discountAmount, {
+        ...discountAmount,
+        amount: Math.floor(
+          subtract(unDiscountedOrderPrice, discountAmount).amount *
+            (discount.percentage / 100)
+        ),
+      })
+    } else if (!!discount.total) {
+      return add(discountAmount, discount.total)
+    }
+    return discountAmount
+  }, zeroPrice)
   return subtract(unDiscountedOrderPrice, discountTotal)
 }
-

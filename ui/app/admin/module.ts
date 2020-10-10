@@ -27,10 +27,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ManagedContentModule,
   ],
-  declarations: [
-    AdminContainer,
-    ImportSkusContainer,
-  ],
+  declarations: [AdminContainer, ImportSkusContainer],
 })
-export class AdminModule
-{ }
+export class AdminModule {}

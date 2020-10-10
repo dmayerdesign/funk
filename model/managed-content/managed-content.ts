@@ -1,8 +1,7 @@
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { ImageGroup } from "@funk/model/image/image-group"
 
-export interface BaseManagedContent extends DatabaseDocument {
-}
+export interface BaseManagedContent extends DatabaseDocument {}
 
 export interface ManagedText extends BaseManagedContent {
   type: ManagedContentType.TEXT

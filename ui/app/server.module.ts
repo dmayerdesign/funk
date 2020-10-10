@@ -6,9 +6,7 @@ import { AppShellComponent } from "@funk/ui/app/app-shell/component"
 import { AppModule } from "@funk/ui/app/app.module"
 import { AppComponent } from "@funk/ui/app/component"
 
-const routes: Routes = [
-  { path: "shell", component: AppShellComponent },
-]
+const routes: Routes = [{ path: "shell", component: AppShellComponent }]
 
 @NgModule({
   imports: [
@@ -20,5 +18,4 @@ const routes: Routes = [
   bootstrap: [AppComponent],
   declarations: [AppShellComponent],
 })
-export class AppServerModule
-{ }
+export class AppServerModule {}

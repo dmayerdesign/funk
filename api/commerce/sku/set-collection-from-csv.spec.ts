@@ -1,4 +1,7 @@
-import { construct, SetCollectionFromCsv } from "@funk/api/commerce/sku/set-collection-from-csv"
+import {
+  construct,
+  SetCollectionFromCsv,
+} from "@funk/api/commerce/sku/set-collection-from-csv"
 import { SetMany } from "@funk/api/plugins/persistence/behaviors/set-many"
 import { FiniteInventory } from "@funk/model/commerce/sku/inventory"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
@@ -6,49 +9,51 @@ import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import { keys, startCase, values } from "lodash"
 
-describe("setCollectionFromCsv", () =>
-{
+describe("setCollectionFromCsv", () => {
   const FAKE_SKU = createFakeMarshalledSku()
   const FAKE_IMPORTED_SKU = {
-    "SKU": FAKE_SKU.id,
-    "Name": FAKE_SKU.name,
+    SKU: FAKE_SKU.id,
+    Name: FAKE_SKU.name,
     "Group SKU": FAKE_SKU.productId,
-    "Price": `$${(FAKE_SKU.price.amount / 100).toFixed(2)}`,
-    "Inventory": (FAKE_SKU.inventory as FiniteInventory).quantity,
-    "Net weight": FAKE_SKU.netWeight.amount.toString() + FAKE_SKU.netWeight.unit,
-    "Taxonomy": FAKE_SKU.taxonomyTerms?.map(startCase).join(","),
-    ["Attribute: attribute for " + FAKE_SKU.id]: "attribute value for " + FAKE_SKU.id,
+    Price: `$${(FAKE_SKU.price.amount / 100).toFixed(2)}`,
+    Inventory: (FAKE_SKU.inventory as FiniteInventory).quantity,
+    "Net weight":
+      FAKE_SKU.netWeight.amount.toString() + FAKE_SKU.netWeight.unit,
+    Taxonomy: FAKE_SKU.taxonomyTerms?.map(startCase).join(","),
+    ["Attribute: attribute for " + FAKE_SKU.id]:
+      "attribute value for " + FAKE_SKU.id,
   }
   const FAKE_IMPORTED_SKU_INVALID = {
     ...createFakeMarshalledSku(),
-    "Price": "",
+    Price: "",
   } as Partial<MarshalledSku>
   const CSV_EMPTY = [keys(FAKE_IMPORTED_SKU).join(",")].join("\n") + "\n"
-  const CSV_WITH_1_FAKE_SKU = [
-    keys(FAKE_IMPORTED_SKU).join(","),
-    values(FAKE_IMPORTED_SKU).join(","),
-  ].join("\n") + "\n"
-  const CSV_WITH_1_FAKE_SKU_EXTRA_FIELDS = [
-    keys(FAKE_IMPORTED_SKU).join(","),
-    values({ ...FAKE_IMPORTED_SKU, "Foo": "bar", "Baz": "1" }).join(","),
-  ].join("\n") + "\n"
-  const CSV_WITH_1_INVALID_SKU = [
-    keys(FAKE_IMPORTED_SKU).join(","),
-    values(FAKE_IMPORTED_SKU_INVALID).join(","),
-  ].join("\n") + "\n"
+  const CSV_WITH_1_FAKE_SKU =
+    [
+      keys(FAKE_IMPORTED_SKU).join(","),
+      values(FAKE_IMPORTED_SKU).join(","),
+    ].join("\n") + "\n"
+  const CSV_WITH_1_FAKE_SKU_EXTRA_FIELDS =
+    [
+      keys(FAKE_IMPORTED_SKU).join(","),
+      values({ ...FAKE_IMPORTED_SKU, Foo: "bar", Baz: "1" }).join(","),
+    ].join("\n") + "\n"
+  const CSV_WITH_1_INVALID_SKU =
+    [
+      keys(FAKE_IMPORTED_SKU).join(","),
+      values(FAKE_IMPORTED_SKU_INVALID).join(","),
+    ].join("\n") + "\n"
 
   let setMany: SetMany
   let setCollectionFromCsv: SetCollectionFromCsv
 
-  it("should do nothing with an empty csv", async function ()
-  {
+  it("should do nothing with an empty csv", async function () {
     await setCollectionFromCsv(CSV_EMPTY)
 
     expect(setMany).not.toHaveBeenCalled()
   })
 
-  it("should process a valid csv", async function ()
-  {
+  it("should process a valid csv", async function () {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU)
 
     expect(setMany).toHaveBeenCalledWith({
@@ -58,15 +63,11 @@ describe("setCollectionFromCsv", () =>
     })
   })
 
-  it("should fail on an invalid csv", async function ()
-  {
+  it("should fail on an invalid csv", async function () {
     let error
-    try
-    {
+    try {
       await setCollectionFromCsv(CSV_WITH_1_INVALID_SKU)
-    }
-    catch (_error)
-    {
+    } catch (_error) {
       error = _error
     }
     expect(error).toBeTruthy()
@@ -74,8 +75,7 @@ describe("setCollectionFromCsv", () =>
     expect(setMany).not.toHaveBeenCalled()
   })
 
-  it("should ignore unknown fields", async function ()
-  {
+  it("should ignore unknown fields", async function () {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU_EXTRA_FIELDS)
 
     expect(setMany).toHaveBeenCalledWith({
@@ -85,8 +85,7 @@ describe("setCollectionFromCsv", () =>
     })
   })
 
-  beforeEach(() =>
-  {
+  beforeEach(() => {
     setMany = jest.fn()
     setCollectionFromCsv = construct(setMany)
   })

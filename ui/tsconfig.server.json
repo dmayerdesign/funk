@@ -7,7 +7,5 @@
   "angularCompilerOptions": {
     "entryModule": "./app/server.module#AppServerModule"
   },
-  "files": [
-    "main.server.ts"
-  ]
+  "files": ["main.server.ts"]
 }

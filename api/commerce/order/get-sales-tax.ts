@@ -19,23 +19,27 @@ export function construct(
   populate: typeof populateImpl,
   getSalesTaxRateForAddress: typeof getSalesTaxRateForAddressImpl,
   getById: typeof getByIdImpl
-)
-{
-  return async function (order: Order | MarshalledOrder): Promise<Price>
-  {
+) {
+  return async function (order: Order | MarshalledOrder): Promise<Price> {
     const populatedOrder = await populate<Order, MarshalledOrder>(
       order as MarshalledOrder,
       [
         { key: "skus", collectionPath: SKUS },
         { key: "discounts", collectionPath: DISCOUNTS },
-      ])
+      ]
+    )
 
-    const primaryEnterprise = await getById<Enterprise>(ORGANIZATIONS, "primary")
+    const primaryEnterprise = await getById<Enterprise>(
+      ORGANIZATIONS,
+      "primary"
+    )
     const shipmentAddress = throwInvalidInputIfNilOrEmpty(
       getShipmentAddress(populatedOrder),
       ORDER_GET_TAX_MISSING_POSTAL_CODE
     )
-    const orderTotalBeforeTax = await getTotalBeforeTaxAndShipping(populatedOrder)
+    const orderTotalBeforeTax = await getTotalBeforeTaxAndShipping(
+      populatedOrder
+    )
     const taxRate = await getTaxRate(primaryEnterprise!, shipmentAddress)
 
     return add(
@@ -43,14 +47,20 @@ export function construct(
         amount: Math.ceil(orderTotalBeforeTax.amount * taxRate),
         currency: orderTotalBeforeTax.currency,
       },
-      populatedOrder.additionalTaxAmount
-        ?? { ...NULL_PRICE, currency: orderTotalBeforeTax.currency }
+      populatedOrder.additionalTaxAmount ?? {
+        ...NULL_PRICE,
+        currency: orderTotalBeforeTax.currency,
+      }
     )
   }
 
-  async function getTaxRate(primaryEnterprise: Enterprise, shipmentAddress: Address)
-  {
-    return primaryEnterprise?.salesTaxNexusStates?.includes(shipmentAddress.state)
+  async function getTaxRate(
+    primaryEnterprise: Enterprise,
+    shipmentAddress: Address
+  ) {
+    return primaryEnterprise?.salesTaxNexusStates?.includes(
+      shipmentAddress.state
+    )
       ? await getSalesTaxRateForAddress(shipmentAddress)
       : 0
   }

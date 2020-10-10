@@ -11,23 +11,23 @@ When following these instructions, replace `{CONFIGURATION}` with either `develo
 1. Create a Firebase project named `funk-{CONFIGURATION}`.
 2. Enable Functions and Firestore.
 3. Create a “web” app within the project and add its configuration to `configuration/{CONFIGURATION}.ts`.
-    * Set the “Public-facing name” for the project (this shows up in the email verification email and other user-facing places).
-    * Set the support email address for the project.
+   - Set the “Public-facing name” for the project (this shows up in the email verification email and other user-facing places).
+   - Set the support email address for the project.
 4. Generate a private key for the root service account and save it to your machine. Save the path to the private key file in the PATH_TO_OWNER_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`.
 5. Generate a private key for the "App Engine Default" service account and save it to your machine. Save the path to the private key file in the PATH_TO_APPLICATION_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`.
 
 ### Authentication
 
 1. Enable the following authentication providers in the Firebase console:
-    * Anonymous
-    * Google
+   - Anonymous
+   - Google
 
 ### Cloud Functions
 
 1. Update the default App Engine service account so that it only has the following roles:
-    * KMS Encrypt/Decrypt
-    * Cloud Datastore User (Firestore read/write)
-    * Firebase Authentication Admin
+   - KMS Encrypt/Decrypt
+   - Cloud Datastore User (Firestore read/write)
+   - Firebase Authentication Admin
 2. Enable Cloud KMS on the project
 3. Create a KMS keyring and key (both named "main").
 
@@ -44,7 +44,7 @@ gcloud kms keys create main --location global \
 
 1. Sign up for an [Avalara AvaTax account](https://buy.avalara.com/signup).
 2. Create a license key by visiting https://integrations.avalara.com/#/software-keys and
-  [following these instructions](https://developer.avalara.com/avatax/authentication-in-rest/).
+   [following these instructions](https://developer.avalara.com/avatax/authentication-in-rest/).
 3. Save the license key using the form at /admin with the key TAX_SERVICE_PROVIDER_SECRET.
 4. Locate the account ID.
 5. Save the account ID in the TAX_PUBLISHABLE_KEY variable in `configuration/*.ts`.

@@ -1,23 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap");
 @import "../../styles/themes/default/variables";
 
 $color-banner-text: $color-dark-contrast;
 $color-routes-background: #f6f2f1;
 $color-routes-text: #363333;
-$color-accent: #C56C51;
-$color-input-border-hex: #D1CDCB;
+$color-accent: #c56c51;
+$color-input-border-hex: #d1cdcb;
 
 @mixin routes-background {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f6f2f1+0,f6f2f1+7,ffffff+100 */
   background: $color-routes-background;
-  background: linear-gradient(to right, #{$color-routes-background} 0%,#{$color-routes-background} 50%,#ffffff 100%);
+  background: linear-gradient(
+    to right,
+    #{$color-routes-background} 0%,
+    #{$color-routes-background} 50%,
+    #ffffff 100%
+  );
 }
 
 #poetry-container {
   font-family: "Roboto Slab", "Courier", "Times New Roman", Times, serif;
   height: 100vh;
 
-  h1, h2, h3, h4, h5 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     font-family: $headings-font-family;
   }
   h1 {
@@ -57,9 +66,10 @@ $color-input-border-hex: #D1CDCB;
   }
   p {
     font-size: 14px;
-    font-family: "Roboto Slab", "Courier", 'Times New Roman', Times, serif;
+    font-family: "Roboto Slab", "Courier", "Times New Roman", Times, serif;
   }
-  input, textarea {
+  input,
+  textarea {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
   }
@@ -102,7 +112,8 @@ $color-input-border-hex: #D1CDCB;
   #banner {
     @media screen and (max-width: 960px) {
       width: 100%;
-      background: url("assets/poetry-default-theme/backgrounds/poetry-bg-sm.jpg") left top no-repeat;
+      background: url("assets/poetry-default-theme/backgrounds/poetry-bg-sm.jpg")
+        left top no-repeat;
       background-size: cover;
       color: $color-banner-text;
 
@@ -135,7 +146,8 @@ $color-input-border-hex: #D1CDCB;
       width: 50%;
       height: 100vh;
       padding-right: 50px;
-      background: url("assets/poetry-default-theme/backgrounds/poetry-bg-lg.jpg") right top no-repeat;
+      background: url("assets/poetry-default-theme/backgrounds/poetry-bg-lg.jpg")
+        right top no-repeat;
       background-size: cover;
       text-align: right;
       color: $color-banner-text;
@@ -172,7 +184,8 @@ $color-input-border-hex: #D1CDCB;
               display: block;
               height: 50px;
               width: 5px;
-              background: url("assets/poetry-default-theme/design-elements/nav-slider.svg") left center no-repeat;
+              background: url("assets/poetry-default-theme/design-elements/nav-slider.svg")
+                left center no-repeat;
             }
           }
         }
@@ -214,7 +227,7 @@ $color-input-border-hex: #D1CDCB;
 
         text-align: left;
       }
-  
+
       figure {
         margin-left: 0;
         margin-right: 0;
@@ -225,7 +238,8 @@ $color-input-border-hex: #D1CDCB;
       @include routes-background();
     }
 
-    input, textarea {
+    input,
+    textarea {
       padding: 0;
       margin: 0;
       border: none;
@@ -258,7 +272,7 @@ $color-input-border-hex: #D1CDCB;
       border-bottom: 5px solid darken($color-accent, 4%);
       border-top: 3px solid lighten($color-accent, 4%);
       padding: 10px 15px;
-      font-family: "Roboto Slab" "Courier", 'Times New Roman', Times, serif;
+      font-family: "Roboto Slab" "Courier", "Times New Roman", Times, serif;
       color: #fff;
       text-transform: uppercase;
       font-weight: bold;

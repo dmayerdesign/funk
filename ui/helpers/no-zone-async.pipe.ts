@@ -6,8 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { ChangeDetectorRef, EventEmitter, OnDestroy, Pipe, PipeTransform,
-  WrappedValue } from "@angular/core"
+import {
+  ChangeDetectorRef,
+  EventEmitter,
+  OnDestroy,
+  Pipe,
+  PipeTransform,
+  WrappedValue,
+} from "@angular/core"
 import { Observable, SubscriptionLike } from "rxjs"
 
 /**
@@ -23,52 +29,44 @@ import { Observable, SubscriptionLike } from "rxjs"
  *
  * @experimental
  */
-@Pipe({name: "noZoneAsync", pure: false})
-export class NoZoneAsyncPipe implements OnDestroy, PipeTransform
-{
+@Pipe({ name: "noZoneAsync", pure: false })
+export class NoZoneAsyncPipe implements OnDestroy, PipeTransform {
   private _latestValue: any = null
   private _latestReturnedValue: any = null
 
-  private _subscription: SubscriptionLike|null = null
-  private _obj: Observable<any>|EventEmitter<any>|null = null
+  private _subscription: SubscriptionLike | null = null
+  private _obj: Observable<any> | EventEmitter<any> | null = null
 
-  public constructor(private _changeDetectorRef: ChangeDetectorRef)
-  { }
+  public constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
-  public ngOnDestroy(): void
-  {
-    if (this._subscription)
-    {
+  public ngOnDestroy(): void {
+    if (this._subscription) {
       this._dispose()
     }
   }
 
   public transform<T>(obj: null): null
   public transform<T>(obj: undefined): undefined
-  public transform<T>(obj: Observable<T>|null|undefined): T|null
-  public transform(obj: Observable<any>|null|undefined): any
-  {
-    if (!this._obj)
-    {
-      if (obj)
-      {
+  public transform<T>(obj: Observable<T> | null | undefined): T | null
+  public transform(obj: Observable<any> | null | undefined): any {
+    if (!this._obj) {
+      if (obj) {
         this._obj = obj
-        this._subscription =
-          obj.subscribe({next: (value: Record<string, unknown>) =>
-            this._updateLatestValue(obj, value)})
+        this._subscription = obj.subscribe({
+          next: (value: Record<string, unknown>) =>
+            this._updateLatestValue(obj, value),
+        })
       }
       this._latestReturnedValue = this._latestValue
       return this._latestValue
     }
 
-    if (obj !== this._obj)
-    {
+    if (obj !== this._obj) {
       this._dispose()
       return this.transform(obj as any)
     }
 
-    if (this._latestValue === this._latestReturnedValue)
-    {
+    if (this._latestValue === this._latestReturnedValue) {
       return this._latestReturnedValue
     }
 
@@ -76,10 +74,8 @@ export class NoZoneAsyncPipe implements OnDestroy, PipeTransform
     return WrappedValue.wrap(this._latestValue)
   }
 
-  private _dispose(): void
-  {
-    if (this._subscription)
-    {
+  private _dispose(): void {
+    if (this._subscription) {
       this._subscription.unsubscribe()
     }
     this._latestValue = null
@@ -88,10 +84,8 @@ export class NoZoneAsyncPipe implements OnDestroy, PipeTransform
     this._obj = null
   }
 
-  private _updateLatestValue(async: any, value: Record<string, unknown>): void
-  {
-    if (async === this._obj)
-    {
+  private _updateLatestValue(async: any, value: Record<string, unknown>): void {
+    if (async === this._obj) {
       this._latestValue = value
       this._changeDetectorRef.detectChanges()
     }

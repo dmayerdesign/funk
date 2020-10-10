@@ -32,10 +32,7 @@ import { IonicStorageModule } from "@ionic/storage"
     FunctionsModule,
     AppCommonModule,
   ],
-  declarations: [
-    AppComponent,
-    NotFoundComponent,
-  ],
+  declarations: [AppComponent, NotFoundComponent],
   providers: [
     {
       provide: ErrorHandler,
@@ -48,15 +45,14 @@ import { IonicStorageModule } from "@ionic/storage"
     {
       provide: DEVICE_WIDTH,
       useFactory: constructDeviceWidth,
-      deps: [ WINDOW ],
+      deps: [WINDOW],
     },
     {
       provide: PAGE_TITLE,
       useFactory: constructPageTitle,
-      deps: [ Router ],
+      deps: [Router],
     },
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
 })
-export class AppModule
-{ }
+export class AppModule {}

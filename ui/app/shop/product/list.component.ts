@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
   ChangeDetectionStrategy,
-  SimpleChange
+  SimpleChange,
 } from "@angular/core"
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
 import { ListFilter } from "@funk/ui/core/shop/products/list-filter/list-filter"
@@ -26,9 +26,12 @@ interface ProductListOptions {
   template: `
     <ion-grid>
       <ng-container *ngFor="let product of products">
-        <ion-row><ion-col>
-          <product-list-item [product]="product"></product-list-item>
-        </ion-col></ion-row>
+        <ion-row
+          ><ion-col>
+            <product-list-item
+              [product]="product"
+            ></product-list-item> </ion-col
+        ></ion-row>
       </ng-container>
 
       <div *ngFor="let filter of (filtersForm | async)?.controls">
@@ -42,8 +45,7 @@ interface ProductListOptions {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListComponent implements OnChanges, ProductListOptions
-{
+export class ProductListComponent implements OnChanges, ProductListOptions {
   @Input() public products!: Product[]
   @Input() public filters!: ListFilter[]
   @Input() public pagination!: Pagination
@@ -52,28 +54,35 @@ export class ProductListComponent implements OnChanges, ProductListOptions
 
   private _filters = new ReplaySubject<ListFilter[]>(1)
   public filtersForm = this._filters.pipe(
-    map((filters) =>
-      new FormArray(filters.map((filter) =>
-        new FormGroup(
-          Object.keys(filter).reduce(
-            (groupDef, key) => ({
-              ...groupDef,
-              [key]: new FormControl(filter[key as keyof ListFilter]),
-            }),
-            {} as { [key: string]: FormControl }
-          ))))),
+    map(
+      (filters) =>
+        new FormArray(
+          filters.map(
+            (filter) =>
+              new FormGroup(
+                Object.keys(filter).reduce(
+                  (groupDef, key) => ({
+                    ...groupDef,
+                    [key]: new FormControl(filter[key as keyof ListFilter]),
+                  }),
+                  {} as { [key: string]: FormControl }
+                )
+              )
+          )
+        )
+    ),
     catchError(() => of(undefined)),
     shareReplay(1)
   )
 
-  public ngOnChanges(changes: SimpleChanges): void
-  {
+  public ngOnChanges(changes: SimpleChanges): void {
     const INITIAL_FILTERS: keyof ProductListOptions = "filters"
-    const filtersChange = changes[INITIAL_FILTERS as string] as SimpleChange | undefined
+    const filtersChange = changes[INITIAL_FILTERS as string] as
+      | SimpleChange
+      | undefined
     const filters: ListFilter[] | undefined = filtersChange?.currentValue
 
-    if (filters)
-    {
+    if (filters) {
       this._filters.next(filters)
     }
   }

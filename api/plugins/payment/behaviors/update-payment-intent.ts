@@ -14,12 +14,8 @@ export interface Options {
   savePaymentMethod?: boolean
 }
 
-export function construct(
-  getPaymentProvider: typeof getPaymentProviderImpl
-)
-{
-  return async function(id: string, options: Options): Promise<PaymentIntent>
-  {
+export function construct(getPaymentProvider: typeof getPaymentProviderImpl) {
+  return async function (id: string, options: Options): Promise<PaymentIntent> {
     const {
       price,
       customerId,
@@ -33,15 +29,15 @@ export function construct(
       customer: customerId,
       receipt_email: customerEmail,
       payment_method: paymentMethodId,
-      payment_method_types: [ "card" ],
+      payment_method_types: ["card"],
       save_payment_method: savePaymentMethod,
       setup_future_usage: savePaymentMethod ? "off_session" : undefined,
     })
 
-    if (update.amount && update.amount < MIN_TRANSACTION_CENTS)
-    {
+    if (update.amount && update.amount < MIN_TRANSACTION_CENTS) {
       throw new PaymentIntentInvalidPriceError(
-        `Amount ${update.amount} is less than the minimum for a transaction.`)
+        `Amount ${update.amount} is less than the minimum for a transaction.`
+      )
     }
 
     const psp = await getPaymentProvider()

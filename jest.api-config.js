@@ -14,7 +14,7 @@ module.exports = {
     "<rootDir>/features",
   ],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: "<rootDir>"
+    prefix: "<rootDir>",
   }),
   globals: {
     "ts-jest": {

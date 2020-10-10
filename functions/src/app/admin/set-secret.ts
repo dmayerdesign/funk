@@ -5,6 +5,6 @@ import authenticateForRoles from "@funk/functions/helpers/identity/authenticate-
 import { UserRole } from "@funk/model/auth/user-role"
 
 export default createRpcFunction(
-  authenticateForRoles([ UserRole.SUPER, UserRole.OWNER ]),
+  authenticateForRoles([UserRole.SUPER, UserRole.OWNER]),
   mapRequestToBody(setSecret)
 )

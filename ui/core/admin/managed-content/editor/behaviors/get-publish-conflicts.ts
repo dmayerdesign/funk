@@ -1,8 +1,7 @@
 import { PublishConflict } from "@funk/ui/core/admin/managed-content/editor/publish-conflict"
 import { BehaviorSubject } from "rxjs"
 
-export function construct()
-{
+export function construct() {
   const publishConflicts = new BehaviorSubject<PublishConflict[] | []>([])
   publishConflicts.subscribe()
   return () => publishConflicts

@@ -12,12 +12,13 @@ interface TuringTestRequest {
 export function construct(
   httpClient: typeof httpClientImpl,
   getSecret: typeof getSecretImpl
-)
-{
-  return async function(token: string): Promise<boolean>
-  {
+) {
+  return async function (token: string): Promise<boolean> {
     const secret = await getSecret(TURING_TEST_SERVICE_PROVIDER_SECRET_KEY)
-    const turingTestResponse = await httpClient.get<TuringTestRequest, Response<TuringTestResult>>(
+    const turingTestResponse = await httpClient.get<
+      TuringTestRequest,
+      Response<TuringTestResult>
+    >(
       `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`
     )
     const turingTestResult = turingTestResponse.data
@@ -25,9 +26,6 @@ export function construct(
   }
 }
 
-export default construct(
-  httpClientImpl,
-  getSecretImpl
-)
+export default construct(httpClientImpl, getSecretImpl)
 
 export type IsHuman = ReturnType<typeof construct>

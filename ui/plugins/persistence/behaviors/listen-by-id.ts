@@ -3,14 +3,15 @@ import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { Observable } from "rxjs"
 
-export function construct(store: AngularFirestore)
-{
-  return function listenById<DocumentType extends Record<string, any> = DatabaseDocument>(
+export function construct(store: AngularFirestore) {
+  return function listenById<
+    DocumentType extends Record<string, any> = DatabaseDocument
+  >(
     collectionPath: string,
     documentPath: string
-  ): Observable<DocumentType | undefined>
-  {
-    const multicastingStream = store.collection(collectionPath)
+  ): Observable<DocumentType | undefined> {
+    const multicastingStream = store
+      .collection(collectionPath)
       .doc<DocumentType>(documentPath)
       .valueChanges()
       .pipe(shareReplayOnce())

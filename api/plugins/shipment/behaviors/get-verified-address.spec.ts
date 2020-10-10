@@ -2,10 +2,8 @@ import { construct } from "@funk/api/plugins/shipment/behaviors/get-verified-add
 import { Address } from "@funk/model/address/address"
 import { constructGetShipmentProviderStub } from "../stubs"
 
-describe("getVerifiedAddress", () =>
-{
-  it("should verify a deliverable address", async function ()
-  {
+describe("getVerifiedAddress", () => {
+  it("should verify a deliverable address", async function () {
     const {
       FAKE_ADDRESS,
       shipmentProviderSecret,
@@ -32,8 +30,7 @@ describe("getVerifiedAddress", () =>
     expect(saveAddress).toHaveBeenCalledTimes(1)
     expect(verifiedAddress).toEqual(expected)
   })
-  it("should verify a not-deliverable address", async function ()
-  {
+  it("should verify a not-deliverable address", async function () {
     const {
       FAKE_ADDRESS,
       shipmentProviderSecret,
@@ -55,8 +52,7 @@ describe("getVerifiedAddress", () =>
   })
 })
 
-const setUp = (isDeliverable: boolean) =>
-{
+const setUp = (isDeliverable: boolean) => {
   const FAKE_ADDRESS: Address = {
     street1: "Fake Street",
     city: "Fake City",
@@ -74,8 +70,7 @@ const setUp = (isDeliverable: boolean) =>
     getShipmentProvider
   )
 
-  if (isDeliverable)
-  {
+  if (isDeliverable) {
     saveAddress.and.callFake(async () => ({
       name: null,
       company: "Verified Company",
@@ -91,9 +86,7 @@ const setUp = (isDeliverable: boolean) =>
         },
       },
     }))
-  }
-  else
-  {
+  } else {
     saveAddress.and.callFake(async () => ({
       error: {
         code: "ADDRESS.VERIFY.FAILURE",
@@ -118,4 +111,3 @@ const setUp = (isDeliverable: boolean) =>
     getVerifiedAddress,
   }
 }
-

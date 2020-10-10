@@ -16,6 +16,7 @@
   - https://angularfirebase.com/lessons/managing-firebase-costs
 
 ### Example multicast
+
 ```ts
 public itemOne$ = firestore.doc<Item>('items/1')
   .valueChanges()
@@ -25,18 +26,19 @@ public itemOne$ = firestore.doc<Item>('items/1')
 ```
 
 ### Example aggregation function for listing docs in a collection
+
 ```ts
-const functions = require('firebase-functions')
-const admin = require('firebase-admin')
+const functions = require("firebase-functions")
+const admin = require("firebase-admin")
 
 admin.initializeApp()
 const db = admin.firestore()
 
 exports.aggregate = functions.firestore
-  .document('donations/{donationId}')
+  .document("donations/{donationId}")
   .onCreate(async (snapshot, context) => {
     const donation = snapshot.data()
-    const aggRef = db.doc('aggregation/donations')
+    const aggRef = db.doc("aggregation/donations")
     const aggDoc = await aggRef.get()
     const aggData = aggDoc.data()
 
@@ -44,7 +46,7 @@ exports.aggregate = functions.firestore
     return aggRef.set({
       total: aggData.total + donation.amount,
       count: aggData.count + 1,
-      last25: [donation, ...aggData.last25.slice(0, 24)]
+      last25: [donation, ...aggData.last25.slice(0, 24)],
     })
   })
 ```

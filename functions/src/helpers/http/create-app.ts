@@ -7,10 +7,10 @@ export interface CreateAppOptions {
   corsOptions?: cors.CorsOptions
 }
 
-export function construct(appFactory = () => express())
-{
-  return function({ corsOptions }: CreateAppOptions = {}): express.Application
-  {
+export function construct(appFactory = () => express()) {
+  return function ({
+    corsOptions,
+  }: CreateAppOptions = {}): express.Application {
     return appFactory().use(
       cookieParser(),
       cors({

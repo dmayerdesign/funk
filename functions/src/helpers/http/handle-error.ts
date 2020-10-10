@@ -6,34 +6,36 @@ import { StatusCode } from "@funk/model/http/status-code"
 import { Type } from "@funk/helpers/type"
 import * as express from "express"
 
-const handler: express.ErrorRequestHandler = (error, _request, response, next) =>
-{
-  if (response.headersSent)
-  {
+const handler: express.ErrorRequestHandler = (
+  error,
+  _request,
+  response,
+  next
+) => {
+  if (response.headersSent) {
     return next(error)
   }
-  response
-    .status(getStatusCodeForError(error))
-    .send({ error })
+  response.status(getStatusCodeForError(error)).send({ error })
 }
 export default handler
 
-function getStatusCodeForError(error?: Error | ErrorWithStatusCode): StatusCode
-{
-  const errorsToResponseCodes =
-    new Map<Type<any>, StatusCode>([
-      [ InvalidInputError, StatusCode.BAD_REQUEST ],
-      [ NotFoundError, StatusCode.NOT_FOUND ],
-      [ ForbiddenError, StatusCode.FORBIDDEN ],
-    ])
+function getStatusCodeForError(
+  error?: Error | ErrorWithStatusCode
+): StatusCode {
+  const errorsToResponseCodes = new Map<Type<any>, StatusCode>([
+    [InvalidInputError, StatusCode.BAD_REQUEST],
+    [NotFoundError, StatusCode.NOT_FOUND],
+    [ForbiddenError, StatusCode.FORBIDDEN],
+  ])
 
-  for (const [ ErrorType, responseCode ] of errorsToResponseCodes.entries())
-  {
-    if (error instanceof ErrorType)
-    {
+  for (const [ErrorType, responseCode] of errorsToResponseCodes.entries()) {
+    if (error instanceof ErrorType) {
       return responseCode
     }
   }
 
-  return (error as ErrorWithStatusCode)?.statusCode ?? StatusCode.INTERNAL_SERVER_ERROR
+  return (
+    (error as ErrorWithStatusCode)?.statusCode ??
+    StatusCode.INTERNAL_SERVER_ERROR
+  )
 }

@@ -1,36 +1,43 @@
-import { assertFails, assertSucceeds, loadFirestoreRules } from "@firebase/testing"
+import {
+  assertFails,
+  assertSucceeds,
+  loadFirestoreRules,
+} from "@firebase/testing"
 import { UserRole } from "@funk/model/auth/user-role"
 import { PERSONS } from "@funk/model/identity/person"
-import { createAdminApp, createDefaultApp, forbiddenUserUid, projectId, testOwnerUid,
-  testUserUid } from "@funk/test/test.helpers"
+import {
+  createAdminApp,
+  createDefaultApp,
+  forbiddenUserUid,
+  projectId,
+  testOwnerUid,
+  testUserUid,
+} from "@funk/test/test.helpers"
 import { app } from "firebase"
 import { readFileSync } from "fs"
 import { resolve } from "path"
 
-describe.skip("Firestore access control rules", () =>
-{
+describe.skip("Firestore access control rules", () => {
   let adminApp: app.App
   let defaultApp: app.App
 
-  beforeAll(async () =>
-  {
+  beforeAll(async () => {
     await onBefore()
   })
 
-  it("should not allow a regular user to see another user config", () =>
-  {
-    assertFails(defaultApp.firestore().collection(PERSONS)
-      .doc(forbiddenUserUid).get())
+  it("should not allow a regular user to see another user config", () => {
+    assertFails(
+      defaultApp.firestore().collection(PERSONS).doc(forbiddenUserUid).get()
+    )
   })
 
-  it("should allow a regular user to see their own user config", () =>
-  {
-    assertSucceeds(defaultApp.firestore().collection(PERSONS)
-      .doc(testUserUid).get())
+  it("should allow a regular user to see their own user config", () => {
+    assertSucceeds(
+      defaultApp.firestore().collection(PERSONS).doc(testUserUid).get()
+    )
   })
 
-  async function onBefore(): Promise<void>
-  {
+  async function onBefore(): Promise<void> {
     adminApp = createAdminApp()
     defaultApp = createDefaultApp()
 

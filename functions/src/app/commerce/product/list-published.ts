@@ -4,8 +4,9 @@ import { RequestWithBody } from "@funk/functions/model/request-response/request-
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export default createRpcFunction(
-  async (
-    { body }: RequestWithBody<Parameters<typeof listPublished>[0]>
-  ): Promise<DatabaseDocument[]> =>
-    await listPublished(body)
+  async ({
+    body,
+  }: RequestWithBody<Parameters<typeof listPublished>[0]>): Promise<
+    DatabaseDocument[]
+  > => await listPublished(body)
 )

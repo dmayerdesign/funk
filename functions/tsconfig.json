@@ -7,24 +7,19 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2015",
-    "lib": [
-      "es2015",
-      "esnext.asynciterable"
-    ],
+    "lib": ["es2015", "esnext.asynciterable"],
     "baseUrl": ".",
     "paths": {
-      "@funk/api/*": [ "../api/*" ],
-      "@funk/configuration": [ "../.funk/build-pipeline-output/configuration/configuration.ts" ],
-      "@funk/copy/*": [ "../copy/*" ],
-      "@funk/functions/*": [ "./src/*" ],
-      "@funk/helpers/*": [ "../helpers/*" ],
-      "@funk/model/*": [ "../model/*" ]
+      "@funk/api/*": ["../api/*"],
+      "@funk/configuration": [
+        "../.funk/build-pipeline-output/configuration/configuration"
+      ],
+      "@funk/copy/*": ["../copy/*"],
+      "@funk/functions/*": ["./src/*"],
+      "@funk/helpers/*": ["../helpers/*"],
+      "@funk/model/*": ["../model/*"]
     }
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "**/node_modules/**/*"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/node_modules/**/*"]
 }

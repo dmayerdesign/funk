@@ -4,5 +4,4 @@ import { Component } from "@angular/core"
   selector: "app-shell",
   templateUrl: "./component.html",
 })
-export class AppShellComponent
-{ }
+export class AppShellComponent {}

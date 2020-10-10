@@ -4,16 +4,17 @@ import { ChangeContext } from "@funk/api/plugins/persistence/change"
 import { handleCreate } from "@funk/api/plugins/persistence/document-listeners"
 import {
   DocumentSnapshot,
-  QueryDocumentSnapshot
+  QueryDocumentSnapshot,
 } from "@funk/api/plugins/persistence/document-snapshot"
 
-export default function<DocumentType extends DatabaseDocument = DatabaseDocument>(
+export default function <
+  DocumentType extends DatabaseDocument = DatabaseDocument
+>(
   collectionPath: string,
   handler: (
     snapshot: DocumentSnapshot<DocumentType>,
-    { params }: ChangeContext,
+    { params }: ChangeContext
   ) => Promise<void>
-): CloudFunction<QueryDocumentSnapshot<DocumentType>>
-{
+): CloudFunction<QueryDocumentSnapshot<DocumentType>> {
   return handleCreate<DocumentType>(`${collectionPath}/{id}`, handler)
 }

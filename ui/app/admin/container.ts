@@ -1,11 +1,15 @@
 import { Component, Inject } from "@angular/core"
 import { FormControl, FormGroup } from "@angular/forms"
-import { GrantSuperRoleToMe } from "@funk/ui/functions/admin/grant-super-role-to-me"
-import { GetSecret } from "@funk/ui/functions/admin/get-secret"
-import { SetSecret } from "@funk/ui/functions/admin/set-secret"
-import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
+import {
+  GET_SECRET,
+  GRANT_SUPER_ROLE_TO_ME,
+  SET_SECRET,
+} from "@funk/ui/app/admin/tokens"
 import { SEND_EMAIL_VERIFICATION } from "@funk/ui/app/identity/tokens"
-import { GRANT_SUPER_ROLE_TO_ME, GET_SECRET, SET_SECRET } from "@funk/ui/app/admin/tokens"
+import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
+import { GetSecret } from "@funk/ui/functions/admin/get-secret"
+import { GrantSuperRoleToMe } from "@funk/ui/functions/admin/grant-super-role-to-me"
+import { SetSecret } from "@funk/ui/functions/admin/set-secret"
 import { Platform } from "@ionic/angular"
 
 @Component({
@@ -23,32 +27,17 @@ import { Platform } from "@ionic/angular"
         <h1>
           Set Secret
         </h1>
-        <form [formGroup]="setSecretFormGroup"
-          (ngSubmit)="setSecret()">
-          <input type="text"
-            placeholder="Key"
-            formControlName="key"
-          />
-          <input type="password"
-            placeholder="Value"
-            formControlName="value"
-          />
-          <input type="submit"
-            [style.visibility]="'hidden'"
-          />
+        <form [formGroup]="setSecretFormGroup" (ngSubmit)="setSecret()">
+          <input type="text" placeholder="Key" formControlName="key" />
+          <input type="password" placeholder="Value" formControlName="value" />
+          <input type="submit" [style.visibility]="'hidden'" />
         </form>
       </div>
       <div>
         <h1>Get secret</h1>
-        <form [formGroup]="getSecretFormGroup"
-          (ngSubmit)="getSecret()">
-          <input type="text"
-            placeholder="Key"
-            formControlName="key"
-          />
-          <input type="submit"
-            [style.visibility]="'hidden'"
-          />
+        <form [formGroup]="getSecretFormGroup" (ngSubmit)="getSecret()">
+          <input type="text" placeholder="Key" formControlName="key" />
+          <input type="submit" [style.visibility]="'hidden'" />
         </form>
         <div>
           <code>{{ secretShowing }}</code>
@@ -67,8 +56,7 @@ import { Platform } from "@ionic/angular"
     </ion-content>
   `,
 })
-export class AdminContainer
-{
+export class AdminContainer {
   public secretShowing = ""
   public setSecretFormGroup = new FormGroup({
     key: new FormControl(),
@@ -83,27 +71,21 @@ export class AdminContainer
     @Inject(GRANT_SUPER_ROLE_TO_ME) private _grantSuperRole: GrantSuperRoleToMe,
     @Inject(GET_SECRET) private _getSecret: GetSecret,
     @Inject(SET_SECRET) private _setSecret: SetSecret,
-    @Inject(SEND_EMAIL_VERIFICATION) private _sendEmailVerification: SendEmailVerification,
+    @Inject(SEND_EMAIL_VERIFICATION)
+    private _sendEmailVerification: SendEmailVerification,
     private _platform: Platform
-  )
-  {
-    console.log(this._platform.platforms())
-  }
+  ) {}
 
-  public async setSecret(): Promise<void>
-  {
+  public async setSecret(): Promise<void> {
     await this._setSecret(this.setSecretFormGroup.value)
   }
 
-  public async getSecret(): Promise<void>
-  {
-    this.secretShowing = await this._getSecret(
-      this.getSecretFormGroup.value.key
-    ) ?? ""
+  public async getSecret(): Promise<void> {
+    this.secretShowing =
+      (await this._getSecret(this.getSecretFormGroup.value.key)) ?? ""
   }
 
-  public async grantSuperRole(): Promise<void>
-  {
+  public async grantSuperRole(): Promise<void> {
     await this._grantSuperRole()
 
     await this._sendEmailVerification()

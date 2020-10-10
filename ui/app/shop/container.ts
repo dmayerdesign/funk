@@ -5,13 +5,12 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
 @Component({
   selector: "shop",
   template: `
-    <ng-template
-      transparent-header-container
-      let-handleContentScroll>
-
+    <ng-template transparent-header-container let-handleContentScroll>
       <ion-header>
         <ion-toolbar class="max-width-container">
-          <ion-title><managed-content contentId="shop-title"></managed-content></ion-title>
+          <ion-title
+            ><managed-content contentId="shop-title"></managed-content
+          ></ion-title>
           <ion-buttons slot="primary">
             <ion-button routerLink="/shop/home">Go Home</ion-button>
             <ion-button routerLink="/shop/checkout">Go to Checkout</ion-button>
@@ -25,17 +24,13 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
 
       <ion-content
         [scrollEvents]="true"
-        (ionScroll)="handleContentScroll($event)">
+        (ionScroll)="handleContentScroll($event)"
+      >
         <ion-router-outlet [animated]="true"></ion-router-outlet>
       </ion-content>
-
     </ng-template>
   `,
 })
-export class ShopContainer
-{
-  public constructor(
-    @Inject(ENTERPRISE) public enterprise: Enterprise$
-  )
-  { }
+export class ShopContainer {
+  public constructor(@Inject(ENTERPRISE) public enterprise: Enterprise$) {}
 }

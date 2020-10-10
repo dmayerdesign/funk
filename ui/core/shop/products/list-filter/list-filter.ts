@@ -11,14 +11,16 @@ export enum ListFilterType {
 }
 
 interface ScalarPropertyListFilter<
-  Key extends keyof MarshalledProduct = keyof MarshalledProduct> {
+  Key extends keyof MarshalledProduct = keyof MarshalledProduct
+> {
   type: ListFilterType.SCALAR_PROPERTY
   key: Key
   values: MarshalledProduct[Key][]
 }
 
 interface RangePropertyListFilter<
-  Key extends keyof MarshalledProduct = keyof MarshalledProduct> {
+  Key extends keyof MarshalledProduct = keyof MarshalledProduct
+> {
   type: ListFilterType.RANGE_PROPERTY
   key: Key
   range: {
@@ -53,7 +55,7 @@ interface TaxonomyListFilter {
 }
 
 export type ListFilter =
-  ScalarPropertyListFilter
+  | ScalarPropertyListFilter
   | RangePropertyListFilter
   | ScalarAttributeListFilter
   | RangeAttributeListFilter

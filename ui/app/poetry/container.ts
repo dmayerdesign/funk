@@ -9,12 +9,11 @@ import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
 import { LoadingController } from "@ionic/angular"
 import { map } from "rxjs/operators"
 
-const poetryPaths = Object.keys(atlas) as (keyof (typeof atlas))[]
+const poetryPaths = Object.keys(atlas) as (keyof typeof atlas)[]
 
 @Component({
   template: `
     <div id="poetry-container">
-
       <ng-container *ngIf="!(isMobileLayout | async)">
         <div id="banner-and-navigation">
           <div role="banner">
@@ -30,9 +29,11 @@ const poetryPaths = Object.keys(atlas) as (keyof (typeof atlas))[]
             <ul>
               <ng-container *ngFor="let navItem of navigationItems">
                 <li>
-                  <a [routerLink]="navItem.routerLink"
+                  <a
+                    [routerLink]="navItem.routerLink"
                     routerLinkActive="active"
-                    [routerLinkActiveOptions]="{ exact: true }">
+                    [routerLinkActiveOptions]="{ exact: true }"
+                  >
                     {{ navItem.text }}
                   </a>
                 </li>
@@ -47,18 +48,24 @@ const poetryPaths = Object.keys(atlas) as (keyof (typeof atlas))[]
       </ng-container>
 
       <ng-container *ngIf="isMobileLayout | async">
-        <ion-header style="
+        <ion-header
+          style="
             --background: transparent
-          ">
-          <ion-toolbar class="max-width-container"
+          "
+        >
+          <ion-toolbar
+            class="max-width-container"
             style="
               --background: transparent;
               --border-width: 0;
-            ">
+            "
+          >
             <ion-buttons slot="end">
-              <ion-menu-button style="
+              <ion-menu-button
+                style="
                 --color: var(--ion-color-dark-contrast);
-              ">
+              "
+              >
               </ion-menu-button>
             </ion-buttons>
           </ion-toolbar>
@@ -83,35 +90,32 @@ const poetryPaths = Object.keys(atlas) as (keyof (typeof atlas))[]
           </div>
         </div>
       </ng-container>
-
     </div>
   `,
-  styleUrls: [ "./container.scss" ],
+  styleUrls: ["./container.scss"],
   encapsulation: ViewEncapsulation.None,
 })
-export class PoetryContainer implements OnInit
-{
+export class PoetryContainer implements OnInit {
   public readonly navigationItems = poetryPaths
-    .filter((path) => (atlas[path] as unknown as Atlas).public)
+    .filter((path) => ((atlas[path] as unknown) as Atlas).public)
     .map((path) => ({
       text: atlas[path].label,
-      routerLink: [ "/", path ],
+      routerLink: ["/", path],
     }))
-  public isMobileLayout = this._deviceWidth.pipe(
-    map((width) => width < 961))
+  public isMobileLayout = this._deviceWidth.pipe(map((width) => width < 961))
 
   public constructor(
     @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth,
     @Inject(GET_BY_ID) private _getById: GetById,
     private _loadingController: LoadingController,
     @Inject(PAGE_TITLE) public pageTitle: PageTitle
-  )
-  { }
+  ) {}
 
-  public async ngOnInit(): Promise<void>
-  {
+  public async ngOnInit(): Promise<void> {
     const canary = this._getById("contents", "page-title")
-    const loading = await this._loadingController.create({ id: "POETRY_LOADING" })
+    const loading = await this._loadingController.create({
+      id: "POETRY_LOADING",
+    })
     loading.present()
     await canary
     await this._loadingController.dismiss("POETRY_LOADING")

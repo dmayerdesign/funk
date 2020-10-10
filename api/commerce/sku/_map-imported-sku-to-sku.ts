@@ -3,7 +3,10 @@ import parseCsvBoolean from "@funk/helpers/csv/parse-csv-boolean"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import fromDecimalString from "@funk/model/commerce/price/behaviors/from-decimal-string"
 import weightFromString from "@funk/model/weight/behaviors/from-string"
-import { Inventory, InventoryShorthand } from "@funk/model/commerce/sku/inventory"
+import {
+  Inventory,
+  InventoryShorthand,
+} from "@funk/model/commerce/sku/inventory"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import omitNullish from "@funk/helpers/omit-nullish"
@@ -12,8 +15,7 @@ import { MarshalledSkuAttributeValues } from "@funk/model/commerce/attribute/att
 import { flatMap, kebabCase } from "lodash"
 import parseCsvNumber from "@funk/helpers/csv/parse-csv-number"
 
-export default function(importedSku: ImportedSku): MarshalledSku
-{
+export default function (importedSku: ImportedSku): MarshalledSku {
   return omitNullish<MarshalledSku>({
     id: importedSku["SKU"],
     name: importedSku["Name"],
@@ -23,52 +25,58 @@ export default function(importedSku: ImportedSku): MarshalledSku
     inventory: parseInventory(importedSku["Inventory"] as InventoryShorthand),
     netWeight: weightFromString(importedSku["Net weight"])!,
     isDefaultSku: parseCsvBoolean(importedSku["Is group default"]),
-    isAvailableForPreorder: parseCsvBoolean(importedSku["Is available for preorder"]),
+    isAvailableForPreorder: parseCsvBoolean(
+      importedSku["Is available for preorder"]
+    ),
     costOfGoodsSold: fromDecimalString(importedSku["COGS"], CurrencyCode.USD),
-    unitPricingBaseMeasure: weightFromString(importedSku["Unit pricing base measure"]),
+    unitPricingBaseMeasure: weightFromString(
+      importedSku["Unit pricing base measure"]
+    ),
     gtin: importedSku["GTIN"] || undefined,
     mpn: importedSku["MPN"] || undefined,
     isAdult: parseCsvBoolean(importedSku["Is adult product"]),
     multipackQuantity: parseCsvNumber(importedSku["Multipack quantity"]),
     isBundle: parseCsvBoolean(importedSku["Is bundle"]),
-    shippingLabel: importedSku["Shipping label"] as MarshalledSku["shippingLabel"],
+    shippingLabel: importedSku[
+      "Shipping label"
+    ] as MarshalledSku["shippingLabel"],
     maxHandlingTime: durationFromString(importedSku["Max handling time"]),
     minHandlingTime: durationFromString(importedSku["Min handling time"]),
     attributeValues: Object.keys(importedSku)
       .filter((key) => key.trim().match(/^Attribute: /))
-      .map((key) => [ key, importedSku[key] ])
-      .reduce(
-        (attributeValues, [ key, value ]) =>
-        {
-          const attributeId = kebabCase(key.replace(/Attribute: /gi, "").trim())
-          attributeValues[attributeId] = kebabCase(value)
-          return attributeValues
-        },
-        {} as MarshalledSkuAttributeValues
-      ),
+      .map((key) => [key, importedSku[key]])
+      .reduce((attributeValues, [key, value]) => {
+        const attributeId = kebabCase(key.replace(/Attribute: /gi, "").trim())
+        attributeValues[attributeId] = kebabCase(value)
+        return attributeValues
+      }, {} as MarshalledSkuAttributeValues),
     taxonomyTerms: flatMap(
       Object.keys(importedSku)
         .filter((key) => key.trim().match(/^Taxonomy/))
-        .map((key) => importedSku[key].split(",")))
-      .map(kebabCase),
+        .map((key) => importedSku[key].split(","))
+    ).map(kebabCase),
   })
 }
 
-function parseInventory(inventoryShorthand: InventoryShorthand): Inventory
-{
+function parseInventory(inventoryShorthand: InventoryShorthand): Inventory {
   const inventoryShorthandAsNumber = parseInt(`${inventoryShorthand}`, 10)
-  if (typeof inventoryShorthandAsNumber === "number")
-  {
-    return { type: "finite", quantity: inventoryShorthandAsNumber, quantityReserved: 0 }
+  if (typeof inventoryShorthandAsNumber === "number") {
+    return {
+      type: "finite",
+      quantity: inventoryShorthandAsNumber,
+      quantityReserved: 0,
+    }
   }
-  if (inventoryShorthand === "infinite")
-  {
+  if (inventoryShorthand === "infinite") {
     return { type: "infinite" }
   }
-  if (typeof inventoryShorthand === "string"
-    && inventoryShorthand.trim().match(/in_stock|limited|out_of_stock/))
-  {
+  if (
+    typeof inventoryShorthand === "string" &&
+    inventoryShorthand.trim().match(/in_stock|limited|out_of_stock/)
+  ) {
     return { type: "bucket", bucket: inventoryShorthand }
   }
-  throw new InvalidInputError(`The inventory shorthand provided was invalid: ${inventoryShorthand}`)
+  throw new InvalidInputError(
+    `The inventory shorthand provided was invalid: ${inventoryShorthand}`
+  )
 }

@@ -4,11 +4,10 @@ import { AlertController } from "@ionic/angular"
 export function construct(
   alert: AlertController,
   removeAllPreviews: RemoveAllPreviews
-)
-{
-  return async function (): Promise<void>
-  {
-    const CONFIRM_MESSAGE = "You're about to discard all your changes since the last time you " +
+) {
+  return async function (): Promise<void> {
+    const CONFIRM_MESSAGE =
+      "You're about to discard all your changes since the last time you " +
       "published. This can't be undone."
     const confirmRemoveAll = await alert.create({
       header: "Are you sure?",
@@ -18,16 +17,14 @@ export function construct(
           text: "Keep",
           role: "cancel",
           cssClass: "secondary",
-          handler: async () =>
-          {
+          handler: async () => {
             await alert.dismiss()
           },
         },
         {
           text: "Discard",
           cssClass: "",
-          handler: async () =>
-          {
+          handler: async () => {
             await removeAllPreviews()
           },
         },

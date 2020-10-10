@@ -1,7 +1,10 @@
 import getShipmentProviderImpl from "@funk/api/plugins/shipment/behaviors/get-shipment-provider"
 import { SimpleRate } from "@funk/api/plugins/shipment/simple-rate"
 import { IS_PRODUCTION } from "@funk/configuration"
-import { Enterprise, ShippingCostStrategy } from "@funk/model/commerce/enterprise/enterprise"
+import {
+  Enterprise,
+  ShippingCostStrategy,
+} from "@funk/model/commerce/enterprise/enterprise"
 import getNetWeight from "@funk/model/commerce/order/behaviors/get-net-weight"
 import { Order } from "@funk/model/commerce/order/order"
 import fromDecimalString from "@funk/model/commerce/price/behaviors/from-decimal-string"
@@ -15,13 +18,11 @@ export interface Options {
 export function construct(
   shipmentProviderSecret: string,
   getShipmentProvider: typeof getShipmentProviderImpl
-)
-{
-  return async function({
+) {
+  return async function ({
     order,
     enterprise,
-  }: Options): Promise<SimpleRate[]>
-  {
+  }: Options): Promise<SimpleRate[]> {
     const weight = getNetWeight(order)
     const weightInOz = weight.amount // TODO: Convert to ounces before getting rates.
     const shipmentApi = getShipmentProvider(shipmentProviderSecret)
@@ -37,22 +38,20 @@ export function construct(
       to_address,
       from_address,
       parcel,
-    })
-      .save()
+    }).save()
     const firstRate = rates[0]
 
-    if (enterprise.shippingCostStrategy === ShippingCostStrategy.FLAT_RATE)
-    {
-      return [{
-        name: "Flat Rate Shipping",
-        carrier: enterprise.shippingCarrierDefault,
-        price: enterprise.shippingFlatRate!,
-        deliveryDateEstimate: new Date(firstRate.delivery_date).getTime(),
-        deliveryDateEstimateIsGuaranteed: firstRate.delivery_date_guaranteed,
-      }]
-    }
-    else
-    {
+    if (enterprise.shippingCostStrategy === ShippingCostStrategy.FLAT_RATE) {
+      return [
+        {
+          name: "Flat Rate Shipping",
+          carrier: enterprise.shippingCarrierDefault,
+          price: enterprise.shippingFlatRate!,
+          deliveryDateEstimate: new Date(firstRate.delivery_date).getTime(),
+          deliveryDateEstimateIsGuaranteed: firstRate.delivery_date_guaranteed,
+        },
+      ]
+    } else {
       return rates.map((rate: any) => ({
         name: `${rate.carrier} ${rate.delivery_days}-day`,
         carrier: rate.carrier,

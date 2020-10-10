@@ -1,7 +1,6 @@
 import Stripe from "stripe"
 
-export class PaymentProviderStub
-{
+export class PaymentProviderStub {
   public customers = {
     create: async () => ({ id: "test-customer" }),
     update: async () => ({ id: "test-customer" }),
@@ -14,5 +13,5 @@ export class PaymentProviderStub
   }
 }
 
-export const createGetPaymentProviderStub =
-  (paymentProviderStub: Stripe) => jest.fn().mockReturnValue(paymentProviderStub)
+export const createGetPaymentProviderStub = (paymentProviderStub: Stripe) =>
+  jest.fn().mockReturnValue(paymentProviderStub)

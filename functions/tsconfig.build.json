@@ -1,8 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": [
-    "src/**/*.ts"
-  ],
+  "include": ["src/**/*.ts"],
   "exclude": [
     "**/e2e.ts",
     "**/spec.ts",
@@ -12,12 +10,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@funk/api/*": [ "../api/*" ],
-      "@funk/configuration": [ "../.funk/build-pipeline-output/configuration/configuration.ts" ],
-      "@funk/copy/*": [ "../copy/*" ],
-      "@funk/functions/*": [ "./src/*" ],
-      "@funk/helpers/*": [ "../helpers/*" ],
-      "@funk/model/*": [ "../model/*" ]
+      "@funk/api/*": ["../api/*"],
+      "@funk/configuration": [
+        "../.funk/build-pipeline-output/configuration/configuration"
+      ],
+      "@funk/copy/*": ["../copy/*"],
+      "@funk/functions/*": ["./src/*"],
+      "@funk/helpers/*": ["../helpers/*"],
+      "@funk/model/*": ["../model/*"]
     }
   }
 }

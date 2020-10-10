@@ -1,12 +1,24 @@
 import populateImpl, { Populate } from "@funk/api/commerce/order/populate"
-import confirmPaymentIntentImpl, { ConfirmPaymentIntent } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
-import getByIdImpl, { GetById } from "@funk/api/plugins/persistence/behaviors/get-by-id"
-import setManyImpl, { SetMany } from "@funk/api/plugins/persistence/behaviors/set-many"
-import updateByIdImpl, { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"
+import confirmPaymentIntentImpl, {
+  ConfirmPaymentIntent,
+} from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
+import getByIdImpl, {
+  GetById,
+} from "@funk/api/plugins/persistence/behaviors/get-by-id"
+import setManyImpl, {
+  SetMany,
+} from "@funk/api/plugins/persistence/behaviors/set-many"
+import updateByIdImpl, {
+  UpdateById,
+} from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import createUid from "@funk/helpers/create-uid"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
 import createOrderForCustomer from "@funk/model/commerce/order/behaviors/create-order-for-customer"
-import { MarshalledOrder, ORDERS, Status } from "@funk/model/commerce/order/order"
+import {
+  MarshalledOrder,
+  ORDERS,
+  Status,
+} from "@funk/model/commerce/order/order"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 
 export function construct(
@@ -15,13 +27,14 @@ export function construct(
   setMany: SetMany,
   populate: Populate,
   confirmPaymentIntent: ConfirmPaymentIntent
-)
-{
-  return async function (orderId: string)
-  {
+) {
+  return async function (orderId: string) {
     const marshalledOrder = await getById<MarshalledOrder>(ORDERS, orderId)
 
-    throwInvalidInputIfNilOrEmpty(marshalledOrder?.skus?.[0], "The order must contain SKUs.")
+    throwInvalidInputIfNilOrEmpty(
+      marshalledOrder?.skus?.[0],
+      "The order must contain SKUs."
+    )
 
     const order = await populate(marshalledOrder!)
 
@@ -39,24 +52,31 @@ export function construct(
         (skusBatchUpdate, sku) => ({
           ...skusBatchUpdate,
           [sku.id]: {
-            inventory: sku.inventory.type === "finite"
-              ? {
-                ...sku.inventory,
-                quantity: sku.inventory.quantity - order.skuQuantityMap[sku.id],
-                quantityReserved: sku.inventory.quantityReserved - order.skuQuantityMap[sku.id],
-              }
-              : {},
+            inventory:
+              sku.inventory.type === "finite"
+                ? {
+                    ...sku.inventory,
+                    quantity:
+                      sku.inventory.quantity - order.skuQuantityMap[sku.id],
+                    quantityReserved:
+                      sku.inventory.quantityReserved -
+                      order.skuQuantityMap[sku.id],
+                  }
+                : {},
           },
         }),
-        {}),
+        {}
+      ),
     })
   }
 }
 
 export type Submit = ReturnType<typeof construct>
 
-export default construct(getByIdImpl,
+export default construct(
+  getByIdImpl,
   updateByIdImpl,
   setManyImpl,
   populateImpl,
-  confirmPaymentIntentImpl)
+  confirmPaymentIntentImpl
+)

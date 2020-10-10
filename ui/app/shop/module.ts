@@ -5,12 +5,20 @@ import { RouterModule, Routes } from "@angular/router"
 import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import { AppCommonModule } from "@funk/ui/app/common.module"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
-import { LISTEN_BY_ID, POPULATE, QUERY_COLLECTION_FOR_METADATA } from "@funk/ui/app/persistence/tokens"
+import {
+  LISTEN_BY_ID,
+  POPULATE,
+  QUERY_COLLECTION_FOR_METADATA,
+} from "@funk/ui/app/persistence/tokens"
 import { ShopContainer } from "@funk/ui/app/shop/container"
 import { construct as constructResolveEnterprise } from "@funk/ui/app/shop/enterprise/resolve-enterprise"
 import { HomeContainer } from "@funk/ui/app/shop/home/container"
 import { CheckoutComponent } from "@funk/ui/app/shop/orders/checkout/component"
-import { CART, CART_SET_SKU_QUANTITY, SET_SKU_QUANTITY } from "@funk/ui/app/shop/orders/tokens"
+import {
+  CART,
+  CART_SET_SKU_QUANTITY,
+  SET_SKU_QUANTITY,
+} from "@funk/ui/app/shop/orders/tokens"
 import { ProductModule } from "@funk/ui/app/shop/product/module"
 import { ENTERPRISE, RESOLVE_ENTERPRISE } from "@funk/ui/app/shop/tokens"
 import atlas from "@funk/ui/core/atlas/atlas"
@@ -64,21 +72,17 @@ const routes: Routes = [
     ProductModule,
     AppCommonModule,
   ],
-  declarations: [
-    ShopContainer,
-    HomeContainer,
-    CheckoutComponent,
-  ],
+  declarations: [ShopContainer, HomeContainer, CheckoutComponent],
   providers: [
     {
       provide: ENTERPRISE,
       useFactory: constructEnterprise,
-      deps: [ LISTEN_BY_ID ],
+      deps: [LISTEN_BY_ID],
     },
     {
       provide: RESOLVE_ENTERPRISE,
       useFactory: constructResolveEnterprise,
-      deps: [ ENTERPRISE ],
+      deps: [ENTERPRISE],
     },
     {
       provide: CART,
@@ -93,9 +97,8 @@ const routes: Routes = [
     {
       provide: CART_SET_SKU_QUANTITY,
       useFactory: constructCartSetSkuQuantity,
-      deps: [ CART, SET_SKU_QUANTITY ],
+      deps: [CART, SET_SKU_QUANTITY],
     },
   ],
 })
-export class ShopModule
-{ }
+export class ShopModule {}

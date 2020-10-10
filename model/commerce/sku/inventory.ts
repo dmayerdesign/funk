@@ -18,7 +18,7 @@ export interface BucketInventory {
 }
 
 export type Inventory =
-  FiniteInventory
+  | FiniteInventory
   | InfiniteInventory
   | BucketInventory
   | FiniteInventoryDisplayedAsBucket

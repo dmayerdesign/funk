@@ -10,12 +10,13 @@ import { HonorsContainer } from "@funk/ui/app/poetry/honors/container"
 import { PublicationsContainer } from "@funk/ui/app/poetry/publications/container"
 import { TeachingContainer } from "@funk/ui/app/poetry/teaching/container"
 import {
-  construct as constructGetToken, GET_TOKEN, INITIALIZE_TURING_TEST
+  construct as constructGetToken,
+  GET_TOKEN,
+  INITIALIZE_TURING_TEST,
 } from "@funk/ui/app/turing-test/get-token"
 import atlas from "@funk/ui/core/atlas/atlas"
 import { IonicModule } from "@ionic/angular"
 import { load as loadRecaptcha } from "recaptcha-v3"
-
 
 const routes: Routes = [
   {
@@ -86,9 +87,8 @@ const routes: Routes = [
     {
       provide: GET_TOKEN,
       useFactory: constructGetToken,
-      deps: [ INITIALIZE_TURING_TEST ],
+      deps: [INITIALIZE_TURING_TEST],
     },
   ],
 })
-export class PoetryModule
-{ }
+export class PoetryModule {}

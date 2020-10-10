@@ -1,22 +1,22 @@
 import { construct } from "@funk/api/plugins/payment/behaviors/create-payment-intent"
 import { GetPaymentProvider } from "@funk/api/plugins/payment/behaviors/get-payment-provider"
-import { createGetPaymentProviderStub, PaymentProviderStub } from "@funk/api/plugins/payment/stubs"
+import {
+  createGetPaymentProviderStub,
+  PaymentProviderStub,
+} from "@funk/api/plugins/payment/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import Stripe from "stripe"
 
-describe("createPaymentIntent", () =>
-{
+describe("createPaymentIntent", () => {
   let psp: Stripe
   let getPaymentProvider: GetPaymentProvider
 
-  beforeEach(() =>
-  {
-    psp = new PaymentProviderStub() as unknown as Stripe
+  beforeEach(() => {
+    psp = (new PaymentProviderStub() as unknown) as Stripe
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should create a payment intent", async function ()
-  {
+  it("should create a payment intent", async function () {
     const createPaymentIntent = construct(getPaymentProvider)
     const PSP_CREATE_RESULT = "FAKE_RESULT"
     const expectedCreateParams = {
@@ -25,9 +25,11 @@ describe("createPaymentIntent", () =>
       customer: GOOD_OPTIONS.customerId,
       receipt_email: GOOD_OPTIONS.customerEmail,
       payment_method: GOOD_OPTIONS.paymentMethodId,
-      payment_method_types: [ "card" ],
+      payment_method_types: ["card"],
       save_payment_method: GOOD_OPTIONS.savePaymentMethod,
-      setup_future_usage: (GOOD_OPTIONS.savePaymentMethod ? "off_session" : undefined),
+      setup_future_usage: GOOD_OPTIONS.savePaymentMethod
+        ? "off_session"
+        : undefined,
       confirmation_method: "automatic",
     }
     spyOn(psp.paymentIntents, "create").and.returnValue(PSP_CREATE_RESULT)
@@ -43,16 +45,14 @@ describe("createPaymentIntent", () =>
     expect(paymentIntent).toBe(PSP_CREATE_RESULT)
   })
 
-  it("should not create a payment intent if the amount is less than the minimum",
-    async function ()
-    {
-      const createPaymentIntent = construct(getPaymentProvider)
-      spyOn(psp.paymentIntents, "create")
+  it("should not create a payment intent if the amount is less than the minimum", async function () {
+    const createPaymentIntent = construct(getPaymentProvider)
+    spyOn(psp.paymentIntents, "create")
 
-      await expect(createPaymentIntent(BAD_OPTIONS_MIN_AMOUNT)).rejects.toThrow()
+    await expect(createPaymentIntent(BAD_OPTIONS_MIN_AMOUNT)).rejects.toThrow()
 
-      expect(psp.paymentIntents.create).not.toHaveBeenCalled()
-    })
+    expect(psp.paymentIntents.create).not.toHaveBeenCalled()
+  })
 
   const GOOD_OPTIONS = {
     price: { amount: 1000, currency: CurrencyCode.USD },

@@ -7,11 +7,13 @@ import { IonMenu } from "@ionic/angular"
 
 @Component({
   selector: "app-root",
-  styles: [`
-    #main {
-      height: 100vh;
-    }
-  `],
+  styles: [
+    `
+      #main {
+        height: 100vh;
+      }
+    `,
+  ],
   template: `
     <ion-app>
       <ion-menu side="start" content-id="main">
@@ -39,8 +41,7 @@ import { IonMenu } from "@ionic/angular"
     </ion-app>
   `,
 })
-export class AppComponent implements OnInit
-{
+export class AppComponent implements OnInit {
   @ViewChild(IonMenu) public menu!: IonMenu
   public menuItems = [
     this._buildMenuItem("shop", "home"),
@@ -49,19 +50,15 @@ export class AppComponent implements OnInit
 
   public constructor(
     private readonly _router: Router,
-    @Inject(BUILD_MENU_ITEM) private readonly _buildMenuItem: BuildMenuItem<AppAtlas>
-  )
-  { }
+    @Inject(BUILD_MENU_ITEM)
+    private readonly _buildMenuItem: BuildMenuItem<AppAtlas>
+  ) {}
 
-  public ngOnInit(): void
-  {
-    this._router.events
-      .subscribe((event) =>
-      {
-        if (event instanceof NavigationEnd)
-        {
-          this.menu.close()
-        }
-      })
+  public ngOnInit(): void {
+    this._router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.menu.close()
+      }
+    })
   }
 }

@@ -7,11 +7,11 @@ import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
 @Component({
   selector: "import-skus",
   template: `
-    <ion-button expand="full"
-      (click)="importSkusInput.click()">
+    <ion-button expand="full" (click)="importSkusInput.click()">
       <ion-icon lazy="true" slot="start" name="image"></ion-icon>
       <ion-label slot="end">Upload Image</ion-label>
-      <input #importSkusInput
+      <input
+        #importSkusInput
         id="import-skus-input"
         type="file"
         (change)="upload($event.target.files)"
@@ -22,30 +22,22 @@ import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
     </ion-button>
   `,
 })
-export class ImportSkusContainer implements OnInit
-{
+export class ImportSkusContainer implements OnInit {
   public readonly acceptContentTypes = csvMimeTypes.join(",")
   public readonly fileKey = SKUS
 
-  public constructor(
-    @Inject(SKU_IMPORT) private _skuImport: SkuImport
-  )
-  { }
+  public constructor(@Inject(SKU_IMPORT) private _skuImport: SkuImport) {}
 
-  public ngOnInit(): void
-  { }
+  public ngOnInit(): void {}
 
-  public async upload(fileList: FileList): Promise<void>
-  {
+  public async upload(fileList: FileList): Promise<void> {
     const file = fileList.item(0)
     const fileReader = new FileReader()
     fileReader.readAsText(file!)
-    fileReader.addEventListener("loadend", async () =>
-    {
+    fileReader.addEventListener("loadend", async () => {
       await this._skuImport(fileReader.result as string)
     })
   }
 
-  public ngOnDestroy(): void
-  { }
+  public ngOnDestroy(): void {}
 }

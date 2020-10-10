@@ -7,23 +7,19 @@ import { InvalidInputError } from "@funk/model/error/invalid-input-error"
 import csvToJson from "csvtojson"
 import { Dictionary, values } from "lodash"
 
-export function construct(
-  setMany: typeof setManyImpl
-)
-{
-  return async function(csvData: string): Promise<void>
-  {
+export function construct(setMany: typeof setManyImpl) {
+  return async function (csvData: string): Promise<void> {
     const rowsJson: ImportedSku[] = await csvToJson().fromString(csvData)
 
     if (rowsJson.length === 0) return
 
     const jsonCollectionData: Dictionary<MarshalledSku> = rowsJson.reduce(
-      (collectionData, jsonRow) =>
-      {
+      (collectionData, jsonRow) => {
         collectionData[jsonRow["SKU"]] = mapImportedSkuToSku(jsonRow)
         return collectionData
       },
-      {} as Dictionary<MarshalledSku>)
+      {} as Dictionary<MarshalledSku>
+    )
 
     throwIfCollectionDataContainsInvalidSku(jsonCollectionData)
 
@@ -37,14 +33,15 @@ export default construct(setManyImpl)
 
 export type SetCollectionFromCsv = ReturnType<typeof construct>
 
-function throwIfCollectionDataContainsInvalidSku(collectionData: Dictionary<MarshalledSku>): void
-{
-  values(collectionData).forEach((sku) =>
-  {
-    if (marshalledSkuIsInvalid(sku))
-    {
+function throwIfCollectionDataContainsInvalidSku(
+  collectionData: Dictionary<MarshalledSku>
+): void {
+  values(collectionData).forEach((sku) => {
+    if (marshalledSkuIsInvalid(sku)) {
       throw new InvalidInputError(
-        `Encountered an invalid SKU, aborting the import. Invalid SKU: ${JSON.stringify(sku)}`
+        `Encountered an invalid SKU, aborting the import. Invalid SKU: ${JSON.stringify(
+          sku
+        )}`
       )
     }
   })

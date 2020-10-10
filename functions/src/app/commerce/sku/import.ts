@@ -6,12 +6,14 @@ import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
 import { UserRole } from "@funk/model/auth/user-role"
 
 export default createRpcFunction(
-  authenticateForRoles([ UserRole.SUPER, UserRole.OWNER, UserRole.ADMINISTRATOR ]),
-  async (request: RequestWithBody<string>) =>
-  {
+  authenticateForRoles([
+    UserRole.SUPER,
+    UserRole.OWNER,
+    UserRole.ADMINISTRATOR,
+  ]),
+  async (request: RequestWithBody<string>) => {
     const acceptsCsv = request.accepts(csvMimeTypes)
-    if (acceptsCsv)
-    {
+    if (acceptsCsv) {
       await setCollectionFromCsv(request.body)
     }
   }

@@ -4,20 +4,17 @@
     "outDir": "./out-tsc/app",
     "baseUrl": ".",
     "paths": {
-      "@funk/ui/plugins/*": [ "./plugins/*" ],
-      "@funk/configuration": [ "../.funk/build-pipeline-output/configuration/configuration.ts" ],
-      "@funk/copy/*": [ "../copy/*" ],
-      "@funk/functions/*": [ "./functions/*" ],
-      "@funk/helpers/*": [ "../helpers/*" ],
-      "@funk/model/*": [ "../model/*" ],
-      "@funk/ui/*": [ "./*" ]
+      "@funk/ui/plugins/*": ["./plugins/*"],
+      "@funk/configuration": [
+        "../.funk/build-pipeline-output/configuration/configuration"
+      ],
+      "@funk/copy/*": ["../copy/*"],
+      "@funk/functions/*": ["./functions/*"],
+      "@funk/helpers/*": ["../helpers/*"],
+      "@funk/model/*": ["../model/*"],
+      "@funk/ui/*": ["./*"]
     }
   },
-  "files": [
-    "main.ts",
-    "polyfills.ts"
-  ],
-  "include": [
-    "../type-shims.d.ts"
-  ]
+  "files": ["main.ts", "polyfills.ts"],
+  "include": ["../type-shims.d.ts"]
 }

@@ -8,19 +8,17 @@ export function construct(
   auth: AuthClient,
   userSession: UserSession,
   userIdToken: UserIdToken
-)
-{
-  return (): void =>
-  {
-    (async function(): Promise<void>
-    {
+) {
+  return (): void => {
+    ;(async function (): Promise<void> {
       userSession.subscribe()
       userIdToken.subscribe()
 
       const maybeIdTokenResult = await asPromise(auth.idTokenResult)
-      if (!maybeIdTokenResult?.claims?.role
-        || maybeIdTokenResult?.claims?.role === UserRole.ANONYMOUS)
-      {
+      if (
+        !maybeIdTokenResult?.claims?.role ||
+        maybeIdTokenResult?.claims?.role === UserRole.ANONYMOUS
+      ) {
         await auth.signInAnonymously()
       }
     })()
@@ -28,4 +26,3 @@ export function construct(
 }
 
 export type Initialize = ReturnType<typeof construct>
-

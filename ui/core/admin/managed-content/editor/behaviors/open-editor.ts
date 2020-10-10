@@ -5,13 +5,10 @@ import { GetMaybeActiveContentId } from "@funk/ui/core/admin/managed-content/edi
 export function construct(
   getMaybeActiveContentId: GetMaybeActiveContentId,
   getIsAuthorized: GetIsAuthorized
-)
-{
-  return async function (contentId: string): Promise<void>
-  {
+) {
+  return async function (contentId: string): Promise<void> {
     const canActivate = await asPromise(getIsAuthorized())
-    if (canActivate)
-    {
+    if (canActivate) {
       getMaybeActiveContentId().next(contentId)
     }
   }

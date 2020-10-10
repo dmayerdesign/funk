@@ -8,5 +8,4 @@ import { Component } from "@angular/core"
     </ion-toolbar>
   `,
 })
-export class AccountManagementComponent
-{ }
+export class AccountManagementComponent {}

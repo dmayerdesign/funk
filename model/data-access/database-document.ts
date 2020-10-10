@@ -11,8 +11,10 @@ export interface DocumentData {
   [field: string]: any
 }
 
-export type DbDocumentInput<DocumentType extends DatabaseDocument> =
-  Omit<DocumentType, "id">
+export type DbDocumentInput<DocumentType extends DatabaseDocument> = Omit<
+  DocumentType,
+  "id"
+>
 
 export interface DbDocumentMetadata {
   collectionPath: string

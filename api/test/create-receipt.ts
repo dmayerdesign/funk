@@ -4,13 +4,17 @@ import { readFileSync } from "fs-extra"
 import { compile } from "handlebars"
 import { resolve } from "path"
 
-export function construct()
-{
-  return function(partialOrder: Partial<DbDocumentInput<Order>>): string
-  {
-    const runtimePathToTemplate = resolve(__dirname, "../../",
-      "assets/email-templates", "receipt.hbs")
-    const template = compile(readFileSync(runtimePathToTemplate).toString("utf8"))
+export function construct() {
+  return function (partialOrder: Partial<DbDocumentInput<Order>>): string {
+    const runtimePathToTemplate = resolve(
+      __dirname,
+      "../../",
+      "assets/email-templates",
+      "receipt.hbs"
+    )
+    const template = compile(
+      readFileSync(runtimePathToTemplate).toString("utf8")
+    )
     return template({ skus: partialOrder.skus })
   }
 }

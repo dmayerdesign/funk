@@ -2,20 +2,16 @@ import { UserSession } from "@funk/ui/core/identity/user-session"
 import { construct as constructGetInnerText } from "@funk/ui/helpers/html/get-inner-text"
 import { DeviceWidth } from "@funk/ui/plugins/layout/device-width"
 import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
-import {
-  construct as constructListenById
-} from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
+import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { construct as constructSetById } from "@funk/ui/plugins/persistence/behaviors/set-by-id"
-import {
-  construct as constructUpdateById
-} from "@funk/ui/plugins/persistence/behaviors/update-by-id"
+import { construct as constructUpdateById } from "@funk/ui/plugins/persistence/behaviors/update-by-id"
 import { AlertController } from "@ionic/angular"
 import { construct as constructCancelEdit } from "./behaviors/cancel-edit"
 import { construct as constructGetHasPreview } from "./behaviors/get-has-preview"
-import { construct as constructGetIsAuthorized } from './behaviors/get-is-authorized'
-import getIsSavingImpl from './behaviors/get-is-saving'
+import { construct as constructGetIsAuthorized } from "./behaviors/get-is-authorized"
+import getIsSavingImpl from "./behaviors/get-is-saving"
 import { construct as constructGetMaybeActiveContent } from "./behaviors/get-maybe-active-content"
-import getMaybeActiveContentIdImpl from './behaviors/get-maybe-active-content-id'
+import getMaybeActiveContentIdImpl from "./behaviors/get-maybe-active-content-id"
 import { construct as constructGetMaybeActiveContentType } from "./behaviors/get-maybe-active-content-type"
 import { construct as constructGetMaybeActiveContentValue } from "./behaviors/get-maybe-active-content-value"
 import { construct as constructGetMaybeActiveContentValueControl } from "./behaviors/get-maybe-active-content-value-control"
@@ -43,39 +39,40 @@ export function construct(
   getInnerText: ReturnType<typeof constructGetInnerText>,
   alert: AlertController,
   deviceWidth: DeviceWidth
-)
-{
-  return new class ManagedContentEditorService
-  {
+) {
+  return new (class ManagedContentEditorService {
     public constructor(
-      _getMaybeActiveContentId = getMaybeActiveContentIdImpl,
-      _getIsAuthorized = constructGetIsAuthorized(userSession, deviceWidth),
-      _getIsSaving = getIsSavingImpl,
-      _getMaybePreviewOrLiveContent = constructGetMaybePreviewOrLiveContent(
+      public getMaybeActiveContentId = getMaybeActiveContentIdImpl,
+      public getIsAuthorized = constructGetIsAuthorized(
         userSession,
-        _getIsAuthorized,
+        deviceWidth
+      ),
+      _getIsSaving = getIsSavingImpl,
+      public getMaybePreviewOrLiveContent = constructGetMaybePreviewOrLiveContent(
+        userSession,
+        getIsAuthorized,
         listenById
       ),
       _getMaybeContentPreviews = constructGetMaybeContentPreviews(getById),
-      _getMaybeActiveContent = constructGetMaybeActiveContent(
-        _getMaybeActiveContentId,
-        _getMaybePreviewOrLiveContent
+      public getMaybeActiveContent = constructGetMaybeActiveContent(
+        getMaybeActiveContentId,
+        getMaybePreviewOrLiveContent
       ),
-      _getMaybeActiveContentType = constructGetMaybeActiveContentType(
-        _getMaybeActiveContent
+      public getMaybeActiveContentType = constructGetMaybeActiveContentType(
+        getMaybeActiveContent
       ),
       public getMaybeActiveContentValueControl = constructGetMaybeActiveContentValueControl(
-        _getMaybeActiveContent
+        getMaybeActiveContent
       ),
       public getMaybeActiveContentValue = constructGetMaybeActiveContentValue(
         getMaybeActiveContentValueControl
       ),
-      _getHasPreview = constructGetHasPreview(userSession, listenById),
+      public getHasPreview = constructGetHasPreview(userSession, listenById),
       public getPublishConflicts = getPublishConflictsImpl,
-      _cancelEdit = constructCancelEdit(_getMaybeActiveContentId),
+      public cancelEdit = constructCancelEdit(getMaybeActiveContentId),
       public openEditor = constructOpenEditor(
-        _getMaybeActiveContentId,
-        _getIsAuthorized
+        getMaybeActiveContentId,
+        getIsAuthorized
       ),
       _removeFromPublishConflicts = constructRemoveFromPublishConflicts(
         getPublishConflicts
@@ -100,7 +97,10 @@ export function construct(
       ),
       public publishAll = constructPublishAll(_publishOrReportConflict),
       public publishAllOnConfirmation = constructPublishAllOnConfirmation(
-        userSession, alert, _getMaybeContentPreviews, publishAll
+        userSession,
+        alert,
+        _getMaybeContentPreviews,
+        publishAll
       ),
       _publishAndDeleteContentPreview = constructPublishAndDeleteContentPreview(
         setById,
@@ -120,16 +120,15 @@ export function construct(
         getMaybeActiveContentValueControl,
         _getIsSaving,
         userSession,
-        _getMaybeActiveContent,
-        _getMaybeActiveContentId,
+        getMaybeActiveContent,
+        getMaybeActiveContentId,
         getMaybeActiveContentValue,
         getInnerText,
         updateById,
-        _cancelEdit
-      ),
-    )
-    { }
-  }
+        cancelEdit
+      )
+    ) {}
+  })()
 }
 
 export type ManagedContentEditorService = ReturnType<typeof construct>

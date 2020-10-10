@@ -6,9 +6,14 @@ import { UserRole } from "@funk/model/auth/user-role"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export default createRpcFunction(
-  authenticateForRoles([ UserRole.SUPER, UserRole.OWNER, UserRole.ADMINISTRATOR ]),
-  async (
-    { body }: RequestWithBody<Parameters<typeof list>[0]>
-  ): Promise<DatabaseDocument[]> =>
-    await list(body)
+  authenticateForRoles([
+    UserRole.SUPER,
+    UserRole.OWNER,
+    UserRole.ADMINISTRATOR,
+  ]),
+  async ({
+    body,
+  }: RequestWithBody<Parameters<typeof list>[0]>): Promise<
+    DatabaseDocument[]
+  > => await list(body)
 )
