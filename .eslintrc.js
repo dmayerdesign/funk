@@ -32,45 +32,30 @@ module.exports = {
   ],
   "rules": {
     "@typescript-eslint/ban-types": "warn",
-    // For some reason, errors with `Definition for rule
-    // '@typescript-eslint/class-name-casing' was not found`.
-    // "@typescript-eslint/class-name-casing": "error",
-    "@typescript-eslint/dot-notation": "off",
+    "@typescript-eslint/no-inferrable-types": "error",
+    "@typescript-eslint/no-misused-new": "error",
+    "@typescript-eslint/no-unused-expressions": "error",
+    "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
         "accessibility": "explicit"
       }
     ],
-    "@typescript-eslint/indent": [
-      "warn",
-      2
-    ],
-    "@typescript-eslint/member-ordering": "off",
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-empty-interface": "off",
-    "@typescript-eslint/no-inferrable-types": "error",
-    "@typescript-eslint/no-misused-new": "error",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-expressions": "error",
-    "@typescript-eslint/prefer-function-type": "off",
     "@typescript-eslint/quotes": [
       "warn",
       "double"
     ],
-    "@typescript-eslint/semi": [
-      "error",
-      "never"
-    ],
-    "@typescript-eslint/type-annotation-spacing": "error",
+    "@typescript-eslint/member-ordering": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/prefer-function-type": "off",
+    "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/unified-signatures": "off",
+    "@typescript-eslint/indent": "off",
     "arrow-body-style": "error",
-    "brace-style": [
-      "warn",
-      "allman",
-      { "allowSingleLine": true }
-    ],
-    "camelcase": "off",
+    "constructor-super": "error",
     "comma-dangle": [
       "warn",
       {
@@ -81,7 +66,6 @@ module.exports = {
         "exports": "never"
       }
     ],
-    "constructor-super": "error",
     "curly": [
       "warn",
       "multi-line"
@@ -91,48 +75,9 @@ module.exports = {
       "error",
       "smart"
     ],
-    "guard-for-in": "off",
-    "id-blacklist": "off",
-    "id-match": "off",
-    // For some reason, errors with `Definition for rule 'import/order' was not found`.
-    // "import/order": "error",
-    "max-len": [
-      "warn",
-      {
-        "code": 100,
-        "ignorePattern": "^(import|(\s+)@Inject\().+$"
-      }
-    ],
+
     "no-bitwise": "error",
     "no-caller": "error",
-    "no-console": [
-      "warn",
-      {
-        "allow": [
-          "log",
-          "warn",
-          "dir",
-          "timeLog",
-          "assert",
-          "clear",
-          "count",
-          "countReset",
-          "group",
-          "groupEnd",
-          "table",
-          "dirxml",
-          "error",
-          "groupCollapsed",
-          "Console",
-          "profile",
-          "profileEnd",
-          "timeStamp",
-          "context"
-        ]
-      }
-    ],
-    "no-debugger": "error",
-    "no-empty": "off",
     "no-eval": "error",
     "no-fallthrough": "error",
     "no-new-wrappers": "error",
@@ -145,7 +90,6 @@ module.exports = {
     "no-throw-literal": "error",
     "no-trailing-spaces": "warn",
     "no-undef-init": "error",
-    "no-underscore-dangle": "off",
     "no-unused-labels": "error",
     "no-var": "error",
     "prefer-const": "error",
@@ -159,5 +103,8 @@ module.exports = {
         ]
       }
     ]
+    // For some reason, errors with `Definition for rule
+    // '@typescript-eslint/class-name-casing' was not found`.
+    // "@typescript-eslint/class-name-casing": "error",
   }
 };

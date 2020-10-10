@@ -4,6 +4,7 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "lint-fix": "sh ./build-pipeline/package-scripts/lint-fix.sh",
+    "format": "sh ./build-pipeline/package-scripts/format.sh",
     "test": "sh ./build-pipeline/package-scripts/test.sh",
     "test::api": "sh ./build-pipeline/package-scripts/test-api.sh",
     "test::ui": "sh ./build-pipeline/package-scripts/test-ui.sh",
@@ -31,6 +32,7 @@
     "chokidar": "./node_modules/.bin/chokidar",
     "tscpaths": "./node_modules/.bin/tscpaths",
     "eslint": "./node_modules/.bin/eslint",
+    "prettier": "./node_modules/.bin/prettier",
     "jest": "./node_modules/.bin/jest",
     "ionic": "./node_modules/.bin/ionic"
   },
