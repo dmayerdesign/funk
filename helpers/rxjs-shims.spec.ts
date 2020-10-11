@@ -1,3 +1,4 @@
+import { asPromise } from "@funk/helpers/as-promise"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { BehaviorSubject, Observable, of } from "rxjs"
 import { first, shareReplay } from "rxjs/operators"
@@ -29,12 +30,12 @@ describe("rxjsShims", () => {
     it("should allow false", async function () {
       const subject = new BehaviorSubject<boolean>(false)
       const justFalse = subject.pipe(ignoreNullish())
-      expect(await justFalse.pipe(first()).toPromise()).toBe(false)
+      expect(await asPromise(justFalse)).toBe(false)
     })
     it("should allow ''", async function () {
       const subject = new BehaviorSubject<string>("")
       const justEmptyString = subject.pipe(ignoreNullish())
-      expect(await justEmptyString.pipe(first()).toPromise()).toBe("")
+      expect(await asPromise(justEmptyString)).toBe("")
     })
   })
 })

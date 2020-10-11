@@ -1,4 +1,5 @@
 import { RouterStateSnapshot, UrlTree } from "@angular/router"
+import { asPromise } from "@funk/helpers/as-promise"
 import { UserRole } from "@funk/model/auth/user-role"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
 import { PublicGuard } from "@funk/ui/app/identity/public-guard"
@@ -8,7 +9,6 @@ import {
   createUserSession,
 } from "@funk/ui/core/identity/stubs"
 import { of } from "rxjs"
-import { first } from "rxjs/operators"
 
 describe("PublicGuard", () => {
   let anonymousGuard: AnonymousGuard
@@ -32,38 +32,43 @@ describe("PublicGuard", () => {
       anonymousGuard,
       createRouterStub()
     )
-    const canActivate = await guard
-      .canActivate(activatedRoute, routerState)
-      .pipe(first())
-      .toPromise()
+    const canActivate = await asPromise(
+      guard.canActivate(activatedRoute, routerState)
+    )
 
     expect(anonymousGuard.canActivate).toHaveBeenCalled()
     expect(canActivate).toBe(anonymousGuardCanActivate)
   })
 
   it("must activate if the user is SUPER", async function () {
-    const canActivate = await createStubbedPublicGuard(UserRole.SUPER)
-      .canActivate(activatedRoute, routerState)
-      .pipe(first())
-      .toPromise()
+    const canActivate = await asPromise(
+      createStubbedPublicGuard(UserRole.SUPER).canActivate(
+        activatedRoute,
+        routerState
+      )
+    )
 
     expect(canActivate).toBe(true)
   })
 
   it("must activate if the user is OWNER", async function () {
-    const canActivate = await createStubbedPublicGuard(UserRole.OWNER)
-      .canActivate(activatedRoute, routerState)
-      .pipe(first())
-      .toPromise()
+    const canActivate = await asPromise(
+      createStubbedPublicGuard(UserRole.OWNER).canActivate(
+        activatedRoute,
+        routerState
+      )
+    )
 
     expect(canActivate).toBe(true)
   })
 
   it("must activate if the user is ADMINISTRATOR", async function () {
-    const canActivate = await createStubbedPublicGuard(UserRole.ADMINISTRATOR)
-      .canActivate(activatedRoute, routerState)
-      .pipe(first())
-      .toPromise()
+    const canActivate = await asPromise(
+      createStubbedPublicGuard(UserRole.ADMINISTRATOR).canActivate(
+        activatedRoute,
+        routerState
+      )
+    )
 
     expect(canActivate).toBe(true)
   })
@@ -77,10 +82,9 @@ describe("PublicGuard", () => {
       anonymousGuard,
       routerStub
     )
-    const canActivate = await guard
-      .canActivate(activatedRoute, routerState)
-      .pipe(first())
-      .toPromise()
+    const canActivate = await asPromise(
+      guard.canActivate(activatedRoute, routerState)
+    )
 
     expect(canActivate).toEqual(new UrlTree())
     expect(routerStub.parseUrl).toHaveBeenCalledTimes(1)
@@ -95,10 +99,9 @@ describe("PublicGuard", () => {
       anonymousGuard,
       routerStub
     )
-    const canActivate = await guard
-      .canActivate(activatedRoute, routerState)
-      .pipe(first())
-      .toPromise()
+    const canActivate = await asPromise(
+      guard.canActivate(activatedRoute, routerState)
+    )
 
     expect(canActivate).toEqual(new UrlTree())
     expect(routerStub.parseUrl).toHaveBeenCalledTimes(1)

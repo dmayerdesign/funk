@@ -18,10 +18,14 @@ const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
         <div id="banner-and-navigation">
           <div role="banner">
             <h1>
-              <managed-content contentId="professional-portfolio-title"></managed-content>
+              <managed-content
+                contentId="professional-portfolio-title"
+              ></managed-content>
             </h1>
             <p>
-              <managed-content contentId="professional-portfolio-subtitle"></managed-content>
+              <managed-content
+                contentId="professional-portfolio-subtitle"
+              ></managed-content>
             </p>
           </div>
 
@@ -75,10 +79,14 @@ const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
           <div id="banner">
             <div role="banner">
               <h1>
-                <managed-content contentId="professional-portfolio-title"></managed-content>
+                <managed-content
+                  contentId="professional-portfolio-title"
+                ></managed-content>
               </h1>
               <p>
-                <managed-content contentId="professional-portfolio-subtitle"></managed-content>
+                <managed-content
+                  contentId="professional-portfolio-subtitle"
+                ></managed-content>
               </p>
             </div>
             <h2 *ngIf="pageTitle | async">
