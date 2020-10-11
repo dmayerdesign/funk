@@ -1,5 +1,6 @@
-import { AngularFirestore } from "@angular/fire/firestore"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
+import { GetById } from '@funk/ui/plugins/persistence/behaviors/get-by-id'
+import { ListByIds } from '@funk/ui/plugins/persistence/behaviors/list-by-ids'
 
 export interface PopulateFieldOptions<DocumentType> {
   collectionPath: string
@@ -8,9 +9,12 @@ export interface PopulateFieldOptions<DocumentType> {
   relationship?: "one-to-many" | "one-to-one"
 }
 
-export function construct(store: () => AngularFirestore) {
+export function construct(
+  getById: GetById,
+  listByIds: ListByIds
+) {
   return async function <
-    PopulatedType,
+    PopulatedType extends DatabaseDocument = any,
     MarshalledType extends DatabaseDocument = any
   >(
     marshalledDoc: MarshalledType,
@@ -24,15 +28,10 @@ export function construct(store: () => AngularFirestore) {
       ) {
         continue
       } else if (relationship === "one-to-one") {
-        _populatedDoc[key] = await store()
-          .collection(collectionPath)
-          .ref.where("id", "==", marshalledDoc[key])
-          .get()
-          .then(
-            (snapshot) =>
-              snapshot.docs[0] &&
-              (snapshot.docs[0].data() as PopulatedType[typeof key])
-          )
+        _populatedDoc[key] = (await getById<PopulatedType[typeof key]>(
+          collectionPath,
+          marshalledDoc[key] as unknown as string
+        ))!
       } else {
         if (
           Array.isArray(marshalledDoc[key]) &&
@@ -42,14 +41,10 @@ export function construct(store: () => AngularFirestore) {
         ) {
           continue
         }
-        _populatedDoc[key] = (await store()
-          .collection(collectionPath)
-          .ref.where("id", "in", marshalledDoc[key])
-          .get()
-          .then(
-            (snapshot) =>
-              snapshot.docs && snapshot.docs.map((doc) => doc.data())
-          )) as PopulatedType[typeof key]
+        _populatedDoc[key] = (await listByIds<any>(
+          collectionPath,
+          marshalledDoc[key] as unknown as string[]
+        )) as any
       }
     }
     return _populatedDoc
