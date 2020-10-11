@@ -8,7 +8,7 @@ When following these instructions, replace `{CONFIGURATION}` with either `develo
 
 ### Infrastructure
 
-1. Create a Firebase project named `funk-{CONFIGURATION}`.
+1. Create a Firebase project named like `myproject-{CONFIGURATION}`.
 2. Enable Functions and Firestore.
 3. Create a “web” app within the project and add its configuration to `configuration/{CONFIGURATION}.ts`.
    - Set the “Public-facing name” for the project (this shows up in the email verification email and other user-facing places).
