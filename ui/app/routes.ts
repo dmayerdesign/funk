@@ -42,9 +42,11 @@ const routes: Routes = [
       import("@funk/ui/app/sign-in/module").then((mod) => mod.SignInModule),
   },
   {
-    path: "poetry",
+    path: "professional-portfolio",
     loadChildren: () =>
-      import("@funk/ui/app/poetry/module").then((mod) => mod.PoetryModule),
+      import("@funk/ui/app/professional-portfolio/module").then(
+        (mod) => mod.ProfessionalPortfolioModule
+      ),
   },
   {
     path: "**",

@@ -9,19 +9,19 @@ import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
 import { LoadingController } from "@ionic/angular"
 import { map } from "rxjs/operators"
 
-const poetryPaths = Object.keys(atlas) as (keyof typeof atlas)[]
+const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
 
 @Component({
   template: `
-    <div id="poetry-container">
+    <div id="professional-portfolio-container">
       <ng-container *ngIf="!(isMobileLayout | async)">
         <div id="banner-and-navigation">
           <div role="banner">
             <h1>
-              <managed-content contentId="poetry-title"></managed-content>
+              <managed-content contentId="professional-portfolio-title"></managed-content>
             </h1>
             <p>
-              <managed-content contentId="poetry-subtitle"></managed-content>
+              <managed-content contentId="professional-portfolio-subtitle"></managed-content>
             </p>
           </div>
 
@@ -42,7 +42,7 @@ const poetryPaths = Object.keys(atlas) as (keyof typeof atlas)[]
           </nav>
         </div>
 
-        <div id="poetry-routes">
+        <div id="professional-portfolio-routes">
           <ion-router-outlet></ion-router-outlet>
         </div>
       </ng-container>
@@ -75,17 +75,17 @@ const poetryPaths = Object.keys(atlas) as (keyof typeof atlas)[]
           <div id="banner">
             <div role="banner">
               <h1>
-                <managed-content contentId="poetry-title"></managed-content>
+                <managed-content contentId="professional-portfolio-title"></managed-content>
               </h1>
               <p>
-                <managed-content contentId="poetry-subtitle"></managed-content>
+                <managed-content contentId="professional-portfolio-subtitle"></managed-content>
               </p>
             </div>
             <h2 *ngIf="pageTitle | async">
               {{ pageTitle | async }}
             </h2>
           </div>
-          <div id="poetry-routes">
+          <div id="professional-portfolio-routes">
             <ion-router-outlet></ion-router-outlet>
           </div>
         </div>
@@ -95,8 +95,8 @@ const poetryPaths = Object.keys(atlas) as (keyof typeof atlas)[]
   styleUrls: ["./container.scss"],
   encapsulation: ViewEncapsulation.None,
 })
-export class PoetryContainer implements OnInit {
-  public readonly navigationItems = poetryPaths
+export class ProfessionalPortfolioContainer implements OnInit {
+  public readonly navigationItems = professionalPortfolioPaths
     .filter((path) => ((atlas[path] as unknown) as Atlas).public)
     .map((path) => ({
       text: atlas[path].label,

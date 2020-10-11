@@ -7,7 +7,7 @@ import {
 } from "@angular/forms"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { ContactForm } from "@funk/model/contact/contact-form"
-import { CONTACT_OWNER } from "@funk/ui/app/poetry/tokens"
+import { CONTACT_OWNER } from "@funk/ui/app/professional-portfolio/tokens"
 import { DEVICE_WIDTH, PAGE_TITLE } from "@funk/ui/app/tokens"
 import { GetToken, GET_TOKEN } from "@funk/ui/app/turing-test/get-token"
 import { PageTitle } from "@funk/ui/core/atlas/page-title"
@@ -17,8 +17,11 @@ import { map } from "rxjs/operators"
 
 @Component({
   template: `
-    <ion-content class="poetry-route" style="--background: transparent">
-      <div class="poetry-route-inner">
+    <ion-content
+      class="professional-portfolio-route"
+      style="--background: transparent"
+    >
+      <div class="professional-portfolio-route-inner">
         <h2 *ngIf="(pageTitle | async) && (isDesktopLayout | async)">
           {{ pageTitle | async }}
         </h2>

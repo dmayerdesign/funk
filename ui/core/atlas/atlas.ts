@@ -28,8 +28,8 @@ const atlas = {
       },
     },
   },
-  poetry: {
-    label: "Poetry",
+  professionalPortfolio: {
+    label: "Professional Portfolio",
     public: true,
     __atlas__: {
       about: {
@@ -61,5 +61,8 @@ export type SinkAtlas = typeof atlas["sink"]["__atlas__"]
 export type SinkPath = Exclude<keyof SinkAtlas, "__atlas__">
 export type ShopAtlas = typeof atlas["shop"]["__atlas__"]
 export type ShopPath = Exclude<keyof ShopAtlas, "__atlas__">
-export type PoetryAtlas = typeof atlas["poetry"]["__atlas__"]
-export type PoetryPath = Exclude<keyof PoetryAtlas, "__atlas__">
+export type ProfessionalPortfolioAtlas = typeof atlas["professionalPortfolio"]["__atlas__"]
+export type ProfessionalPortfolioPath = Exclude<
+  keyof ProfessionalPortfolioAtlas,
+  "__atlas__"
+>
