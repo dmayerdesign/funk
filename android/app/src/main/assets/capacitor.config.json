@@ -1,8 +1,0 @@
-{
-  "appId": "org.funk.ui",
-  "appName": "client-app",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "ui/dist/client-app-browser",
-  "cordova": {}
-}

@@ -2,7 +2,4 @@ sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/pr
 sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/ui-prebuild.ts -c "development" && \
 ionic build --prod -c "development" && \
 ionic capacitor copy ios --no-build && \
-ionic capacitor copy android --no-build && \
-\
-ionic capacitor open android
 ionic capacitor open ios
