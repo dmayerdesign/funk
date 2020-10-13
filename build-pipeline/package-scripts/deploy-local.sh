@@ -8,5 +8,6 @@ sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/local-import-co
   --collection "commerce.orders" \
   --collection "commerce.products" \
   --collection "contents" \
+  --collection "identity.persons" \
   --collection "identity.user-states" \
   --collection "organizations"
