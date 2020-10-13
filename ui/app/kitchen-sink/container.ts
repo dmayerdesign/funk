@@ -84,9 +84,7 @@ import { BehaviorSubject, timer } from "rxjs"
                   <ion-label
                     >ion-item in a card, icon left, button right</ion-label
                   >
-                  <ion-button color="primary">
-                    View
-                  </ion-button>
+                  <ion-button color="primary"> View </ion-button>
                 </ion-item>
                 <ion-card-content>
                   This is content, without any paragraph or header tags, within

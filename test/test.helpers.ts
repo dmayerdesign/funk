@@ -1,4 +1,7 @@
-import { initializeAdminApp, initializeTestApp } from "@firebase/testing"
+import {
+  initializeAdminApp,
+  initializeTestApp,
+} from "@firebase/rules-unit-testing"
 import type { app } from "firebase"
 
 export const projectId = "my-test-project"

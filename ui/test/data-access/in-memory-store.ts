@@ -2,7 +2,7 @@ import { ORDERS } from "@funk/model/commerce/order/order"
 import { PRODUCTS } from "@funk/model/commerce/product/product"
 import { USER_STATES } from "@funk/model/identity/user-state"
 import { CONTENTS } from "@funk/model/managed-content/managed-content"
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject } from "rxjs"
 
 const pathToCommerceOrders =
   "../../../build-pipeline/data/development-data/commerce.orders.json"

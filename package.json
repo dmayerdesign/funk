@@ -103,6 +103,7 @@
     "@angular/compiler-cli": "~10.0.0",
     "@angular/language-service": "~10.0.0",
     "@capacitor/cli": "2.4.2",
+    "@firebase/rules-unit-testing": "^1.0.7",
     "@firebase/testing": "^0.20.11",
     "@ionic/angular-toolkit": "^2.3.3",
     "@ionic/cli": "^6.11.11",

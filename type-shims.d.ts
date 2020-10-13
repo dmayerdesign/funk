@@ -4,3 +4,4 @@ declare module "recursive-readdir-sync" {
 }
 declare module "lib/ckeditor5/build/ckeditor"
 declare module "prettier-eslint"
+declare module "@google-cloud/firestore"

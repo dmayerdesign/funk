@@ -1,33 +1,28 @@
-import * as firebaseTesting from "@firebase/testing"
+import * as firebaseTesting from "@firebase/rules-unit-testing"
 import { mkdirpSync, writeFileSync } from "fs-extra"
 import { firestoreExport } from "node-firestore-import-export"
 import { resolve } from "path"
 import { CLOUD_PROJECT_ID } from "../../configuration/local"
 
 main()
-
-async function main()
-{
-  try
-  {
-    await exportAllData(
-      resolve(__dirname, "../../.funk/build-pipeline-output/export")
-    )
-  }
-  catch (error)
-  {
+  .catch(function (error) {
     console.error("Export failed. Details:")
     console.error(error)
     process.exit(1)
-  }
+  })
+
+async function main()
+{
+  await exportAllData(
+    resolve(__dirname, "../../.funk/build-pipeline-output/export")
+  )
 }
 
 async function exportAllData(pathToExportDir: string)
 {
   const app = firebaseTesting.initializeAdminApp({ projectId: CLOUD_PROJECT_ID })
-  ;(app.firestore() as unknown as FirebaseFirestore.Firestore)
-    .listCollections().then((collectionRefs) =>
-    {
+  ;(app.firestore() as any)
+    .listCollections().then((collectionRefs: FirebaseFirestore.CollectionReference[]) => {
       Promise.all(collectionRefs
         .map((collectionRef) => firestoreExport(collectionRef)
           .then((data) => ({ [collectionRef.id]: data }))))

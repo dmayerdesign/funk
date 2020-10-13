@@ -3,7 +3,7 @@ import {
   Inject,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from "@angular/core"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { ManagedContentType } from "@funk/model/managed-content/managed-content"

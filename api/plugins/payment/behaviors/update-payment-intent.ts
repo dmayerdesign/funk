@@ -30,7 +30,6 @@ export function construct(getPaymentProvider: typeof getPaymentProviderImpl) {
       receipt_email: customerEmail,
       payment_method: paymentMethodId,
       payment_method_types: ["card"],
-      save_payment_method: savePaymentMethod,
       setup_future_usage: savePaymentMethod ? "off_session" : undefined,
     })
 

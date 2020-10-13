@@ -61,9 +61,7 @@ import { map } from "rxjs/operators"
                 </div>
               </ng-container>
 
-              <ng-container *ngIf="messageSent">
-                Thanks!
-              </ng-container>
+              <ng-container *ngIf="messageSent"> Thanks! </ng-container>
 
               <ng-container *ngIf="messageSendDidError">
                 Something went wrong :(

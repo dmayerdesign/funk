@@ -26,7 +26,6 @@ describe("createPaymentIntent", () => {
       receipt_email: GOOD_OPTIONS.customerEmail,
       payment_method: GOOD_OPTIONS.paymentMethodId,
       payment_method_types: ["card"],
-      save_payment_method: GOOD_OPTIONS.savePaymentMethod,
       setup_future_usage: GOOD_OPTIONS.savePaymentMethod
         ? "off_session"
         : undefined,

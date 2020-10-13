@@ -1,5 +1,5 @@
 import { Resolve } from "@angular/router"
-import { asPromise } from '@funk/helpers/as-promise'
+import { asPromise } from "@funk/helpers/as-promise"
 import { Enterprise } from "@funk/model/commerce/enterprise/enterprise"
 import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
 

@@ -1,6 +1,6 @@
+import { DocumentSnapshot as FirestoreDocumentSnapshot } from "@angular/fire/firestore"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
-import { DocumentSnapshot as FirestoreDocumentSnapshot } from "@google-cloud/firestore"
 
-export interface DocumentSnapshot<
+export type DocumentSnapshot<
   DocumentType extends { [key: string]: any } = DatabaseDocument
-> extends FirestoreDocumentSnapshot {}
+> = FirestoreDocumentSnapshot<DocumentType>

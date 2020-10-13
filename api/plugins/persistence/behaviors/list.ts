@@ -1,4 +1,3 @@
-import { DatabaseDocument } from "@funk/model/data-access/database-document"
 import { Condition } from "@funk/api/plugins/persistence/condition"
 import {
   Pagination,
@@ -6,6 +5,7 @@ import {
 } from "@funk/api/plugins/persistence/pagination"
 import { store } from "@funk/api/plugins/persistence/server-store"
 import { AbstractWhere } from "@funk/api/plugins/persistence/where"
+import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export default function list<DocumentType extends DatabaseDocument>(options: {
   collection: string

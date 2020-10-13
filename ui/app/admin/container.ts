@@ -24,9 +24,7 @@ import { Platform } from "@ionic/angular"
     </ion-header>
     <ion-content class="ion-padding">
       <div>
-        <h1>
-          Set Secret
-        </h1>
+        <h1>Set Secret</h1>
         <form [formGroup]="setSecretFormGroup" (ngSubmit)="setSecret()">
           <input type="text" placeholder="Key" formControlName="key" />
           <input type="password" placeholder="Value" formControlName="value" />

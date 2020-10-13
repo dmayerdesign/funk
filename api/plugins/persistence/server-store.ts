@@ -1,3 +1,3 @@
-import { firestore } from "firebase-admin"
+import firebase, { firestore } from "firebase-admin"
 
-export const store = firestore
+export const store: (app?: firebase.app.App) => firestore.Firestore = firestore

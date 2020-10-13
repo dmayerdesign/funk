@@ -1,8 +1,8 @@
 import { ErrorHandler, NgModule } from "@angular/core"
 import { BrowserModule } from "@angular/platform-browser"
 import { Router, RouteReuseStrategy, RouterModule } from "@angular/router"
-import { ServiceWorkerModule } from '@angular/service-worker'
-import { IS_PRODUCTION } from '@funk/configuration'
+import { ServiceWorkerModule } from "@angular/service-worker"
+import { IS_PRODUCTION } from "@funk/configuration"
 import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
 import { AtlasModule } from "@funk/ui/app/atlas/module"
 import { AppCommonModule } from "@funk/ui/app/common.module"
@@ -14,11 +14,11 @@ import { IdentityModule } from "@funk/ui/app/identity/module"
 import { NotFoundComponent } from "@funk/ui/app/not-found/component"
 import { PersistenceModule } from "@funk/ui/app/persistence/module"
 import routes from "@funk/ui/app/routes"
-import { DEVICE_WIDTH, PAGE_TITLE, WINDOW } from '@funk/ui/app/tokens'
+import { DEVICE_WIDTH, PAGE_TITLE, WINDOW } from "@funk/ui/app/tokens"
 import { construct as constructPageTitle } from "@funk/ui/core/atlas/page-title"
 import { construct as constructDeviceWidth } from "@funk/ui/plugins/layout/device-width"
-import { SplashScreen } from '@ionic-native/splash-screen/ngx'
-import { StatusBar } from '@ionic-native/status-bar/ngx'
+import { SplashScreen } from "@ionic-native/splash-screen/ngx"
+import { StatusBar } from "@ionic-native/status-bar/ngx"
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular"
 import { IonicStorageModule } from "@ionic/storage"
 

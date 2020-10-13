@@ -1,8 +1,8 @@
 import {
   assertFails,
   assertSucceeds,
-  loadFirestoreRules
-} from "@firebase/testing"
+  loadFirestoreRules,
+} from "@firebase/rules-unit-testing"
 import { UserRole } from "@funk/model/auth/user-role"
 import { PERSONS } from "@funk/model/identity/person"
 import {
@@ -11,7 +11,7 @@ import {
   forbiddenUserUid,
   projectId,
   testOwnerUid,
-  testUserUid
+  testUserUid,
 } from "@funk/test/test.helpers"
 import { app } from "firebase"
 import { readFileSync } from "fs"
@@ -23,7 +23,7 @@ describe.skip("Firestore access control rules", () => {
 
   beforeAll(async () => {
     adminApp = createAdminApp()
-    defaultApp = createDefaultApp() as any
+    defaultApp = createDefaultApp()
 
     await adminApp.firestore().collection(PERSONS).doc(forbiddenUserUid).set({
       id: forbiddenUserUid,

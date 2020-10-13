@@ -9,39 +9,21 @@ import {
 export function handleWrite<DocumentType = DatabaseDocument>(
   documentPath: string,
   handler: (
-    change: Change<
-      FirebaseFirestore.DocumentSnapshot<
-        DocumentType | FirebaseFirestore.DocumentData
-      >
-    >,
+    change: Change<FirebaseFirestore.DocumentSnapshot>,
     context: EventContext
   ) => PromiseLike<any> | any
-): CloudFunction<
-  Change<
-    FirebaseFirestore.DocumentSnapshot<
-      DocumentType | FirebaseFirestore.DocumentData
-    >
-  >
-> {
+): CloudFunction<Change<FirebaseFirestore.DocumentSnapshot<DocumentType>>> {
   return firestore.document(documentPath).onWrite(handler)
 }
 
 export function handleUpdate<DocumentType = DatabaseDocument>(
   documentPath: string,
   handler: (
-    change: Change<
-      FirebaseFirestore.DocumentSnapshot<
-        DocumentType | FirebaseFirestore.DocumentData
-      >
-    >,
+    change: Change<FirebaseFirestore.DocumentSnapshot>,
     context: EventContext
   ) => PromiseLike<any> | any
 ): CloudFunction<
-  Change<
-    FirebaseFirestore.QueryDocumentSnapshot<
-      DocumentType | FirebaseFirestore.DocumentData
-    >
-  >
+  Change<FirebaseFirestore.QueryDocumentSnapshot<DocumentType>>
 > {
   return firestore.document(documentPath).onUpdate(handler)
 }
@@ -49,31 +31,19 @@ export function handleUpdate<DocumentType = DatabaseDocument>(
 export function handleCreate<DocumentType = DatabaseDocument>(
   documentPath: string,
   handler: (
-    change: FirebaseFirestore.DocumentSnapshot<
-      DocumentType | FirebaseFirestore.DocumentData
-    >,
+    change: FirebaseFirestore.DocumentSnapshot,
     context: EventContext
   ) => PromiseLike<any> | any
-): CloudFunction<
-  FirebaseFirestore.QueryDocumentSnapshot<
-    DocumentType | FirebaseFirestore.DocumentData
-  >
-> {
+): CloudFunction<FirebaseFirestore.QueryDocumentSnapshot<DocumentType>> {
   return firestore.document(documentPath).onCreate(handler)
 }
 
 export function handleDelete<DocumentType = DatabaseDocument>(
   documentPath: string,
   handler: (
-    change: FirebaseFirestore.DocumentSnapshot<
-      DocumentType | FirebaseFirestore.DocumentData
-    >,
+    change: FirebaseFirestore.DocumentSnapshot,
     context: EventContext
   ) => PromiseLike<any> | any
-): CloudFunction<
-  FirebaseFirestore.QueryDocumentSnapshot<
-    DocumentType | FirebaseFirestore.DocumentData
-  >
-> {
+): CloudFunction<FirebaseFirestore.QueryDocumentSnapshot<DocumentType>> {
   return firestore.document(documentPath).onDelete(handler)
 }

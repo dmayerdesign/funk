@@ -7,7 +7,7 @@ export default createRestFunction({
   get: [
     (_, response) => {
       response.status(StatusCode.NON_AUTHORITATIVE_INFORMATION)
-      return "Got a \"get\"!"
+      return 'Got a "get"!'
     },
   ],
   create: [authenticateForRoles([UserRole.OWNER]), () => 'Got a "create"!'],
