@@ -1,12 +1,12 @@
 import { Resolve } from "@angular/router"
-import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
+import { asPromise } from '@funk/helpers/as-promise'
 import { Enterprise } from "@funk/model/commerce/enterprise/enterprise"
-import { firstValueFrom } from "rxjs"
+import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
 
 export function construct(enterprise$: Enterprise$) {
   return new (class ResolveEnterprise implements Resolve<Enterprise> {
     public resolve(): Promise<Enterprise> {
-      return firstValueFrom(enterprise$)
+      return asPromise(enterprise$)
     }
   })()
 }

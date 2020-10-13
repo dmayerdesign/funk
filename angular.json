@@ -19,7 +19,6 @@
             "tsConfig": "ui/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "ui/favicon.ico",
               "ui/manifest.webmanifest",
               "ui/robots.txt",
               {

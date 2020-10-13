@@ -43,6 +43,7 @@ node_modules/
 .cache
 /.firebase/
 firebase.json
+/.gradle
 
 # Environment variables.
 *.env

@@ -1,11 +1,5 @@
 import { Inject, Injectable } from "@angular/core"
-import {
-  CanActivate,
-  Router,
-  UrlTree,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from "@angular/router"
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router"
 import roleHasPublicPrivilegeOrGreater from "@funk/model/auth/helpers/role-has-public-privilege-or-greater"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
 import { UserSession } from "@funk/ui/core/identity/user-session"

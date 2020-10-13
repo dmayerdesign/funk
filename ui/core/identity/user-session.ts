@@ -1,13 +1,13 @@
-import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
+import getVerifiedRole from "@funk/model/auth/behaviors/get-verified-role"
 import { UserRole } from "@funk/model/auth/user-role"
 import { Auth } from "@funk/model/identity/auth"
-import { UserSession as IUserSession } from "@funk/model/identity/user-session"
 import { Person, PERSONS } from "@funk/model/identity/person"
-import getVerifiedRole from "@funk/model/auth/behaviors/get-verified-role"
+import { UserSession as IUserSession } from "@funk/model/identity/user-session"
 import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
+import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { of } from "rxjs"
-import { switchMap, shareReplay, map } from "rxjs/operators"
+import { map, shareReplay, switchMap } from "rxjs/operators"
 
 export function construct(
   auth: AuthClient,
@@ -51,7 +51,6 @@ export function construct(
         }))
       )
     }),
-    // tapAndLog("user session"),
     shareReplay(1)
   )
 }

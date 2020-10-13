@@ -112,7 +112,7 @@ $color-input-border-hex: #d1cdcb;
   #banner {
     @media screen and (max-width: 960px) {
       width: 100%;
-      background: url("assets/professional-portfolio-default-theme/backgrounds/professional-portfolio-bg-sm.jpg")
+      background: url("../../assets/professional-portfolio-default-theme/backgrounds/professional-portfolio-bg-sm.jpg")
         left top no-repeat;
       background-size: cover;
       color: $color-banner-text;
@@ -146,7 +146,7 @@ $color-input-border-hex: #d1cdcb;
       width: 50%;
       height: 100vh;
       padding-right: 50px;
-      background: url("assets/professional-portfolio-default-theme/backgrounds/professional-portfolio-bg-lg.jpg")
+      background: url("../../assets/professional-portfolio-default-theme/backgrounds/professional-portfolio-bg-lg.jpg")
         right top no-repeat;
       background-size: cover;
       text-align: right;
@@ -184,7 +184,7 @@ $color-input-border-hex: #d1cdcb;
               display: block;
               height: 50px;
               width: 5px;
-              background: url("assets/professional-portfolio-default-theme/design-elements/nav-slider.svg")
+              background: url("../../assets/professional-portfolio-default-theme/design-elements/nav-slider.svg")
                 left center no-repeat;
             }
           }

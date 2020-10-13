@@ -1,12 +1,14 @@
 import { InjectionToken } from "@angular/core"
-import { ListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
-import { SetById } from "@funk/ui/plugins/persistence/behaviors/set-by-id"
-import { UpdateById } from "@funk/ui/plugins/persistence/behaviors/update-by-id"
+import { ListByIds } from "@funk/ui/plugins/persistence/behaviors/list-by-ids"
+import { ListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"
 import { Populate } from "@funk/ui/plugins/persistence/behaviors/populate"
 import { QueryCollectionForMetadata } from "@funk/ui/plugins/persistence/behaviors/query-collection-for-metadata"
+import { SetById } from "@funk/ui/plugins/persistence/behaviors/set-by-id"
+import { UpdateById } from "@funk/ui/plugins/persistence/behaviors/update-by-id"
 
 export const LISTEN_BY_ID = new InjectionToken<ListenById>("LISTEN_BY_ID")
+export const LIST_BY_IDS = new InjectionToken<ListByIds>("LIST_BY_IDS")
 export const GET_BY_ID = new InjectionToken<GetById>("GET_BY_ID")
 export const SET_BY_ID = new InjectionToken<SetById>("SET_BY_ID")
 export const UPDATE_BY_ID = new InjectionToken<UpdateById>("UPDATE_BY_ID")

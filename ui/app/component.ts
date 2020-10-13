@@ -50,8 +50,7 @@ export class AppComponent implements OnInit {
 
   public constructor(
     private readonly _router: Router,
-    @Inject(BUILD_MENU_ITEM)
-    private readonly _buildMenuItem: BuildMenuItem<AppAtlas>
+    @Inject(BUILD_MENU_ITEM) private readonly _buildMenuItem: BuildMenuItem<AppAtlas>
   ) {}
 
   public ngOnInit(): void {

@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .bootstrapModule(BrowserModule)
     .then(() => {
       defineCustomElements(window)
+      console.log("Bootstrapped successfully.")
     })
     .catch((err) => console.error(err))
 })

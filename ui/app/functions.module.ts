@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core"
 import {
   GET_SECRET,
   GRANT_SUPER_ROLE_TO_ME,
-  SET_SECRET,
+  SET_SECRET
 } from "@funk/ui/app/admin/tokens"
 import { CONTACT_OWNER } from "@funk/ui/app/professional-portfolio/tokens"
 import { SET_SKU_QUANTITY } from "@funk/ui/app/shop/orders/tokens"

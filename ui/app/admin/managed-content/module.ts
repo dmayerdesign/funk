@@ -34,7 +34,7 @@ import { ClickOutsideModule } from "ng-click-outside"
   exports: [ManagedContentEditorContainer, ManagedContentComponent],
 })
 export class ManagedContentModule {
-  public static withProviders(): ModuleWithProviders {
+  public static withProviders(): ModuleWithProviders<ManagedContentModule> {
     return {
       ngModule: ManagedContentModule,
       providers: [
