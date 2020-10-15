@@ -1,10 +1,10 @@
-import { Price } from "@funk/model/commerce/price/price"
+import { Money } from "@funk/model/money/money"
 import { validateBeforeMath } from "@funk/model/money/validation"
 
-export default function (price1: Price, price2: Price): Price {
-  validateBeforeMath(price1, price2)
+export default function (money1: Money, money2: Money): Money {
+  validateBeforeMath(money1, money2)
   return {
-    amount: price1.amount - price2.amount,
-    currency: price1.currency,
+    amount: money1.amount - money2.amount,
+    currency: money1.currency,
   }
 }

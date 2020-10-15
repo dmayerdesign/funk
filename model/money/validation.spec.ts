@@ -1,28 +1,28 @@
-import { Price } from "@funk/model/commerce/price/price"
 import { CurrencyCode } from "@funk/model/money/currency-code"
+import { Money } from "@funk/model/money/money"
 import {
-  validate,
-  validateBeforeMath,
-  ValidationFailureReason,
+    validate,
+    validateBeforeMath,
+    ValidationFailureReason
 } from "@funk/model/money/validation"
 
-describe("price", () => {
+describe("money", () => {
   describe("validate", () => {
-    it("should throw if the price is missing a currency", () => {
-      const priceWithoutCurrency = { amount: 100 } as Price
+    it("should throw if the money is missing a currency", () => {
+      const moneyWithoutCurrency = { amount: 100 } as Money
       let error: any
       try {
-        validate(priceWithoutCurrency)
+        validate(moneyWithoutCurrency)
       } catch (_error) {
         error = _error
       }
       expect(error.message).toBe(ValidationFailureReason.INVALID_CURRENCY)
     })
-    it("should throw if the price is missing an amount", () => {
-      const priceWithoutAmount = { currency: CurrencyCode.USD } as Price
+    it("should throw if the money is missing an amount", () => {
+      const moneyWithoutAmount = { currency: CurrencyCode.USD } as Money
       let error: any
       try {
-        validate(priceWithoutAmount)
+        validate(moneyWithoutAmount)
       } catch (_error) {
         error = _error
       }
@@ -32,12 +32,12 @@ describe("price", () => {
 
   describe("validateBeforeMath", () => {
     it("should throw if the currencies are different", () => {
-      const price1: Price = { amount: 100, currency: CurrencyCode.USD }
-      const price2: Price = { amount: 100, currency: CurrencyCode.CAD }
+      const money1: Money = { amount: 100, currency: CurrencyCode.USD }
+      const money2: Money = { amount: 100, currency: CurrencyCode.CAD }
       let error: any
 
       try {
-        validateBeforeMath(price1, price2)
+        validateBeforeMath(money1, money2)
       } catch (_error) {
         error = _error
       }
