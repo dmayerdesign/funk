@@ -1,14 +1,18 @@
 import { writeFileSync } from "fs"
 import { resolve } from "path"
-import packageJsonTemplate from "../templates/functions-package"
 import rootPackageJson from "../../../package.json"
+import packageJsonTemplate from "../templates/functions-package"
 
 export default function () {
   const packageJson = packageJsonTemplate(rootPackageJson)
   const packageJsonAsString = JSON.stringify(packageJson, null, 2)
 
   writeFileSync(
-    resolve(__dirname, "../../../", "functions/package.json"),
+    resolve(
+      __dirname,
+      "../../../",
+      ".funk/build-pipeline-output/functions-build/package.json"
+    ),
     packageJsonAsString
   )
 }

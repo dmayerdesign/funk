@@ -6,7 +6,11 @@ export default function () {
     resolve(__dirname, "../templates/functions-index.js")
   )
   writeFileSync(
-    resolve(__dirname, "../../../", "functions/lib/index.js"),
+    resolve(
+      __dirname,
+      "../../../",
+      ".funk/build-pipeline-output/functions-build/index.js"
+    ),
     indexJsContents
   )
 }

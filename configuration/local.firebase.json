@@ -35,5 +35,8 @@
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "functions": {
+    "source": ".funk/build-pipeline-output/functions-build"
   }
 }

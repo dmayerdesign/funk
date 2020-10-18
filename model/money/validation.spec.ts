@@ -1,9 +1,9 @@
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import { Money } from "@funk/model/money/money"
 import {
-    validate,
-    validateBeforeMath,
-    ValidationFailureReason
+  validate,
+  validateBeforeMath,
+  ValidationFailureReason,
 } from "@funk/model/money/validation"
 
 describe("money", () => {

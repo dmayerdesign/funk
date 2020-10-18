@@ -2,10 +2,10 @@ import getTaxImpl from "@funk/api/commerce/order/get-sales-tax"
 import getTotalBeforeTaxAndShippingImpl from "@funk/api/commerce/order/get-total-before-tax-and-shipping"
 import populateImpl from "@funk/api/commerce/order/populate"
 import createPaymentIntentImpl, {
-  Options as CreatePaymentIntentOptions
+  Options as CreatePaymentIntentOptions,
 } from "@funk/api/plugins/payment/behaviors/create-payment-intent"
 import updatePaymentIntentImpl, {
-  Options as UpdatePaymentIntentOptions
+  Options as UpdatePaymentIntentOptions,
 } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
 import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/configuration"
 import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
@@ -14,7 +14,7 @@ import {
   MarshalledOrder,
   Order,
   ORDERS,
-  Status
+  Status,
 } from "@funk/model/commerce/order/order"
 import { Price } from "@funk/model/commerce/price/price"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
@@ -42,7 +42,9 @@ export function construct(
     const order = after.data() as MarshalledOrder
 
     try {
-      const priceAfterTax = await getTransactionPriceAfterTaxOrThrow(await populate(order))
+      const priceAfterTax = await getTransactionPriceAfterTaxOrThrow(
+        await populate(order)
+      )
       const paymentIntentData = {
         price: priceAfterTax,
         customerId: order.customer?.idForPayment,
@@ -56,9 +58,7 @@ export function construct(
         await updatePaymentIntent(order.paymentIntentId, paymentIntentData)
       }
     } catch (error) {
-      if (
-        error instanceof OrderPriceLessThanMinimumError
-      ) {
+      if (error instanceof OrderPriceLessThanMinimumError) {
         if (
           order.status === Status.CART_CHECKOUT ||
           order.status === Status.PAYMENT_PENDING
@@ -107,4 +107,4 @@ export default construct(
 
 export type HandleWrite = ReturnType<typeof construct>
 
-class OrderPriceLessThanMinimumError extends InvalidInputError { }
+class OrderPriceLessThanMinimumError extends InvalidInputError {}

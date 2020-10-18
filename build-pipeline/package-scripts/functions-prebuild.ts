@@ -5,7 +5,13 @@ import writeFunctionsPackage from "../code-gen/behaviors/write-functions-package
 
 // Delete any existing built output.
 try {
-  delSync(resolve(__dirname, "../../", "functions/lib") + "/**")
+  delSync(
+    resolve(
+      __dirname,
+      "../../",
+      ".funk/build-pipeline-output/functions-build"
+    ) + "/**"
+  )
 } catch (_) {
   /* Do nothing. */
 }

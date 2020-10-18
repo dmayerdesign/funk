@@ -17,7 +17,7 @@ const serviceAccountBase64 = Buffer.from(serviceAccountJsonString).toString(
 const pathToRuntimeconfig = resolve(
   __dirname,
   "../../",
-  "functions/.runtimeconfig.json"
+  ".funk/build-pipeline-output/functions-build/.runtimeconfig.json"
 )
 
 let cachedServiceAccountBase64: string
@@ -32,5 +32,7 @@ if (existsSync(pathToRuntimeconfig)) {
 if (shouldSetConfig) {
   exec(`firebase functions:config:set \
     admin.serializedcredentials=${serviceAccountBase64}`)
-  exec("firebase functions:config:get > functions/.runtimeconfig.json")
+  exec(
+    "firebase functions:config:get > .funk/build-pipeline-output/functions-build/.runtimeconfig.json"
+  )
 }

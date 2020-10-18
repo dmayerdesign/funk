@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "lib",
+    "outDir": "./tmp",
     "esModuleInterop": true,
     "module": "commonjs",
     "resolveJsonModule": true,
