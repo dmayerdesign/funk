@@ -12,7 +12,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "ui/dist/client-app-browser",
+            "outputPath": ".funk/build-pipeline-output/ui-build/client-app-browser",
             "index": "ui/index.html",
             "main": "ui/main.ts",
             "polyfills": "ui/polyfills.ts",
@@ -23,7 +23,7 @@
               "ui/robots.txt",
               {
                 "glob": "**/sitemap.xml",
-                "input": ".funk/build-pipeline-output/ui-assets",
+                "input": ".funk/build-pipeline-output/ui-prebuild",
                 "output": ""
               },
               {
@@ -112,7 +112,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "ui/dist/client-app-server",
+            "outputPath": ".funk/build-pipeline-output/ui-build/client-app-server",
             "main": "ui/main.server.ts",
             "tsConfig": "ui/tsconfig.server.json"
           },

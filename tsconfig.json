@@ -8,7 +8,7 @@
     "esModuleInterop": true,
     "downlevelIteration": true,
     "importHelpers": true,
-    "outDir": "./dist/out-tsc",
+    "outDir": "./tmp/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "module": "es2020",

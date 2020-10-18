@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/app",
+    "outDir": "./tmp/app",
     "baseUrl": ".",
     "paths": {
       "@funk/ui/plugins/*": ["./plugins/*"],

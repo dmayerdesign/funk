@@ -22,7 +22,7 @@ export default async function (baseUrl: string): Promise<void> {
   const outputDir = resolve(
     __dirname,
     "../../../",
-    ".funk/build-pipeline-output/ui-assets"
+    ".funk/build-pipeline-output/ui-prebuild"
   )
   const outputPath = resolve(outputDir, "sitemap.xml")
   mkdirpSync(outputDir)

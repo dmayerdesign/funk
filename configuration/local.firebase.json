@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "ui/dist/client-app-browser",
+    "public": ".funk/build-pipeline-output/ui-build/client-app-browser",
     "ignore": ["**/*firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
