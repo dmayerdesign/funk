@@ -3,11 +3,11 @@ import { resolve } from "path"
 
 export default function () {
   copySync(
-    resolve(__dirname, "../../../", "functions/src/assets"),
+    resolve(__dirname, "../../../", "api/functions/assets"),
     resolve(
       __dirname,
       "../../../",
-      ".funk/build-pipeline-output/functions-build/functions/src/assets"
+      ".funk/build-pipeline-output/functions-build/functions/assets"
     )
   )
 }

@@ -7,17 +7,11 @@
       "@funk/api/*": ["./api/*"],
       "@funk/configuration": ["./configuration/development.ts"],
       "@funk/copy/*": ["./copy/*"],
-      "@funk/functions/*": ["./functions/src/*"],
       "@funk/helpers/*": ["./helpers/*"],
       "@funk/model/*": ["./model/*"],
       "@funk/test/*": ["./test/*"]
     }
   },
-  "include": [
-    "api/**/*.ts",
-    "configuration/**/*.ts",
-    "functions/src/app/**/*.spec.ts",
-    "functions/src/app/**/spec.ts"
-  ],
+  "include": ["api/**/*.ts", "configuration/**/*.ts"],
   "exclude": ["node_modules"]
 }

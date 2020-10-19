@@ -16,6 +16,7 @@ export default function (rootPackageJson: {
       },
       {} as Dictionary<string>
     ),
+    main: "index.js",
     engines: {
       node: "10",
     },

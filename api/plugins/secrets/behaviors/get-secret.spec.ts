@@ -1,7 +1,7 @@
-import { construct } from "@funk/api/plugins/secrets/behaviors/get-secret"
 import getConfigImpl, {
   createGetConfigStub,
-} from "@funk/functions/helpers/runtime/get-config"
+} from "@funk/api/functions/helpers/runtime/get-config"
+import { construct } from "@funk/api/plugins/secrets/behaviors/get-secret"
 import { EncryptedSecret } from "@funk/model/secret/encrypted-secret"
 
 describe("getSecret", function () {

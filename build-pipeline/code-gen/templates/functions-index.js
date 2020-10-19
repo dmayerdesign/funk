@@ -2,9 +2,9 @@ const { camelCase } = require("lodash")
 const { resolve } = require("path")
 const recursiveReaddir = require("recursive-readdir-sync")
 
-require("./functions/src/app/bootstrap")
+require("./api/functions/app/bootstrap")
 
-const API_PATH_RELATIVE = "./functions/src/app"
+const API_PATH_RELATIVE = "./api/functions/app"
 const API_PATH_ABSOLUTE = resolve(__dirname, API_PATH_RELATIVE)
 const functionNameFromEnv = process.env.FUNCTION_NAME
 

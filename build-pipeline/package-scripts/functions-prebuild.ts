@@ -16,11 +16,4 @@ try {
   /* Do nothing. */
 }
 
-// Delete `node_modules` if it exists.
-try {
-  delSync(resolve(__dirname, "../../", "functions/node_modules") + "/**")
-} catch (_) {
-  /* Do nothing. */
-}
-
 writeFunctionsPackage()

@@ -9,7 +9,6 @@
         "../.funk/build-pipeline-output/configuration/configuration"
       ],
       "@funk/copy/*": ["../copy/*"],
-      "@funk/functions/*": ["./functions/*"],
       "@funk/helpers/*": ["../helpers/*"],
       "@funk/model/*": ["../model/*"],
       "@funk/ui/*": ["./*"]

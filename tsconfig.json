@@ -29,7 +29,6 @@
         "./.funk/build-pipeline-output/configuration/configuration"
       ],
       "@funk/copy/*": ["./copy/*"],
-      "@funk/functions/*": ["./functions/src/*"],
       "@funk/helpers/*": ["./helpers/*"],
       "@funk/model/*": ["./model/*"],
       "@funk/test/*": ["./test/*"],

@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "exclude": [
+    "**/e2e.ts",
+    "**/spec.ts",
+    "**/*.spec.ts",
+    "**/node_modules/**/*"
+  ],
+  "compilerOptions": {
+    "outDir": "./tmp",
+    "baseUrl": ".."
+  }
+}

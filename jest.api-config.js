@@ -8,7 +8,6 @@ module.exports = {
   roots: [
     "<rootDir>/configuration",
     "<rootDir>/api",
-    "<rootDir>/functions",
     "<rootDir>/helpers",
     "<rootDir>/model",
     "<rootDir>/features",

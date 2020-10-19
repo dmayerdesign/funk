@@ -16,20 +16,22 @@ writeFunctionsAssets()
 const pathToTsConfigBuild = resolve(
   __dirname,
   "../../",
-  "functions/tsconfig.build.json"
+  "api/functions/tsconfig.build.json"
 )
 const pathToTsConfigTmp = resolve(
   __dirname,
   "../../",
-  "functions/tsconfig.build.tmp.json"
+  "api/functions/tsconfig.build.tmp.json"
 )
 const tsConfigBuild = readFileSync(pathToTsConfigBuild).toString("utf8")
 const tsConfigBuildTmp = tsConfigBuild.replace(/\.ts"/g, '"')
 writeFileSync(pathToTsConfigTmp, tsConfigBuildTmp)
-exec("tscpaths -p ./functions/tsconfig.build.tmp.json -s . -o ./functions/tmp")
+exec(
+  "tscpaths -p ./api/functions/tsconfig.build.tmp.json -s . -o ./api/functions/tmp"
+)
 removeSync(pathToTsConfigTmp)
 
-const pathToTmpBuild = resolve(__dirname, "../../", "functions/tmp")
+const pathToTmpBuild = resolve(__dirname, "../../", "api/functions/tmp")
 const pathToFinalBuild = resolve(
   __dirname,
   "../../",
