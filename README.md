@@ -33,13 +33,13 @@ To update your fork with the latest changes from this repo,
 
 - **Zero to app in 30 minutes:** Funk aims to lower the barrier of entry for full-stack
   development, allowing a single developer to deploy a production-ready app in almost no time.
-- **Cost-effectiveness:** Costly behaviors like reads and writes from Firestore should
-  perform as efficiently as possible out of the box.
-- **Performance:** Offline support and pre-rendering make sure users get a fast, modern
-  experience.
-- **Developer experience:** Using Funk should be dead simple. To help achieve this, Funk
-  strives for convention over configuration, which keeps us from wasting time deciding
-  between different ways of doing the same things.
+- **Developer experience above all:** Developing with Funk should be dead simple. To help
+  achieve this, Funk strives for convention over configuration, which keeps us from wasting time
+  deciding between different ways of doing the same things, and helps the project to remain as
+  [clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) as possible.
+- **Cost-effectiveness and performance:** Costly behaviors like reads and writes from Firestore
+  should behave as cost-effectively as possible out of the box. Meanwhile, offline support and
+  pre-rendering make sure users get a fast, modern experience.
 - **Framework independence:** Funk will always rely heavily on frameworks like Ionic and
   technologies like Firebase to do the heavy lifting, but Funk will always treat these
   libraries as plugins. That means that in the future it will be easy to integrate with,
@@ -56,9 +56,9 @@ To update your fork with the latest changes from this repo,
 ## What's ["Serverless"](https://en.wikipedia.org/wiki/Serverless_computing)?
 
 Managing a server and database — even if that means combining managed solutions for
-each — gives me, a front-end developer, far more control (and opportunity to mess up) than
-I want. A fully-managed back end, like Firebase, takes care of all my web server
-infrastructure, so I can focus on writing code.
+each — usually gives me far more control (and opportunity to mess up) than I want.
+A fully-managed back end, like Firebase, takes care of all my web server infrastructure,
+so I can focus on writing code.
 
 ## What's "Cross-Platform"?
 
@@ -67,13 +67,6 @@ allows it to be deployed as a website, an iOS app, and an Android app, all from 
 codebase. Funk uses [Angular](https://angular.io) as a sort of convenience layer on top of
 Ionic's amazing component library, giving the developer an excellent suite of build tools
 and a framework for writing user interface logic.
-
-## Philosophy
-
-The philosophy underlying Funk is simple: what we're trying to do as developers is
-**build [clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) software**.
-The overarching goal of Funk is to make the pursuit of clean code **easier** and
-**more fun**.
 
 ## License
 

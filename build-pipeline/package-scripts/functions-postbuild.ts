@@ -1,16 +1,23 @@
 #!/usr/bin/env node
-import { copySync, readFileSync, removeSync, writeFileSync } from "fs-extra"
+import { copySync, mkdirpSync, readFileSync, removeSync, writeFileSync } from "fs-extra"
 import { resolve } from "path"
 import { sync as removeRecursiveSync } from "rimraf"
 import { exec } from "shelljs"
 import writeFunctionsAssets from "../code-gen/behaviors/write-functions-assets"
 import writeFunctionsIndex from "../code-gen/behaviors/write-functions-index"
+import writeFunctionsPackage from "../code-gen/behaviors/write-functions-package"
+
+// Linux needs the `functions-build` dir to exist before copying to it.
+mkdirpSync(resolve(__dirname, "../../", ".funk/build-pipeline-output/functions-build"))
 
 // Generate index.js for our functions.
 writeFunctionsIndex()
 
 // Copy the `assets` folder.
 writeFunctionsAssets()
+
+// Write package.json.
+writeFunctionsPackage()
 
 // Apply tsconfig.json's `paths` to compiled JS.
 const pathToTsConfigBuild = resolve(
