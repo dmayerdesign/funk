@@ -1,5 +1,5 @@
-import { ChangeHandler } from "@funk/api/functions/helpers/listen/change-handler"
 import { CloudFunction } from "@funk/api/plugins/cloud-function/cloud-function"
+import { ChangeHandler } from "@funk/api/plugins/cloud-function/listen/change-handler"
 import { Change } from "@funk/api/plugins/persistence/change"
 import { handleWrite } from "@funk/api/plugins/persistence/document-listeners"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"

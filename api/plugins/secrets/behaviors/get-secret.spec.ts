@@ -1,6 +1,6 @@
 import getConfigImpl, {
-  createGetConfigStub,
-} from "@funk/api/functions/helpers/runtime/get-config"
+  createGetConfigStub
+} from "@funk/api/plugins/cloud-function/runtime/get-config"
 import { construct } from "@funk/api/plugins/secrets/behaviors/get-secret"
 import { EncryptedSecret } from "@funk/model/secret/encrypted-secret"
 

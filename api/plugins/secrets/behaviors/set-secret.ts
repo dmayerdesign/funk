@@ -1,4 +1,4 @@
-import getConfigImpl from "@funk/api/functions/helpers/runtime/get-config"
+import getConfigImpl from "@funk/api/plugins/cloud-function/runtime/get-config"
 import setByIdImpl from "@funk/api/plugins/persistence/behaviors/set-by-id"
 import { CLOUD_PROJECT_ID } from "@funk/configuration"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"

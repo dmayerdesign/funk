@@ -1,4 +1,4 @@
-import getConfigImpl from "@funk/api/functions/helpers/runtime/get-config"
+import getConfigImpl from "@funk/api/plugins/cloud-function/runtime/get-config"
 import getByIdImpl from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import { CLOUD_PROJECT_ID } from "@funk/configuration"
 import { EncryptedSecret } from "@funk/model/secret/encrypted-secret"

@@ -1,4 +1,4 @@
-import { ChangeHandler } from "@funk/api/functions/helpers/listen/change-handler"
+import { ChangeHandler } from "@funk/api/plugins/cloud-function/listen/change-handler"
 import listImpl from "@funk/api/plugins/persistence/behaviors/list"
 import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import { TAKE_ALL } from "@funk/api/plugins/persistence/pagination"
@@ -6,7 +6,7 @@ import { MarshalledProductAttributeValues } from "@funk/model/commerce/attribute
 import subtract from "@funk/model/commerce/price/behaviors/subtract"
 import {
   MarshalledProduct,
-  PRODUCTS,
+  PRODUCTS
 } from "@funk/model/commerce/product/product"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { isEqual, uniq } from "lodash"

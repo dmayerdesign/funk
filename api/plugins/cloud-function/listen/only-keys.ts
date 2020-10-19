@@ -1,4 +1,4 @@
-import { ChangeHandler } from "@funk/api/functions/helpers/listen/change-handler"
+import { ChangeHandler } from "@funk/api/plugins/cloud-function/listen/change-handler"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export default function <DocumentType extends DatabaseDocument>(
