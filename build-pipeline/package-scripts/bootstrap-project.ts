@@ -2,7 +2,8 @@
 import program from "commander"
 import { exec } from "shelljs"
 import { configToJson } from "../../configuration/helpers/configuration-to-json"
-;(async () => {
+
+function main() {
   program.option("-c, --configuration <configuration>", "e.g. production")
   program.parse(process.argv)
   const { configuration } = program.opts()
@@ -77,4 +78,10 @@ import { configToJson } from "../../configuration/helpers/configuration-to-json"
     # Add Android.
     ionic capacitor add android
   `)
-})()
+}
+
+if (require.main === module) {
+  main()
+}
+
+export default main
