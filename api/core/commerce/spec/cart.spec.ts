@@ -1,28 +1,28 @@
 import {
   construct as constructCustomerHandleCreate,
-  HandleCreate,
+  HandleCreate
 } from "@funk/api/core/commerce/customer/handle-create"
 import {
   construct as constructOrderPopulate,
-  Populate,
+  Populate
 } from "@funk/api/core/commerce/order/populate"
 import {
   construct as constructSetSkuQuantity,
-  SetSkuQuantity,
+  SetSkuQuantity
 } from "@funk/api/core/commerce/order/set-sku-quantity"
 import {
   construct as constructSetStatusToCheckout,
-  SetStatusToCheckout,
+  SetStatusToCheckout
 } from "@funk/api/core/commerce/order/set-status-to-checkout"
 import {
   construct as constructOrderSubmit,
-  Submit,
+  Submit
 } from "@funk/api/core/commerce/order/submit"
 import {
   constructGivenACustomer,
   givenASku,
   givenThatTheCartHasInStockSkus,
-  listOrdersForUser,
+  listOrdersForUser
 } from "@funk/api/core/commerce/spec/helpers"
 import { ConfirmPaymentIntent } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
 import { initializeStore } from "@funk/api/test/data-access/in-memory-store"
@@ -32,12 +32,12 @@ import populate from "@funk/api/test/plugins/persistence/behaviors/populate"
 import setById from "@funk/api/test/plugins/persistence/behaviors/set-by-id"
 import setMany from "@funk/api/test/plugins/persistence/behaviors/set-many"
 import updateById from "@funk/api/test/plugins/persistence/behaviors/update-by-id"
-import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/copy/error-messages"
 import { Cart, Status } from "@funk/model/commerce/order/order"
 import { FiniteInventory } from "@funk/model/commerce/sku/inventory"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { Person } from "@funk/model/identity/person"
+import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/ui/copy/error-messages"
 
 describe("Cart", function () {
   let confirmPaymentIntent: ConfirmPaymentIntent

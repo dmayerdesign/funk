@@ -12,23 +12,25 @@ interface Options {
   collection: string
 }
 
-program.option("-c, --configuration <configuration>",
-  "e.g. production")
-program.option("--collection <collection>",
-  "Path relative to project root of the json file to import",
-  collectCollectionNames,
-  [])
-program.parse(process.argv)
+if (require.main === module) {
+  program.option("-c, --configuration <configuration>",
+    "e.g. production")
+  program.option("--collection <collection>",
+    "Path relative to project root of the json file to import",
+    collectCollectionNames,
+    [])
+  program.parse(process.argv)
 
-main(program.opts() as Options)
-  .then(() => process.exit(0))
-  .catch((error) =>
-  {
-    console.error(error)
-    process.exit(1)
-  })
+  main(program.opts() as Options)
+    .then(() => process.exit(0))
+    .catch((error) =>
+    {
+      console.error(error)
+      process.exit(1)
+    })
+}
 
-async function main(options: Options)
+export default async function main(options: Options)
 {
   const { collection: collections } = options
 

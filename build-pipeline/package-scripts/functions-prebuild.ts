@@ -3,7 +3,7 @@ import { sync as delSync } from "del"
 import { existsSync, mkdirpSync } from "fs-extra"
 import { resolve } from "path"
 
-function main() {
+export default function main() {
   // Delete any existing built output.
   const pathToOldOutput = resolve(
     __dirname,
@@ -24,5 +24,3 @@ function main() {
 if (require.main === module) {
   main()
 }
-
-export default main

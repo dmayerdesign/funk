@@ -3,7 +3,7 @@ import program from "commander"
 import { exec } from "shelljs"
 import { configToJson } from "../../configuration/helpers/configuration-to-json"
 
-function main() {
+export default function main() {
   program.option("-c, --configuration <configuration>", "e.g. production")
   program.parse(process.argv)
   const { configuration } = program.opts()
@@ -83,5 +83,3 @@ function main() {
 if (require.main === module) {
   main()
 }
-
-export default main

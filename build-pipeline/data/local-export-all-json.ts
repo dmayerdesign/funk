@@ -4,14 +4,16 @@ import { firestoreExport } from "node-firestore-import-export"
 import { resolve } from "path"
 import { CLOUD_PROJECT_ID } from "../../configuration/local"
 
-main()
-  .catch(function (error) {
-    console.error("Export failed. Details:")
-    console.error(error)
-    process.exit(1)
-  })
+if (require.main === module) {
+  main()
+    .catch(function (error) {
+      console.error("Export failed. Details:")
+      console.error(error)
+      process.exit(1)
+    })
+}
 
-async function main()
+export default async function main()
 {
   await exportAllData(
     resolve(__dirname, "../../.funk/build-pipeline-output/export")

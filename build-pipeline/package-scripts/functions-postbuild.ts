@@ -7,7 +7,7 @@ import writeFunctionsAssets from "../code-gen/behaviors/write-functions-assets"
 import writeFunctionsIndex from "../code-gen/behaviors/write-functions-index"
 import writeFunctionsPackage from "../code-gen/behaviors/write-functions-package"
 
-function main() {
+export default function main() {
   // Linux needs the `functions-build` dir to exist before copying to it.
   mkdirpSync(resolve(__dirname, "../../", ".funk/build-pipeline-output/functions-build"))
 
@@ -52,5 +52,3 @@ function main() {
 if (require.main === module) {
   main()
 }
-
-export default main

@@ -4,7 +4,7 @@ import { configToJson } from "../../configuration/helpers/configuration-to-json"
 import { Configuration } from "../../model/configuration"
 import writeSitemap from "../code-gen/behaviors/write-sitemap"
 
-function main() {
+export default function main() {
   program.option(
     "-c, --configuration <configuration>",
     "e.g. production",
@@ -20,5 +20,3 @@ function main() {
 if (require.main === module) {
   main()
 }
-
-export default main

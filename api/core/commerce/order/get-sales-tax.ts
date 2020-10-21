@@ -2,7 +2,6 @@ import getTotalBeforeTaxAndShippingImpl from "@funk/api/core/commerce/order/get-
 import getByIdImpl from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
 import getSalesTaxRateForAddressImpl from "@funk/api/plugins/tax/behaviors/get-sales-tax-rate-for-address"
-import { ORDER_GET_TAX_MISSING_POSTAL_CODE } from "@funk/copy/error-messages"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
 import { Address } from "@funk/model/address/address"
 import { DISCOUNTS } from "@funk/model/commerce/discount/discount"
@@ -13,6 +12,7 @@ import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 import add from "@funk/model/money/behaviors/add"
 import { ORGANIZATIONS } from "@funk/model/organization/organization"
+import { ORDER_GET_TAX_MISSING_POSTAL_CODE } from "@funk/ui/copy/error-messages"
 
 export function construct(
   getTotalBeforeTaxAndShipping: typeof getTotalBeforeTaxAndShippingImpl,

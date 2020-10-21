@@ -5,7 +5,6 @@
     "types": ["jest", "node"],
     "paths": {
       "@funk/configuration": ["./configuration/development.ts"],
-      "@funk/copy/*": ["./copy/*"],
       "@funk/helpers/*": ["./helpers/*"],
       "@funk/model/*": ["./model/*"],
       "@funk/test/*": ["./test/*"],

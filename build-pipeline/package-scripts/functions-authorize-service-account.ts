@@ -4,7 +4,7 @@ import { existsSync } from "fs-extra"
 import { resolve } from "path"
 import { exec } from "shelljs"
 
-function main() {
+export default function main() {
   program.option("-c, --configuration <configuration>", "e.g. production")
   program.parse(process.argv)
 
@@ -42,5 +42,3 @@ function main() {
 if (require.main === module) {
   main()
 }
-
-export default main
