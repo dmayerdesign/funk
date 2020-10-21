@@ -35,7 +35,8 @@
     "eslint": "./node_modules/.bin/eslint",
     "prettier": "./node_modules/.bin/prettier",
     "jest": "./node_modules/.bin/jest",
-    "ionic": "./node_modules/.bin/ionic"
+    "ionic": "./node_modules/.bin/ionic",
+    "bootstrap-project::development": "npm i && sh build-pipeline/package-scripts/ts-node.sh build-pipeline/package-scripts/bootstrap-project.ts -c \"development\""
   },
   "private": true,
   "dependencies": {
@@ -121,6 +122,7 @@
     "@types/md5": "2.2.0",
     "@types/multer": "1.4.4",
     "@types/node": "~14.11.8",
+    "@types/readline-sync": "^1.4.3",
     "@types/rimraf": "^3.0.0",
     "@types/shelljs": "0.8.8",
     "@types/strip-comments": "2.0.0",
@@ -147,6 +149,7 @@
     "node-firestore-import-export": "1.1.0",
     "prettier": "2.1.2",
     "prettier-eslint": "11.0.0",
+    "readline-sync": "^1.4.10",
     "rimraf": "^3.0.2",
     "shelljs": "~0.8.4",
     "strip-comments": "~2.0.1",

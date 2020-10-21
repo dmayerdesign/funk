@@ -1,28 +1,28 @@
 import {
   construct as constructCustomerHandleCreate,
-  HandleCreate
+  HandleCreate,
 } from "@funk/api/core/commerce/customer/handle-create"
 import {
   construct as constructOrderPopulate,
-  Populate
+  Populate,
 } from "@funk/api/core/commerce/order/populate"
 import {
   construct as constructSetSkuQuantity,
-  SetSkuQuantity
+  SetSkuQuantity,
 } from "@funk/api/core/commerce/order/set-sku-quantity"
 import {
   construct as constructSetStatusToCheckout,
-  SetStatusToCheckout
+  SetStatusToCheckout,
 } from "@funk/api/core/commerce/order/set-status-to-checkout"
 import {
   construct as constructOrderSubmit,
-  Submit
+  Submit,
 } from "@funk/api/core/commerce/order/submit"
 import {
   constructGivenACustomer,
   givenASku,
   givenThatTheCartHasInStockSkus,
-  listOrdersForUser
+  listOrdersForUser,
 } from "@funk/api/core/commerce/spec/helpers"
 import { ConfirmPaymentIntent } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
 import { initializeStore } from "@funk/api/test/data-access/in-memory-store"

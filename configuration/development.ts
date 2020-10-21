@@ -1,10 +1,11 @@
 /* eslint-disable max-len */
+export const DISPLAY_NAME = "Funk Development 0907"
+export const CLOUD_PROJECT_ID = "funk-development-0907"
 export const CLIENT_APP_URL = "https://funk-development-0907.web.app"
 export const HOMEPAGE = "sink"
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
 export const IS_PRODUCTION = false
 export const IS_LOCAL = false
-export const CLOUD_PROJECT_ID = "funk-development-0907"
 export const CLOUD_PROJECT_REGION = "us-east1"
 export const FUNCTIONS_REGION = "us-central1"
 export const FUNCTIONS_BASE_URL = `https://${FUNCTIONS_REGION}-${CLOUD_PROJECT_ID}.cloudfunctions.net`
@@ -15,8 +16,6 @@ export const TRUSTED_ORIGINS = [
   "capacitor://localhost",
   "https://funk-development-0907.firebaseapp.com",
 ]
-export const SALES_TAX_RATE_CALCULATOR_URL =
-  "https://rest.avatax.com/api/v2/taxrates/bypostalcode"
 export const TAX_PUBLISHABLE_KEY = "2000143843"
 export const PAYMENT_PUBLISHABLE_KEY =
   "pk_test_FCCMRbB54V2BMvswJxpJht0T002zd0buM1"

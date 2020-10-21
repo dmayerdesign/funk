@@ -1,9 +1,7 @@
 import httpClientImpl, { Response } from "@funk/api/plugins/http/client"
 import getSecretImpl from "@funk/api/plugins/secrets/behaviors/get-secret"
-import {
-  SALES_TAX_RATE_CALCULATOR_URL,
-  TAX_PUBLISHABLE_KEY,
-} from "@funk/configuration"
+import { SALES_TAX_RATE_CALCULATOR_URL } from '@funk/api/plugins/tax/configuration'
+import { TAX_PUBLISHABLE_KEY } from "@funk/configuration"
 import { Address } from "@funk/model/address/address"
 import { AvataxResponse } from "@funk/model/commerce/tax-rate/avatax-response"
 import { TAX_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"

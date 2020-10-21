@@ -1,5 +1,11 @@
 #!/usr/bin/env node
-import { copySync, mkdirpSync, readFileSync, removeSync, writeFileSync } from "fs-extra"
+import {
+  copySync,
+  mkdirpSync,
+  readFileSync,
+  removeSync,
+  writeFileSync,
+} from "fs-extra"
 import { resolve } from "path"
 import { sync as removeRecursiveSync } from "rimraf"
 import { exec } from "shelljs"
@@ -9,7 +15,9 @@ import writeFunctionsPackage from "../code-gen/behaviors/write-functions-package
 
 export default function main() {
   // Linux needs the `functions-build` dir to exist before copying to it.
-  mkdirpSync(resolve(__dirname, "../../", ".funk/build-pipeline-output/functions-build"))
+  mkdirpSync(
+    resolve(__dirname, "../../", ".funk/build-pipeline-output/functions-build")
+  )
 
   // Generate index.js for our functions.
   writeFunctionsIndex()

@@ -7,11 +7,23 @@ export function configToJson(configuration: Configuration) {
     "../",
     `${configuration || "local"}.ts`
   )
-  const config = require(configFileName)
+
+  let config: any
+
+  try {
+    config = require(configFileName)
+    if (!config) throw new Error()
+  } catch (error) {
+    throw new Error(
+      "The configuration was not found. Make sure the string you pass to the `-c/--configuration` "
+      + "flag matches the name of a file in the `configuration` folder (e.g. -c development)"
+    )
+  }
+
   try {
     return JSON.parse(JSON.stringify(config))
   } catch (error) {
-    console.error(`Failed to parse ${configuration}.ts to JSON.`)
+    console.error(`Failed to parse ${configFileName} to JSON.`)
     console.error(error)
     return {}
   }
