@@ -57,7 +57,7 @@ export function construct(configuration: Configuration) {
         "rules": "storage.rules"
       },
       "functions": {
-        "source": ".funk/build-pipeline-output/functions-build"
+        "source": ".funk/build-pipeline-output/api-build"
       }
     }`
   }

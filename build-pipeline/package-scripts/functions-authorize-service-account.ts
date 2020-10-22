@@ -18,7 +18,7 @@ export default function main() {
   const pathToRuntimeconfig = resolve(
     __dirname,
     "../../",
-    ".funk/build-pipeline-output/functions-build/.runtimeconfig.json"
+    ".funk/build-pipeline-output/api-build/.runtimeconfig.json"
   )
 
   let cachedServiceAccountBase64: string
@@ -34,7 +34,7 @@ export default function main() {
     exec(`firebase functions:config:set \
       admin.serializedcredentials=${serviceAccountBase64}`)
     exec(
-      "firebase functions:config:get > .funk/build-pipeline-output/functions-build/.runtimeconfig.json"
+      "firebase functions:config:get > .funk/build-pipeline-output/api-build/.runtimeconfig.json"
     )
   }
 }

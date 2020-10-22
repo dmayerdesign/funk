@@ -9,7 +9,7 @@ export default function () {
     resolve(
       __dirname,
       "../../../",
-      ".funk/build-pipeline-output/functions-build/index.js"
+      ".funk/build-pipeline-output/api-build/index.js"
     ),
     indexJsContents
   )

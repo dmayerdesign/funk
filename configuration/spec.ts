@@ -1,18 +1,18 @@
 import {
   assertFails,
   assertSucceeds,
-  loadFirestoreRules,
+  loadFirestoreRules
 } from "@firebase/rules-unit-testing"
-import { UserRole } from "@funk/model/auth/user-role"
-import { PERSONS } from "@funk/model/identity/person"
 import {
   createAdminApp,
   createDefaultApp,
   forbiddenUserUid,
   projectId,
   testOwnerUid,
-  testUserUid,
-} from "@funk/test/test.helpers"
+  testUserUid
+} from "@funk/helpers/test-helpers"
+import { UserRole } from "@funk/model/auth/user-role"
+import { PERSONS } from "@funk/model/identity/person"
 import { app } from "firebase"
 import { readFileSync } from "fs"
 import { resolve } from "path"

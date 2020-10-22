@@ -67,3 +67,40 @@ exports.aggregate = functions.firestore
   - Colors
   - Fonts
   - Font sizes
+
+## Structure
+
+<dl>
+  <dt><b>api/core</b></dt>
+  <dd>Core server-side logic.</dd>
+  <br>
+  <dt><b>api/functions</b></dt>
+  <dd>Code that exposes the public API.</dd>
+  <br>
+  <dt><b>build-pipeline</b></dt>
+  <dd>Code for building and deploying the project.</dd>
+  <br>
+  <dt><b>configuration</b></dt>
+  <dd>Project-level configuration.</dd>
+  <br>
+  <dt><b>features</b></dt>
+  <dd>Highest-level test cases (written in <a href="https://cucumber.io/docs/gherkin/reference" target="_blank" rel="noopener noreferrer">Gherkin</a>).</dd>
+  <br>
+  <dt><b>helpers</b></dt>
+  <dd>General-purpose utilities, language extensions.</dd>
+  <br>
+  <dt><b>model</b></dt>
+  <dd>Data structures and dependency-less logic.</dd>
+  <br>
+  <dt><b>test</b></dt>
+  <dd>Test configuration.</dd>
+  <br>
+  <dt><b>ui/app</b></dt>
+  <dd>Device-specific user interface code.</dd>
+  <br>
+  <dt><b>ui/core</b></dt>
+  <dd>Core user interface logic.</dd>
+  <br>
+  <dt><b>ui/functions</b></dt>
+  <dd>Code that consumes the public API.</dd>
+</dl>

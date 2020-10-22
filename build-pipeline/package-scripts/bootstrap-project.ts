@@ -149,7 +149,7 @@ export default function main() {
   console.log("🎸 Your Funk app is ready! 🎸")
   console.log("")
   console.log("To run the app in your browser:")
-  console.log("  1) In one bash or zsh shell, run `npm run functions::develop::local`")
+  console.log("  1) In one bash or zsh shell, run `npm run api::develop::local`")
   console.log("  2) Once step 2 has succeeded, in another shell, run `npm run deploy::local`")
   console.log("  3) In a third shell, run `npm run ui::develop::local`")
 }

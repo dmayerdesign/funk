@@ -8,7 +8,7 @@ import { Configuration } from "../../../model/configuration"
 const CACHE_PATH = resolve(
   __dirname,
   "../../../",
-  ".funk/.cache/functions-prebuild"
+  ".funk/.cache/api-prebuild"
 )
 const CONFIG_JSON_CACHE_PATH = `${CACHE_PATH}/configJson`
 

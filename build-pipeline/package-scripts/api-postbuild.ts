@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import {
-  copySync,
-  mkdirpSync,
-  readFileSync,
-  removeSync,
-  writeFileSync,
+    copySync,
+    mkdirpSync,
+    readFileSync,
+    removeSync,
+    writeFileSync
 } from "fs-extra"
 import { resolve } from "path"
 import { sync as removeRecursiveSync } from "rimraf"
@@ -14,9 +14,9 @@ import writeFunctionsIndex from "../code-gen/behaviors/write-functions-index"
 import writeFunctionsPackage from "../code-gen/behaviors/write-functions-package"
 
 export default function main() {
-  // Linux needs the `functions-build` dir to exist before copying to it.
+  // Linux needs the `api-build` dir to exist before copying to it.
   mkdirpSync(
-    resolve(__dirname, "../../", ".funk/build-pipeline-output/functions-build")
+    resolve(__dirname, "../../", ".funk/build-pipeline-output/api-build")
   )
 
   // Generate index.js for our functions.
@@ -51,7 +51,7 @@ export default function main() {
   const pathToFinalBuild = resolve(
     __dirname,
     "../../",
-    ".funk/build-pipeline-output/functions-build"
+    ".funk/build-pipeline-output/api-build"
   )
   copySync(pathToTmpBuild, pathToFinalBuild, { recursive: true })
   removeRecursiveSync(pathToTmpBuild)

@@ -8,7 +8,7 @@ export default function main() {
   const pathToOldOutput = resolve(
     __dirname,
     "../../",
-    ".funk/build-pipeline-output/functions-build"
+    ".funk/build-pipeline-output/api-build"
   )
   if (existsSync(pathToOldOutput)) {
     try {

@@ -7,7 +7,7 @@ export default function () {
     resolve(
       __dirname,
       "../../../",
-      ".funk/build-pipeline-output/functions-build/functions/assets"
+      ".funk/build-pipeline-output/api-build/functions/assets"
     )
   )
 }
