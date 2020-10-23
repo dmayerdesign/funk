@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import {
-    copySync,
-    mkdirpSync,
-    readFileSync,
-    removeSync,
-    writeFileSync
+  copySync,
+  mkdirpSync,
+  readFileSync,
+  removeSync,
+  writeFileSync,
 } from "fs-extra"
 import { resolve } from "path"
 import { sync as removeRecursiveSync } from "rimraf"

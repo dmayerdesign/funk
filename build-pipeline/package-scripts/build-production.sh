@@ -1,12 +1,9 @@
-sh build-pipeline/package-scripts/format.sh && \
-\
-sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/prebuild.ts -c "production" && \
-\
-sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/ui-prebuild.ts -c "production" && \
-ionic build -c "production" && \
-ng run client-app:server -c "production" && \
-\
-sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/api-prebuild.ts -c "production" && \
-tsc --project api/functions/tsconfig.build.json && \
-\
-sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/api-postbuild.ts
+npm install
+npm run format
+if [ $? -eq 0 ]; then sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/prebuild.ts -c "production"; else (exit 1); fi
+if [ $? -eq 0 ]; then sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/ui-prebuild.ts -c "production"; else (exit 1); fi
+if [ $? -eq 0 ]; then ionic build -c "production"; else (exit 1); fi
+if [ $? -eq 0 ]; then ng run client-app:server -c "production"; else (exit 1); fi
+if [ $? -eq 0 ]; then sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/api-prebuild.ts -c "production"; else (exit 1); fi
+if [ $? -eq 0 ]; then tsc --project api/functions/tsconfig.build.json; else (exit 1); fi
+if [ $? -eq 0 ]; then sh build-pipeline/package-scripts/ts-node.sh ./build-pipeline/package-scripts/api-postbuild.ts; else (exit 1); fi

@@ -1,6 +1,6 @@
 import { createHttpClientStub } from "@funk/api/functions/helpers/http/stubs"
 import { construct } from "@funk/api/plugins/tax/behaviors/get-sales-tax-rate-for-address"
-import { SALES_TAX_RATE_CALCULATOR_URL } from '@funk/api/plugins/tax/configuration'
+import { SALES_TAX_RATE_CALCULATOR_URL } from "@funk/api/plugins/tax/configuration"
 import { TAX_PUBLISHABLE_KEY } from "@funk/configuration"
 import { Address } from "@funk/model/address/address"
 import { Customer } from "@funk/model/commerce/order/customer/customer"

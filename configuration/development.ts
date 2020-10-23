@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
-export const DISPLAY_NAME = "Funk Development 0907"
-export const CLOUD_PROJECT_ID = "funk-development-0907"
-export const CLIENT_APP_URL = "https://funk-development-0907.web.app"
+export const DISPLAY_NAME = "Test"
+export const CLOUD_PROJECT_ID = "test-kjs3npy-development"
+export const CLIENT_APP_URL = "https://${CLOUD_PROJECT_ID}.web.app"
 export const HOMEPAGE = "sink"
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
 export const IS_PRODUCTION = false
@@ -14,19 +14,17 @@ export const TRUSTED_ORIGINS = [
   "http://localhost",
   "http://localhost:8100",
   "capacitor://localhost",
-  "https://funk-development-0907.firebaseapp.com",
+  "https://${CLOUD_PROJECT_ID}.firebaseapp.com",
 ]
-export const TAX_PUBLISHABLE_KEY = "2000143843"
-export const PAYMENT_PUBLISHABLE_KEY =
-  "pk_test_FCCMRbB54V2BMvswJxpJht0T002zd0buM1"
-export const TURING_TEST_PUBLISHABLE_KEY =
-  "6LdS_rsZAAAAAEUeQO7xkWMJno0N068Xv5l136OR"
+export const TAX_PUBLISHABLE_KEY = ""
+export const PAYMENT_PUBLISHABLE_KEY = ""
+export const TURING_TEST_PUBLISHABLE_KEY = ""
 export const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyBZQgIw4lH7fKN_gwjMZjKvk1HCIAnLDsg",
-  authDomain: "funk-development-0907.firebaseapp.com",
-  databaseURL: "https://funk-development-0907.firebaseio.com",
-  projectId: "funk-development-0907",
-  storageBucket: "funk-development-0907.appspot.com",
-  messagingSenderId: "984336631582",
-  appId: "1:984336631582:web:fc0bdaf5d3a1d66e03ab0f",
+  projectId: "test-kjs3npy-development",
+  appId: "1:789479144619:web:ef2d5d283af2762883cbee",
+  databaseURL: "https://test-kjs3npy-development.firebaseio.com",
+  storageBucket: "test-kjs3npy-development.appspot.com",
+  apiKey: "AIzaSyD3tU5wJOgD9wywJnNo5Hpnvmssng8FyAc",
+  authDomain: "test-kjs3npy-development.firebaseapp.com",
+  messagingSenderId: "789479144619",
 }

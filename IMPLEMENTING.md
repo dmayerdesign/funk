@@ -13,8 +13,8 @@ When following these instructions, replace `{CONFIGURATION}` with either `develo
 3. Create a “web” app within the project and add its configuration to `configuration/{CONFIGURATION}.ts`.
    - Set the “Public-facing name” for the project (this shows up in the email verification email and other user-facing places).
    - Set the support email address for the project.
-4. Generate a private key for the root service account and save it to your machine. Save the path to the private key file in the PATH_TO_OWNER_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`.
-5. Generate a private key for the "App Engine Default" service account and save it to your machine. Save the path to the private key file in the PATH_TO_APPLICATION_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`.
+4. Generate a private key for the root service account and save it to your machine (NOT in source control). Save the path to the private key file in the PATH_TO_OWNER_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`.
+5. Generate a private key for the "App Engine Default" service account and save it to your machine (NOT in source control). Save the path to the private key file in the PATH_TO_APPLICATION_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`.
 
 ### Authentication
 

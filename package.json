@@ -36,7 +36,7 @@
     "prettier": "./node_modules/.bin/prettier",
     "jest": "./node_modules/.bin/jest",
     "ionic": "./node_modules/.bin/ionic",
-    "bootstrap-project::development": "npm i && sh build-pipeline/package-scripts/ts-node.sh build-pipeline/package-scripts/bootstrap-project.ts -c \"development\""
+    "bootstrap-project": "sh build-pipeline/package-scripts/ts-node.sh build-pipeline/package-scripts/bootstrap-project.ts"
   },
   "private": true,
   "dependencies": {
@@ -129,6 +129,7 @@
     "@types/stripe": "~7.13.22",
     "@types/supertest": "~2.0.9",
     "@types/uuid": "8.3.0",
+    "@types/yargs": "^15.0.9",
     "@typescript-eslint/eslint-plugin": "4.4.1",
     "@typescript-eslint/eslint-plugin-tslint": "^4.4.1",
     "@typescript-eslint/parser": "4.4.1",
@@ -161,6 +162,7 @@
     "tsconfig-paths-webpack-plugin": "~3.3.0",
     "tscpaths": "~0.0.9",
     "tslint": "~6.1.0",
-    "typescript": "~3.9.5"
+    "typescript": "~3.9.5",
+    "yargs": "^16.1.0"
   }
 }

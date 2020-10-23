@@ -3,11 +3,9 @@ These badges are written as part of the `test` scripts.
 DO NOT EDIT lines 5-9 of this file.
 -->
 <!-- start badges -->
-
 [![build](https://github.com/dmayerdesign/funk/workflows/build/badge.svg)](https://github.com/dmayerdesign/funk/actions?query=workflow%3A%22build%22)
 ![UI coverage](https://img.shields.io/badge/UI%20coverage-92%25-brightgreen)
 ![API coverage](https://img.shields.io/badge/API%20coverage-89%25-green)
-
 <!-- end badges -->
 
 # Funk
@@ -23,8 +21,7 @@ head to [Contributing](./CONTRIBUTING.md) to get started!
 
 ## Using Funk
 
-To use Funk, fork this repo and follow the instructions in
-[Implementing](./IMPLEMENTING.md).
+To use Funk, fork this repo and follow the instructions in [Implementing](./IMPLEMENTING.md).
 
 To update your fork with the latest changes from this repo,
 [follow the directions here](http://docs.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced).

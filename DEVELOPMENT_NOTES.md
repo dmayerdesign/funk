@@ -77,6 +77,9 @@ exports.aggregate = functions.firestore
   <dt><b>api/functions</b></dt>
   <dd>Code that exposes the public API.</dd>
   <br>
+  <dt><b>api/plugins</b></dt>
+  <dd>Server-side logic that imports third-party code.</dd>
+  <br>
   <dt><b>build-pipeline</b></dt>
   <dd>Code for building and deploying the project.</dd>
   <br>
@@ -87,20 +90,24 @@ exports.aggregate = functions.firestore
   <dd>Highest-level test cases (written in <a href="https://cucumber.io/docs/gherkin/reference" target="_blank" rel="noopener noreferrer">Gherkin</a>).</dd>
   <br>
   <dt><b>helpers</b></dt>
-  <dd>General-purpose utilities, language extensions.</dd>
+  <dd>General-purpose utilities and language extensions.</dd>
   <br>
   <dt><b>model</b></dt>
-  <dd>Data structures and dependency-less logic.</dd>
+  <dd>The core, functional domain model: data structures and dependency-less logic.</dd>
   <br>
   <dt><b>test</b></dt>
   <dd>Test configuration.</dd>
   <br>
   <dt><b>ui/app</b></dt>
-  <dd>Device-specific user interface code.</dd>
+  <dd>Code that exposes the user interface.</dd>
   <br>
   <dt><b>ui/core</b></dt>
   <dd>Core user interface logic.</dd>
   <br>
   <dt><b>ui/functions</b></dt>
   <dd>Code that consumes the public API.</dd>
+  <br>
+  <dt><b>ui/plugins</b></dt>
+  <dd>User interface logic that imports third-party code.</dd>
+  <br>
 </dl>

@@ -1,4 +1,4 @@
-import { Configuration } from "@funk/model/configuration"
+import { Configuration } from "../../../model/configuration"
 
 interface ConfigOptions {
   firebaseConfig: Record<string, any>
@@ -34,7 +34,11 @@ export {
 } from "./development"
 `
 
-const getNonLocal = ({ firebaseConfig, projectId, displayName }: ConfigOptions) =>
+const getNonLocal = ({
+  firebaseConfig,
+  projectId,
+  displayName,
+}: ConfigOptions) =>
   `/* eslint-disable max-len */
 export const DISPLAY_NAME = "${displayName}"
 export const CLOUD_PROJECT_ID = "${projectId}"
@@ -60,11 +64,7 @@ export const FIREBASE_CONFIG = ${JSON.stringify(firebaseConfig, null, 2)}
 `
 
 export function construct(configuration: Configuration) {
-  return function ({
-    firebaseConfig,
-    projectId,
-    displayName
-  }: ConfigOptions) {
+  return function ({ firebaseConfig, projectId, displayName }: ConfigOptions) {
     switch (configuration) {
       case Configuration.LOCAL:
         return getLocal()
@@ -72,7 +72,7 @@ export function construct(configuration: Configuration) {
         return getNonLocal({
           firebaseConfig,
           projectId,
-          displayName
+          displayName,
         })
     }
   }

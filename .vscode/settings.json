@@ -1,6 +1,5 @@
 {
   "editor.codeLens": false,
   "editor.tabSize": 2,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.enable": false
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

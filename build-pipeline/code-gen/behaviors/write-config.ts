@@ -5,11 +5,7 @@ import { resolve } from "path"
 import { configToJson } from "../../../configuration/helpers/configuration-to-json"
 import { Configuration } from "../../../model/configuration"
 
-const CACHE_PATH = resolve(
-  __dirname,
-  "../../../",
-  ".funk/.cache/api-prebuild"
-)
+const CACHE_PATH = resolve(__dirname, "../../../", ".funk/.cache/api-prebuild")
 const CONFIG_JSON_CACHE_PATH = `${CACHE_PATH}/configJson`
 
 export default function (configuration: Configuration) {
@@ -49,7 +45,7 @@ export default function (configuration: Configuration) {
 
     mkdirpSync(configDirPath)
     writeFileSync(
-      resolve(configDirPath, "development.ts"),
+      resolve(configDirPath, "test-configuration.ts"),
       developmentConfigFile
     )
     writeFileSync(resolve(configDirPath, "configuration.ts"), configFile)

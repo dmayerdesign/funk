@@ -1,9 +1,5 @@
 # Copy this file to create `development.env` and `production.env`, and substitute these variables
 # with the appropriate values for each environment configuration.
+export PROJECT_ID=
 export PATH_TO_OWNER_CREDENTIALS_JSON=/path/to/owner/service_account.json
 export PATH_TO_APPLICATION_CREDENTIALS_JSON=/path/to/app_engine/service_account.json
-
-export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator

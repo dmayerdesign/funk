@@ -15,8 +15,8 @@ export function configToJson(configuration: Configuration) {
     if (!config) throw new Error()
   } catch (error) {
     throw new Error(
-      "The configuration was not found. Make sure the string you pass to the `-c/--configuration` "
-      + "flag matches the name of a file in the `configuration` folder (e.g. -c development)"
+      "The configuration was not found. Make sure the string you pass to the `-c/--configuration` " +
+        "flag matches the name of a file in the `configuration` folder (e.g. -c development)"
     )
   }
 

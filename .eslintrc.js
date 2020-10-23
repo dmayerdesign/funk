@@ -36,7 +36,6 @@ module.exports = {
         accessibility: "explicit",
       },
     ],
-    "@typescript-eslint/quotes": ["warn", "double"],
     "@typescript-eslint/member-ordering": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-empty-interface": "off",
