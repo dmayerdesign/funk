@@ -18,12 +18,13 @@ import throwIfNonzero from "./helpers/throw-if-nonzero"
 interface Options {
   projectName: string
   displayName: string
+  configuration?: Configuration
 }
 
 export default function main() {
   const cli = yargs(process.argv)
 
-  const { projectName, displayName } = cli.argv as Argv<Options>["argv"]
+  const { projectName, displayName, configuration } = cli.argv as Argv<Options>["argv"]
   const projectIds: string[] = []
 
   if (!projectName) throw new InvalidInputError("--projectName is required.")
@@ -32,10 +33,10 @@ export default function main() {
     throw new InvalidInputError("--projectName must be lowercase with hyphens.")
   }
 
-  const configurationWithProjects = [
-    Configuration.DEVELOPMENT,
-    Configuration.PRODUCTION,
-  ]
+  const projectConfigurations = !!configuration
+    ? [configuration]
+    : [Configuration.DEVELOPMENT, Configuration.PRODUCTION]
+
   const PATH_TO_GCLOUD = ".funk/google-cloud-sdk/bin/gcloud"
   const PATH_TO_BUILD_ARTIFACTS =
     ".funk/build-pipeline-output/bootstrap-project"
@@ -63,7 +64,7 @@ export default function main() {
   `)
   )
 
-  for (const configuration of configurationWithProjects) {
+  for (const configuration of projectConfigurations) {
     // TODO:
     // - enable anonymous, email/password, and google sign-in methods
     // - set app secrets? Some APIs will probably require that this be done via a GUI.
@@ -143,7 +144,7 @@ export default function main() {
     )
     writeFileSync(
       resolve(__dirname, "../../", ".firebaserc"),
-      firebasercTemplate(projectId)
+      firebasercTemplate(projectName)
     )
     writeFileSync(
       resolve(__dirname, "../../", "ionic.config.json"),

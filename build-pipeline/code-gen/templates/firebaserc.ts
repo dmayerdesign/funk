@@ -1,10 +1,10 @@
 export function construct() {
-  return function (projectId: string): string {
+  return function (projectName: string): string {
     return `{
   "projects": {
-    "default": "${projectId}-development",
-    "development": "${projectId}-development",
-    "production": "${projectId}-production"
+    "default": "${projectName}-development",
+    "development": "${projectName}-development",
+    "production": "${projectName}-production"
   }
 }
 `
