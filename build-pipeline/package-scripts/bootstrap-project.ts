@@ -24,7 +24,9 @@ interface Options {
 export default function main() {
   const cli = yargs(process.argv)
 
-  const { projectName, displayName, configuration } = cli.argv as Argv<Options>["argv"]
+  const { projectName, displayName, configuration: onlyConfiguration } = cli.argv as Argv<
+    Options
+  >["argv"]
   const projectIds: string[] = []
 
   if (!projectName) throw new InvalidInputError("--projectName is required.")
@@ -33,8 +35,8 @@ export default function main() {
     throw new InvalidInputError("--projectName must be lowercase with hyphens.")
   }
 
-  const projectConfigurations = !!configuration
-    ? [configuration]
+  const projectConfigurations = !!onlyConfiguration
+    ? [onlyConfiguration]
     : [Configuration.DEVELOPMENT, Configuration.PRODUCTION]
 
   const PATH_TO_GCLOUD = ".funk/google-cloud-sdk/bin/gcloud"
@@ -132,7 +134,7 @@ export default function main() {
     )
     writeFileSync(
       resolve(__dirname, "../../", `configuration/${configuration}.ts`),
-      configTemplate({ firebaseConfig, projectId, displayName })
+      configTemplate({ firebaseConfig, projectId, projectName, displayName })
     )
     writeFileSync(
       resolve(

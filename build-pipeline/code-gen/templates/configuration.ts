@@ -3,6 +3,7 @@ import { Configuration } from "../../../model/configuration"
 interface ConfigOptions {
   firebaseConfig: Record<string, any>
   projectId: string
+  projectName: string
   displayName: string
 }
 
@@ -42,7 +43,7 @@ const getNonLocal = ({
   `/* eslint-disable max-len */
 export const DISPLAY_NAME = "${displayName}"
 export const CLOUD_PROJECT_ID = "${projectId}"
-export const CLIENT_APP_URL = "https://\${CLOUD_PROJECT_ID}.web.app"
+export const CLIENT_APP_URL = \`https://\${CLOUD_PROJECT_ID}.web.app\`
 export const HOMEPAGE = "sink"
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
 export const IS_PRODUCTION = false
@@ -55,7 +56,7 @@ export const TRUSTED_ORIGINS = [
   "http://localhost",
   "http://localhost:8100",
   "capacitor://localhost",
-  "https://\${CLOUD_PROJECT_ID}.firebaseapp.com",
+  \`https://\${CLOUD_PROJECT_ID}.firebaseapp.com\`,
 ]
 export const TAX_PUBLISHABLE_KEY = ""
 export const PAYMENT_PUBLISHABLE_KEY = ""
@@ -64,7 +65,7 @@ export const FIREBASE_CONFIG = ${JSON.stringify(firebaseConfig, null, 2)}
 `
 
 export function construct(configuration: Configuration) {
-  return function ({ firebaseConfig, projectId, displayName }: ConfigOptions) {
+  return function ({ firebaseConfig, projectId, projectName, displayName }: ConfigOptions) {
     switch (configuration) {
       case Configuration.LOCAL:
         return getLocal()
@@ -72,6 +73,7 @@ export function construct(configuration: Configuration) {
         return getNonLocal({
           firebaseConfig,
           projectId,
+          projectName,
           displayName,
         })
     }

@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "test-kjs3npy-production-development",
-    "development": "test-kjs3npy-production-development",
-    "production": "test-kjs3npy-production-production"
+    "default": "funk-development-0907",
+    "development": "funk-development-0907",
+    "production": "funk-production-0907"
   }
 }

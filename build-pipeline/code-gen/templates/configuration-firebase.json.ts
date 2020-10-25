@@ -3,19 +3,19 @@ import { Configuration } from "../../../model/configuration"
 type ContentSecurityPolicy = string
 
 function getCsp(
-  configuration: Configuration,
-  projectName: string
+  projectId: string
 ): ContentSecurityPolicy {
   const csp: Record<string, string[]> = {
     "default-src": [
       "'self'",
-      `https://${projectName}-${configuration}.firebaseapp.com`,
+      `https://${projectId}.firebaseapp.com`,
       "https://*.googleapis.com",
       "https://*.cloudfunctions.net",
       "https://*.google.com",
       "https://*.gstatic.com",
       "https://recaptcha.net",
-      "https://player.vimeo.com/external",
+      "https://player.vimeo.com",
+      "https://vod-progressive.akamaized.net",
     ],
     "img-src": [
       "'self'",
@@ -34,8 +34,8 @@ function getCsp(
     .join("; ")
 }
 
-export function construct(configuration: Configuration) {
-  return function (projectName: string): string {
+export function construct(_configuration: Configuration) {
+  return function (projectId: string): string {
     return `{
   "firestore": {
     "rules": "firestore.rules",
@@ -65,7 +65,7 @@ export function construct(configuration: Configuration) {
         "headers": [
           {
             "key": "Content-Security-Policy",
-            "value": "${getCsp(configuration, projectName) ?? ""}"
+            "value": "${getCsp(projectId) ?? ""}"
           }
         ]
       }
