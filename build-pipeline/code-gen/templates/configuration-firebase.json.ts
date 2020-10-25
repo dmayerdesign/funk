@@ -15,6 +15,7 @@ function getCsp(
       "https://*.google.com",
       "https://*.gstatic.com",
       "https://recaptcha.net",
+      "https://player.vimeo.com/external",
     ],
     "img-src": [
       "'self'",
@@ -23,10 +24,8 @@ function getCsp(
       "https://*.google.com",
       "https://*.gstatic.com",
       "https://images.pexels.com",
-      "https://player.vimeo.com/external",
       "data:",
     ],
-    "media-src": ["'self'", "https://player.vimeo.com/external"],
     "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
   }
 

@@ -16,11 +16,12 @@ export default function main() {
     false
   )
   program.parse(process.argv)
+
   const { configuration, skipCodeGen } = program.opts()
 
-  writeConfig(configuration)
-  writeFirebaseJson(configuration)
   if (!skipCodeGen) {
+    writeConfig(configuration)
+    writeFirebaseJson(configuration)
     writeValidators()
   }
 }
