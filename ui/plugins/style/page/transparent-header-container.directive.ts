@@ -4,7 +4,7 @@ import {
   OnInit,
   Renderer2,
   TemplateRef,
-  ViewContainerRef,
+  ViewContainerRef
 } from "@angular/core"
 
 export interface TransparentHeaderContainerContext {

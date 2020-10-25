@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
 
 // Header.
-// [transparent-header-container]
-.header-md {
+[transparent-header-container] ion-header {
   &::after {
     transition: opacity 300ms;
   }
