@@ -26,6 +26,7 @@ function getCsp(
       "https://player.vimeo.com/external",
       "data:",
     ],
+    "media-src": ["'self'", "https://player.vimeo.com/external"],
     "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
   }
 
