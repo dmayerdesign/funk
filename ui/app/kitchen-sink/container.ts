@@ -5,8 +5,8 @@ import { BehaviorSubject, timer } from "rxjs"
 @Component({
   selector: "kitchen-sink",
   template: `
-    <ng-template transparent-header-container let-handleContentScroll>
-      <ion-header>
+    <ng-template sticky-header-container let-handleContentScroll>
+      <ion-header class="sticky-header transparent-until-scrolled">
         <ion-toolbar class="max-width-container">
           <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
@@ -19,7 +19,8 @@ import { BehaviorSubject, timer } from "rxjs"
       </ng-container>
       <ion-content
         [ngClass]="{
-          'ion-padding': false
+          'ion-padding': false,
+          'sticky-header-content': true
         }"
         [scrollEvents]="true"
         (ionScroll)="handleContentScroll($event)"

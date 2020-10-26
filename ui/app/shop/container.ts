@@ -5,7 +5,7 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
 @Component({
   selector: "shop",
   template: `
-    <ng-template transparent-header-container let-handleContentScroll>
+    <ng-template sticky-header-container let-handleContentScroll>
       <ion-header>
         <ion-toolbar class="max-width-container">
           <ion-title

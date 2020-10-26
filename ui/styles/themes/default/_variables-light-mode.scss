@@ -63,6 +63,13 @@ $color-light-contrast-rgb: 0, 0, 0;
 $color-light-shade: #d7d8da;
 $color-light-tint: #f5f6f9;
 
+$color-page-background: $color-primary-contrast;
+$color-navbar-background: $color-primary-contrast;
+$color-hero-title-light: $color-dark-contrast;
+$color-hero-subtitle-light: $color-dark-contrast;
+$color-hero-title-dark: $color-dark;
+$color-hero-subtitle-dark: $color-dark;
+
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
@@ -140,9 +147,3 @@ $color-light-tint: #f5f6f9;
   --ion-color-light-shade: #{$color-light-shade};
   --ion-color-light-tint: #{$color-light-tint};
 }
-
-$color-page-background: $color-primary-contrast;
-$color-hero-title-light: $color-dark-contrast;
-$color-hero-subtitle-light: $color-dark-contrast;
-$color-hero-title-dark: $color-dark;
-$color-hero-subtitle-dark: $color-dark;

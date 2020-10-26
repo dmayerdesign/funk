@@ -8,7 +8,7 @@ import { ListPublished } from "@funk/ui/functions/commerce/product/list-publishe
 import {
   Pagination,
   TAKE_ALL,
-  VirtualPagination,
+  VirtualPagination
 } from "@funk/ui/plugins/persistence/pagination"
 import { LoadingController } from "@ionic/angular"
 import { flatten } from "lodash"

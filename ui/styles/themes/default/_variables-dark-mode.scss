@@ -1,3 +1,10 @@
+/** Funk SCSS Variables **/
+$color-page-background: var(--ion-color-primary-contrast);
+$color-hero-title-light: var(--ion-color-dark-shade);
+$color-hero-subtitle-light: var(--ion-color-dark-shade);
+$color-hero-title-dark: var(--ion-color-light);
+$color-hero-subtitle-dark: var(--ion-color-light);
+
 /** Ionic CSS Variables **/
 body.dark {
   --ion-color-primary: #428cff;
@@ -130,10 +137,3 @@ body.dark {
 
   --ion-item-background: #1a1b1e;
 }
-
-/** Funk SCSS Variables **/
-$color-page-background: var(--ion-color-primary-contrast);
-$color-hero-title-light: var(--ion-color-dark-shade);
-$color-hero-subtitle-light: var(--ion-color-dark-shade);
-$color-hero-title-dark: var(--ion-color-light);
-$color-hero-subtitle-dark: var(--ion-color-light);
