@@ -47,6 +47,10 @@ export default function (configuration: Configuration) {
       resolve(configDirPath, "test-configuration.ts"),
       developmentConfigFile
     )
+    writeFileSync(
+      resolve(configDirPath, "development.ts"),
+      developmentConfigFile
+    )
     writeFileSync(resolve(configDirPath, "configuration.ts"), configFile)
   }
   function cacheConfig() {
