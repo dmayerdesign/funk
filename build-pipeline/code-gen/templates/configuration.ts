@@ -65,7 +65,12 @@ export const FIREBASE_CONFIG = ${JSON.stringify(firebaseConfig, null, 2)}
 `
 
 export function construct(configuration: Configuration) {
-  return function ({ firebaseConfig, projectId, projectName, displayName }: ConfigOptions) {
+  return function ({
+    firebaseConfig,
+    projectId,
+    projectName,
+    displayName,
+  }: ConfigOptions) {
     switch (configuration) {
       case Configuration.LOCAL:
         return getLocal()

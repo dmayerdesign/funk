@@ -1,7 +1,7 @@
 import { Enterprise } from "@funk/model/commerce/enterprise/enterprise"
 import {
   ORGANIZATIONS,
-  PRIMARY_ORGANIZATION,
+  PRIMARY_ORGANIZATION
 } from "@funk/model/organization/organization"
 import { construct } from "@funk/ui/core/shop/enterprise/enterprise"
 import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"

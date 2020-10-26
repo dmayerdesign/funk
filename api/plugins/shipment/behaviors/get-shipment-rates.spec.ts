@@ -2,7 +2,7 @@ import { construct } from "@funk/api/plugins/shipment/behaviors/get-shipment-rat
 import { SimpleRate } from "@funk/api/plugins/shipment/simple-rate"
 import {
   Enterprise,
-  ShippingCostStrategy,
+  ShippingCostStrategy
 } from "@funk/model/commerce/enterprise/enterprise"
 import { Order } from "@funk/model/commerce/order/order"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"

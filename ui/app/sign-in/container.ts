@@ -6,7 +6,7 @@ import { HOME_RELATIVE_URL } from "@funk/ui/app/atlas/tokens"
 import {
   SIGN_IN_WITH_PROVIDER,
   SIGN_OUT,
-  USER_SESSION,
+  USER_SESSION
 } from "@funk/ui/app/identity/tokens"
 import { HomeRelativeUrl } from "@funk/ui/core/atlas/home-relative-url"
 import { SignInWithProvider } from "@funk/ui/core/identity/behaviors/sign-in-with-provider"

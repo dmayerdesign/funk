@@ -8,7 +8,7 @@ import {
   Cart,
   MarshalledOrder,
   Order,
-  ORDERS,
+  ORDERS
 } from "@funk/model/commerce/order/order"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"

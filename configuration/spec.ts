@@ -1,7 +1,7 @@
 import {
   assertFails,
   assertSucceeds,
-  loadFirestoreRules,
+  loadFirestoreRules
 } from "@firebase/rules-unit-testing"
 import {
   createAdminApp,
@@ -9,7 +9,7 @@ import {
   forbiddenUserUid,
   projectId,
   testOwnerUid,
-  testUserUid,
+  testUserUid
 } from "@funk/helpers/test-helpers"
 import { UserRole } from "@funk/model/auth/user-role"
 import { PERSONS } from "@funk/model/identity/person"

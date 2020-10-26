@@ -18,7 +18,7 @@ recursiveReaddir(API_PATH_ABSOLUTE).forEach((file) => {
     const filePathFromParentDir = file.split(API_PATH_ABSOLUTE)[1] || ""
     const filePathFromParentDirSansExt = filePathFromParentDir.substring(
       0,
-      filePathFromParentDir.lastIndexOf(".")
+      filePathFromParentDir.lastIndexOf("."),
     )
     const functionName = camelCase(filePathFromParentDirSansExt)
 

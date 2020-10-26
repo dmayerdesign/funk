@@ -4,7 +4,7 @@ import { UserState, USER_STATES } from "@funk/model/identity/user-state"
 import { ContentPreview } from "@funk/model/managed-content/content-preview"
 import {
   CONTENTS,
-  ManagedContent,
+  ManagedContent
 } from "@funk/model/managed-content/managed-content"
 import { GetMaybeContentPreviews } from "@funk/ui/core/admin/managed-content/editor/behaviors/get-maybe-content-previews"
 import { GetPublishConflicts } from "@funk/ui/core/admin/managed-content/editor/behaviors/get-publish-conflicts"

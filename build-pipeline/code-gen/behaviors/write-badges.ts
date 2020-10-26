@@ -16,12 +16,12 @@ const readmeIsWritableForBadges =
 const pathToUiCoverageReport = resolve(
   __dirname,
   "../../../",
-  "coverage/ui/lcov-report/index.html"
+  "coverage/ui/lcov-report/index.html",
 )
 const pathToApiCoverageReport = resolve(
   __dirname,
   "../../../",
-  "coverage/api/lcov-report/index.html"
+  "coverage/api/lcov-report/index.html",
 )
 
 if (existsSync(pathToUiCoverageReport) && existsSync(pathToApiCoverageReport)) {
@@ -33,54 +33,54 @@ if (existsSync(pathToUiCoverageReport) && existsSync(pathToApiCoverageReport)) {
 
   const { linesCovered: uiLinesCovered, linesTotal: uiLinesTotal } = Array.from(
     uiWindow.document.querySelectorAll<HTMLTableCellElement>(
-      ".coverage-summary tbody td:last-child"
-    )
+      ".coverage-summary tbody td:last-child",
+    ),
   )
     .map((node) => node.innerHTML?.trim())
     .filter((x) => !!x)
     .map((fractionString) =>
-      fractionString.split("/").map((lineCount) => parseInt(lineCount, 10))
+      fractionString.split("/").map((lineCount) => parseInt(lineCount, 10)),
     )
     .reduce(
       (report, [dividend, divisor]) => ({
         linesCovered: report.linesCovered + dividend,
         linesTotal: report.linesTotal + divisor,
       }),
-      { linesCovered: 0, linesTotal: 0 }
+      { linesCovered: 0, linesTotal: 0 },
     )
   const {
     linesCovered: apiLinesCovered,
     linesTotal: apiLinesTotal,
   } = Array.from(
     apiWindow.document.querySelectorAll<HTMLTableCellElement>(
-      ".coverage-summary tbody td:last-child"
-    )
+      ".coverage-summary tbody td:last-child",
+    ),
   )
     .map((node) => node.innerHTML?.trim())
     .filter((x) => !!x)
     .map((fractionString) =>
-      fractionString.split("/").map((lineCount) => parseInt(lineCount, 10))
+      fractionString.split("/").map((lineCount) => parseInt(lineCount, 10)),
     )
     .reduce(
       (report, [dividend, divisor]) => ({
         linesCovered: report.linesCovered + dividend,
         linesTotal: report.linesTotal + divisor,
       }),
-      { linesCovered: 0, linesTotal: 0 }
+      { linesCovered: 0, linesTotal: 0 },
     )
 
   const readmeSplit = readmeAsString.split(
     new RegExp(
       `${escapeRegExp(readmeBadgeStartComment)}|${escapeRegExp(
-        readmeBadgeEndComment
-      )}`
-    )
+        readmeBadgeEndComment,
+      )}`,
+    ),
   )
 
   if (readmeIsWritableForBadges) {
     const uiCoveragePercent = Math.floor((uiLinesCovered / uiLinesTotal) * 100)
     const apiCoveragePercent = Math.floor(
-      (apiLinesCovered / apiLinesTotal) * 100
+      (apiLinesCovered / apiLinesTotal) * 100,
     )
     const uiCoverageColor =
       uiCoveragePercent >= 90
@@ -123,7 +123,7 @@ if (existsSync(pathToUiCoverageReport) && existsSync(pathToApiCoverageReport)) {
       "Could not write README badges. Make sure README.md has the following comments:" +
         readmeBadgeStartComment +
         " and " +
-        readmeBadgeEndComment
+        readmeBadgeEndComment,
     )
   }
 }

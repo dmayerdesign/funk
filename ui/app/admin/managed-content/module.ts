@@ -6,14 +6,14 @@ import { ManagedContentComponent } from "@funk/ui/app/admin/managed-content/comp
 import { ManagedContentEditorContainer } from "@funk/ui/app/admin/managed-content/editor/container"
 import {
   HTML_GET_INNER_TEXT,
-  MANAGED_CONTENT_EDITOR_SERVICE,
+  MANAGED_CONTENT_EDITOR_SERVICE
 } from "@funk/ui/app/admin/managed-content/tokens"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
 import {
   GET_BY_ID,
   LISTEN_BY_ID,
   SET_BY_ID,
-  UPDATE_BY_ID,
+  UPDATE_BY_ID
 } from "@funk/ui/app/persistence/tokens"
 import { DEVICE_WIDTH } from "@funk/ui/app/tokens"
 import { construct as constructService } from "@funk/ui/core/admin/managed-content/editor/service"

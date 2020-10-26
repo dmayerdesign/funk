@@ -5,11 +5,11 @@ import {
   CONTENTS,
   ManagedContent,
   ManagedContentType,
-  ManagedText,
+  ManagedText
 } from "@funk/model/managed-content/managed-content"
 import {
   construct,
-  ManagedContentEditorService,
+  ManagedContentEditorService
 } from "@funk/ui/core/admin/managed-content/editor/service"
 import { FAKE_USER_UID } from "@funk/ui/core/identity/stubs"
 import { UserSession } from "@funk/ui/core/identity/user-session"

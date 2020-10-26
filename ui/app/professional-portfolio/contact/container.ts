@@ -3,7 +3,7 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  Validators,
+  Validators
 } from "@angular/forms"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { ContactForm } from "@funk/model/contact/contact-form"

@@ -53,5 +53,5 @@ export type Populate<
   MarshalledType extends DatabaseDocument = any
 > = (
   marshalledDoc: MarshalledType,
-  options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
+  options: PopulateFieldOptions<MarshalledType | PopulatedType>[],
 ) => Promise<PopulatedType>

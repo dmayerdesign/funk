@@ -6,7 +6,7 @@ import { MarshalledSkuAttributeValues } from "@funk/model/commerce/attribute/att
 import fromDecimalString from "@funk/model/commerce/price/behaviors/from-decimal-string"
 import {
   Inventory,
-  InventoryShorthand,
+  InventoryShorthand
 } from "@funk/model/commerce/sku/inventory"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"

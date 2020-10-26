@@ -1,6 +1,6 @@
 import {
   HandlerReturnTypes,
-  RequestHandler,
+  RequestHandler
 } from "@funk/api/functions/helpers/http/handle-request"
 import { RequestWithBody } from "@funk/api/functions/model/request-response/request-with-body"
 

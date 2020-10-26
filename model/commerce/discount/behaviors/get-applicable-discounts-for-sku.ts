@@ -92,7 +92,9 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
           if (
             !!discount.includes.taxonomyTerms.find(
               (includedTerm) =>
-                !!this._sku.taxonomyTerms?.find((term) => term === includedTerm)
+                !!this._sku.taxonomyTerms?.find(
+                  (term) => term === includedTerm
+                )
             )
           ) {
             return true

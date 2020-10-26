@@ -3,14 +3,14 @@ import {
   Change,
   CloudFunction,
   EventContext,
-  firestore,
+  firestore
 } from "firebase-functions"
 
 export function handleWrite<DocumentType = DatabaseDocument>(
   documentPath: string,
   handler: (
     change: Change<FirebaseFirestore.DocumentSnapshot>,
-    context: EventContext
+    context: EventContext,
   ) => PromiseLike<any> | any
 ): CloudFunction<Change<FirebaseFirestore.DocumentSnapshot<DocumentType>>> {
   return firestore.document(documentPath).onWrite(handler)
@@ -20,7 +20,7 @@ export function handleUpdate<DocumentType = DatabaseDocument>(
   documentPath: string,
   handler: (
     change: Change<FirebaseFirestore.DocumentSnapshot>,
-    context: EventContext
+    context: EventContext,
   ) => PromiseLike<any> | any
 ): CloudFunction<
   Change<FirebaseFirestore.QueryDocumentSnapshot<DocumentType>>
@@ -32,7 +32,7 @@ export function handleCreate<DocumentType = DatabaseDocument>(
   documentPath: string,
   handler: (
     change: FirebaseFirestore.DocumentSnapshot,
-    context: EventContext
+    context: EventContext,
   ) => PromiseLike<any> | any
 ): CloudFunction<FirebaseFirestore.QueryDocumentSnapshot<DocumentType>> {
   return firestore.document(documentPath).onCreate(handler)
@@ -42,7 +42,7 @@ export function handleDelete<DocumentType = DatabaseDocument>(
   documentPath: string,
   handler: (
     change: FirebaseFirestore.DocumentSnapshot,
-    context: EventContext
+    context: EventContext,
   ) => PromiseLike<any> | any
 ): CloudFunction<FirebaseFirestore.QueryDocumentSnapshot<DocumentType>> {
   return firestore.document(documentPath).onDelete(handler)

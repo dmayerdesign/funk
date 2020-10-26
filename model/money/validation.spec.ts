@@ -3,7 +3,7 @@ import { Money } from "@funk/model/money/money"
 import {
   validate,
   validateBeforeMath,
-  ValidationFailureReason,
+  ValidationFailureReason
 } from "@funk/model/money/validation"
 
 describe("money", () => {

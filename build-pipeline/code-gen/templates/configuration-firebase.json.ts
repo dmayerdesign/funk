@@ -2,9 +2,7 @@ import { Configuration } from "../../../model/configuration"
 
 type ContentSecurityPolicy = string
 
-function getCsp(
-  projectId: string
-): ContentSecurityPolicy {
+function getCsp(projectId: string): ContentSecurityPolicy {
   const csp: Record<string, string[]> = {
     "default-src": [
       "'self'",

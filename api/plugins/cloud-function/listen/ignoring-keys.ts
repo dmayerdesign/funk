@@ -9,8 +9,9 @@ export default function <DocumentType extends DatabaseDocument>(
     const { before, after } = change
 
     for (const key of keys) {
-      if (before.data()?.[key as string] !== after.data()?.[key as string])
+      if (before.data()?.[key as string] !== after.data()?.[key as string]) {
         return
+      }
     }
 
     return handler(change, context)

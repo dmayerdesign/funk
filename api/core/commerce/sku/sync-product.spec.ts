@@ -1,6 +1,6 @@
 import {
   construct,
-  SyncProduct,
+  SyncProduct
 } from "@funk/api/core/commerce/sku/sync-product"
 import { List } from "@funk/api/plugins/persistence/behaviors/list"
 import { UpdateById } from "@funk/api/plugins/persistence/behaviors/update-by-id"

@@ -2,7 +2,7 @@ import { construct } from "@funk/api/plugins/payment/behaviors/create-payment-in
 import { GetPaymentProvider } from "@funk/api/plugins/payment/behaviors/get-payment-provider"
 import {
   createGetPaymentProviderStub,
-  PaymentProviderStub,
+  PaymentProviderStub
 } from "@funk/api/plugins/payment/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import Stripe from "stripe"

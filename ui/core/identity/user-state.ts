@@ -1,7 +1,7 @@
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import {
   UserState as IUserState,
-  USER_STATES,
+  USER_STATES
 } from "@funk/model/identity/user-state"
 import { AuthClient, AuthClientUser } from "@funk/ui/plugins/auth/auth-client"
 import { construct as constructListenById } from "@funk/ui/plugins/persistence/behaviors/listen-by-id"

@@ -2,7 +2,7 @@ import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { UserState, USER_STATES } from "@funk/model/identity/user-state"
 import {
   CONTENTS,
-  ManagedContent,
+  ManagedContent
 } from "@funk/model/managed-content/managed-content"
 import { GetIsAuthorized } from "@funk/ui/core/admin/managed-content/editor/behaviors/get-is-authorized"
 import { UserSession } from "@funk/ui/core/identity/user-session"

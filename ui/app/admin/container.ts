@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms"
 import {
   GET_SECRET,
   GRANT_SUPER_ROLE_TO_ME,
-  SET_SECRET,
+  SET_SECRET
 } from "@funk/ui/app/admin/tokens"
 import { SEND_EMAIL_VERIFICATION } from "@funk/ui/app/identity/tokens"
 import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"

@@ -1,10 +1,10 @@
 import {
   construct,
-  Options,
+  Options
 } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
 import {
   createGetPaymentProviderStub,
-  PaymentProviderStub,
+  PaymentProviderStub
 } from "@funk/api/plugins/payment/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import Stripe from "stripe"

@@ -4,7 +4,7 @@ import {
   ElementRef,
   HostListener,
   OnInit,
-  Renderer2,
+  Renderer2
 } from "@angular/core"
 import { IonRippleEffect } from "@ionic/angular"
 

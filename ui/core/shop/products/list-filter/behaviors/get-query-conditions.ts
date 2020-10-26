@@ -1,7 +1,7 @@
 import createDocPath from "@funk/helpers/create-doc-path"
 import {
   ListFilter,
-  ListFilterType,
+  ListFilterType
 } from "@funk/ui/core/shop/products/list-filter/list-filter"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { Condition } from "@funk/ui/plugins/persistence/condition"

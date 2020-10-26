@@ -2,7 +2,7 @@ import { Person } from "@funk/model/identity/person"
 import { UserState, USER_STATES } from "@funk/model/identity/user-state"
 import {
   CONTENTS,
-  ManagedContent,
+  ManagedContent
 } from "@funk/model/managed-content/managed-content"
 import { GetMaybeContentPreviews } from "@funk/ui/core/admin/managed-content/editor/behaviors/get-maybe-content-previews"
 import { SetById } from "@funk/ui/plugins/persistence/behaviors/set-by-id"

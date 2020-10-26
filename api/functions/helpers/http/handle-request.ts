@@ -2,7 +2,7 @@ import {
   NextFunction,
   Request as ExpressRequest,
   RequestHandler as ExpressRequestHandler,
-  Response,
+  Response
 } from "express"
 
 export interface Request<BodyType = any> extends ExpressRequest {
@@ -27,7 +27,7 @@ export type RequestHandler<
 > = (
   request: Request<RequestBodyType>,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => HandlerReturnType
 
 export type RequestHandlers =

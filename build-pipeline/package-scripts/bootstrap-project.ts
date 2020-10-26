@@ -24,9 +24,11 @@ interface Options {
 export default function main() {
   const cli = yargs(process.argv)
 
-  const { projectName, displayName, configuration: onlyConfiguration } = cli.argv as Argv<
-    Options
-  >["argv"]
+  const {
+    projectName,
+    displayName,
+    configuration: onlyConfiguration,
+  } = cli.argv as Argv<Options>["argv"]
   const projectIds: string[] = []
 
   if (!projectName) throw new InvalidInputError("--projectName is required.")
@@ -130,7 +132,10 @@ export default function main() {
     )
     firebaseConfigFile = firebaseConfigFile.match(/\{.+/)?.[0]!
     const firebaseConfig = JSON.parse(
-      firebaseConfigFile?.substring(0, firebaseConfigFile.lastIndexOf("}") + 1)!
+      firebaseConfigFile?.substring(
+        0,
+        firebaseConfigFile.lastIndexOf("}") + 1
+      )!
     )
     writeFileSync(
       resolve(__dirname, "../../", `configuration/${configuration}.ts`),

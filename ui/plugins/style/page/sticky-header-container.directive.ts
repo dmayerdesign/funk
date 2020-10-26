@@ -34,7 +34,9 @@ export class StickyHeaderContainerDirective
     this._headerElement = document?.querySelector(".sticky-header") ?? undefined
 
     if (!this._headerElement) {
-      console.warn("[StickyHeaderContainerDirective] .sticky-header was not found.")
+      console.warn(
+        "[StickyHeaderContainerDirective] .sticky-header was not found."
+      )
       return
     }
 

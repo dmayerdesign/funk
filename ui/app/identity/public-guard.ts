@@ -4,7 +4,7 @@ import {
   Router,
   UrlTree,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot,
+  RouterStateSnapshot
 } from "@angular/router"
 import roleHasAdminPrivilegeOrGreater from "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"

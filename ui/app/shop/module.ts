@@ -8,7 +8,7 @@ import { USER_SESSION } from "@funk/ui/app/identity/tokens"
 import {
   LISTEN_BY_ID,
   POPULATE,
-  QUERY_COLLECTION_FOR_METADATA,
+  QUERY_COLLECTION_FOR_METADATA
 } from "@funk/ui/app/persistence/tokens"
 import { ShopContainer } from "@funk/ui/app/shop/container"
 import { construct as constructResolveEnterprise } from "@funk/ui/app/shop/enterprise/resolve-enterprise"
@@ -17,7 +17,7 @@ import { CheckoutComponent } from "@funk/ui/app/shop/orders/checkout/component"
 import {
   CART,
   CART_SET_SKU_QUANTITY,
-  SET_SKU_QUANTITY,
+  SET_SKU_QUANTITY
 } from "@funk/ui/app/shop/orders/tokens"
 import { ProductModule } from "@funk/ui/app/shop/product/module"
 import { ENTERPRISE, RESOLVE_ENTERPRISE } from "@funk/ui/app/shop/tokens"

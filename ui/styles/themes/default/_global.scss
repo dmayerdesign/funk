@@ -2,22 +2,29 @@
 
 // Header.
 .sticky-header {
+  $animation-duration: 100ms;
+
   background: $color-navbar-background;
 
   &::after {
-    transition: opacity 300ms;
+    transition: opacity $animation-duration;
   }
   &.no-box-shadow::after {
     opacity: 0;
   }
   &.transparent-until-scrolled {
     transition-property: background, color;
-    transition-duration: 300ms;
+    transition-duration: $animation-duration;
     position: absolute;
     z-index: 1000;
 
     &.background-transparent {
       background: transparent !important;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.25) 0%,
+        rgba(0, 0, 0, 0) 100%
+      ) !important;
 
       ion-toolbar {
         --color: #{$color-dark-contrast};

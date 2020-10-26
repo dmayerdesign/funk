@@ -3,7 +3,7 @@ import createFunction from "@funk/api/functions/helpers/http/create-function"
 import handleError from "@funk/api/functions/helpers/http/handle-error"
 import handleRequest, {
   HandlerReturnTypes,
-  RequestHandlers,
+  RequestHandlers
 } from "@funk/api/functions/helpers/http/handle-request"
 import { RequestWithBody } from "@funk/api/functions/model/request-response/request-with-body"
 import { HttpsFunction } from "@funk/api/plugins/cloud-function/https-function"

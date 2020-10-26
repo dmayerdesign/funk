@@ -4,7 +4,7 @@ import { UserRole } from "@funk/model/auth/user-role"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
 import {
   createRouterStub,
-  createUserSession,
+  createUserSession
 } from "@funk/ui/core/identity/stubs"
 
 describe("AnonymousGuard", () => {

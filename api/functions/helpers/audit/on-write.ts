@@ -5,7 +5,7 @@ import omitNullish from "@funk/helpers/omit-nullish"
 import { Mutation } from "@funk/model/audit/mutation"
 import {
   DatabaseDocument,
-  DbDocumentInput,
+  DbDocumentInput
 } from "@funk/model/data-access/database-document"
 
 export default function <DocumentType extends DatabaseDocument>(

@@ -12,7 +12,7 @@ import {
   OnDestroy,
   Pipe,
   PipeTransform,
-  WrappedValue,
+  WrappedValue
 } from "@angular/core"
 import { Observable, SubscriptionLike } from "rxjs"
 

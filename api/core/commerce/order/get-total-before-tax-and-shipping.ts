@@ -8,7 +8,7 @@ import subtract from "@funk/model/commerce/price/behaviors/subtract"
 import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
 import {
   MarshalledProduct,
-  PRODUCTS,
+  PRODUCTS
 } from "@funk/model/commerce/product/product"
 import getPriceAfterSkuDiscounts from "@funk/model/commerce/sku/behaviors/get-price-after-discounts"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"

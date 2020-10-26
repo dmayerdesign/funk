@@ -9,7 +9,7 @@ export default function <
   collectionPath: string,
   handler: (
     snapshot: FirebaseFirestore.DocumentSnapshot,
-    { params }: ChangeContext
+    { params }: ChangeContext,
   ) => Promise<void>
 ): CloudFunction<FirebaseFirestore.QueryDocumentSnapshot<DocumentType>> {
   return handleCreate<DocumentType>(`${collectionPath}/{id}`, handler)

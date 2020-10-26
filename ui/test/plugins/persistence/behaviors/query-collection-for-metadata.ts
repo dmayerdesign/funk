@@ -3,7 +3,7 @@ import { DbDocumentMetadata } from "@funk/model/data-access/database-document"
 export default async function (
   _collectionPath: string,
   _selector: (
-    collectionReference: FirebaseFirestore.CollectionReference
+    collectionReference: FirebaseFirestore.CollectionReference,
   ) => FirebaseFirestore.Query
 ): Promise<DbDocumentMetadata[]> {
   throw new Error(

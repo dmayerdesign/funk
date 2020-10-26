@@ -1,7 +1,7 @@
 import { Condition } from "@funk/api/plugins/persistence/condition"
 import {
   Pagination,
-  VirtualPagination,
+  VirtualPagination
 } from "@funk/api/plugins/persistence/pagination"
 import { getStore } from "@funk/api/test/data-access/in-memory-store"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"

@@ -4,7 +4,7 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
+  UrlTree
 } from "@angular/router"
 import roleHasPublicPrivilegeOrGreater from "@funk/model/auth/helpers/role-has-public-privilege-or-greater"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"

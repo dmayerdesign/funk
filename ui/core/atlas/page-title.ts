@@ -6,7 +6,7 @@ export function construct(router: Router) {
   return router.events.pipe(
     filter<Event, ActivationEnd>(
       ((event) => event instanceof ActivationEnd) as (
-        value: Event
+        value: Event,
       ) => value is ActivationEnd
     ),
     pluck("snapshot"),

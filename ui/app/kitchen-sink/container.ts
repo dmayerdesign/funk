@@ -28,7 +28,7 @@ import { BehaviorSubject, timer } from "rxjs"
         <ion-card class="full-width flat hero">
           <div class="card-media">
             <img
-              src="https://images.pexels.com/photos/1784578/pexels-photo-1784578.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+              src="https://images.pexels.com/photos/4523302/pexels-photo-4523302.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             />
           </div>
           <ion-card-header class="max-width-container">

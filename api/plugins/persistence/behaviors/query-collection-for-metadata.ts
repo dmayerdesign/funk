@@ -5,7 +5,7 @@ export function construct(store: typeof storeImpl) {
   return async function (
     collectionPath: string,
     selector: (
-      collectionReference: FirebaseFirestore.CollectionReference
+      collectionReference: FirebaseFirestore.CollectionReference,
     ) => FirebaseFirestore.Query
   ): Promise<DbDocumentMetadata[]> {
     return await selector(store().collection(collectionPath))

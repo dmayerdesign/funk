@@ -3,7 +3,7 @@ import {
   mkdirpSync,
   readFileSync,
   unlinkSync,
-  writeFileSync,
+  writeFileSync
 } from "fs-extra"
 import { kebabCase } from "lodash"
 import md5 from "md5"

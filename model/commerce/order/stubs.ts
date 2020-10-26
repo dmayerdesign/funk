@@ -3,7 +3,7 @@ import {
   MarshalledCart,
   MarshalledOrder,
   Order,
-  Status,
+  Status
 } from "@funk/model/commerce/order/order"
 import { NULL_PRICE } from "@funk/model/commerce/price/price"
 import { merge } from "lodash"

@@ -6,7 +6,7 @@ import {
   Cart,
   MarshalledCart,
   ORDERS,
-  Status,
+  Status
 } from "@funk/model/commerce/order/order"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 import { UserSession } from "@funk/ui/core/identity/user-session"

@@ -3,7 +3,7 @@ import { GetPaymentProvider } from "@funk/api/plugins/payment/behaviors/get-paym
 import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/configuration"
 import {
   createGetPaymentProviderStub,
-  PaymentProviderStub,
+  PaymentProviderStub
 } from "@funk/api/plugins/payment/stubs"
 import Stripe from "stripe"
 

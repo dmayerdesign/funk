@@ -1,7 +1,7 @@
 import {
   ignoreNullish,
   maybePluck,
-  shareReplayOnce,
+  shareReplayOnce
 } from "@funk/helpers/rxjs-shims"
 import { UserState, USER_STATES } from "@funk/model/identity/user-state"
 import { UserSession } from "@funk/ui/core/identity/user-session"
@@ -19,7 +19,8 @@ export function construct(userSession: UserSession, listenById: ListenById) {
       )
     ),
     map(
-      (maybeContentPreviews) => !!Object.keys(maybeContentPreviews ?? {}).length
+      (maybeContentPreviews) =>
+        !!Object.keys(maybeContentPreviews ?? {}).length
     ),
     shareReplayOnce()
   )

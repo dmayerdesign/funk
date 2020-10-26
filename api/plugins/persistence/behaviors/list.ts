@@ -1,7 +1,7 @@
 import { Condition } from "@funk/api/plugins/persistence/condition"
 import {
   Pagination,
-  VirtualPagination,
+  VirtualPagination
 } from "@funk/api/plugins/persistence/pagination"
 import { store } from "@funk/api/plugins/persistence/server-store"
 import { AbstractWhere } from "@funk/api/plugins/persistence/where"

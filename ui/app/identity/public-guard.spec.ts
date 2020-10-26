@@ -6,7 +6,7 @@ import { PublicGuard } from "@funk/ui/app/identity/public-guard"
 import {
   createRouterStub,
   createStubbedPublicGuard,
-  createUserSession,
+  createUserSession
 } from "@funk/ui/core/identity/stubs"
 import { of } from "rxjs"
 

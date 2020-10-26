@@ -44,6 +44,12 @@ module.exports = {
     "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/unified-signatures": "off",
     "@typescript-eslint/indent": "off",
+    "@typescript-eslint/no-shadow": [
+      "error",
+      {
+        hoist: "all",
+      },
+    ],
     "arrow-body-style": "error",
     "constructor-super": "error",
     "comma-dangle": [
@@ -65,12 +71,6 @@ module.exports = {
     "no-eval": "error",
     "no-fallthrough": "error",
     "no-new-wrappers": "error",
-    "no-shadow": [
-      "error",
-      {
-        hoist: "all",
-      },
-    ],
     "no-throw-literal": "error",
     "no-trailing-spaces": "warn",
     "no-undef-init": "error",

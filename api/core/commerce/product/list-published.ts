@@ -2,7 +2,7 @@ import listImpl from "@funk/api/core/commerce/product/list"
 import { Condition } from "@funk/api/plugins/persistence/condition"
 import {
   Pagination,
-  VirtualPagination,
+  VirtualPagination
 } from "@funk/api/plugins/persistence/pagination"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
 

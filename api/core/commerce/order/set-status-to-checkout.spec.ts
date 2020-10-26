@@ -6,7 +6,7 @@ import { PRESENTABLE_ERROR_MARKER } from "@funk/helpers/throw-presentable-error"
 import {
   MarshalledCart,
   ORDERS,
-  Status,
+  Status
 } from "@funk/model/commerce/order/order"
 import { createFakeMarshalledCart } from "@funk/model/commerce/order/stubs"
 import { FiniteInventory } from "@funk/model/commerce/sku/inventory"

@@ -4,7 +4,7 @@ import {
   Change,
   CloudFunction,
   EventContext,
-  firestore,
+  firestore
 } from "firebase-functions"
 
 export function handleWrite<
@@ -17,7 +17,7 @@ export function handleWrite<
         DocumentType | FirebaseFirestore.DocumentData
       >
     >,
-    context: EventContext
+    context: EventContext,
   ) => PromiseLike<any> | any
 ): CloudFunction<
   Change<
@@ -39,7 +39,7 @@ export function handleUpdate<
         DocumentType | FirebaseFirestore.DocumentData
       >
     >,
-    context: EventContext
+    context: EventContext,
   ) => PromiseLike<any> | any
 ): CloudFunction<
   Change<
@@ -59,7 +59,7 @@ export function handleCreate<
     change: FirebaseFirestore.DocumentSnapshot<
       DocumentType | FirebaseFirestore.DocumentData
     >,
-    context: EventContext
+    context: EventContext,
   ) => PromiseLike<any> | any
 ): CloudFunction<
   FirebaseFirestore.QueryDocumentSnapshot<
@@ -77,7 +77,7 @@ export function handleDelete<
     change: FirebaseFirestore.DocumentSnapshot<
       DocumentType | FirebaseFirestore.DocumentData
     >,
-    context: EventContext
+    context: EventContext,
   ) => PromiseLike<any> | any
 ): CloudFunction<
   FirebaseFirestore.QueryDocumentSnapshot<

@@ -4,7 +4,7 @@ import {
   mkdirpSync,
   readFileSync,
   removeSync,
-  writeFileSync,
+  writeFileSync
 } from "fs-extra"
 import { resolve } from "path"
 import { sync as removeRecursiveSync } from "rimraf"
