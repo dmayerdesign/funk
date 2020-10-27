@@ -9,35 +9,35 @@ import { IonMenu } from "@ionic/angular"
   selector: "app-root",
   styles: [
     `
-      #main {
+      #routes {
         height: 100vh;
       }
     `,
   ],
   template: `
-    <ion-app>
-      <ion-menu side="start" content-id="main">
-        <ion-header>
-          <ion-toolbar translucent>
-            <ion-title>Menu</ion-title>
+    <ion-app class="app">
+      <ion-menu class="menu" side="start" content-id="main">
+        <ion-header class="header">
+          <ion-toolbar class="toolbar" translucent>
+            <ion-title class="title">Menu</ion-title>
           </ion-toolbar>
         </ion-header>
-        <ion-content>
-          <ion-list>
+        <ion-content class="content">
+          <ion-list class="list">
             <ng-container *ngFor="let menuLink of menuItems">
-              <ion-item [routerLink]="menuLink.url">
-                <ion-label>{{ menuLink.label }}</ion-label>
+              <ion-item class="item" [routerLink]="menuLink.url">
+                <ion-label class="label">{{ menuLink.label }}</ion-label>
               </ion-item>
             </ng-container>
           </ion-list>
         </ion-content>
       </ion-menu>
 
-      <main id="main">
+      <div id="routes">
         <managed-content-editor>
-          <ion-router-outlet></ion-router-outlet>
+          <ion-router-outlet class="router-outlet"></ion-router-outlet>
         </managed-content-editor>
-      </main>
+      </div>
     </ion-app>
   `,
 })

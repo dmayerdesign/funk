@@ -1,15 +1,15 @@
-import { Component, OnInit, Inject } from "@angular/core"
+import { Component, Inject, OnInit } from "@angular/core"
+import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 import { SKU_IMPORT } from "@funk/ui/app/shop/sku/tokens"
 import { SkuImport } from "@funk/ui/functions/commerce/sku/import"
-import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
 
 @Component({
   selector: "import-skus",
   template: `
-    <ion-button expand="full" (click)="importSkusInput.click()">
-      <ion-icon lazy="true" slot="start" name="image"></ion-icon>
-      <ion-label slot="end">Upload Image</ion-label>
+    <ion-button class="button" expand="full" (click)="importSkusInput.click()">
+      <ion-icon class="icon" lazy="true" slot="start" name="image"></ion-icon>
+      <ion-label class="label" slot="end">Upload Image</ion-label>
       <input
         #importSkusInput
         id="import-skus-input"

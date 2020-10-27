@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, Inject } from "@angular/core"
+import { Component, EventEmitter, Inject, Input, Output } from "@angular/core"
 import { FormGroup } from "@angular/forms"
 import { Login } from "@funk/model/auth/login"
 import { IonNav } from "@ionic/angular"
@@ -16,16 +16,17 @@ import { IonNav } from "@ionic/angular"
     <div class="sign-in-inner">
       <h2>Sign Up</h2>
       <form [formGroup]="signUpFormGroup" (ngSubmit)="handleSubmit()">
-        <ion-list class="ion-no-margin ion-no-padding" lines="full">
-          <ion-item>
-            <ion-label position="stacked"> Email Address </ion-label>
-            <ion-input formControlName="email" placeholder="email" type="email">
+        <ion-list class="list ion-no-margin ion-no-padding" lines="full">
+          <ion-item class="item">
+            <ion-label class="label" position="stacked"> Email Address </ion-label>
+            <ion-input class="input" formControlName="email" placeholder="email" type="email">
             </ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label position="stacked"> Password </ion-label>
+            <ion-label class="label" position="stacked"> Password </ion-label>
             <ion-input
+              class="input"
               formControlName="password"
               placeholder="password"
               type="password"
@@ -35,7 +36,7 @@ import { IonNav } from "@ionic/angular"
         </ion-list>
 
         <ion-button
-          class="ion-no-margin"
+          class="button ion-no-margin"
           expand="block"
           size="default"
           type="submit"
@@ -44,12 +45,12 @@ import { IonNav } from "@ionic/angular"
         </ion-button>
 
         <!--
-        <ion-button class="go-to-sign-up ion-no-margin"
+        <ion-button class="button go-to-sign-up ion-no-margin"
           type="button"
           size="small"
           fill="clear"
           (click)="goToSignIn()">
-          <ion-text color="blue">I already have an account</ion-text>
+          <ion-text class="text" color="blue">I already have an account</ion-text>
         </ion-button>
         -->
       </form>

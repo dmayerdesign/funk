@@ -47,25 +47,27 @@ const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
         </div>
 
         <div id="professional-portfolio-routes">
-          <ion-router-outlet></ion-router-outlet>
+          <ion-router-outlet class="router-outlet"></ion-router-outlet>
         </div>
       </ng-container>
 
       <ng-container *ngIf="isMobileLayout | async">
         <ion-header
+          class="header"
           style="
             --background: transparent
           "
         >
           <ion-toolbar
-            class="max-width-container"
+            class="toolbar max-width-container"
             style="
               --background: transparent;
               --border-width: 0;
             "
           >
-            <ion-buttons slot="end">
+            <ion-buttons class="buttons" slot="end">
               <ion-menu-button
+                class="menu-button"
                 style="
                 --color: var(--ion-color-dark-contrast);
               "
@@ -94,7 +96,7 @@ const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
             </h2>
           </div>
           <div id="professional-portfolio-routes">
-            <ion-router-outlet></ion-router-outlet>
+            <ion-router-outlet class="router-outlet"></ion-router-outlet>
           </div>
         </div>
       </ng-container>

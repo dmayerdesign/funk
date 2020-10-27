@@ -69,7 +69,7 @@ $has-preview-notice-height: 32px;
         }
       }
     }
-    > ion-router-outlet {
+    > .router-outlet {
       top: $has-preview-notice-height;
     }
   }
@@ -120,7 +120,7 @@ $has-preview-notice-height: 32px;
 #managed-content-editor-drawer {
   $actions-height: 50px;
 
-  ion-card {
+  .card {
     background: #fff;
     margin: 0;
     padding: 15px 30px;

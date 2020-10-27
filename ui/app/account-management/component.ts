@@ -1,9 +1,9 @@
-import { Component } from "@angular/core"
+import { Component } from "@angular/core";
 
 @Component({
   selector: "account-management",
   template: `
-    <ion-toolbar>
+    <ion-toolbar class="toolbar">
       <ion-title>Manage Your Account</ion-title>
     </ion-toolbar>
   `,

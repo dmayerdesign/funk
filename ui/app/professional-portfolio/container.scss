@@ -94,7 +94,7 @@ $color-input-border-hex: #d1cdcb;
 
   #banner-and-navigation,
   #banner,
-  #professional-portfolio-routes .ion-page {
+  #professional-portfolio-routes > * {
     box-sizing: border-box;
   }
 
@@ -234,7 +234,7 @@ $color-input-border-hex: #d1cdcb;
       }
     }
 
-    .ion-page {
+    .router-outlet > * {
       @include routes-background();
     }
 

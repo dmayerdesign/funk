@@ -33,6 +33,7 @@ const ANIMATION_DURATION_MS = 500
         <div id="has-preview-actions">
           <div class="has-preview-action">
             <ion-button
+              class="button"
               [style.font-size]="'11px'"
               size="small"
               color="primary"
@@ -43,6 +44,7 @@ const ANIMATION_DURATION_MS = 500
           </div>
           <div class="has-preview-action">
             <ion-button
+              class="button"
               [style.font-size]="'11px'"
               size="small"
               color="danger"
@@ -66,7 +68,7 @@ const ANIMATION_DURATION_MS = 500
         [exclude]="'.ck-body-wrapper *'"
         [excludeBeforeClick]="true"
       >
-        <ion-card class="flat flat-with-shadow">
+        <ion-card class="card flat flat-with-shadow">
           <div id="editor-container">
             <ckeditor
               [config]="{ toolbar: editorToolbarConfig | async }"
@@ -78,6 +80,7 @@ const ANIMATION_DURATION_MS = 500
           <div id="editor-actions" class="drawer-card-actions">
             <div class="drawer-card-action">
               <ion-button
+                class="button"
                 buttonType="button"
                 color="dark"
                 expand="full"
@@ -88,6 +91,7 @@ const ANIMATION_DURATION_MS = 500
             </div>
             <div class="drawer-card-action">
               <ion-button
+                class="button"
                 buttonType="button"
                 color="danger"
                 expand="full"

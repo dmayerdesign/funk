@@ -37,7 +37,7 @@ import { filter, first, pluck, switchMap } from "rxjs/operators"
       </button>
 
       <ion-button
-        class="sign-out-button"
+        class="button sign-out-button"
         size="small"
         expand="block"
         fill="clear"

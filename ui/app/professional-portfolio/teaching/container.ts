@@ -8,7 +8,7 @@ import { map } from "rxjs/operators"
 @Component({
   template: `
     <ion-content
-      class="professional-portfolio-route"
+      class="content professional-portfolio-route"
       style="--background: transparent"
     >
       <article class="professional-portfolio-route-inner">

@@ -26,27 +26,35 @@
         rgba(0, 0, 0, 0) 100%
       ) !important;
 
-      ion-toolbar {
+      .toolbar {
         --color: #{$color-dark-contrast};
       }
     }
   }
 
-  ion-toolbar {
+  .toolbar {
     --background: transparent;
   }
 }
 
 // Page.
-.ion-page {
+.router-outlet > * {
   background: $color-page-background;
 }
 
 // Card.
-ion-card {
+.card {
   .card-media {
     max-height: 400px;
     overflow: hidden;
+
+    &.card-media-background-image {
+      width: 100%;
+      height: 400px;
+      background-position: 50% 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
   }
   img,
   video {
@@ -70,20 +78,20 @@ ion-card {
       width: 100%;
     }
 
-    ion-card-header,
-    ion-card-content {
+    .card-header,
+    .card-content {
       @media screen and (min-width: #{$content-max-width-px}px) {
         padding-left: 0px;
         padding-right: 0px;
       }
     }
-    ion-card-header {
+    .card-header {
       padding-top: 100px;
     }
-    ion-card-content {
+    .card-content {
       padding-bottom: 70px;
     }
-    ion-card-title {
+    .card-title {
       @media screen and (min-width: 768px) {
         font-size: #{$hero-title-font-size-above-md-px}px;
       }
@@ -91,13 +99,13 @@ ion-card {
         font-size: #{$hero-title-font-size-below-md-px}px;
       }
     }
-    ion-card-title[color="light"] {
+    .card-title[color="light"] {
       color: $color-hero-title-light;
     }
-    ion-card-title[color="dark"] {
+    .card-title[color="dark"] {
       color: $color-hero-title-dark;
     }
-    ion-card-subtitle {
+    .card-subtitle {
       @media screen and (min-width: 768px) {
         font-size: #{$hero-subtitle-font-size-above-md-px}px;
       }
@@ -105,10 +113,10 @@ ion-card {
         font-size: #{$hero-subtitle-font-size-below-md-px}px;
       }
     }
-    ion-card-subtitle[color="light"] {
+    .card-subtitle[color="light"] {
       color: $color-hero-subtitle-light;
     }
-    ion-card-subtitle[color="dark"] {
+    .card-subtitle[color="dark"] {
       color: $color-hero-subtitle-dark;
     }
   }

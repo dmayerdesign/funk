@@ -7,11 +7,11 @@
 // @Component({
 //   selector: "import-skus",
 //   template: `
-//     <ion-button expand="full"
+//     <ion-button class="button" expand="full"
 
 //       (click)="importSkusInput.click()">
-//       <ion-icon lazy="true" slot="start" name="image"></ion-icon>
-//       <ion-label slot="end">Upload Image</ion-label>
+//       <ion-icon class="icon" lazy="true" slot="start" name="image"></ion-icon>
+//       <ion-label class="label" slot="end">Upload Image</ion-label>
 //       <input #importSkusInput
 //         id="import-skus-input"
 //         type="file"

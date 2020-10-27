@@ -17,7 +17,7 @@ import { pluck } from "rxjs/operators"
   //   </ion-content>
   // `,
   template: `
-    <ion-card>
+    <ion-card class="card">
       <h3>Checkout works!</h3>
       <p>Shipping cost strategy: {{ shippingCostStrategy | async }}</p>
     </ion-card>

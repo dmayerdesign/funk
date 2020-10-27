@@ -15,14 +15,14 @@ import { Platform } from "@ionic/angular"
 @Component({
   selector: "admin",
   template: `
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>
+    <ion-header class="header">
+      <ion-toolbar class="toolbar" color="primary">
+        <ion-title class="title">
           <managed-content contentId="app-title"></managed-content>
         </ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
+    <ion-content class="content ion-padding">
       <div>
         <h1>Set Secret</h1>
         <form [formGroup]="setSecretFormGroup" (ngSubmit)="setSecret()">

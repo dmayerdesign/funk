@@ -6,27 +6,28 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
   selector: "shop",
   template: `
     <ng-template sticky-header-container let-handleContentScroll>
-      <ion-header>
-        <ion-toolbar class="max-width-container">
-          <ion-title
+      <ion-header class="header">
+        <ion-toolbar class="toolbar max-width-container">
+          <ion-title class="title"
             ><managed-content contentId="shop-title"></managed-content
           ></ion-title>
-          <ion-buttons slot="primary">
-            <ion-button routerLink="/shop/home">Go Home</ion-button>
-            <ion-button routerLink="/shop/checkout">Go to Checkout</ion-button>
+          <ion-buttons class="buttons" slot="primary">
+            <ion-button class="button" routerLink="/shop/home">Go Home</ion-button>
+            <ion-button class="button" routerLink="/shop/checkout">Go to Checkout</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
 
       <ng-container *ngIf="!(enterprise | async)">
-        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+        <ion-progress-bar class="progress-bar" type="indeterminate"></ion-progress-bar>
       </ng-container>
 
       <ion-content
+        class="content"
         [scrollEvents]="true"
         (ionScroll)="handleContentScroll($event)"
       >
-        <ion-router-outlet [animated]="true"></ion-router-outlet>
+        <ion-router-outlet class="router-outlet" [animated]="true"></ion-router-outlet>
       </ion-content>
     </ng-template>
   `,

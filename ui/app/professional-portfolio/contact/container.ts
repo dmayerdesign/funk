@@ -18,7 +18,7 @@ import { map } from "rxjs/operators"
 @Component({
   template: `
     <ion-content
-      class="professional-portfolio-route"
+      class="content professional-portfolio-route"
       style="--background: transparent"
     >
       <div class="professional-portfolio-route-inner">
@@ -57,7 +57,7 @@ import { map } from "rxjs/operators"
             >
               <ng-container *ngIf="submitting">
                 <div class="spinner">
-                  <ion-spinner name="crescent"></ion-spinner>
+                  <ion-spinner class="spinner" name="crescent"></ion-spinner>
                 </div>
               </ng-container>
 
