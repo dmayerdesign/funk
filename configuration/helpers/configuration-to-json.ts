@@ -16,7 +16,7 @@ export function configToJson(configuration: Configuration) {
   } catch (error) {
     throw new Error(
       `The configuration "${configuration}" was not found. Make sure the string you pass to the ` +
-        "\`-c/--configuration\` flag matches the name of a file in the `configuration` folder " +
+        "`-c/--configuration` flag matches the name of a file in the `configuration` folder " +
         "(e.g. -c development)"
     )
   }

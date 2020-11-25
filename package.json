@@ -29,7 +29,6 @@
     "ng": "./node_modules/.bin/ng",
     "firebase": "./node_modules/.bin/firebase",
     "tsc": "./node_modules/.bin/tsc",
-    "firestore-import": "./node_modules/.bin/firestore-import",
     "chokidar": "./node_modules/.bin/chokidar",
     "tscpaths": "./node_modules/.bin/tscpaths",
     "eslint": "./node_modules/.bin/eslint",

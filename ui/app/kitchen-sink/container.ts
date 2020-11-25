@@ -15,7 +15,10 @@ import { BehaviorSubject, timer } from "rxjs"
         </ion-toolbar>
       </ion-header>
       <ng-container *ngIf="someDataLoading | async">
-        <ion-progress-bar class="progress-bar" type="indeterminate"></ion-progress-bar>
+        <ion-progress-bar
+          class="progress-bar"
+          type="indeterminate"
+        ></ion-progress-bar>
       </ng-container>
       <ion-content
         class="content sticky-header-content ion-padding"
@@ -28,12 +31,22 @@ import { BehaviorSubject, timer } from "rxjs"
         "
       >
         <ion-card class="card full-width flat hero">
-          <div class="card-media card-media-background-image"
-            [style.background-image]="'url(https://images.pexels.com/photos/1955134/pexels-photo-1955134.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)'">
-          </div>
+          <managed-content
+            [contentId]="'kitchen-sink-hero-1'"
+          ></managed-content>
+          <div
+            class="card-media card-media-background-image"
+            [style.background-image]="
+              'url(https://images.pexels.com/photos/1955134/pexels-photo-1955134.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)'
+            "
+          ></div>
           <ion-card-header class="card-header max-width-container">
-            <ion-card-subtitle class="card-subtitle" color="light">Card Subtitle</ion-card-subtitle>
-            <ion-card-title class="card-title" color="light">Card Title</ion-card-title>
+            <ion-card-subtitle class="card-subtitle" color="light"
+              >Card Subtitle</ion-card-subtitle
+            >
+            <ion-card-title class="card-title" color="light"
+              >Card Title</ion-card-title
+            >
           </ion-card-header>
           <ion-card-content class="card-content max-width-container">
             <ion-text class="paragraph" color="light">
@@ -54,7 +67,9 @@ import { BehaviorSubject, timer } from "rxjs"
                   ></video>
                 </div>
                 <ion-card-header class="card-header">
-                  <ion-card-subtitle class="card-subtitle">Card Subtitle</ion-card-subtitle>
+                  <ion-card-subtitle class="card-subtitle"
+                    >Card Subtitle</ion-card-subtitle
+                  >
                   <ion-card-title class="card-title">Card Title</ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="card-content">
@@ -68,7 +83,9 @@ import { BehaviorSubject, timer } from "rxjs"
             <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="4" sizeXl="4">
               <ion-card class="card">
                 <ion-card-header class="card-header">
-                  <ion-card-subtitle class="card-subtitle">Card Subtitle</ion-card-subtitle>
+                  <ion-card-subtitle class="card-subtitle"
+                    >Card Subtitle</ion-card-subtitle
+                  >
                   <ion-card-title class="card-title">Card Title</ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="card-content">
@@ -78,10 +95,22 @@ import { BehaviorSubject, timer } from "rxjs"
                 </ion-card-content>
               </ion-card>
             </ion-col>
-            <ion-col class="col" sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="4" sizeXl="4">
+            <ion-col
+              class="col"
+              sizeXs="12"
+              sizeSm="12"
+              sizeMd="6"
+              sizeLg="4"
+              sizeXl="4"
+            >
               <ion-card class="card">
                 <ion-item class="item">
-                  <ion-icon class="icon" lazy="true" name="pin" slot="start"></ion-icon>
+                  <ion-icon
+                    class="icon"
+                    lazy="true"
+                    name="pin"
+                    slot="start"
+                  ></ion-icon>
                   <ion-label class="label">
                     ion-item in a card, icon left, button right
                   </ion-label>
@@ -94,10 +123,19 @@ import { BehaviorSubject, timer } from "rxjs"
                 </ion-card-content>
               </ion-card>
             </ion-col>
-            <ion-col class="col" sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="4" sizeXl="4">
+            <ion-col
+              class="col"
+              sizeXs="12"
+              sizeSm="12"
+              sizeMd="6"
+              sizeLg="4"
+              sizeXl="4"
+            >
               <ion-card class="card">
                 <ion-card-header class="card-header">
-                  <ion-card-subtitle class="card-subtitle">Card Subtitle</ion-card-subtitle>
+                  <ion-card-subtitle class="card-subtitle"
+                    >Card Subtitle</ion-card-subtitle
+                  >
                   <ion-card-title class="card-title">Card Title</ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="card-content">

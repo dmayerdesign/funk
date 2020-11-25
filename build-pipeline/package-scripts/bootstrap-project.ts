@@ -19,6 +19,8 @@ interface Options {
   projectName: string
   displayName: string
   configuration?: Configuration
+  clean?: boolean
+  skipBuild?: boolean
 }
 
 export default function main() {
@@ -28,6 +30,8 @@ export default function main() {
     projectName,
     displayName,
     configuration: onlyConfiguration,
+    clean,
+    skipBuild,
   } = cli.argv as Argv<Options>["argv"]
   const projectIds: string[] = []
 
@@ -45,8 +49,12 @@ export default function main() {
   const PATH_TO_BUILD_ARTIFACTS =
     ".funk/build-pipeline-output/bootstrap-project"
 
-  if (existsSync(resolve(".funk"))) {
+  const hasInitializedBefore = existsSync(resolve(".funk"))
+  let isClean = !hasInitializedBefore
+
+  if (hasInitializedBefore || clean) {
     rimrafSync(resolve(".funk"))
+    isClean = true
   }
 
   throwIfNonzero(exec("npm install"))
@@ -161,7 +169,12 @@ export default function main() {
     if (configuration === Configuration.DEVELOPMENT) {
       writeFileSync(
         resolve(__dirname, "../../", "configuration/local.ts"),
-        localConfigTemplate({ firebaseConfig, projectId, displayName })
+        localConfigTemplate({
+          firebaseConfig,
+          projectId,
+          projectName,
+          displayName,
+        })
       )
       writeFileSync(
         resolve(__dirname, "../../", "configuration/local.firebase.json"),
@@ -236,20 +249,20 @@ export default function main() {
         --purpose encryption
 
       # Set up the firestore emulator.
-      firebase setup:emulators:firestore
+      ${isClean ? "firebase setup:emulators:firestore" : ""}
 
       # Add iOS.
-      # ionic capacitor add ios
+      ${isClean ? "ionic capacitor add ios" : ""}
       # If you get the error "Error running update: Analyzing dependencies", run the
       # following command:
       # sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
       # See: https://github.com/ionic-team/capacitor/issues/1072
 
       # Add Android.
-      # ionic capacitor add android
+      ${isClean ? "ionic capacitor add android" : ""}
 
       # Run the very first build.
-      # npm run build::${configuration}
+      ${!skipBuild ? `npm run build::${configuration}` : ""}
     `)
     )
   }

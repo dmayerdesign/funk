@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "funk-development-0907",
-    "development": "funk-development-0907",
-    "production": "funk-production-0907"
+    "default": "test-a9c4abf-development",
+    "development": "test-a9c4abf-development",
+    "production": "test-a9c4abf-production"
   }
 }

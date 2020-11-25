@@ -5,7 +5,12 @@ import { Component } from "@angular/core"
   selector: "not-found",
   template: `
     <h1>Not Found</h1>
-    <ion-button class="button" mat-raised-button color="accent" (click)="location.back()">
+    <ion-button
+      class="button"
+      mat-raised-button
+      color="accent"
+      (click)="location.back()"
+    >
       Go back
     </ion-button>
   `,

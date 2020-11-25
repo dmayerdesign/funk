@@ -18,8 +18,15 @@ import { IonNav } from "@ionic/angular"
       <form [formGroup]="signUpFormGroup" (ngSubmit)="handleSubmit()">
         <ion-list class="list ion-no-margin ion-no-padding" lines="full">
           <ion-item class="item">
-            <ion-label class="label" position="stacked"> Email Address </ion-label>
-            <ion-input class="input" formControlName="email" placeholder="email" type="email">
+            <ion-label class="label" position="stacked">
+              Email Address
+            </ion-label>
+            <ion-input
+              class="input"
+              formControlName="email"
+              placeholder="email"
+              type="email"
+            >
             </ion-input>
           </ion-item>
 

@@ -36,19 +36,25 @@
     "__collections__": {}
   },
   "professional-portfolio-publications-article": {
-    "id": "professional-portfolio-about-article",
+    "id": "professional-portfolio-publications-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
     "__collections__": {}
   },
   "professional-portfolio-honors-article": {
-    "id": "professional-portfolio-about-article",
+    "id": "professional-portfolio-honors-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
     "__collections__": {}
   },
   "professional-portfolio-teaching-article": {
-    "id": "professional-portfolio-about-article",
+    "id": "professional-portfolio-teaching-article",
+    "value": "<p>Something goes here</p>",
+    "type": "HTML",
+    "__collections__": {}
+  },
+  "kitchen-sink-hero-1": {
+    "id": "kitchen-sink-hero-1",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
     "__collections__": {}

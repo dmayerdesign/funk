@@ -1,12 +1,12 @@
 import {
-  ChangeDetectionStrategy, Component,
+  ChangeDetectionStrategy,
+  Component,
   EventEmitter,
   Input,
   OnChanges,
   Output,
-
-
-  SimpleChange, SimpleChanges
+  SimpleChange,
+  SimpleChanges
 } from "@angular/core"
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
 import { Product } from "@funk/model/commerce/product/product"
@@ -28,9 +28,7 @@ interface ProductListOptions {
       <ng-container *ngFor="let product of products">
         <ion-row class="row">
           <ion-col class="col">
-            <product-list-item
-              [product]="product"
-            ></product-list-item>
+            <product-list-item [product]="product"></product-list-item>
           </ion-col>
         </ion-row>
       </ng-container>
