@@ -155,7 +155,7 @@ export default function main() {
         "../../",
         `configuration/${configuration}.firebase.json`
       ),
-      firebaseJsonTemplate(projectName)
+      firebaseJsonTemplate(projectId)
     )
     writeFileSync(
       resolve(__dirname, "../../", ".firebaserc"),
