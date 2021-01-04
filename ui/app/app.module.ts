@@ -25,7 +25,7 @@ import { IonicStorageModule } from "@ionic/storage"
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: "serverApp" }),
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: "legacy" }),
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register("ngsw-worker.js", { enabled: IS_PRODUCTION }),
