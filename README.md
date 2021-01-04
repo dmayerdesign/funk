@@ -1,6 +1,6 @@
 <!--
 These badges are written as part of the `test` scripts.
-DO NOT EDIT lines 5-9 of this file.
+DO NOT EDIT lines 5-11 of this file.
 -->
 <!-- start badges -->
 

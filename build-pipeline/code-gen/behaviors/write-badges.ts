@@ -109,10 +109,10 @@ if (existsSync(pathToUiCoverageReport) && existsSync(pathToApiCoverageReport)) {
 
     const newReadme = [
       readmeSplit[0].trim() + "\n",
-      readmeBadgeStartComment + "\n",
+      readmeBadgeStartComment + "\n\n",
       "[![build](https://github.com/dmayerdesign/funk/workflows/build/badge.svg)](https://github.com/dmayerdesign/funk/actions?query=workflow%3A%22build%22)\n",
       `![UI coverage](https://img.shields.io/badge/UI%20coverage-${uiCoveragePercent}%25-${uiCoverageColor})\n`,
-      `![API coverage](https://img.shields.io/badge/API%20coverage-${apiCoveragePercent}%25-${apiCoverageColor})\n`,
+      `![API coverage](https://img.shields.io/badge/API%20coverage-${apiCoveragePercent}%25-${apiCoverageColor})\n\n`,
       readmeBadgeEndComment + "\n\n",
       readmeSplit[2].trimLeft(),
     ].join("")
