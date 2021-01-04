@@ -90,9 +90,9 @@ export default function main() {
       Configuration.LOCAL
     )
 
-    const KMS_LOCATION = "global"
-    const KEY_RING_ID = "main"
-    const KEY_ID = "main"
+    // const KMS_LOCATION = "global"
+    // const KEY_RING_ID = "main"
+    // const KEY_ID = "main"
 
     const PATH_TO_APP_ID_FILE = `${PATH_TO_BUILD_ARTIFACTS}/firebase-apps-create-web-${kebabCase(
       displayName
@@ -108,7 +108,7 @@ export default function main() {
         # Create the gcloud project.
         # Add Firebase to the gcloud project.
         # Set project.
-        ${PATH_TO_GCLOUD} projects create ${projectId}
+        # ${PATH_TO_GCLOUD} projects create ${projectId}
         firebase projects:addfirebase ${projectId}
         ${PATH_TO_GCLOUD} config set project ${projectId}
         firebase use ${projectId}
@@ -218,36 +218,24 @@ export default function main() {
     // Restrict the App Engine default service account's access.
     throwIfNonzero(
       exec(`
-      ${PATH_TO_GCLOUD} projects remove-iam-policy-binding ${projectId} \\
-        --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
-        --role=roles/editor
-      ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${projectId} \\
-        --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
-        --role=roles/cloudkms.cryptoKeyEncrypterDecrypter
-      ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${projectId} \\
-        --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
-        --role=roles/datastore.user
-      ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${projectId} \\
-        --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
-        --role=roles/firebaseauth.admin
-    `)
+        ${PATH_TO_GCLOUD} projects remove-iam-policy-binding ${projectId} \\
+          --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
+          --role=roles/editor
+        # ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${projectId} \\
+        #   --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
+        #   --role=roles/cloudkms.cryptoKeyEncrypterDecrypter
+        # ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${projectId} \\
+        #   --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
+        #   --role=roles/datastore.user
+        # ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${projectId} \\
+        #   --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
+        #   --role=roles/firebaseauth.admin
+      `)
     )
 
     // Enable other services, add mobile build tools, and run the build.
     throwIfNonzero(
       exec(`
-      # Enable services.
-      ${PATH_TO_GCLOUD} services enable --project ${projectId} \\
-        cloudkms.googleapis.com
-
-      # Set up KMS for data encryption.
-      ${PATH_TO_GCLOUD} kms keyrings create ${KEY_RING_ID} \\
-        --location ${KMS_LOCATION}
-      ${PATH_TO_GCLOUD} kms keys create ${KEY_ID} \\
-        --location ${KMS_LOCATION} \\
-        --keyring ${KEY_RING_ID} \\
-        --purpose encryption
-
       # Set up the firestore emulator.
       ${isClean ? "firebase setup:emulators:firestore" : ""}
 
@@ -317,7 +305,7 @@ export default function main() {
   )
   console.log("        Save the path to the private key file in the")
   console.log(
-    "        PATH_TO_OWNER_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`."
+    "        PATH_TO_ADMIN_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`."
   )
   console.log("")
   console.log(

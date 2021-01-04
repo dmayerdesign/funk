@@ -1,0 +1,11 @@
+variable "display_name" { type = string }
+variable "cloud_project_id" { type = string }
+variable "cloud_billing_account_id" { type = string }
+variable "client_app_url" { type = string }
+variable "homepage" { type = string }
+variable "owner_email" { type = string }
+variable "cloud_project_region" { type = string }
+variable "functions_region" { type = string }
+variable "functions_base_url" { type = string }
+variable "trusted_origins" { type = list }
+variable "firebase_config" { type = map }

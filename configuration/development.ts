@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 export const DISPLAY_NAME = "Test"
 export const CLOUD_PROJECT_ID = "test-a9c4abf-development"
+export const CLOUD_BILLING_ACCOUNT_ID = "01C55D-F9DD1D-29B8BC"
 export const CLIENT_APP_URL = `https://${CLOUD_PROJECT_ID}.web.app`
 export const HOMEPAGE = "sink"
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
