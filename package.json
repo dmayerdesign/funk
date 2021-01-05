@@ -67,7 +67,7 @@
     "@ionic/storage": "2.3.1",
     "@ngneat/until-destroy": "8.0.2",
     "@sendgrid/mail": "7.2.6",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "cookie-parser": "~1.4.5",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "1.7.1",
