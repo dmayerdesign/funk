@@ -12,3 +12,6 @@ sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/local-import-co
   --collection "identity.persons" \
   --collection "identity.user-states" \
   --collection "organizations"
+if [ $? -ne 0 ]; then
+(exit 1);
+fi
