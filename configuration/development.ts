@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 export const DISPLAY_NAME = "Test"
-export const CLOUD_PROJECT_ID = "test-a9c4abf-development"
+export const CLOUD_PROJECT_ID = "test-rbs503e-development"
 export const CLIENT_APP_URL = `https://${CLOUD_PROJECT_ID}.web.app`
 export const HOMEPAGE = "sink"
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
@@ -20,11 +20,10 @@ export const TAX_PUBLISHABLE_KEY = ""
 export const PAYMENT_PUBLISHABLE_KEY = ""
 export const TURING_TEST_PUBLISHABLE_KEY = ""
 export const FIREBASE_CONFIG = {
-  projectId: "test-a9c4abf-development",
-  appId: "1:8478306942:web:ca8c4546d8f285a7b65e2f",
-  databaseURL: "https://test-a9c4abf-development.firebaseio.com",
-  storageBucket: "test-a9c4abf-development.appspot.com",
-  apiKey: "AIzaSyCz1VdYgbX-ImNGENhTtTKl8kRzLKdzvG8",
-  authDomain: "test-a9c4abf-development.firebaseapp.com",
-  messagingSenderId: "8478306942",
+  projectId: "test-rbs503e-development",
+  appId: "1:279550398804:web:884d2a8903b6d8b7b078c1",
+  storageBucket: "test-rbs503e-development.appspot.com",
+  apiKey: "AIzaSyAZ6yeeSmOwRGPyqwMtd90zuiZhHBqyREQ",
+  authDomain: "test-rbs503e-development.firebaseapp.com",
+  messagingSenderId: "279550398804",
 }

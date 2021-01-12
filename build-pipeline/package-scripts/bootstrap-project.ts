@@ -106,10 +106,11 @@ export default function main() {
     throwIfNonzero(
       exec(`
         # Create the gcloud project.
+        ${PATH_TO_GCLOUD} projects create ${projectId} --name=${displayName}
+
         # Add Firebase to the gcloud project.
-        # Set project.
-        ${PATH_TO_GCLOUD} projects create ${projectId}
         firebase projects:addfirebase ${projectId}
+
         ${PATH_TO_GCLOUD} config set project ${projectId}
         firebase use ${projectId}
       `)
@@ -283,6 +284,7 @@ export default function main() {
   console.log(
     `   When enabling Google, set ${displayName} as the "Project public-facing name"`
   )
+  console.log("")
   console.log(
     projectIds
       .map(
@@ -317,7 +319,7 @@ export default function main() {
   )
   console.log("        Save the path to the private key file in the")
   console.log(
-    "        PATH_TO_OWNER_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`."
+    "        PATH_TO_ADMIN_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`."
   )
   console.log("")
   console.log(

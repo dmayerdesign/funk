@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "test-a9c4abf-development",
-    "development": "test-a9c4abf-development",
-    "production": "test-a9c4abf-production"
+    "default": "test-rbs503e-development",
+    "development": "test-rbs503e-development",
+    "production": "test-rbs503e-production"
   }
 }
