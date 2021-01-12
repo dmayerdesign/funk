@@ -193,28 +193,19 @@ export default function main() {
     )
 
     // Enable Functions and Firestore.
-    console.log("")
-    console.log(
-      "Please enable Cloud Functions and Firestore by following these steps. Then press"
-    )
-    console.log('"Return" to continue.')
-    console.log("")
-    console.log(
-      `1. Visit https://console.firebase.google.com/project/${projectId}/firestore.`
-    )
-    console.log("")
-    console.log('2. Click "Create database".')
-    console.log("")
-    console.log('3. Click "Next".')
-    console.log("")
-    console.log('4. Select "us-east-1" as the region.')
-    console.log("")
-    console.log('5. Click "Enable".')
-    console.log("")
-    console.log("6. Wait for the setup to complete.")
-    console.log("")
-    console.log("")
-    readlineSync.question('Press "Return" when you\'re finished.')
+    console.log(`
+Please enable Cloud Functions and Firestore by following these steps. Then press
+"Return" to continue.
+
+    1. Visit https://console.firebase.google.com/project/${projectId}/firestore.
+    2. Click "Create database".
+    3. Click "Next".
+    4. Select "us-east-1" as the region.
+    5. Click "Enable".
+    6. Wait for the setup to complete.
+
+    Press "Return" when you\'re finished.
+    `)
 
     // Restrict the App Engine default service account's access.
     throwIfNonzero(
@@ -268,112 +259,70 @@ export default function main() {
     )
   }
 
-  console.log("\n")
-  console.log("🎸 Your funkadelic app is almost ready! 🎸")
-  console.log("")
-  console.log("Just a few manual steps to go.")
-  console.log("")
-  console.log("")
-  console.log(
-    "1. Enable the following authentication providers in the Firebase console:"
+  console.log(`
+
+🎸🎸🎸🎸 Your funkadelic app is almost ready! 🎸🎸🎸🎸
+
+Just a few manual steps to go.
+
+  1. Enable the following authentication providers in the Firebase console:
+
+    Anonymous
+    Google
+
+When enabling Google, set ${displayName} as the Project public-facing name.
+
+${projectIds
+  .map(
+    (projectId) =>
+      `    ${projectId.substring(projectId.lastIndexOf("-") + 1)}: ` +
+      `https://console.firebase.google.com/project/${projectId}/authentication/providers`
   )
-  console.log("")
-  console.log("   Anonymous")
-  console.log("   Google")
-  console.log("")
-  console.log(
-    `   When enabling Google, set ${displayName} as the "Project public-facing name"`
+  .join("\n")}
+
+2. Visit your project's service accounts in Google Cloud:
+
+${projectIds
+  .map(
+    (projectId) =>
+      `    ${projectId.substring(projectId.lastIndexOf("-") + 1)}: ` +
+      `https://console.cloud.google.com/iam-admin/serviceaccounts?authuser=0&folder=&organizationId=&project=${projectId}`
   )
-  console.log("")
-  console.log(
-    projectIds
-      .map(
-        (projectId) =>
-          `    ${projectId.substring(projectId.lastIndexOf("-") + 1)}: ` +
-          `https://console.firebase.google.com/project/${projectId}/authentication/providers`
-      )
-      .join("\n")
-  )
-  console.log("")
-  console.log("")
-  console.log("2. Visit your project's service accounts in Google Cloud:")
-  console.log("")
-  console.log(
-    projectIds
-      .map(
-        (projectId) =>
-          `    ${projectId.substring(projectId.lastIndexOf("-") + 1)}: ` +
-          `https://console.cloud.google.com/iam-admin/serviceaccounts?authuser=0&folder=&organizationId=&project=${projectId}`
-      )
-      .join("\n")
-  )
-  console.log("")
-  console.log(
-    "   2.a. For each configuration, generate a private JSON key for the service account"
-  )
-  console.log(
-    '        named "firebase-adminsdk" by clicking on the "Actions" column and'
-  )
-  console.log(
-    '        selecting "Create key". Save it to your machine (NOT in source control).'
-  )
-  console.log("        Save the path to the private key file in the")
-  console.log(
-    "        PATH_TO_ADMIN_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`."
-  )
-  console.log("")
-  console.log(
-    "   2.b. For each configuration, generate a private JSON key for the service account"
-  )
-  console.log(
-    '        named "App Engine Default" by clicking on the "Actions" column and'
-  )
-  console.log(
-    '        selecting "Create key". Save it to your machine (NOT in source control).'
-  )
-  console.log("        Save the path to the private key file in the")
-  console.log(
-    "        PATH_TO_APPLICATION_CREDENTIALS_JSON variable in `{CONFIGURATION}.env`."
-  )
-  console.log("")
-  console.log("   For example, in `development.env`, it should look like:")
-  console.log("")
-  console.log(
-    "   export PATH_TO_APPLICATION_CREDENTIALS_JSON=/Users/myusername/folder-for-secrets/service-account-private-key.json"
-  )
-  console.log("")
-  console.log("")
-  console.log(
-    "3. Set the configuration-specific PROJECT_ID variable in `{CONFIGURATION}.env` in the"
-  )
-  console.log(
-    "   format {PROJECT_ID}-{CONFIGURATION}. For example, in `development.env`, it should look like:"
-  )
-  console.log("")
-  console.log(`   export PROJECT_ID=${projectName}-development`)
-  console.log("")
-  console.log("")
-  console.log(
-    "4. Deploy the `development` project by running, in your bash or zsh shell:"
-  )
-  console.log("")
-  console.log("   npm run deploy::development")
-  console.log("")
-  console.log("")
-  console.log("5. Bring it home! Run the app in your browser:")
-  console.log("")
-  console.log(
-    "   5.a. In one bash or zsh shell, run `npm run api::develop::local` to boot up the local API"
-  )
-  console.log("")
-  console.log(
-    "   5.b. Once step 2 has succeeded, in another shell, run `npm run deploy::local` to seed the local database"
-  )
-  console.log("")
-  console.log(
-    "   5.c. In a third shell, run `npm run ui::develop::local` to build the web app and run it in your browser, with live reloading"
-  )
-  console.log("")
+  .join("\n")}
+
+2.a. For each configuration, generate a private JSON key for the service account
+     named "firebase-adminsdk" by clicking on the "Actions" column and
+     selecting "Create key". Save it to your machine (NOT in source control).
+
+     Save the path to the private key file in the PATH_TO_ADMIN_CREDENTIALS_JSON
+     variable in \`{CONFIGURATION}.env\`.
+
+2.b. For each configuration, generate a private JSON key for the service account
+     named "App Engine Default" by clicking on the "Actions" column and
+     selecting "Create key". Save it to your machine (NOT in source control).
+
+     Save the path to the private key file in the PATH_TO_APPLICATION_CREDENTIALS_JSON
+     variable in \`{CONFIGURATION}.env\`.
+
+     For example, in \`development.env\`, it should look like:
+
+     export PATH_TO_APPLICATION_CREDENTIALS_JSON=/Users/myusername/folder-for-secrets/service-account-private-key.json
+
+3. Set the configuration-specific PROJECT_ID variable in \`{CONFIGURATION}.env\` in the
+   format {PROJECT_ID}-{CONFIGURATION}. For example, in \`development.env\`, it should look like:
+
+   export PROJECT_ID=${projectName}-development
+
+4. Deploy the \`development\` project by running, in your bash or zsh shell:
+
+   npm run deploy::development
+
+5. Bring it home! Run the app in your browser:
+
+   5.a. In one bash or zsh shell, run \`npm run api::develop::local\` to boot up the local API
+   5.b. Once step 2 has succeeded, in another shell, run \`npm run deploy::local\` to seed the local database
+   5.c. In a third shell, run \`npm run ui::develop::local\` to build the web app and run it in your browser, with live reloading
+  `)
 }
 
 if (require.main === module) {
