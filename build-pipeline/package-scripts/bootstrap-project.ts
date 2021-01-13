@@ -16,7 +16,7 @@ import ionicConfigTemplate from "../code-gen/templates/ionic-config"
 import throwIfNonzero from "./helpers/throw-if-nonzero"
 
 interface Options {
-  projectName: string
+  projectId: string
   displayName: string
   configuration?: Configuration
   clean?: boolean
@@ -27,18 +27,18 @@ export default function main() {
   const cli = yargs(process.argv)
 
   const {
-    projectName,
+    projectId: projectId,
     displayName,
     configuration: onlyConfiguration,
     clean,
     skipBuild,
   } = cli.argv as Argv<Options>["argv"]
-  const projectIds: string[] = []
+  const cloudProjectIds: string[] = []
 
-  if (!projectName) throw new InvalidInputError("--projectName is required.")
+  if (!projectId) throw new InvalidInputError("--projectId is required.")
   if (!displayName) throw new InvalidInputError("--displayName is required.")
-  if (!projectName.match(/^[a-z0-9\-].+$/)) {
-    throw new InvalidInputError("--projectName must be lowercase with hyphens.")
+  if (!projectId.match(/^[a-z0-9\-].+$/)) {
+    throw new InvalidInputError("--projectId must be lowercase with hyphens.")
   }
 
   const projectConfigurations = !!onlyConfiguration
@@ -82,7 +82,7 @@ export default function main() {
     // - set app secrets? Some APIs will probably require that this be done via a GUI.
     //   - avalara api key (see https://admin.avalara.com)
     // - npm i -g cordova
-    const projectId = `${projectName}-${configuration}`
+    const cloudProjectId = `${projectId}-${configuration}`
     const configTemplate = constructConfigTemplate(configuration)
     const localConfigTemplate = constructConfigTemplate(Configuration.LOCAL)
     const firebaseJsonTemplate = constructFirebaseJsonTemplate(configuration)
@@ -101,18 +101,18 @@ export default function main() {
       displayName
     )}`
 
-    projectIds.push(projectId)
+    cloudProjectIds.push(cloudProjectId)
 
     throwIfNonzero(
       exec(`
         # Create the gcloud project.
-        ${PATH_TO_GCLOUD} projects create ${projectId} --name=${displayName}
+        ${PATH_TO_GCLOUD} projects create ${cloudProjectId} --name=${displayName}
 
         # Add Firebase to the gcloud project.
-        firebase projects:addfirebase ${projectId}
+        firebase projects:addfirebase ${cloudProjectId}
 
-        ${PATH_TO_GCLOUD} config set project ${projectId}
-        firebase use ${projectId}
+        ${PATH_TO_GCLOUD} config set project ${cloudProjectId}
+        firebase use ${cloudProjectId}
       `)
     )
 
@@ -148,7 +148,7 @@ export default function main() {
     )
     writeFileSync(
       resolve(__dirname, "../../", `configuration/${configuration}.ts`),
-      configTemplate({ firebaseConfig, projectId, projectName, displayName })
+      configTemplate({ firebaseConfig, cloudProjectId, displayName })
     )
     writeFileSync(
       resolve(
@@ -156,11 +156,11 @@ export default function main() {
         "../../",
         `configuration/${configuration}.firebase.json`
       ),
-      firebaseJsonTemplate(projectId)
+      firebaseJsonTemplate(cloudProjectId)
     )
     writeFileSync(
       resolve(__dirname, "../../", ".firebaserc"),
-      firebasercTemplate(projectName)
+      firebasercTemplate(projectId)
     )
     writeFileSync(
       resolve(__dirname, "../../", "ionic.config.json"),
@@ -172,22 +172,21 @@ export default function main() {
         resolve(__dirname, "../../", "configuration/local.ts"),
         localConfigTemplate({
           firebaseConfig,
-          projectId,
-          projectName,
+          cloudProjectId,
           displayName,
         })
       )
       writeFileSync(
         resolve(__dirname, "../../", "configuration/local.firebase.json"),
-        localFirebaseJsonTemplate(projectName)
+        localFirebaseJsonTemplate(projectId)
       )
     }
 
     // Enable billing.
     readlineSync.question(
-      `\nPlease enable billing for the project ${projectId} by visiting ` +
+      `\nPlease enable billing for the project ${cloudProjectId} by visiting ` +
         "https://console.cloud.google.com/billing/projects.\n\n" +
-        `In the Actions column for this ${projectId}, click the button and select "Change Billing".\n\n` +
+        `In the Actions column for this ${cloudProjectId}, click the button and select "Change Billing".\n\n` +
         "Select a billing account from the dropdown. You may have to add one if none exist.\n\n" +
         'When you\'re finished, continue by hitting the "Return" key here.\n'
     )
@@ -197,7 +196,7 @@ export default function main() {
 Please enable Cloud Functions and Firestore by following these steps. Then press
 "Return" to continue.
 
-    1. Visit https://console.firebase.google.com/project/${projectId}/firestore.
+    1. Visit https://console.firebase.google.com/project/${cloudProjectId}/firestore.
     2. Click "Create database".
     3. Click "Next".
     4. Select "us-east-1" as the region.
@@ -210,17 +209,17 @@ Please enable Cloud Functions and Firestore by following these steps. Then press
     // Restrict the App Engine default service account's access.
     throwIfNonzero(
       exec(`
-      ${PATH_TO_GCLOUD} projects remove-iam-policy-binding ${projectId} \\
-        --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
+      ${PATH_TO_GCLOUD} projects remove-iam-policy-binding ${cloudProjectId} \\
+        --member=serviceAccount:${cloudProjectId}@appspot.gserviceaccount.com \\
         --role=roles/editor
-      ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${projectId} \\
-        --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
+      ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${cloudProjectId} \\
+        --member=serviceAccount:${cloudProjectId}@appspot.gserviceaccount.com \\
         --role=roles/cloudkms.cryptoKeyEncrypterDecrypter
-      ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${projectId} \\
-        --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
+      ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${cloudProjectId} \\
+        --member=serviceAccount:${cloudProjectId}@appspot.gserviceaccount.com \\
         --role=roles/datastore.user
-      ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${projectId} \\
-        --member=serviceAccount:${projectId}@appspot.gserviceaccount.com \\
+      ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${cloudProjectId} \\
+        --member=serviceAccount:${cloudProjectId}@appspot.gserviceaccount.com \\
         --role=roles/firebaseauth.admin
     `)
     )
@@ -229,7 +228,7 @@ Please enable Cloud Functions and Firestore by following these steps. Then press
     throwIfNonzero(
       exec(`
       # Enable services.
-      ${PATH_TO_GCLOUD} services enable --project ${projectId} \\
+      ${PATH_TO_GCLOUD} services enable --project ${cloudProjectId} \\
         cloudkms.googleapis.com
 
       # Set up KMS for data encryption.
@@ -272,21 +271,21 @@ Just a few manual steps to go.
 
 When enabling Google, set ${displayName} as the Project public-facing name.
 
-${projectIds
+${cloudProjectIds
   .map(
-    (projectId) =>
-      `    ${projectId.substring(projectId.lastIndexOf("-") + 1)}: ` +
-      `https://console.firebase.google.com/project/${projectId}/authentication/providers`
+    (cloudProjectId) =>
+      `    ${cloudProjectId.substring(cloudProjectId.lastIndexOf("-") + 1)}: ` +
+      `https://console.firebase.google.com/project/${cloudProjectId}/authentication/providers`
   )
   .join("\n")}
 
 2. Visit your project's service accounts in Google Cloud:
 
-${projectIds
+${cloudProjectIds
   .map(
-    (projectId) =>
-      `    ${projectId.substring(projectId.lastIndexOf("-") + 1)}: ` +
-      `https://console.cloud.google.com/iam-admin/serviceaccounts?authuser=0&folder=&organizationId=&project=${projectId}`
+    (cloudProjectId) =>
+      `    ${cloudProjectId.substring(cloudProjectId.lastIndexOf("-") + 1)}: ` +
+      `https://console.cloud.google.com/iam-admin/serviceaccounts?authuser=0&folder=&organizationId=&project=${cloudProjectId}`
   )
   .join("\n")}
 
@@ -311,7 +310,7 @@ ${projectIds
 3. Set the configuration-specific PROJECT_ID variable in \`{CONFIGURATION}.env\` in the
    format {PROJECT_ID}-{CONFIGURATION}. For example, in \`development.env\`, it should look like:
 
-   export PROJECT_ID=${projectName}-development
+   export PROJECT_ID=${projectId}-development
 
 4. Deploy the \`development\` project by running, in your bash or zsh shell:
 

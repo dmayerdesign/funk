@@ -1,4 +1,24 @@
-# Implementing
+# Automatic configuration
+
+## Install dependencies
+
+[Install Node.](https://nodejs.org/en/download/)
+
+This should be all you need to get up and running.
+
+## Run the script
+
+Copy-paste the following into a shell (like Terminal on Mac) and hit Return:
+
+```sh
+npm run bootstrap-project -- \
+  --displayName "My Awesome Project" \
+  --projectId "my-awesome-project"
+```
+
+Follow the prompts, and you'll have a project up and running in no time!
+
+# Manual configuration
 
 This project is set up to support 2 cloud projects: one for the `development` configuration, and one for the `production` configuration.
 (The "local" configuration found in `local.ts` uses the `development` configuration with a few modifications).

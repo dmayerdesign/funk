@@ -2,8 +2,7 @@ import { Configuration } from "../../../model/configuration"
 
 interface ConfigOptions {
   firebaseConfig: Record<string, any>
-  projectId: string
-  projectName: string
+  cloudProjectId: string
   displayName: string
 }
 
@@ -37,12 +36,12 @@ export {
 
 const getNonLocal = ({
   firebaseConfig,
-  projectId,
+  cloudProjectId,
   displayName,
 }: ConfigOptions) =>
   `/* eslint-disable max-len */
 export const DISPLAY_NAME = "${displayName}"
-export const CLOUD_PROJECT_ID = "${projectId}"
+export const CLOUD_PROJECT_ID = "${cloudProjectId}"
 export const CLIENT_APP_URL = \`https://\${CLOUD_PROJECT_ID}.web.app\`
 export const HOMEPAGE = "sink"
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
@@ -67,8 +66,7 @@ export const FIREBASE_CONFIG = ${JSON.stringify(firebaseConfig, null, 2)}
 export function construct(configuration: Configuration) {
   return function ({
     firebaseConfig,
-    projectId,
-    projectName,
+    cloudProjectId,
     displayName,
   }: ConfigOptions) {
     switch (configuration) {
@@ -77,8 +75,7 @@ export function construct(configuration: Configuration) {
       default:
         return getNonLocal({
           firebaseConfig,
-          projectId,
-          projectName,
+          cloudProjectId,
           displayName,
         })
     }

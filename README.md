@@ -23,7 +23,7 @@ head to [Contributing](./CONTRIBUTING.md) to get started!
 
 ## Using Funk
 
-To use Funk, fork this repo and follow the instructions in [Implementing](./IMPLEMENTING.md).
+To use Funk, fork this repo and follow the instructions in [CONFIGURING](./CONFIGURING.md).
 
 To update your fork with the latest changes from this repo,
 [follow the directions here](http://docs.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced).
@@ -47,7 +47,7 @@ To update your fork with the latest changes from this repo,
 ## Table Of Contents
 
 - [Contributing](./CONTRIBUTING.md)
-- [Implementing](./IMPLEMENTING.md)
+- [Implementing](./CONFIGURING.md)
 - [Development notes](./DEVELOPMENT_NOTES.md)
 - [License](./LICENSE.md)
 - [Third-party licenses](./THIRD_PARTY_LICENSES.md)

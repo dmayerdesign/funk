@@ -46,7 +46,7 @@ All commits should aim to have one test per component changed.
 
 ## Testing Manually
 
-See [IMPLEMENTING](./IMPLEMENTING.md).
+See [CONFIGURING](./CONFIGURING.md).
 
 ---
 
