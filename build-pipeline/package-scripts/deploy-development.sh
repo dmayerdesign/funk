@@ -9,11 +9,11 @@ if [ $? -eq 0 ]; then
     build-pipeline/package-scripts/functions-authorize-service-account.ts;
 else (exit 1); fi
 if [ $? -eq 0 ]; then
-  firestore-import \
-    -y \
-    -a $PATH_TO_ADMIN_CREDENTIALS_JSON \
-    -n commerce.orders \
-    -b build-pipeline/data/development-data/commerce.orders.json;
+firestore-import \
+  -y \
+  -a $PATH_TO_ADMIN_CREDENTIALS_JSON \
+  -n commerce.orders \
+  -b build-pipeline/data/development-data/commerce.orders.json;
 else (exit 1); fi
 if [ $? -eq 0 ]; then
 firestore-import \

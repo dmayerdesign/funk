@@ -53,9 +53,15 @@
     "type": "HTML",
     "__collections__": {}
   },
-  "kitchen-sink-hero-1": {
-    "id": "kitchen-sink-hero-1",
-    "value": "<p>Something goes here</p>",
+  "kitchen-sink-hero-1-title": {
+    "id": "kitchen-sink-hero-1-title",
+    "value": "<p>Card Title</p>",
+    "type": "HTML",
+    "__collections__": {}
+  },
+  "kitchen-sink-hero-1-subtitle": {
+    "id": "kitchen-sink-hero-1-subtitle",
+    "value": "<p>This is a subtitle</p>",
     "type": "HTML",
     "__collections__": {}
   }

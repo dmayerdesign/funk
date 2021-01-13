@@ -47,11 +47,12 @@ export class StickyHeaderContainerDirective
 
   public handleContentScroll({ detail }: CustomEvent): void {
     const headerElement = this._headerElement
+    const Y_OFFSET_PX = 20
     if (detail && headerElement) {
-      if (detail.scrollTop > 0 && detail.deltaY > 0) {
+      if (detail.scrollTop > Y_OFFSET_PX && detail.deltaY > 0) {
         this._renderer.removeClass(headerElement, "no-box-shadow")
         this._renderer.removeClass(headerElement, "background-transparent")
-      } else if (detail.scrollTop <= 0 && detail.deltaY <= 0) {
+      } else if (detail.scrollTop <= Y_OFFSET_PX && detail.deltaY <= 0) {
         this._renderer.addClass(headerElement, "no-box-shadow")
         this._renderer.addClass(headerElement, "background-transparent")
       }

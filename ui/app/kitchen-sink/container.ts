@@ -8,9 +8,9 @@ import { BehaviorSubject, timer } from "rxjs"
     <ng-template sticky-header-container let-handleContentScroll>
       <ion-header class="header sticky-header transparent-until-scrolled">
         <ion-toolbar class="toolbar max-width-container">
-          <ion-buttons class="buttons" slot="start">
+          <!-- <ion-buttons class="buttons" slot="start">
             <ion-menu-button class="menu-button"></ion-menu-button>
-          </ion-buttons>
+          </ion-buttons> -->
           <ion-title class="title">Kitchen Sink</ion-title>
         </ion-toolbar>
       </ion-header>
@@ -31,9 +31,6 @@ import { BehaviorSubject, timer } from "rxjs"
         "
       >
         <ion-card class="card full-width flat hero">
-          <managed-content
-            [contentId]="'kitchen-sink-hero-1'"
-          ></managed-content>
           <div
             class="card-media card-media-background-image"
             [style.background-image]="
@@ -41,12 +38,16 @@ import { BehaviorSubject, timer } from "rxjs"
             "
           ></div>
           <ion-card-header class="card-header max-width-container">
-            <ion-card-subtitle class="card-subtitle" color="light"
-              >Card Subtitle</ion-card-subtitle
-            >
-            <ion-card-title class="card-title" color="light"
-              >Card Title</ion-card-title
-            >
+            <ion-card-subtitle class="card-subtitle" color="light">
+              <managed-content
+                [contentId]="'kitchen-sink-hero-1-subtitle'"
+              ></managed-content>
+            </ion-card-subtitle>
+            <ion-card-title class="card-title" color="light">
+              <managed-content
+                [contentId]="'kitchen-sink-hero-1-title'"
+              ></managed-content>
+            </ion-card-title>
           </ion-card-header>
           <ion-card-content class="card-content max-width-container">
             <ion-text class="paragraph" color="light">
