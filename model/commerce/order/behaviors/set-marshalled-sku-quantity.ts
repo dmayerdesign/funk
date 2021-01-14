@@ -19,7 +19,7 @@ export default function (
     _skuIds = removeSkuId(_skuIds, indexOfMarshalledSku)
     _skuQuantityMap = setQuantityToZero(_skuQuantityMap, skuId)
   } else {
-    _skuIds = uniq([..._skuIds, skuId])
+    {_skuIds = uniq([..._skuIds, skuId])}
     _skuQuantityMap[skuId] = quantity
   }
 

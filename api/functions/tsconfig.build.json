@@ -4,6 +4,8 @@
     "**/e2e.ts",
     "**/spec.ts",
     "**/*.spec.ts",
+    "**/steps.ts",
+    "**/*.steps.ts",
     "**/node_modules/**/*"
   ],
   "compilerOptions": {

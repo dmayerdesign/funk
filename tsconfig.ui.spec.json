@@ -17,7 +17,9 @@
     "configuration/**/*.ts",
     "ui/polyfills.ts",
     "ui/**/*.spec.ts",
-    "ui/**/spec.ts"
+    "ui/**/spec.ts",
+    "ui/**/*.steps.ts",
+    "ui/**/steps.ts"
   ],
   "exclude": ["node_modules"]
 }

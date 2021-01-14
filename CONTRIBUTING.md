@@ -13,11 +13,13 @@ that need to be filled! — Danny)
 
 Feature files are written in [Gherkin](https://cucumber.io/docs/gherkin/reference).
 
-**4. Write an integration test that implements the new feature.**
+**4. Write a functional test that implements the new feature.**
+
+Functional tests live in `features`.
+
+**5. Write integration and unit tests as necessary.**
 
 Integration tests live in `api/*/spec` and `ui/spec`.
-
-**5. Write a unit test if necessary.**
 
 **6. Commit your changes.**
 

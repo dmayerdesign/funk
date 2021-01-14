@@ -13,7 +13,8 @@ recursiveReaddir(API_PATH_ABSOLUTE).forEach((file) => {
     (!functionNameFromEnv || functionNameFromEnv === functionName) &&
     !!file.match(/\.js$/gi) &&
     !file.match(/\/index.js$/gi) &&
-    !file.match(/(\/|\.)spec\.js$/gi)
+    !file.match(/(\/|\.)spec\.js$/gi) &&
+    !file.match(/(\/|\.)steps\.js$/gi)
   ) {
     const filePathFromParentDir = file.split(API_PATH_ABSOLUTE)[1] || ""
     const filePathFromParentDirSansExt = filePathFromParentDir.substring(

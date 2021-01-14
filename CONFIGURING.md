@@ -1,4 +1,4 @@
-# Automatic configuration
+# Step 1.1: Automatic configuration
 
 ## Install dependencies
 
@@ -18,9 +18,9 @@ npm run bootstrap-project -- \
 
 Follow the prompts, and you'll have a project up and running in no time!
 
-# Manual configuration
+# Step 1.2: Manual configuration
 
-This project is set up to support 2 cloud projects: one for the `development` configuration, and one for the `production` configuration.
+This project is set up to deploy 2 cloud projects: one for the `development` configuration, and one for the `production` configuration.
 (The "local" configuration found in `local.ts` uses the `development` configuration with a few modifications).
 When following these instructions, replace `{CONFIGURATION}` with either `development` or `production`.
 
@@ -58,9 +58,9 @@ gcloud kms keys create main --location global \
   --purpose encryption
 ```
 
-## Configure operational plugins
+# Plugin configuration
 
-### Tax
+## Tax
 
 1. Sign up for an [Avalara AvaTax account](https://buy.avalara.com/signup).
 2. Create a license key by visiting https://integrations.avalara.com/#/software-keys and
@@ -69,20 +69,20 @@ gcloud kms keys create main --location global \
 4. Locate the account ID.
 5. Save the account ID in the TAX_PUBLISHABLE_KEY variable in `configuration/*.ts`.
 
-### Payment
+## Payment
 
 1. Sign up for a Stripe account.
 2. Locate the test publishable key (begins with `pk_test`) and test secret key (begins with `sk_test`).
 3. Save the secret key using the form at /admin with the key PAYMENT_SERVICE_PROVIDER_SECRET.
 4. Save the publishable key in the PAYMENT_PUBLISHABLE_KEY variable in `configuration/*.ts`.
 
-### Email
+## Email
 
 1. Sign up for a SendGrid account.
 2. Create an API key.
 3. Save the API key using the form at /admin with the key EMAIL_SERVICE_PROVIDER_SECRET.
 
-### Spam protection (turing test)
+## Spam protection (turing test)
 
 1. Sign up for a Recaptcha v3 account.
 2. Locate the site key and the API key.

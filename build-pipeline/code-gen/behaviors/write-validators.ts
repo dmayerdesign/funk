@@ -28,6 +28,8 @@ ${filenames
   .filter((filename) => filename.endsWith(".ts"))
   .filter((filename) => !filename.includes(".spec."))
   .filter((filename) => !filename.includes("/spec."))
+  .filter((filename) => !filename.includes(".steps."))
+  .filter((filename) => !filename.includes("/steps."))
   .filter((filename) => !filename.includes("/validators/"))
   .map(
     (filename) =>

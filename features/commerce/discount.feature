@@ -1,8 +1,8 @@
 Feature: Discounts
 
-Sales and coupons.
+  Sales and coupons.
 
-  Rule: In a list of Products, the discount price range for each must be communicated.
+  Rule: A user-facing list of products must communicate the discount price range.
 
     Example: When a Discount is updated, the `discountPriceRange` of associated Products is updated.
 

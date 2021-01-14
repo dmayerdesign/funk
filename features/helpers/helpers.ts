@@ -54,7 +54,7 @@ export async function listOrdersForUser(userId: string) {
   })
 }
 
-export async function givenThatTheCartHasInStockSkus(options: {
+export async function givenThatTheCartContainsInStockSkus(options: {
   theCart: Cart
   skus?: MarshalledSku[]
 }) {
