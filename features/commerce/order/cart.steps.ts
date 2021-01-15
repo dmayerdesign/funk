@@ -1,22 +1,22 @@
 import {
   construct as constructCustomerHandleCreate,
-  HandleCreate,
+  HandleCreate
 } from "@funk/api/core/commerce/customer/handle-create"
 import {
   construct as constructOrderPopulate,
-  Populate,
+  Populate
 } from "@funk/api/core/commerce/order/populate"
 import {
   construct as constructSetSkuQuantity,
-  SetSkuQuantity,
+  SetSkuQuantity
 } from "@funk/api/core/commerce/order/set-sku-quantity"
 import {
   construct as constructSetStatusToCheckout,
-  SetStatusToCheckout,
+  SetStatusToCheckout
 } from "@funk/api/core/commerce/order/set-status-to-checkout"
 import {
   construct as constructOrderSubmit,
-  Submit,
+  Submit
 } from "@funk/api/core/commerce/order/submit"
 import { ConfirmPaymentIntent } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
 import { initializeStore } from "@funk/api/test/data-access/in-memory-store"
@@ -26,6 +26,13 @@ import populate from "@funk/api/test/plugins/persistence/behaviors/populate"
 import setById from "@funk/api/test/plugins/persistence/behaviors/set-by-id"
 import setMany from "@funk/api/test/plugins/persistence/behaviors/set-many"
 import updateById from "@funk/api/test/plugins/persistence/behaviors/update-by-id"
+import {
+  constructGivenACustomer,
+  givenASku,
+  givenThatTheCartContainsInStockSkus,
+  listOrdersForUser
+} from "@funk/features/commerce/order/helpers"
+import loadFeatureOptions from "@funk/features/configuration/load-feature-options"
 import { createFakeAddress } from "@funk/model/address/stubs"
 import { Cart, Status } from "@funk/model/commerce/order/order"
 import { FiniteInventory } from "@funk/model/commerce/sku/inventory"
@@ -35,22 +42,11 @@ import { Person } from "@funk/model/identity/person"
 import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/ui/copy/error-messages"
 import { defineFeature, DefineStepFunction, loadFeature } from "jest-cucumber"
 import { resolve } from "path"
-import {
-  constructGivenACustomer,
-  givenASku,
-  givenThatTheCartContainsInStockSkus,
-  listOrdersForUser,
-} from "../../helpers/helpers"
 
-const feature = loadFeature(resolve(__dirname, "cart.feature"), {
-  tagFilter: "not @ignore",
-  errors: {
-    missingScenarioInStepDefinitions: false, // Error when a scenario is in the feature file, but not in the step definition
-    missingStepInStepDefinitions: false, // Error when a step is in the feature file, but not in the step definitions
-    missingScenarioInFeature: true, // Error when a scenario is in the step definitions, but not in the feature
-    missingStepInFeature: true, // Error when a step is in the step definitions, but not in the feature
-  },
-})
+const feature = loadFeature(
+  resolve(__dirname, "cart.feature"),
+  loadFeatureOptions,
+)
 
 defineFeature(feature, function (example) {
   let confirmPaymentIntent: ConfirmPaymentIntent
@@ -90,13 +86,7 @@ defineFeature(feature, function (example) {
       when,
       then,
     }) {
-      given(/a customer named ([\w\s]+)$/, async function () {
-        const customerData = await constructGivenACustomer(
-          customerHandleCreate,
-        )("Newt")
-        person = customerData.person
-        cart = customerData.cart
-      })
+      behaviorGivenACustomer(given)
 
       when(/(\w)+ visits the app for the first time$/, function () {})
 
@@ -112,13 +102,7 @@ defineFeature(feature, function (example) {
     example(
       "When Annie submits an order, a new cart is created for Annie.",
       async function ({ given, when, then }) {
-        given(/a customer named ([\w\s]+)$/, async function () {
-          const customerData = await constructGivenACustomer(
-            customerHandleCreate,
-          )("Annie")
-          person = customerData.person
-          cart = customerData.cart
-        })
+        behaviorGivenACustomer(given)
 
         given(
           /that ([\w\s]+)'s cart contains in-stock SKUs$/,
@@ -146,15 +130,7 @@ defineFeature(feature, function (example) {
     example(
       "Sally can add the in-stock SKU Rollerblades to their cart.",
       function ({ given, when, then }) {
-        given(/a customer named ([\w\s]+)$/, async function (
-          customerName: string,
-        ) {
-          const customerData = await constructGivenACustomer(
-            customerHandleCreate,
-          )(customerName)
-          person = customerData.person
-          cart = customerData.cart
-        })
+        behaviorGivenACustomer(given)
 
         given(/an in-stock SKU named ([\w\s]+)$/, async function () {
           sku = await givenASku({
@@ -186,25 +162,6 @@ defineFeature(feature, function (example) {
   })
 
   describe('A user must go through a "checkout" flow before submitting an Order.', function () {
-    function behaviorGivenACustomer(given: DefineStepFunction) {
-      given(/a customer named ([\w\s]+)/, async function (
-        customerName: string,
-      ) {
-        const customerData = await constructGivenACustomer(
-          customerHandleCreate,
-        )(customerName)
-        person = customerData.person
-        cart = customerData.cart
-      })
-    }
-    function behaviorGivenThatTheCartContainsInStockSkus(
-      given: DefineStepFunction,
-    ) {
-      given(/that ([\w\s]+)'s cart contains in-stock SKUs$/, async function () {
-        await givenThatTheCartContainsInStockSkus({ theCart: cart })
-      })
-    }
-
     example('Chuck begins the "checkout" flow.', function ({
       given,
       when,
@@ -231,15 +188,7 @@ defineFeature(feature, function (example) {
       when,
       then,
     }) {
-      given(/a customer named ([\w\s]+)/, async function (
-        customerName: string,
-      ) {
-        const customerData = await constructGivenACustomer(
-          customerHandleCreate,
-        )(customerName)
-        person = customerData.person
-        cart = customerData.cart
-      })
+      behaviorGivenACustomer(given)
 
       given(/that ([\w\s]+)'s cart contains in-stock SKUs/, async function () {
         await givenThatTheCartContainsInStockSkus({ theCart: cart })
@@ -374,4 +323,21 @@ defineFeature(feature, function (example) {
       )
     },
   )
+
+  function behaviorGivenACustomer(given: DefineStepFunction) {
+    given(/a customer named ([\w\s]+)/, async function (customerName: string) {
+      const customerData = await constructGivenACustomer(customerHandleCreate)(
+        customerName,
+      )
+      person = customerData.person
+      cart = customerData.cart
+    })
+  }
+  function behaviorGivenThatTheCartContainsInStockSkus(
+    given: DefineStepFunction,
+  ) {
+    given(/that ([\w\s]+)'s cart contains in-stock SKUs$/, async function () {
+      await givenThatTheCartContainsInStockSkus({ theCart: cart })
+    })
+  }
 })

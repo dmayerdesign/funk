@@ -52,20 +52,10 @@ module.exports = {
     ],
     "arrow-body-style": "error",
     "constructor-super": "error",
-    "comma-dangle": [
-      "warn",
-      {
-        arrays: "always-multiline",
-        objects: "always-multiline",
-        functions: "always-multiline",
-        imports: "always-multiline",
-        exports: "always-multiline",
-      },
-    ],
+    "comma-dangle": "off",
     curly: ["warn", "multi-line"],
     "eol-last": "warn",
     eqeqeq: ["error", "smart"],
-
     "no-bitwise": "error",
     "no-caller": "error",
     "no-eval": "error",

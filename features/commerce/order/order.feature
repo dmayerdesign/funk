@@ -4,15 +4,14 @@ Feature: Order
 
     Background:
 
-      Given a user named Sam
+      Given a customer named Sam
       And a primary Enterprise named The Shoe Store
       And a payment service provider named PSP
-      And a SKU named Cool Shoes with a price of USD 45.00
+      And an in-stock SKU named Cool Shoes with a price of USD 45.00
       And that Sam lives in a state with 10% sales tax
       And that The Shoe Store is configured to NOT include sales tax in the list price of SKUs
-      And that Cool Shoes is in stock
-      And that during checkout, Sam provides his shipping address and selects a shipping
-      rate with a price of USD 5.00
+      And that during checkout, Sam provides his shipping address
+      And that during checkout, Sam selects a shipping rate with a price of USD 5.00
       And that during checkout, Sam provides his payment information
       And that at the moment Sam commits to the sale, Cool Shoes is still in stock
 
