@@ -28,7 +28,6 @@
       "@funk/configuration": [
         "./.funk/build-pipeline-output/configuration/configuration"
       ],
-      "@funk/features/*": ["./features/*"],
       "@funk/helpers/*": ["./helpers/*"],
       "@funk/model/*": ["./model/*"],
       "@funk/test/*": ["./test/*"],

@@ -9,17 +9,18 @@ that need to be filled! — Danny)
 
 **2. [Clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) this repository.**
 
-**3. Change a file inside `/features` or create your own.**
+**3. Change a file inside `/api/spec` and/or `/ui/spec`, or create your own.**
 
-Feature files are written in [Gherkin](https://cucumber.io/docs/gherkin/reference).
+Feature files are written in [Gherkin](https://cucumber.io/docs/gherkin/reference) and implemented with
+[Jest](https://jestjs.io) and [Cypress](https://cypress.io).
 
 **4. Write a functional test that implements the new feature.**
 
-Functional tests live in `features`.
+Functional tests live in `api/spec` and `ui/spec`.
 
-**5. Write integration and unit tests as necessary.**
+**5. Write unit tests and API integration tests as necessary.**
 
-Integration tests live in `api/*/spec` and `ui/spec`.
+API integration tests live in `api/*/spec`. Unit tests live alongside the files they test.
 
 **6. Commit your changes.**
 
@@ -34,12 +35,10 @@ Commit messages should be written in the style of
 
 ## Testing Philosophy
 
-A test is 2 things: a design tool and a form of documentation.
+A test is 3 things: a design tool, a quality assurance tool, and a form of documentation.
 
-All production code should be covered by tests, because we need both of those things in order to
-write code at scale.
-
-All commits should aim to have one test per component changed.
+All production code should be covered by tests, because we need all of those characteristics in
+order to write code at scale.
 
 ## Rules For Testing
 
@@ -72,6 +71,10 @@ What exactly those rules are is much less important than
 **making sure that they're followed consistently.** What _is_ important about the rules themselves
 is that they be **simple enough** to be easily and consistently followed by anyone touching the
 code.
+
+Domain-driven design offers such a set of relatively simple rules. Partially due to the full-stack
+nature of Funk, it takes a different approach to hopefully achieve the same result: a project that
+is easy to change, test, and extend.
 
 Here's the small set of rules that Funk aims to follow:
 

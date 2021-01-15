@@ -7,7 +7,6 @@
       "@funk/configuration": [
         "./.funk/build-pipeline-output/configuration/test-configuration.ts"
       ],
-      "@funk/features/*": ["./features/*"],
       "@funk/helpers/*": ["./helpers/*"],
       "@funk/model/*": ["./model/*"],
       "@funk/test/*": ["./test/*"],
@@ -18,9 +17,7 @@
     "configuration/**/*.ts",
     "ui/polyfills.ts",
     "ui/**/*.spec.ts",
-    "ui/**/spec.ts",
-    "ui/**/*.steps.ts",
-    "ui/**/steps.ts"
+    "ui/**/spec.ts"
   ],
   "exclude": ["node_modules"]
 }

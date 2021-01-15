@@ -5,12 +5,12 @@ const { compilerOptions } = require("./tsconfig.api.spec.json")
 module.exports = {
   ...baseConfig,
   testEnvironment: "node",
+  testMatch: ["<rootDir>/**/?(*)(spec|steps).ts"],
   roots: [
     "<rootDir>/configuration",
     "<rootDir>/api",
     "<rootDir>/helpers",
     "<rootDir>/model",
-    "<rootDir>/features",
   ],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: "<rootDir>",

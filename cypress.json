@@ -1,0 +1,12 @@
+{
+  "testFiles": "**/*.steps.ts",
+  "integrationFolder": "ui/spec",
+
+  "pluginsFile": "cypress/plugins/index.ts",
+  "supportFile": "cypress/support/index.ts",
+
+  "screenshotsFolder": "cypress/screenshots",
+
+  "videosFolder": "cypress/video",
+  "video": false
+}

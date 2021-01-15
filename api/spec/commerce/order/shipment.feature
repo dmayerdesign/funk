@@ -18,7 +18,7 @@ Feature: Shipment
       When Sam provides an invalid shipping address
       Then he is UNABLE to continue to the "shipping options" step
 
-  Rule: A customer must see options for shipping rates before submitting an Order.
+  Rule: A customer must see options for shipping rates before submitting an order.
 
     Example: Sam the shopper has a choice of by-weight shipping rates during checkout.
 
