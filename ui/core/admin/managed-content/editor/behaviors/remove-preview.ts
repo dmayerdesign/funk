@@ -13,7 +13,7 @@ export function construct(
   getMaybeContentPreviews: GetMaybeContentPreviews,
   userSession: UserSession,
   updateById: UpdateById,
-  removeFromPublishConflicts: RemoveFromPublishConflicts
+  removeFromPublishConflicts: RemoveFromPublishConflicts,
 ) {
   return async function (contentId: PrimaryKey): Promise<void> {
     const { person } = await asPromise(userSession)

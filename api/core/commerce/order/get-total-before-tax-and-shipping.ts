@@ -8,7 +8,7 @@ import subtract from "@funk/model/commerce/price/behaviors/subtract"
 import { NULL_PRICE, Price } from "@funk/model/commerce/price/price"
 import {
   MarshalledProduct,
-  PRODUCTS
+  PRODUCTS,
 } from "@funk/model/commerce/product/product"
 import getPriceAfterSkuDiscounts from "@funk/model/commerce/sku/behaviors/get-price-after-discounts"
 import { DbDocumentInput } from "@funk/model/data-access/database-document"
@@ -33,15 +33,15 @@ export function construct(getById: typeof getByIdImpl) {
                 sku,
                 product: (await getById<MarshalledProduct>(
                   PRODUCTS,
-                  sku.productId
+                  sku.productId,
                 ))!,
                 activeDiscounts: activeDiscounts.filter(
-                  ({ type }) => type === "sku"
+                  ({ type }) => type === "sku",
                 ) as SkuDiscount[],
-              })
-            )
-          )
-        )
+              }),
+            ),
+          ),
+        ),
       ).pipe(
         map((actualPrices) => actualPrices.reduce(add, NULL_PRICE)),
         map((priceAfterSkuDiscounts) =>
@@ -49,12 +49,12 @@ export function construct(getById: typeof getByIdImpl) {
             priceAfterSkuDiscounts,
             subtract(
               getPriceBeforeDiscounts(order),
-              getOrderDiscountPrice(order, getPriceBeforeDiscounts(order))
-            )
-          )
+              getOrderDiscountPrice(order, getPriceBeforeDiscounts(order)),
+            ),
+          ),
         ),
-        first()
-      )
+        first(),
+      ),
     )
   }
 }

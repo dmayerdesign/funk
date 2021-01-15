@@ -4,7 +4,7 @@ import { Cart, Status } from "@funk/model/commerce/order/order"
 
 export default function (
   customer: Partial<Customer>,
-  orderData?: Partial<Cart>
+  orderData?: Partial<Cart>,
 ): Cart {
   return {
     id: createUid(),

@@ -8,12 +8,12 @@ import { TAX_SERVICE_PROVIDER_SECRET_KEY } from "@funk/model/secret/keys"
 
 export function construct(
   getSecret: typeof getSecretImpl,
-  httpClient: typeof httpClientImpl
+  httpClient: typeof httpClientImpl,
 ) {
   return async function ({ zip }: Address): Promise<number> {
     const avataxLicenseKey = await getSecret(TAX_SERVICE_PROVIDER_SECRET_KEY)
     const authString = Buffer.from(
-      `${TAX_PUBLISHABLE_KEY}:${avataxLicenseKey}`
+      `${TAX_PUBLISHABLE_KEY}:${avataxLicenseKey}`,
     ).toString("base64")
     const authorizationHeader = `Basic ${authString}`
     const taxRateResponse: Response<AvataxResponse> = await httpClient.get(
@@ -22,7 +22,7 @@ export function construct(
         headers: {
           authorization: authorizationHeader,
         },
-      }
+      },
     )
     return taxRateResponse.data.totalRate
   }

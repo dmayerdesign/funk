@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms"
 import {
   GET_SECRET,
   GRANT_SUPER_ROLE_TO_ME,
-  SET_SECRET
+  SET_SECRET,
 } from "@funk/ui/app/admin/tokens"
 import { SEND_EMAIL_VERIFICATION } from "@funk/ui/app/identity/tokens"
 import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
@@ -71,7 +71,7 @@ export class AdminContainer {
     @Inject(SET_SECRET) private _setSecret: SetSecret,
     @Inject(SEND_EMAIL_VERIFICATION)
     private _sendEmailVerification: SendEmailVerification,
-    private _platform: Platform
+    private _platform: Platform,
   ) {}
 
   public async setSecret(): Promise<void> {

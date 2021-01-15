@@ -6,7 +6,7 @@ import { MarshalledSkuAttributeValues } from "@funk/model/commerce/attribute/att
 import fromDecimalString from "@funk/model/commerce/price/behaviors/from-decimal-string"
 import {
   Inventory,
-  InventoryShorthand
+  InventoryShorthand,
 } from "@funk/model/commerce/sku/inventory"
 import { MarshalledSku } from "@funk/model/commerce/sku/sku"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
@@ -26,11 +26,11 @@ export default function (importedSku: ImportedSku): MarshalledSku {
     netWeight: weightFromString(importedSku["Net weight"])!,
     isDefaultSku: parseCsvBoolean(importedSku["Is group default"]),
     isAvailableForPreorder: parseCsvBoolean(
-      importedSku["Is available for preorder"]
+      importedSku["Is available for preorder"],
     ),
     costOfGoodsSold: fromDecimalString(importedSku["COGS"], CurrencyCode.USD),
     unitPricingBaseMeasure: weightFromString(
-      importedSku["Unit pricing base measure"]
+      importedSku["Unit pricing base measure"],
     ),
     gtin: importedSku["GTIN"] || undefined,
     mpn: importedSku["MPN"] || undefined,
@@ -53,7 +53,7 @@ export default function (importedSku: ImportedSku): MarshalledSku {
     taxonomyTerms: flatMap(
       Object.keys(importedSku)
         .filter((key) => key.trim().match(/^Taxonomy/))
-        .map((key) => importedSku[key].split(","))
+        .map((key) => importedSku[key].split(",")),
     ).map(kebabCase),
   })
 }
@@ -77,6 +77,6 @@ function parseInventory(inventoryShorthand: InventoryShorthand): Inventory {
     return { type: "bucket", bucket: inventoryShorthand }
   }
   throw new InvalidInputError(
-    `The inventory shorthand provided was invalid: ${inventoryShorthand}`
+    `The inventory shorthand provided was invalid: ${inventoryShorthand}`,
   )
 }

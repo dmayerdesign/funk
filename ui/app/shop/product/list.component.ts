@@ -6,7 +6,7 @@ import {
   OnChanges,
   Output,
   SimpleChange,
-  SimpleChanges
+  SimpleChanges,
 } from "@angular/core"
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
 import { Product } from "@funk/model/commerce/product/product"
@@ -64,14 +64,14 @@ export class ProductListComponent implements OnChanges, ProductListOptions {
                     ...groupDef,
                     [key]: new FormControl(filter[key as keyof ListFilter]),
                   }),
-                  {} as { [key: string]: FormControl }
-                )
-              )
-          )
-        )
+                  {} as { [key: string]: FormControl },
+                ),
+              ),
+          ),
+        ),
     ),
     catchError(() => of(undefined)),
-    shareReplay(1)
+    shareReplay(1),
   )
 
   public ngOnChanges(changes: SimpleChanges): void {

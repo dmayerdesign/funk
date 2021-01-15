@@ -12,5 +12,5 @@ export default createRpcFunction(
     UserRole.PUBLIC,
     UserRole.ANONYMOUS,
   ]),
-  mapRequestToBody(setSkuQuantity)
+  mapRequestToBody(setSkuQuantity),
 )

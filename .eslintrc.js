@@ -57,9 +57,9 @@ module.exports = {
       {
         arrays: "always-multiline",
         objects: "always-multiline",
-        functions: "never",
-        imports: "never",
-        exports: "never",
+        functions: "always-multiline",
+        imports: "always-multiline",
+        exports: "always-multiline",
       },
     ],
     curly: ["warn", "multi-line"],

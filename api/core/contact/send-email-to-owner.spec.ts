@@ -29,7 +29,7 @@ describe("sendEmailToOwner", () => {
       expect.objectContaining({
         to: OWNER_EMAIL,
         text: expect.stringContaining(EMAIL.message),
-      })
+      }),
     )
   })
 })

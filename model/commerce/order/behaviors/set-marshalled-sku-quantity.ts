@@ -7,7 +7,7 @@ export default function (
   options: {
     skuId: PrimaryKey
     quantity: number
-  }
+  },
 ): MarshalledOrder {
   const { skuId, quantity } = options
   const _marshalledOrder = { ...marshalledOrder }
@@ -19,7 +19,9 @@ export default function (
     _skuIds = removeSkuId(_skuIds, indexOfMarshalledSku)
     _skuQuantityMap = setQuantityToZero(_skuQuantityMap, skuId)
   } else {
-    {_skuIds = uniq([..._skuIds, skuId])}
+    {
+      _skuIds = uniq([..._skuIds, skuId])
+    }
     _skuQuantityMap[skuId] = quantity
   }
 
@@ -32,7 +34,7 @@ export default function (
 
 function setQuantityToZero(
   quantities: { [x: string]: number },
-  skuId: PrimaryKey
+  skuId: PrimaryKey,
 ): { [x: string]: number } {
   const _quantities = { ...quantities }
   delete _quantities[skuId]

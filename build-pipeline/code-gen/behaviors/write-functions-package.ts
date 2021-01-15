@@ -11,8 +11,8 @@ export default function () {
     resolve(
       __dirname,
       "../../../",
-      ".funk/build-pipeline-output/api-build/package.json"
+      ".funk/build-pipeline-output/api-build/package.json",
     ),
-    packageJsonAsString
+    packageJsonAsString,
   )
 }

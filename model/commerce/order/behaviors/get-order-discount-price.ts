@@ -8,7 +8,7 @@ import add from "@funk/model/money/behaviors/add"
 
 export default function (
   order: Pick<Order, "discounts">,
-  unDiscountedOrderPrice: Price
+  unDiscountedOrderPrice: Price,
 ): Price {
   const zeroPrice = {
     ...NULL_PRICE,
@@ -16,14 +16,14 @@ export default function (
   }
   const discountTotal = getApplicableDiscountsForOrder(
     getOrderDiscounts(order.discounts),
-    unDiscountedOrderPrice
+    unDiscountedOrderPrice,
   ).reduce<Price>((discountAmount, discount) => {
     if (!!discount.percentage) {
       return add(discountAmount, {
         ...discountAmount,
         amount: Math.floor(
           subtract(unDiscountedOrderPrice, discountAmount).amount *
-            (discount.percentage / 100)
+            (discount.percentage / 100),
         ),
       })
     } else if (!!discount.total) {

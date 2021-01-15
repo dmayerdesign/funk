@@ -7,7 +7,7 @@ export function construct(getMaybeActiveContent: GetMaybeActiveContent) {
   const maybeActiveContentValueControl = getMaybeActiveContent().pipe(
     maybePluck("value"),
     map((value) => (value ? new FormControl(value) : undefined)),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
   maybeActiveContentValueControl.subscribe()
   return () => maybeActiveContentValueControl

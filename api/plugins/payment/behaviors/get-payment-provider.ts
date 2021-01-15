@@ -6,7 +6,7 @@ let provider: Stripe
 
 export function construct(getSecret: typeof getSecretImpl) {
   return async function (
-    options = {} as Partial<Stripe.StripeConfig>
+    options = {} as Partial<Stripe.StripeConfig>,
   ): Promise<Stripe> {
     const secret = await getSecret(PAYMENT_SERVICE_PROVIDER_SECRET_KEY)
     return (provider =

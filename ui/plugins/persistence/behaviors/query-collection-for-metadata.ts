@@ -5,7 +5,7 @@ import { CollectionReference, Query } from "@angular/fire/firestore"
 export function construct(store: AngularFirestore) {
   return async function (
     collectionPath: string,
-    selector: (collectionReference: CollectionReference) => Query
+    selector: (collectionReference: CollectionReference) => Query,
   ): Promise<DbDocumentMetadata[]> {
     return await selector(store.collection(collectionPath).ref)
       .get()
@@ -17,7 +17,7 @@ export function construct(store: AngularFirestore) {
             collectionPath: fullPath.substring(0, firstIndexOfSlash),
             documentPath: fullPath.substring(firstIndexOfSlash),
           }
-        })
+        }),
       )
   }
 }

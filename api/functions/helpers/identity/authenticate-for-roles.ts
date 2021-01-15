@@ -19,7 +19,7 @@ export default function (roles: UserRole[]): RequestHandler {
   return function (
     request: AuthenticationRequest,
     response: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> {
     return authenticate(request, response, async function (): Promise<void> {
       const { uid } = (request as AuthenticatedRequest).user

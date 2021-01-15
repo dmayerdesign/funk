@@ -4,5 +4,5 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
 
 export const ENTERPRISE = new InjectionToken<Enterprise$>("ENTERPRISE")
 export const RESOLVE_ENTERPRISE = new InjectionToken<ResolveEnterprise>(
-  "RESOLVE_ENTERPRISE"
+  "RESOLVE_ENTERPRISE",
 )

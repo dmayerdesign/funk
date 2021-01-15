@@ -12,7 +12,7 @@ import { sortBy } from "lodash"
  */
 export default function (
   discounts: OrderDiscount[],
-  orderPrice: Price
+  orderPrice: Price,
 ): OrderDiscount[] {
   return new ApplicableDiscountsForOrderBuilder(discounts, orderPrice)
     .onlyAllowOrderDiscounts()
@@ -32,7 +32,7 @@ class ApplicableDiscountsForOrderBuilder extends ApplicableDiscountsBuilder<
 
   public onlyAllowOrderDiscounts(): this {
     this._applicableDiscounts = this._applicableDiscounts.filter(
-      (discount) => (discount as Discount).type === "order"
+      (discount) => (discount as Discount).type === "order",
     )
     return this
   }
@@ -42,15 +42,15 @@ class ApplicableDiscountsForOrderBuilder extends ApplicableDiscountsBuilder<
       (discount: OrderDiscount) =>
         !this._orderPriceDoesNotFallWithinDiscountLimits(
           discount,
-          this._orderPrice
-        )
+          this._orderPrice,
+        ),
     )
     return this
   }
 
   public sortPercentageDiscountsFirst(): this {
     this._applicableDiscounts = sortBy(this._applicableDiscounts, (element) =>
-      typeof element.percentage === "number" ? -element.percentage : 1
+      typeof element.percentage === "number" ? -element.percentage : 1,
     )
     return this
   }
@@ -58,7 +58,7 @@ class ApplicableDiscountsForOrderBuilder extends ApplicableDiscountsBuilder<
   public sortMostRecentlyStartedFirst(): this {
     this._applicableDiscounts = sortBy(
       this._applicableDiscounts,
-      ({ startAt }) => Math.ceil(1 / startAt)
+      ({ startAt }) => Math.ceil(1 / startAt),
     )
     return this
   }
@@ -79,7 +79,7 @@ class ApplicableDiscountsForOrderBuilder extends ApplicableDiscountsBuilder<
 
   private _orderPriceDoesNotFallWithinDiscountLimits(
     discount: OrderDiscount,
-    orderPrice: Price
+    orderPrice: Price,
   ): boolean {
     return (
       orderPriceIsBelowDiscountLowerLimit() ||

@@ -8,7 +8,7 @@ import {
   Cart,
   MarshalledOrder,
   Order,
-  ORDERS
+  ORDERS,
 } from "@funk/model/commerce/order/order"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
@@ -23,10 +23,10 @@ export function givenAUser(displayName?: string): Person {
 
 export type GivenACustomer = { person: Person; cart: Cart }
 export function constructGivenACustomer(
-  customerHandleCreate: HandleCreate
+  customerHandleCreate: HandleCreate,
 ): (displayName?: string) => Promise<GivenACustomer> {
   return async function givenACustomer(
-    displayName?: string
+    displayName?: string,
   ): Promise<GivenACustomer> {
     const person = givenAUser(displayName)
     await customerHandleCreate({
@@ -39,7 +39,7 @@ export function constructGivenACustomer(
 }
 
 export async function givenASku(
-  partialSku: Partial<MarshalledSku>
+  partialSku: Partial<MarshalledSku>,
 ): Promise<MarshalledSku> {
   const sku = createFakeMarshalledSku(partialSku?.id, partialSku)
   await setById(SKUS, sku.id, sku)
@@ -62,7 +62,7 @@ export async function givenThatTheCartContainsInStockSkus(options: {
   await setMany({
     [SKUS]: skus.reduce(
       (collection, sku) => ({ ...collection, [sku.id]: sku }),
-      {} as Record<string, MarshalledSku>
+      {} as Record<string, MarshalledSku>,
     ),
   })
   await updateById<MarshalledOrder>(ORDERS, options.theCart.id, {

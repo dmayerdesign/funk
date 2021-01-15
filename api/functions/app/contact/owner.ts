@@ -14,5 +14,5 @@ export default createRpcFunction(
     UserRole.ANONYMOUS,
   ]),
   async ({ body }: RequestWithBody<ContactForm>): Promise<void> =>
-    await sendEmailToOwner(body)
+    await sendEmailToOwner(body),
 )

@@ -71,7 +71,7 @@ describe("upsertPaymentIntent", function () {
         expect(getTotalBeforeTaxAndShipping).toHaveBeenCalled()
         expect(createPaymentIntent).not.toHaveBeenCalled()
       }
-    }
+    },
   )
 
   it("should create a payment intent", async function () {
@@ -84,7 +84,7 @@ describe("upsertPaymentIntent", function () {
     expect(populate).toHaveBeenCalled()
     expect(onlyKeys).toHaveBeenCalledWith(
       expect.not.arrayContaining(["paymentIntentId"]),
-      expect.any(Function)
+      expect.any(Function),
     )
     expect(createPaymentIntent).toHaveBeenCalled()
     expect(updatePaymentIntent).not.toHaveBeenCalled()
@@ -117,7 +117,7 @@ describe("upsertPaymentIntent", function () {
       getTax,
       populate,
       onlyKeys,
-      updateById
+      updateById,
     )
   }
 

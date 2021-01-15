@@ -8,7 +8,7 @@ export function construct(store: AngularFirestore) {
     DocumentType extends Record<string, any> = DatabaseDocument
   >(
     collectionPath: string,
-    documentPath: string
+    documentPath: string,
   ): Observable<DocumentType | undefined> {
     const multicastingStream = store
       .collection(collectionPath)

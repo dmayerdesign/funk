@@ -3,7 +3,7 @@ import { DatabaseDocument } from "@funk/model/data-access/database-document"
 
 export default function <DocumentType extends DatabaseDocument>(
   keys: (keyof DocumentType)[],
-  handler: ChangeHandler<DocumentType>
+  handler: ChangeHandler<DocumentType>,
 ): ChangeHandler<any> {
   return async (change, context) => {
     const { before, after } = change

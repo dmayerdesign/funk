@@ -12,16 +12,16 @@ export const createHttpClientStub = (fakeResponse?: any): HttpClient => ({
   post: async (
     _url: string,
     _data?: any,
-    _config?: RequestConfig
+    _config?: RequestConfig,
   ): Promise<any> => fakeResponse,
   put: async (
     _url: string,
     _data?: any,
-    _config?: RequestConfig
+    _config?: RequestConfig,
   ): Promise<any> => fakeResponse,
   patch: async (
     _url: string,
     _data?: any,
-    _config?: RequestConfig
+    _config?: RequestConfig,
   ): Promise<any> => fakeResponse,
 })

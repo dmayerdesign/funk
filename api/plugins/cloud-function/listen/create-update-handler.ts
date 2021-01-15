@@ -9,10 +9,10 @@ export default function <
   DocumentType extends DatabaseDocument = DatabaseDocument
 >(
   collectionPath: string,
-  handler: ChangeHandler<DocumentType>
+  handler: ChangeHandler<DocumentType>,
 ): CloudFunction<Change<QueryDocumentSnapshot<DocumentType>>> {
   return handleUpdate<DocumentType>(
     `${collectionPath}/{id}`,
-    handler
+    handler,
   ) as CloudFunction<Change<QueryDocumentSnapshot<DocumentType>>>
 }

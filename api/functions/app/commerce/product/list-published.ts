@@ -8,5 +8,5 @@ export default createRpcFunction(
     body,
   }: RequestWithBody<Parameters<typeof listPublished>[0]>): Promise<
     DatabaseDocument[]
-  > => await listPublished(body)
+  > => await listPublished(body),
 )

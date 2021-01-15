@@ -25,11 +25,11 @@ import { map } from "rxjs/operators"
 export class AboutContainer {
   public isDesktopLayout = this._deviceWidth.pipe(
     map((deviceWidth) => deviceWidth > 960),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
 
   public constructor(
     @Inject(PAGE_TITLE) public pageTitle: PageTitle,
-    @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth
+    @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth,
   ) {}
 }

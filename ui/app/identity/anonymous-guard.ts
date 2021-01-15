@@ -4,7 +4,7 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree
+  UrlTree,
 } from "@angular/router"
 import roleHasPublicPrivilegeOrGreater from "@funk/model/auth/helpers/role-has-public-privilege-or-greater"
 import { USER_SESSION } from "@funk/ui/app/identity/tokens"
@@ -16,19 +16,19 @@ import { map } from "rxjs/operators"
 export class AnonymousGuard implements CanActivate {
   public constructor(
     @Inject(USER_SESSION) private _userSession: UserSession,
-    private _router: Router
+    private _router: Router,
   ) {}
 
   public canActivate(
     _activatedRoute: ActivatedRouteSnapshot,
-    routerState: RouterStateSnapshot
+    routerState: RouterStateSnapshot,
   ): Observable<true | UrlTree> {
     return this._userSession.pipe(
       map(
         ({ auth }) =>
           roleHasPublicPrivilegeOrGreater(auth.claims?.role) ||
-          this._router.parseUrl("/sign-in?on-sign-in-go-to=" + routerState.url)
-      )
+          this._router.parseUrl("/sign-in?on-sign-in-go-to=" + routerState.url),
+      ),
     )
   }
 }

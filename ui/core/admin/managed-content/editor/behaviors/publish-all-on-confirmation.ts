@@ -9,7 +9,7 @@ export function construct(
   userSession: UserSession,
   alert: AlertController,
   getMaybeContentPreviews: GetMaybeContentPreviews,
-  publishAll: PublishAll
+  publishAll: PublishAll,
 ) {
   return async function (): Promise<void> {
     const { person, auth } = await asPromise(userSession)

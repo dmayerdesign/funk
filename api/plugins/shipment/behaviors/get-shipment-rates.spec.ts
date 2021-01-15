@@ -2,7 +2,7 @@ import { construct } from "@funk/api/plugins/shipment/behaviors/get-shipment-rat
 import { SimpleRate } from "@funk/api/plugins/shipment/simple-rate"
 import {
   Enterprise,
-  ShippingCostStrategy
+  ShippingCostStrategy,
 } from "@funk/model/commerce/enterprise/enterprise"
 import { Order } from "@funk/model/commerce/order/order"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
@@ -41,10 +41,10 @@ describe("getShippingRates", () => {
       expect(getShipmentProvider).toHaveBeenCalledWith(shipmentProviderSecret)
       expect(sspInstance.Address).toHaveBeenCalledTimes(2)
       expect(sspInstance.Address).toHaveBeenCalledWith(
-        ENTERPRISE.shippingFromAddress
+        ENTERPRISE.shippingFromAddress,
       )
       expect(sspInstance.Address).toHaveBeenCalledWith(
-        ORDER.customer.shippingAddress
+        ORDER.customer.shippingAddress,
       )
       expect(sspInstance.Parcel).toHaveBeenCalledTimes(1)
       expect(sspInstance.Parcel).toHaveBeenCalledWith({
@@ -86,10 +86,10 @@ describe("getShippingRates", () => {
       expect(getShipmentProvider).toHaveBeenCalledWith(shipmentProviderSecret)
       expect(sspInstance.Address).toHaveBeenCalledTimes(2)
       expect(sspInstance.Address).toHaveBeenCalledWith(
-        ENTERPRISE.shippingFromAddress
+        ENTERPRISE.shippingFromAddress,
       )
       expect(sspInstance.Address).toHaveBeenCalledWith(
-        ORDER.customer.shippingAddress
+        ORDER.customer.shippingAddress,
       )
       expect(sspInstance.Parcel).toHaveBeenCalledTimes(1)
       expect(sspInstance.Parcel).toHaveBeenCalledWith({
@@ -128,7 +128,7 @@ const setUp = (shippingCostStrategy: ShippingCostStrategy) => {
   } = constructGetShipmentProviderStub()
   const getShippingRates = construct(
     shipmentProviderSecret,
-    getShipmentProvider
+    getShipmentProvider,
   )
   saveShipment.and.callFake(async () => ({
     rates: [

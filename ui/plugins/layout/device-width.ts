@@ -6,7 +6,7 @@ export function construct(window: Window) {
   const deviceWidth = fromEvent(window, "resize").pipe(
     startWith(undefined),
     map(() => window.innerWidth),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
   deviceWidth.subscribe()
   return deviceWidth

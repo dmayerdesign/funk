@@ -2,7 +2,7 @@ import { construct } from "@funk/api/plugins/payment/behaviors/create-payment-in
 import { GetPaymentProvider } from "@funk/api/plugins/payment/behaviors/get-payment-provider"
 import {
   createGetPaymentProviderStub,
-  PaymentProviderStub
+  PaymentProviderStub,
 } from "@funk/api/plugins/payment/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import Stripe from "stripe"
@@ -39,7 +39,7 @@ describe("createPaymentIntent", () => {
     expect(psp.paymentIntents.create).toHaveBeenCalledTimes(1)
     expect(psp.paymentIntents.create).toHaveBeenCalledWith(
       expectedCreateParams,
-      { idempotencyKey: GOOD_OPTIONS.idempotencyKey }
+      { idempotencyKey: GOOD_OPTIONS.idempotencyKey },
     )
     expect(paymentIntent).toBe(PSP_CREATE_RESULT)
   })

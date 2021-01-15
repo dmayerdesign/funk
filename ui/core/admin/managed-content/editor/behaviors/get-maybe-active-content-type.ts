@@ -4,7 +4,7 @@ import { GetMaybeActiveContent } from "@funk/ui/core/admin/managed-content/edito
 export function construct(getMaybeActiveContent: GetMaybeActiveContent) {
   const maybeActiveContentType = getMaybeActiveContent().pipe(
     maybePluck("type"),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
   maybeActiveContentType.subscribe()
   return () => maybeActiveContentType

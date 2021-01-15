@@ -6,14 +6,14 @@ import { MarshalledProductAttributeValues } from "@funk/model/commerce/attribute
 import subtract from "@funk/model/commerce/price/behaviors/subtract"
 import {
   MarshalledProduct,
-  PRODUCTS
+  PRODUCTS,
 } from "@funk/model/commerce/product/product"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { isEqual, uniq } from "lodash"
 
 export function construct(
   list: typeof listImpl,
-  updateById: typeof updateByIdImpl
+  updateById: typeof updateByIdImpl,
 ) {
   return async function ({ before, after }): Promise<void> {
     const skuBefore = before.data()

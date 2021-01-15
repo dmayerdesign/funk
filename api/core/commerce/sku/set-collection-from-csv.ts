@@ -18,7 +18,7 @@ export function construct(setMany: typeof setManyImpl) {
         collectionData[jsonRow["SKU"]] = mapImportedSkuToSku(jsonRow)
         return collectionData
       },
-      {} as Dictionary<MarshalledSku>
+      {} as Dictionary<MarshalledSku>,
     )
 
     throwIfCollectionDataContainsInvalidSku(jsonCollectionData)
@@ -34,14 +34,14 @@ export default construct(setManyImpl)
 export type SetCollectionFromCsv = ReturnType<typeof construct>
 
 function throwIfCollectionDataContainsInvalidSku(
-  collectionData: Dictionary<MarshalledSku>
+  collectionData: Dictionary<MarshalledSku>,
 ): void {
   values(collectionData).forEach((sku) => {
     if (marshalledSkuIsInvalid(sku)) {
       throw new InvalidInputError(
         `Encountered an invalid SKU, aborting the import. Invalid SKU: ${JSON.stringify(
-          sku
-        )}`
+          sku,
+        )}`,
       )
     }
   })

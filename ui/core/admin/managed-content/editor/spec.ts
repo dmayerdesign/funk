@@ -5,11 +5,11 @@ import {
   CONTENTS,
   ManagedContent,
   ManagedContentType,
-  ManagedText
+  ManagedText,
 } from "@funk/model/managed-content/managed-content"
 import {
   construct,
-  ManagedContentEditorService
+  ManagedContentEditorService,
 } from "@funk/ui/core/admin/managed-content/editor/service"
 import { FAKE_USER_UID } from "@funk/ui/core/identity/stubs"
 import { UserSession } from "@funk/ui/core/identity/user-session"
@@ -42,7 +42,7 @@ describe("ManagedContentEditorService", () => {
     await service.openEditor("content-2")
 
     expect(await getActiveContentValueControl()).toEqual(
-      expect.objectContaining({ value: "Test 2" })
+      expect.objectContaining({ value: "Test 2" }),
     )
   })
 
@@ -54,7 +54,7 @@ describe("ManagedContentEditorService", () => {
     await service.openEditor("content-1")
 
     expect((await getActiveContentValueControl())?.value).toEqual(
-      "Test 1 preview saved"
+      "Test 1 preview saved",
     )
   })
 
@@ -62,14 +62,14 @@ describe("ManagedContentEditorService", () => {
     const service = newService()
     await service.openEditor("content-1")
     const activeContentValueControl = await asPromise(
-      service.getMaybeActiveContentValueControl()
+      service.getMaybeActiveContentValueControl(),
     )
     activeContentValueControl?.setValue("Test 1 preview")
 
     await service.saveAndClearIfEditing()
 
     const clearedActiveContentValueControl = await asPromise(
-      service.getMaybeActiveContentValueControl()
+      service.getMaybeActiveContentValueControl(),
     )
     expect(clearedActiveContentValueControl).toBe(undefined)
     expect(updateById).toHaveBeenCalledTimes(1)
@@ -82,7 +82,7 @@ describe("ManagedContentEditorService", () => {
           type: FAKE_CONTENTS["content-1"].type,
           value: FAKE_CONTENTS["content-1"].value + " preview",
         },
-      })
+      }),
     )
   })
 
@@ -108,7 +108,7 @@ describe("ManagedContentEditorService", () => {
       "content-1",
       createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.[
         "content-1"
-      ].content
+      ].content,
     )
     expect(updateById).toHaveBeenCalledTimes(1)
     expect(updateById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID, {
@@ -129,7 +129,7 @@ describe("ManagedContentEditorService", () => {
 
   it("should not publish if the content has been edited since the preview was created", async () => {
     const FAKE_USER_STATES = createFakeUserStates(
-      "content-with-publish-conflict"
+      "content-with-publish-conflict",
     )
     when(listenById as jest.Mock)
       .calledWith(USER_STATES)
@@ -161,7 +161,7 @@ describe("ManagedContentEditorService", () => {
       "content-1",
       createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.[
         "content-1"
-      ].content
+      ].content,
     )
     expect(updateById).toHaveBeenCalledTimes(1)
     expect(updateById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID, {
@@ -242,7 +242,7 @@ describe("ManagedContentEditorService", () => {
     when(getById as jest.Mock)
       .calledWith(CONTENTS, "content-with-publish-conflict")
       .mockReturnValue(
-        Promise.resolve(FAKE_CONTENTS["content-with-publish-conflict"])
+        Promise.resolve(FAKE_CONTENTS["content-with-publish-conflict"]),
       )
     when(listenById as jest.Mock)
       .calledWith(CONTENTS, "content-1")
@@ -264,7 +264,7 @@ describe("ManagedContentEditorService", () => {
       updateById,
       getInnerText,
       alertController,
-      of(961)
+      of(961),
     )
   }
 })
@@ -297,7 +297,7 @@ const FAKE_CONTENTS: Dictionary<ManagedContent> = {
 }
 
 const createFakeUserStates = (
-  contentIdPreviewing = "content-1"
+  contentIdPreviewing = "content-1",
 ): {
   [id: string]: UserState
 } => ({

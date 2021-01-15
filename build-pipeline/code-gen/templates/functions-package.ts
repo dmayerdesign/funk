@@ -14,7 +14,7 @@ export default function (rootPackageJson: {
         }
         return deps
       },
-      {} as Dictionary<string>
+      {} as Dictionary<string>,
     ),
     main: "index.js",
     engines: {

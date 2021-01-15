@@ -19,7 +19,7 @@ export function construct(getPaymentProvider: typeof getPaymentProviderImpl) {
 
     if (paymentIntent.amount < MIN_TRANSACTION_CENTS) {
       throw new PaymentIntentInvalidPriceError(
-        `Amount ${paymentIntent.amount} is less than the minimum for a transaction.`
+        `Amount ${paymentIntent.amount} is less than the minimum for a transaction.`,
       )
     }
 

@@ -17,7 +17,7 @@ describe("customerHandleCreate", () => {
         customer: expect.objectContaining({
           userId: USER.uid,
         }),
-      })
+      }),
     )
   })
 })

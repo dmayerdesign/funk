@@ -8,6 +8,6 @@ export default function (order: Pick<Order, "skus">): Price {
   const currency = order?.skus?.[0]?.price?.currency ?? CurrencyCode.USD
   return (order?.skus ?? ([] as MarshalledSku[])).reduce(
     (totalPrice, sku) => add(totalPrice, sku.price),
-    { ...NULL_PRICE, currency }
+    { ...NULL_PRICE, currency },
   )
 }

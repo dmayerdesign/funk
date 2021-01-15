@@ -25,7 +25,7 @@ import { pluck } from "rxjs/operators"
 })
 export class CheckoutComponent {
   public shippingCostStrategy = this._enterprise.pipe(
-    pluck("shippingCostStrategy")
+    pluck("shippingCostStrategy"),
   )
 
   public constructor(@Inject(ENTERPRISE) private _enterprise: Enterprise$) {}

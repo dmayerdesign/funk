@@ -9,7 +9,7 @@ const CLIENT_APP_DOMAIN = CLIENT_APP_URL.split("//")[1]
 
 export function construct(
   sendEmail: typeof sendEmailImpl,
-  isHuman: typeof isHumanImpl
+  isHuman: typeof isHumanImpl,
 ) {
   /**
    * @throws {InvalidInputError}
@@ -20,7 +20,7 @@ export function construct(
     const _isHuman = await isHuman(turingTestToken)
     if (!_isHuman) {
       throw new ForbiddenError(
-        "The user submitting this form appears to be a robot."
+        "The user submitting this form appears to be a robot.",
       )
     }
     await sendEmail({

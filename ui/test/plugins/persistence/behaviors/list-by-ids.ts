@@ -7,7 +7,7 @@ export function construct(..._args: any[]) {
     DocumentType extends Record<string, any> = DatabaseDocument
   >(collectionPath: string, documentPaths: string[]): Promise<DocumentType[]> {
     return documentPaths.map(
-      (docPath) => get(getStore(), collectionPath, docPath) as DocumentType
+      (docPath) => get(getStore(), collectionPath, docPath) as DocumentType,
     )
   }
 }

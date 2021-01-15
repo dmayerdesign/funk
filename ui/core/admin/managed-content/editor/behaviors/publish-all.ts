@@ -5,7 +5,7 @@ import { PublishOrReportConflict } from "@funk/ui/core/admin/managed-content/edi
 export function construct(publishOrReportConflict: PublishOrReportConflict) {
   return async function (
     contentPreviews: { [contentId: string]: ContentPreview },
-    person: Person
+    person: Person,
   ): Promise<void> {
     for (const contentId of Object.keys(contentPreviews!)) {
       try {

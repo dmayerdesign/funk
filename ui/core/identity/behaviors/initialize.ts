@@ -7,7 +7,7 @@ import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
 export function construct(
   auth: AuthClient,
   userSession: UserSession,
-  userIdToken: UserIdToken
+  userIdToken: UserIdToken,
 ) {
   return (): void => {
     ;(async function (): Promise<void> {

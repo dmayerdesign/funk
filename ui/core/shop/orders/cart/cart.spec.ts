@@ -24,7 +24,7 @@ describe("Cart$", () => {
           collectionPath: COLLECTION_PATH,
           documentPath: DOCUMENT_PATH,
         },
-      ])
+      ]),
     )
     listenById = jest.fn().mockReturnValue(of(CART))
     populate = jest.fn().mockReturnValue(Promise.resolve(CART))
@@ -35,7 +35,7 @@ describe("Cart$", () => {
       userSession,
       queryCollectionForMetadata,
       listenById,
-      populate
+      populate,
     )
     const cartObserverSpy = jest.fn()
 

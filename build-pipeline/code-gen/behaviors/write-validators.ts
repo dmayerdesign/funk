@@ -3,7 +3,7 @@ import {
   mkdirpSync,
   readFileSync,
   unlinkSync,
-  writeFileSync
+  writeFileSync,
 } from "fs-extra"
 import { kebabCase } from "lodash"
 import md5 from "md5"
@@ -16,7 +16,7 @@ const CACHE_PATH = resolve(__dirname, "../../../", ".funk/.cache/validators")
 export default function () {
   const pathToModel = resolve(__dirname, "../../../model")
   const filenames = recursiveReaddir(pathToModel).filter(
-    (filename) => !filename.match(/\/validators\//g)
+    (filename) => !filename.match(/\/validators\//g),
   )
 
   const modelEntrypointFilename = resolve(pathToModel, "validators/main.ts")
@@ -33,9 +33,9 @@ ${filenames
   .filter((filename) => !filename.includes("/validators/"))
   .map(
     (filename) =>
-      `import "@funk/model/${filename.split(sep + "model" + sep)[1]}"`
+      `import "@funk/model/${filename.split(sep + "model" + sep)[1]}"`,
   )
-  .join("\n")}\n`
+  .join("\n")}\n`,
   )
 
   const generator = schemaGenerator.createGenerator({
@@ -50,22 +50,22 @@ ${filenames
     const fileString = readFileSync(filename).toString("utf-8")
 
     const interfaceNames = fileString.match(
-      new RegExp("(?<=export(\\s)+interface(\\s)+)\\w+", "g")
+      new RegExp("(?<=export(\\s)+interface(\\s)+)\\w+", "g"),
     )
     interfaceNames?.forEach((interfaceName) => {
       try {
         const schemaDefs = generator.createSchema(interfaceName).definitions!
         const schemaDefFilename = resolve(
           validatorsDirname,
-          `${kebabCase(interfaceName)}.schema.json`
+          `${kebabCase(interfaceName)}.schema.json`,
         )
         const validator1Filename = resolve(
           validatorsDirname,
-          `${kebabCase(interfaceName)}-is-invalid.ts`
+          `${kebabCase(interfaceName)}-is-invalid.ts`,
         )
         const validator2Filename = resolve(
           validatorsDirname,
-          `throw-if-${kebabCase(interfaceName)}-is-invalid.ts`
+          `throw-if-${kebabCase(interfaceName)}-is-invalid.ts`,
         )
 
         // Do nothing if no schema def is found for this interface.
@@ -78,12 +78,12 @@ ${filenames
           CACHE_PATH,
           `${filename
             .split(sep + "model" + sep)[1]
-            .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`
+            .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`,
         )
         let cachedHashedSchemaDef: string | undefined
         try {
           cachedHashedSchemaDef = readFileSync(
-            cachedHashedSchemaDefPath
+            cachedHashedSchemaDefPath,
           ).toString("utf-8")
         } catch {}
         if (hashedSchemaDef === cachedHashedSchemaDef) return
@@ -101,7 +101,7 @@ ${filenames
           console.log("Writing " + schemaDefFilename)
           writeFileSync(
             schemaDefFilename,
-            JSON.stringify(schemaDef, null, 2) + "\n"
+            JSON.stringify(schemaDef, null, 2) + "\n",
           )
           console.log("Writing " + validator1Filename)
           writeFileSync(
@@ -128,7 +128,7 @@ export default function(data: ${interfaceName}): string[] | false
   }, [] as string[])
   return errors.length > 0 ? errors : false
 }
-`
+`,
           )
           console.log("Writing " + validator2Filename)
           writeFileSync(
@@ -167,7 +167,7 @@ export function construct()
 export default construct()
 
 export type Validate = ReturnType<typeof construct>
-`
+`,
           )
         }
         function cacheSource() {

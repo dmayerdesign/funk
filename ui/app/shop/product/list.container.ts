@@ -8,7 +8,7 @@ import { ListPublished } from "@funk/ui/functions/commerce/product/list-publishe
 import {
   Pagination,
   TAKE_ALL,
-  VirtualPagination
+  VirtualPagination,
 } from "@funk/ui/plugins/persistence/pagination"
 import { LoadingController } from "@ionic/angular"
 import { flatten } from "lodash"
@@ -42,11 +42,11 @@ export class ProductListContainer {
   public filters: Observable<ListFilter[]> = this._filters.asObservable()
   public queryConditions = this.filters.pipe(
     map((filters) => flatten(filters.map(getQueryConditions))),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
   public products: Observable<MarshalledProduct[]> = combineLatest(
     this.queryConditions,
-    this.pagination
+    this.pagination,
   ).pipe(
     switchMap(async ([conditions, pagination]) => {
       const loading = await this._loadingController.create({
@@ -57,12 +57,12 @@ export class ProductListContainer {
       await this._loadingController.dismiss("PRODUCTS_LOADING")
       return products
     }),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
 
   public constructor(
     @Inject(LIST_PUBLISHED) private _listPublished: ListPublished,
-    private _loadingController: LoadingController
+    private _loadingController: LoadingController,
   ) {}
 
   public handleFiltersChange(filters: ListFilter[]): void {
@@ -70,7 +70,7 @@ export class ProductListContainer {
   }
 
   public handlePaginationChange(
-    pagination: Pagination<MarshalledProduct> | VirtualPagination
+    pagination: Pagination<MarshalledProduct> | VirtualPagination,
   ): void {
     this._pagination.next(pagination)
   }

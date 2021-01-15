@@ -8,14 +8,14 @@ export function construct(store: typeof storeImpl) {
     collectionPath: string,
     documentPath: string,
     documentData: DocumentType,
-    options?: { overwrite?: boolean }
+    options?: { overwrite?: boolean },
   ): Promise<void> {
     await store()
       .collection(collectionPath)
       .doc(documentPath)
       .set(
         { ...documentData, updatedAt: Date.now() },
-        { merge: !options?.overwrite }
+        { merge: !options?.overwrite },
       )
   }
 }

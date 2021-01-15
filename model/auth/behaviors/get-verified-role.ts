@@ -3,7 +3,7 @@ import { UserRole } from "@funk/model/auth/user-role"
 
 export default function (
   verifications: { emailVerified: boolean },
-  claims?: CustomClaims
+  claims?: CustomClaims,
 ): UserRole {
   if (!claims || !claims.role) {
     return UserRole.ANONYMOUS

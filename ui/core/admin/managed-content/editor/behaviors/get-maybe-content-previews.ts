@@ -5,7 +5,7 @@ import { GetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
 
 export function construct(getById: GetById) {
   return async function (
-    person: Person
+    person: Person,
   ): Promise<{ [contentId: string]: ContentPreview } | undefined> {
     const userState = await getById<UserState>(USER_STATES, person.id)
     return userState?.contentPreviews

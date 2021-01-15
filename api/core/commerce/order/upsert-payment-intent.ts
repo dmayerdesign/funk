@@ -3,10 +3,10 @@ import getTotalBeforeTaxAndShippingImpl from "@funk/api/core/commerce/order/get-
 import populateImpl from "@funk/api/core/commerce/order/populate"
 import onlyKeysImpl from "@funk/api/plugins/cloud-function/listen/only-keys"
 import createPaymentIntentImpl, {
-  Options as CreatePaymentIntentOptions
+  Options as CreatePaymentIntentOptions,
 } from "@funk/api/plugins/payment/behaviors/create-payment-intent"
 import updatePaymentIntentImpl, {
-  Options as UpdatePaymentIntentOptions
+  Options as UpdatePaymentIntentOptions,
 } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
 import { MIN_TRANSACTION_CENTS } from "@funk/api/plugins/payment/configuration"
 import updateByIdImpl from "@funk/api/plugins/persistence/behaviors/update-by-id"
@@ -14,7 +14,7 @@ import {
   MarshalledOrder,
   Order,
   ORDERS,
-  Status
+  Status,
 } from "@funk/model/commerce/order/order"
 import { Price } from "@funk/model/commerce/price/price"
 import { InvalidInputError } from "@funk/model/error/invalid-input-error"
@@ -27,7 +27,7 @@ export function construct(
   getTax: typeof getTaxImpl,
   populate: typeof populateImpl,
   onlyKeys: typeof onlyKeysImpl,
-  updateById: typeof updateByIdImpl
+  updateById: typeof updateByIdImpl,
 ) {
   const keysToListenTo: (keyof MarshalledOrder)[] = [
     "skuQuantityMap",
@@ -43,7 +43,7 @@ export function construct(
 
     try {
       const priceAfterTax = await getTransactionPriceAfterTaxOrThrow(
-        await populate(order)
+        await populate(order),
       )
       const paymentIntentData = {
         price: priceAfterTax,
@@ -73,22 +73,22 @@ export function construct(
 
   async function setPaymentIntentId(
     orderId: string,
-    paymentIntentId: string
+    paymentIntentId: string,
   ): Promise<void> {
     if (!orderId || !paymentIntentId) return
     await updateById<MarshalledOrder>(ORDERS, orderId, { paymentIntentId })
   }
 
   async function getTransactionPriceAfterTaxOrThrow(
-    order: Order
+    order: Order,
   ): Promise<Price> {
     const priceAfterTax = add(
       await getTotalBeforeTaxAndShipping(order),
-      await getTax(order)
+      await getTax(order),
     )
     if (priceAfterTax.amount < MIN_TRANSACTION_CENTS) {
       throw new OrderPriceLessThanMinimumError(
-        "The price after tax did not meet the minimum amount for a transaction."
+        "The price after tax did not meet the minimum amount for a transaction.",
       )
     }
     return priceAfterTax
@@ -102,7 +102,7 @@ export default construct(
   getTaxImpl,
   populateImpl,
   onlyKeysImpl,
-  updateByIdImpl
+  updateByIdImpl,
 )
 
 export type HandleWrite = ReturnType<typeof construct>

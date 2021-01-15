@@ -6,8 +6,8 @@ export const ignoreNullish = <ValueType>() =>
     filter<ValueType | undefined | null, ValueType>(
       ((value) => value != null) as (
         value: ValueType | undefined | null,
-      ) => value is ValueType
-    )
+      ) => value is ValueType,
+    ),
   )
 
 export const assertNotNullish = <ValueType>() =>
@@ -19,10 +19,10 @@ export const maybePluck = <
   ValueType,
   KeyType extends keyof NonNullable<ValueType>
 >(
-  key: KeyType
+  key: KeyType,
 ) =>
   pipe(
     map<ValueType, NonNullable<ValueType>[KeyType] | undefined>(
-      (input) => input?.[key]
-    )
+      (input) => input?.[key],
+    ),
   )

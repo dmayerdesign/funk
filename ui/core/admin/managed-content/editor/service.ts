@@ -38,83 +38,83 @@ export function construct(
   updateById: ReturnType<typeof constructUpdateById>,
   getInnerText: ReturnType<typeof constructGetInnerText>,
   alert: AlertController,
-  deviceWidth: DeviceWidth
+  deviceWidth: DeviceWidth,
 ) {
   return new (class ManagedContentEditorService {
     public constructor(
       public getMaybeActiveContentId = getMaybeActiveContentIdImpl,
       public getIsAuthorized = constructGetIsAuthorized(
         userSession,
-        deviceWidth
+        deviceWidth,
       ),
       _getIsSaving = getIsSavingImpl,
       public getMaybePreviewOrLiveContent = constructGetMaybePreviewOrLiveContent(
         userSession,
         getIsAuthorized,
-        listenById
+        listenById,
       ),
       _getMaybeContentPreviews = constructGetMaybeContentPreviews(getById),
       public getMaybeActiveContent = constructGetMaybeActiveContent(
         getMaybeActiveContentId,
-        getMaybePreviewOrLiveContent
+        getMaybePreviewOrLiveContent,
       ),
       public getMaybeActiveContentType = constructGetMaybeActiveContentType(
-        getMaybeActiveContent
+        getMaybeActiveContent,
       ),
       public getMaybeActiveContentValueControl = constructGetMaybeActiveContentValueControl(
-        getMaybeActiveContent
+        getMaybeActiveContent,
       ),
       public getMaybeActiveContentValue = constructGetMaybeActiveContentValue(
-        getMaybeActiveContentValueControl
+        getMaybeActiveContentValueControl,
       ),
       public getHasPreview = constructGetHasPreview(userSession, listenById),
       public getPublishConflicts = getPublishConflictsImpl,
       public cancelEdit = constructCancelEdit(getMaybeActiveContentId),
       public openEditor = constructOpenEditor(
         getMaybeActiveContentId,
-        getIsAuthorized
+        getIsAuthorized,
       ),
       _removeFromPublishConflicts = constructRemoveFromPublishConflicts(
-        getPublishConflicts
+        getPublishConflicts,
       ),
       public removeAllPreviews = constructRemoveAllPreviews(
         updateById,
         userSession,
-        getPublishConflicts
+        getPublishConflicts,
       ),
       public removePreview = constructRemovePreview(
         _getMaybeContentPreviews,
         userSession,
         updateById,
-        _removeFromPublishConflicts
+        _removeFromPublishConflicts,
       ),
       _publishOrReportConflict = constructPublishOrReportConflict(
         getById,
         setById,
         updateById,
         getPublishConflicts,
-        _getMaybeContentPreviews
+        _getMaybeContentPreviews,
       ),
       public publishAll = constructPublishAll(_publishOrReportConflict),
       public publishAllOnConfirmation = constructPublishAllOnConfirmation(
         userSession,
         alert,
         _getMaybeContentPreviews,
-        publishAll
+        publishAll,
       ),
       _publishAndDeleteContentPreview = constructPublishAndDeleteContentPreview(
         setById,
         updateById,
-        _getMaybeContentPreviews
+        _getMaybeContentPreviews,
       ),
       public publishOne = constructPublishOne(
         userSession,
         _publishAndDeleteContentPreview,
-        _removeFromPublishConflicts
+        _removeFromPublishConflicts,
       ),
       public removeAllPreviewsOnConfirmation = constructRemoveAllPreviewsOnConfirmation(
         alert,
-        removeAllPreviews
+        removeAllPreviews,
       ),
       public saveAndClearIfEditing = constructSaveAndClearIfEditing(
         getMaybeActiveContentValueControl,
@@ -125,8 +125,8 @@ export function construct(
         getMaybeActiveContentValue,
         getInnerText,
         updateById,
-        cancelEdit
-      )
+        cancelEdit,
+      ),
     ) {}
   })()
 }

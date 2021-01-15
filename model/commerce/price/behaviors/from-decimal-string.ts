@@ -3,7 +3,7 @@ import { Price } from "@funk/model/commerce/price/price"
 
 export default function (
   decimalString: string | undefined,
-  currency: CurrencyCode
+  currency: CurrencyCode,
 ): Price | undefined {
   if (!decimalString) return undefined
 

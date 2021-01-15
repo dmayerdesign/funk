@@ -34,7 +34,7 @@ describe("orderGetSalesTax", function () {
         getTotalBeforeTaxAndShipping,
         populate,
         getSalesTaxRateForAddress,
-        getById
+        getById,
       )
 
       const getTaxResult = await getTaxUnderTest(marshalledOrder)
@@ -68,7 +68,7 @@ describe("orderGetSalesTax", function () {
         getTotalBeforeTaxAndShipping,
         populate,
         getSalesTaxRateForAddress,
-        getById
+        getById,
       )
 
       const getTaxResult = await getTaxUnderTest(marshalledOrder)
@@ -95,7 +95,7 @@ describe("orderGetSalesTax", function () {
         getTotalBeforeTaxAndShipping,
         populate,
         getSalesTaxRateForAddress,
-        getById
+        getById,
       )
 
       try {
@@ -112,7 +112,7 @@ describe("orderGetSalesTax", function () {
 const setUp = (
   order: Partial<Order>,
   orderTotalCents: number,
-  taxRate: number
+  taxRate: number,
 ) => {
   const ENTERPRISE = { salesTaxNexusStates: ["FL"] } as Enterprise
   const populatedOrder = { ...order }

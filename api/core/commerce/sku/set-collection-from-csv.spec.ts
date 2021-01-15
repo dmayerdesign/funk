@@ -1,6 +1,6 @@
 import {
   construct,
-  SetCollectionFromCsv
+  SetCollectionFromCsv,
 } from "@funk/api/core/commerce/sku/set-collection-from-csv"
 import { SetMany } from "@funk/api/plugins/persistence/behaviors/set-many"
 import { FiniteInventory } from "@funk/model/commerce/sku/inventory"

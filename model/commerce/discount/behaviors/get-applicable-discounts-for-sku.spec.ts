@@ -11,7 +11,7 @@ describe("getApplicableDiscountsForSku", () => {
     const ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT = createAllInclusiveTenPercentDiscount(
       {
         isCompoundable: true,
-      }
+      },
     )
     const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
     const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
@@ -22,7 +22,7 @@ describe("getApplicableDiscountsForSku", () => {
 
     const applicableDiscounts = getApplicableDiscountsForSku(
       originalDiscounts,
-      { sku: FAKE_MARSHALLED_SKU, product: FAKE_MARSHALLED_PRODUCT }
+      { sku: FAKE_MARSHALLED_SKU, product: FAKE_MARSHALLED_PRODUCT },
     )
 
     expect(applicableDiscounts).toEqual(originalDiscounts)
@@ -31,7 +31,7 @@ describe("getApplicableDiscountsForSku", () => {
     const ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT = createAllInclusiveTenPercentDiscount(
       {
         isCompoundable: false,
-      }
+      },
     )
     const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
     const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
@@ -44,14 +44,14 @@ describe("getApplicableDiscountsForSku", () => {
       getApplicableDiscountsForSku(originalDiscounts, {
         sku: FAKE_MARSHALLED_SKU,
         product: FAKE_MARSHALLED_PRODUCT,
-      })
+      }),
     ).toEqual([ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT])
   })
   it("should filter out discounts which exclude the SKU by id", () => {
     const ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT = createAllInclusiveTenPercentDiscount(
       {
         isCompoundable: true,
-      }
+      },
     )
     const EXCLUSIVE_AMOUNT_DISCOUNT = createExclusiveAmountDiscount({
       isCompoundable: true,
@@ -67,7 +67,7 @@ describe("getApplicableDiscountsForSku", () => {
       getApplicableDiscountsForSku(originalDiscounts, {
         sku: SKU_EXCLUDED_BY_ID,
         product: FAKE_MARSHALLED_PRODUCT,
-      })
+      }),
     ).toEqual([ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT])
   })
   it("should filter out discounts which exclude the product by id", () => {
@@ -80,7 +80,7 @@ describe("getApplicableDiscountsForSku", () => {
       getApplicableDiscountsForSku(originalDiscounts, {
         sku: FAKE_MARSHALLED_SKU,
         product: PRODUCT_EXCLUDED_BY_ID,
-      })
+      }),
     ).toEqual([])
   })
   it("should filter out discounts which exclude the SKU by taxonomy term", () => {
@@ -93,7 +93,7 @@ describe("getApplicableDiscountsForSku", () => {
       getApplicableDiscountsForSku(originalDiscounts, {
         sku: SKU_EXCLUDED_BY_TAX_TERM,
         product: FAKE_MARSHALLED_PRODUCT,
-      })
+      }),
     ).toEqual([])
   })
   it("should filter out discounts which exclude the product by taxonomy term", () => {
@@ -105,7 +105,7 @@ describe("getApplicableDiscountsForSku", () => {
       getApplicableDiscountsForSku(originalDiscounts, {
         sku: FAKE_MARSHALLED_SKU,
         product: PRODUCT_EXCLUDED_BY_TAX_TERM,
-      })
+      }),
     ).toEqual([])
   })
 })

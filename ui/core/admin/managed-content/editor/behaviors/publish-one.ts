@@ -11,7 +11,7 @@ import { UserSession } from "@funk/ui/core/identity/user-session"
 export function construct(
   userSession: UserSession,
   publishAndDeleteContentPreview: PublishAndDeleteContentPreview,
-  removeFromPublishConflicts: RemoveFromPublishConflicts
+  removeFromPublishConflicts: RemoveFromPublishConflicts,
 ) {
   return async function (contentId: PrimaryKey): Promise<void> {
     const { person, auth } = await asPromise(userSession)

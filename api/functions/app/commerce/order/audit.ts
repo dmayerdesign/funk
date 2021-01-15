@@ -4,5 +4,5 @@ import { Order, ORDERS } from "@funk/model/commerce/order/order"
 
 export default createWriteHandler(
   ORDERS,
-  auditOnWrite<Order>(`audit.${ORDERS}`)
+  auditOnWrite<Order>(`audit.${ORDERS}`),
 )

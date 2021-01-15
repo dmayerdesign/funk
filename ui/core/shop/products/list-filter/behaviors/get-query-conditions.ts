@@ -1,13 +1,13 @@
 import createDocPath from "@funk/helpers/create-doc-path"
 import {
   ListFilter,
-  ListFilterType
+  ListFilterType,
 } from "@funk/ui/core/shop/products/list-filter/list-filter"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { Condition } from "@funk/ui/plugins/persistence/condition"
 
 export default function (
-  listFilter: ListFilter
+  listFilter: ListFilter,
 ): Condition<MarshalledProduct>[] {
   switch (listFilter.type) {
     case ListFilterType.ATTRIBUTE_VALUE:
@@ -19,7 +19,7 @@ export default function (
     case ListFilterType.SCALAR_ATTRIBUTE:
       let documentPath = createDocPath<MarshalledProduct>(
         "attributeValues",
-        listFilter.attributeId
+        listFilter.attributeId,
       )
       return [[documentPath, "in", listFilter.values]]
     case ListFilterType.RANGE_PROPERTY:
@@ -30,7 +30,7 @@ export default function (
     case ListFilterType.RANGE_ATTRIBUTE:
       documentPath = createDocPath<MarshalledProduct>(
         "attributeValues",
-        listFilter.attributeId
+        listFilter.attributeId,
       )
       return [
         [documentPath, ">=", listFilter.range.min],

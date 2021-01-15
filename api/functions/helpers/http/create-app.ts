@@ -16,7 +16,7 @@ export function construct(appFactory = () => express()) {
       cors({
         origin: TRUSTED_ORIGINS,
         ...corsOptions,
-      })
+      }),
     )
   }
 }

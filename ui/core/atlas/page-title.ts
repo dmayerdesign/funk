@@ -7,7 +7,7 @@ export function construct(router: Router) {
     filter<Event, ActivationEnd>(
       ((event) => event instanceof ActivationEnd) as (
         value: Event,
-      ) => value is ActivationEnd
+      ) => value is ActivationEnd,
     ),
     pluck("snapshot"),
     map((snapshot) => {
@@ -18,7 +18,7 @@ export function construct(router: Router) {
       return deepestChild
     }),
     pluck("data", "title"),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
 }
 

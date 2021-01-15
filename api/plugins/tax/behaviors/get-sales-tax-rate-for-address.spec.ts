@@ -29,7 +29,7 @@ describe("getSalesTaxRateForAddress", () => {
     const expectedAuthHeader =
       "Basic " +
       Buffer.from(
-        `${TAX_PUBLISHABLE_KEY}:${TAX_SERVICE_PROVIDER_LICENSE_KEY}`
+        `${TAX_PUBLISHABLE_KEY}:${TAX_SERVICE_PROVIDER_LICENSE_KEY}`,
       ).toString("base64")
     const getSecretSpy = jest
       .fn()
@@ -53,7 +53,7 @@ describe("getSalesTaxRateForAddress", () => {
         headers: {
           authorization: expectedAuthHeader,
         },
-      }
+      },
     )
     expect(returnValue).toBe(0.6)
   })

@@ -1,16 +1,16 @@
 import getByIdImpl, {
-  GetById
+  GetById,
 } from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import listImpl, { List } from "@funk/api/plugins/persistence/behaviors/list"
 import setManyImpl, {
-  SetMany
+  SetMany,
 } from "@funk/api/plugins/persistence/behaviors/set-many"
 import throwPresentableError from "@funk/helpers/throw-presentable-error"
 import {
   Cart,
   MarshalledCart,
   ORDERS,
-  Status
+  Status,
 } from "@funk/model/commerce/order/order"
 import { InvalidOrderError } from "@funk/model/commerce/order/validation"
 import getIsInStock from "@funk/model/commerce/sku/behaviors/get-is-in-stock"
@@ -39,8 +39,8 @@ export function construct(getById: GetById, list: List, setMany: SetMany) {
         new InvalidOrderError(
           SKUS_OUT_OF_STOCK_ERROR +
             " " +
-            skusOutOfStock.map((sku) => sku.name).join(", ")
-        )
+            skusOutOfStock.map((sku) => sku.name).join(", "),
+        ),
       )
     } else {
       await setMany({
@@ -62,7 +62,7 @@ export function construct(getById: GetById, list: List, setMany: SetMany) {
                   },
                 },
               } as Partial<MarshalledSku>),
-            {}
+            {},
           ),
       })
     }

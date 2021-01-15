@@ -1,10 +1,10 @@
 import {
   construct,
-  Options
+  Options,
 } from "@funk/api/plugins/payment/behaviors/update-payment-intent"
 import {
   createGetPaymentProviderStub,
-  PaymentProviderStub
+  PaymentProviderStub,
 } from "@funk/api/plugins/payment/stubs"
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import Stripe from "stripe"
@@ -31,14 +31,14 @@ describe("updatePaymentIntent", () => {
 
     const paymentIntent = await updatePaymentIntent(
       PAYMENT_INTENT_ID,
-      GOOD_OPTIONS_WITH_NULLISH
+      GOOD_OPTIONS_WITH_NULLISH,
     )
 
     expect(getPaymentProvider).toHaveBeenCalled()
     expect(psp.paymentIntents.update).toHaveBeenCalledTimes(1)
     expect(psp.paymentIntents.update).toHaveBeenCalledWith(
       PAYMENT_INTENT_ID,
-      expectedUpdateParams
+      expectedUpdateParams,
     )
     expect(paymentIntent).toBe(PSP_UPDATE_RESULT)
   })

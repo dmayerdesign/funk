@@ -6,7 +6,7 @@ export function construct(store: typeof storeImpl) {
     DocumentType extends Record<string, any> = DatabaseDocument
   >(
     collectionPath: string,
-    documentPath: string
+    documentPath: string,
   ): Promise<DocumentType | undefined> {
     return store()
       .collection(collectionPath)

@@ -21,7 +21,7 @@ export const SIGN_IN_WITH_EMAIL_AND_PASSWORD = new InjectionToken<
   SignInWithEmailAndPassword
 >("SIGN_IN_WITH_EMAIL_AND_PASSWORD")
 export const SIGN_IN_WITH_PROVIDER = new InjectionToken<SignInWithProvider>(
-  "SIGN_IN_WITH_PROVIDER"
+  "SIGN_IN_WITH_PROVIDER",
 )
 export const SIGN_OUT = new InjectionToken<SignOut>("SIGN_OUT")
 export const USER_SESSION = new InjectionToken<UserSession>("USER_SESSION")

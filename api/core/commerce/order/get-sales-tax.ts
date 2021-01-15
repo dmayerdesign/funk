@@ -18,7 +18,7 @@ export function construct(
   getTotalBeforeTaxAndShipping: typeof getTotalBeforeTaxAndShippingImpl,
   populate: typeof populateImpl,
   getSalesTaxRateForAddress: typeof getSalesTaxRateForAddressImpl,
-  getById: typeof getByIdImpl
+  getById: typeof getByIdImpl,
 ) {
   return async function (order: Order | MarshalledOrder): Promise<Price> {
     const populatedOrder = await populate<Order, MarshalledOrder>(
@@ -26,19 +26,19 @@ export function construct(
       [
         { key: "skus", collectionPath: SKUS },
         { key: "discounts", collectionPath: DISCOUNTS },
-      ]
+      ],
     )
 
     const primaryEnterprise = await getById<Enterprise>(
       ORGANIZATIONS,
-      "primary"
+      "primary",
     )
     const shipmentAddress = throwInvalidInputIfNilOrEmpty(
       getShipmentAddress(populatedOrder),
-      ORDER_GET_TAX_MISSING_POSTAL_CODE
+      ORDER_GET_TAX_MISSING_POSTAL_CODE,
     )
     const orderTotalBeforeTax = await getTotalBeforeTaxAndShipping(
-      populatedOrder
+      populatedOrder,
     )
     const taxRate = await getTaxRate(primaryEnterprise!, shipmentAddress)
 
@@ -50,16 +50,16 @@ export function construct(
       populatedOrder.additionalTaxAmount ?? {
         ...NULL_PRICE,
         currency: orderTotalBeforeTax.currency,
-      }
+      },
     )
   }
 
   async function getTaxRate(
     primaryEnterprise: Enterprise,
-    shipmentAddress: Address
+    shipmentAddress: Address,
   ) {
     return primaryEnterprise?.salesTaxNexusStates?.includes(
-      shipmentAddress.state
+      shipmentAddress.state,
     )
       ? await getSalesTaxRateForAddress(shipmentAddress)
       : 0
@@ -70,7 +70,7 @@ export default construct(
   getTotalBeforeTaxAndShippingImpl,
   populateImpl,
   getSalesTaxRateForAddressImpl,
-  getByIdImpl
+  getByIdImpl,
 )
 
 export type GetTax = ReturnType<typeof construct>

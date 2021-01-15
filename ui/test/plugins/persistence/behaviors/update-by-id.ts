@@ -7,7 +7,7 @@ export default async function <
 >(
   collectionPath: string,
   documentPath: string,
-  documentData: Partial<DocumentType>
+  documentData: Partial<DocumentType>,
 ): Promise<void> {
   const doc = get(getStore()[collectionPath], documentPath.replace(/\//g, "."))
   set(getStore()[collectionPath], documentPath, { ...doc, ...documentData })

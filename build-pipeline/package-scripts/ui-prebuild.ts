@@ -8,7 +8,7 @@ export default function main() {
   program.option(
     "-c, --configuration <configuration>",
     "e.g. production",
-    Configuration.LOCAL
+    Configuration.LOCAL,
   )
   program.parse(process.argv)
   const { configuration } = program.opts()

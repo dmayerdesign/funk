@@ -6,7 +6,7 @@ import { PrimaryKey } from "@funk/model/data-access/primary-key"
 
 export function construct(
   getById: typeof getByIdImpl,
-  updateById: typeof updateByIdImpl
+  updateById: typeof updateByIdImpl,
 ) {
   interface Options {
     orderId: PrimaryKey

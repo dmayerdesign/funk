@@ -2,11 +2,11 @@ import listImpl from "@funk/api/plugins/persistence/behaviors/list"
 import { Condition } from "@funk/api/plugins/persistence/condition"
 import {
   Pagination,
-  VirtualPagination
+  VirtualPagination,
 } from "@funk/api/plugins/persistence/pagination"
 import {
   MarshalledProduct,
-  PRODUCTS
+  PRODUCTS,
 } from "@funk/model/commerce/product/product"
 
 export function construct(list: typeof listImpl) {

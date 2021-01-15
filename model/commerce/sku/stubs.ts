@@ -5,7 +5,7 @@ import { merge } from "lodash"
 
 export const createFakeMarshalledSku = (
   id = "sku-id",
-  customProps: Partial<MarshalledSku> = {}
+  customProps: Partial<MarshalledSku> = {},
 ): MarshalledSku =>
   merge(
     {
@@ -24,12 +24,12 @@ export const createFakeMarshalledSku = (
       },
       netWeight: { amount: 2, unit: WeightUnit.OUNCES },
     },
-    customProps
+    customProps,
   )
 
 export const createFakeSku = (
   id = "sku-id",
-  customProps: Partial<Sku> = {}
+  customProps: Partial<Sku> = {},
 ): Sku =>
   merge(
     {
@@ -56,5 +56,5 @@ export const createFakeSku = (
       },
       netWeight: { amount: 2, unit: WeightUnit.OUNCES },
     },
-    customProps
+    customProps,
   )

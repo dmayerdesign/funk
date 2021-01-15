@@ -17,7 +17,7 @@ describe("ignoringKeys", () => {
           data: () => ({ updatedAt: now + 100 }),
         } as unknown) as DocumentSnapshot,
       },
-      {} as ChangeContext
+      {} as ChangeContext,
     )
 
     expect(handler).not.toHaveBeenCalled()

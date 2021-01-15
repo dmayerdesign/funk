@@ -22,7 +22,7 @@ export default async function (baseUrl: string): Promise<void> {
   const outputDir = resolve(
     __dirname,
     "../../../",
-    ".funk/build-pipeline-output/ui-prebuild"
+    ".funk/build-pipeline-output/ui-prebuild",
   )
   const outputPath = resolve(outputDir, "sitemap.xml")
   mkdirpSync(outputDir)
@@ -31,7 +31,7 @@ export default async function (baseUrl: string): Promise<void> {
   function buildSitemapUrls(
     atlas: Atlas,
     _baseUrl = baseUrl,
-    isRoot = true
+    isRoot = true,
   ): SitemapUrl[] {
     const initial = isRoot
       ? [
@@ -51,7 +51,7 @@ export default async function (baseUrl: string): Promise<void> {
         const basePaths = baseUrlSansProtocol.split("/").slice(1)
         const url = new URL(
           [...(basePaths ?? []), key].join("/"),
-          protocol + domain
+          protocol + domain,
         ).toString()
 
         return [
@@ -70,7 +70,7 @@ export default async function (baseUrl: string): Promise<void> {
 async function getRootAtlas(): Promise<Atlas> {
   const uiDirname = resolve(__dirname, "../../../", "ui")
   const atlasFilenames = recursiveReaddir(uiDirname).filter((filename) =>
-    filename.match(/atlas\.ts$/g)
+    filename.match(/atlas\.ts$/g),
   )
   const rootAtlasFilename = atlasFilenames[0]
 
@@ -91,7 +91,7 @@ function createSitemapXml(sitemapUrls: SitemapUrl[]): string {
     <loc>${sitemapUrl.loc}</loc>
     <lastmod>${sitemapUrl.lastmod}</lastmod>
     <changefreq>${sitemapUrl.changefreq}</changefreq>
-  </url>`
+  </url>`,
     )
     .join("\n")}
 </urlset>

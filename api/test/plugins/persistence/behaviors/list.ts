@@ -1,7 +1,7 @@
 import { Condition } from "@funk/api/plugins/persistence/condition"
 import {
   Pagination,
-  VirtualPagination
+  VirtualPagination,
 } from "@funk/api/plugins/persistence/pagination"
 import { getStore } from "@funk/api/test/data-access/in-memory-store"
 import { DatabaseDocument } from "@funk/model/data-access/database-document"
@@ -16,7 +16,7 @@ export default async function list<
 }): Promise<DocumentType[]> {
   const { collection, pagination, conditions } = options
   const allDocs = values(getStore()[collection]).filter((doc) =>
-    conditions.every(meetsCondition(doc))
+    conditions.every(meetsCondition(doc)),
   )
 
   const {
@@ -28,12 +28,12 @@ export default async function list<
 
   return orderBy(allDocs, orderByKey ?? "id", orderByDirection ?? "asc").slice(
     skip,
-    skip + take
+    skip + take,
   )
 }
 
 const meetsCondition = <DocumentType extends DatabaseDocument>(
-  doc: DocumentType
+  doc: DocumentType,
 ) => ([path, operator, queryValue]: Condition<DocumentType>) => {
   const value = get(doc, path) as unknown
   switch (operator) {

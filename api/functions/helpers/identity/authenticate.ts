@@ -16,7 +16,7 @@ import { NextFunction, Response } from "express"
 export default async function (
   request: AuthenticationRequest,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> {
   try {
     const encodedIdToken = getEncodedIdTokenOrThrow()
@@ -41,7 +41,7 @@ export default async function (
       "No Firebase ID token was found.\n" +
         "Make sure you authorize your request by providing an HTTP header with the key" +
         '"Authorization" and the value "Bearer <Firebase ID Token>"\n' +
-        'or by passing a "__session" cookie.'
+        'or by passing a "__session" cookie.',
     )
   }
 }

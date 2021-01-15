@@ -4,7 +4,7 @@ import {
   Router,
   UrlTree,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from "@angular/router"
 import roleHasAdminPrivilegeOrGreater from "@funk/model/auth/helpers/role-has-admin-privilege-or-greater"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
@@ -18,7 +18,7 @@ export class PublicGuard implements CanActivate {
   public constructor(
     @Inject(USER_SESSION) private _userSession: UserSession,
     private _anonymousGuard: AnonymousGuard,
-    private _router: Router
+    private _router: Router,
   ) {}
 
   public canActivate(
@@ -31,12 +31,12 @@ export class PublicGuard implements CanActivate {
             map(
               ({ auth }) =>
                 roleHasAdminPrivilegeOrGreater(auth.claims.role) ||
-                this._router.parseUrl("/not-found")
-            )
+                this._router.parseUrl("/not-found"),
+            ),
           )
         }
         return of(canActivate)
-      })
+      }),
     )
   }
 }

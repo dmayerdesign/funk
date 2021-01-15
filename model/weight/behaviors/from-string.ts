@@ -16,7 +16,7 @@ export default function (weightString?: string): Weight | undefined {
     if (!unit) throw new Error()
   } catch (error) {
     throw new InvalidInputError(
-      `Could not parse the weight string: ${weightString}`
+      `Could not parse the weight string: ${weightString}`,
     )
   }
   return { amount, unit }

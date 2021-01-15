@@ -1,8 +1,6 @@
 import { CurrencyCode } from "@funk/model/money/currency-code"
 import { Money } from "@funk/model/money/money"
-import {
-  validateBeforeMath
-} from "@funk/model/money/validation"
+import { validateBeforeMath } from "@funk/model/money/validation"
 
 describe("money", () => {
   describe("validateBeforeMath", () => {

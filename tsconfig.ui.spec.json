@@ -7,6 +7,7 @@
       "@funk/configuration": [
         "./.funk/build-pipeline-output/configuration/test-configuration.ts"
       ],
+      "@funk/features/*": ["./features/*"],
       "@funk/helpers/*": ["./helpers/*"],
       "@funk/model/*": ["./model/*"],
       "@funk/test/*": ["./test/*"],

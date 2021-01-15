@@ -4,7 +4,7 @@ import {
   ElementRef,
   HostListener,
   OnInit,
-  Renderer2
+  Renderer2,
 } from "@angular/core"
 import { IonRippleEffect } from "@ionic/angular"
 
@@ -18,7 +18,7 @@ export class RippleContainerDirective implements OnInit {
 
   public constructor(
     private _renderer: Renderer2,
-    private _elementRef: ElementRef
+    private _elementRef: ElementRef,
   ) {}
 
   public ngOnInit(): void {
@@ -31,8 +31,8 @@ export class RippleContainerDirective implements OnInit {
     this.rippleEffect.addRipple(x, y).then(() => {
       this._removeRipple(
         this.rippleEffectRef.nativeElement.shadowRoot.querySelector(
-          ".ripple-effect"
-        )
+          ".ripple-effect",
+        ),
       )
     })
   }

@@ -4,7 +4,7 @@ import { UserRole } from "@funk/model/auth/user-role"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
 import {
   createRouterStub,
-  createUserSession
+  createUserSession,
 } from "@funk/ui/core/identity/stubs"
 
 describe("AnonymousGuard", () => {
@@ -19,8 +19,8 @@ describe("AnonymousGuard", () => {
     const canActivate = await asPromise(
       new AnonymousGuard(
         createUserSession(UserRole.SUPER),
-        createRouterStub()
-      ).canActivate(activatedRoute, routerState)
+        createRouterStub(),
+      ).canActivate(activatedRoute, routerState),
     )
 
     expect(canActivate).toBe(true)
@@ -30,8 +30,8 @@ describe("AnonymousGuard", () => {
     const canActivate = await asPromise(
       new AnonymousGuard(
         createUserSession(UserRole.OWNER),
-        createRouterStub()
-      ).canActivate(activatedRoute, routerState)
+        createRouterStub(),
+      ).canActivate(activatedRoute, routerState),
     )
 
     expect(canActivate).toBe(true)
@@ -41,8 +41,8 @@ describe("AnonymousGuard", () => {
     const canActivate = await asPromise(
       new AnonymousGuard(
         createUserSession(UserRole.ADMINISTRATOR),
-        createRouterStub()
-      ).canActivate(activatedRoute, routerState)
+        createRouterStub(),
+      ).canActivate(activatedRoute, routerState),
     )
 
     expect(canActivate).toBe(true)
@@ -52,8 +52,8 @@ describe("AnonymousGuard", () => {
     const canActivate = await asPromise(
       new AnonymousGuard(
         createUserSession(UserRole.PUBLIC),
-        createRouterStub()
-      ).canActivate(activatedRoute, routerState)
+        createRouterStub(),
+      ).canActivate(activatedRoute, routerState),
     )
 
     expect(canActivate).toBe(true)
@@ -67,13 +67,13 @@ describe("AnonymousGuard", () => {
     const canActivate = await asPromise(
       new AnonymousGuard(
         createUserSession(UserRole.ANONYMOUS),
-        routerStub
-      ).canActivate(activatedRoute, routerState)
+        routerStub,
+      ).canActivate(activatedRoute, routerState),
     )
 
     expect(canActivate).toBe(URL_TREE)
     expect(routerStub.parseUrl).toHaveBeenCalledWith(
-      expect.stringContaining("=go-to-url")
+      expect.stringContaining("=go-to-url"),
     )
   })
 })

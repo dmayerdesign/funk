@@ -8,11 +8,11 @@ import {
   MarshalledCart,
   Order,
   ORDERS,
-  Status
+  Status,
 } from "@funk/model/commerce/order/order"
 import {
   createFakeMarshalledCart,
-  createFakeOrder
+  createFakeOrder,
 } from "@funk/model/commerce/order/stubs"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
@@ -42,7 +42,7 @@ describe("orderSubmit", function () {
         updateById,
         setMany,
         populate,
-        confirmPaymentIntent
+        confirmPaymentIntent,
       )
 
       await expect(submit(fakeCartNoSkus.id)).rejects.toThrow()
@@ -60,7 +60,7 @@ describe("orderSubmit", function () {
         updateById,
         setMany,
         populate,
-        confirmPaymentIntent
+        confirmPaymentIntent,
       )
 
       await expect(submit(fakeMarshalledCart.id)).rejects.toThrow()
@@ -70,7 +70,7 @@ describe("orderSubmit", function () {
         fakeMarshalledCart.id,
         expect.objectContaining({
           status: Status.PAYMENT_PENDING,
-        })
+        }),
       )
       expect(setMany).not.toHaveBeenCalled()
     })
@@ -85,7 +85,7 @@ describe("orderSubmit", function () {
         updateById,
         setMany,
         populate,
-        confirmPaymentIntent
+        confirmPaymentIntent,
       )
 
       await submit(fakeMarshalledCart.id)
@@ -97,7 +97,7 @@ describe("orderSubmit", function () {
         fakeMarshalledCart.id,
         expect.objectContaining({
           status: Status.PAYMENT_PENDING,
-        })
+        }),
       )
       expect(confirmPaymentIntent).toHaveBeenCalledTimes(1)
     })
@@ -110,7 +110,7 @@ describe("orderSubmit", function () {
               status: Status.PAID,
             },
           }),
-        })
+        }),
       )
     })
 
@@ -126,14 +126,14 @@ describe("orderSubmit", function () {
               },
             },
           }),
-        })
+        }),
       )
     })
 
     it("should create a new Cart for the customer", async function () {
       const ordersBatchSet = (setMany as jest.Mock).mock.calls[0][0][ORDERS]
       const ordersBatchSetNewCart = values<Partial<Order>>(ordersBatchSet).find(
-        (orderOrPartial) => orderOrPartial.status === Status.CART
+        (orderOrPartial) => orderOrPartial.status === Status.CART,
       )
 
       expect(ordersBatchSetNewCart).toBeTruthy()

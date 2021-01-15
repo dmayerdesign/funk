@@ -4,9 +4,9 @@ export default async function (
   _collectionPath: string,
   _selector: (
     collectionReference: FirebaseFirestore.CollectionReference,
-  ) => FirebaseFirestore.Query
+  ) => FirebaseFirestore.Query,
 ): Promise<DbDocumentMetadata[]> {
   throw new Error(
-    "QueryCollectionForMetadata is not yet implemented for the in-memory store"
+    "QueryCollectionForMetadata is not yet implemented for the in-memory store",
   )
 }

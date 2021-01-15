@@ -9,7 +9,7 @@ export function construct() {
     HandlerReturnType extends HandlerReturnTypes = HandlerReturnTypes,
     RequestBodyType = any
   >(
-    app: Application
+    app: Application,
   ): HttpsFunction<
     RequestWithBody<RequestBodyType>,
     Response<HandlerReturnType>

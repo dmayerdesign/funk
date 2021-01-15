@@ -16,7 +16,7 @@ export default function (durationString?: string): Duration | undefined {
     if (!unit) throw new Error()
   } catch (error) {
     throw new InvalidInputError(
-      `Could not parse the duration string: ${durationString}`
+      `Could not parse the duration string: ${durationString}`,
     )
   }
   return { amount, unit }

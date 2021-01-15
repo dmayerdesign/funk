@@ -14,7 +14,7 @@ import { MarshalledSku } from "@funk/model/commerce/sku/sku"
  * this function; it will not check `startAt` and `endAt` values.
  */
 export function construct(
-  getApplicableDiscountsForSku: typeof getApplicableDiscountsForSkuImpl
+  getApplicableDiscountsForSku: typeof getApplicableDiscountsForSkuImpl,
 ) {
   return function (options: {
     sku: MarshalledSku
@@ -32,7 +32,7 @@ export function construct(
 
 function getSkuPriceAfterDiscounts(
   sku: MarshalledSku,
-  discounts: SkuDiscount[]
+  discounts: SkuDiscount[],
 ): Price {
   return discounts.reduce<Price>((calculatedPrice, discount) => {
     if (!!discount.total) {

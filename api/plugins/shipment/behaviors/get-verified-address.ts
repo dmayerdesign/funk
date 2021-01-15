@@ -4,7 +4,7 @@ import getShipmentProviderImpl from "./get-shipment-provider"
 
 export function construct(
   shipmentProviderSecret: string,
-  getShipmentProvider: typeof getShipmentProviderImpl
+  getShipmentProvider: typeof getShipmentProviderImpl,
 ) {
   return async function (address: Address): Promise<Address | undefined> {
     const shipmentApi = getShipmentProvider(shipmentProviderSecret)

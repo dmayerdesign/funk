@@ -20,7 +20,7 @@ describe("getApplicableDiscountsForOrder", () => {
     ]
 
     expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE)).toEqual(
-      ALL_DISCOUNTS
+      ALL_DISCOUNTS,
     )
   })
 
@@ -58,7 +58,7 @@ describe("getApplicableDiscountsForOrder", () => {
     ]
 
     expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE)).toEqual(
-      []
+      [],
     )
   })
 
@@ -76,7 +76,7 @@ describe("getApplicableDiscountsForOrder", () => {
     ]
 
     expect(getApplicableDiscountsForOrder(ALL_DISCOUNTS, ORDER_PRICE)).toEqual(
-      []
+      [],
     )
   })
 })

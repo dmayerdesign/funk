@@ -9,7 +9,7 @@ describe("createUserWithEmailAndPassword", () => {
     const TEST_EMAIL = "test-create-user@test.com"
     const createUserWithEmailAndPassword = construct(
       createAuthClientStub(),
-      sendEmailVerification
+      sendEmailVerification,
     )
 
     await createUserWithEmailAndPassword(TEST_EMAIL, "test")

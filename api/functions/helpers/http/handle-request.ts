@@ -2,7 +2,7 @@ import {
   NextFunction,
   Request as ExpressRequest,
   RequestHandler as ExpressRequestHandler,
-  Response
+  Response,
 } from "express"
 
 export interface Request<BodyType = any> extends ExpressRequest {
@@ -38,7 +38,7 @@ export default function <
   HandlerReturnType extends HandlerReturnTypes = undefined,
   RequestBodyType = any
 >(
-  handler: RequestHandler<HandlerReturnType, RequestBodyType>
+  handler: RequestHandler<HandlerReturnType, RequestBodyType>,
 ): ExpressRequestHandler {
   return async function (request, response, next): Promise<void> {
     try {

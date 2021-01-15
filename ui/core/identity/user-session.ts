@@ -11,7 +11,7 @@ import { map, shareReplay, switchMap } from "rxjs/operators"
 
 export function construct(
   auth: AuthClient,
-  listenById: ReturnType<typeof constructListenById>
+  listenById: ReturnType<typeof constructListenById>,
 ) {
   return auth.user.pipe(
     ignoreNullish(),
@@ -25,7 +25,7 @@ export function construct(
         ...unverifiedClaims,
         role: getVerifiedRole(
           { emailVerified: user.emailVerified },
-          unverifiedClaims
+          unverifiedClaims,
         ),
       }
       return {
@@ -48,10 +48,10 @@ export function construct(
         map((person) => ({
           auth: _auth,
           person: person!,
-        }))
+        })),
       )
     }),
-    shareReplay(1)
+    shareReplay(1),
   )
 }
 

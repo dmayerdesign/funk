@@ -9,13 +9,13 @@ ${message}
         console.log(
           `vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 ${JSON.stringify(toLog)}
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^`,
         )
       } catch {
         console.log(
           `vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 ${toLog}
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^`,
         )
       }
     })

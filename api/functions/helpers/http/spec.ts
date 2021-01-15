@@ -37,12 +37,12 @@ describe("http", () => {
         mockArgs.error,
         mockArgs.request,
         mockArgs.response,
-        mockArgs.next
+        mockArgs.next,
       )
 
       expect(mockArgs.response.status).toHaveBeenCalledTimes(1)
       expect(mockArgs.response.status).toHaveBeenCalledWith(
-        StatusCode.INTERNAL_SERVER_ERROR
+        StatusCode.INTERNAL_SERVER_ERROR,
       )
       expect(mockArgs.response.send).toHaveBeenCalledTimes(1)
       expect(mockArgs.response.send).toHaveBeenCalledWith({
@@ -63,7 +63,7 @@ describe("http", () => {
         mockArgs.error,
         mockArgs.request,
         mockArgs.response,
-        mockArgs.next
+        mockArgs.next,
       )
 
       expect(mockArgs.next).toHaveBeenCalledTimes(1)

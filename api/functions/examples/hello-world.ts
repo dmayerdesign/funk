@@ -5,5 +5,5 @@ export default createRpcFunction(
     new Promise((resolve) => {
       const delay = Math.random() * 3000
       setTimeout(() => resolve({ hello: "world" }), delay)
-    })
+    }),
 )

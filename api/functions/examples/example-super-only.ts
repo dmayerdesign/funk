@@ -8,5 +8,5 @@ export default createRpcFunction(
   (request, response) => {
     const { user } = (request as unknown) as AuthenticatedRequest
     response.send(`Hello ${user.name}`)
-  }
+  },
 )

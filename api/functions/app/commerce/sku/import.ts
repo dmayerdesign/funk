@@ -16,5 +16,5 @@ export default createRpcFunction(
     if (acceptsCsv) {
       await setCollectionFromCsv(request.body)
     }
-  }
+  },
 )

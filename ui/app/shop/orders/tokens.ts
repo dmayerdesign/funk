@@ -5,8 +5,8 @@ import { SetSkuQuantity as CartSetSkuQuantity } from "@funk/ui/core/shop/orders/
 
 export const CART = new InjectionToken<Cart$>("CART")
 export const CART_SET_SKU_QUANTITY = new InjectionToken<CartSetSkuQuantity>(
-  "CART_SET_SKU_QUANTITY"
+  "CART_SET_SKU_QUANTITY",
 )
 export const SET_SKU_QUANTITY = new InjectionToken<SetSkuQuantity>(
-  "SET_SKU_QUANTITY"
+  "SET_SKU_QUANTITY",
 )

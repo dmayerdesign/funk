@@ -1,6 +1,6 @@
 import {
   MarshalledSkuAttributeValues,
-  SkuAttributeValues
+  SkuAttributeValues,
 } from "@funk/model/commerce/attribute/attribute-value"
 import { Price } from "@funk/model/commerce/price/price"
 import { Inventory } from "@funk/model/commerce/sku/inventory"

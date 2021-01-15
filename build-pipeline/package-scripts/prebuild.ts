@@ -8,12 +8,12 @@ export default function main() {
   program.option(
     "-c, --configuration <configuration>",
     "e.g. production",
-    Configuration.DEVELOPMENT
+    Configuration.DEVELOPMENT,
   )
   program.option(
     "-s, --skipCodeGen",
     "skip expensive code generation scripts",
-    false
+    false,
   )
   program.parse(process.argv)
 

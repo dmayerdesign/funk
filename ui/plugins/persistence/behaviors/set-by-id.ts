@@ -8,14 +8,14 @@ export function construct(store: AngularFirestore) {
     collectionPath: string,
     documentPath: string,
     documentData: DocumentType,
-    options?: { overwrite?: boolean }
+    options?: { overwrite?: boolean },
   ): Promise<void> {
     await store
       .collection(collectionPath)
       .doc<DocumentType>(documentPath)
       .set(
         { ...documentData, updatedAt: Date.now() },
-        { merge: !options?.overwrite }
+        { merge: !options?.overwrite },
       )
   }
 }

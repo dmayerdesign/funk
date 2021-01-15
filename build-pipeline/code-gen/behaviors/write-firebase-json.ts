@@ -11,6 +11,6 @@ export default function (configuration: Configuration) {
 
   writeFileSync(
     resolve(__dirname, "../../../firebase.json"),
-    firebaseJsonTemplate(CLOUD_PROJECT_ID)
+    firebaseJsonTemplate(CLOUD_PROJECT_ID),
   )
 }

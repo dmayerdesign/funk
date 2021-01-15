@@ -10,10 +10,10 @@ export function construct() {
       __dirname,
       "../../",
       "assets/email-templates",
-      "receipt.hbs"
+      "receipt.hbs",
     )
     const template = compile(
-      readFileSync(runtimePathToTemplate).toString("utf8")
+      readFileSync(runtimePathToTemplate).toString("utf8"),
     )
     return template({ skus: partialOrder.skus })
   }

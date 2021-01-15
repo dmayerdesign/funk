@@ -6,7 +6,7 @@ import {
   Cart,
   MarshalledCart,
   ORDERS,
-  Status
+  Status,
 } from "@funk/model/commerce/order/order"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 import { UserSession } from "@funk/ui/core/identity/user-session"
@@ -20,7 +20,7 @@ export function construct(
   userSession: UserSession,
   queryCollectionForMetadata: QueryCollectionForMetadata,
   listenById: ListenById,
-  populate: Populate<Cart, MarshalledCart>
+  populate: Populate<Cart, MarshalledCart>,
 ) {
   const cart$ = userSession.pipe(
     ignoreNullish(),
@@ -31,28 +31,28 @@ export function construct(
             .where(
               createDocPath<Cart, Customer>("customer", "userId"),
               "==",
-              person.id
+              person.id,
             )
             .where(createDocPath<Cart>("status"), "in", [
               Status.CART,
               Status.CART_CHECKOUT,
             ])
-            .limit(1)
-        )
+            .limit(1),
+        ),
       ).pipe(
         map(([metadata]) => metadata),
         switchMap(({ collectionPath, documentPath }) =>
-          listenById<MarshalledCart>(collectionPath, documentPath)
+          listenById<MarshalledCart>(collectionPath, documentPath),
         ),
         switchMap((cart) =>
           populate(cart!, [
             { key: "skus", collectionPath: SKUS },
             { key: "discounts", collectionPath: DISCOUNTS },
-          ])
-        )
-      )
+          ]),
+        ),
+      ),
     ),
-    shareReplay(1)
+    shareReplay(1),
   )
   cart$.subscribe()
   return cart$

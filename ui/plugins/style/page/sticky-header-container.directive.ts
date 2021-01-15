@@ -4,7 +4,7 @@ import {
   OnInit,
   Renderer2,
   TemplateRef,
-  ViewContainerRef
+  ViewContainerRef,
 } from "@angular/core"
 
 export interface StickyHeaderContainerContext {
@@ -21,7 +21,7 @@ export class StickyHeaderContainerDirective
   public constructor(
     private _renderer: Renderer2,
     private _templateRef: TemplateRef<StickyHeaderContainerContext>,
-    private _viewContainerRef: ViewContainerRef
+    private _viewContainerRef: ViewContainerRef,
   ) {}
 
   public ngOnInit(): void {
@@ -35,7 +35,7 @@ export class StickyHeaderContainerDirective
 
     if (!this._headerElement) {
       console.warn(
-        "[StickyHeaderContainerDirective] .sticky-header was not found."
+        "[StickyHeaderContainerDirective] .sticky-header was not found.",
       )
       return
     }

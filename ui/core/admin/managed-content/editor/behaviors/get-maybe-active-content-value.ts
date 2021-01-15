@@ -4,11 +4,11 @@ import { Observable, of } from "rxjs"
 import { switchMap } from "rxjs/operators"
 
 export function construct(
-  getMaybeActiveContentValueControl: GetMaybeActiveContentValueControl
+  getMaybeActiveContentValueControl: GetMaybeActiveContentValueControl,
 ) {
   const maybeActiveContentValue = getMaybeActiveContentValueControl().pipe(
     switchMap((content) => content?.valueChanges ?? of(undefined)),
-    shareReplayOnce()
+    shareReplayOnce(),
   ) as Observable<string>
   maybeActiveContentValue.subscribe()
   return () => maybeActiveContentValue

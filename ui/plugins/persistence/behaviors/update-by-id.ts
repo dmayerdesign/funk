@@ -7,7 +7,7 @@ export function construct(store: AngularFirestore) {
   >(
     collectionPath: string,
     documentPath: string,
-    documentData: Partial<DocumentType>
+    documentData: Partial<DocumentType>,
   ): Promise<void> {
     await store
       .collection(collectionPath)

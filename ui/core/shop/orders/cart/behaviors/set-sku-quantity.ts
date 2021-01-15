@@ -5,7 +5,7 @@ import { SetSkuQuantity as SetSkuQuantityFunction } from "@funk/ui/functions/com
 
 export function construct(
   cart$: Cart$,
-  setSkuQuantity: SetSkuQuantityFunction
+  setSkuQuantity: SetSkuQuantityFunction,
 ) {
   return async function (sku: Sku, quantity: number): Promise<void> {
     const cart = await asPromise(cart$)

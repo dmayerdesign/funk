@@ -118,7 +118,7 @@ export class ProfessionalPortfolioContainer implements OnInit {
     @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth,
     @Inject(GET_BY_ID) private _getById: GetById,
     private _loadingController: LoadingController,
-    @Inject(PAGE_TITLE) public pageTitle: PageTitle
+    @Inject(PAGE_TITLE) public pageTitle: PageTitle,
   ) {}
 
   public async ngOnInit(): Promise<void> {

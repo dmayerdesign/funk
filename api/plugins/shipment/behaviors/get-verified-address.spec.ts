@@ -67,7 +67,7 @@ const setUp = (isDeliverable: boolean) => {
   } = constructGetShipmentProviderStub()
   const getVerifiedAddress = construct(
     shipmentProviderSecret,
-    getShipmentProvider
+    getShipmentProvider,
   )
 
   if (isDeliverable) {

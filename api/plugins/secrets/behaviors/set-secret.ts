@@ -14,13 +14,13 @@ export interface Options {
 export function construct(
   getConfig: typeof getConfigImpl,
   setById: typeof setByIdImpl,
-  createKmsClient: (options?: ClientOptions) => v1.KeyManagementServiceClient
+  createKmsClient: (options?: ClientOptions) => v1.KeyManagementServiceClient,
 ) {
   return async ({ key, value }: Options): Promise<void> => {
     const { client_email, private_key } = JSON.parse(
       Buffer.from(getConfig().admin.serializedcredentials, "base64").toString(
-        "utf8"
-      )
+        "utf8",
+      ),
     )
     const client = createKmsClient({
       credentials: {
@@ -32,7 +32,7 @@ export function construct(
       CLOUD_PROJECT_ID,
       "global",
       "main",
-      "main"
+      "main",
     )
 
     const [encryptResponse] = await client.encrypt({
@@ -50,7 +50,7 @@ export function construct(
 export default construct(
   getConfigImpl,
   setByIdImpl,
-  (options?: ClientOptions) => new v1.KeyManagementServiceClient(options)
+  (options?: ClientOptions) => new v1.KeyManagementServiceClient(options),
 )
 
 export type SetSecret = ReturnType<typeof construct>

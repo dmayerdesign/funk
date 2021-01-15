@@ -9,7 +9,7 @@ describe("rxjsShims", () => {
       const subject = of(true, null)
       const justTrue: Observable<boolean> = subject.pipe(
         ignoreNullish(),
-        shareReplay(1)
+        shareReplay(1),
       )
 
       justTrue.pipe(first()).subscribe((onlyTrue) => {
@@ -20,7 +20,7 @@ describe("rxjsShims", () => {
       const subject = of(true, undefined)
       const justTrue: Observable<boolean> = subject.pipe(
         ignoreNullish(),
-        shareReplay(1)
+        shareReplay(1),
       )
 
       justTrue.pipe(first()).subscribe((onlyTrue) => {

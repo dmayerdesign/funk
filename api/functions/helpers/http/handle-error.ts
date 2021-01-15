@@ -10,7 +10,7 @@ const handler: express.ErrorRequestHandler = (
   error,
   _request,
   response,
-  next
+  next,
 ) => {
   if (response.headersSent) {
     return next(error)
@@ -20,7 +20,7 @@ const handler: express.ErrorRequestHandler = (
 export default handler
 
 function getStatusCodeForError(
-  error?: Error | ErrorWithStatusCode
+  error?: Error | ErrorWithStatusCode,
 ): StatusCode {
   const errorsToResponseCodes = new Map<Type<any>, StatusCode>([
     [InvalidInputError, StatusCode.BAD_REQUEST],

@@ -1,7 +1,7 @@
 import {
   assertFails,
   assertSucceeds,
-  loadFirestoreRules
+  loadFirestoreRules,
 } from "@firebase/rules-unit-testing"
 import {
   createAdminApp,
@@ -9,7 +9,7 @@ import {
   forbiddenUserUid,
   projectId,
   testOwnerUid,
-  testUserUid
+  testUserUid,
 } from "@funk/helpers/test-helpers"
 import { UserRole } from "@funk/model/auth/user-role"
 import { PERSONS } from "@funk/model/identity/person"
@@ -51,13 +51,13 @@ describe.skip("Firestore access control rules", () => {
 
   it("should not allow a regular user to see another user config", () => {
     assertFails(
-      defaultApp.firestore().collection(PERSONS).doc(forbiddenUserUid).get()
+      defaultApp.firestore().collection(PERSONS).doc(forbiddenUserUid).get(),
     )
   })
 
   it("should allow a regular user to see their own user config", () => {
     assertSucceeds(
-      defaultApp.firestore().collection(PERSONS).doc(testUserUid).get()
+      defaultApp.firestore().collection(PERSONS).doc(testUserUid).get(),
     )
   })
 })

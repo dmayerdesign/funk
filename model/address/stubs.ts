@@ -14,6 +14,6 @@ export function createFakeAddress(customProps: Partial<Address> = {}): Address {
       zip: "fake zip",
       phone: "fake phone",
     },
-    customProps
+    customProps,
   )
 }

@@ -5,7 +5,7 @@ export function configToJson(configuration: Configuration) {
   const configFileName = resolve(
     __dirname,
     "../",
-    `${configuration || "local"}.ts`
+    `${configuration || "local"}.ts`,
   )
 
   let config: any
@@ -17,7 +17,7 @@ export function configToJson(configuration: Configuration) {
     throw new Error(
       `The configuration "${configuration}" was not found. Make sure the string you pass to the ` +
         "`-c/--configuration` flag matches the name of a file in the `configuration` folder " +
-        "(e.g. -c development)"
+        "(e.g. -c development)",
     )
   }
 

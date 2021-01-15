@@ -3,7 +3,7 @@ import { AlertController } from "@ionic/angular"
 
 export function construct(
   alert: AlertController,
-  removeAllPreviews: RemoveAllPreviews
+  removeAllPreviews: RemoveAllPreviews,
 ) {
   return async function (): Promise<void> {
     const CONFIRM_MESSAGE =

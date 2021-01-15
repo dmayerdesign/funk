@@ -2,7 +2,7 @@ import { Atlas } from "@funk/model/ui/atlas/atlas"
 import { MenuItem } from "@funk/model/ui/atlas/menu-item"
 
 export function construct<AtlasType extends Atlas>(
-  atlas: AtlasType
+  atlas: AtlasType,
 ): BuildMenuItem<AtlasType> {
   return function (rootPath: keyof AtlasType, ...paths: string[]): MenuItem {
     const _paths = [rootPath, ...paths] as string[]

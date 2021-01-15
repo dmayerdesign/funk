@@ -8,7 +8,7 @@ export default function (
   options: {
     sku: MarshalledSku
     quantity: number
-  }
+  },
 ): Order {
   const { sku, quantity } = options
   const _populatedOrder = { ...populatedOrder }
@@ -35,7 +35,7 @@ export default function (
 
 function setQuantityToZero(
   quantities: { [x: string]: number },
-  skuId: PrimaryKey
+  skuId: PrimaryKey,
 ): { [x: string]: number } {
   const _quantities = { ...quantities }
   delete _quantities[skuId]

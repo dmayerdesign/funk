@@ -3,14 +3,14 @@ import { resolve } from "path"
 
 export default function () {
   const indexJsContents = readFileSync(
-    resolve(__dirname, "../templates/functions-index.js")
+    resolve(__dirname, "../templates/functions-index.js"),
   )
   writeFileSync(
     resolve(
       __dirname,
       "../../../",
-      ".funk/build-pipeline-output/api-build/index.js"
+      ".funk/build-pipeline-output/api-build/index.js",
     ),
-    indexJsContents
+    indexJsContents,
   )
 }

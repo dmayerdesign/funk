@@ -6,7 +6,7 @@ import { HOME_RELATIVE_URL } from "@funk/ui/app/atlas/tokens"
 import {
   SIGN_IN_WITH_PROVIDER,
   SIGN_OUT,
-  USER_SESSION
+  USER_SESSION,
 } from "@funk/ui/app/identity/tokens"
 import { HomeRelativeUrl } from "@funk/ui/core/atlas/home-relative-url"
 import { SignInWithProvider } from "@funk/ui/core/identity/behaviors/sign-in-with-provider"
@@ -57,7 +57,7 @@ export class SignInContainer implements OnInit {
     @Inject(SIGN_OUT) private _signOut: SignOut,
     @Inject(HOME_RELATIVE_URL) private _home: HomeRelativeUrl,
     private _router: Router,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
   ) {}
 
   public async ngOnInit(): Promise<void> {}
@@ -77,21 +77,21 @@ export class SignInContainer implements OnInit {
     await asPromise(
       this._userSession.pipe(
         filter((session) =>
-          roleHasPublicPrivilegeOrGreater(session.auth.claims.role)
+          roleHasPublicPrivilegeOrGreater(session.auth.claims.role),
         ),
         first(),
         switchMap(() =>
           this._activatedRoute.queryParams.pipe(
             first(),
-            pluck("on-sign-in-go-to")
-          )
+            pluck("on-sign-in-go-to"),
+          ),
         ),
         switchMap((onSignInGoTo) =>
-          !!onSignInGoTo ? Promise.resolve(onSignInGoTo) : this._home()
+          !!onSignInGoTo ? Promise.resolve(onSignInGoTo) : this._home(),
         ),
         untilDestroyed(this),
-        switchMap((targetUrl) => this._router.navigateByUrl(targetUrl))
-      )
+        switchMap((targetUrl) => this._router.navigateByUrl(targetUrl)),
+      ),
     )
   }
 }

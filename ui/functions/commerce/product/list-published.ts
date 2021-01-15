@@ -1,7 +1,7 @@
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 import {
   Pagination,
-  VirtualPagination
+  VirtualPagination,
 } from "@funk/ui/plugins/persistence/pagination"
 import { MarshalledProduct } from "@funk/model/commerce/product/product"
 import { Condition } from "@funk/ui/plugins/persistence/condition"
@@ -17,7 +17,7 @@ export function construct(client: FunctionsClient) {
   return async function (payload: PayloadType): Promise<ResolvedValueType> {
     return client.rpcAuthorized<PayloadType, ResolvedValueType>(
       functionName,
-      payload
+      payload,
     )
   }
 }

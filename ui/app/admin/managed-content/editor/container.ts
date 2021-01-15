@@ -3,7 +3,7 @@ import {
   Inject,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from "@angular/core"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { ManagedContentType } from "@funk/model/managed-content/managed-content"
@@ -116,9 +116,9 @@ export class ManagedContentEditorContainer implements OnInit {
     switchMap((formControl) =>
       !formControl
         ? of(!!formControl).pipe(delay(ANIMATION_DURATION_MS))
-        : of(!!formControl)
+        : of(!!formControl),
     ),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
   public isActivated = this._editorService.getIsAuthorized()
   public editorToolbarConfig = this._editorService
@@ -131,7 +131,7 @@ export class ManagedContentEditorContainer implements OnInit {
           default:
             return this.editorToolbarConfigForHtml
         }
-      })
+      }),
     )
 
   public readonly editor = ClassicEditor
@@ -169,7 +169,7 @@ export class ManagedContentEditorContainer implements OnInit {
 
   public constructor(
     @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
-    private _editorService: ManagedContentEditorService
+    private _editorService: ManagedContentEditorService,
   ) {}
 
   public ngOnInit(): void {}

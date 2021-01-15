@@ -1,6 +1,6 @@
 import {
   initializeAdminApp,
-  initializeTestApp
+  initializeTestApp,
 } from "@firebase/rules-unit-testing"
 import type { app } from "firebase"
 

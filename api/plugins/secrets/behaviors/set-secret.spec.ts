@@ -1,5 +1,5 @@
 import getConfigImpl, {
-  createGetConfigStub
+  createGetConfigStub,
 } from "@funk/api/plugins/cloud-function/runtime/get-config"
 import { construct } from "@funk/api/plugins/secrets/behaviors/set-secret"
 import { EncryptedSecret } from "@funk/model/secret/encrypted-secret"
@@ -15,7 +15,7 @@ describe("setSecret", () => {
       async () =>
         ({
           value: Buffer.from("encrypted secret").toString("base64"),
-        } as EncryptedSecret)
+        } as EncryptedSecret),
     )
     const setSecret = construct(getConfig, setById, createKmsClient)
     const SECRET_KEY = "secret key"
@@ -25,8 +25,8 @@ describe("setSecret", () => {
     expect(createKmsClient).toHaveBeenCalledWith({
       credentials: JSON.parse(
         Buffer.from(getConfig().admin.serializedcredentials, "base64").toString(
-          "utf8"
-        )
+          "utf8",
+        ),
       ),
     })
     expect(cryptoKeyPath).toHaveBeenCalled()

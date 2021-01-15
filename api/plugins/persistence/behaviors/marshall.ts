@@ -6,7 +6,7 @@ export default function marshall<
   PopulatedType extends DatabaseDocument
 >(
   populatedDoc: PopulatedType,
-  keys: (keyof MarshalledType & keyof PopulatedType)[]
+  keys: (keyof MarshalledType & keyof PopulatedType)[],
 ): MarshalledType {
   const _marshalledDoc = ({ ...populatedDoc } as unknown) as MarshalledType
   for (const key of keys) {
@@ -26,7 +26,7 @@ export default function marshall<
         continue
       }
       _marshalledDoc[key] = (((value as any) as DatabaseDocument[]).map(
-        ({ id }) => id
+        ({ id }) => id,
       ) as unknown) as MarshalledType[keyof MarshalledType &
         keyof PopulatedType]
     }

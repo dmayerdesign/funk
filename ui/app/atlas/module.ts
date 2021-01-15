@@ -3,7 +3,7 @@ import { construct as constructBuildMenuItem } from "@funk/model/ui/atlas/behavi
 import {
   APP_ATLAS,
   BUILD_MENU_ITEM,
-  HOME_RELATIVE_URL
+  HOME_RELATIVE_URL,
 } from "@funk/ui/app/atlas/tokens"
 import atlas from "@funk/ui/core/atlas/atlas"
 import { construct as constructHomeRelativeUrl } from "@funk/ui/core/atlas/home-relative-url"

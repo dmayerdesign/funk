@@ -13,7 +13,7 @@ const routes: Routes = [
     path: "sink",
     loadChildren: () =>
       import("@funk/ui/app/kitchen-sink/module").then(
-        (mod) => mod.KitchenSinkModule
+        (mod) => mod.KitchenSinkModule,
       ),
     canActivate: [AnonymousGuard],
   },
@@ -32,7 +32,7 @@ const routes: Routes = [
     path: "account",
     loadChildren: () =>
       import("@funk/ui/app/account-management/module").then(
-        (mod) => mod.AccountManagementModule
+        (mod) => mod.AccountManagementModule,
       ),
     canActivate: [AnonymousGuard],
   },
@@ -45,7 +45,7 @@ const routes: Routes = [
     path: "professional-portfolio",
     loadChildren: () =>
       import("@funk/ui/app/professional-portfolio/module").then(
-        (mod) => mod.ProfessionalPortfolioModule
+        (mod) => mod.ProfessionalPortfolioModule,
       ),
   },
   {

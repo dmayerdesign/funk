@@ -4,11 +4,11 @@ import {
   Inject,
   Input,
   OnDestroy,
-  OnInit
+  OnInit,
 } from "@angular/core"
 import {
   ManagedContent,
-  ManagedContentType
+  ManagedContentType,
 } from "@funk/model/managed-content/managed-content"
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/ui/app/admin/managed-content/tokens"
 import { ManagedContentEditorService } from "@funk/ui/core/admin/managed-content/editor/service"
@@ -39,7 +39,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy {
   @Input() public contentId!: string
 
   public content: Observable<ManagedContent | undefined> = defer(() =>
-    this._editorService.getMaybePreviewOrLiveContent(this.contentId)
+    this._editorService.getMaybePreviewOrLiveContent(this.contentId),
   ).pipe(untilDestroyed(this), shareReplay(1))
   public contentType = this.content.pipe(map((content) => content?.type))
   public contentValue = this.content.pipe(map((content) => content?.value))
@@ -48,7 +48,7 @@ export class ManagedContentComponent implements OnInit, OnDestroy {
 
   public constructor(
     @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
-    private _editorService: ManagedContentEditorService
+    private _editorService: ManagedContentEditorService,
   ) {}
 
   public async ngOnInit(): Promise<void> {

@@ -15,5 +15,5 @@ export default createRpcFunction(
     body,
   }: RequestWithBody<Parameters<typeof list>[0]>): Promise<
     DatabaseDocument[]
-  > => await list(body)
+  > => await list(body),
 )

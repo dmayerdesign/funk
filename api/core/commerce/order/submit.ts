@@ -1,15 +1,15 @@
 import populateImpl, { Populate } from "@funk/api/core/commerce/order/populate"
 import confirmPaymentIntentImpl, {
-  ConfirmPaymentIntent
+  ConfirmPaymentIntent,
 } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
 import getByIdImpl, {
-  GetById
+  GetById,
 } from "@funk/api/plugins/persistence/behaviors/get-by-id"
 import setManyImpl, {
-  SetMany
+  SetMany,
 } from "@funk/api/plugins/persistence/behaviors/set-many"
 import updateByIdImpl, {
-  UpdateById
+  UpdateById,
 } from "@funk/api/plugins/persistence/behaviors/update-by-id"
 import createUid from "@funk/helpers/create-uid"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
@@ -17,7 +17,7 @@ import createOrderForCustomer from "@funk/model/commerce/order/behaviors/create-
 import {
   MarshalledOrder,
   ORDERS,
-  Status
+  Status,
 } from "@funk/model/commerce/order/order"
 import { SKUS } from "@funk/model/commerce/sku/sku"
 
@@ -26,14 +26,14 @@ export function construct(
   updateById: UpdateById,
   setMany: SetMany,
   populate: Populate,
-  confirmPaymentIntent: ConfirmPaymentIntent
+  confirmPaymentIntent: ConfirmPaymentIntent,
 ) {
   return async function (orderId: string) {
     const marshalledOrder = await getById<MarshalledOrder>(ORDERS, orderId)
 
     throwInvalidInputIfNilOrEmpty(
       marshalledOrder?.skus?.[0],
-      "The order must contain SKUs."
+      "The order must contain SKUs.",
     )
 
     const order = await populate(marshalledOrder!)
@@ -65,7 +65,7 @@ export function construct(
                 : {},
           },
         }),
-        {}
+        {},
       ),
     })
   }
@@ -78,5 +78,5 @@ export default construct(
   updateByIdImpl,
   setManyImpl,
   populateImpl,
-  confirmPaymentIntentImpl
+  confirmPaymentIntentImpl,
 )

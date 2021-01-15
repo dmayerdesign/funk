@@ -61,7 +61,7 @@ export default function main() {
   throwIfNonzero(
     exec(`
     # Set up the working directory.
-    mkdir -p .funk`)
+    mkdir -p .funk`),
   )
   throwIfNonzero(
     exec(`
@@ -73,7 +73,7 @@ export default function main() {
     # Log into gcloud.
     # TODO: determine whether "gcloud init" is required, and/or whether it can replace "auth login".
     ${PATH_TO_GCLOUD} auth login --brief
-  `)
+  `),
   )
 
   for (const configuration of projectConfigurations) {
@@ -87,7 +87,7 @@ export default function main() {
     const localConfigTemplate = constructConfigTemplate(Configuration.LOCAL)
     const firebaseJsonTemplate = constructFirebaseJsonTemplate(configuration)
     const localFirebaseJsonTemplate = constructFirebaseJsonTemplate(
-      Configuration.LOCAL
+      Configuration.LOCAL,
     )
 
     const KMS_LOCATION = "global"
@@ -95,10 +95,10 @@ export default function main() {
     const KEY_ID = "main"
 
     const PATH_TO_APP_ID_FILE = `${PATH_TO_BUILD_ARTIFACTS}/firebase-apps-create-web-${kebabCase(
-      displayName
+      displayName,
     )}`
     const PATH_TO_APP_CONFIG_FILE = `${PATH_TO_BUILD_ARTIFACTS}/firebase-apps-sdkconfig-web-${kebabCase(
-      displayName
+      displayName,
     )}`
 
     cloudProjectIds.push(cloudProjectId)
@@ -113,7 +113,7 @@ export default function main() {
 
         ${PATH_TO_GCLOUD} config set project ${cloudProjectId}
         firebase use ${cloudProjectId}
-      `)
+      `),
     )
 
     throwIfNonzero(
@@ -121,7 +121,7 @@ export default function main() {
       # Add a web app.
       mkdir -p ${PATH_TO_BUILD_ARTIFACTS}
       echo \`firebase apps:create WEB "${displayName}"\` >> ${PATH_TO_APP_ID_FILE}
-    `)
+    `),
     )
 
     // Get and cache the Firebase web config.
@@ -137,34 +137,34 @@ export default function main() {
 
     // Create configuration files, using the cached Firebase config.
     let firebaseConfigFile = readFileSync(PATH_TO_APP_CONFIG_FILE).toString(
-      "utf-8"
+      "utf-8",
     )
     firebaseConfigFile = firebaseConfigFile.match(/\{.+/)?.[0]!
     const firebaseConfig = JSON.parse(
       firebaseConfigFile?.substring(
         0,
-        firebaseConfigFile.lastIndexOf("}") + 1
-      )!
+        firebaseConfigFile.lastIndexOf("}") + 1,
+      )!,
     )
     writeFileSync(
       resolve(__dirname, "../../", `configuration/${configuration}.ts`),
-      configTemplate({ firebaseConfig, cloudProjectId, displayName })
+      configTemplate({ firebaseConfig, cloudProjectId, displayName }),
     )
     writeFileSync(
       resolve(
         __dirname,
         "../../",
-        `configuration/${configuration}.firebase.json`
+        `configuration/${configuration}.firebase.json`,
       ),
-      firebaseJsonTemplate(cloudProjectId)
+      firebaseJsonTemplate(cloudProjectId),
     )
     writeFileSync(
       resolve(__dirname, "../../", ".firebaserc"),
-      firebasercTemplate(projectId)
+      firebasercTemplate(projectId),
     )
     writeFileSync(
       resolve(__dirname, "../../", "ionic.config.json"),
-      ionicConfigTemplate(displayName)
+      ionicConfigTemplate(displayName),
     )
 
     if (configuration === Configuration.DEVELOPMENT) {
@@ -174,11 +174,11 @@ export default function main() {
           firebaseConfig,
           cloudProjectId,
           displayName,
-        })
+        }),
       )
       writeFileSync(
         resolve(__dirname, "../../", "configuration/local.firebase.json"),
-        localFirebaseJsonTemplate(projectId)
+        localFirebaseJsonTemplate(projectId),
       )
     }
 
@@ -188,7 +188,7 @@ export default function main() {
         "https://console.cloud.google.com/billing/projects.\n\n" +
         `In the Actions column for this ${cloudProjectId}, click the button and select "Change Billing".\n\n` +
         "Select a billing account from the dropdown. You may have to add one if none exist.\n\n" +
-        'When you\'re finished, continue by hitting the "Return" key here.\n'
+        'When you\'re finished, continue by hitting the "Return" key here.\n',
     )
 
     // Enable Functions and Firestore.
@@ -221,7 +221,7 @@ Please enable Cloud Functions and Firestore by following these steps. Then press
       ${PATH_TO_GCLOUD} projects add-iam-policy-binding ${cloudProjectId} \\
         --member=serviceAccount:${cloudProjectId}@appspot.gserviceaccount.com \\
         --role=roles/firebaseauth.admin
-    `)
+    `),
     )
 
     // Enable other services, add mobile build tools, and run the build.
@@ -254,7 +254,7 @@ Please enable Cloud Functions and Firestore by following these steps. Then press
 
       # Run the very first build.
       ${!skipBuild ? `npm run build::${configuration}` : ""}
-    `)
+    `),
     )
   }
 
@@ -275,7 +275,7 @@ ${cloudProjectIds
   .map(
     (cloudProjectId) =>
       `    ${cloudProjectId.substring(cloudProjectId.lastIndexOf("-") + 1)}: ` +
-      `https://console.firebase.google.com/project/${cloudProjectId}/authentication/providers`
+      `https://console.firebase.google.com/project/${cloudProjectId}/authentication/providers`,
   )
   .join("\n")}
 
@@ -285,7 +285,7 @@ ${cloudProjectIds
   .map(
     (cloudProjectId) =>
       `    ${cloudProjectId.substring(cloudProjectId.lastIndexOf("-") + 1)}: ` +
-      `https://console.cloud.google.com/iam-admin/serviceaccounts?authuser=0&folder=&organizationId=&project=${cloudProjectId}`
+      `https://console.cloud.google.com/iam-admin/serviceaccounts?authuser=0&folder=&organizationId=&project=${cloudProjectId}`,
   )
   .join("\n")}
 

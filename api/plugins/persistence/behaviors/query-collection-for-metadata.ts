@@ -6,7 +6,7 @@ export function construct(store: typeof storeImpl) {
     collectionPath: string,
     selector: (
       collectionReference: FirebaseFirestore.CollectionReference,
-    ) => FirebaseFirestore.Query
+    ) => FirebaseFirestore.Query,
   ): Promise<DbDocumentMetadata[]> {
     return await selector(store().collection(collectionPath))
       .get()
@@ -18,7 +18,7 @@ export function construct(store: typeof storeImpl) {
             collectionPath: fullPath.substring(0, firstIndexOfSlash),
             documentPath: fullPath.substring(firstIndexOfSlash),
           }
-        })
+        }),
       )
   }
 }

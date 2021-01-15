@@ -3,7 +3,7 @@ import { Money } from "@funk/model/money/money"
 
 export default function (
   decimalString: string | undefined,
-  currency: CurrencyCode
+  currency: CurrencyCode,
 ): Money | undefined {
   if (!decimalString) return undefined
 

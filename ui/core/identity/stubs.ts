@@ -35,7 +35,7 @@ export const createAuthUserStub = (role = UserRole.ANONYMOUS) =>
   } as unknown) as AuthClientUser)
 
 export const createUserCredentialStub = (
-  authUserStub = createAuthUserStub()
+  authUserStub = createAuthUserStub(),
 ) => ({
   credential: null,
   user: authUserStub,
@@ -69,5 +69,5 @@ export const createStubbedPublicGuard = (userRole = UserRole.ANONYMOUS) =>
     ({
       canActivate: jest.fn().mockReturnValue(of(true)),
     } as Partial<AnonymousGuard>) as AnonymousGuard,
-    createRouterStub()
+    createRouterStub(),
   )

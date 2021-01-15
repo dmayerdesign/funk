@@ -12,7 +12,7 @@ export function construct(store: AngularFirestore) {
       .then(
         (snapshot) =>
           snapshot.docs &&
-          snapshot.docs.map((doc) => doc.data() as DocumentType)
+          snapshot.docs.map((doc) => doc.data() as DocumentType),
       )
   }
 }

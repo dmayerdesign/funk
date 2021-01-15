@@ -6,7 +6,7 @@ import { PRESENTABLE_ERROR_MARKER } from "@funk/helpers/throw-presentable-error"
 import {
   MarshalledCart,
   ORDERS,
-  Status
+  Status,
 } from "@funk/model/commerce/order/order"
 import { createFakeMarshalledCart } from "@funk/model/commerce/order/stubs"
 import { FiniteInventory } from "@funk/model/commerce/sku/inventory"
@@ -53,7 +53,7 @@ describe("setStatusToCheckout", () => {
           expect.objectContaining({
             collection: SKUS,
             conditions: [["id", "in", fakeCart.skus]],
-          })
+          }),
         )
         .mockResolvedValue([fakeSku, fakeBucketSku])
     })
@@ -69,7 +69,7 @@ describe("setStatusToCheckout", () => {
       expect(setMany).toHaveBeenCalledWith(
         expect.objectContaining({
           [ORDERS]: { [fakeCart.id]: { status: Status.CART_CHECKOUT } },
-        })
+        }),
       )
     })
 
@@ -93,7 +93,7 @@ describe("setStatusToCheckout", () => {
               },
             },
           },
-        })
+        }),
       )
     })
   })
@@ -110,7 +110,7 @@ describe("setStatusToCheckout", () => {
             skuQuantityMap: {
               "test 1": 1,
             },
-          })
+          }),
         )
     })
 
@@ -130,7 +130,7 @@ describe("setStatusToCheckout", () => {
         await expect(setStatusToCheckout(ORDER_ID)).rejects.toThrow()
 
         expect(setMany).not.toHaveBeenCalled()
-      }
+      },
     )
 
     it("should throw a helpful error if one SKU does not have enough inventory", async function () {
@@ -154,8 +154,8 @@ describe("setStatusToCheckout", () => {
 
       await expect(setStatusToCheckout(ORDER_ID)).rejects.toThrow(
         new RegExp(
-          `${escapeRegExp(PRESENTABLE_ERROR_MARKER)}.+(test sku out of stock)`
-        )
+          `${escapeRegExp(PRESENTABLE_ERROR_MARKER)}.+(test sku out of stock)`,
+        ),
       )
 
       expect(setMany).not.toHaveBeenCalled()

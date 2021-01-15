@@ -6,7 +6,7 @@ import { PublicGuard } from "@funk/ui/app/identity/public-guard"
 import {
   createRouterStub,
   createStubbedPublicGuard,
-  createUserSession
+  createUserSession,
 } from "@funk/ui/core/identity/stubs"
 import { of } from "rxjs"
 
@@ -30,10 +30,10 @@ describe("PublicGuard", () => {
     const guard = new PublicGuard(
       createUserSession(UserRole.ANONYMOUS),
       anonymousGuard,
-      createRouterStub()
+      createRouterStub(),
     )
     const canActivate = await asPromise(
-      guard.canActivate(activatedRoute, routerState)
+      guard.canActivate(activatedRoute, routerState),
     )
 
     expect(anonymousGuard.canActivate).toHaveBeenCalled()
@@ -44,8 +44,8 @@ describe("PublicGuard", () => {
     const canActivate = await asPromise(
       createStubbedPublicGuard(UserRole.SUPER).canActivate(
         activatedRoute,
-        routerState
-      )
+        routerState,
+      ),
     )
 
     expect(canActivate).toBe(true)
@@ -55,8 +55,8 @@ describe("PublicGuard", () => {
     const canActivate = await asPromise(
       createStubbedPublicGuard(UserRole.OWNER).canActivate(
         activatedRoute,
-        routerState
-      )
+        routerState,
+      ),
     )
 
     expect(canActivate).toBe(true)
@@ -66,8 +66,8 @@ describe("PublicGuard", () => {
     const canActivate = await asPromise(
       createStubbedPublicGuard(UserRole.ADMINISTRATOR).canActivate(
         activatedRoute,
-        routerState
-      )
+        routerState,
+      ),
     )
 
     expect(canActivate).toBe(true)
@@ -80,10 +80,10 @@ describe("PublicGuard", () => {
     const guard = new PublicGuard(
       createUserSession(UserRole.PUBLIC),
       anonymousGuard,
-      routerStub
+      routerStub,
     )
     const canActivate = await asPromise(
-      guard.canActivate(activatedRoute, routerState)
+      guard.canActivate(activatedRoute, routerState),
     )
 
     expect(canActivate).toEqual(new UrlTree())
@@ -97,10 +97,10 @@ describe("PublicGuard", () => {
     const guard = new PublicGuard(
       createUserSession(UserRole.ANONYMOUS),
       anonymousGuard,
-      routerStub
+      routerStub,
     )
     const canActivate = await asPromise(
-      guard.canActivate(activatedRoute, routerState)
+      guard.canActivate(activatedRoute, routerState),
     )
 
     expect(canActivate).toEqual(new UrlTree())

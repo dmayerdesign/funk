@@ -7,7 +7,7 @@ export default function <
 >(
   pathSegment1: keyof DataType,
   pathSegment2?: keyof NestedDataType1 | never,
-  pathSegment3?: keyof NestedDataType2 | never
+  pathSegment3?: keyof NestedDataType2 | never,
 ): string {
   if (pathSegment3) {
     return [pathSegment1, pathSegment2, pathSegment3].join(".")

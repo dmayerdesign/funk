@@ -11,7 +11,7 @@ interface TuringTestRequest {
 
 export function construct(
   httpClient: typeof httpClientImpl,
-  getSecret: typeof getSecretImpl
+  getSecret: typeof getSecretImpl,
 ) {
   return async function (token: string): Promise<boolean> {
     const secret = await getSecret(TURING_TEST_SERVICE_PROVIDER_SECRET_KEY)
@@ -19,7 +19,7 @@ export function construct(
       TuringTestRequest,
       Response<TuringTestResult>
     >(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`,
     )
     const turingTestResult = turingTestResponse.data
     return turingTestResult.success && turingTestResult.score > 0.6

@@ -8,7 +8,7 @@ export function construct(client: FunctionsClient) {
   return async function (secretKey: PayloadType): Promise<ResolvedValueType> {
     return client.rpcAuthorized<PayloadType, ResolvedValueType>(
       functionName,
-      secretKey
+      secretKey,
     )
   }
 }

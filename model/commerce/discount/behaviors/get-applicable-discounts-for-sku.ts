@@ -12,7 +12,7 @@ import { sortBy } from "lodash"
  */
 export default function (
   discounts: SkuDiscount[],
-  { sku, product }: { sku: MarshalledSku; product: MarshalledProduct }
+  { sku, product }: { sku: MarshalledSku; product: MarshalledProduct },
 ): SkuDiscount[] {
   return new ApplicableDiscountsForSkuBuilder(sku, product, discounts)
     .onlyAllowSkuDiscounts()
@@ -30,14 +30,14 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
   public constructor(
     private _sku: MarshalledSku,
     private _product: MarshalledProduct,
-    discounts: SkuDiscount[]
+    discounts: SkuDiscount[],
   ) {
     super(discounts)
   }
 
   public onlyAllowSkuDiscounts(): this {
     this._applicableDiscounts = this._applicableDiscounts.filter(
-      (discount) => (discount as Discount).type === "sku"
+      (discount) => (discount as Discount).type === "sku",
     )
     return this
   }
@@ -57,8 +57,8 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
               !!discount.excludes.taxonomyTerms.find(
                 (excludedTerm) =>
                   !!this._sku.taxonomyTerms?.find(
-                    (term) => term === excludedTerm
-                  )
+                    (term) => term === excludedTerm,
+                  ),
               )
             ) {
               return false
@@ -67,8 +67,8 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
               !!discount.excludes.taxonomyTerms.find(
                 (excludedTerm) =>
                   !!this._product.taxonomyTerms?.find(
-                    (term) => term === excludedTerm
-                  )
+                    (term) => term === excludedTerm,
+                  ),
               )
             ) {
               return false
@@ -76,7 +76,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
           }
         }
         return true
-      }
+      },
     )
     return this
   }
@@ -93,8 +93,8 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
             !!discount.includes.taxonomyTerms.find(
               (includedTerm) =>
                 !!this._sku.taxonomyTerms?.find(
-                  (term) => term === includedTerm
-                )
+                  (term) => term === includedTerm,
+                ),
             )
           ) {
             return true
@@ -103,22 +103,22 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
             !!discount.includes.taxonomyTerms.find(
               (includedTerm) =>
                 !!this._product.taxonomyTerms?.find(
-                  (term) => term === includedTerm
-                )
+                  (term) => term === includedTerm,
+                ),
             )
           ) {
             return true
           }
         }
         return false
-      }
+      },
     )
     return this
   }
 
   public sortPercentageDiscountsFirst(): this {
     this._applicableDiscounts = sortBy(this._applicableDiscounts, (element) =>
-      typeof element.percentage === "number" ? -element.percentage : 1
+      typeof element.percentage === "number" ? -element.percentage : 1,
     )
     return this
   }
@@ -126,7 +126,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
   public sortMostRecentlyStartedFirst(): this {
     this._applicableDiscounts = sortBy(
       this._applicableDiscounts,
-      ({ startAt }) => Math.ceil(1 / startAt)
+      ({ startAt }) => Math.ceil(1 / startAt),
     )
     return this
   }

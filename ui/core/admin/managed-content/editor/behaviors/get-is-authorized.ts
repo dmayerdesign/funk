@@ -9,10 +9,10 @@ export function construct(userSession: UserSession, deviceWidth: DeviceWidth) {
     map(roleHasAdminPrivilegeOrGreater),
     switchMap((hasCorrectPrivileges) =>
       deviceWidth.pipe(
-        map((widthSnapshot) => widthSnapshot > 960 && hasCorrectPrivileges)
-      )
+        map((widthSnapshot) => widthSnapshot > 960 && hasCorrectPrivileges),
+      ),
     ),
-    shareReplay(1)
+    shareReplay(1),
   )
   isAuthorized.subscribe()
   return () => isAuthorized

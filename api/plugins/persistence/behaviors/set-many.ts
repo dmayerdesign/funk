@@ -11,7 +11,7 @@ export function construct(store: typeof storeImpl) {
         [documentPath: string]: DocumentType
       }
     },
-    options?: { overwrite?: boolean }
+    options?: { overwrite?: boolean },
   ): Promise<void> {
     const MAX_BATCH_SIZE = 500
     const TMP_COLLECTION_DOC_PATH_SEPARATOR = "[PATH_SEP]"
@@ -21,10 +21,10 @@ export function construct(store: typeof storeImpl) {
       (paths, collectionPath) => [
         ...paths,
         ...Object.keys(documentsByCollectionPath[collectionPath]).map(
-          (docId) => collectionPath + TMP_COLLECTION_DOC_PATH_SEPARATOR + docId
+          (docId) => collectionPath + TMP_COLLECTION_DOC_PATH_SEPARATOR + docId,
         ),
       ],
-      [] as string[]
+      [] as string[],
     )
     const pathsInChunks = chunk(allPaths, MAX_BATCH_SIZE)
 
@@ -38,7 +38,7 @@ export function construct(store: typeof storeImpl) {
         batch.set(
           docRef,
           { ...documentData, updatedAt: Date.now() },
-          { merge: !options?.overwrite }
+          { merge: !options?.overwrite },
         )
       }
       await batch.commit()

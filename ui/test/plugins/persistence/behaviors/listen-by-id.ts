@@ -9,14 +9,14 @@ export default function <
   DocumentType extends Record<string, any> = DatabaseDocument
 >(
   collectionPath: string,
-  documentPath: string
+  documentPath: string,
 ): Observable<DocumentType | undefined> {
   const stream = getStore$().pipe(
     distinctUntilKeyChanged(collectionPath),
     map((store) =>
-      get(store[collectionPath], documentPath.replace(/\//g, "."))
+      get(store[collectionPath], documentPath.replace(/\//g, ".")),
     ),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
   stream.subscribe()
   return stream

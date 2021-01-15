@@ -16,7 +16,7 @@ export function construct(getById: typeof getByIdImpl, list: typeof listImpl) {
     MarshalledType extends DatabaseDocument
   >(
     marshalledDoc: MarshalledType,
-    options: PopulateFieldOptions<MarshalledType | PopulatedType>[]
+    options: PopulateFieldOptions<MarshalledType | PopulatedType>[],
   ): Promise<PopulatedType> {
     const _populatedDoc = ({ ...marshalledDoc } as unknown) as PopulatedType
     for (const { collectionPath, key, relationship } of options) {
@@ -31,13 +31,13 @@ export function construct(getById: typeof getByIdImpl, list: typeof listImpl) {
       ) {
         _populatedDoc[key] = await getById<any>(
           collectionPath,
-          (marshalledDoc[key] as unknown) as string
+          (marshalledDoc[key] as unknown) as string,
         )
       } else {
         if (
           Array.isArray(marshalledDoc[key]) &&
           ((marshalledDoc[key] as unknown) as any[]).some(
-            (x) => typeof x !== "string"
+            (x) => typeof x !== "string",
           )
         ) {
           continue

@@ -8,7 +8,7 @@ export default async function <
   collectionPath: string,
   documentPath: string,
   documentData: DocumentType,
-  options?: { overwrite?: boolean }
+  options?: { overwrite?: boolean },
 ): Promise<void> {
   if (!getStore()[collectionPath]) {
     getStore()[collectionPath] = {}
@@ -18,6 +18,6 @@ export default async function <
   set(
     getStore()[collectionPath],
     documentPath,
-    options?.overwrite ? documentData : { ...doc, ...documentData }
+    options?.overwrite ? documentData : { ...doc, ...documentData },
   )
 }

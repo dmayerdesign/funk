@@ -6,7 +6,7 @@ export function construct(auth: AuthClient) {
   return auth.user.pipe(
     ignoreNullish(),
     switchMap((authUser) => authUser.getIdToken()),
-    shareReplay(1)
+    shareReplay(1),
   )
 }
 

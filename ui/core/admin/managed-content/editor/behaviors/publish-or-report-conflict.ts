@@ -4,7 +4,7 @@ import { UserState, USER_STATES } from "@funk/model/identity/user-state"
 import { ContentPreview } from "@funk/model/managed-content/content-preview"
 import {
   CONTENTS,
-  ManagedContent
+  ManagedContent,
 } from "@funk/model/managed-content/managed-content"
 import { GetMaybeContentPreviews } from "@funk/ui/core/admin/managed-content/editor/behaviors/get-maybe-content-previews"
 import { GetPublishConflicts } from "@funk/ui/core/admin/managed-content/editor/behaviors/get-publish-conflicts"
@@ -18,12 +18,12 @@ export function construct(
   setById: SetById,
   updateById: UpdateById,
   getPublishConflicts: GetPublishConflicts,
-  getMaybeContentPreviews: GetMaybeContentPreviews
+  getMaybeContentPreviews: GetMaybeContentPreviews,
 ) {
   return async function (
     contentId: PrimaryKey,
     contentPreviews: { [contentId: string]: ContentPreview },
-    person: Person
+    person: Person,
   ): Promise<void> {
     const contentPreview = contentPreviews[contentId]
     const content = await getById<ManagedContent>(CONTENTS, contentId)
@@ -42,13 +42,13 @@ export function construct(
 
   async function publishAndDeleteContentPreview(
     person: Person,
-    contentId: string
+    contentId: string,
   ): Promise<void> {
     const contentPreviews = await getMaybeContentPreviews(person)
     await setById<ManagedContent>(
       CONTENTS,
       contentId,
-      contentPreviews![contentId].content
+      contentPreviews![contentId].content,
     )
     const newContentPreviews = { ...contentPreviews }
     delete newContentPreviews[contentId]

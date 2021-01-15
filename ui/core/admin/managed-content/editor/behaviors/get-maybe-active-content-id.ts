@@ -2,7 +2,7 @@ import { BehaviorSubject } from "rxjs"
 
 export function construct() {
   const maybeActiveContentId = new BehaviorSubject<string | undefined>(
-    undefined
+    undefined,
   )
   maybeActiveContentId.subscribe()
   return () => maybeActiveContentId

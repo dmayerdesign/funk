@@ -10,7 +10,7 @@ export default async function <
       [documentPath: string]: DocumentType
     }
   },
-  options?: { overwrite?: boolean }
+  options?: { overwrite?: boolean },
 ): Promise<void> {
   await Promise.all(
     flatten(
@@ -22,10 +22,10 @@ export default async function <
             collectionPath,
             documentPath,
             collection[documentPath],
-            options
-          )
+            options,
+          ),
         )
-      })
-    )
+      }),
+    ),
   )
 }

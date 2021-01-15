@@ -20,7 +20,7 @@ describe("getTotalBeforeTaxAndShipping", () => {
     const ORDER = { skus: [SKU1, SKU2], discounts: DISCOUNTS } as Order
     const getById = jest.fn()
     const getTotalBeforeTaxAndShipping = constructGetTotalBeforeTaxAndShipping(
-      getById
+      getById,
     )
 
     const totalBeforeTax = await getTotalBeforeTaxAndShipping(ORDER)

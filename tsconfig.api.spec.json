@@ -8,12 +8,18 @@
       "@funk/configuration": [
         "./.funk/build-pipeline-output/configuration/test-configuration.ts"
       ],
+      "@funk/features/*": ["./features/*"],
       "@funk/helpers/*": ["./helpers/*"],
       "@funk/model/*": ["./model/*"],
       "@funk/test/*": ["./test/*"],
       "@funk/ui/*": ["./ui/*"]
     }
   },
-  "include": ["api/**/*.ts", "features/**/*.ts", "ui/copy/**/*.ts", "configuration/**/*.ts"],
+  "include": [
+    "api/**/*.ts",
+    "features/**/*.ts",
+    "ui/copy/**/*.ts",
+    "configuration/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

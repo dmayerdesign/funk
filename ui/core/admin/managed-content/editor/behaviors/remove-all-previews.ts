@@ -7,7 +7,7 @@ import { UpdateById } from "@funk/ui/plugins/persistence/behaviors/update-by-id"
 export function construct(
   updateById: UpdateById,
   userSession: UserSession,
-  getPublishConflicts: GetPublishConflicts
+  getPublishConflicts: GetPublishConflicts,
 ) {
   return async function (): Promise<void> {
     const { person } = await asPromise(userSession)

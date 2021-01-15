@@ -2,7 +2,7 @@ import { BadRequestError } from "@funk/api/functions/helpers/http/error/bad-requ
 
 export default function <NonNullExprType>(
   nullableExpression: NonNullExprType | null | undefined | false | "",
-  errorMessage: string
+  errorMessage: string,
 ): NonNullExprType {
   return (
     nullableExpression ||

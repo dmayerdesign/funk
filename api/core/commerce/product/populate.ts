@@ -1,7 +1,7 @@
 import populateImpl from "@funk/api/plugins/persistence/behaviors/populate"
 import {
   MarshalledProduct,
-  Product
+  Product,
 } from "@funk/model/commerce/product/product"
 import { REVIEWS } from "@funk/model/commerce/review/review"
 import { TAXONOMY_TERMS } from "@funk/model/commerce/taxonomy/taxonomy-term"

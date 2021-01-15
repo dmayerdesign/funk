@@ -12,7 +12,7 @@ export interface UpdateInput {
 
 export function construct(getPaymentProvider: typeof getPaymentProviderImpl) {
   return async function (
-    input: CreateInput | UpdateInput
+    input: CreateInput | UpdateInput,
   ): Promise<Stripe.Customer> {
     const { customerData } = input,
       { id } = input as UpdateInput

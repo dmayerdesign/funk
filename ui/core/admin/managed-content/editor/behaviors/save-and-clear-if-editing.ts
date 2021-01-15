@@ -3,7 +3,7 @@ import createDocPath from "@funk/helpers/create-doc-path"
 import { UserState, USER_STATES } from "@funk/model/identity/user-state"
 import {
   ManagedContent,
-  ManagedContentType
+  ManagedContentType,
 } from "@funk/model/managed-content/managed-content"
 import { CancelEdit } from "@funk/ui/core/admin/managed-content/editor/behaviors/cancel-edit"
 import { GetIsSaving } from "@funk/ui/core/admin/managed-content/editor/behaviors/get-is-saving"
@@ -24,7 +24,7 @@ export function construct(
   getMaybeActiveContentValue: GetMaybeActiveContentValue,
   htmlGetInnerText: HtmlGetInnerText,
   updateById: UpdateById,
-  cancelEdit: CancelEdit
+  cancelEdit: CancelEdit,
 ) {
   return async function (): Promise<void> {
     const control = await asPromise(getMaybeActiveContentValueControl())
@@ -42,7 +42,7 @@ export function construct(
           [createDocPath<UserState>(
             "contentPreviews",
             contentId,
-            "createdAt"
+            "createdAt",
           )]: Date.now(),
           [createDocPath<UserState>("contentPreviews", contentId, "content")]: {
             id: contentId,

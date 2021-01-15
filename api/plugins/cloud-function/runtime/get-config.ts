@@ -16,7 +16,7 @@ export const createGetConfigStub = () => () =>
         JSON.stringify({
           client_email: "client email",
           private_key: "private key",
-        })
+        }),
       ).toString("base64"),
     },
   } as FunctionsConfig)

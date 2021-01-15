@@ -6,7 +6,7 @@ export default async function <
   DocumentType extends Record<string, any> = DatabaseDocument
 >(
   collectionPath: string,
-  documentPath: string
+  documentPath: string,
 ): Promise<DocumentType | undefined> {
   return get(getStore()[collectionPath], documentPath.replace(/\//g, "."))
 }

@@ -3,7 +3,7 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  Validators
+  Validators,
 } from "@angular/forms"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { ContactForm } from "@funk/model/contact/contact-form"
@@ -91,14 +91,14 @@ export class ContactContainer implements OnInit {
   } as { [key in keyof ContactForm]: AbstractControl })
   public isDesktopLayout = this._deviceWidth.pipe(
     map((deviceWidth) => deviceWidth > 960),
-    shareReplayOnce()
+    shareReplayOnce(),
   )
 
   public constructor(
     @Inject(CONTACT_OWNER) private _sendEmailToOwner: ContactOwner,
     @Inject(GET_TOKEN) private _getTuringTestToken: GetToken,
     @Inject(PAGE_TITLE) public pageTitle: PageTitle,
-    @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth
+    @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth,
   ) {}
 
   public ngOnInit(): void {}
@@ -106,7 +106,7 @@ export class ContactContainer implements OnInit {
   public async handleSubmit(): Promise<void> {
     try {
       const turingTestTokenControl = this.contactFormGroup.get(
-        "turingTestToken" as keyof ContactForm
+        "turingTestToken" as keyof ContactForm,
       )
       turingTestTokenControl!.setValue(await this._getTuringTestToken())
       this.submitting = true

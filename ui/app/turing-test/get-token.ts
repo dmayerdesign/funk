@@ -15,5 +15,5 @@ export type GetToken = ReturnType<typeof construct>
 
 export const GET_TOKEN = new InjectionToken("GET_TOKEN")
 export const INITIALIZE_TURING_TEST = new InjectionToken(
-  "INITIALIZE_TURING_TEST"
+  "INITIALIZE_TURING_TEST",
 )

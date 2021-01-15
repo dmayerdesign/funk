@@ -4,7 +4,7 @@ export function construct(getPublishConflicts: GetPublishConflicts) {
   return function (contentId: string): void {
     const publishConflicts = [...getPublishConflicts().getValue()]
     const indexOfContentUpdatedAfterPreview = publishConflicts.findIndex(
-      ([_, managedContent]) => managedContent.id === contentId
+      ([_, managedContent]) => managedContent.id === contentId,
     )
     if (indexOfContentUpdatedAfterPreview > -1) {
       publishConflicts.splice(indexOfContentUpdatedAfterPreview, 1)
