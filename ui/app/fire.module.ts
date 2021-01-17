@@ -4,7 +4,7 @@ import { AngularFireAuth, AngularFireAuthModule } from "@angular/fire/auth"
 import {
   AngularFirestore,
   AngularFirestoreModule,
-  SETTINGS,
+  SETTINGS
 } from "@angular/fire/firestore"
 import { FIREBASE_CONFIG, IS_LOCAL } from "@funk/configuration"
 
@@ -22,7 +22,7 @@ import { FIREBASE_CONFIG, IS_LOCAL } from "@funk/configuration"
       provide: SETTINGS,
       useValue: IS_LOCAL
         ? {
-            host: "localhost:8080",
+            host: "localhost:8100",
             ssl: false,
           }
         : undefined,

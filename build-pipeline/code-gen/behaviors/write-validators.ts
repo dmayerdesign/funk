@@ -3,7 +3,7 @@ import {
   mkdirpSync,
   readFileSync,
   unlinkSync,
-  writeFileSync,
+  writeFileSync
 } from "fs-extra"
 import { kebabCase } from "lodash"
 import md5 from "md5"
@@ -114,7 +114,7 @@ import schema from "@funk/model/${
               schemaDefFilename.split(sep + "model" + sep)[1]
             }"
 
-export default function(data: ${interfaceName}): string[] | false
+export default function (data: ${interfaceName}): string[] | false
 {
   const _schema = schema as any
   const requiredProps = (_schema.required ?? []) as (keyof ${interfaceName})[]
@@ -148,7 +148,7 @@ import isInvalid from "@funk/model/${
 
 export function construct()
 {
-  return function(data: ${interfaceName}): void
+  return function (data: ${interfaceName}): void
   {
     const falseOrErrors = isInvalid(data)
     if (falseOrErrors)

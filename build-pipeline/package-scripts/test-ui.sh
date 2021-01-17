@@ -9,4 +9,8 @@ if [ $? -eq 0 ]; then
   sh build-pipeline/package-scripts/ts-node.sh build-pipeline/code-gen/behaviors/write-badges.ts
 else (exit 1); fi
 
-node_modules/.bin/cypress run --headless
+npx concurrently \
+  "npx wait-on http://localhost:8100; node_modules/.bin/cypress run --headless" \
+  "npm run ui::develop::development" \
+  --success first \
+  --kill-others

@@ -9,27 +9,23 @@ that need to be filled! — Danny)
 
 **2. [Clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) this repository.**
 
-**3. Change a file inside `/api/spec` and/or `/ui/spec`, or create your own.**
+**3. Change a file inside `api/spec` and/or `ui/spec`, or create your own.**
 
 Feature files are written in [Gherkin](https://cucumber.io/docs/gherkin/reference) and implemented with
 [Jest](https://jestjs.io) and [Cypress](https://cypress.io).
 
-**4. Write a functional test that implements the new feature.**
-
-Functional tests live in `api/spec` and `ui/spec`.
-
-**5. Write unit tests and API integration tests as necessary.**
+**4. Write unit tests and API integration tests as necessary.**
 
 API integration tests live in `api/*/spec`. Unit tests live alongside the files they test.
 
-**6. Commit your changes.**
+**5. Commit your changes.**
 
 Create a branch named like this: `your-github-username/description-of-your-changes`.
 
 Commit messages should be written in the style of
 [conventional commits](https://www.conventionalcommits.org).
 
-**7. Submit a pull request.**
+**6. Submit a pull request.**
 
 ---
 

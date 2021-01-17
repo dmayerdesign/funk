@@ -1,4 +1,4 @@
-Feature: Shopping Cart
+Feature: Shopping Cart API
 
   A cart is an order with status "Cart" or "Cart Checkout". As soon as a user is created,
   an order associated with them is created with status "Cart".
