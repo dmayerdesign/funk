@@ -1,6 +1,6 @@
 import { InjectionToken } from "@angular/core"
 import { BuildMenuItem } from "@funk/model/ui/atlas/behaviors/build-menu-item"
-import { AppAtlas } from "@funk/ui/core/atlas/atlas"
+import { AppAtlas } from "@funk/ui/configuration/atlas"
 
 export const APP_ATLAS = new InjectionToken<AppAtlas>("APP_ATLAS")
 export const BUILD_MENU_ITEM = new InjectionToken<BuildMenuItem<AppAtlas>>(

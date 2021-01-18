@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core"
 import { construct as constructBuildMenuItem } from "@funk/model/ui/atlas/behaviors/build-menu-item"
 import {
-  APP_ATLAS,
-  BUILD_MENU_ITEM,
-  HOME_RELATIVE_URL,
+    APP_ATLAS,
+    BUILD_MENU_ITEM,
+    HOME_RELATIVE_URL
 } from "@funk/ui/app/atlas/tokens"
-import atlas from "@funk/ui/core/atlas/atlas"
+import atlas from "@funk/ui/configuration/atlas"
 import { construct as constructHomeRelativeUrl } from "@funk/ui/core/atlas/home-relative-url"
 
 @NgModule({

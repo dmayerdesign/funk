@@ -5,7 +5,7 @@ import { RouterModule, Routes } from "@angular/router"
 import { AdminContainer } from "@funk/ui/app/admin/container"
 import { ImportSkusContainer } from "@funk/ui/app/admin/import-skus/container"
 import { ManagedContentModule } from "@funk/ui/app/admin/managed-content/module"
-import atlas from "@funk/ui/core/atlas/atlas"
+import atlas from "@funk/ui/configuration/atlas"
 import { IonicModule } from "@ionic/angular"
 
 const routes: Routes = [

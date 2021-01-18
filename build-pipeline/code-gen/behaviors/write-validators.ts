@@ -10,6 +10,8 @@ import md5 from "md5"
 import { resolve, sep } from "path"
 import recursiveReaddir from "recursive-readdir-sync"
 import * as schemaGenerator from "ts-json-schema-generator"
+import { NoRootTypeError } from "ts-json-schema-generator"
+import warn from "../../../helpers/warn"
 
 const CACHE_PATH = resolve(__dirname, "../../../", ".funk/.cache/validators")
 
@@ -68,25 +70,8 @@ ${filenames
           `throw-if-${kebabCase(interfaceName)}-is-invalid.ts`,
         )
 
-        // Do nothing if no schema def is found for this interface.
-        const schemaDef = schemaDefs[interfaceName]
-        if (!schemaDef) return
-
-        // Do nothing if the schema def has not changed since last time.
-        const hashedSchemaDef = md5(JSON.stringify(schemaDef))
-        const cachedHashedSchemaDefPath = resolve(
-          CACHE_PATH,
-          `${filename
-            .split(sep + "model" + sep)[1]
-            .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`,
-        )
-        let cachedHashedSchemaDef: string | undefined
-        try {
-          cachedHashedSchemaDef = readFileSync(
-            cachedHashedSchemaDefPath,
-          ).toString("utf-8")
-        } catch {}
-        if (hashedSchemaDef === cachedHashedSchemaDef) return
+        if (!schemaDefs[interfaceName]) return
+        if (schemaDefHasNotChangedSinceLastBuild()) return
 
         // Delete existing validator files.
         if (existsSync(schemaDefFilename)) unlinkSync(schemaDefFilename)
@@ -101,7 +86,7 @@ ${filenames
           console.log("Writing " + schemaDefFilename)
           writeFileSync(
             schemaDefFilename,
-            JSON.stringify(schemaDef, null, 2) + "\n",
+            JSON.stringify(schemaDefs[interfaceName], null, 2) + "\n",
           )
           console.log("Writing " + validator1Filename)
           writeFileSync(
@@ -171,11 +156,37 @@ export type Validate = ReturnType<typeof construct>
           )
         }
         function cacheSource() {
+          const hashedSchemaDef = md5(JSON.stringify(schemaDefs[interfaceName]))
+          const cachedHashedSchemaDefPath = resolve(
+            CACHE_PATH,
+            `${filename
+              .split(sep + "model" + sep)[1]
+              .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`,
+          )
           mkdirpSync(CACHE_PATH)
           writeFileSync(cachedHashedSchemaDefPath, hashedSchemaDef)
         }
+        function schemaDefHasNotChangedSinceLastBuild() {
+          const hashedSchemaDef = md5(JSON.stringify(schemaDefs[interfaceName]))
+          const cachedHashedSchemaDefPath = resolve(
+            CACHE_PATH,
+            `${filename
+              .split(sep + "model" + sep)[1]
+              .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`,
+          )
+          let cachedHashedSchemaDef: string | undefined
+          try {
+            cachedHashedSchemaDef = readFileSync(
+              cachedHashedSchemaDefPath,
+            ).toString("utf-8")
+          } catch {}
+          return hashedSchemaDef === cachedHashedSchemaDef
+        }
       } catch (error) {
-        console.error(error)
+        if (error instanceof NoRootTypeError) {
+          warn(error.message)
+        }
+        else throw error
       }
     })
   }

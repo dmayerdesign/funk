@@ -26,6 +26,7 @@ import {
   listOrdersForUser
 } from "@funk/api/spec/commerce/order/helpers"
 import loadFeatureOptions from "@funk/api/spec/configuration/load-feature-options"
+import { background, rule } from "@funk/api/spec/helpers"
 import { initializeStore } from "@funk/api/test/data-access/in-memory-store"
 import getById from "@funk/api/test/plugins/persistence/behaviors/get-by-id"
 import list from "@funk/api/test/plugins/persistence/behaviors/list"
@@ -62,7 +63,7 @@ defineFeature(feature, function (example) {
   let cart2: Cart
   let sku: MarshalledSku
 
-  beforeEach(async function () {
+  background(async function () {
     await initializeStore()
 
     confirmPaymentIntent = jest.fn()
@@ -80,7 +81,7 @@ defineFeature(feature, function (example) {
     setSkuQuantity = constructSetSkuQuantity(getById, updateById)
   })
 
-  describe("A user must always have a shopping cart.", function () {
+  rule("A user must always have a shopping cart.", function () {
     example("When Newt is created, a cart is created for Newt.", function ({
       given,
       when,

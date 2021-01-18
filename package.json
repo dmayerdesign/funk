@@ -156,7 +156,7 @@
     "shelljs": "~0.8.4",
     "strip-comments": "~2.0.1",
     "ts-jest": "26.4.1",
-    "ts-json-schema-generator": "^0.76.1",
+    "ts-json-schema-generator": "^0.83.2",
     "ts-loader": "~8.0.4",
     "ts-node": "9.0.0",
     "tsc-watch": "~4.2.8",

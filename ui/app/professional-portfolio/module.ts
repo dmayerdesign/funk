@@ -12,9 +12,9 @@ import { TeachingContainer } from "@funk/ui/app/professional-portfolio/teaching/
 import {
   construct as constructGetToken,
   GET_TOKEN,
-  INITIALIZE_TURING_TEST,
+  INITIALIZE_TURING_TEST
 } from "@funk/ui/app/turing-test/get-token"
-import atlas from "@funk/ui/core/atlas/atlas"
+import atlas from "@funk/ui/configuration/atlas"
 import { IonicModule } from "@ionic/angular"
 import { load as loadRecaptcha } from "recaptcha-v3"
 
@@ -27,35 +27,35 @@ const routes: Routes = [
         path: "about",
         component: AboutContainer,
         data: {
-          title: atlas.professionalPortfolio.__atlas__.about.label,
+          title: atlas["professional-portfolio"].__atlas__.about.label,
         },
       },
       {
         path: "contact",
         component: ContactContainer,
         data: {
-          title: atlas.professionalPortfolio.__atlas__.contact.label,
+          title: atlas["professional-portfolio"].__atlas__.contact.label,
         },
       },
       {
         path: "honors",
         component: HonorsContainer,
         data: {
-          title: atlas.professionalPortfolio.__atlas__.honors.label,
+          title: atlas["professional-portfolio"].__atlas__.honors.label,
         },
       },
       {
         path: "publications",
         component: PublicationsContainer,
         data: {
-          title: atlas.professionalPortfolio.__atlas__.publications.label,
+          title: atlas["professional-portfolio"].__atlas__.publications.label,
         },
       },
       {
         path: "teaching",
         component: TeachingContainer,
         data: {
-          title: atlas.professionalPortfolio.__atlas__.teaching.label,
+          title: atlas["professional-portfolio"].__atlas__.teaching.label,
         },
       },
     ],
