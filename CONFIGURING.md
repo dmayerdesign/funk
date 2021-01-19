@@ -39,8 +39,9 @@ When following these instructions, replace `{CONFIGURATION}` with either `develo
 ### Authentication
 
 1. Enable the following authentication providers in the Firebase console:
-   - Anonymous
+   - Email/Password
    - Google
+   - Anonymous
 
 ### Cloud Functions
 

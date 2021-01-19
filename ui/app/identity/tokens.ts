@@ -1,14 +1,14 @@
 import { InjectionToken } from "@angular/core"
-import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
 import { CreateUserWithEmailAndPassword } from "@funk/ui/core/identity/behaviors/create-user-with-email-and-password"
 import { Initialize } from "@funk/ui/core/identity/behaviors/initialize"
 import { SendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
 import { SignInWithEmailAndPassword } from "@funk/ui/core/identity/behaviors/sign-in-with-email-and-password"
 import { SignInWithProvider } from "@funk/ui/core/identity/behaviors/sign-in-with-provider"
 import { SignOut } from "@funk/ui/core/identity/behaviors/sign-out"
-import { UserSession } from "@funk/ui/core/identity/user-session"
 import { UserIdToken } from "@funk/ui/core/identity/user-id-token"
+import { UserSession } from "@funk/ui/core/identity/user-session"
 import { UserState } from "@funk/ui/core/identity/user-state"
+import { AuthClient } from "@funk/ui/plugins/auth/auth-client"
 
 export const CREATE_USER_WITH_EMAIL_AND_PASSWORD = new InjectionToken<
   CreateUserWithEmailAndPassword

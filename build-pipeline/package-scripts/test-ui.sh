@@ -11,6 +11,6 @@ else (exit 1); fi
 
 npx concurrently \
   "npx wait-on http://localhost:8100; node_modules/.bin/cypress run --headless" \
-  "npm run ui::develop::development" \
+  "npm run ui::develop::local" \
   --success first \
   --kill-others

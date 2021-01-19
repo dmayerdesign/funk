@@ -266,8 +266,9 @@ Just a few manual steps to go.
 
   1. Enable the following authentication providers in the Firebase console:
 
-    Anonymous
+    Email/Password
     Google
+    Anonymous
 
 When enabling Google, set ${displayName} as the Project public-facing name.
 

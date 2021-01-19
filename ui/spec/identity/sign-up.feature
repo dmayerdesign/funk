@@ -11,7 +11,7 @@ Feature: Sign up
 
   Rule: A user can sign up with their email and password.
 
-    Example: Paula signs up with his email and password.
+    Example: Paula signs up with their email and password.
 
       Given a user named Paula
       And that Paula is viewing a "create an account" form
@@ -20,7 +20,7 @@ Feature: Sign up
 
   Rule: A user can sign up using an OAuth provider.
 
-    Example: Paula signs up with his Google account.
+    Example: Paula signs up with their Google account.
 
       Given a user named Paula
       And that Paula is viewing a "create an account" form with a "sign up with Google" button

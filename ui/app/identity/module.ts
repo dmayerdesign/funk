@@ -1,36 +1,35 @@
 import { APP_INITIALIZER, NgModule } from "@angular/core"
-import { AngularFireAuth } from "@angular/fire/auth"
+import { TEST_PUBLIC_USER } from "@funk/configuration"
+import {
+  AUTH_CLIENT, CREATE_USER_WITH_EMAIL_AND_PASSWORD,
+  INITIALIZE,
+  SEND_EMAIL_VERIFICATION,
+  SIGN_IN_WITH_EMAIL_AND_PASSWORD,
+  SIGN_IN_WITH_PROVIDER,
+  SIGN_OUT,
+  USER_ID_TOKEN, USER_SESSION,
+  USER_STATE
+} from "@funk/ui/app/identity/tokens"
+import { LISTEN_BY_ID } from "@funk/ui/app/persistence/tokens"
 import { construct as constructCreateUserWithEmailAndPassword } from "@funk/ui/core/identity/behaviors/create-user-with-email-and-password"
 import { construct as constructInitialize } from "@funk/ui/core/identity/behaviors/initialize"
 import { construct as constructSendEmailVerification } from "@funk/ui/core/identity/behaviors/send-email-verification"
 import { construct as constructSignInWithEmailAndPassword } from "@funk/ui/core/identity/behaviors/sign-in-with-email-and-password"
 import { construct as constructSignInWithProvider } from "@funk/ui/core/identity/behaviors/sign-in-with-provider"
 import { construct as constructSignOut } from "@funk/ui/core/identity/behaviors/sign-out"
-import { construct as constructUserSession } from "@funk/ui/core/identity/user-session"
 import { construct as constructUserIdToken } from "@funk/ui/core/identity/user-id-token"
+import { construct as constructUserSession } from "@funk/ui/core/identity/user-session"
 import { construct as constructUserState } from "@funk/ui/core/identity/user-state"
-import { LISTEN_BY_ID } from "@funk/ui/app/persistence/tokens"
-import {
-  CREATE_USER_WITH_EMAIL_AND_PASSWORD,
-  INITIALIZE,
-  SEND_EMAIL_VERIFICATION,
-  SIGN_IN_WITH_EMAIL_AND_PASSWORD,
-  SIGN_IN_WITH_PROVIDER,
-  SIGN_OUT,
-  USER_SESSION,
-  USER_ID_TOKEN,
-  USER_STATE,
-  AUTH_CLIENT,
-} from "@funk/ui/app/identity/tokens"
+import { AngularFireAuth, TestAuthClientForPublicUser } from "@funk/ui/plugins/auth/auth-client"
 
 /**
- * This module should only be imported in the root module.
+ * This module should only be imported in the root app module.
  */
 @NgModule({
   providers: [
     {
       provide: AUTH_CLIENT,
-      useExisting: AngularFireAuth,
+      useExisting: TEST_PUBLIC_USER ? TestAuthClientForPublicUser : AngularFireAuth,
     },
     {
       provide: SEND_EMAIL_VERIFICATION,

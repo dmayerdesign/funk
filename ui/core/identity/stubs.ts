@@ -4,9 +4,9 @@ import { UserRole } from "@funk/model/auth/user-role"
 import { Person } from "@funk/model/identity/person"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
 import { PublicGuard } from "@funk/ui/app/identity/public-guard"
-import { AuthClient, AuthClientUser } from "@funk/ui/plugins/auth/auth-client"
 import { UserSession } from "@funk/ui/core/identity/user-session"
-import { BehaviorSubject, of, Observable } from "rxjs"
+import { AuthClient, AuthClientUser } from "@funk/ui/plugins/auth/auth-client"
+import { BehaviorSubject, Observable, of } from "rxjs"
 
 export const FAKE_USER_UID = "user-1"
 export const FAKE_ID_TOKEN = "test-token"
@@ -51,7 +51,6 @@ export const createAuthClientStub = (authUserStub = createAuthUserStub()) =>
     signOut: async () => {},
     signInAnonymously: async () => {},
     signInWithPopup: async () => {},
-    sendEmailVerification: async () => {},
     useDeviceLanguage: () => {},
     currentUser: authUserStub,
     authState: new BehaviorSubject(authUserStub),

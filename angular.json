@@ -46,7 +46,19 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
-              ]
+              ],
+              "optimization": false,
+              "outputHashing": "all"
+            },
+            "test-public-user": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all"
             },
             "development": {
               "budgets": [
@@ -95,6 +107,9 @@
             "local": {
               "browserTarget": "client-app:build:local"
             },
+            "test-public-user": {
+              "browserTarget": "client-app:build:test-public-user"
+            },
             "development": {
               "browserTarget": "client-app:build:development"
             },
@@ -118,6 +133,7 @@
           },
           "configurations": {
             "local": {},
+            "test-public-user": {},
             "development": {},
             "production": {
               "sourceMap": false,
@@ -136,6 +152,10 @@
             "local": {
               "browserTarget": "client-app:build:local",
               "serverTarget": "client-app:server:local"
+            },
+            "test-public-user": {
+              "browserTarget": "client-app:build:test-public-user",
+              "serverTarget": "client-app:server:test-public-user"
             },
             "development": {
               "browserTarget": "client-app:build:development",
@@ -156,6 +176,9 @@
             "local": {
               "browserTarget": "client-app:build:local"
             },
+            "test-public-user": {
+              "browserTarget": "client-app:build:test-public-user"
+            },
             "development": {
               "browserTarget": "client-app:build:development"
             },
@@ -174,6 +197,10 @@
             "local": {
               "cordovaBuildTarget": "client-app:ionic-cordova-build:local",
               "devServerTarget": "client-app:serve:local"
+            },
+            "test-public-user": {
+              "cordovaBuildTarget": "client-app:ionic-cordova-build:test-public-user",
+              "devServerTarget": "client-app:serve:test-public-user"
             },
             "development": {
               "cordovaBuildTarget": "client-app:ionic-cordova-build:development",
