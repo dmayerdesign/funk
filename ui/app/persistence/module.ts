@@ -26,8 +26,6 @@ import { construct as constructTestQueryCollectionForMeta } from "@funk/ui/test/
 import { construct as constructTestSetById } from "@funk/ui/test/plugins/persistence/behaviors/set-by-id"
 import { construct as constructTestUpdateById } from "@funk/ui/test/plugins/persistence/behaviors/update-by-id"
 
-
-
 @NgModule({
   imports: [CommonModule],
   providers: [

@@ -2,7 +2,7 @@ import { construct as constructPopulate } from "@funk/ui/plugins/persistence/beh
 import getByIdImpl from "@funk/ui/test/plugins/persistence/behaviors/get-by-id"
 import listByIdsTestImpl from "@funk/ui/test/plugins/persistence/behaviors/list-by-ids"
 
-export function construct(..._args: any[]) {
+export function construct() {
   return constructPopulate(getByIdImpl, listByIdsTestImpl)
 }
 

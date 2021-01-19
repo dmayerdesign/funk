@@ -1,5 +1,5 @@
 {
-  "1585097693485": {
+  "cart-1": {
     "subTotal": {
       "amount": 0,
       "currency": "USD"
@@ -10,7 +10,7 @@
       "currency": "USD",
       "amount": 0
     },
-    "id": "1585097693485",
+    "id": "cart-1",
     "idempotencyKey": "26717f16-f948-40a5-bc2b-4127bab77cf2",
     "skus": [
       "test-sku-1"
@@ -19,7 +19,7 @@
       "firstName": "Danny",
       "shippingAddress": {},
       "email": "",
-      "userId": "ArSkuvU2l8fbIphhNeyzhjSNyDx1",
+      "userId": "user-1",
       "billingAddress": {},
       "idForPayment": "",
       "id": "test-customer",

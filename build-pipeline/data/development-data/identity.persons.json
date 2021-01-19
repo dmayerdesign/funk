@@ -1,8 +1,8 @@
 {
-  "6XtJebS0HRYZ4urMDoYiUfTeg203": {
-    "id": "6XtJebS0HRYZ4urMDoYiUfTeg203",
-    "email": "d.a.mayer92@gmail.com",
-    "displayName": "Danny",
+  "user-1": {
+    "id": "user-1",
+    "email": "test-user-1@test.test",
+    "displayName": "Tester",
     "__collections__": {}
   }
 }

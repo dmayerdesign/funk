@@ -4,9 +4,9 @@ import { asPromise } from "@funk/helpers/as-promise"
 import roleHasPublicPrivilegeOrGreater from "@funk/model/auth/helpers/role-has-public-privilege-or-greater"
 import { HOME_RELATIVE_URL } from "@funk/ui/app/atlas/tokens"
 import {
-    SIGN_IN_WITH_PROVIDER,
-    SIGN_OUT,
-    USER_SESSION
+  SIGN_IN_WITH_PROVIDER,
+  SIGN_OUT,
+  USER_SESSION
 } from "@funk/ui/app/identity/tokens"
 import { HomeRelativeUrl } from "@funk/ui/core/atlas/home-relative-url"
 import { SignInWithProvider } from "@funk/ui/core/identity/behaviors/sign-in-with-provider"
@@ -23,6 +23,8 @@ import { filter, first, pluck, switchMap } from "rxjs/operators"
   encapsulation: ViewEncapsulation.None,
   template: `
     <div class="sign-in-inner">
+      <p>Sign into <managed-content contentId="app-title"></managed-content></p>
+
       <button
         class="
           sign-in-with-google-button

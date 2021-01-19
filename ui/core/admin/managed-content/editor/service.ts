@@ -50,7 +50,6 @@ export function construct(
       _getIsSaving = getIsSavingImpl,
       public getMaybePreviewOrLiveContent = constructGetMaybePreviewOrLiveContent(
         userSession,
-        getIsAuthorized,
         listenById,
       ),
       _getMaybeContentPreviews = constructGetMaybeContentPreviews(getById),

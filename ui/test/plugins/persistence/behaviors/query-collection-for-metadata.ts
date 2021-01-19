@@ -1,15 +1,19 @@
+import type { CollectionReference, Query } from "@angular/fire/firestore"
 import { DbDocumentMetadata } from "@funk/model/data-access/database-document"
 
-export function construct(..._args: any[]) {
+export function construct() {
   return async function (
     _collectionPath: string,
     _selector: (
-      collectionReference: FirebaseFirestore.CollectionReference,
-    ) => FirebaseFirestore.Query,
+      collectionReference: CollectionReference,
+    ) => Query,
   ): Promise<DbDocumentMetadata[]> {
-    throw new Error(
-      "QueryCollectionForMetadata is not yet implemented for the in-memory store",
-    )
+    return [
+      {
+        collectionPath: "commerce.orders",
+        documentPath: "cart-1"
+      }
+    ]
   }
 }
 

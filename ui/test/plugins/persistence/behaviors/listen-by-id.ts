@@ -5,7 +5,7 @@ import { get } from "lodash"
 import { Observable } from "rxjs"
 import { distinctUntilKeyChanged, map } from "rxjs/operators"
 
-export function construct(..._args: any[]) {
+export function construct() {
   return function <
     DocumentType extends Record<string, any> = DatabaseDocument
   >(
