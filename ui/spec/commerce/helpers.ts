@@ -9,4 +9,5 @@ export function givenACustomer(_name: string): void {
 
 export function givenThatASkuWasAddedToTheCart(): void {
   cy.visit(`${CLIENT_APP_URL}/${SKU_URL}`)
+  cy.get("product-list-item").should("be.visible")
 }

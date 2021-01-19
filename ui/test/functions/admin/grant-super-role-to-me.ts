@@ -1,11 +1,10 @@
 import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 
-const functionName = "adminGrantSuperRoleToMe"
 type ResolvedValueType = undefined
 
-export function construct(client: FunctionsClient) {
+export function construct(_client: FunctionsClient) {
   return async function (): Promise<ResolvedValueType> {
-    return client.rpcAuthorized<undefined, ResolvedValueType>(functionName)
+    return undefined
   }
 }
 

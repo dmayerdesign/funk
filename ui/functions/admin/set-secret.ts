@@ -8,10 +8,10 @@ interface PayloadType {
 type ResolvedValueType = void
 
 export function construct(client: FunctionsClient) {
-  return async function (secretKey: PayloadType): Promise<ResolvedValueType> {
+  return async function (secret: PayloadType): Promise<ResolvedValueType> {
     return client.rpcAuthorized<PayloadType, ResolvedValueType>(
       functionName,
-      secretKey,
+      secret,
     )
   }
 }

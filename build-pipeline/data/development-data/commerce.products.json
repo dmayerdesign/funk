@@ -2,17 +2,37 @@
   "product-1": {
     "id": "product-1",
     "slug": "product-1-slug",
-    "name": "Cool Shoes",
+    "name": "Rollerblades",
     "isPublished": true,
-    "updatedAt": 1592885299436,
+    "updatedAt": 1592885299437,
     "__collections__": {}
   },
   "product-2": {
     "id": "product-2",
     "slug": "product-2-slug",
-    "name": "Rollerblades",
+    "name": "Cool Shoezzzzz",
     "isPublished": true,
-    "updatedAt": 1592885299437,
+    "updatedAt": 1592885299436,
+    "priceRange": {
+      "min": {
+        "amount": 5000,
+        "currency": "USD"
+      },
+      "max": {
+        "amount": 6500,
+        "currency": "USD"
+      }
+    },
+    "discountedPriceRange": {
+      "min": {
+        "amount": 2500,
+        "currency": "USD"
+      },
+      "max": {
+        "amount": 3250,
+        "currency": "USD"
+      }
+    },
     "__collections__": {}
   }
 }

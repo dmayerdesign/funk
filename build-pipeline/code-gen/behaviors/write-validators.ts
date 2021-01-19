@@ -11,6 +11,7 @@ import { resolve, sep } from "path"
 import recursiveReaddir from "recursive-readdir-sync"
 import * as schemaGenerator from "ts-json-schema-generator"
 import { NoRootTypeError } from "ts-json-schema-generator"
+import log from "../../../helpers/log"
 import warn from "../../../helpers/warn"
 
 const CACHE_PATH = resolve(__dirname, "../../../", ".funk/.cache/validators")
@@ -83,12 +84,12 @@ ${filenames
 
         function writeValidators(): void {
           mkdirpSync(validatorsDirname)
-          console.log("Writing " + schemaDefFilename)
+          log("Writing " + schemaDefFilename)
           writeFileSync(
             schemaDefFilename,
             JSON.stringify(schemaDefs[interfaceName], null, 2) + "\n",
           )
-          console.log("Writing " + validator1Filename)
+          log("Writing " + validator1Filename)
           writeFileSync(
             validator1Filename,
             `/* eslint-disable max-len */
@@ -115,7 +116,7 @@ export default function (data: ${interfaceName}): string[] | false
 }
 `,
           )
-          console.log("Writing " + validator2Filename)
+          log("Writing " + validator2Filename)
           writeFileSync(
             validator2Filename,
             `/* eslint-disable max-len */
