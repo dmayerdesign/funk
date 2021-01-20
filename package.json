@@ -82,7 +82,7 @@
     "firebase-admin": "^9.2.0",
     "firebase-functions": "3.11.0",
     "fs-extra": "~9.0.1",
-    "gsap": "~3.5.1",
+    "gsap": "~3.6.0",
     "handlebars": "4.7.6",
     "lodash": "~4.17.20",
     "multer": "1.4.2",
