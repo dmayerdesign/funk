@@ -1,1 +1,1 @@
-export const SKU_URL = "shop/home"
+export const PRODUCT_BASE_URL = "shop/product/product-1"

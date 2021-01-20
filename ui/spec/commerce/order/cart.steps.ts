@@ -8,6 +8,6 @@ rule("A user must have quick access to their cart anywhere in the Commerce app."
   })
 
   example("Basic details of Newt's cart are visible while they browse the Commerce app.", function () {
-    cy.get("product-list-item").first().should("contain.text", "Rollerblades")
+    cy.get(".cart").should("be.visible")
   })
 })
