@@ -9,7 +9,7 @@ import {
   POPULATE,
   QUERY_COLLECTION_FOR_METADATA,
   SET_BY_ID,
-  UPDATE_BY_ID
+  UPDATE_BY_ID,
 } from "@funk/ui/app/persistence/tokens"
 import { construct as constructGetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
 import { construct as constructListByIds } from "@funk/ui/plugins/persistence/behaviors/list-by-ids"
@@ -36,12 +36,16 @@ import { construct as constructTestUpdateById } from "@funk/ui/test/plugins/pers
     },
     {
       provide: LISTEN_BY_ID,
-      useFactory: TEST_PUBLIC_USER ? constructTestListenById : constructListenById,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestListenById
+        : constructListenById,
       deps: [AngularFirestore],
     },
     {
       provide: LIST_BY_IDS,
-      useFactory: TEST_PUBLIC_USER ? constructTestListByIds : constructListByIds,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestListByIds
+        : constructListByIds,
       deps: [AngularFirestore],
     },
     {
@@ -51,7 +55,9 @@ import { construct as constructTestUpdateById } from "@funk/ui/test/plugins/pers
     },
     {
       provide: QUERY_COLLECTION_FOR_METADATA,
-      useFactory: TEST_PUBLIC_USER ? constructTestQueryCollectionForMeta : constructQueryCollectionForMeta,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestQueryCollectionForMeta
+        : constructQueryCollectionForMeta,
       deps: [AngularFirestore],
     },
     {
@@ -61,7 +67,9 @@ import { construct as constructTestUpdateById } from "@funk/ui/test/plugins/pers
     },
     {
       provide: UPDATE_BY_ID,
-      useFactory: TEST_PUBLIC_USER ? constructTestUpdateById : constructUpdateById,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestUpdateById
+        : constructUpdateById,
       deps: [AngularFirestore],
     },
   ],

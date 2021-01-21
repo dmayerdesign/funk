@@ -15,12 +15,12 @@ let store: Record<string, Record<string, any>>
 
 export async function initializeStore(): Promise<void> {
   store = {
-    [ORGANIZATIONS]: organizations,
-    [ORDERS]: commerceOrders,
-    [PRODUCTS]: commerceProducts,
-    [CONTENTS]: contents,
-    [PERSONS]: identityPersons,
-    [USER_STATES]: identityUserStates,
+    [ORGANIZATIONS]: { ...organizations },
+    [ORDERS]: { ...commerceOrders },
+    [PRODUCTS]: { ...commerceProducts },
+    [CONTENTS]: { ...contents },
+    [PERSONS]: { ...identityPersons },
+    [USER_STATES]: { ...identityUserStates },
   }
 }
 

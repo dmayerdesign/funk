@@ -1,29 +1,29 @@
 import {
   construct as constructCustomerHandleCreate,
-  HandleCreate
+  HandleCreate,
 } from "@funk/api/core/commerce/customer/handle-create"
 import {
   construct as constructOrderPopulate,
-  Populate
+  Populate,
 } from "@funk/api/core/commerce/order/populate"
 import {
   construct as constructSetSkuQuantity,
-  SetSkuQuantity
+  SetSkuQuantity,
 } from "@funk/api/core/commerce/order/set-sku-quantity"
 import {
   construct as constructSetStatusToCheckout,
-  SetStatusToCheckout
+  SetStatusToCheckout,
 } from "@funk/api/core/commerce/order/set-status-to-checkout"
 import {
   construct as constructOrderSubmit,
-  Submit
+  Submit,
 } from "@funk/api/core/commerce/order/submit"
 import { ConfirmPaymentIntent } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
 import {
   constructGivenACustomer,
   givenASku,
   givenThatTheCartContainsInStockSkus,
-  listOrdersForUser
+  listOrdersForUser,
 } from "@funk/api/spec/commerce/order/helpers"
 import loadFeatureOptions from "@funk/api/spec/configuration/load-feature-options"
 import { background, rule } from "@funk/api/spec/helpers"
@@ -325,9 +325,7 @@ defineFeature(feature, function (example) {
       cart = customerData.cart
     })
   }
-  function givenThatTheCartContainsInStockSkusStep(
-    given: DefineStepFunction,
-  ) {
+  function givenThatTheCartContainsInStockSkusStep(given: DefineStepFunction) {
     given(/that ([\w\s]+)'s cart contains in-stock SKUs$/, async function () {
       await givenThatTheCartContainsInStockSkus({ theCart: cart })
     })

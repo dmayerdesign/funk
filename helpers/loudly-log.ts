@@ -7,15 +7,15 @@ ${message}
     data.forEach((toLog) => {
       try {
         console.log(
-          `vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+          `
 ${JSON.stringify(toLog)}
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^`,
+`,
         )
       } catch {
         console.log(
-          `vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+          `
 ${toLog}
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^`,
+`,
         )
       }
     })

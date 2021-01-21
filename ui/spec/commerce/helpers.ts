@@ -1,12 +1,19 @@
 import { CLIENT_APP_URL } from "@funk/configuration"
 import buildUrl from "@funk/model/ui/atlas/behaviors/build-url"
 import type atlas from "@funk/ui/configuration/atlas"
-import { PRODUCT_BASE_URL } from "@funk/ui/spec/commerce/fixtures"
 
 export function givenACustomer(_name: string): void {
-  cy.visit(CLIENT_APP_URL + buildUrl<typeof atlas>("shop", "home"))
+  cy.visit(
+    CLIENT_APP_URL +
+      buildUrl<typeof atlas>("shop", "home?test_user_id=test-user-basic"),
+  )
 }
 
-export function givenThatASkuWasAddedToTheCart(): void {
-  cy.visit(`${CLIENT_APP_URL}/${PRODUCT_BASE_URL}`)
+export function givenACustomerAndThatASkuWasAddedToTheCart(
+  _name: string,
+): void {
+  cy.visit(
+    CLIENT_APP_URL +
+      buildUrl<typeof atlas>("shop", "home?test_user_id=test-user-with-cart"),
+  )
 }

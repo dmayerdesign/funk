@@ -1,7 +1,12 @@
-import { Component, Inject } from "@angular/core"
+import { Component, Inject, OnDestroy } from "@angular/core"
+import { CART } from "@funk/ui/app/shop/orders/tokens"
 import { ENTERPRISE } from "@funk/ui/app/shop/tokens"
 import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
+import { Cart$ } from "@funk/ui/core/shop/orders/cart/cart"
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
+import { map, shareReplay } from "rxjs/operators"
 
+@UntilDestroy()
 @Component({
   selector: "shop",
   template: `
@@ -15,8 +20,10 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
             <ion-button class="button" routerLink="/shop/home"
               >Go Home</ion-button
             >
-            <ion-button class="button" routerLink="/shop/checkout"
-              >Go to Checkout</ion-button
+            <ion-button
+              class="button checkout-button"
+              routerLink="/shop/checkout"
+              >Go to Checkout ({{ cartCount$ | async }})</ion-button
             >
           </ion-buttons>
         </ion-toolbar>
@@ -42,6 +49,24 @@ import { Enterprise$ } from "@funk/ui/core/shop/enterprise/enterprise"
     </ng-template>
   `,
 })
-export class ShopContainer {
-  public constructor(@Inject(ENTERPRISE) public enterprise: Enterprise$) {}
+export class ShopContainer implements OnDestroy {
+  public cartCount$ = this.cart$.pipe(
+    untilDestroyed(this),
+    map((cart) =>
+      Object.keys(cart.skuQuantityMap).reduce(
+        (count, key) => count + cart.skuQuantityMap[key],
+        0,
+      ),
+    ),
+    shareReplay(1),
+  )
+
+  public constructor(
+    @Inject(ENTERPRISE) public enterprise: Enterprise$,
+    @Inject(CART) public cart$: Cart$,
+  ) {
+    this.cartCount$.subscribe()
+  }
+
+  public ngOnDestroy(): void {}
 }

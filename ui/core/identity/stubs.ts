@@ -1,6 +1,7 @@
 import { Router, UrlTree } from "@angular/router"
 import { CustomClaims } from "@funk/model/auth/custom-claims"
 import { UserRole } from "@funk/model/auth/user-role"
+import { PrimaryKey } from "@funk/model/data-access/primary-key"
 import { Person } from "@funk/model/identity/person"
 import { AnonymousGuard } from "@funk/ui/app/identity/anonymous-guard"
 import { PublicGuard } from "@funk/ui/app/identity/public-guard"
@@ -8,8 +9,8 @@ import { UserSession } from "@funk/ui/core/identity/user-session"
 import { AuthClient, AuthClientUser } from "@funk/ui/plugins/auth/auth-client"
 import { BehaviorSubject, Observable, of } from "rxjs"
 
-export const FAKE_USER_UID = "user-1"
-export const FAKE_ID_TOKEN = "test-token"
+export const FAKE_USER_UID: PrimaryKey = "test-user-basic"
+export const FAKE_ID_TOKEN: PrimaryKey = "test-token"
 
 const createIdTokenResultStub = (role = UserRole.ANONYMOUS) => ({
   claims: { role } as CustomClaims,
@@ -24,9 +25,12 @@ export const createFakePerson = ({
   email = "test@test.com",
 } = {}) => ({ id, displayName, email } as Person)
 
-export const createAuthUserStub = (role = UserRole.ANONYMOUS) =>
+export const createAuthUserStub = (
+  role = UserRole.ANONYMOUS,
+  userId = FAKE_USER_UID,
+) =>
   (({
-    uid: FAKE_USER_UID,
+    uid: userId,
     getIdToken: async (..._args: any[]) => FAKE_ID_TOKEN,
     getIdTokenResult: async (..._args: any[]) => createIdTokenResultStub(role),
     sendEmailVerification: async (..._args: any[]) => {},

@@ -6,9 +6,7 @@ import { Observable } from "rxjs"
 import { distinctUntilKeyChanged, map } from "rxjs/operators"
 
 export function construct() {
-  return function <
-    DocumentType extends Record<string, any> = DatabaseDocument
-  >(
+  return function <DocumentType extends Record<string, any> = DatabaseDocument>(
     collectionPath: string,
     documentPath: string,
   ): Observable<DocumentType | undefined> {

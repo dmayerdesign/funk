@@ -1,5 +1,9 @@
 {
-  "user-1": {
+  "test-user-basic": {
+    "contentPreviews": {},
+    "__collections__": {}
+  },
+  "test-user-with-cart": {
     "contentPreviews": {},
     "__collections__": {}
   }

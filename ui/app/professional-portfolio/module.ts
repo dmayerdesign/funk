@@ -12,7 +12,7 @@ import { TeachingContainer } from "@funk/ui/app/professional-portfolio/teaching/
 import {
   construct as constructGetToken,
   GET_TOKEN,
-  INITIALIZE_TURING_TEST
+  INITIALIZE_TURING_TEST,
 } from "@funk/ui/app/turing-test/get-token"
 import atlas from "@funk/ui/configuration/atlas"
 import { IonicModule } from "@ionic/angular"

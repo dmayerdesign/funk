@@ -19,7 +19,9 @@ export function construct() {
     set(
       getStore()[collectionPath],
       documentPath,
-      options?.overwrite ? documentData : { ...doc, ...documentData },
+      options?.overwrite
+        ? { ...documentData, updatedAt: Date.now() }
+        : { ...doc, ...documentData, updatedAt: Date.now() },
     )
   }
 }

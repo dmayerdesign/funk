@@ -3,7 +3,7 @@ import { FunctionsClient } from "@funk/ui/helpers/functions-client"
 import { Condition } from "@funk/ui/plugins/persistence/condition"
 import {
   Pagination,
-  VirtualPagination
+  VirtualPagination,
 } from "@funk/ui/plugins/persistence/pagination"
 import products from "../../../../../build-pipeline/data/development-data/commerce.products.json"
 

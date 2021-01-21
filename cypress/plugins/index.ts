@@ -1,3 +1,1 @@
-module.exports = function (on: any, config: any) {
-
-}
+module.exports = function (on: any, config: any) {}

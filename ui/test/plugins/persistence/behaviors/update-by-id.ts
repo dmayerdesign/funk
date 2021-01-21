@@ -10,8 +10,15 @@ export function construct() {
     documentPath: string,
     documentData: Partial<DocumentType>,
   ): Promise<void> {
-    const doc = get(getStore()[collectionPath], documentPath.replace(/\//g, "."))
-    set(getStore()[collectionPath], documentPath, { ...doc, ...documentData })
+    const doc = get(
+      getStore()[collectionPath],
+      documentPath.replace(/\//g, "."),
+    )
+    set(getStore()[collectionPath], documentPath, {
+      ...doc,
+      ...documentData,
+      updatedAt: Date.now(),
+    })
   }
 }
 

@@ -3,7 +3,7 @@ import {
   mkdirpSync,
   readFileSync,
   unlinkSync,
-  writeFileSync
+  writeFileSync,
 } from "fs-extra"
 import { kebabCase } from "lodash"
 import md5 from "md5"
@@ -186,8 +186,10 @@ export type Validate = ReturnType<typeof construct>
       } catch (error) {
         if (error instanceof NoRootTypeError) {
           warn(error.message)
-        }
-        else throw error
+          warn(
+            "This is likely due to a bug that causes generic interfaces to be skipped.",
+          )
+        } else throw error
       }
     })
   }

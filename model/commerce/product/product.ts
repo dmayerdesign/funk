@@ -1,6 +1,6 @@
 import {
   MarshalledProductAttributeValues,
-  ProductAttributeValues
+  ProductAttributeValues,
 } from "@funk/model/commerce/attribute/attribute-value"
 import { Price } from "@funk/model/commerce/price/price"
 import { Review } from "@funk/model/commerce/review/review"

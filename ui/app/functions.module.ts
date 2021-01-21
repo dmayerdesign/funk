@@ -4,7 +4,7 @@ import { TEST_PUBLIC_USER } from "@funk/configuration"
 import {
   GET_SECRET,
   GRANT_SUPER_ROLE_TO_ME,
-  SET_SECRET
+  SET_SECRET,
 } from "@funk/ui/app/admin/tokens"
 import { CONTACT_OWNER } from "@funk/ui/app/professional-portfolio/tokens"
 import { SET_SKU_QUANTITY } from "@funk/ui/app/shop/orders/tokens"
@@ -31,37 +31,51 @@ import { construct as constructTestContactOwner } from "@funk/ui/test/functions/
   providers: [
     {
       provide: GET_SECRET,
-      useFactory: TEST_PUBLIC_USER ? constructTestAdminGetSecret : constructAdminGetSecret,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestAdminGetSecret
+        : constructAdminGetSecret,
       deps: [FunctionsClient],
     },
     {
       provide: GRANT_SUPER_ROLE_TO_ME,
-      useFactory: TEST_PUBLIC_USER ? constructTestAdminGrantSuperRoleToMe : constructAdminGrantSuperRoleToMe,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestAdminGrantSuperRoleToMe
+        : constructAdminGrantSuperRoleToMe,
       deps: [FunctionsClient],
     },
     {
       provide: SET_SECRET,
-      useFactory: TEST_PUBLIC_USER ? constructTestAdminSetSecret : constructAdminSetSecret,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestAdminSetSecret
+        : constructAdminSetSecret,
       deps: [FunctionsClient],
     },
     {
       provide: SET_SKU_QUANTITY,
-      useFactory: TEST_PUBLIC_USER ? constructTestCommerceOrderSetSkuQuantity : constructCommerceOrderSetSkuQuantity,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestCommerceOrderSetSkuQuantity
+        : constructCommerceOrderSetSkuQuantity,
       deps: [FunctionsClient],
     },
     {
       provide: LIST_PUBLISHED,
-      useFactory: TEST_PUBLIC_USER ? constructTestCommerceProductListPublished : constructCommerceProductListPublished,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestCommerceProductListPublished
+        : constructCommerceProductListPublished,
       deps: [FunctionsClient],
     },
     {
       provide: SKU_IMPORT,
-      useFactory: TEST_PUBLIC_USER ? constructTestCommerceSkuImport : constructCommerceSkuImport,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestCommerceSkuImport
+        : constructCommerceSkuImport,
       deps: [FunctionsClient],
     },
     {
       provide: CONTACT_OWNER,
-      useFactory: TEST_PUBLIC_USER ? constructTestContactOwner : constructContactOwner,
+      useFactory: TEST_PUBLIC_USER
+        ? constructTestContactOwner
+        : constructContactOwner,
       deps: [FunctionsClient],
     },
   ],

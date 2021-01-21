@@ -10,7 +10,7 @@
   "product-2": {
     "id": "product-2",
     "slug": "product-2-slug",
-    "name": "Cool Shoezzzzz",
+    "name": "Cool Shoes",
     "isPublished": true,
     "updatedAt": 1592885299436,
     "priceRange": {

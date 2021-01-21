@@ -9,14 +9,16 @@ import {
   MarshalledOrder,
   Order,
   ORDERS,
+  Status,
 } from "@funk/model/commerce/order/order"
 import { MarshalledSku, SKUS } from "@funk/model/commerce/sku/sku"
 import { createFakeMarshalledSku } from "@funk/model/commerce/sku/stubs"
 import { Person } from "@funk/model/identity/person"
+import { kebabCase, sortBy } from "lodash"
 
 export function givenAUser(displayName?: string): Person {
   return {
-    id: "user uid",
+    id: displayName ? kebabCase(displayName) : "test-user-basic",
     displayName,
   }
 }
@@ -33,7 +35,12 @@ export function constructGivenACustomer(
       uid: person.id,
       displayName,
     } as UserRecord)
-    const [cart] = (await listOrdersForUser(person.id)) as Cart[]
+    const orders = (await listOrdersForUser(person.id)) as Cart[]
+    const [cart] = sortBy(
+      orders.filter(({ status }) => status === Status.CART),
+      "updatedAt",
+    ).reverse()
+
     return { person, cart }
   }
 }
