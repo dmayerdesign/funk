@@ -17,7 +17,7 @@
     "ui::build::local": "sh ./build-pipeline/package-scripts/ui-build-local.sh",
     "ui::build::development": "sh ./build-pipeline/package-scripts/ui-build-development.sh",
     "ui::build::production": "sh ./build-pipeline/package-scripts/ui-build-production.sh",
-    "ui::develop::test-public-user": "sh ./build-pipeline/package-scripts/ui-develop-test-public-user.sh",
+    "ui::develop::integration-test": "sh ./build-pipeline/package-scripts/ui-develop-integration-test.sh",
     "ui::develop::local": "sh ./build-pipeline/package-scripts/ui-develop-local.sh",
     "ui::develop::development": "sh ./build-pipeline/package-scripts/ui-browser-develop-development.sh",
     "ui::ios::develop::development": "sh ./build-pipeline/package-scripts/ui-ios-develop-development.sh",

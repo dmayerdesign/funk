@@ -50,7 +50,7 @@
               "optimization": false,
               "outputHashing": "all"
             },
-            "test-public-user": {
+            "integration-test": {
               "budgets": [
                 {
                   "type": "anyComponentStyle",
@@ -107,8 +107,8 @@
             "local": {
               "browserTarget": "client-app:build:local"
             },
-            "test-public-user": {
-              "browserTarget": "client-app:build:test-public-user"
+            "integration-test": {
+              "browserTarget": "client-app:build:integration-test"
             },
             "development": {
               "browserTarget": "client-app:build:development"
@@ -133,7 +133,7 @@
           },
           "configurations": {
             "local": {},
-            "test-public-user": {},
+            "integration-test": {},
             "development": {},
             "production": {
               "sourceMap": false,
@@ -153,9 +153,9 @@
               "browserTarget": "client-app:build:local",
               "serverTarget": "client-app:server:local"
             },
-            "test-public-user": {
-              "browserTarget": "client-app:build:test-public-user",
-              "serverTarget": "client-app:server:test-public-user"
+            "integration-test": {
+              "browserTarget": "client-app:build:integration-test",
+              "serverTarget": "client-app:server:integration-test"
             },
             "development": {
               "browserTarget": "client-app:build:development",
@@ -176,8 +176,8 @@
             "local": {
               "browserTarget": "client-app:build:local"
             },
-            "test-public-user": {
-              "browserTarget": "client-app:build:test-public-user"
+            "integration-test": {
+              "browserTarget": "client-app:build:integration-test"
             },
             "development": {
               "browserTarget": "client-app:build:development"
@@ -198,9 +198,9 @@
               "cordovaBuildTarget": "client-app:ionic-cordova-build:local",
               "devServerTarget": "client-app:serve:local"
             },
-            "test-public-user": {
-              "cordovaBuildTarget": "client-app:ionic-cordova-build:test-public-user",
-              "devServerTarget": "client-app:serve:test-public-user"
+            "integration-test": {
+              "cordovaBuildTarget": "client-app:ionic-cordova-build:integration-test",
+              "devServerTarget": "client-app:serve:integration-test"
             },
             "development": {
               "cordovaBuildTarget": "client-app:ionic-cordova-build:development",

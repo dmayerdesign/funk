@@ -1,15 +1,15 @@
 import { CommonModule } from "@angular/common"
 import { NgModule } from "@angular/core"
 import { AngularFirestore } from "@angular/fire/firestore"
-import { TEST_PUBLIC_USER } from "@funk/configuration"
+import { INTEGRATION_TEST } from "@funk/configuration"
 import {
-  GET_BY_ID,
-  LISTEN_BY_ID,
-  LIST_BY_IDS,
-  POPULATE,
-  QUERY_COLLECTION_FOR_METADATA,
-  SET_BY_ID,
-  UPDATE_BY_ID,
+    GET_BY_ID,
+    LISTEN_BY_ID,
+    LIST_BY_IDS,
+    POPULATE,
+    QUERY_COLLECTION_FOR_METADATA,
+    SET_BY_ID,
+    UPDATE_BY_ID
 } from "@funk/ui/app/persistence/tokens"
 import { construct as constructGetById } from "@funk/ui/plugins/persistence/behaviors/get-by-id"
 import { construct as constructListByIds } from "@funk/ui/plugins/persistence/behaviors/list-by-ids"
@@ -31,43 +31,43 @@ import { construct as constructTestUpdateById } from "@funk/ui/test/plugins/pers
   providers: [
     {
       provide: GET_BY_ID,
-      useFactory: TEST_PUBLIC_USER ? constructTestGetById : constructGetById,
+      useFactory: INTEGRATION_TEST ? constructTestGetById : constructGetById,
       deps: [AngularFirestore],
     },
     {
       provide: LISTEN_BY_ID,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestListenById
         : constructListenById,
       deps: [AngularFirestore],
     },
     {
       provide: LIST_BY_IDS,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestListByIds
         : constructListByIds,
       deps: [AngularFirestore],
     },
     {
       provide: POPULATE,
-      useFactory: TEST_PUBLIC_USER ? constructTestPopulate : constructPopulate,
+      useFactory: INTEGRATION_TEST ? constructTestPopulate : constructPopulate,
       deps: [GET_BY_ID, LIST_BY_IDS],
     },
     {
       provide: QUERY_COLLECTION_FOR_METADATA,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestQueryCollectionForMeta
         : constructQueryCollectionForMeta,
       deps: [AngularFirestore],
     },
     {
       provide: SET_BY_ID,
-      useFactory: TEST_PUBLIC_USER ? constructTestSetById : constructSetById,
+      useFactory: INTEGRATION_TEST ? constructTestSetById : constructSetById,
       deps: [AngularFirestore],
     },
     {
       provide: UPDATE_BY_ID,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestUpdateById
         : constructUpdateById,
       deps: [AngularFirestore],

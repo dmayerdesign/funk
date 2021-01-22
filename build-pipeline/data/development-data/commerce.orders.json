@@ -28,10 +28,9 @@
       "billingAddress": {},
       "savePaymentInfo": false
     },
-    "skus": [],
+    "skus": ["sku-1-1"],
     "skuQuantityMap": {
-      "sku-1": 2,
-      "sku-2": 3
+      "sku-1-1": 1
     }
   }
 }

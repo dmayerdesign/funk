@@ -11,6 +11,9 @@ if (require.main === module) {
       console.error(error)
       process.exit(1)
     })
+    .then(function () {
+      process.exit(0)
+    })
 }
 
 export default async function main()
@@ -23,8 +26,8 @@ export default async function main()
 async function exportAllData(pathToExportDir: string)
 {
   const app = firebaseTesting.initializeAdminApp({ projectId: CLOUD_PROJECT_ID })
-  ;(app.firestore() as any)
-    .listCollections().then((collectionRefs: FirebaseFirestore.CollectionReference[]) => {
+  await (app.firestore() as any)
+    .listCollections().then((collectionRefs: FirebaseFirestore.CollectionReference[]) =>
       Promise.all(collectionRefs
         .map((collectionRef) => firestoreExport(collectionRef)
           .then((data) => ({ [collectionRef.id]: data }))))
@@ -36,7 +39,6 @@ async function exportAllData(pathToExportDir: string)
             `all-data-${new Date().toISOString().replace(/\W+/g, "-")}.json`)
           mkdirpSync(pathToExportDir)
           writeFileSync(pathToExport, JSON.stringify(data, null, 2) + "\n", { encoding: "utf8" })
-        })
-    })
+        }))
   console.log("Export completed!")
 }

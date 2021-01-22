@@ -19,27 +19,6 @@ Feature: Shopping Cart API
       When Annie successfully submits their order
       Then a new cart is created for Annie
 
-  Rule: A user must have quick access to their cart anywhere in the Commerce app.
-
-    Background:
-
-      Given a customer named Newt
-      And that Newt has added a SKU to their cart
-
-    @ignore
-    Example: Basic details of Newt's cart are visible while they browse the Commerce app.
-
-      When Newt visits any page in the Commerce app
-      Then Newt can see an indication that there is 1 SKU in their cart
-      And Newt should have the option of easily viewing the cart
-
-    @ignore
-    Example: Newt checks on their cart while browsing the Commerce app.
-
-      When Newt visits any page in the Commerce app
-      And Newt attempts to view the cart
-      Then details of the cart should be communicated to Newt
-
   Rule: A user may only add in-stock products to their cart.
 
     Example: Sally can add the in-stock SKU Rollerblades to their cart.

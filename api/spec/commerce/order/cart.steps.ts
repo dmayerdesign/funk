@@ -1,29 +1,29 @@
 import {
   construct as constructCustomerHandleCreate,
-  HandleCreate,
+  HandleCreate
 } from "@funk/api/core/commerce/customer/handle-create"
 import {
   construct as constructOrderPopulate,
-  Populate,
+  Populate
 } from "@funk/api/core/commerce/order/populate"
 import {
   construct as constructSetSkuQuantity,
-  SetSkuQuantity,
+  SetSkuQuantity
 } from "@funk/api/core/commerce/order/set-sku-quantity"
 import {
   construct as constructSetStatusToCheckout,
-  SetStatusToCheckout,
+  SetStatusToCheckout
 } from "@funk/api/core/commerce/order/set-status-to-checkout"
 import {
   construct as constructOrderSubmit,
-  Submit,
+  Submit
 } from "@funk/api/core/commerce/order/submit"
 import { ConfirmPaymentIntent } from "@funk/api/plugins/payment/behaviors/confirm-payment-intent"
 import {
   constructGivenACustomer,
   givenASku,
   givenThatTheCartContainsInStockSkus,
-  listOrdersForUser,
+  listOrdersForUser
 } from "@funk/api/spec/commerce/order/helpers"
 import loadFeatureOptions from "@funk/api/spec/configuration/load-feature-options"
 import { background, rule } from "@funk/api/spec/helpers"
@@ -87,7 +87,7 @@ defineFeature(feature, function (example) {
       when,
       then,
     }) {
-      givenACustomerStep(given)
+      defineGivenACustomer(given)
 
       when(/(\w)+ visits the app for the first time$/, function () {})
 
@@ -103,8 +103,8 @@ defineFeature(feature, function (example) {
     example(
       "When Annie submits an order, a new cart is created for Annie.",
       async function ({ given, when, then }) {
-        givenACustomerStep(given)
-        givenThatTheCartContainsInStockSkusStep(given)
+        defineGivenACustomer(given)
+        defineGivenThatTheCartContainsInStockSkus(given)
 
         when(/([\w\s]+) successfully submits their order$/, async function () {
           await orderSubmit(cart.id)
@@ -125,7 +125,7 @@ defineFeature(feature, function (example) {
     example(
       "Sally can add the in-stock SKU Rollerblades to their cart.",
       function ({ given, when, then }) {
-        givenACustomerStep(given)
+        defineGivenACustomer(given)
 
         given(/an in-stock SKU named ([\w\s]+)$/, async function () {
           sku = await givenASku({
@@ -162,8 +162,8 @@ defineFeature(feature, function (example) {
       when,
       then,
     }) {
-      givenACustomerStep(given)
-      givenThatTheCartContainsInStockSkusStep(given)
+      defineGivenACustomer(given)
+      defineGivenThatTheCartContainsInStockSkus(given)
 
       when(/([\w\s]+) begins the "checkout" flow$/, async function () {
         await setStatusToCheckout(cart.id)
@@ -183,8 +183,8 @@ defineFeature(feature, function (example) {
       when,
       then,
     }) {
-      givenACustomerStep(given)
-      givenThatTheCartContainsInStockSkusStep(given)
+      defineGivenACustomer(given)
+      defineGivenThatTheCartContainsInStockSkus(given)
 
       given(
         /that ([\w\s]+) has provided their payment information$/,
@@ -316,7 +316,7 @@ defineFeature(feature, function (example) {
     },
   )
 
-  function givenACustomerStep(given: DefineStepFunction) {
+  function defineGivenACustomer(given: DefineStepFunction) {
     given(/a customer named ([\w\s]+)/, async function (customerName: string) {
       const customerData = await constructGivenACustomer(customerHandleCreate)(
         customerName,
@@ -325,7 +325,7 @@ defineFeature(feature, function (example) {
       cart = customerData.cart
     })
   }
-  function givenThatTheCartContainsInStockSkusStep(given: DefineStepFunction) {
+  function defineGivenThatTheCartContainsInStockSkus(given: DefineStepFunction) {
     given(/that ([\w\s]+)'s cart contains in-stock SKUs$/, async function () {
       await givenThatTheCartContainsInStockSkus({ theCart: cart })
     })

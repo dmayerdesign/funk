@@ -1,10 +1,10 @@
 import { HttpClientModule } from "@angular/common/http"
 import { NgModule } from "@angular/core"
-import { TEST_PUBLIC_USER } from "@funk/configuration"
+import { INTEGRATION_TEST } from "@funk/configuration"
 import {
-  GET_SECRET,
-  GRANT_SUPER_ROLE_TO_ME,
-  SET_SECRET,
+    GET_SECRET,
+    GRANT_SUPER_ROLE_TO_ME,
+    SET_SECRET
 } from "@funk/ui/app/admin/tokens"
 import { CONTACT_OWNER } from "@funk/ui/app/professional-portfolio/tokens"
 import { SET_SKU_QUANTITY } from "@funk/ui/app/shop/orders/tokens"
@@ -31,49 +31,49 @@ import { construct as constructTestContactOwner } from "@funk/ui/test/functions/
   providers: [
     {
       provide: GET_SECRET,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestAdminGetSecret
         : constructAdminGetSecret,
       deps: [FunctionsClient],
     },
     {
       provide: GRANT_SUPER_ROLE_TO_ME,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestAdminGrantSuperRoleToMe
         : constructAdminGrantSuperRoleToMe,
       deps: [FunctionsClient],
     },
     {
       provide: SET_SECRET,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestAdminSetSecret
         : constructAdminSetSecret,
       deps: [FunctionsClient],
     },
     {
       provide: SET_SKU_QUANTITY,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestCommerceOrderSetSkuQuantity
         : constructCommerceOrderSetSkuQuantity,
       deps: [FunctionsClient],
     },
     {
       provide: LIST_PUBLISHED,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestCommerceProductListPublished
         : constructCommerceProductListPublished,
       deps: [FunctionsClient],
     },
     {
       provide: SKU_IMPORT,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestCommerceSkuImport
         : constructCommerceSkuImport,
       deps: [FunctionsClient],
     },
     {
       provide: CONTACT_OWNER,
-      useFactory: TEST_PUBLIC_USER
+      useFactory: INTEGRATION_TEST
         ? constructTestContactOwner
         : constructContactOwner,
       deps: [FunctionsClient],

@@ -1,6 +1,6 @@
 import { enableProdMode } from "@angular/core"
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic"
-import { IS_PRODUCTION, TEST_PUBLIC_USER } from "@funk/configuration"
+import { INTEGRATION_TEST, IS_PRODUCTION } from "@funk/configuration"
 import { BrowserModule } from "@funk/ui/app/browser.module"
 import { initializeStore } from "@funk/ui/test/data-access/in-memory-store"
 import { defineCustomElements } from "@ionic/pwa-elements/loader"
@@ -23,7 +23,7 @@ if (IS_PRODUCTION) {
   enableProdMode()
 }
 
-if (TEST_PUBLIC_USER) {
+if (INTEGRATION_TEST) {
   initializeStore()
 }
 

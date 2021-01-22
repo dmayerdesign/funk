@@ -1,16 +1,16 @@
 import { APP_INITIALIZER, NgModule } from "@angular/core"
-import { TEST_PUBLIC_USER } from "@funk/configuration"
+import { INTEGRATION_TEST } from "@funk/configuration"
 import {
-  AUTH_CLIENT,
-  CREATE_USER_WITH_EMAIL_AND_PASSWORD,
-  INITIALIZE,
-  SEND_EMAIL_VERIFICATION,
-  SIGN_IN_WITH_EMAIL_AND_PASSWORD,
-  SIGN_IN_WITH_PROVIDER,
-  SIGN_OUT,
-  USER_ID_TOKEN,
-  USER_SESSION,
-  USER_STATE,
+    AUTH_CLIENT,
+    CREATE_USER_WITH_EMAIL_AND_PASSWORD,
+    INITIALIZE,
+    SEND_EMAIL_VERIFICATION,
+    SIGN_IN_WITH_EMAIL_AND_PASSWORD,
+    SIGN_IN_WITH_PROVIDER,
+    SIGN_OUT,
+    USER_ID_TOKEN,
+    USER_SESSION,
+    USER_STATE
 } from "@funk/ui/app/identity/tokens"
 import { LISTEN_BY_ID } from "@funk/ui/app/persistence/tokens"
 import { construct as constructCreateUserWithEmailAndPassword } from "@funk/ui/core/identity/behaviors/create-user-with-email-and-password"
@@ -23,8 +23,8 @@ import { construct as constructUserIdToken } from "@funk/ui/core/identity/user-i
 import { construct as constructUserSession } from "@funk/ui/core/identity/user-session"
 import { construct as constructUserState } from "@funk/ui/core/identity/user-state"
 import {
-  AngularFireAuth,
-  TestAuthClientForPublicUser,
+    AngularFireAuth,
+    TestAuthClientForPublicUser
 } from "@funk/ui/plugins/auth/auth-client"
 
 /**
@@ -34,7 +34,7 @@ import {
   providers: [
     {
       provide: AUTH_CLIENT,
-      useExisting: TEST_PUBLIC_USER
+      useExisting: INTEGRATION_TEST
         ? TestAuthClientForPublicUser
         : AngularFireAuth,
     },

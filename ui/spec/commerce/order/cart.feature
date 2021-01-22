@@ -5,7 +5,7 @@ Feature: Shopping Cart UI
     Background:
 
       Given a customer named Newt
-      And that Newt has added a SKU to their cart
+      And that they have one SKU in their cart
 
     Example: Basic details of Newt's cart are visible while they browse the Commerce app.
 
