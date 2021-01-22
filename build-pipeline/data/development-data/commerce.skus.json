@@ -1,0 +1,89 @@
+{
+  "sku-1-1": {
+    "id": "sku-1-1",
+    "name": "Test Sku 1-1",
+    "description": "Wow have we got some shoes for you. These shoes are the greatest shoes ever to grace a human foot. They let you walk, they let you jump, they let you fly. People better watch out if you're wearing these shoes, because they are going to give you superpowers.",
+    "price": {
+      "amount": 4700,
+      "currency": "USD"
+    },
+    "taxonomyTerms": [
+      "mens-shoes",
+      "formal-shoes"
+    ],
+    "shippingLabel": "",
+    "netWeight": {
+      "amount": 13,
+      "unit": "oz"
+    },
+    "productId": "product-1",
+    "attributeValues": {
+      "brand": "magnanni-neiman-marcus"
+    },
+    "updatedAt": 1611292907000,
+    "inventory": {
+      "type": "finite",
+      "quantityReserved": 0,
+      "quantity": 5
+    },
+    "__collections__": {}
+  },
+  "sku-1-2": {
+    "name": "Test Sku 1-2",
+    "price": {
+      "currency": "USD",
+      "amount": 8000
+    },
+    "updatedAt": 1611292907004,
+    "id": "sku-1-2",
+    "netWeight": {
+      "unit": "oz",
+      "amount": 13
+    },
+    "taxonomyTerms": [
+      "mens-shoes",
+      "formal-shoes"
+    ],
+    "productId": "product-1",
+    "inventory": {
+      "type": "finite",
+      "quantity": 5,
+      "quantityReserved": 0
+    },
+    "description": "Wow have we got some shoes for you. These shoes are the greatest shoes ever to grace a human foot. They let you walk, they let you jump, they let you fly. People better watch out if you're wearing these shoes, because they are going to give you superpowers.",
+    "attributeValues": {
+      "brand": "magnanni-neiman-marcus"
+    },
+    "shippingLabel": "",
+    "__collections__": {}
+  },
+  "sku-2-1": {
+    "description": "Wow have we got some shoes for you. These shoes are the greatest shoes ever to grace a human foot. They let you walk, they let you jump, they let you fly. People better watch out if you're wearing these shoes, because they are going to give you superpowers.",
+    "attributeValues": {
+      "brand": "magnanni-neiman-marcus"
+    },
+    "price": {
+      "amount": 8000,
+      "currency": "USD"
+    },
+    "netWeight": {
+      "unit": "oz",
+      "amount": 13
+    },
+    "taxonomyTerms": [
+      "mens-shoes",
+      "formal-shoes"
+    ],
+    "inventory": {
+      "quantityReserved": 0,
+      "quantity": 5,
+      "type": "finite"
+    },
+    "updatedAt": 1611292907005,
+    "shippingLabel": "",
+    "productId": "product-2",
+    "name": "Test Sku 2-1",
+    "id": "sku-2-1",
+    "__collections__": {}
+  }
+}

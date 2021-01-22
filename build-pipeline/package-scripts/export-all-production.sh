@@ -1,4 +1,7 @@
 source production.env
 
+mkdir -p .funk/build-pipeline-output/export
 GOOGLE_APPLICATION_CREDENTIALS=$PATH_TO_ADMIN_CREDENTIALS_JSON \
-  sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/local-export-all-json.ts
+node_modules/.bin/firestore-export \
+  --prettyPrint \
+  --backupFile .funk/build-pipeline-output/export/export-all-production.json
