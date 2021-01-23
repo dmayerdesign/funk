@@ -27,6 +27,7 @@
     "api::build::production": "sh ./build-pipeline/package-scripts/api-build-production.sh",
     "api::develop::local": "sh ./build-pipeline/package-scripts/api-develop-local.sh",
     "postinstall": "sh ./build-pipeline/package-scripts/postinstall.sh",
+    "clean": "rm -rf ./.funk",
     "ng": "./node_modules/.bin/ng",
     "firebase": "./node_modules/.bin/firebase",
     "tsc": "./node_modules/.bin/tsc",

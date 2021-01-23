@@ -27,7 +27,7 @@ export default function main() {
   const cli = yargs(process.argv)
 
   const {
-    projectId: projectId,
+    projectId,
     displayName,
     configuration: onlyConfiguration,
     clean,
