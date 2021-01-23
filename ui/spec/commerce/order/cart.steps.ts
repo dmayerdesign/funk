@@ -11,7 +11,7 @@ rule(
     example(
       "Basic details of Newt's cart are visible while they browse the Commerce app.",
       function () {
-        cy.get(".checkout-button").should("contain.text", "(5)")
+        cy.get(".checkout-button").should("contain.text", "(1)")
       },
     )
   },

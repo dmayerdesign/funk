@@ -47,7 +47,7 @@ export default function main() {
 
   const PATH_TO_GCLOUD = ".funk/google-cloud-sdk/bin/gcloud"
   const PATH_TO_BUILD_ARTIFACTS =
-    ".funk/build-pipeline-output/bootstrap-project"
+    ".funk/build-pipeline-output/setup-wizard"
 
   const hasInitializedBefore = existsSync(resolve(".funk"))
   let isClean = !hasInitializedBefore

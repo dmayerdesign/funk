@@ -1,24 +1,36 @@
-# Step 1.1: Automatic configuration
+# Install dependencies
 
-## Install dependencies
-
-[Install Node.](https://nodejs.org/en/download/)
-
-This should be all you need to get up and running.
-
-## Run the script
-
-Copy-paste the following into a shell (like Terminal on Mac) and hit Return:
+1. [Install Node.](https://nodejs.org/en/download/)
+2. If you haven't already done so, [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) or [fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository.
+   Remember where in your filesystem the repository was cloned.
+3. Open up a shell (like Terminal on Mac) and make sure everything's working.
+   Type `node --version` into the shell and hit Return.
+   If you see a version number, and no obvious errors, everything's good to go!
+   (If not, then Node probably didn't get installed correctly; [try a different method of installing Node](https://nodejs.dev/learn/how-to-install-nodejs)).
+4. In your shell, make sure you can `cd` into your cloned `funk` folder like so:
 
 ```sh
-npm run bootstrap-project -- \
+# Replace /Users/dmayerdesign/Code with wherever your cloned `funk` folder lives.
+cd /Users/dmayerdesign/Code/funk
+```
+
+Any shell command you see in this project will always be run from this folder, unless stated otherwise.
+
+# Automatic setup using the setup wizard
+
+Copy-paste the following into your shell and hit Return:
+
+```sh
+npm run setup-wizard -- \
   --displayName "My Awesome Project" \
   --projectId "my-awesome-project"
 ```
 
 Follow the prompts, and you'll have a project up and running in no time!
 
-# Step 1.2: Manual configuration
+# Manual setup
+
+If for some reason the above script doesn't work, or if you just prefer to get your hands dirty in the infrastructure, you have the option of configuring and deploying a new project without any automated help from the setup wizard.
 
 This project is set up to deploy 2 cloud projects: one for the `development` configuration, and one for the `production` configuration.
 (The "local" configuration found in `local.ts` uses the `development` configuration with a few modifications).

@@ -36,7 +36,7 @@
     "prettier": "./node_modules/.bin/prettier",
     "jest": "./node_modules/.bin/jest",
     "ionic": "./node_modules/.bin/ionic",
-    "bootstrap-project": "sh build-pipeline/package-scripts/ts-node.sh build-pipeline/package-scripts/bootstrap-project.ts"
+    "setup-wizard": "sh ./build-pipeline/package-scripts/setup-wizard.sh"
   },
   "private": true,
   "dependencies": {
