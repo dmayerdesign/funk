@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./tmp/client-app"
+  },
+  "files": [
+    "ui/infrastructure/external/main.ts",
+    "ui/infrastructure/external/polyfills.ts"
+  ],
+  "include": ["./type-shims.d.ts"],
+  "exclude": ["./node_modules/**/*", "**/test/**/*"]
+}

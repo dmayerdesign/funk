@@ -111,3 +111,19 @@ exports.aggregate = functions.firestore
   <dd>User interface logic that imports third-party code.</dd>
   <br>
 </dl>
+
+```
+administration
+  domain
+    ...
+  application
+    internal
+    external
+  plugins
+    internal
+    external
+      auth
+commerce
+contact
+user
+```

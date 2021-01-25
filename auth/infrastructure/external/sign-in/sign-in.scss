@@ -1,0 +1,41 @@
+@import "ui/visual/infrastructure/external/styles/themes/default/variables";
+
+sign-in {
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.sign-in-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-in-with-google-button {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  text-transform: none;
+  color: $color-medium-shade;
+  letter-spacing: 0;
+  background: transparent;
+
+  &:focus {
+    outline: none;
+  }
+
+  img {
+    margin: 0;
+    width: auto;
+    height: 46px;
+  }
+}
+
+.sign-out-button {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  letter-spacing: 0;
+  font-weight: bold;
+}

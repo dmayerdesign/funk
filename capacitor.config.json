@@ -3,6 +3,6 @@
   "appName": "client-app",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": ".funk/build-pipeline-output/ui-build/client-app-browser",
+  "webDir": ".funk/build-pipeline-output/external-build/client-app-browser",
   "cordova": {}
 }

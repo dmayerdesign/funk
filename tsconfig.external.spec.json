@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": ["jest", "node"],
+    "paths": {
+      "@funk/configuration": [
+        "./.funk/build-pipeline-output/configuration/test-configuration.ts"
+      ],
+      "@funk/*": ["./*"]
+    }
+  },
+  "include": [
+    "configuration/**/*.ts",
+    "**/external/**/polyfills.ts",
+    "**/external/**/*.spec.ts",
+    "**/external/**/spec.ts"
+  ],
+  "exclude": ["./node_modules/**/*"]
+}

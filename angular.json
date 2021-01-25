@@ -5,30 +5,38 @@
   "projects": {
     "client-app": {
       "projectType": "application",
-      "root": "ui",
-      "sourceRoot": "ui",
+      "root": "",
+      "sourceRoot": "",
       "prefix": "",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": ".funk/build-pipeline-output/ui-build/client-app-browser",
-            "index": "ui/index.html",
-            "main": "ui/main.ts",
-            "polyfills": "ui/polyfills.ts",
-            "tsConfig": "ui/tsconfig.app.json",
+            "outputPath": ".funk/build-pipeline-output/external-build/client-app-browser",
+            "index": "ui/infrastructure/external/index.html",
+            "main": "ui/infrastructure/external/main.ts",
+            "polyfills": "ui/infrastructure/external/polyfills.ts",
+            "tsConfig": "tsconfig.external.json",
             "aot": true,
             "assets": [
-              "ui/manifest.webmanifest",
-              "ui/robots.txt",
+              {
+                "glob": "manifest.webmanifest",
+                "input": "ui/infrastructure/external",
+                "output": ""
+              },
+              {
+                "glob": "robots.txt",
+                "input": "ui/infrastructure/external",
+                "output": ""
+              },
               {
                 "glob": "**/sitemap.xml",
-                "input": ".funk/build-pipeline-output/ui-prebuild",
+                "input": ".funk/build-pipeline-output/external-prebuild",
                 "output": ""
               },
               {
                 "glob": "**/*",
-                "input": "ui/assets",
+                "input": "assets/external",
                 "output": "assets"
               },
               {
@@ -37,7 +45,10 @@
                 "output": "svg"
               }
             ],
-            "styles": ["ui/styles/main.scss"]
+            "styles": ["ui/visual/infrastructure/external/styles/main.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["."]
+            }
           },
           "configurations": {
             "local": {
@@ -71,7 +82,7 @@
               "outputHashing": "all",
               "buildOptimizer": true,
               "serviceWorker": true,
-              "ngswConfigPath": "ui/ngsw-config.json"
+              "ngswConfigPath": "ui/infrastructure/external/ngsw-config.json"
             },
             "production": {
               "optimization": true,
@@ -94,7 +105,7 @@
                 }
               ],
               "serviceWorker": true,
-              "ngswConfigPath": "ui/ngsw-config.json"
+              "ngswConfigPath": "ui/infrastructure/external/ngsw-config.json"
             }
           }
         },
@@ -127,9 +138,9 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": ".funk/build-pipeline-output/ui-build/client-app-server",
-            "main": "ui/main.server.ts",
-            "tsConfig": "ui/tsconfig.server.json"
+            "outputPath": ".funk/build-pipeline-output/external-build/client-app-server",
+            "main": "ui/ssr/infrastructure/external/main.server.ts",
+            "tsConfig": "ui/ssr/infrastructure/external/tsconfig.server.json"
           },
           "configurations": {
             "local": {},

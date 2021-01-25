@@ -3,6 +3,7 @@ import {
   assertSucceeds,
   loadFirestoreRules,
 } from "@firebase/rules-unit-testing"
+import { UserRole } from "@funk/auth/domain/user-role"
 import {
   createAdminApp,
   createDefaultApp,
@@ -11,8 +12,7 @@ import {
   testOwnerUid,
   testUserUid,
 } from "@funk/helpers/test-helpers"
-import { UserRole } from "@funk/model/auth/user-role"
-import { PERSONS } from "@funk/model/identity/person"
+import { PERSONS } from "@funk/identity/domain/person"
 import { app } from "firebase"
 import { readFileSync } from "fs"
 import { resolve } from "path"

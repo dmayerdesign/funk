@@ -5,7 +5,7 @@ source development.env
 
 firebase use $PROJECT_ID
 
-sh build-pipeline/package-scripts/ts-node.sh build-pipeline/data/local-import-collection-json.ts \
+node build-pipeline/data/local-import-collection-json.js \
   --collection "commerce.orders" \
   --collection "commerce.products" \
   --collection "contents" \

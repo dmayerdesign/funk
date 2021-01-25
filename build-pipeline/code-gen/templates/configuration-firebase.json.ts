@@ -1,4 +1,4 @@
-import { Configuration } from "../../../model/configuration"
+import { Configuration } from "../../../configuration/domain/configuration"
 
 type ContentSecurityPolicy = string
 
@@ -40,7 +40,7 @@ export function construct(_configuration: Configuration) {
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": ".funk/build-pipeline-output/ui-build/client-app-browser",
+    "public": ".funk/build-pipeline-output/external-build/client-app-browser",
     "ignore": ["**/*firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
@@ -73,7 +73,7 @@ export function construct(_configuration: Configuration) {
     "rules": "storage.rules"
   },
   "functions": {
-    "source": ".funk/build-pipeline-output/api-build"
+    "source": ".funk/build-pipeline-output/internal-build"
   }
 }
 `

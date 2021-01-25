@@ -2,7 +2,7 @@ import {
   initializeAdminApp,
   initializeTestApp,
 } from "@firebase/rules-unit-testing"
-import type { app } from "firebase"
+import type firebase from "firebase"
 
 export const projectId = "my-test-project"
 export const testUserUid = "tester"
@@ -16,6 +16,7 @@ export const createDefaultApp = () =>
       uid: testUserUid,
       email: testUserEmail,
     },
-  })
+  }) as firebase.app.App
 export const createAdminApp = () =>
-  initializeAdminApp({ projectId: projectId }) as app.App
+  // Cast to `unknown` due to mismatch in type version of `ThenableReference` in `firebase`.
+  initializeAdminApp({ projectId: projectId }) as firebase.app.App

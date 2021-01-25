@@ -1,4 +1,4 @@
-import { Configuration } from "../../../model/configuration"
+import { Configuration } from "../../../configuration/domain/configuration"
 
 interface ConfigOptions {
   firebaseConfig: Record<string, any>

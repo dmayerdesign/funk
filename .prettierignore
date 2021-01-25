@@ -49,7 +49,7 @@ firebase.json
 Thumbs.db
 
 # Prettier-specific ignores.
-ui/lib/
+ui/plugins/external/rich-text
 build-pipeline/data
 *.hbs
 *.txt

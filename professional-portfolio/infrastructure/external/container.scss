@@ -1,0 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap");
+@import "ui/visual/infrastructure/external/styles/themes/default/variables";
+
+$color-banner-text: $color-dark-contrast;
+$color-routes-background: #f6f2f1;
+$color-routes-text: #363333;
+$color-accent: #c56c51;
+$color-input-border-hex: #d1cdcb;
+
+@mixin routes-background {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f6f2f1+0,f6f2f1+7,ffffff+100 */
+  background: $color-routes-background;
+  background: linear-gradient(
+    to right,
+    #{$color-routes-background} 0%,
+    #{$color-routes-background} 50%,
+    #ffffff 100%
+  );
+}
+
+#professional-portfolio-container {
+  font-family: "Roboto Slab", "Courier", "Times New Roman", Times, serif;
+  height: 100vh;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: $headings-font-family;
+  }
+  h1 {
+    font-size: 60px;
+
+    @media screen and (max-width: 960px) {
+      font-size: 30px;
+    }
+  }
+  h2 {
+    font-size: 40px;
+
+    @media screen and (max-width: 960px) {
+      font-size: 26px;
+    }
+  }
+  h3 {
+    font-size: 30px;
+
+    @media screen and (max-width: 960px) {
+      font-size: 22px;
+    }
+  }
+  h4 {
+    font-size: 24px;
+
+    @media screen and (max-width: 960px) {
+      font-size: 20px;
+    }
+  }
+  h5 {
+    font-size: 20px;
+
+    @media screen and (max-width: 960px) {
+      font-size: 16px;
+    }
+  }
+  p {
+    font-size: 14px;
+    font-family: "Roboto Slab", "Courier", "Times New Roman", Times, serif;
+  }
+  input,
+  textarea {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+  }
+  *[role="banner"] {
+    > h1 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+
+  ion-header {
+    &::after {
+      display: none;
+    }
+  }
+
+  #banner-and-navigation,
+  #banner,
+  #professional-portfolio-routes > * {
+    box-sizing: border-box;
+  }
+
+  #banner-and-navigation,
+  #banner,
+  .professional-portfolio-route-inner {
+    @media screen and (max-width: 960px) {
+      padding: 20px;
+    }
+    @media screen and (min-width: 961px) {
+      padding-top: 260px;
+    }
+  }
+
+  #banner {
+    @media screen and (max-width: 960px) {
+      width: 100%;
+      background: url("../../../assets/external/professional-portfolio-default-theme/backgrounds/professional-portfolio-bg-sm.jpg")
+        left top no-repeat;
+      background-size: cover;
+      color: $color-banner-text;
+
+      h2 {
+        margin-top: 40px;
+        margin-bottom: 0;
+      }
+    }
+  }
+  #banner-and-routes {
+    @media screen and (max-width: 960px) {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+    }
+  }
+
+  #banner-and-navigation {
+    @media screen and (min-width: 961px) {
+      overflow-y: auto;
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 50%;
+      height: 100vh;
+      padding-right: 50px;
+      background: url("../../../assets/external/professional-portfolio-default-theme/backgrounds/professional-portfolio-bg-lg.jpg")
+        right top no-repeat;
+      background-size: cover;
+      text-align: right;
+      color: $color-banner-text;
+      font-weight: bold;
+
+      nav {
+        margin-top: 75px;
+
+        ul {
+          list-style: none;
+        }
+        li {
+          margin: 5px 0;
+        }
+        a {
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          line-height: 20px;
+          vertical-align: middle;
+          text-transform: uppercase;
+          color: $color-banner-text !important;
+          font-weight: bold;
+          text-decoration: none;
+
+          &.active {
+            text-decoration: underline;
+
+            &::after {
+              content: " ";
+              position: absolute;
+              right: -50px;
+              top: -17px;
+              display: block;
+              height: 50px;
+              width: 5px;
+              background: url("../../../assets/external/professional-portfolio-default-theme/design-elements/nav-slider.svg")
+                left center no-repeat;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #professional-portfolio-routes {
+    @include routes-background();
+    color: $color-routes-text;
+
+    @media screen and (max-width: 960px) {
+      position: relative;
+      flex-grow: 1;
+      z-index: 100;
+    }
+
+    @media screen and (min-width: 961px) {
+      position: absolute;
+      z-index: 1;
+      right: 0;
+      top: 0;
+      width: 50%;
+      height: 100vh;
+    }
+
+    .professional-portfolio-route-inner {
+      padding-bottom: 60px;
+
+      @media screen and (max-width: 960px) {
+        padding-top: 0;
+        text-align: left;
+      }
+
+      @media screen and (min-width: 961px) {
+        padding-left: 50px;
+        padding-right: 50px;
+        max-width: 500px;
+
+        text-align: left;
+      }
+
+      figure {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    .router-outlet > * {
+      @include routes-background();
+    }
+
+    input,
+    textarea {
+      padding: 0;
+      margin: 0;
+      border: none;
+      border-bottom: 2px solid $color-input-border-hex;
+      background: transparent;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+        border: none;
+        border-bottom: 2px solid darken($color-input-border-hex, 10%);
+      }
+    }
+    input {
+      height: 36px;
+    }
+    textarea {
+      height: 90px;
+      margin-top: 20px;
+    }
+    .control-group {
+      margin-bottom: 10px;
+    }
+
+    .submit-button {
+      background: $color-accent;
+      border-left: 4px solid darken($color-accent, 1%);
+      border-right: 4px solid darken($color-accent, 1%);
+      border-bottom: 5px solid darken($color-accent, 4%);
+      border-top: 3px solid lighten($color-accent, 4%);
+      padding: 10px 15px;
+      font-family: "Roboto Slab" "Courier", "Times New Roman", Times, serif;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 16px;
+      min-width: 100px;
+
+      .spinner {
+        height: 16px;
+        width: 16px;
+        margin: auto;
+
+        ion-spinner {
+          width: 100%;
+          height: 100%;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

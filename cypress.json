@@ -1,12 +1,10 @@
 {
-  "testFiles": "**/*.steps.ts",
-  "integrationFolder": "ui/spec",
-
-  "pluginsFile": "cypress/plugins/index.ts",
-  "supportFile": "cypress/support/index.ts",
-
-  "screenshotsFolder": "cypress/screenshots",
-
-  "videosFolder": "cypress/video",
+  "testFiles": "**/external/**/*.steps.ts",
+  "integrationFolder": "test/features",
+  "fixturesFolder": "test/infrastructure/external/fixtures",
+  "pluginsFile": "test/infrastructure/external/plugins/index.ts",
+  "supportFile": "test/infrastructure/external/support/index.ts",
+  "screenshotsFolder": "test/infrastructure/external/screenshots",
+  "videosFolder": "test/infrastructure/external/video",
   "video": false
 }

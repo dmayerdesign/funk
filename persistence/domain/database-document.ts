@@ -1,0 +1,22 @@
+import { PrimaryKey } from "@funk/persistence/domain/primary-key"
+import { Timestamp } from "@funk/persistence/domain/timestamp"
+
+export interface DatabaseDocument {
+  id: PrimaryKey
+  slug?: string
+  updatedAt?: Timestamp
+}
+
+export interface DocumentData {
+  [field: string]: any
+}
+
+export type DbDocumentInput<DocumentType extends DatabaseDocument> = Omit<
+  DocumentType,
+  "id"
+>
+
+export interface DbDocumentMetadata {
+  collectionPath: string
+  documentPath: string
+}
