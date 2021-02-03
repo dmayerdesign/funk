@@ -7,8 +7,8 @@ import readlineSync from "readline-sync"
 import { sync as rimrafSync } from "rimraf"
 import { exec } from "shelljs"
 import yargs, { Argv } from "yargs"
-import { Configuration } from "../../model/configuration"
-import { InvalidInputError } from "../../model/error/invalid-input-error"
+import { Configuration } from "../../configuration/domain/configuration"
+import { InvalidInputError } from "../../error/domain/invalid-input-error"
 import { construct as constructConfigTemplate } from "../code-gen/templates/configuration"
 import { construct as constructFirebaseJsonTemplate } from "../code-gen/templates/configuration-firebase.json"
 import firebasercTemplate from "../code-gen/templates/firebaserc"
@@ -46,8 +46,7 @@ export default function main() {
     : [Configuration.DEVELOPMENT, Configuration.PRODUCTION]
 
   const PATH_TO_GCLOUD = ".funk/google-cloud-sdk/bin/gcloud"
-  const PATH_TO_BUILD_ARTIFACTS =
-    ".funk/build-pipeline-output/setup-wizard"
+  const PATH_TO_BUILD_ARTIFACTS = ".funk/build-pipeline-output/setup-wizard"
 
   const hasInitializedBefore = existsSync(resolve(".funk"))
   let isClean = !hasInitializedBefore
@@ -183,27 +182,28 @@ export default function main() {
     }
 
     // Enable billing.
-    readlineSync.question(
-      `\nPlease enable billing for the project ${cloudProjectId} by visiting ` +
-        "https://console.cloud.google.com/billing/projects.\n\n" +
-        `In the Actions column for this ${cloudProjectId}, click the button and select "Change Billing".\n\n` +
-        "Select a billing account from the dropdown. You may have to add one if none exist.\n\n" +
-        'When you\'re finished, continue by hitting the "Return" key here.\n',
-    )
+    readlineSync.question(`
+Please enable billing for the project ${cloudProjectId} by visiting
+https://console.cloud.google.com/billing/projects.
+
+  1. In the Actions column for this ${cloudProjectId}, click the button and select "Change Billing".
+  2. Select a billing account from the dropdown. You may have to add one if none exist.
+
+When you're finished, continue by hitting the "Return" key here.
+    `)
 
     // Enable Functions and Firestore.
-    console.log(`
-Please enable Cloud Functions and Firestore by following these steps. Then press
-"Return" to continue.
+    readlineSync.question(`
+Please enable Cloud Functions and Firestore by following these steps.
 
-    1. Visit https://console.firebase.google.com/project/${cloudProjectId}/firestore.
-    2. Click "Create database".
-    3. Click "Next".
-    4. Select "us-east-1" as the region.
-    5. Click "Enable".
-    6. Wait for the setup to complete.
+  1. Visit https://console.firebase.google.com/project/${cloudProjectId}/firestore.
+  2. Click "Create database".
+  3. Click "Next".
+  4. Select "us-east-1" as the region.
+  5. Click "Enable".
+  6. Wait for the setup to complete.
 
-    Press "Return" when you\'re finished.
+Hit "Return" when you're finished.
     `)
 
     // Restrict the App Engine default service account's access.
@@ -270,7 +270,7 @@ Just a few manual steps to go.
     Google
     Anonymous
 
-When enabling Google, set ${displayName} as the Project public-facing name.
+  When enabling Google, set ${displayName} as the Project public-facing name.
 
 ${cloudProjectIds
   .map(
@@ -280,48 +280,55 @@ ${cloudProjectIds
   )
   .join("\n")}
 
-2. Visit your project's service accounts in Google Cloud:
+  2. Save your project's secret keys to your computer. These keys authorize your
+    computer to perform administrative actions in the cloud project like deploying
+    new versions.
+
+    2.a. Visit your project's service accounts in Google Cloud:
 
 ${cloudProjectIds
   .map(
     (cloudProjectId) =>
-      `    ${cloudProjectId.substring(cloudProjectId.lastIndexOf("-") + 1)}: ` +
+      `      ${cloudProjectId.substring(
+        cloudProjectId.lastIndexOf("-") + 1,
+      )}: ` +
       `https://console.cloud.google.com/iam-admin/serviceaccounts?authuser=0&folder=&organizationId=&project=${cloudProjectId}`,
   )
   .join("\n")}
 
-2.a. For each configuration, generate a private JSON key for the service account
-     named "firebase-adminsdk" by clicking on the "Actions" column and
-     selecting "Create key". Save it to your machine (NOT in source control).
+    2.b. For each configuration, generate a private JSON key for the service account
+      named "firebase-adminsdk" by clicking on the "Actions" column and
+      selecting "Create key". Save it to your computer (NOT in this or any other
+      source-controlled folder).
 
-     Save the path to the private key file in the PATH_TO_ADMIN_CREDENTIALS_JSON
-     variable in \`{CONFIGURATION}.env\`.
+      Save the path to the private key file in the PATH_TO_ADMIN_CREDENTIALS_JSON
+      variable in \`{CONFIGURATION}.env\`.
 
-2.b. For each configuration, generate a private JSON key for the service account
-     named "App Engine Default" by clicking on the "Actions" column and
-     selecting "Create key". Save it to your machine (NOT in source control).
+    2.c. For each configuration, generate a private JSON key for the service account
+      named "App Engine Default" by clicking on the "Actions" column and
+      selecting "Create key". Save it to your computer (NOT in source control).
 
-     Save the path to the private key file in the PATH_TO_APPLICATION_CREDENTIALS_JSON
-     variable in \`{CONFIGURATION}.env\`.
+      Save the path to the private key file in the PATH_TO_APPLICATION_CREDENTIALS_JSON
+      variable in \`{CONFIGURATION}.env\`.
 
-     For example, in \`development.env\`, it should look like:
+      For example, in \`development.env\`, it should look like:
 
-     export PATH_TO_APPLICATION_CREDENTIALS_JSON=/Users/myusername/folder-for-secrets/service-account-private-key.json
+      export PATH_TO_APPLICATION_CREDENTIALS_JSON=/Users/myusername/folder-for-secrets/service-account-private-key.json
 
-3. Set the configuration-specific PROJECT_ID variable in \`{CONFIGURATION}.env\` in the
-   format {PROJECT_ID}-{CONFIGURATION}. For example, in \`development.env\`, it should look like:
+  3. Set the configuration-specific PROJECT_ID variable in \`{CONFIGURATION}.env\` in the
+    format {PROJECT_ID}-{CONFIGURATION}. For example, in \`development.env\`, it should look like:
 
-   export PROJECT_ID=${projectId}-development
+    export PROJECT_ID=${projectId}-development
 
-4. Deploy the \`development\` project by running, in your bash or zsh shell:
+  4. Deploy the \`development\` project by running, in your bash or zsh shell:
 
-   npm run deploy::development
+    npm run deploy::development
 
-5. Bring it home! Run the app in your browser:
+  5. Bring it home! Run the app in your browser:
 
-   5.a. In one bash or zsh shell, run \`npm run api::develop::local\` to boot up the local API
-   5.b. Once step 2 has succeeded, in another shell, run \`npm run deploy::local\` to seed the local database
-   5.c. In a third shell, run \`npm run ui::develop::local\` to build the web app and run it in your browser, with live reloading
+    5.a. In one bash or zsh shell, run \`npm run internal::develop::local\` to boot up the local API
+    5.b. Once step 2 has succeeded, in another shell, run \`npm run deploy::local\` to seed the local database
+    5.c. In a third shell, run \`npm run external::develop::local\` to build the web app and run it in your browser, with live reloading
   `)
 }
 

@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "**/e2e.ts",
+    "**/spec.ts",
+    "**/*.spec.ts",
+    "**/steps.ts",
+    "**/*.steps.ts",
+    "**/node_modules/**/*",
+    "**/test/**/*"
+  ],
+  "compilerOptions": {
+    "outDir": ".funk/build-pipeline-output/tmp/internal-build"
+  }
+}

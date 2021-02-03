@@ -1,4 +1,4 @@
-import { InvalidInputError } from "@funk/model/error/invalid-input-error"
+import { InvalidInputError } from "@funk/error/domain/invalid-input-error"
 
 /** @throws {InvalidInputError} */
 export default function <NonNullExprType>(

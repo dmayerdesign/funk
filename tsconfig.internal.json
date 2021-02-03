@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./tmp/internal",
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2015",
+    "lib": ["es2015", "esnext.asynciterable"],
+    "baseUrl": ".",
+    "paths": {
+      "@funk/configuration": [
+        "./.funk/build-pipeline-output/configuration/configuration"
+      ],
+      "@funk/*": ["./*"]
+    }
+  },
+  "include": ["**/internal/**/*.ts", "copy/**/*.ts", "configuration/**/*.ts"],
+  "exclude": ["./node_modules/**/*", "**/test/**/*"]
+}

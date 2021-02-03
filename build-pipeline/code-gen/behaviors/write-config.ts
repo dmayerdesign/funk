@@ -2,10 +2,14 @@
 import { mkdirpSync, readFileSync, writeFileSync } from "fs-extra"
 import md5 from "md5"
 import { resolve } from "path"
+import { Configuration } from "../../../configuration/domain/configuration"
 import { configToJson } from "../../../configuration/helpers/configuration-to-json"
-import { Configuration } from "../../../model/configuration"
 
-const CACHE_PATH = resolve(__dirname, "../../../", ".funk/.cache/api-prebuild")
+const CACHE_PATH = resolve(
+  __dirname,
+  "../../../",
+  ".funk/.cache/internal-prebuild",
+)
 const CONFIG_JSON_CACHE_PATH = `${CACHE_PATH}/configJson`
 
 export default function (configuration: Configuration) {
@@ -61,10 +65,7 @@ export default function (configuration: Configuration) {
       resolve(configOutputDirPath, "integration-test.ts"),
       integrationTestConfigFile,
     )
-    writeFileSync(
-      resolve(configOutputDirPath, "local.ts"),
-      localConfigFile,
-    )
+    writeFileSync(resolve(configOutputDirPath, "local.ts"), localConfigFile)
     writeFileSync(
       resolve(configOutputDirPath, "test-configuration.ts"),
       developmentConfigFile,

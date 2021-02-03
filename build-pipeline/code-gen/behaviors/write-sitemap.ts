@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 import { format } from "date-fns"
-import { writeFileSync, mkdirpSync } from "fs-extra"
+import { mkdirpSync, writeFileSync } from "fs-extra"
 import { resolve } from "path"
-import recursiveReaddir from "recursive-readdir-sync"
-
-import { Atlas } from "../../../model/ui/atlas/atlas"
+import atlasConfiguration from "../../../ui/atlas/configuration"
+import { Atlas } from "../../../ui/atlas/domain/atlas"
 
 interface SitemapUrl {
   loc: string
@@ -12,8 +11,8 @@ interface SitemapUrl {
   changefreq: string
 }
 
-export default async function (baseUrl: string): Promise<void> {
-  const rootAtlas = await getRootAtlas()
+export default function (baseUrl: string): void {
+  const rootAtlas = atlasConfiguration
   const DEFAULT_LASTMOD = format(new Date(), "yyyy-MM-dd")
   const DEFAULT_CHANGEFREQ = "weekly"
 
@@ -22,7 +21,7 @@ export default async function (baseUrl: string): Promise<void> {
   const outputDir = resolve(
     __dirname,
     "../../../",
-    ".funk/build-pipeline-output/ui-prebuild",
+    ".funk/build-pipeline-output/external-prebuild",
   )
   const outputPath = resolve(outputDir, "sitemap.xml")
   mkdirpSync(outputDir)
@@ -65,20 +64,6 @@ export default async function (baseUrl: string): Promise<void> {
         ]
       }, initial)
   }
-}
-
-async function getRootAtlas(): Promise<Atlas> {
-  const uiDirname = resolve(__dirname, "../../../", "ui")
-  const atlasFilenames = recursiveReaddir(uiDirname).filter((filename) =>
-    filename.match(/atlas\.ts$/g),
-  )
-  const rootAtlasFilename = atlasFilenames[0]
-
-  if (rootAtlasFilename) {
-    const rootAtlasExports = await import(rootAtlasFilename)
-    return rootAtlasExports.default
-  }
-  return {}
 }
 
 function createSitemapXml(sitemapUrls: SitemapUrl[]): string {

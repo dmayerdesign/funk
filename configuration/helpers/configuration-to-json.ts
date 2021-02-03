@@ -1,5 +1,5 @@
 import { resolve } from "path"
-import { Configuration } from "../../model/configuration"
+import { Configuration } from "../domain/configuration"
 
 export function configToJson(configuration: Configuration) {
   const configFileName = resolve(

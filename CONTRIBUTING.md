@@ -9,7 +9,7 @@ that need to be filled! — Danny)
 
 **2. [Clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) this repository.**
 
-**3. Change a file inside `api/spec` and/or `ui/spec`, or create your own.**
+**3. Change a test file (ending in `.feature`, `.spec.ts`, or `.steps.ts`), or create your own.**
 
 Feature files are written in [Gherkin](https://cucumber.io/docs/gherkin/reference) and implemented with
 [Jest](https://jestjs.io) and [Cypress](https://cypress.io).

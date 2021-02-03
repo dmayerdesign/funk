@@ -1,3 +1,4 @@
+import glob from "fast-glob"
 import {
   existsSync,
   mkdirpSync,
@@ -8,37 +9,36 @@ import {
 import { kebabCase } from "lodash"
 import md5 from "md5"
 import { resolve, sep } from "path"
-import recursiveReaddir from "recursive-readdir-sync"
 import * as schemaGenerator from "ts-json-schema-generator"
-import { NoRootTypeError } from "ts-json-schema-generator"
 import log from "../../../helpers/log"
 import warn from "../../../helpers/warn"
 
-const CACHE_PATH = resolve(__dirname, "../../../", ".funk/.cache/validators")
+const ROOT_DIR_ABSOLUTE_PATH = resolve(__dirname, "../../../")
+const CACHE_PATH = resolve(ROOT_DIR_ABSOLUTE_PATH, ".funk/.cache/validators")
 
 export default function () {
-  const pathToModel = resolve(__dirname, "../../../model")
-  const filenames = recursiveReaddir(pathToModel).filter(
-    (filename) => !filename.match(/\/validators\//g),
-  )
+  const filenames = glob
+    .sync(ROOT_DIR_ABSOLUTE_PATH + "/!(node_modules)/**/domain/**/*.ts")
+    .filter((filename) => !filename.includes(".spec."))
+    .filter((filename) => !filename.includes("/spec."))
+    .filter((filename) => !filename.includes(".steps."))
+    .filter((filename) => !filename.includes("/steps."))
+    .filter((filename) => !filename.includes("/validators/"))
 
-  const modelEntrypointFilename = resolve(pathToModel, "validators/main.ts")
-  mkdirpSync(resolve(pathToModel, "validators"))
+  const modelEntrypointFilename = resolve(
+    ROOT_DIR_ABSOLUTE_PATH,
+    "validators/main.ts",
+  )
+  mkdirpSync(resolve(ROOT_DIR_ABSOLUTE_PATH, "validators"))
   writeFileSync(
     modelEntrypointFilename,
     `/* eslint-disable max-len */
 ${filenames
-  .filter((filename) => filename.endsWith(".ts"))
-  .filter((filename) => !filename.includes(".spec."))
-  .filter((filename) => !filename.includes("/spec."))
-  .filter((filename) => !filename.includes(".steps."))
-  .filter((filename) => !filename.includes("/steps."))
-  .filter((filename) => !filename.includes("/validators/"))
   .map(
-    (filename) =>
-      `import "@funk/model/${filename.split(sep + "model" + sep)[1]}"`,
+    (filename) => `import "@funk${filename.split(ROOT_DIR_ABSOLUTE_PATH)[1]}"`,
   )
-  .join("\n")}\n`,
+  .join("\n")}
+`,
   )
 
   const generator = schemaGenerator.createGenerator({
@@ -72,7 +72,8 @@ ${filenames
         )
 
         if (!schemaDefs[interfaceName]) return
-        if (schemaDefHasNotChangedSinceLastBuild()) return
+        // TODO: Un-comment.
+        // if (schemaDefHasNotChangedSinceLastBuild()) return
 
         // Delete existing validator files.
         if (existsSync(schemaDefFilename)) unlinkSync(schemaDefFilename)
@@ -93,12 +94,12 @@ ${filenames
           writeFileSync(
             validator1Filename,
             `/* eslint-disable max-len */
-import { ${interfaceName} } from "@funk/model/${
-              filename.split(sep + "model" + sep)[1]
-            }"
-import schema from "@funk/model/${
-              schemaDefFilename.split(sep + "model" + sep)[1]
-            }"
+import { ${interfaceName} } from "@funk${filename
+              .split(ROOT_DIR_ABSOLUTE_PATH)[1]
+              .replace(/\.ts$/, "")}"
+import schema from "@funk${schemaDefFilename
+              .split(ROOT_DIR_ABSOLUTE_PATH)[1]
+              .replace(/\.ts$/, "")}"
 
 export default function (data: ${interfaceName}): string[] | false
 {
@@ -120,17 +121,12 @@ export default function (data: ${interfaceName}): string[] | false
           writeFileSync(
             validator2Filename,
             `/* eslint-disable max-len */
-import { InvalidInputError } from "@funk/model/error/invalid-input-error"
-import { ${interfaceName} } from "@funk/model/${
-              filename.split(sep + "model" + sep)[1]
+import { InvalidInputError } from "@funk/error/domain/invalid-input-error"
+import { ${interfaceName} } from "@funk${
+              filename.split(ROOT_DIR_ABSOLUTE_PATH)[1]
             }"
-import isInvalid from "@funk/model/${
-              modelDirname.split(sep + "model" + sep)[1]
-            }` +
-              `/validators/${filename
-                .split("/")
-                .pop()!
-                .replace(".ts", "")}-is-invalid"
+import isInvalid from "@funk${modelDirname.split(ROOT_DIR_ABSOLUTE_PATH)[1]}` +
+              `/validators/${kebabCase(interfaceName)}-is-invalid"
 
 export function construct()
 {
@@ -143,7 +139,7 @@ export function construct()
         "The ${interfaceName} was invalid. Details:\\n" +
         \`  Errors: \${falseOrErrors}\\n\` +
         "  Full path: ${filename
-          .split(sep + "model" + sep)[1]
+          .split(ROOT_DIR_ABSOLUTE_PATH)[1]
           .replace(".ts", "")}\\n"
       )
     }
@@ -161,30 +157,30 @@ export type Validate = ReturnType<typeof construct>
           const cachedHashedSchemaDefPath = resolve(
             CACHE_PATH,
             `${filename
-              .split(sep + "model" + sep)[1]
+              .split(ROOT_DIR_ABSOLUTE_PATH)[1]
               .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`,
           )
           mkdirpSync(CACHE_PATH)
           writeFileSync(cachedHashedSchemaDefPath, hashedSchemaDef)
         }
-        function schemaDefHasNotChangedSinceLastBuild() {
-          const hashedSchemaDef = md5(JSON.stringify(schemaDefs[interfaceName]))
-          const cachedHashedSchemaDefPath = resolve(
-            CACHE_PATH,
-            `${filename
-              .split(sep + "model" + sep)[1]
-              .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`,
-          )
-          let cachedHashedSchemaDef: string | undefined
-          try {
-            cachedHashedSchemaDef = readFileSync(
-              cachedHashedSchemaDefPath,
-            ).toString("utf-8")
-          } catch {}
-          return hashedSchemaDef === cachedHashedSchemaDef
-        }
+        // function schemaDefHasNotChangedSinceLastBuild() {
+        //   const hashedSchemaDef = md5(JSON.stringify(schemaDefs[interfaceName]))
+        //   const cachedHashedSchemaDefPath = resolve(
+        //     CACHE_PATH,
+        //     `${filename
+        //       .split(ROOT_DIR_ABSOLUTE_PATH)[1]
+        //       .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`,
+        //   )
+        //   let cachedHashedSchemaDef: string | undefined
+        //   try {
+        //     cachedHashedSchemaDef = readFileSync(
+        //       cachedHashedSchemaDefPath,
+        //     ).toString("utf-8")
+        //   } catch {}
+        //   return hashedSchemaDef === cachedHashedSchemaDef
+        // }
       } catch (error) {
-        if (error instanceof NoRootTypeError) {
+        if (error instanceof schemaGenerator.NoRootTypeError) {
           warn(error.message)
           warn(
             "This is likely due to a bug that causes generic interfaces to be skipped.",

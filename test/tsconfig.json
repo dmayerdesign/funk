@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress"],
+    "paths": {
+      "@funk/configuration": [
+        "./.funk/build-pipeline-output/configuration/configuration"
+      ],
+      "@funk/*": ["./*"]
+    }
+  },
+  "include": ["../node_modules/cypress", "../**/*.ts"]
+}
