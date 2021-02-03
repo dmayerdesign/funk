@@ -3,7 +3,7 @@ import {
   Inject,
   OnInit,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from "@angular/core"
 import { ManagedContentEditorService } from "@funk/admin/application/external/managed-content/editor/service"
 import { ManagedContentType } from "@funk/admin/domain/managed-content/managed-content"
@@ -12,7 +12,7 @@ import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { IonTextarea } from "@ionic/angular"
 import { of } from "rxjs"
 import { delay, map, switchMap } from "rxjs/operators"
-import * as ClassicEditor from "ui/plugins/external/rich-text/build/ckeditor"
+import * as ClassicEditor from "ui/plugins/external/lib/rich-text/build/ckeditor"
 
 const ANIMATION_DURATION_MS = 500
 
