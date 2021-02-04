@@ -1,6 +1,6 @@
 import { SetSkuQuantity as SetSkuQuantityFunction } from "@funk/commerce/order/infrastructure/external/cloud-functions/set-sku-quantity"
 import { Cart$ } from "@funk/commerce/shop/application/external/orders/cart/cart"
-import { Sku } from "@funk/commerce/sku/domain/sku"
+import { Sku } from "@funk/commerce/sku/model/sku"
 import { asPromise } from "@funk/helpers/as-promise"
 
 export function construct(

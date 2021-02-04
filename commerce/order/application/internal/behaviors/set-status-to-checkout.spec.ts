@@ -1,13 +1,13 @@
 import { construct } from "@funk/commerce/order/application/internal/behaviors/set-status-to-checkout"
 import {
-  MarshalledCart,
-  ORDERS,
-  Status,
-} from "@funk/commerce/order/domain/order"
-import { createFakeMarshalledCart } from "@funk/commerce/order/domain/stubs"
-import { FiniteInventory } from "@funk/commerce/sku/domain/inventory"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/domain/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/domain/stubs"
+    MarshalledCart,
+    ORDERS,
+    Status
+} from "@funk/commerce/order/model/order"
+import { createFakeMarshalledCart } from "@funk/commerce/order/model/stubs"
+import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
+import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
+import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
 import { PRESENTABLE_ERROR_MARKER } from "@funk/helpers/throw-presentable-error"
 import { GetById } from "@funk/persistence/application/internal/behaviors/get-by-id"
 import { List } from "@funk/persistence/application/internal/behaviors/list"

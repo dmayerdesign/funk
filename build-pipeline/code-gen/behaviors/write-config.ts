@@ -2,8 +2,8 @@
 import { mkdirpSync, readFileSync, writeFileSync } from "fs-extra"
 import md5 from "md5"
 import { resolve } from "path"
-import { Configuration } from "../../../configuration/domain/configuration"
 import { configToJson } from "../../../configuration/helpers/configuration-to-json"
+import { Configuration } from "../../../configuration/model/configuration"
 
 const CACHE_PATH = resolve(
   __dirname,

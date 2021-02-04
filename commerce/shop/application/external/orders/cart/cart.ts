@@ -1,12 +1,12 @@
-import { Customer } from "@funk/commerce/customer/domain/customer"
-import { DISCOUNTS } from "@funk/commerce/discount/domain/discount"
+import { Customer } from "@funk/commerce/customer/model/customer"
+import { DISCOUNTS } from "@funk/commerce/discount/model/discount"
 import {
-  Cart,
-  MarshalledCart,
-  ORDERS,
-  Status,
-} from "@funk/commerce/order/domain/order"
-import { SKUS } from "@funk/commerce/sku/domain/sku"
+    Cart,
+    MarshalledCart,
+    ORDERS,
+    Status
+} from "@funk/commerce/order/model/order"
+import { SKUS } from "@funk/commerce/sku/model/sku"
 import createDocPath from "@funk/helpers/create-doc-path"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { UserSession } from "@funk/identity/application/external/user-session"

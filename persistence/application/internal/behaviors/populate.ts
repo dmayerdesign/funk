@@ -1,7 +1,7 @@
 import getByIdImpl from "@funk/persistence/application/internal/behaviors/get-by-id"
 import listImpl from "@funk/persistence/application/internal/behaviors/list"
 import { TAKE_ALL } from "@funk/persistence/application/internal/pagination"
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 
 export interface PopulateFieldOptions<DocumentType> {
   collectionPath: string

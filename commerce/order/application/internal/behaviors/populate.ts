@@ -1,6 +1,6 @@
-import { DISCOUNTS } from "@funk/commerce/discount/domain/discount"
-import { MarshalledOrder, Order } from "@funk/commerce/order/domain/order"
-import { SKUS } from "@funk/commerce/sku/domain/sku"
+import { DISCOUNTS } from "@funk/commerce/discount/model/discount"
+import { MarshalledOrder, Order } from "@funk/commerce/order/model/order"
+import { SKUS } from "@funk/commerce/sku/model/sku"
 import populateImpl from "@funk/persistence/application/internal/behaviors/populate"
 
 export function construct(populate: typeof populateImpl) {

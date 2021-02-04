@@ -1,17 +1,17 @@
 import { GetMaybeContentPreviews } from "@funk/admin/application/external/managed-content/editor/behaviors/get-maybe-content-previews"
 import { GetPublishConflicts } from "@funk/admin/application/external/managed-content/editor/behaviors/get-publish-conflicts"
 import { PublishConflict } from "@funk/admin/application/external/managed-content/editor/publish-conflict"
-import { ContentPreview } from "@funk/admin/domain/managed-content/content-preview"
+import { ContentPreview } from "@funk/admin/model/managed-content/content-preview"
 import {
-  CONTENTS,
-  ManagedContent,
-} from "@funk/admin/domain/managed-content/managed-content"
-import { Person } from "@funk/identity/domain/person"
-import { UserState, USER_STATES } from "@funk/identity/domain/user-state"
+    CONTENTS,
+    ManagedContent
+} from "@funk/admin/model/managed-content/managed-content"
+import { Person } from "@funk/identity/model/person"
+import { UserState, USER_STATES } from "@funk/identity/model/user-state"
 import { GetById } from "@funk/persistence/application/external/behaviors/get-by-id"
 import { SetById } from "@funk/persistence/application/external/behaviors/set-by-id"
 import { UpdateById } from "@funk/persistence/application/external/behaviors/update-by-id"
-import { PrimaryKey } from "@funk/persistence/domain/primary-key"
+import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 export function construct(
   getById: GetById,

@@ -1,14 +1,14 @@
 import {
-  Enterprise,
-  ShippingCostStrategy,
-} from "@funk/commerce/enterprise/domain/enterprise"
-import getNetWeight from "@funk/commerce/order/domain/behaviors/get-net-weight"
-import { Order } from "@funk/commerce/order/domain/order"
+    Enterprise,
+    ShippingCostStrategy
+} from "@funk/commerce/enterprise/model/enterprise"
+import getNetWeight from "@funk/commerce/order/model/behaviors/get-net-weight"
+import { Order } from "@funk/commerce/order/model/order"
 import getShipmentProviderImpl from "@funk/commerce/plugins/internal/shipment/behaviors/get-shipment-provider"
 import { SimpleRate } from "@funk/commerce/plugins/internal/shipment/simple-rate"
-import fromDecimalString from "@funk/commerce/price/domain/behaviors/from-decimal-string"
+import fromDecimalString from "@funk/commerce/price/model/behaviors/from-decimal-string"
 import { IS_PRODUCTION } from "@funk/configuration"
-import { CurrencyCode } from "@funk/money/domain/currency-code"
+import { CurrencyCode } from "@funk/money/model/currency-code"
 
 export interface Options {
   order: Order

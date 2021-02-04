@@ -1,8 +1,8 @@
-import { MarshalledProduct } from "@funk/commerce/product/domain/product"
+import { MarshalledProduct } from "@funk/commerce/product/model/product"
 import { Condition } from "@funk/persistence/application/external/condition"
 import {
-  Pagination,
-  VirtualPagination,
+    Pagination,
+    VirtualPagination
 } from "@funk/persistence/application/external/pagination"
 import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functions-client"
 

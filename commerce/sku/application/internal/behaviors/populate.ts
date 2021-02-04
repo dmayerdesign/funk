@@ -1,6 +1,6 @@
-import { REVIEWS } from "@funk/commerce/review/domain/review"
-import { MarshalledSku, Sku } from "@funk/commerce/sku/domain/sku"
-import { TAXONOMY_TERMS } from "@funk/commerce/taxonomy/domain/taxonomy-term"
+import { REVIEWS } from "@funk/commerce/review/model/review"
+import { MarshalledSku, Sku } from "@funk/commerce/sku/model/sku"
+import { TAXONOMY_TERMS } from "@funk/commerce/taxonomy/model/taxonomy-term"
 import populateImpl from "@funk/persistence/application/internal/behaviors/populate"
 
 export function construct(populate: typeof populateImpl) {

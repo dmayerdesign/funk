@@ -1,9 +1,9 @@
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import {
-  Change,
-  CloudFunction as EventHandlerCloudFunction,
-  EventContext,
-  firestore,
+    Change,
+    CloudFunction as EventHandlerCloudFunction,
+    EventContext,
+    firestore
 } from "firebase-functions"
 
 export function handleWrite<DocumentType = DatabaseDocument>(

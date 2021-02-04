@@ -1,10 +1,10 @@
 import glob from "fast-glob"
 import {
-  existsSync,
-  mkdirpSync,
-  readFileSync,
-  unlinkSync,
-  writeFileSync,
+    existsSync,
+    mkdirpSync,
+    readFileSync,
+    unlinkSync,
+    writeFileSync
 } from "fs-extra"
 import { kebabCase } from "lodash"
 import md5 from "md5"
@@ -18,7 +18,7 @@ const CACHE_PATH = resolve(ROOT_DIR_ABSOLUTE_PATH, ".funk/.cache/validators")
 
 export default function () {
   const filenames = glob
-    .sync(ROOT_DIR_ABSOLUTE_PATH + "/!(node_modules)/**/domain/**/*.ts")
+    .sync(ROOT_DIR_ABSOLUTE_PATH + "/!(node_modules)/**/model/**/*.ts")
     .filter((filename) => !filename.includes(".spec."))
     .filter((filename) => !filename.includes("/spec."))
     .filter((filename) => !filename.includes(".steps."))
@@ -121,7 +121,7 @@ export default function (data: ${interfaceName}): string[] | false
           writeFileSync(
             validator2Filename,
             `/* eslint-disable max-len */
-import { InvalidInputError } from "@funk/error/domain/invalid-input-error"
+import { InvalidInputError } from "@funk/error/model/invalid-input-error"
 import { ${interfaceName} } from "@funk${
               filename.split(ROOT_DIR_ABSOLUTE_PATH)[1]
             }"

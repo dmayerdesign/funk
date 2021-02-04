@@ -1,8 +1,8 @@
-import { ForbiddenError } from "@funk/error/domain/forbidden-error"
-import { InvalidInputError } from "@funk/error/domain/invalid-input-error"
-import { NotFoundError } from "@funk/error/domain/not-found-error"
+import { ForbiddenError } from "@funk/error/model/forbidden-error"
+import { InvalidInputError } from "@funk/error/model/invalid-input-error"
+import { NotFoundError } from "@funk/error/model/not-found-error"
 import { Type } from "@funk/helpers/type"
-import { StatusCode } from "@funk/http/domain/status-code"
+import { StatusCode } from "@funk/http/model/status-code"
 import { ErrorWithStatusCode } from "@funk/http/plugins/internal/cloud-function/behaviors/error/error-with-status-code"
 import * as express from "express"
 

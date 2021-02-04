@@ -1,9 +1,9 @@
 import { PublishAndDeleteContentPreview } from "@funk/admin/application/external/managed-content/editor/behaviors/publish-and-delete-content-preview"
 import { RemoveFromPublishConflicts } from "@funk/admin/application/external/managed-content/editor/behaviors/remove-from-publish-conflicts"
-import roleHasAdminPrivilegeOrGreater from "@funk/auth/domain/helpers/role-has-admin-privilege-or-greater"
+import roleHasAdminPrivilegeOrGreater from "@funk/auth/model/helpers/role-has-admin-privilege-or-greater"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { PrimaryKey } from "@funk/persistence/domain/primary-key"
+import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 /**
  * "Publish mine anyway"

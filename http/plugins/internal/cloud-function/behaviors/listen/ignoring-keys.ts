@@ -1,5 +1,5 @@
 import { ChangeHandler } from "@funk/http/plugins/internal/cloud-function/behaviors/listen/change-handler"
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 
 export default function <DocumentType extends DatabaseDocument>(
   keys: (keyof DocumentType)[],

@@ -1,8 +1,8 @@
 import {
-  AbstractWhere,
-  Where,
+    AbstractWhere,
+    Where
 } from "@funk/persistence/application/external/where"
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 
 export type Condition<
   DocumentType extends DatabaseDocument = DatabaseDocument

@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core"
-import { Product } from "@funk/commerce/product/domain/product"
+import { Product } from "@funk/commerce/product/model/product"
 
 @Component({
   selector: "product-list-item",

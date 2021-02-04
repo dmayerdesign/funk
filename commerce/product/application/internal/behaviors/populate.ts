@@ -1,10 +1,10 @@
 import {
-  MarshalledProduct,
-  Product,
-} from "@funk/commerce/product/domain/product"
-import { REVIEWS } from "@funk/commerce/review/domain/review"
-import { TAXONOMY_TERMS } from "@funk/commerce/taxonomy/domain/taxonomy-term"
-import { ORGANIZATIONS } from "@funk/organization/domain/organization"
+    MarshalledProduct,
+    Product
+} from "@funk/commerce/product/model/product"
+import { REVIEWS } from "@funk/commerce/review/model/review"
+import { TAXONOMY_TERMS } from "@funk/commerce/taxonomy/model/taxonomy-term"
+import { ORGANIZATIONS } from "@funk/organization/model/organization"
 import populateImpl from "@funk/persistence/application/internal/behaviors/populate"
 
 export function construct(populate: typeof populateImpl) {

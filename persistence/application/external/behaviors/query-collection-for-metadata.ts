@@ -1,6 +1,6 @@
 import { CollectionReference, Query } from "@angular/fire/firestore"
 import { AngularFirestore } from "@angular/fire/firestore/firestore"
-import { DbDocumentMetadata } from "@funk/persistence/domain/database-document"
+import { DbDocumentMetadata } from "@funk/persistence/model/database-document"
 
 export function construct(store: AngularFirestore) {
   return async function (

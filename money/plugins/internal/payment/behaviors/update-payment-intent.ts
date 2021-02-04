@@ -1,4 +1,4 @@
-import { Price } from "@funk/commerce/price/domain/price"
+import { Price } from "@funk/commerce/price/model/price"
 import omitNullish from "@funk/helpers/omit-nullish"
 import getPaymentProviderImpl from "@funk/money/plugins/internal/payment/behaviors/get-payment-provider"
 import { MIN_TRANSACTION_CENTS } from "@funk/money/plugins/internal/payment/configuration"

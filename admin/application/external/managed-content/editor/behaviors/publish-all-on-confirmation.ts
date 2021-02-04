@@ -1,6 +1,6 @@
 import { GetMaybeContentPreviews } from "@funk/admin/application/external/managed-content/editor/behaviors/get-maybe-content-previews"
 import { PublishAll } from "@funk/admin/application/external/managed-content/editor/behaviors/publish-all"
-import roleHasAdminPrivilegeOrGreater from "@funk/auth/domain/helpers/role-has-admin-privilege-or-greater"
+import roleHasAdminPrivilegeOrGreater from "@funk/auth/model/helpers/role-has-admin-privilege-or-greater"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { AlertController } from "@ionic/angular"

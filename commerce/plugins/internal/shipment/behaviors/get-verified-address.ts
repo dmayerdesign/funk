@@ -1,5 +1,5 @@
 import omitNullish from "@funk/helpers/omit-nullish"
-import { Address } from "@funk/places/domain/address"
+import { Address } from "@funk/places/model/address"
 import getShipmentProviderImpl from "./get-shipment-provider"
 
 export function construct(

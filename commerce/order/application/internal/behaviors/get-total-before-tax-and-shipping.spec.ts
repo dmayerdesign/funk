@@ -1,8 +1,8 @@
-import { Discount } from "@funk/commerce/discount/domain/discount"
+import { Discount } from "@funk/commerce/discount/model/discount"
 import { construct as constructGetTotalBeforeTaxAndShipping } from "@funk/commerce/order/application/internal/behaviors/get-total-before-tax-and-shipping"
-import { Order } from "@funk/commerce/order/domain/order"
-import { MarshalledSku } from "@funk/commerce/sku/domain/sku"
-import { CurrencyCode } from "@funk/money/domain/currency-code"
+import { Order } from "@funk/commerce/order/model/order"
+import { MarshalledSku } from "@funk/commerce/sku/model/sku"
+import { CurrencyCode } from "@funk/money/model/currency-code"
 
 describe("getTotalBeforeTaxAndShipping", () => {
   it("should get the before-tax total for an order", async function () {

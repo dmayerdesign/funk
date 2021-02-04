@@ -1,8 +1,8 @@
-import setMarshalledSkuQuantity from "@funk/commerce/order/domain/behaviors/set-marshalled-sku-quantity"
-import { MarshalledOrder, ORDERS } from "@funk/commerce/order/domain/order"
+import setMarshalledSkuQuantity from "@funk/commerce/order/model/behaviors/set-marshalled-sku-quantity"
+import { MarshalledOrder, ORDERS } from "@funk/commerce/order/model/order"
 import type getByIdImpl from "@funk/persistence/application/internal/behaviors/get-by-id"
 import type updateByIdImpl from "@funk/persistence/application/internal/behaviors/update-by-id"
-import { PrimaryKey } from "@funk/persistence/domain/primary-key"
+import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 export function construct(
   getById: typeof getByIdImpl,

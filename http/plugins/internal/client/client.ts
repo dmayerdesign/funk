@@ -1,4 +1,4 @@
-import { RequestMethod } from "@funk/http/domain/request-method"
+import { RequestMethod } from "@funk/http/model/request-method"
 import axios from "axios"
 
 export interface RequestConfig {

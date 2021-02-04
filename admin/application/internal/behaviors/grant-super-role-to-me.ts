@@ -1,4 +1,4 @@
-import { UserRole } from "@funk/auth/domain/user-role"
+import { UserRole } from "@funk/auth/model/user-role"
 import { authAdmin as authAdminImpl } from "@funk/auth/plugins/internal/auth-admin"
 
 export function construct(authAdmin: typeof authAdminImpl) {

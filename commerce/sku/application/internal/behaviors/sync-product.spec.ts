@@ -1,11 +1,11 @@
-import { PRODUCTS } from "@funk/commerce/product/domain/product"
+import { PRODUCTS } from "@funk/commerce/product/model/product"
 import {
-  construct,
-  SyncProduct,
+    construct,
+    SyncProduct
 } from "@funk/commerce/sku/application/internal/behaviors/sync-product"
-import { MarshalledSku } from "@funk/commerce/sku/domain/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/domain/stubs"
-import { CurrencyCode } from "@funk/money/domain/currency-code"
+import { MarshalledSku } from "@funk/commerce/sku/model/sku"
+import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import { CurrencyCode } from "@funk/money/model/currency-code"
 import { List } from "@funk/persistence/application/internal/behaviors/list"
 import { UpdateById } from "@funk/persistence/application/internal/behaviors/update-by-id"
 import { DocumentSnapshot } from "@funk/persistence/application/internal/document-snapshot"

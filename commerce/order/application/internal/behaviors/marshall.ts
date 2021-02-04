@@ -1,4 +1,4 @@
-import { MarshalledOrder, Order } from "@funk/commerce/order/domain/order"
+import { MarshalledOrder, Order } from "@funk/commerce/order/model/order"
 import marshallImpl from "@funk/persistence/application/internal/behaviors/marshall"
 
 export function construct(marshall: typeof marshallImpl) {

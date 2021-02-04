@@ -1,11 +1,11 @@
 import {
-  construct,
-  SetCollectionFromCsv,
+    construct,
+    SetCollectionFromCsv
 } from "@funk/commerce/sku/application/internal/behaviors/set-collection-from-csv"
-import { FiniteInventory } from "@funk/commerce/sku/domain/inventory"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/domain/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/domain/stubs"
-import { InvalidInputError } from "@funk/error/domain/invalid-input-error"
+import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
+import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
+import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import { InvalidInputError } from "@funk/error/model/invalid-input-error"
 import { SetMany } from "@funk/persistence/application/internal/behaviors/set-many"
 import { keys, startCase, values } from "lodash"
 

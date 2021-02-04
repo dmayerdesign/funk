@@ -1,5 +1,5 @@
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { getStore$ } from "@funk/test/plugins/external/persistence/in-memory-store"
 import { get } from "lodash"
 import { Observable } from "rxjs"

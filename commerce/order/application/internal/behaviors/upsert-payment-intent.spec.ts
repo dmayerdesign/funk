@@ -2,19 +2,19 @@ import { GetTax } from "@funk/commerce/order/application/internal/behaviors/get-
 import { GetTotalBeforeTaxAndShipping } from "@funk/commerce/order/application/internal/behaviors/get-total-before-tax-and-shipping"
 import { Populate } from "@funk/commerce/order/application/internal/behaviors/populate"
 import { construct } from "@funk/commerce/order/application/internal/behaviors/upsert-payment-intent"
-import { MarshalledOrder, ORDERS } from "@funk/commerce/order/domain/order"
-import { Price } from "@funk/commerce/price/domain/price"
+import { MarshalledOrder, ORDERS } from "@funk/commerce/order/model/order"
+import { Price } from "@funk/commerce/price/model/price"
 import { ChangeHandler } from "@funk/http/plugins/internal/cloud-function/behaviors/listen/change-handler"
 import { OnlyKeys } from "@funk/http/plugins/internal/cloud-function/behaviors/listen/only-keys"
-import { CurrencyCode } from "@funk/money/domain/currency-code"
+import { CurrencyCode } from "@funk/money/model/currency-code"
 import { CreatePaymentIntent } from "@funk/money/plugins/internal/payment/behaviors/create-payment-intent"
 import { UpdatePaymentIntent } from "@funk/money/plugins/internal/payment/behaviors/update-payment-intent"
 import { MIN_TRANSACTION_CENTS } from "@funk/money/plugins/internal/payment/configuration"
 import { PaymentIntent } from "@funk/money/plugins/internal/payment/intent"
 import { UpdateById } from "@funk/persistence/application/internal/behaviors/update-by-id"
 import {
-  Change,
-  ChangeContext,
+    Change,
+    ChangeContext
 } from "@funk/persistence/plugins/internal/events/change"
 
 const PAYMENT_INTENT_ID = "payment intent id"

@@ -1,4 +1,4 @@
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { getStore } from "@funk/test/plugins/external/persistence/in-memory-store"
 import { get, set } from "lodash"
 

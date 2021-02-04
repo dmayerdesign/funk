@@ -1,6 +1,6 @@
 import { CLIENT_APP_URL } from "@funk/configuration"
 import type atlas from "@funk/ui/atlas/configuration"
-import buildUrl from "@funk/ui/atlas/domain/behaviors/build-url"
+import buildUrl from "@funk/ui/atlas/model/behaviors/build-url"
 
 export function givenACustomer(_name: string): void {
   cy.visit(

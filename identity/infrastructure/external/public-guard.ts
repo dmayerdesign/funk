@@ -1,12 +1,12 @@
 import { Inject, Injectable } from "@angular/core"
 import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
+    ActivatedRouteSnapshot,
+    CanActivate,
+    Router,
+    RouterStateSnapshot,
+    UrlTree
 } from "@angular/router"
-import roleHasAdminPrivilegeOrGreater from "@funk/auth/domain/helpers/role-has-admin-privilege-or-greater"
+import roleHasAdminPrivilegeOrGreater from "@funk/auth/model/helpers/role-has-admin-privilege-or-greater"
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { AnonymousGuard } from "@funk/identity/infrastructure/external/anonymous-guard"
 import { USER_SESSION } from "@funk/identity/infrastructure/external/tokens"

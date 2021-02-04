@@ -1,18 +1,18 @@
-import { MarshalledSkuAttributeValues } from "@funk/commerce/attribute/domain/attribute-value"
-import fromDecimalString from "@funk/commerce/price/domain/behaviors/from-decimal-string"
+import { MarshalledSkuAttributeValues } from "@funk/commerce/attribute/model/attribute-value"
+import fromDecimalString from "@funk/commerce/price/model/behaviors/from-decimal-string"
 import { ImportedSku } from "@funk/commerce/sku/application/internal/behaviors/_imported-sku"
 import {
-  Inventory,
-  InventoryShorthand,
-} from "@funk/commerce/sku/domain/inventory"
-import { MarshalledSku } from "@funk/commerce/sku/domain/sku"
-import { InvalidInputError } from "@funk/error/domain/invalid-input-error"
+    Inventory,
+    InventoryShorthand
+} from "@funk/commerce/sku/model/inventory"
+import { MarshalledSku } from "@funk/commerce/sku/model/sku"
+import { InvalidInputError } from "@funk/error/model/invalid-input-error"
 import parseCsvBoolean from "@funk/helpers/csv/parse-csv-boolean"
 import parseCsvNumber from "@funk/helpers/csv/parse-csv-number"
 import omitNullish from "@funk/helpers/omit-nullish"
-import { CurrencyCode } from "@funk/money/domain/currency-code"
-import durationFromString from "@funk/time/domain/behaviors/duration-from-string"
-import weightFromString from "@funk/weight/domain/behaviors/from-string"
+import { CurrencyCode } from "@funk/money/model/currency-code"
+import durationFromString from "@funk/time/model/behaviors/duration-from-string"
+import weightFromString from "@funk/weight/model/behaviors/from-string"
 import { flatMap, kebabCase } from "lodash"
 
 export default function (importedSku: ImportedSku): MarshalledSku {

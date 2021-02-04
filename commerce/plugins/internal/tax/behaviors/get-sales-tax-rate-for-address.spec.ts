@@ -1,9 +1,9 @@
 import { TAX_SERVICE_PROVIDER_SECRET_KEY } from "@funk/admin/plugins/internal/secrets/keys"
-import { Customer } from "@funk/commerce/customer/domain/customer"
+import { Customer } from "@funk/commerce/customer/model/customer"
 import { construct } from "@funk/commerce/plugins/internal/tax/behaviors/get-sales-tax-rate-for-address"
 import { TAX_PUBLISHABLE_KEY } from "@funk/configuration"
 import { createHttpClientStub } from "@funk/http/plugins/internal/cloud-function/behaviors/stubs"
-import { Address } from "@funk/places/domain/address"
+import { Address } from "@funk/places/model/address"
 
 const ADDRESS = {
   zip: "00000",

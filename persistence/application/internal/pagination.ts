@@ -1,4 +1,4 @@
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 
 export interface Pagination<
   DocumentType extends Record<string, any> = DatabaseDocument

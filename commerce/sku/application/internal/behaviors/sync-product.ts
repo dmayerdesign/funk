@@ -1,10 +1,10 @@
-import { MarshalledProductAttributeValues } from "@funk/commerce/attribute/domain/attribute-value"
-import subtract from "@funk/commerce/price/domain/behaviors/subtract"
+import { MarshalledProductAttributeValues } from "@funk/commerce/attribute/model/attribute-value"
+import subtract from "@funk/commerce/price/model/behaviors/subtract"
 import {
-  MarshalledProduct,
-  PRODUCTS,
-} from "@funk/commerce/product/domain/product"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/domain/sku"
+    MarshalledProduct,
+    PRODUCTS
+} from "@funk/commerce/product/model/product"
+import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
 import { ChangeHandler } from "@funk/http/plugins/internal/cloud-function/behaviors/listen/change-handler"
 import listImpl from "@funk/persistence/application/internal/behaviors/list"
 import updateByIdImpl from "@funk/persistence/application/internal/behaviors/update-by-id"

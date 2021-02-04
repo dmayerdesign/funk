@@ -1,6 +1,6 @@
 import { AngularFirestore } from "@angular/fire/firestore/firestore"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { Observable } from "rxjs"
 
 export function construct(store: AngularFirestore) {

@@ -1,4 +1,4 @@
-import { DbDocumentMetadata } from "@funk/persistence/domain/database-document"
+import { DbDocumentMetadata } from "@funk/persistence/model/database-document"
 
 export default async function (
   _collectionPath: string,

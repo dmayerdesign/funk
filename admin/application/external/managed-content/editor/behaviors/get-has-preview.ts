@@ -1,10 +1,10 @@
 import {
-  ignoreNullish,
-  maybePluck,
-  shareReplayOnce,
+    ignoreNullish,
+    maybePluck,
+    shareReplayOnce
 } from "@funk/helpers/rxjs-shims"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { UserState, USER_STATES } from "@funk/identity/domain/user-state"
+import { UserState, USER_STATES } from "@funk/identity/model/user-state"
 import { ListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
 import { from } from "rxjs"
 import { map, pluck, switchMap } from "rxjs/operators"

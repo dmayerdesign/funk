@@ -3,7 +3,7 @@ import { format } from "date-fns"
 import { mkdirpSync, writeFileSync } from "fs-extra"
 import { resolve } from "path"
 import atlasConfiguration from "../../../ui/atlas/configuration"
-import { Atlas } from "../../../ui/atlas/domain/atlas"
+import { Atlas } from "../../../ui/atlas/model/atlas"
 
 interface SitemapUrl {
   loc: string

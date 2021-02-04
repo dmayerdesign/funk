@@ -1,8 +1,8 @@
-import { Enterprise } from "@funk/commerce/enterprise/domain/enterprise"
+import { Enterprise } from "@funk/commerce/enterprise/model/enterprise"
 import {
-  ORGANIZATIONS,
-  PRIMARY_ORGANIZATION,
-} from "@funk/organization/domain/organization"
+    ORGANIZATIONS,
+    PRIMARY_ORGANIZATION
+} from "@funk/organization/model/organization"
 import { ListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
 import { Observable } from "rxjs"
 

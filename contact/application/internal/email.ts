@@ -1,4 +1,4 @@
-import { Organization } from "@funk/organization/domain/organization"
+import { Organization } from "@funk/organization/model/organization"
 
 type Sender = string | { name?: string; email: string }
 type Recipient = string | { name?: string; email: string }

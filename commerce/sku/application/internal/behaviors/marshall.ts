@@ -1,4 +1,4 @@
-import { MarshalledSku, Sku } from "@funk/commerce/sku/domain/sku"
+import { MarshalledSku, Sku } from "@funk/commerce/sku/model/sku"
 import marshallImpl from "@funk/persistence/application/internal/behaviors/marshall"
 
 export function construct(marshall: typeof marshallImpl) {

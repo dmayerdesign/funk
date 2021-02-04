@@ -1,12 +1,12 @@
 import {
-  AuthClient,
-  AuthClientUser,
+    AuthClient,
+    AuthClientUser
 } from "@funk/auth/plugins/external/auth-client"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import {
-  UserState as IUserState,
-  USER_STATES,
-} from "@funk/identity/domain/user-state"
+    UserState as IUserState,
+    USER_STATES
+} from "@funk/identity/model/user-state"
 import { construct as constructListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
 import { Observable, of } from "rxjs"
 import { shareReplay, switchMap } from "rxjs/operators"

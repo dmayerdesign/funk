@@ -1,4 +1,4 @@
-import { Cart, MarshalledCart } from "@funk/commerce/order/domain/order"
+import { Cart, MarshalledCart } from "@funk/commerce/order/model/order"
 import { construct } from "@funk/commerce/shop/application/external/orders/cart/cart"
 import { createFakePerson } from "@funk/identity/application/external/stubs"
 import { UserSession } from "@funk/identity/application/external/user-session"

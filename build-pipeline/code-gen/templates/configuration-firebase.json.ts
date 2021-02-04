@@ -1,4 +1,4 @@
-import { Configuration } from "../../../configuration/domain/configuration"
+import { Configuration } from "../../../configuration/model/configuration"
 
 type ContentSecurityPolicy = string
 

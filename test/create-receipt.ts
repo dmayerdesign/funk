@@ -1,5 +1,5 @@
-import { Order } from "@funk/commerce/order/domain/order"
-import { DbDocumentInput } from "@funk/persistence/domain/database-document"
+import { Order } from "@funk/commerce/order/model/order"
+import { DbDocumentInput } from "@funk/persistence/model/database-document"
 import { readFileSync } from "fs-extra"
 import { compile } from "handlebars"
 import { resolve } from "path"

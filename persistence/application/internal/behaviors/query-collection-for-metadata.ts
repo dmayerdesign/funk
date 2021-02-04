@@ -1,5 +1,5 @@
 import { store as storeImpl } from "@funk/persistence/application/internal/server-store"
-import { DbDocumentMetadata } from "@funk/persistence/domain/database-document"
+import { DbDocumentMetadata } from "@funk/persistence/model/database-document"
 
 export function construct(store: typeof storeImpl) {
   return async function (

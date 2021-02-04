@@ -1,9 +1,9 @@
 import getIsHumanImpl from "@funk/auth/plugins/internal/turing-test/behaviors/get-is-human"
 import { CLIENT_APP_URL, OWNER_EMAIL } from "@funk/configuration"
-import { ContactForm } from "@funk/contact/domain/contact-form"
-import throwIfContactFormIsInvalid from "@funk/contact/domain/validators/throw-if-contact-form-is-invalid"
+import { ContactForm } from "@funk/contact/model/contact-form"
+import throwIfContactFormIsInvalid from "@funk/contact/model/validators/throw-if-contact-form-is-invalid"
 import sendEmailImpl from "@funk/contact/plugins/internal/email/behaviors/send"
-import { ForbiddenError } from "@funk/error/domain/forbidden-error"
+import { ForbiddenError } from "@funk/error/model/forbidden-error"
 
 const CLIENT_APP_DOMAIN = CLIENT_APP_URL.split("//")[1]
 

@@ -1,4 +1,4 @@
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import setById from "@funk/test/plugins/internal/persistence/behaviors/set-by-id"
 import { flatten } from "lodash"
 

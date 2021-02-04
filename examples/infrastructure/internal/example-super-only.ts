@@ -1,4 +1,4 @@
-import { UserRole } from "@funk/auth/domain/user-role"
+import { UserRole } from "@funk/auth/model/user-role"
 import { AuthenticatedRequest } from "@funk/auth/plugins/internal/request-response/authenticated-request"
 import createRpcFunction from "@funk/http/plugins/internal/cloud-function/behaviors/create-rpc-function"
 import authenticateForRoles from "@funk/identity/application/internal/behaviors/authenticate-for-roles"

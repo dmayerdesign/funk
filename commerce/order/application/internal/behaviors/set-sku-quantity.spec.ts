@@ -1,5 +1,5 @@
 import { construct } from "@funk/commerce/order/application/internal/behaviors/set-sku-quantity"
-import { ORDERS } from "@funk/commerce/order/domain/order"
+import { ORDERS } from "@funk/commerce/order/model/order"
 import { GetById } from "@funk/persistence/application/internal/behaviors/get-by-id"
 import { construct as constructSetById } from "@funk/persistence/application/internal/behaviors/set-by-id"
 

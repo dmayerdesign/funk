@@ -5,13 +5,13 @@ import { GetMaybeActiveContentId } from "@funk/admin/application/external/manage
 import { GetMaybeActiveContentValue } from "@funk/admin/application/external/managed-content/editor/behaviors/get-maybe-active-content-value"
 import { GetMaybeActiveContentValueControl } from "@funk/admin/application/external/managed-content/editor/behaviors/get-maybe-active-content-value-control"
 import {
-  ManagedContent,
-  ManagedContentType,
-} from "@funk/admin/domain/managed-content/managed-content"
+    ManagedContent,
+    ManagedContentType
+} from "@funk/admin/model/managed-content/managed-content"
 import { asPromise } from "@funk/helpers/as-promise"
 import createDocPath from "@funk/helpers/create-doc-path"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { UserState, USER_STATES } from "@funk/identity/domain/user-state"
+import { UserState, USER_STATES } from "@funk/identity/model/user-state"
 import { UpdateById } from "@funk/persistence/application/external/behaviors/update-by-id"
 import { HtmlGetInnerText } from "@funk/ui/infrastructure/external/helpers/html/get-inner-text"
 

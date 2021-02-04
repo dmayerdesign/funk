@@ -1,5 +1,5 @@
-import { MarshalledProduct } from "@funk/commerce/product/domain/product"
-import { PrimaryKey } from "@funk/persistence/domain/primary-key"
+import { MarshalledProduct } from "@funk/commerce/product/model/product"
+import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 export enum ListFilterType {
   SCALAR_PROPERTY = "SCALAR_PROPERTY",

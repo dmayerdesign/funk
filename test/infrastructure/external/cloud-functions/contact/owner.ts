@@ -1,4 +1,4 @@
-import { ContactForm } from "@funk/contact/domain/contact-form"
+import { ContactForm } from "@funk/contact/model/contact-form"
 import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functions-client"
 
 type PayloadType = ContactForm

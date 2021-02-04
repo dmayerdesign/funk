@@ -1,6 +1,6 @@
 import { UserRecord } from "@funk/auth/plugins/internal/user-record"
 import { construct } from "@funk/commerce/customer/application/internal/behaviors/handle-create"
-import { ORDERS } from "@funk/commerce/order/domain/order"
+import { ORDERS } from "@funk/commerce/order/model/order"
 
 describe("customerHandleCreate", () => {
   it("should create a cart when any user is created", async function () {

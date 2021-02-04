@@ -1,30 +1,30 @@
 import {
-  construct as constructCustomerHandleCreate,
-  HandleCreate,
+    construct as constructCustomerHandleCreate,
+    HandleCreate
 } from "@funk/commerce/customer/application/internal/behaviors/handle-create"
 import {
-  construct as constructOrderPopulate,
-  Populate,
+    construct as constructOrderPopulate,
+    Populate
 } from "@funk/commerce/order/application/internal/behaviors/populate"
 import {
-  construct as constructSetSkuQuantity,
-  SetSkuQuantity,
+    construct as constructSetSkuQuantity,
+    SetSkuQuantity
 } from "@funk/commerce/order/application/internal/behaviors/set-sku-quantity"
 import {
-  construct as constructSetStatusToCheckout,
-  SetStatusToCheckout,
+    construct as constructSetStatusToCheckout,
+    SetStatusToCheckout
 } from "@funk/commerce/order/application/internal/behaviors/set-status-to-checkout"
 import {
-  construct as constructOrderSubmit,
-  Submit,
+    construct as constructOrderSubmit,
+    Submit
 } from "@funk/commerce/order/application/internal/behaviors/submit"
-import { Cart, Status } from "@funk/commerce/order/domain/order"
-import { FiniteInventory } from "@funk/commerce/sku/domain/inventory"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/domain/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/domain/stubs"
-import { Person } from "@funk/identity/domain/person"
+import { Cart, Status } from "@funk/commerce/order/model/order"
+import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
+import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
+import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import { Person } from "@funk/identity/model/person"
 import { ConfirmPaymentIntent } from "@funk/money/plugins/internal/payment/behaviors/confirm-payment-intent"
-import { createFakeAddress } from "@funk/places/domain/stubs"
+import { createFakeAddress } from "@funk/places/model/stubs"
 import loadFeatureOptions from "@funk/test/configuration/load-feature-options"
 import { background, rule } from "@funk/test/helpers/internal/helpers"
 import getById from "@funk/test/plugins/internal/persistence/behaviors/get-by-id"
@@ -38,10 +38,10 @@ import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/ui/copy/error-messages"
 import { defineFeature, DefineStepFunction, loadFeature } from "jest-cucumber"
 import { resolve } from "path"
 import {
-  constructGivenACustomer,
-  givenASku,
-  givenThatTheCartContainsInStockSkus,
-  listOrdersForUser,
+    constructGivenACustomer,
+    givenASku,
+    givenThatTheCartContainsInStockSkus,
+    listOrdersForUser
 } from "./helpers"
 
 const feature = loadFeature(

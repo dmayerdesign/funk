@@ -1,4 +1,4 @@
-import { NotImplementedError } from "@funk/error/domain/not-implemented-error"
+import { NotImplementedError } from "@funk/error/model/not-implemented-error"
 
 export function construct(_store: any): never {
   throw new NotImplementedError(

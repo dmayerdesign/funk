@@ -1,4 +1,4 @@
-import { Diff } from "@funk/audit/domain/diff"
+import { Diff } from "@funk/audit/model/diff"
 const { diff } = require("diff-json")
 
 export function construct() {

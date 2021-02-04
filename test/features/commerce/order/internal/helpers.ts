@@ -1,15 +1,15 @@
 import { UserRecord } from "@funk/auth/plugins/internal/user-record"
 import { HandleCreate } from "@funk/commerce/customer/application/internal/behaviors/handle-create"
 import {
-  Cart,
-  MarshalledOrder,
-  Order,
-  ORDERS,
-  Status,
-} from "@funk/commerce/order/domain/order"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/domain/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/domain/stubs"
-import { Person } from "@funk/identity/domain/person"
+    Cart,
+    MarshalledOrder,
+    Order,
+    ORDERS,
+    Status
+} from "@funk/commerce/order/model/order"
+import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
+import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import { Person } from "@funk/identity/model/person"
 import list from "@funk/test/plugins/internal/persistence/behaviors/list"
 import setById from "@funk/test/plugins/internal/persistence/behaviors/set-by-id"
 import setMany from "@funk/test/plugins/internal/persistence/behaviors/set-many"

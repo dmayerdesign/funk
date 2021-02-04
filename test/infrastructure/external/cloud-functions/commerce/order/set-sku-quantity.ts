@@ -1,5 +1,5 @@
-import { MarshalledProduct } from "@funk/commerce/product/domain/product"
-import { PrimaryKey } from "@funk/persistence/domain/primary-key"
+import { MarshalledProduct } from "@funk/commerce/product/model/product"
+import { PrimaryKey } from "@funk/persistence/model/primary-key"
 import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functions-client"
 
 interface PayloadType {

@@ -1,4 +1,4 @@
-import { StatusCode } from "@funk/http/domain/status-code"
+import { StatusCode } from "@funk/http/model/status-code"
 import { construct as constructCreateApp } from "@funk/http/plugins/internal/cloud-function/behaviors/create-app"
 import handleError from "@funk/http/plugins/internal/cloud-function/behaviors/handle-error"
 import { Request } from "@funk/http/plugins/internal/cloud-function/behaviors/handle-request"

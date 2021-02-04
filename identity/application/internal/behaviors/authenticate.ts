@@ -1,6 +1,6 @@
 import { authAdmin } from "@funk/auth/plugins/internal/auth-admin"
 import { AuthenticationRequest } from "@funk/auth/plugins/internal/request-response/authentication-request"
-import { StatusCode, StatusCodeMessage } from "@funk/http/domain/status-code"
+import { StatusCode, StatusCodeMessage } from "@funk/http/model/status-code"
 import { NextFunction, Response } from "express"
 
 /**

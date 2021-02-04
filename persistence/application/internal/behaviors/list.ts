@@ -1,11 +1,11 @@
 import { Condition } from "@funk/persistence/application/internal/condition"
 import {
-  Pagination,
-  VirtualPagination,
+    Pagination,
+    VirtualPagination
 } from "@funk/persistence/application/internal/pagination"
 import { store } from "@funk/persistence/application/internal/server-store"
 import { AbstractWhere } from "@funk/persistence/application/internal/where"
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 
 export default function list<DocumentType extends DatabaseDocument>(options: {
   collection: string

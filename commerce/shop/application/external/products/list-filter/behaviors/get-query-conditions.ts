@@ -1,7 +1,7 @@
-import { MarshalledProduct } from "@funk/commerce/product/domain/product"
+import { MarshalledProduct } from "@funk/commerce/product/model/product"
 import {
-  ListFilter,
-  ListFilterType,
+    ListFilter,
+    ListFilterType
 } from "@funk/commerce/shop/application/external/products/list-filter/list-filter"
 import createDocPath from "@funk/helpers/create-doc-path"
 import { Condition } from "@funk/persistence/application/external/condition"

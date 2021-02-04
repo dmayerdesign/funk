@@ -1,5 +1,5 @@
-import { UserRole } from "@funk/auth/domain/user-role"
-import { StatusCode } from "@funk/http/domain/status-code"
+import { UserRole } from "@funk/auth/model/user-role"
+import { StatusCode } from "@funk/http/model/status-code"
 import createRestFunction from "@funk/http/plugins/internal/cloud-function/behaviors/create-rest-function"
 import authenticateForRoles from "@funk/identity/application/internal/behaviors/authenticate-for-roles"
 

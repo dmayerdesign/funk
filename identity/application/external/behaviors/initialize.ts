@@ -1,4 +1,4 @@
-import { UserRole } from "@funk/auth/domain/user-role"
+import { UserRole } from "@funk/auth/model/user-role"
 import { AuthClient } from "@funk/auth/plugins/external/auth-client"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserIdToken } from "@funk/identity/application/external/user-id-token"

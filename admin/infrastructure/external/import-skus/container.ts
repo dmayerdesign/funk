@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from "@angular/core"
 import { SKU_IMPORT } from "@funk/commerce/shop/infrastructure/external/sku/tokens"
-import { SKUS } from "@funk/commerce/sku/domain/sku"
 import { SkuImport } from "@funk/commerce/sku/infrastructure/external/cloud-functions/import"
+import { SKUS } from "@funk/commerce/sku/model/sku"
 import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
 
 @Component({

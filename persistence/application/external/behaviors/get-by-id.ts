@@ -1,6 +1,6 @@
 import { AngularFirestore } from "@angular/fire/firestore"
 import { asPromise } from "@funk/helpers/as-promise"
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { map } from "rxjs/operators"
 
 export function construct(store: AngularFirestore) {

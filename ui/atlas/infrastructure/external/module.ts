@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core"
 import { construct as constructHomeRelativeUrl } from "@funk/ui/atlas/application/external/home-relative-url"
 import atlas from "@funk/ui/atlas/configuration"
-import { construct as constructBuildMenuItem } from "@funk/ui/atlas/domain/behaviors/build-menu-item"
 import {
-  APP_ATLAS,
-  BUILD_MENU_ITEM,
-  HOME_RELATIVE_URL,
+    APP_ATLAS,
+    BUILD_MENU_ITEM,
+    HOME_RELATIVE_URL
 } from "@funk/ui/atlas/infrastructure/external/tokens"
+import { construct as constructBuildMenuItem } from "@funk/ui/atlas/model/behaviors/build-menu-item"
 
 @NgModule({
   providers: [

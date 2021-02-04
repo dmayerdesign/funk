@@ -2,7 +2,7 @@ import { EncryptedSecret } from "@funk/admin/plugins/internal/secrets/encrypted-
 import { CLOUD_PROJECT_ID } from "@funk/configuration"
 import getConfigImpl from "@funk/http/plugins/internal/cloud-function/behaviors/runtime/get-config"
 import setByIdImpl from "@funk/persistence/application/internal/behaviors/set-by-id"
-import { DbDocumentInput } from "@funk/persistence/domain/database-document"
+import { DbDocumentInput } from "@funk/persistence/model/database-document"
 import { v1 } from "@google-cloud/kms"
 import { ClientOptions } from "google-gax"
 

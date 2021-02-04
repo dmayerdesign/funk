@@ -1,7 +1,7 @@
 import { GetIsHuman } from "@funk/auth/plugins/internal/turing-test/behaviors/get-is-human"
 import { OWNER_EMAIL } from "@funk/configuration"
 import { construct } from "@funk/contact/application/internal/behaviors/send-email-to-owner"
-import { ContactForm } from "@funk/contact/domain/contact-form"
+import { ContactForm } from "@funk/contact/model/contact-form"
 import { Send } from "@funk/contact/plugins/internal/email/behaviors/send"
 
 describe("sendEmailToOwner", () => {

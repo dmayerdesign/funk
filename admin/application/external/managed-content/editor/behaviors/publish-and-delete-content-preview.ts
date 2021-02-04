@@ -1,10 +1,10 @@
 import { GetMaybeContentPreviews } from "@funk/admin/application/external/managed-content/editor/behaviors/get-maybe-content-previews"
 import {
-  CONTENTS,
-  ManagedContent,
-} from "@funk/admin/domain/managed-content/managed-content"
-import { Person } from "@funk/identity/domain/person"
-import { UserState, USER_STATES } from "@funk/identity/domain/user-state"
+    CONTENTS,
+    ManagedContent
+} from "@funk/admin/model/managed-content/managed-content"
+import { Person } from "@funk/identity/model/person"
+import { UserState, USER_STATES } from "@funk/identity/model/user-state"
 import { SetById } from "@funk/persistence/application/external/behaviors/set-by-id"
 import { UpdateById } from "@funk/persistence/application/external/behaviors/update-by-id"
 

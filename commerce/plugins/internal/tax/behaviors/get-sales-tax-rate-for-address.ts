@@ -3,9 +3,9 @@ import { TAX_SERVICE_PROVIDER_SECRET_KEY } from "@funk/admin/plugins/internal/se
 import { AvataxResponse } from "@funk/commerce/plugins/internal/tax/avatax-response"
 import { TAX_PUBLISHABLE_KEY } from "@funk/configuration"
 import httpClientImpl, {
-  Response,
+    Response
 } from "@funk/http/plugins/internal/client/client"
-import { Address } from "@funk/places/domain/address"
+import { Address } from "@funk/places/model/address"
 
 const SALES_TAX_RATE_CALCULATOR_URL =
   "https://rest.avatax.com/api/v2/taxrates/bypostalcode"

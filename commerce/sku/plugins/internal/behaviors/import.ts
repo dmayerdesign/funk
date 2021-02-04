@@ -1,4 +1,4 @@
-import { UserRole } from "@funk/auth/domain/user-role"
+import { UserRole } from "@funk/auth/model/user-role"
 import setCollectionFromCsv from "@funk/commerce/sku/application/internal/behaviors/set-collection-from-csv"
 import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
 import createRpcFunction from "@funk/http/plugins/internal/cloud-function/behaviors/create-rpc-function"

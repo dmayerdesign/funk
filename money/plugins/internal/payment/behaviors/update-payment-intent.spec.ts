@@ -1,11 +1,11 @@
-import { CurrencyCode } from "@funk/money/domain/currency-code"
+import { CurrencyCode } from "@funk/money/model/currency-code"
 import {
-  construct,
-  Options,
+    construct,
+    Options
 } from "@funk/money/plugins/internal/payment/behaviors/update-payment-intent"
 import {
-  createGetPaymentProviderStub,
-  PaymentProviderStub,
+    createGetPaymentProviderStub,
+    PaymentProviderStub
 } from "@funk/money/plugins/internal/payment/stubs"
 import Stripe from "stripe"
 import { GetPaymentProvider } from "./get-payment-provider"

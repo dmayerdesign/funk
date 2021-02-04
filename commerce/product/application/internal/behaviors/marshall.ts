@@ -1,7 +1,7 @@
 import {
-  MarshalledProduct,
-  Product,
-} from "@funk/commerce/product/domain/product"
+    MarshalledProduct,
+    Product
+} from "@funk/commerce/product/model/product"
 import marshallImpl from "@funk/persistence/application/internal/behaviors/marshall"
 
 export function construct(marshall: typeof marshallImpl) {

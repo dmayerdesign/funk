@@ -1,18 +1,18 @@
 import {
-  construct,
-  ManagedContentEditorService,
+    construct,
+    ManagedContentEditorService
 } from "@funk/admin/application/external/managed-content/editor/service"
 import {
-  CONTENTS,
-  ManagedContent,
-  ManagedContentType,
-  ManagedText,
-} from "@funk/admin/domain/managed-content/managed-content"
-import { UserRole } from "@funk/auth/domain/user-role"
+    CONTENTS,
+    ManagedContent,
+    ManagedContentType,
+    ManagedText
+} from "@funk/admin/model/managed-content/managed-content"
+import { UserRole } from "@funk/auth/model/user-role"
 import { asPromise } from "@funk/helpers/as-promise"
 import { FAKE_USER_UID } from "@funk/identity/application/external/stubs"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { UserState, USER_STATES } from "@funk/identity/domain/user-state"
+import { UserState, USER_STATES } from "@funk/identity/model/user-state"
 import { GetById } from "@funk/persistence/application/external/behaviors/get-by-id"
 import { construct as constructListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
 import { construct as constructSetById } from "@funk/persistence/application/external/behaviors/set-by-id"

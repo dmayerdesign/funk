@@ -1,4 +1,4 @@
-import { MarshalledOrder, ORDERS } from "@funk/commerce/order/domain/order"
+import { MarshalledOrder, ORDERS } from "@funk/commerce/order/model/order"
 import createUid from "@funk/helpers/create-uid"
 import updateByIdImpl from "@funk/persistence/application/internal/behaviors/update-by-id"
 

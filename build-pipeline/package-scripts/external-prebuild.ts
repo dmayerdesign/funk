@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import program from "commander"
-import { Configuration } from "../../configuration/domain/configuration"
 import { configToJson } from "../../configuration/helpers/configuration-to-json"
+import { Configuration } from "../../configuration/model/configuration"
 import writeSitemap from "../code-gen/behaviors/write-sitemap"
 
 export default function main() {

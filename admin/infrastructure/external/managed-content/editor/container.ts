@@ -6,8 +6,8 @@ import {
   ViewEncapsulation
 } from "@angular/core"
 import { ManagedContentEditorService } from "@funk/admin/application/external/managed-content/editor/service"
-import { ManagedContentType } from "@funk/admin/domain/managed-content/managed-content"
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/admin/infrastructure/external/managed-content/tokens"
+import { ManagedContentType } from "@funk/admin/model/managed-content/managed-content"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { IonTextarea } from "@ionic/angular"
 import { of } from "rxjs"

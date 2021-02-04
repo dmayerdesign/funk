@@ -1,5 +1,5 @@
 import { AngularFirestore } from "@angular/fire/firestore"
-import { DatabaseDocument } from "@funk/persistence/domain/database-document"
+import { DatabaseDocument } from "@funk/persistence/model/database-document"
 
 export function construct(store: AngularFirestore) {
   return async function <

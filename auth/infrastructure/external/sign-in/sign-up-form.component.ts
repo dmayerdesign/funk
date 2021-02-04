@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Input, Output } from "@angular/core"
 import { FormGroup } from "@angular/forms"
-import { Login } from "@funk/auth/domain/login"
+import { Login } from "@funk/auth/model/login"
 import { IonNav } from "@ionic/angular"
 
 @Component({

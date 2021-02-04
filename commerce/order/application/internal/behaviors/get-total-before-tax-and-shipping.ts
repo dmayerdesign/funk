@@ -1,18 +1,18 @@
-import { SkuDiscount } from "@funk/commerce/discount/domain/discount"
-import getOrderDiscountPrice from "@funk/commerce/order/domain/behaviors/get-order-discount-price"
-import getPriceBeforeDiscounts from "@funk/commerce/order/domain/behaviors/get-price-before-discounts"
-import { Order } from "@funk/commerce/order/domain/order"
-import subtract from "@funk/commerce/price/domain/behaviors/subtract"
-import { NULL_PRICE, Price } from "@funk/commerce/price/domain/price"
+import { SkuDiscount } from "@funk/commerce/discount/model/discount"
+import getOrderDiscountPrice from "@funk/commerce/order/model/behaviors/get-order-discount-price"
+import getPriceBeforeDiscounts from "@funk/commerce/order/model/behaviors/get-price-before-discounts"
+import { Order } from "@funk/commerce/order/model/order"
+import subtract from "@funk/commerce/price/model/behaviors/subtract"
+import { NULL_PRICE, Price } from "@funk/commerce/price/model/price"
 import {
-  MarshalledProduct,
-  PRODUCTS,
-} from "@funk/commerce/product/domain/product"
-import getPriceAfterSkuDiscounts from "@funk/commerce/sku/domain/behaviors/get-price-after-discounts"
+    MarshalledProduct,
+    PRODUCTS
+} from "@funk/commerce/product/model/product"
+import getPriceAfterSkuDiscounts from "@funk/commerce/sku/model/behaviors/get-price-after-discounts"
 import { asPromise } from "@funk/helpers/as-promise"
-import add from "@funk/money/domain/behaviors/add"
+import add from "@funk/money/model/behaviors/add"
 import getByIdImpl from "@funk/persistence/application/internal/behaviors/get-by-id"
-import { DbDocumentInput } from "@funk/persistence/domain/database-document"
+import { DbDocumentInput } from "@funk/persistence/model/database-document"
 import { of, zip } from "rxjs"
 import { first, map, switchMap } from "rxjs/operators"
 

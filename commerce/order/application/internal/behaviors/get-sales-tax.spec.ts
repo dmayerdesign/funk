@@ -1,11 +1,11 @@
-import { Enterprise } from "@funk/commerce/enterprise/domain/enterprise"
+import { Enterprise } from "@funk/commerce/enterprise/model/enterprise"
 import { construct } from "@funk/commerce/order/application/internal/behaviors/get-sales-tax"
-import { MarshalledOrder, Order } from "@funk/commerce/order/domain/order"
-import { MarshalledSku } from "@funk/commerce/sku/domain/sku"
-import { InvalidInputError } from "@funk/error/domain/invalid-input-error"
-import { CurrencyCode } from "@funk/money/domain/currency-code"
-import { ORGANIZATIONS } from "@funk/organization/domain/organization"
-import { Address } from "@funk/places/domain/address"
+import { MarshalledOrder, Order } from "@funk/commerce/order/model/order"
+import { MarshalledSku } from "@funk/commerce/sku/model/sku"
+import { InvalidInputError } from "@funk/error/model/invalid-input-error"
+import { CurrencyCode } from "@funk/money/model/currency-code"
+import { ORGANIZATIONS } from "@funk/organization/model/organization"
+import { Address } from "@funk/places/model/address"
 
 // TODO: Tighten up this test using jest-when.
 describe("orderGetSalesTax", function () {

@@ -70,60 +70,35 @@ exports.aggregate = functions.firestore
 
 ## Structure
 
+The folder structure of Funk roughly follows the principles of Domain Driven Design. Every domain
+is separated into one or more of `model`, `application`, `plugins`, and `infrastructure`.
+
 <dl>
-  <dt><b>api/core</b></dt>
-  <dd>Core server-side logic.</dd>
-  <br>
-  <dt><b>api/functions</b></dt>
-  <dd>Code that exposes the public API.</dd>
-  <br>
-  <dt><b>api/plugins</b></dt>
-  <dd>Server-side logic that imports third-party code.</dd>
-  <br>
-  <dt><b>build-pipeline</b></dt>
-  <dd>Code for building and deploying the project.</dd>
-  <br>
-  <dt><b>configuration</b></dt>
-  <dd>Project-level configuration.</dd>
-  <br>
-  <dt><b>features</b></dt>
-  <dd>Highest-level test cases (written in <a href="https://cucumber.io/docs/gherkin/reference" target="_blank" rel="noopener noreferrer">Gherkin</a>).</dd>
-  <br>
-  <dt><b>helpers</b></dt>
-  <dd>General-purpose utilities and language extensions.</dd>
-  <br>
   <dt><b>model</b></dt>
-  <dd>The core, functional domain model: data structures and dependency-less logic.</dd>
+  <dd>A model of the problem domain with no external dependencies.</dd>
   <br>
-  <dt><b>test</b></dt>
-  <dd>Test configuration.</dd>
+  <dt><b>plugins</b></dt>
+  <dd>Application code that imports third-party code.</dd>
   <br>
-  <dt><b>ui/app</b></dt>
-  <dd>Code that exposes the user interface.</dd>
+  <dt><b>application</b></dt>
+  <dd>Code gluing together the model and the plugins.</dd>
   <br>
-  <dt><b>ui/core</b></dt>
-  <dd>Core user interface logic.</dd>
+  <dt><b>infrastructure</b></dt>
+  <dd>Platform-specific code that exposes the application.</dd>
   <br>
-  <dt><b>ui/functions</b></dt>
-  <dd>Code that consumes the public API.</dd>
+  <dt><b>*/internal</b></dt>
+  <dd>Code that runs on organization-owned machines ("server-side").</dd>
   <br>
-  <dt><b>ui/plugins</b></dt>
-  <dd>User interface logic that imports third-party code.</dd>
+  <dt><b>*/external</b></dt>
+  <dd>Code that runs on users' machines ("client-side").</dd>
+  <br>
+  <dt><b>*/helpers</b></dt>
+  <dd>General-purpose utilities like convenience functions and language extensions.</dd>
+  <br>
+  <dt><b>*/behaviors</b></dt>
+  <dd>Commands and queries.</dd>
+  <br>
+  <dt><b>*/validators</b></dt>
+  <dd>Validation functions generated during the build (shouldn't be edited).</dd>
   <br>
 </dl>
-
-```
-administration
-  domain
-    ...
-  application
-    internal
-    external
-  plugins
-    internal
-    external
-      auth
-commerce
-contact
-user
-```

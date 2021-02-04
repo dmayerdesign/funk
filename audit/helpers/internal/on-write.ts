@@ -1,14 +1,14 @@
-import { Mutation } from "@funk/audit/domain/mutation"
 import diff from "@funk/audit/helpers/internal/diff"
+import { Mutation } from "@funk/audit/model/mutation"
 import omitNullish from "@funk/helpers/omit-nullish"
 import { store } from "@funk/persistence/application/internal/server-store"
 import {
-  DatabaseDocument,
-  DbDocumentInput,
-} from "@funk/persistence/domain/database-document"
+    DatabaseDocument,
+    DbDocumentInput
+} from "@funk/persistence/model/database-document"
 import {
-  Change,
-  ChangeContext,
+    Change,
+    ChangeContext
 } from "@funk/persistence/plugins/internal/events/change"
 
 export default function <DocumentType extends DatabaseDocument>(

@@ -1,15 +1,15 @@
 import { Router, UrlTree } from "@angular/router"
-import { CustomClaims } from "@funk/auth/domain/custom-claims"
-import { UserRole } from "@funk/auth/domain/user-role"
+import { CustomClaims } from "@funk/auth/model/custom-claims"
+import { UserRole } from "@funk/auth/model/user-role"
 import {
-  AuthClient,
-  AuthClientUser,
+    AuthClient,
+    AuthClientUser
 } from "@funk/auth/plugins/external/auth-client"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { Person } from "@funk/identity/domain/person"
 import { AnonymousGuard } from "@funk/identity/infrastructure/external/anonymous-guard"
 import { PublicGuard } from "@funk/identity/infrastructure/external/public-guard"
-import { PrimaryKey } from "@funk/persistence/domain/primary-key"
+import { Person } from "@funk/identity/model/person"
+import { PrimaryKey } from "@funk/persistence/model/primary-key"
 import { BehaviorSubject, Observable, of } from "rxjs"
 
 export const FAKE_USER_UID: PrimaryKey = "test-user-basic"

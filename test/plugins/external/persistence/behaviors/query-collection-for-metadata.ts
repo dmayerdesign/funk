@@ -1,8 +1,8 @@
 import type { CollectionReference, Query } from "@angular/fire/firestore"
-import { Customer } from "@funk/commerce/customer/domain/customer"
-import { Cart, ORDERS } from "@funk/commerce/order/domain/order"
+import { Customer } from "@funk/commerce/customer/model/customer"
+import { Cart, ORDERS } from "@funk/commerce/order/model/order"
 import createDocPath from "@funk/helpers/create-doc-path"
-import { DbDocumentMetadata } from "@funk/persistence/domain/database-document"
+import { DbDocumentMetadata } from "@funk/persistence/model/database-document"
 import orders from "../../../../../build-pipeline/data/development-data/commerce.orders.json"
 
 export function construct() {

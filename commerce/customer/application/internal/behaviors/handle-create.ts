@@ -1,6 +1,6 @@
 import { UserRecord } from "@funk/auth/plugins/internal/user-record"
-import createOrderForCustomer from "@funk/commerce/order/domain/behaviors/create-order-for-customer"
-import { ORDERS } from "@funk/commerce/order/domain/order"
+import createOrderForCustomer from "@funk/commerce/order/model/behaviors/create-order-for-customer"
+import { ORDERS } from "@funk/commerce/order/model/order"
 import setByIdImpl from "@funk/persistence/application/internal/behaviors/set-by-id"
 
 export function construct(setById: typeof setByIdImpl) {

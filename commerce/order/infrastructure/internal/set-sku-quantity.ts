@@ -1,4 +1,4 @@
-import { UserRole } from "@funk/auth/domain/user-role"
+import { UserRole } from "@funk/auth/model/user-role"
 import { construct as constructSetSkuQuantity } from "@funk/commerce/order/application/internal/behaviors/set-sku-quantity"
 import createRpcFunction from "@funk/http/plugins/internal/cloud-function/behaviors/create-rpc-function"
 import mapRequestToBody from "@funk/http/plugins/internal/cloud-function/behaviors/map-request-to-body"

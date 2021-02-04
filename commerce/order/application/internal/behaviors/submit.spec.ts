@@ -1,17 +1,17 @@
 import { Populate } from "@funk/commerce/order/application/internal/behaviors/populate"
 import { construct } from "@funk/commerce/order/application/internal/behaviors/submit"
 import {
-  MarshalledCart,
-  Order,
-  ORDERS,
-  Status,
-} from "@funk/commerce/order/domain/order"
+    MarshalledCart,
+    Order,
+    ORDERS,
+    Status
+} from "@funk/commerce/order/model/order"
 import {
-  createFakeMarshalledCart,
-  createFakeOrder,
-} from "@funk/commerce/order/domain/stubs"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/domain/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/domain/stubs"
+    createFakeMarshalledCart,
+    createFakeOrder
+} from "@funk/commerce/order/model/stubs"
+import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
+import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
 import { ConfirmPaymentIntent } from "@funk/money/plugins/internal/payment/behaviors/confirm-payment-intent"
 import { GetById } from "@funk/persistence/application/internal/behaviors/get-by-id"
 import { SetMany } from "@funk/persistence/application/internal/behaviors/set-many"

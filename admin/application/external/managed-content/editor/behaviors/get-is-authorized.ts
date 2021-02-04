@@ -1,4 +1,4 @@
-import roleHasAdminPrivilegeOrGreater from "@funk/auth/domain/helpers/role-has-admin-privilege-or-greater"
+import roleHasAdminPrivilegeOrGreater from "@funk/auth/model/helpers/role-has-admin-privilege-or-greater"
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { DeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
 import { map, pluck, shareReplay, switchMap } from "rxjs/operators"

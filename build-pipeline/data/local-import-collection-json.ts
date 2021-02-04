@@ -4,7 +4,7 @@
 // import { readFileSync } from "fs-extra"
 // import { firestoreImport } from "node-firestore-import-export"
 // import { resolve } from "path"
-// import { Configuration } from "../../configuration/domain/configuration"
+// import { Configuration } from "../../configuration/model/configuration"
 // import { CLOUD_PROJECT_ID } from "../../configuration/local"
 
 // interface Options {

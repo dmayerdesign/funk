@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core"
 import { AngularFireAuth } from "@angular/fire/auth"
 import { ActivatedRoute } from "@angular/router"
-import { UserRole } from "@funk/auth/domain/user-role"
+import { UserRole } from "@funk/auth/model/user-role"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import {
   createAuthClientStub,
-  createAuthUserStub,
+  createAuthUserStub
 } from "@funk/identity/application/external/stubs"
 import firebase from "firebase"
 import { Observable } from "rxjs"
@@ -94,3 +94,4 @@ export type AuthProvider = firebase.auth.AuthProvider
 export type { User as AuthClientUser }
 export { AngularFireAuth as AuthClient }
 export { AngularFireAuth }
+

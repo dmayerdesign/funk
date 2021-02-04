@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core"
 import { ActivatedRoute, Router } from "@angular/router"
-import roleHasPublicPrivilegeOrGreater from "@funk/auth/domain/helpers/role-has-public-privilege-or-greater"
+import roleHasPublicPrivilegeOrGreater from "@funk/auth/model/helpers/role-has-public-privilege-or-greater"
 import { asPromise } from "@funk/helpers/as-promise"
 import { SignInWithProvider } from "@funk/identity/application/external/behaviors/sign-in-with-provider"
 import { SignOut } from "@funk/identity/application/external/behaviors/sign-out"
@@ -8,7 +8,7 @@ import { UserSession } from "@funk/identity/application/external/user-session"
 import {
   SIGN_IN_WITH_PROVIDER,
   SIGN_OUT,
-  USER_SESSION,
+  USER_SESSION
 } from "@funk/identity/infrastructure/external/tokens"
 import { HomeRelativeUrl } from "@funk/ui/atlas/application/external/home-relative-url"
 import { HOME_RELATIVE_URL } from "@funk/ui/atlas/infrastructure/external/tokens"

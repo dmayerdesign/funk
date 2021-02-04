@@ -1,5 +1,5 @@
 import { UserRecord } from "@funk/auth/plugins/internal/user-record"
-import { UserState, USER_STATES } from "@funk/identity/domain/user-state"
+import { UserState, USER_STATES } from "@funk/identity/model/user-state"
 import setByIdImpl from "@funk/persistence/application/internal/behaviors/set-by-id"
 
 export function construct(setById: typeof setByIdImpl) {

@@ -1,10 +1,10 @@
 import {
-  CONTENTS,
-  ManagedContent,
-} from "@funk/admin/domain/managed-content/managed-content"
+    CONTENTS,
+    ManagedContent
+} from "@funk/admin/model/managed-content/managed-content"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { UserState, USER_STATES } from "@funk/identity/domain/user-state"
+import { UserState, USER_STATES } from "@funk/identity/model/user-state"
 import { ListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
 import { combineLatest, from, Observable } from "rxjs"
 import { map, pluck, switchMap } from "rxjs/operators"

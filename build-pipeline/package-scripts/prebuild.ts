@@ -1,5 +1,5 @@
 import program from "commander"
-import { Configuration } from "../../configuration/domain/configuration"
+import { Configuration } from "../../configuration/model/configuration"
 import writeConfig from "../code-gen/behaviors/write-config"
 import writeFirebaseJson from "../code-gen/behaviors/write-firebase-json"
 import writeValidators from "../code-gen/behaviors/write-validators"

@@ -1,4 +1,4 @@
-import { UserRole } from "@funk/auth/domain/user-role"
+import { UserRole } from "@funk/auth/model/user-role"
 
 export function waitForTheGlobalLoader(): void {
   cy.get(".spinner", { timeout: 10000 }).should("not.be.visible")
