@@ -1,7 +1,7 @@
+import { InclusiveRange } from "@funk/math/model/range"
 import { CurrencyCode } from "@funk/money/model/currency-code"
 import { Money } from "@funk/money/model/money"
-import { InclusiveRange } from "@funk/range/model/range"
-import { WeightUnit } from "@funk/units/model/weight-unit"
+import { WeightUnit } from "@funk/things/model/weight/weight-unit"
 
 export type Price = Money
 

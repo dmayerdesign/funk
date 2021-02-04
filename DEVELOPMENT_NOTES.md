@@ -101,4 +101,7 @@ is separated into one or more of `model`, `application`, `plugins`, and `infrast
   <dt><b>*/validators</b></dt>
   <dd>Validation functions generated during the build (shouldn't be edited).</dd>
   <br>
+  <dt><b>*/configuration</b></dt>
+  <dd>Files containing configuration options.</dd>
+  <br>
 </dl>

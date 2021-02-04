@@ -1,4 +1,4 @@
-import { TimeUnit } from "@funk/units/model/time-unit"
+import { TimeUnit } from "@funk/time/model/time-unit";
 
 export interface Duration {
   amount: number

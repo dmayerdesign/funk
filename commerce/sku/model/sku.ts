@@ -8,8 +8,8 @@ import { TaxonomyTerm } from "@funk/commerce/taxonomy/model/taxonomy-term"
 import { ImageGroup } from "@funk/image/model/image-group"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
+import { Weight } from "@funk/things/model/weight/weight"
 import { Duration } from "@funk/time/model/duration"
-import { Weight } from "@funk/weight/model/weight"
 
 export const SKUS = "commerce.skus"
 

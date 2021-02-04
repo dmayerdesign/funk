@@ -1,6 +1,6 @@
-import { InvalidInputError } from "@funk/error/model/invalid-input-error"
-import { Duration } from "@funk/time/model/duration"
-import { TimeUnit } from "@funk/units/model/time-unit"
+import { InvalidInputError } from "@funk/error/model/invalid-input-error";
+import { Duration } from "@funk/time/model/duration";
+import { TimeUnit } from "@funk/time/model/time-unit";
 
 export default function (durationString?: string): Duration | undefined {
   if (!durationString) return undefined

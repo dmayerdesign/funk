@@ -1,6 +1,6 @@
 import { MarshalledSku, Sku } from "@funk/commerce/sku/model/sku"
 import { CurrencyCode } from "@funk/money/model/currency-code"
-import { WeightUnit } from "@funk/units/model/weight-unit"
+import { WeightUnit } from "@funk/things/model/weight/weight-unit"
 import { merge } from "lodash"
 
 export const createFakeMarshalledSku = (

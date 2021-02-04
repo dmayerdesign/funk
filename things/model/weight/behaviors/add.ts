@@ -1,6 +1,6 @@
-import { WeightUnit } from "@funk/units/model/weight-unit"
-import { validateBeforeMath } from "@funk/weight/model/validation"
-import { UNKNOWN_WEIGHT, Weight } from "@funk/weight/model/weight"
+import { validateBeforeMath } from "@funk/things/model/weight/validation"
+import { UNKNOWN_WEIGHT, Weight } from "@funk/things/model/weight/weight"
+import { WeightUnit } from "@funk/things/model/weight/weight-unit"
 import { isEqual } from "lodash"
 
 // TODO: Add ability to convert units. For now, just throw if mismatched.

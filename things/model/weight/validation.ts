@@ -1,4 +1,4 @@
-import { Weight } from "@funk/weight/model/weight"
+import { Weight } from "@funk/things/model/weight/weight"
 
 export class InvalidWeightError extends Error {}
 

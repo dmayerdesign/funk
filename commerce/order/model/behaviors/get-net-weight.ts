@@ -1,6 +1,6 @@
 import { Order } from "@funk/commerce/order/model/order"
-import add from "@funk/weight/model/behaviors/add"
-import { UNKNOWN_WEIGHT, Weight } from "@funk/weight/model/weight"
+import add from "@funk/things/model/weight/behaviors/add"
+import { UNKNOWN_WEIGHT, Weight } from "@funk/things/model/weight/weight"
 
 export default function (order: Order): Weight {
   if (!!order.skus) {

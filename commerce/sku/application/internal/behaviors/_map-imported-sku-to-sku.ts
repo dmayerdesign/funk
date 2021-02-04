@@ -11,8 +11,8 @@ import parseCsvBoolean from "@funk/helpers/csv/parse-csv-boolean"
 import parseCsvNumber from "@funk/helpers/csv/parse-csv-number"
 import omitNullish from "@funk/helpers/omit-nullish"
 import { CurrencyCode } from "@funk/money/model/currency-code"
+import weightFromString from "@funk/things/model/weight/behaviors/from-string"
 import durationFromString from "@funk/time/model/behaviors/duration-from-string"
-import weightFromString from "@funk/weight/model/behaviors/from-string"
 import { flatMap, kebabCase } from "lodash"
 
 export default function (importedSku: ImportedSku): MarshalledSku {

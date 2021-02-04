@@ -1,25 +1,25 @@
 import {
-    assertFails,
-    assertSucceeds,
-    loadFirestoreRules
+  assertFails,
+  assertSucceeds,
+  loadFirestoreRules
 } from "@firebase/rules-unit-testing"
 import { UserRole } from "@funk/auth/model/user-role"
 import {
-    createAdminApp,
-    createDefaultApp,
-    forbiddenUserUid,
-    projectId,
-    testOwnerUid,
-    testUserUid
+  createAdminApp,
+  createDefaultApp,
+  forbiddenUserUid,
+  projectId,
+  testOwnerUid,
+  testUserUid
 } from "@funk/helpers/test-helpers"
 import { PERSONS } from "@funk/identity/model/person"
-import { app } from "firebase"
+import firebase from "firebase"
 import { readFileSync } from "fs"
 import { resolve } from "path"
 
 describe.skip("Firestore access control rules", () => {
-  let adminApp: app.App
-  let defaultApp: app.App
+  let adminApp: firebase.app.App
+  let defaultApp: firebase.app.App
 
   beforeAll(async () => {
     adminApp = createAdminApp()

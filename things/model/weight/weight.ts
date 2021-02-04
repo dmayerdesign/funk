@@ -1,4 +1,4 @@
-import { WeightUnit } from "@funk/units/model/weight-unit"
+import { WeightUnit } from "@funk/things/model/weight/weight-unit"
 
 export interface Weight {
   amount: number

@@ -1,6 +1,6 @@
 import { InvalidInputError } from "@funk/error/model/invalid-input-error"
-import { WeightUnit } from "@funk/units/model/weight-unit"
-import { Weight } from "@funk/weight/model/weight"
+import { Weight } from "@funk/things/model/weight/weight"
+import { WeightUnit } from "@funk/things/model/weight/weight-unit"
 
 export default function (weightString?: string): Weight | undefined {
   if (!weightString) return undefined

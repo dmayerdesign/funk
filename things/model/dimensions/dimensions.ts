@@ -1,4 +1,4 @@
-import { LengthUnit } from "@funk/units/model/length-unit";
+import { LengthUnit } from "@funk/things/model/dimensions/length-unit";
 
 export interface Dimensions {
   unit: LengthUnit

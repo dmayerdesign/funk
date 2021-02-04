@@ -1,16 +1,16 @@
 import {
-    MarshalledProductAttributeValues,
-    ProductAttributeValues
+  MarshalledProductAttributeValues,
+  ProductAttributeValues
 } from "@funk/commerce/attribute/model/attribute-value"
 import { Price } from "@funk/commerce/price/model/price"
 import { Review } from "@funk/commerce/review/model/review"
 import { TaxonomyTerm } from "@funk/commerce/taxonomy/model/taxonomy-term"
 import { ImageGroup } from "@funk/image/model/image-group"
+import { InclusiveRange } from "@funk/math/model/range"
 import { Organization } from "@funk/organization/model/organization"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 import { Timestamp } from "@funk/persistence/model/timestamp"
-import { InclusiveRange } from "@funk/range/model/range"
 import { Duration } from "@funk/time/model/duration"
 
 export const PRODUCTS = "commerce.products"
