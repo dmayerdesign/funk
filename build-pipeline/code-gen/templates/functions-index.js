@@ -26,7 +26,7 @@ for (const file of functionFiles) {
   ) {
     const relativePathToFile = file.split(pathToRoot)[1]
     const abbreviatedPathToFile = relativePathToFile.replace(
-      /\/infrastructure\/internal\//g,
+      /\/infrastructure\/internal\/(behaviors\/)?/g,
       "-",
     )
     const abbreviatedPathToFileSansExt = abbreviatedPathToFile.substring(

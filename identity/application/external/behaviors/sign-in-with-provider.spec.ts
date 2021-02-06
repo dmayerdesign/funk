@@ -1,6 +1,6 @@
 import {
-  AuthClient,
-  AuthProvider,
+    AuthClient,
+    AuthProvider
 } from "@funk/auth/plugins/external/auth-client"
 import { SendEmailVerification } from "@funk/identity/application/external/behaviors/send-email-verification"
 import { construct } from "@funk/identity/application/external/behaviors/sign-in-with-provider"

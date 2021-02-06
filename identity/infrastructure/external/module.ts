@@ -1,9 +1,7 @@
 import { APP_INITIALIZER, NgModule } from "@angular/core"
-import {
-  AngularFireAuth,
-  AuthClientForTesting,
-} from "@funk/auth/plugins/external/auth-client"
+import { AngularFireAuth } from "@funk/auth/plugins/external/auth-client"
 import { INTEGRATION_TEST } from "@funk/configuration"
+import { AuthClientForTesting } from "@funk/identity/application/external/auth-client-for-testing"
 import { construct as constructCreateUserWithEmailAndPassword } from "@funk/identity/application/external/behaviors/create-user-with-email-and-password"
 import { construct as constructInitialize } from "@funk/identity/application/external/behaviors/initialize"
 import { construct as constructSendEmailVerification } from "@funk/identity/application/external/behaviors/send-email-verification"
@@ -23,7 +21,7 @@ import {
   SIGN_OUT,
   USER_ID_TOKEN,
   USER_SESSION,
-  USER_STATE,
+  USER_STATE
 } from "@funk/identity/infrastructure/external/tokens"
 import { LISTEN_BY_ID } from "@funk/persistence/infrastructure/external/tokens"
 
