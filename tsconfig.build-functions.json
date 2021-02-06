@@ -10,6 +10,8 @@
     "**/test/**/*"
   ],
   "compilerOptions": {
-    "outDir": ".funk/build-pipeline-output/tmp/internal-build"
+    "outDir": ".funk/build-pipeline-output/tmp/internal-build",
+    "module": "commonjs",
+    "target": "es2019"
   }
 }

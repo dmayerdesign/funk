@@ -73,6 +73,7 @@ export function construct(_configuration: Configuration) {
     "rules": "storage.rules"
   },
   "functions": {
+    "runtime": "nodejs12",
     "source": ".funk/build-pipeline-output/internal-build"
   }
 }

@@ -16,6 +16,7 @@ const functionFiles = glob.sync("**/infrastructure/internal/*.js", {
     "**/*.steps.js",
   ],
 })
+.map((pathFromProjectRoot) => resolve(pathFromProjectRoot))
 
 for (const file of functionFiles) {
   if (

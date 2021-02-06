@@ -143,7 +143,7 @@
     "del": "~6.0.0",
     "eslint": "7.11.0",
     "eslint-config-prettier": "6.12.0",
-    "firebase-tools": "8.12.1",
+    "firebase-tools": "^9.3.0",
     "inquirer": "7.3.3",
     "jest": "26.5.3",
     "jest-cucumber": "^3.0.0",
