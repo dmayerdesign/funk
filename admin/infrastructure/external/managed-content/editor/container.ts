@@ -3,7 +3,7 @@ import {
   Inject,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from "@angular/core"
 import { ManagedContentEditorService } from "@funk/admin/application/external/managed-content/editor/service"
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/admin/infrastructure/external/managed-content/tokens"

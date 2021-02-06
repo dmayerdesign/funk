@@ -8,7 +8,7 @@ import { UserSession } from "@funk/identity/application/external/user-session"
 import {
   SIGN_IN_WITH_PROVIDER,
   SIGN_OUT,
-  USER_SESSION
+  USER_SESSION,
 } from "@funk/identity/infrastructure/external/tokens"
 import { HomeRelativeUrl } from "@funk/ui/atlas/application/external/home-relative-url"
 import { HOME_RELATIVE_URL } from "@funk/ui/atlas/infrastructure/external/tokens"

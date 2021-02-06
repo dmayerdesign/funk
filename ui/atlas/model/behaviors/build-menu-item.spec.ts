@@ -1,7 +1,7 @@
 import { Atlas } from "@funk/ui/atlas/model/atlas"
 import {
-    BuildMenuItem,
-    construct
+  BuildMenuItem,
+  construct,
 } from "@funk/ui/atlas/model/behaviors/build-menu-item"
 
 describe("buildMenuItem", () => {

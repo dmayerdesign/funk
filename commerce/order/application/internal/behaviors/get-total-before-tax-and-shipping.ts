@@ -5,8 +5,8 @@ import { Order } from "@funk/commerce/order/model/order"
 import subtract from "@funk/commerce/price/model/behaviors/subtract"
 import { NULL_PRICE, Price } from "@funk/commerce/price/model/price"
 import {
-    MarshalledProduct,
-    PRODUCTS
+  MarshalledProduct,
+  PRODUCTS,
 } from "@funk/commerce/product/model/product"
 import getPriceAfterSkuDiscounts from "@funk/commerce/sku/model/behaviors/get-price-after-discounts"
 import { asPromise } from "@funk/helpers/as-promise"

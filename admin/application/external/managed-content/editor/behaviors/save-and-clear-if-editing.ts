@@ -5,8 +5,8 @@ import { GetMaybeActiveContentId } from "@funk/admin/application/external/manage
 import { GetMaybeActiveContentValue } from "@funk/admin/application/external/managed-content/editor/behaviors/get-maybe-active-content-value"
 import { GetMaybeActiveContentValueControl } from "@funk/admin/application/external/managed-content/editor/behaviors/get-maybe-active-content-value-control"
 import {
-    ManagedContent,
-    ManagedContentType
+  ManagedContent,
+  ManagedContentType,
 } from "@funk/admin/model/managed-content/managed-content"
 import { asPromise } from "@funk/helpers/as-promise"
 import createDocPath from "@funk/helpers/create-doc-path"

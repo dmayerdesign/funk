@@ -1,8 +1,8 @@
 import { construct } from "@funk/commerce/order/application/internal/behaviors/set-status-to-checkout"
 import {
-    MarshalledCart,
-    ORDERS,
-    Status
+  MarshalledCart,
+  ORDERS,
+  Status,
 } from "@funk/commerce/order/model/order"
 import { createFakeMarshalledCart } from "@funk/commerce/order/model/stubs"
 import { FiniteInventory } from "@funk/commerce/sku/model/inventory"

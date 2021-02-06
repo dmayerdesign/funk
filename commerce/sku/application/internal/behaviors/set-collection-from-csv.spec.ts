@@ -1,6 +1,6 @@
 import {
-    construct,
-    SetCollectionFromCsv
+  construct,
+  SetCollectionFromCsv,
 } from "@funk/commerce/sku/application/internal/behaviors/set-collection-from-csv"
 import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
 import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"

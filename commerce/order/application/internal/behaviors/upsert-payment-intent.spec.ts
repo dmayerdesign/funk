@@ -13,8 +13,8 @@ import { MIN_TRANSACTION_CENTS } from "@funk/money/plugins/internal/payment/conf
 import { PaymentIntent } from "@funk/money/plugins/internal/payment/intent"
 import { UpdateById } from "@funk/persistence/application/internal/behaviors/update-by-id"
 import {
-    Change,
-    ChangeContext
+  Change,
+  ChangeContext,
 } from "@funk/persistence/plugins/internal/events/change"
 
 const PAYMENT_INTENT_ID = "payment intent id"

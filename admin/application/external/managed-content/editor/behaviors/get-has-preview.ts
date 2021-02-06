@@ -1,7 +1,7 @@
 import {
-    ignoreNullish,
-    maybePluck,
-    shareReplayOnce
+  ignoreNullish,
+  maybePluck,
+  shareReplayOnce,
 } from "@funk/helpers/rxjs-shims"
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { UserState, USER_STATES } from "@funk/identity/model/user-state"

@@ -1,6 +1,6 @@
 import {
-    Enterprise,
-    ShippingCostStrategy
+  Enterprise,
+  ShippingCostStrategy,
 } from "@funk/commerce/enterprise/model/enterprise"
 import getNetWeight from "@funk/commerce/order/model/behaviors/get-net-weight"
 import { Order } from "@funk/commerce/order/model/order"

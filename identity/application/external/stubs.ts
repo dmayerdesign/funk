@@ -2,8 +2,8 @@ import { Router, UrlTree } from "@angular/router"
 import { CustomClaims } from "@funk/auth/model/custom-claims"
 import { UserRole } from "@funk/auth/model/user-role"
 import {
-    AuthClient,
-    AuthClientUser
+  AuthClient,
+  AuthClientUser,
 } from "@funk/auth/plugins/external/auth-client"
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { AnonymousGuard } from "@funk/identity/infrastructure/external/anonymous-guard"

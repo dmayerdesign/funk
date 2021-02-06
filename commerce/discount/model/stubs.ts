@@ -1,6 +1,6 @@
 import {
-    OrderDiscount,
-    SkuDiscount
+  OrderDiscount,
+  SkuDiscount,
 } from "@funk/commerce/discount/model/discount"
 
 export function createFakeOrderDiscount(

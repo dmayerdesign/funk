@@ -1,14 +1,14 @@
 import { Populate } from "@funk/commerce/order/application/internal/behaviors/populate"
 import { construct } from "@funk/commerce/order/application/internal/behaviors/submit"
 import {
-    MarshalledCart,
-    Order,
-    ORDERS,
-    Status
+  MarshalledCart,
+  Order,
+  ORDERS,
+  Status,
 } from "@funk/commerce/order/model/order"
 import {
-    createFakeMarshalledCart,
-    createFakeOrder
+  createFakeMarshalledCart,
+  createFakeOrder,
 } from "@funk/commerce/order/model/stubs"
 import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
 import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"

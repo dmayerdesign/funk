@@ -6,9 +6,9 @@ import { ListFilter } from "@funk/commerce/shop/application/external/products/li
 import { LIST_PUBLISHED } from "@funk/commerce/shop/infrastructure/external/product/tokens"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import {
-    Pagination,
-    TAKE_ALL,
-    VirtualPagination
+  Pagination,
+  TAKE_ALL,
+  VirtualPagination,
 } from "@funk/persistence/application/external/pagination"
 import { LoadingController } from "@ionic/angular"
 import { flatten } from "lodash"

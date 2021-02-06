@@ -1,6 +1,6 @@
 import {
-    MarshalledProduct,
-    Product
+  MarshalledProduct,
+  Product,
 } from "@funk/commerce/product/model/product"
 import marshallImpl from "@funk/persistence/application/internal/behaviors/marshall"
 

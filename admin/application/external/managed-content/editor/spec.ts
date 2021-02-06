@@ -1,12 +1,12 @@
 import {
-    construct,
-    ManagedContentEditorService
+  construct,
+  ManagedContentEditorService,
 } from "@funk/admin/application/external/managed-content/editor/service"
 import {
-    CONTENTS,
-    ManagedContent,
-    ManagedContentType,
-    ManagedText
+  CONTENTS,
+  ManagedContent,
+  ManagedContentType,
+  ManagedText,
 } from "@funk/admin/model/managed-content/managed-content"
 import { UserRole } from "@funk/auth/model/user-role"
 import { asPromise } from "@funk/helpers/as-promise"

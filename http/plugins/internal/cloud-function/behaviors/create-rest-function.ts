@@ -3,8 +3,8 @@ import createApp from "@funk/http/plugins/internal/cloud-function/behaviors/crea
 import createFunction from "@funk/http/plugins/internal/cloud-function/behaviors/create-function"
 import handleError from "@funk/http/plugins/internal/cloud-function/behaviors/handle-error"
 import handleRequest, {
-    HandlerReturnTypes,
-    RequestHandlers
+  HandlerReturnTypes,
+  RequestHandlers,
 } from "@funk/http/plugins/internal/cloud-function/behaviors/handle-request"
 import { HttpsFunction } from "@funk/http/plugins/internal/cloud-function/https-function"
 import { IRouter, IRouterMatcher } from "express"

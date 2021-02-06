@@ -1,8 +1,8 @@
 import { MarshalledProductAttributeValues } from "@funk/commerce/attribute/model/attribute-value"
 import subtract from "@funk/commerce/price/model/behaviors/subtract"
 import {
-    MarshalledProduct,
-    PRODUCTS
+  MarshalledProduct,
+  PRODUCTS,
 } from "@funk/commerce/product/model/product"
 import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
 import { ChangeHandler } from "@funk/http/plugins/internal/cloud-function/behaviors/listen/change-handler"

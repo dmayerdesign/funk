@@ -1,8 +1,8 @@
 import {
-    Cart,
-    MarshalledCart,
-    ORDERS,
-    Status
+  Cart,
+  MarshalledCart,
+  ORDERS,
+  Status,
 } from "@funk/commerce/order/model/order"
 import { InvalidOrderError } from "@funk/commerce/order/model/validation"
 import getIsInStock from "@funk/commerce/sku/model/behaviors/get-is-in-stock"
@@ -10,13 +10,13 @@ import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
 import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
 import throwPresentableError from "@funk/helpers/throw-presentable-error"
 import getByIdImpl, {
-    GetById
+  GetById,
 } from "@funk/persistence/application/internal/behaviors/get-by-id"
 import listImpl, {
-    List
+  List,
 } from "@funk/persistence/application/internal/behaviors/list"
 import setManyImpl, {
-    SetMany
+  SetMany,
 } from "@funk/persistence/application/internal/behaviors/set-many"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/ui/copy/error-messages"

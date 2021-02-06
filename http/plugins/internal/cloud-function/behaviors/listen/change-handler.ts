@@ -1,7 +1,7 @@
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import {
-    Change,
-    ChangeContext
+  Change,
+  ChangeContext,
 } from "@funk/persistence/plugins/internal/events/change"
 
 export type ChangeHandler<

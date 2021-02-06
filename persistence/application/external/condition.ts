@@ -1,6 +1,6 @@
 import {
-    AbstractWhere,
-    Where
+  AbstractWhere,
+  Where,
 } from "@funk/persistence/application/external/where"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 

@@ -1,7 +1,7 @@
 import {
   assertFails,
   assertSucceeds,
-  loadFirestoreRules
+  loadFirestoreRules,
 } from "@firebase/rules-unit-testing"
 import { UserRole } from "@funk/auth/model/user-role"
 import {
@@ -10,7 +10,7 @@ import {
   forbiddenUserUid,
   projectId,
   testOwnerUid,
-  testUserUid
+  testUserUid,
 } from "@funk/helpers/test-helpers"
 import { PERSONS } from "@funk/identity/model/person"
 import firebase from "firebase"

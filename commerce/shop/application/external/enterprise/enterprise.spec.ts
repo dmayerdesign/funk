@@ -1,8 +1,8 @@
 import { Enterprise } from "@funk/commerce/enterprise/model/enterprise"
 import { construct } from "@funk/commerce/shop/application/external/enterprise/enterprise"
 import {
-    ORGANIZATIONS,
-    PRIMARY_ORGANIZATION
+  ORGANIZATIONS,
+  PRIMARY_ORGANIZATION,
 } from "@funk/organization/model/organization"
 import { construct as constructListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
 import { when } from "jest-when"

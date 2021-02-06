@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from "@angular/core"
 import {
-    AbstractControl,
-    FormControl,
-    FormGroup,
-    Validators
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
 } from "@angular/forms"
 import {
-    GetToken,
-    GET_TOKEN
+  GetToken,
+  GET_TOKEN,
 } from "@funk/auth/plugins/external/turing-test/behaviors/get-token"
 import { ContactOwner } from "@funk/contact/infrastructure/external/cloud-functions/owner"
 import { ContactForm } from "@funk/contact/model/contact-form"
@@ -15,8 +15,8 @@ import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { CONTACT_OWNER } from "@funk/professional-portfolio/infrastructure/external/tokens"
 import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
 import {
-    DEVICE_WIDTH,
-    PAGE_TITLE
+  DEVICE_WIDTH,
+  PAGE_TITLE,
 } from "@funk/ui/infrastructure/external/tokens"
 import { DeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
 import { map } from "rxjs/operators"

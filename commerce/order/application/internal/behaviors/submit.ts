@@ -1,26 +1,26 @@
 import populateImpl, {
-    Populate
+  Populate,
 } from "@funk/commerce/order/application/internal/behaviors/populate"
 import createOrderForCustomer from "@funk/commerce/order/model/behaviors/create-order-for-customer"
 import {
-    MarshalledOrder,
-    ORDERS,
-    Status
+  MarshalledOrder,
+  ORDERS,
+  Status,
 } from "@funk/commerce/order/model/order"
 import { SKUS } from "@funk/commerce/sku/model/sku"
 import createUid from "@funk/helpers/create-uid"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
 import confirmPaymentIntentImpl, {
-    ConfirmPaymentIntent
+  ConfirmPaymentIntent,
 } from "@funk/money/plugins/internal/payment/behaviors/confirm-payment-intent"
 import getByIdImpl, {
-    GetById
+  GetById,
 } from "@funk/persistence/application/internal/behaviors/get-by-id"
 import setManyImpl, {
-    SetMany
+  SetMany,
 } from "@funk/persistence/application/internal/behaviors/set-many"
 import updateByIdImpl, {
-    UpdateById
+  UpdateById,
 } from "@funk/persistence/application/internal/behaviors/update-by-id"
 
 export function construct(

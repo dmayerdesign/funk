@@ -29,4 +29,3 @@ export type AuthProvider = firebase.auth.AuthProvider
 export type { User as AuthClientUser }
 export { AngularFireAuth as AuthClient }
 export { AngularFireAuth }
-

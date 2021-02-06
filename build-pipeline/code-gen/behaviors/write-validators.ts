@@ -1,10 +1,10 @@
 import glob from "fast-glob"
 import {
-    existsSync,
-    mkdirpSync,
-    readFileSync,
-    unlinkSync,
-    writeFileSync
+  existsSync,
+  mkdirpSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync,
 } from "fs-extra"
 import { kebabCase } from "lodash"
 import md5 from "md5"

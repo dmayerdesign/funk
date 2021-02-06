@@ -1,4 +1,4 @@
-import { Organization } from "@funk/organization/model/organization";
+import { Organization } from "@funk/organization/model/organization"
 
 export interface CreateEmailOptions {
   organization?: Organization

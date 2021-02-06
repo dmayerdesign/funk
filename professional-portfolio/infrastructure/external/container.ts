@@ -5,8 +5,8 @@ import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
 import atlas from "@funk/ui/atlas/configuration"
 import { Atlas } from "@funk/ui/atlas/model/atlas"
 import {
-    DEVICE_WIDTH,
-    PAGE_TITLE
+  DEVICE_WIDTH,
+  PAGE_TITLE,
 } from "@funk/ui/infrastructure/external/tokens"
 import { DeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
 import { LoadingController } from "@ionic/angular"

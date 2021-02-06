@@ -1,7 +1,7 @@
 import { PRODUCTS } from "@funk/commerce/product/model/product"
 import {
-    construct,
-    SyncProduct
+  construct,
+  SyncProduct,
 } from "@funk/commerce/sku/application/internal/behaviors/sync-product"
 import { MarshalledSku } from "@funk/commerce/sku/model/sku"
 import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"

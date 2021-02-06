@@ -11,11 +11,19 @@ describe("Import rules", function () {
 
   test("model files should not import `plugins` nor `application` nor `infrastructure`", function () {
     const modelFilenames = readFiles("**/model/**/*.ts")
-    const modelFiles = modelFilenames.map((modelFilename) => readFileSync(modelFilename, { encoding: "utf-8" }))
+    const modelFiles = modelFilenames.map((modelFilename) =>
+      readFileSync(modelFilename, { encoding: "utf-8" }),
+    )
 
-    const someFilesImportPluginsCode = modelFiles.some((file) => !!file.match(pluginsCodeImportPattern))
-    const someFilesImportAppCode = modelFiles.some((file) => !!file.match(appCodeImportPattern))
-    const someFilesImportInfraCode = modelFiles.some((file) => !!file.match(infraCodeImportPattern))
+    const someFilesImportPluginsCode = modelFiles.some(
+      (file) => !!file.match(pluginsCodeImportPattern),
+    )
+    const someFilesImportAppCode = modelFiles.some(
+      (file) => !!file.match(appCodeImportPattern),
+    )
+    const someFilesImportInfraCode = modelFiles.some(
+      (file) => !!file.match(infraCodeImportPattern),
+    )
 
     expect(someFilesImportPluginsCode).toBe(false)
     expect(someFilesImportAppCode).toBe(false)
@@ -24,10 +32,16 @@ describe("Import rules", function () {
 
   test("plugin files should not import `application` nor `infrastructure`, with the exception of `persistence`", function () {
     const pluginFilenames = readFiles("**/plugins/**/*.ts")
-    const pluginFiles = pluginFilenames.map((pluginFilename) => readFileSync(pluginFilename, { encoding: "utf-8" }))
+    const pluginFiles = pluginFilenames.map((pluginFilename) =>
+      readFileSync(pluginFilename, { encoding: "utf-8" }),
+    )
 
-    const someFilesImportAppCode = pluginFiles.some((file) => !!file.match(appCodeImportPattern))
-    const someFilesImportInfraCode = pluginFiles.some((file) => !!file.match(infraCodeImportPattern))
+    const someFilesImportAppCode = pluginFiles.some(
+      (file) => !!file.match(appCodeImportPattern),
+    )
+    const someFilesImportInfraCode = pluginFiles.some(
+      (file) => !!file.match(infraCodeImportPattern),
+    )
 
     expect(someFilesImportAppCode).toBe(false)
     expect(someFilesImportInfraCode).toBe(false)
@@ -39,22 +53,29 @@ describe("Import rules", function () {
       .filter((filename) => !filename.includes(__dirname))
       .map((filename) => readFileSync(filename, { encoding: "utf-8" }))
 
-    const someFilesImportExternalFiles = internalFiles.some((file) => !!file.match(externalCodeImportPattern))
+    const someFilesImportExternalFiles = internalFiles.some(
+      (file) => !!file.match(externalCodeImportPattern),
+    )
 
     expect(someFilesImportExternalFiles).toBe(false)
   })
 
   test("external code should not import internal code", function () {
     const externalFilenames = readFiles("**/external/**/*.ts")
-    const externalFiles = externalFilenames.map((filename) => readFileSync(filename, { encoding: "utf-8" }))
+    const externalFiles = externalFilenames.map((filename) =>
+      readFileSync(filename, { encoding: "utf-8" }),
+    )
 
-    const someFilesImportInternalFiles = externalFiles.some((file) => !!file.match(internalCodeImportPattern))
+    const someFilesImportInternalFiles = externalFiles.some(
+      (file) => !!file.match(internalCodeImportPattern),
+    )
 
     expect(someFilesImportInternalFiles).toBe(false)
   })
 })
 
 function readFiles(pattern: string): string[] {
-  return glob.sync(pattern, { ignore: [ "**/node_modules/**/*" ] })
+  return glob
+    .sync(pattern, { ignore: ["**/node_modules/**/*"] })
     .map((pathFromProjectRoot) => resolve(pathFromProjectRoot))
 }

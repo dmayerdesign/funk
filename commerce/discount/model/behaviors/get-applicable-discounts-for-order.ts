@@ -1,8 +1,5 @@
 import ApplicableDiscountsBuilder from "@funk/commerce/discount/model/applicable-discounts-builder"
-import {
-    Discount,
-    OrderDiscount
-} from "@funk/commerce/discount/model/discount"
+import { Discount, OrderDiscount } from "@funk/commerce/discount/model/discount"
 import subtract from "@funk/commerce/price/model/behaviors/subtract"
 import { Price } from "@funk/commerce/price/model/price"
 import { sortBy } from "lodash"

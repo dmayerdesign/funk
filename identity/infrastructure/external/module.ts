@@ -21,7 +21,7 @@ import {
   SIGN_OUT,
   USER_ID_TOKEN,
   USER_SESSION,
-  USER_STATE
+  USER_STATE,
 } from "@funk/identity/infrastructure/external/tokens"
 import { LISTEN_BY_ID } from "@funk/persistence/infrastructure/external/tokens"
 

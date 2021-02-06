@@ -1,8 +1,8 @@
 import {
-    MarshalledCart,
-    MarshalledOrder,
-    Order,
-    Status
+  MarshalledCart,
+  MarshalledOrder,
+  Order,
+  Status,
 } from "@funk/commerce/order/model/order"
 import { NULL_PRICE } from "@funk/commerce/price/model/price"
 import { createFakeAddress } from "@funk/places/model/stubs"

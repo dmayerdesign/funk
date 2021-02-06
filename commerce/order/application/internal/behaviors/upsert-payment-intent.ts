@@ -2,20 +2,20 @@ import getTaxImpl from "@funk/commerce/order/application/internal/behaviors/get-
 import getTotalBeforeTaxAndShippingImpl from "@funk/commerce/order/application/internal/behaviors/get-total-before-tax-and-shipping"
 import populateImpl from "@funk/commerce/order/application/internal/behaviors/populate"
 import {
-    MarshalledOrder,
-    Order,
-    ORDERS,
-    Status
+  MarshalledOrder,
+  Order,
+  ORDERS,
+  Status,
 } from "@funk/commerce/order/model/order"
 import { Price } from "@funk/commerce/price/model/price"
 import { InvalidInputError } from "@funk/error/model/invalid-input-error"
 import onlyKeysImpl from "@funk/http/plugins/internal/cloud-function/behaviors/listen/only-keys"
 import add from "@funk/money/model/behaviors/add"
 import createPaymentIntentImpl, {
-    Options as CreatePaymentIntentOptions
+  Options as CreatePaymentIntentOptions,
 } from "@funk/money/plugins/internal/payment/behaviors/create-payment-intent"
 import updatePaymentIntentImpl, {
-    Options as UpdatePaymentIntentOptions
+  Options as UpdatePaymentIntentOptions,
 } from "@funk/money/plugins/internal/payment/behaviors/update-payment-intent"
 import { MIN_TRANSACTION_CENTS } from "@funk/money/plugins/internal/payment/configuration"
 import updateByIdImpl from "@funk/persistence/application/internal/behaviors/update-by-id"

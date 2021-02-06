@@ -3,7 +3,7 @@ import { TAX_SERVICE_PROVIDER_SECRET_KEY } from "@funk/admin/plugins/internal/se
 import { AvataxResponse } from "@funk/commerce/plugins/internal/tax/avatax-response"
 import { TAX_PUBLISHABLE_KEY } from "@funk/configuration"
 import httpClientImpl, {
-    Response
+  Response,
 } from "@funk/http/plugins/internal/client/client"
 import { Address } from "@funk/places/model/address"
 

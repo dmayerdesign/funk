@@ -3,8 +3,8 @@ import { GetPublishConflicts } from "@funk/admin/application/external/managed-co
 import { PublishConflict } from "@funk/admin/application/external/managed-content/editor/publish-conflict"
 import { ContentPreview } from "@funk/admin/model/managed-content/content-preview"
 import {
-    CONTENTS,
-    ManagedContent
+  CONTENTS,
+  ManagedContent,
 } from "@funk/admin/model/managed-content/managed-content"
 import { Person } from "@funk/identity/model/person"
 import { UserState, USER_STATES } from "@funk/identity/model/user-state"

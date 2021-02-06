@@ -6,7 +6,7 @@ import { AbstractAuthClient } from "@funk/auth/plugins/external/auth-client"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import {
   createAuthClientStub,
-  createAuthUserStub
+  createAuthUserStub,
 } from "@funk/identity/application/external/stubs"
 import firebase from "firebase"
 import { map, switchMap, tap } from "rxjs/operators"
@@ -73,4 +73,3 @@ export type AuthProvider = firebase.auth.AuthProvider
 export type { User as AuthClientUser }
 export { AngularFireAuth as AuthClient }
 export { AngularFireAuth }
-
