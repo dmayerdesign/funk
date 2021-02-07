@@ -1,4 +1,4 @@
-PATH_TO_CACHED=".funk/.cache/api-develop"
+PATH_TO_CACHED=".funk/.cache/internal-develop-local"
 CACHED_PID=`cat $PATH_TO_CACHED`
 echo "got a cached PID:"
 echo $CACHED_PID

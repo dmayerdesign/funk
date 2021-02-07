@@ -25,7 +25,7 @@
     "internal::build::local": "sh ./build-pipeline/package-scripts/internal-build-local.sh",
     "internal::build::development": "sh ./build-pipeline/package-scripts/internal-build-development.sh",
     "internal::build::production": "sh ./build-pipeline/package-scripts/internal-build-production.sh",
-    "internal::develop::local": "sh ./build-pipeline/package-scripts/api-develop-local.sh",
+    "internal::develop::local": "sh ./build-pipeline/package-scripts/internal-develop-local.sh",
     "postinstall": "sh ./build-pipeline/package-scripts/postinstall.sh",
     "clean": "rm -rf ./.funk",
     "ng": "./node_modules/.bin/ng",

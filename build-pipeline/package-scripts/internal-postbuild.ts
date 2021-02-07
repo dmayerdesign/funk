@@ -5,7 +5,7 @@ import {
   mkdirpSync,
   readFileSync,
   removeSync,
-  writeFileSync,
+  writeFileSync
 } from "fs-extra"
 import { resolve } from "path"
 import { sync as removeRecursiveSync } from "rimraf"
@@ -19,15 +19,6 @@ export default function main() {
   mkdirpSync(
     resolve(__dirname, "../../", ".funk/build-pipeline-output/internal-build"),
   )
-
-  // Generate index.js for our functions.
-  writeFunctionsIndex()
-
-  // Copy the `assets` folder.
-  writeFunctionsAssets()
-
-  // Write package.json.
-  writeFunctionsPackage()
 
   // Apply tsconfig.json's `paths` to compiled JS.
   const pathToTsConfigBuild = resolve(
@@ -70,6 +61,15 @@ export default function main() {
     .forEach((filePath) => {
       removeSync(filePath)
     })
+
+  // Generate index.js for our functions.
+  writeFunctionsIndex()
+
+  // Copy the `assets` folder.
+  writeFunctionsAssets()
+
+  // Write package.json.
+  writeFunctionsPackage()
 }
 
 if (require.main === module) {

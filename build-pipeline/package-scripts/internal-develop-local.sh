@@ -12,5 +12,5 @@ if [ $? -eq 0 ]; then firebase emulators:start --only functions,firestore; else 
 # # Make *sure* the previous emulator is terminated.
 # chokidar \
 #   "./(api|configuration|copy|helpers|model)/**/!(node_modules|validators|lib)/**/*.ts" \
-#   -c "sh build-pipeline/package-scripts/api-develop-local-onfilechange.sh" \
+#   -c "sh build-pipeline/package-scripts/internal-develop-local-onfilechange.sh" \
 #   --initial
