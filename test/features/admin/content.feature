@@ -2,14 +2,14 @@ Feature: Create/update/delete managed content as an administrator
 
   Rule: An administrator can edit managed content in the production environment.
 
-    Example: An admin User with no previews sees the same content as the public.
+    Example: An administrator with no previews sees the same content as the public.
 
       Given an admin named Adam
       And that Adam is not in the "preview" state
       When Adam visits a view with managed contents
       Then Adam sees the published values of each content
 
-    Example: An admin User can edit content in place.
+    Example: An administrator can edit content in place.
 
       Given an admin named Adam
       And that Adam is not in the "preview" state
@@ -17,7 +17,7 @@ Feature: Create/update/delete managed content as an administrator
       Then the content preview replaces the content in the UI
       And Adam enters the "preview" state
 
-    Example: An admin user publishes their previewed changes.
+    Example: An administrator publishes their previewed changes.
 
       Given an admin named Adam
       And that Adam has edited content and is in the "preview" state
@@ -25,11 +25,15 @@ Feature: Create/update/delete managed content as an administrator
       When Adam hits the "publish" button
       And confirms that he intends to publish
       Then the corresponding production data is replaced with the preview values
-      And Adam exists the "preview" state
+      And Adam exits the "preview" state
 
-  Rule: When 2 admin Users simultaneously intend to edit the same managed content, they are both warned.
+  Rule: An administrator can easily roll back a change.
 
-    Example: 2 admin Users simultaneously enter "preview" mode on the home page.
+  Rule: An administrator can easily undo a rollback.
+
+  Rule: When 2 administrators simultaneously intend to edit the same managed content, they are both warned.
+
+    Example: 2 administrators simultaneously enter "preview" mode on the home page.
 
       Given an admin named Adam
       And an admin named Amy who has entered the "preview" state on the home page

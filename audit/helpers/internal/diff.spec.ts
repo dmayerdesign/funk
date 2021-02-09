@@ -3,75 +3,73 @@ import { construct } from "@funk/audit/helpers/internal/diff"
 describe("diff", () => {
   it("should return an empty list when the objects are identical", () => {
     const diff = construct()
-    const before = { foo: "foo" }
-    const after = { foo: "foo" }
+    const before = { foo: "hello foo" }
+    const after = { foo: "hello foo" }
     expect(diff(before, after)).toEqual([])
   })
 
   it('should return a correctly-formed "first add" diff', () => {
     const diff = construct()
     const before = undefined
-    const after = { foo: "foo" }
+    const after = { foo: "hello foo" }
     expect(diff(before, after)).toEqual([
       {
-        type: "add",
-        key: "$root",
-        value: { foo: "foo" },
+        kind: "N",
+        rhs: after,
       },
     ])
   })
 
   it('should return a correctly-formed "first add" diff for a field', () => {
     const diff = construct()
-    const before = { foo: "foo" }
-    const after = { foo: "foo", bar: 2 }
+    const before = { foo: "hello foo" }
+    const after = { foo: "hello foo", bar: 2 }
     expect(diff(before, after)).toEqual([
       {
-        type: "add",
-        key: "bar",
-        value: 2,
+        kind: "N",
+        path: [ "bar" ],
+        rhs: 2
       },
     ])
   })
 
   it('should return a correctly-formed "update" diff', () => {
     const diff = construct()
-    const before = { foo: "foo", bar: 1 }
-    const after = { foo: "foo", bar: 2 }
+    const before = { foo: "hello foo", bar: 1 }
+    const after = { foo: "hello foo", bar: 2 }
     expect(diff(before, after)).toEqual([
       {
-        type: "update",
-        key: "bar",
-        oldValue: 1,
-        value: 2,
+        kind: "E",
+        path: ["bar"],
+        lhs: 1,
+        rhs: 2
       },
     ])
   })
 
   it('should return a correctly-formed "remove" diff', () => {
     const diff = construct()
-    const before = { foo: "foo", bar: 1 }
-    const after = { foo: "foo" }
+    const before = { foo: "hello foo", bar: 1 }
+    const after = { foo: "hello foo" }
     expect(diff(before, after)).toEqual([
       {
-        type: "remove",
-        key: "bar",
-        value: 1,
+        kind: "D",
+        path: ["bar"],
+        lhs: 1,
       },
     ])
   })
 
   it('should return a correctly-formed "remove all" diff', () => {
     const diff = construct()
-    const before = { foo: "foo", bar: 1 }
+    const before = { foo: "hello foo", bar: 1 }
     const after = undefined
-    expect(diff(before, after)).toEqual([
+    expect(diff(before, after)).toEqual(expect.arrayContaining([
       {
-        type: "remove",
-        key: "$root",
-        value: { foo: "foo", bar: 1 },
+        kind: "D",
+        lhs: before
       },
-    ])
+    ]))
   })
 
   it("should return a correctly-formed compound diff", () => {
@@ -86,7 +84,7 @@ describe("diff", () => {
       ],
     }
     const after = {
-      name: "smith",
+      name: "jane",
       coins: [2, 5, 1],
       children: [
         { name: "kid1", age: 0 },
@@ -94,41 +92,39 @@ describe("diff", () => {
         { name: "kid3", age: 3 },
       ],
     }
-    expect(diff(before, after)).toEqual([
+    expect(diff(before, after)).toEqual(expect.arrayContaining([
       {
-        type: "update",
-        key: "name",
-        value: "smith",
-        oldValue: "joe",
+        kind: "E",
+        path: ["name"],
+        lhs: "joe",
+        rhs: "jane",
       },
       {
-        type: "update",
-        key: "coins",
-        embededKey: "$index",
-        changes: [{ type: "add", key: "2", value: 1 }],
+        kind: "D",
+        path: ["age"],
+        lhs: 55,
       },
       {
-        type: "update",
-        key: "children",
-        embededKey: "$index",
-        changes: [
-          {
-            type: "update",
-            key: "0",
-            changes: [{ type: "update", key: "age", value: 0, oldValue: 1 }],
-          },
-          {
-            type: "add",
-            key: "2",
-            value: { name: "kid3", age: 3 },
-          },
-        ],
+        kind: "A",
+        path: ["coins"],
+        index: 2,
+        item: { kind: "N", rhs: 1 },
       },
       {
-        type: "remove",
-        key: "age",
-        value: 55,
+        kind: "A",
+        path: ["children"],
+        index: 2,
+        item: { kind: "N", rhs: { name: "kid3", age: 3 } },
       },
-    ])
+      {
+        kind: "E",
+        path: ["children", 0, "age"],
+        lhs: 1,
+        rhs: 0,
+      },
+    ]))
   })
 })
+
+// {"kind": "E", "lhs": "joe", "path": ["name"], "rhs": "jane"}, {"kind": "D", "lhs": 55, "path": ["age"]}, {"index": 2, "item": {"kind": "N", "rhs": 1}, "kind": "A", "path": ["coins"]}, {"index": 2, "item": {"age": 3, "name": "kid3"}, "kind": "A", "path": ["children"]}, {"kind": "E", "lhs": 1, "path": ["children", 0, "age"], "rhs": 0}
+// {"kind": "E", "lhs": "joe", "path": ["name"], "rhs": "jane"}, {"kind": "D", "lhs": 55, "path": ["age"]}, {"index": 2, "item": {"kind": "N", "rhs": 1}, "kind": "A", "path": ["coins"]}, {"index": 2, "item": {"kind": "N", "rhs": {"age": 3, "name": "kid3"}}, "kind": "A", "path": ["children"]}, {"kind": "E", "lhs": 1, "path": ["children", 0, "age"], "rhs": 0}

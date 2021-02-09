@@ -1,6 +1,8 @@
 export interface Diff<DocumentType = Record<string, unknown>> {
-  type: "add" | "update" | "remove"
-  key: keyof DocumentType | "$root"
-  value?: any
-  oldValue?: any
+  /** "New", "Deleted", "Edited", "Array" */
+  kind: "N" | "D" | "E" | "A"
+  path?: [keyof DocumentType, ...string[]]
+  lhs?: any
+  rhs?: any
+  item?: Diff<any>
 }
