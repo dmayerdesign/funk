@@ -7,7 +7,8 @@ import { Order } from "@funk/commerce/order/model/order"
 import getShipmentProviderImpl from "@funk/commerce/plugins/internal/shipment/behaviors/get-shipment-provider"
 import { SimpleRate } from "@funk/commerce/plugins/internal/shipment/simple-rate"
 import fromDecimalString from "@funk/commerce/price/model/behaviors/from-decimal-string"
-import { IS_PRODUCTION } from "@funk/configuration"
+import { CONFIGURATION } from "@funk/configuration"
+import { Configuration } from "@funk/configuration/model/configuration"
 import { CurrencyCode } from "@funk/money/model/currency-code"
 
 export interface Options {
@@ -31,7 +32,7 @@ export function construct(
     const from_address = new shipmentApi.Address(enterprise.shippingFromAddress)
     const to_address = new shipmentApi.Address(order.customer.shippingAddress)
     const parcel = new shipmentApi.Parcel({
-      mode: IS_PRODUCTION ? "production" : "test",
+      mode: CONFIGURATION === Configuration.PRODUCTION ? "production" : "test",
       weight: weightInOz,
     })
     const { rates } = await new shipmentApi.Shipment({

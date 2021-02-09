@@ -1,11 +1,12 @@
 import { enableProdMode } from "@angular/core"
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic"
-import { INTEGRATION_TEST, IS_PRODUCTION } from "@funk/configuration"
+import { CONFIGURATION, INTEGRATION_TEST } from "@funk/configuration"
+import { Configuration } from "@funk/configuration/model/configuration"
 import { initializeStore } from "@funk/test/plugins/external/persistence/in-memory-store"
 import { BrowserModule } from "@funk/ui/infrastructure/external/browser.module"
 import { defineCustomElements } from "@ionic/pwa-elements/loader"
 
-// if (!IS_PRODUCTION)
+// if (CONFIGURATION !== Configuration.PRODUCTION)
 // {
 //  For easier debugging in development mode, you can import the following file
 //  to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -19,7 +20,10 @@ import { defineCustomElements } from "@ionic/pwa-elements/loader"
 // import "zone.js/dist/zone-patch-rxjs"
 // import "zone.js/dist/zone-patch-cordova"
 
-if (IS_PRODUCTION) {
+if (
+  CONFIGURATION === Configuration.STAGING ||
+  CONFIGURATION === Configuration.PRODUCTION
+) {
   enableProdMode()
 }
 

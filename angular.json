@@ -84,6 +84,29 @@
               "serviceWorker": true,
               "ngswConfigPath": "ui/infrastructure/external/ngsw-config.json"
             },
+            "staging": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ui/infrastructure/external/ngsw-config.json"
+            },
             "production": {
               "optimization": true,
               "outputHashing": "all",
@@ -124,6 +147,9 @@
             "development": {
               "browserTarget": "client-app:build:development"
             },
+            "staging": {
+              "browserTarget": "client-app:build:staging"
+            },
             "production": {
               "browserTarget": "client-app:build:production"
             }
@@ -146,6 +172,10 @@
             "local": {},
             "integration-test": {},
             "development": {},
+            "staging": {
+              "sourceMap": false,
+              "optimization": true
+            },
             "production": {
               "sourceMap": false,
               "optimization": true
@@ -172,6 +202,10 @@
               "browserTarget": "client-app:build:development",
               "serverTarget": "client-app:server:development"
             },
+            "staging": {
+              "browserTarget": "client-app:build:staging",
+              "serverTarget": "client-app:server:staging"
+            },
             "production": {
               "browserTarget": "client-app:build:production",
               "serverTarget": "client-app:server:production"
@@ -192,6 +226,9 @@
             },
             "development": {
               "browserTarget": "client-app:build:development"
+            },
+            "staging": {
+              "browserTarget": "client-app:build:staging"
             },
             "production": {
               "browserTarget": "client-app:build:production"
@@ -216,6 +253,10 @@
             "development": {
               "cordovaBuildTarget": "client-app:ionic-cordova-build:development",
               "devServerTarget": "client-app:serve:development"
+            },
+            "staging": {
+              "cordovaBuildTarget": "client-app:ionic-cordova-build:staging",
+              "devServerTarget": "client-app:serve:staging"
             },
             "production": {
               "cordovaBuildTarget": "client-app:ionic-cordova-build:production",

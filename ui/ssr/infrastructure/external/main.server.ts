@@ -1,7 +1,11 @@
 import { enableProdMode } from "@angular/core"
-import { IS_PRODUCTION } from "@funk/configuration"
+import { CONFIGURATION } from "@funk/configuration"
+import { Configuration } from "@funk/configuration/model/configuration"
 
-if (IS_PRODUCTION) {
+if (
+  CONFIGURATION === Configuration.STAGING ||
+  CONFIGURATION === Configuration.PRODUCTION
+) {
   enableProdMode()
 }
 

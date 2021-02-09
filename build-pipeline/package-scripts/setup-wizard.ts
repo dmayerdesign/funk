@@ -43,7 +43,11 @@ export default function main() {
 
   const projectConfigurations = !!onlyConfiguration
     ? [onlyConfiguration]
-    : [Configuration.DEVELOPMENT, Configuration.PRODUCTION]
+    : [
+        Configuration.DEVELOPMENT,
+        Configuration.STAGING,
+        Configuration.PRODUCTION,
+      ]
 
   const PATH_TO_GCLOUD = ".funk/google-cloud-sdk/bin/gcloud"
   const PATH_TO_BUILD_ARTIFACTS = ".funk/build-pipeline-output/setup-wizard"
@@ -147,7 +151,7 @@ export default function main() {
     )
     writeFileSync(
       resolve(__dirname, "../../", `configuration/${configuration}.ts`),
-      configTemplate({ firebaseConfig, cloudProjectId, displayName }),
+      configTemplate({ configuration, firebaseConfig, cloudProjectId, displayName }),
     )
     writeFileSync(
       resolve(
@@ -170,6 +174,7 @@ export default function main() {
       writeFileSync(
         resolve(__dirname, "../../", "configuration/local.ts"),
         localConfigTemplate({
+          configuration,
           firebaseConfig,
           cloudProjectId,
           displayName,

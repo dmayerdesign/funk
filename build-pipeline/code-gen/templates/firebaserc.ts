@@ -4,6 +4,7 @@ export function construct() {
   "projects": {
     "default": "${projectName}-development",
     "development": "${projectName}-development",
+    "staging": "${projectName}-staging",
     "production": "${projectName}-production"
   }
 }

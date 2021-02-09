@@ -1,4 +1,4 @@
-# Copy this file to create `development.env` and `production.env`, and substitute these variables
+# Copy this file to create `development.env`, `staging.env`, and `production.env`, and substitute these variables
 # with the appropriate values for each environment configuration.
 export PROJECT_ID=
 export PATH_TO_ADMIN_CREDENTIALS_JSON=/path/to/owner/service_account.json

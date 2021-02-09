@@ -2,6 +2,7 @@
   "projects": {
     "default": "test-rbs503e-development",
     "development": "test-rbs503e-development",
+    "staging": "test-rbs503e-staging",
     "production": "test-rbs503e-production"
   }
 }

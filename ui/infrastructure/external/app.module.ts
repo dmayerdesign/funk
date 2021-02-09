@@ -3,7 +3,8 @@ import { BrowserModule } from "@angular/platform-browser"
 import { Router, RouteReuseStrategy, RouterModule } from "@angular/router"
 import { ServiceWorkerModule } from "@angular/service-worker"
 import { ManagedContentModule } from "@funk/admin/infrastructure/external/managed-content/module"
-import { IS_PRODUCTION } from "@funk/configuration"
+import { CONFIGURATION } from "@funk/configuration"
+import { Configuration } from "@funk/configuration/model/configuration"
 import { IdentityModule } from "@funk/identity/infrastructure/external/module"
 import { PersistenceModule } from "@funk/persistence/infrastructure/external/module"
 import { construct as constructPageTitle } from "@funk/ui/atlas/application/external/page-title"
@@ -32,7 +33,11 @@ import { IonicStorageModule } from "@ionic/storage"
     RouterModule.forRoot(routes, { relativeLinkResolution: "legacy" }),
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    ServiceWorkerModule.register("ngsw-worker.js", { enabled: IS_PRODUCTION }),
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled:
+        CONFIGURATION === Configuration.STAGING ||
+        CONFIGURATION === Configuration.PRODUCTION,
+    }),
     AppFireModule,
     PersistenceModule,
     ManagedContentModule.withProviders(),
