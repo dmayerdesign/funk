@@ -5,7 +5,7 @@ import { createAuthClientStub } from "@funk/identity/application/external/stubs"
 describe("createUserWithEmailAndPassword", () => {
   let sendEmailVerification: ReturnType<typeof constructSendEmailVerification>
 
-  it("should create a user", async function () {
+  it("should create a user", async () => {
     const TEST_EMAIL = "test-create-user@test.com"
     const createUserWithEmailAndPassword = construct(
       createAuthClientStub(),

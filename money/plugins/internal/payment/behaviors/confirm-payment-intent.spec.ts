@@ -2,12 +2,12 @@ import { construct } from "@funk/money/plugins/internal/payment/behaviors/confir
 import { GetPaymentProvider } from "@funk/money/plugins/internal/payment/behaviors/get-payment-provider"
 import { MIN_TRANSACTION_CENTS } from "@funk/money/plugins/internal/payment/configuration"
 import {
-  createGetPaymentProviderStub,
-  PaymentProviderStub,
+    createGetPaymentProviderStub,
+    PaymentProviderStub
 } from "@funk/money/plugins/internal/payment/stubs"
 import Stripe from "stripe"
 
-describe("confirmPaymentIntent", function () {
+describe("confirmPaymentIntent", () => {
   let psp: Stripe
   let getPaymentProvider: GetPaymentProvider
 
@@ -16,7 +16,7 @@ describe("confirmPaymentIntent", function () {
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should confirm a payment intent", async function () {
+  it("should confirm a payment intent", async () => {
     const PAYMENT_INTENT_ID = "test payment intent id"
     const GOOD_AMOUNT = MIN_TRANSACTION_CENTS
     psp.paymentIntents.retrieve = jest.fn().mockResolvedValue({
@@ -33,7 +33,7 @@ describe("confirmPaymentIntent", function () {
     expect(psp.paymentIntents.confirm).toHaveBeenCalledWith(PAYMENT_INTENT_ID)
   })
 
-  it("should NOT confirm a payment intent if the amount is less than the minimum", async function () {
+  it("should NOT confirm a payment intent if the amount is less than the minimum", async () => {
     const PAYMENT_INTENT_ID = "test payment intent id"
     const TOO_SMALL_AMOUNT = MIN_TRANSACTION_CENTS - 1
     psp.paymentIntents.retrieve = jest.fn().mockResolvedValue({

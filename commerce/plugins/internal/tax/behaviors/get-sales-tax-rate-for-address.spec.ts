@@ -23,7 +23,7 @@ export function customerWithBadPostalCode(): Customer {
 }
 
 describe("getSalesTaxRateForAddress", () => {
-  it("should call the tax rate calculator API with the correct query", async function () {
+  it("should call the tax rate calculator API with the correct query", async () => {
     const TAX_SERVICE_PROVIDER_LICENSE_KEY = "test_license_key"
     const expectedAuthHeader =
       "Basic " +

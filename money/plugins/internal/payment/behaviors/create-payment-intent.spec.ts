@@ -2,8 +2,8 @@ import { CurrencyCode } from "@funk/money/model/currency-code"
 import { construct } from "@funk/money/plugins/internal/payment/behaviors/create-payment-intent"
 import { GetPaymentProvider } from "@funk/money/plugins/internal/payment/behaviors/get-payment-provider"
 import {
-  createGetPaymentProviderStub,
-  PaymentProviderStub,
+    createGetPaymentProviderStub,
+    PaymentProviderStub
 } from "@funk/money/plugins/internal/payment/stubs"
 import Stripe from "stripe"
 
@@ -16,7 +16,7 @@ describe("createPaymentIntent", () => {
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should create a payment intent", async function () {
+  it("should create a payment intent", async () => {
     const createPaymentIntent = construct(getPaymentProvider)
     const PSP_CREATE_RESULT = "FAKE_RESULT"
     const expectedCreateParams = {
@@ -44,7 +44,7 @@ describe("createPaymentIntent", () => {
     expect(paymentIntent).toBe(PSP_CREATE_RESULT)
   })
 
-  it("should not create a payment intent if the amount is less than the minimum", async function () {
+  it("should not create a payment intent if the amount is less than the minimum", async () => {
     const createPaymentIntent = construct(getPaymentProvider)
     spyOn(psp.paymentIntents, "create")
 

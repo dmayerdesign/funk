@@ -2,9 +2,9 @@ import { RouterStateSnapshot, UrlTree } from "@angular/router"
 import { UserRole } from "@funk/auth/model/user-role"
 import { asPromise } from "@funk/helpers/as-promise"
 import {
-  createRouterStub,
-  createStubbedPublicGuard,
-  createUserSession,
+    createRouterStub,
+    createStubbedPublicGuard,
+    createUserSession
 } from "@funk/identity/application/external/stubs"
 import { AnonymousGuard } from "@funk/identity/infrastructure/external/anonymous-guard"
 import { PublicGuard } from "@funk/identity/infrastructure/external/public-guard"
@@ -22,7 +22,7 @@ describe("PublicGuard", () => {
     routerState = { url: "go-to-url" } as RouterStateSnapshot
   })
 
-  it("must first guard against an ANONYMOUS user", async function () {
+  it("must first guard against an ANONYMOUS user", async () => {
     const anonymousGuardCanActivate = new UrlTree()
     anonymousGuard.canActivate = jest
       .fn()
@@ -40,7 +40,7 @@ describe("PublicGuard", () => {
     expect(canActivate).toBe(anonymousGuardCanActivate)
   })
 
-  it("must activate if the user is SUPER", async function () {
+  it("must activate if the user is SUPER", async () => {
     const canActivate = await asPromise(
       createStubbedPublicGuard(UserRole.SUPER).canActivate(
         activatedRoute,
@@ -51,7 +51,7 @@ describe("PublicGuard", () => {
     expect(canActivate).toBe(true)
   })
 
-  it("must activate if the user is OWNER", async function () {
+  it("must activate if the user is OWNER", async () => {
     const canActivate = await asPromise(
       createStubbedPublicGuard(UserRole.OWNER).canActivate(
         activatedRoute,
@@ -62,7 +62,7 @@ describe("PublicGuard", () => {
     expect(canActivate).toBe(true)
   })
 
-  it("must activate if the user is ADMINISTRATOR", async function () {
+  it("must activate if the user is ADMINISTRATOR", async () => {
     const canActivate = await asPromise(
       createStubbedPublicGuard(UserRole.ADMINISTRATOR).canActivate(
         activatedRoute,
@@ -73,7 +73,7 @@ describe("PublicGuard", () => {
     expect(canActivate).toBe(true)
   })
 
-  it("must not activate if the user is PUBLIC", async function () {
+  it("must not activate if the user is PUBLIC", async () => {
     const routerStub = createRouterStub()
     spyOn(routerStub, "parseUrl").and.callThrough()
 
@@ -90,7 +90,7 @@ describe("PublicGuard", () => {
     expect(routerStub.parseUrl).toHaveBeenCalledTimes(1)
   })
 
-  it("must not activate if the user is ANONYMOUS", async function () {
+  it("must not activate if the user is ANONYMOUS", async () => {
     const routerStub = createRouterStub()
     spyOn(routerStub, "parseUrl").and.callThrough()
 

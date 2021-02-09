@@ -1,7 +1,7 @@
 import { construct } from "@funk/admin/plugins/internal/secrets/behaviors/set-secret"
 import { EncryptedSecret } from "@funk/admin/plugins/internal/secrets/encrypted-secret"
 import getConfigImpl, {
-  createGetConfigStub,
+    createGetConfigStub
 } from "@funk/http/plugins/internal/cloud-function/behaviors/runtime/get-config"
 
 describe("setSecret", () => {
@@ -10,7 +10,7 @@ describe("setSecret", () => {
   let encrypt: any
   let createKmsClient: (options?: any) => any
 
-  it("should set a secret", async function () {
+  it("should set a secret", async () => {
     const setById = jest.fn().mockImplementation(
       async () =>
         ({

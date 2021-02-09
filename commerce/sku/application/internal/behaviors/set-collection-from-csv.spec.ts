@@ -1,6 +1,6 @@
 import {
-  construct,
-  SetCollectionFromCsv,
+    construct,
+    SetCollectionFromCsv
 } from "@funk/commerce/sku/application/internal/behaviors/set-collection-from-csv"
 import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
 import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
@@ -47,13 +47,13 @@ describe("setCollectionFromCsv", () => {
   let setMany: SetMany
   let setCollectionFromCsv: SetCollectionFromCsv
 
-  it("should do nothing with an empty csv", async function () {
+  it("should do nothing with an empty csv", async () => {
     await setCollectionFromCsv(CSV_EMPTY)
 
     expect(setMany).not.toHaveBeenCalled()
   })
 
-  it("should process a valid csv", async function () {
+  it("should process a valid csv", async () => {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU)
 
     expect(setMany).toHaveBeenCalledWith({
@@ -63,7 +63,7 @@ describe("setCollectionFromCsv", () => {
     })
   })
 
-  it("should fail on an invalid csv", async function () {
+  it("should fail on an invalid csv", async () => {
     let error
     try {
       await setCollectionFromCsv(CSV_WITH_1_INVALID_SKU)
@@ -75,7 +75,7 @@ describe("setCollectionFromCsv", () => {
     expect(setMany).not.toHaveBeenCalled()
   })
 
-  it("should ignore unknown fields", async function () {
+  it("should ignore unknown fields", async () => {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU_EXTRA_FIELDS)
 
     expect(setMany).toHaveBeenCalledWith({

@@ -15,7 +15,7 @@ describe("sendEmailToOwner", () => {
     sendEmailToOwner = construct(sendEmail, getIsHuman)
   })
 
-  it("should send an email to the site owner", async function () {
+  it("should send an email to the site owner", async () => {
     const EMAIL: ContactForm = {
       name: "name",
       emailAddress: "email address",

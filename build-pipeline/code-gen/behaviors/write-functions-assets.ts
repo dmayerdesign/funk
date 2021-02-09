@@ -1,7 +1,7 @@
 import { copySync } from "fs-extra"
 import { resolve } from "path"
 
-export default function () {
+export default () => {
   copySync(
     resolve(__dirname, "../../../", "assets/internal"),
     resolve(

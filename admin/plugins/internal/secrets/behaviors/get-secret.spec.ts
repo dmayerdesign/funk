@@ -1,16 +1,16 @@
 import { construct } from "@funk/admin/plugins/internal/secrets/behaviors/get-secret"
 import { EncryptedSecret } from "@funk/admin/plugins/internal/secrets/encrypted-secret"
 import getConfigImpl, {
-  createGetConfigStub,
+    createGetConfigStub
 } from "@funk/http/plugins/internal/cloud-function/behaviors/runtime/get-config"
 
-describe("getSecret", function () {
+describe("getSecret", () => {
   let getConfig: typeof getConfigImpl
   let cryptoKeyPath: any
   let decrypt: any
   let createKmsClient: (options?: any) => any
 
-  it("should get a secret", async function () {
+  it("should get a secret", async () => {
     const getById = jest.fn().mockImplementation(
       async () =>
         ({
@@ -35,7 +35,7 @@ describe("getSecret", function () {
     expect(decrypt).toHaveBeenCalledWith(expect.anything())
   })
 
-  it("should get an undefined secret", async function () {
+  it("should get an undefined secret", async () => {
     const getById = jest.fn().mockImplementation(async () => undefined)
     const getSecret = construct(getConfig, getById, createKmsClient)
     const SECRET_KEY = "secret key"

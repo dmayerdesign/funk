@@ -2,8 +2,8 @@ import { RouterStateSnapshot, UrlTree } from "@angular/router"
 import { UserRole } from "@funk/auth/model/user-role"
 import { asPromise } from "@funk/helpers/as-promise"
 import {
-  createRouterStub,
-  createUserSession,
+    createRouterStub,
+    createUserSession
 } from "@funk/identity/application/external/stubs"
 import { AnonymousGuard } from "@funk/identity/infrastructure/external/anonymous-guard"
 
@@ -15,7 +15,7 @@ describe("AnonymousGuard", () => {
     routerState = { url: "go-to-url" } as RouterStateSnapshot
   })
 
-  it("must activate if the user is SUPER", async function () {
+  it("must activate if the user is SUPER", async () => {
     const canActivate = await asPromise(
       new AnonymousGuard(
         createUserSession(UserRole.SUPER),
@@ -26,7 +26,7 @@ describe("AnonymousGuard", () => {
     expect(canActivate).toBe(true)
   })
 
-  it("must activate if the user is OWNER", async function () {
+  it("must activate if the user is OWNER", async () => {
     const canActivate = await asPromise(
       new AnonymousGuard(
         createUserSession(UserRole.OWNER),
@@ -37,7 +37,7 @@ describe("AnonymousGuard", () => {
     expect(canActivate).toBe(true)
   })
 
-  it("must activate if the user is ADMINISTRATOR", async function () {
+  it("must activate if the user is ADMINISTRATOR", async () => {
     const canActivate = await asPromise(
       new AnonymousGuard(
         createUserSession(UserRole.ADMINISTRATOR),
@@ -48,7 +48,7 @@ describe("AnonymousGuard", () => {
     expect(canActivate).toBe(true)
   })
 
-  it("must activate if the user is PUBLIC", async function () {
+  it("must activate if the user is PUBLIC", async () => {
     const canActivate = await asPromise(
       new AnonymousGuard(
         createUserSession(UserRole.PUBLIC),
@@ -59,7 +59,7 @@ describe("AnonymousGuard", () => {
     expect(canActivate).toBe(true)
   })
 
-  it("must NOT activate if the user is ANONYMOUS", async function () {
+  it("must NOT activate if the user is ANONYMOUS", async () => {
     const URL_TREE = new UrlTree()
     const routerStub = createRouterStub()
     spyOn(routerStub, "parseUrl").and.returnValue(URL_TREE)

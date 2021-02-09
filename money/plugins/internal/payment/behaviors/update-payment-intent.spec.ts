@@ -1,11 +1,11 @@
 import { CurrencyCode } from "@funk/money/model/currency-code"
 import {
-  construct,
-  Options,
+    construct,
+    Options
 } from "@funk/money/plugins/internal/payment/behaviors/update-payment-intent"
 import {
-  createGetPaymentProviderStub,
-  PaymentProviderStub,
+    createGetPaymentProviderStub,
+    PaymentProviderStub
 } from "@funk/money/plugins/internal/payment/stubs"
 import Stripe from "stripe"
 import { GetPaymentProvider } from "./get-payment-provider"
@@ -19,7 +19,7 @@ describe("updatePaymentIntent", () => {
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should update a payment intent", async function () {
+  it("should update a payment intent", async () => {
     const updatePaymentIntent = construct(getPaymentProvider)
     const PSP_UPDATE_RESULT = "FAKE_RESULT"
     const expectedUpdateParams = {
@@ -43,7 +43,7 @@ describe("updatePaymentIntent", () => {
     expect(paymentIntent).toBe(PSP_UPDATE_RESULT)
   })
 
-  it("should not update a payment intent if the amount is less than the minimum", async function () {
+  it("should not update a payment intent if the amount is less than the minimum", async () => {
     let didThrow = false
     const updatePaymentIntent = construct(getPaymentProvider)
 

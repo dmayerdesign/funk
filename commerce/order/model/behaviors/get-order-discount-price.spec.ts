@@ -4,7 +4,7 @@ import { createFakeOrder } from "@funk/commerce/order/model/stubs"
 import { NULL_PRICE } from "@funk/commerce/price/model/price"
 
 describe("getOrderDiscountPrice", () => {
-  it("should apply `total` discounts", async function () {
+  it("should apply `total` discounts", async () => {
     const order = createFakeOrder("test order 1", {
       discounts: [
         {
@@ -28,7 +28,7 @@ describe("getOrderDiscountPrice", () => {
     expect(priceAfter.amount).toBe(2000)
   })
 
-  it("should apply `percentage` discounts", async function () {
+  it("should apply `percentage` discounts", async () => {
     const order = createFakeOrder("test order 1", {
       discounts: [
         {

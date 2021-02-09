@@ -13,14 +13,14 @@ import { MIN_TRANSACTION_CENTS } from "@funk/money/plugins/internal/payment/conf
 import { PaymentIntent } from "@funk/money/plugins/internal/payment/intent"
 import { UpdateById } from "@funk/persistence/application/internal/behaviors/update-by-id"
 import {
-  Change,
-  ChangeContext,
+    Change,
+    ChangeContext
 } from "@funk/persistence/plugins/internal/events/change"
 
 const PAYMENT_INTENT_ID = "payment intent id"
 const ORDER_ID = "order id"
 
-describe("upsertPaymentIntent", function () {
+describe("upsertPaymentIntent", () => {
   let before: MarshalledOrder | undefined
   let after: MarshalledOrder | undefined
   let change: Change<MarshalledOrder>
@@ -34,7 +34,7 @@ describe("upsertPaymentIntent", function () {
   let onlyKeys: OnlyKeys
   let updateById: UpdateById
 
-  it("should not create a payment intent if the customer has no billing zip code", async function () {
+  it("should not create a payment intent if the customer has no billing zip code", async () => {
     before = undefined
     after = {} as MarshalledOrder
     getTax = jest.fn().mockImplementation(() => {
@@ -54,7 +54,7 @@ describe("upsertPaymentIntent", function () {
   it(
     "should not create a payment intent if the order total is less than the minimum " +
       "transaction amount",
-    async function () {
+    async () => {
       before = undefined
       after = {} as MarshalledOrder
       getTotalBeforeTaxAndShipping = jest.fn().mockReturnValue({
@@ -77,7 +77,7 @@ describe("upsertPaymentIntent", function () {
     },
   )
 
-  it("should create a payment intent", async function () {
+  it("should create a payment intent", async () => {
     before = undefined
     after = { id: ORDER_ID } as MarshalledOrder
     const upsertPaymentIntent = newUpsertPaymentIntent()
@@ -96,7 +96,7 @@ describe("upsertPaymentIntent", function () {
     })
   })
 
-  it("should update a payment intent if data has changed", async function () {
+  it("should update a payment intent if data has changed", async () => {
     before = undefined
     after = {
       id: ORDER_ID,

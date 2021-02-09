@@ -5,7 +5,7 @@ import { MarshalledSku } from "@funk/commerce/sku/model/sku"
 import { CurrencyCode } from "@funk/money/model/currency-code"
 
 describe("getTotalBeforeTaxAndShipping", () => {
-  it("should get the before-tax total for an order", async function () {
+  it("should get the before-tax total for an order", async () => {
     const SKU1 = {
       id: "sku-1",
       price: { amount: 1000, currency: CurrencyCode.USD },

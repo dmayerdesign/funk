@@ -15,7 +15,7 @@ describe("cartSetSkuQuantity", () => {
     setSkuQuantity = jest.fn() as SetSkuQuantity
   })
 
-  it("should add {n} SKUs to the cart", async function () {
+  it("should add {n} SKUs to the cart", async () => {
     const n = Math.ceil(Math.random() * 5)
     const SKU = createFakeSku()
     const functionUnderTest = construct(cart, setSkuQuantity)

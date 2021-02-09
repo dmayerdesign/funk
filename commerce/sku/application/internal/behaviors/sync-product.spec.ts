@@ -1,7 +1,7 @@
 import { PRODUCTS } from "@funk/commerce/product/model/product"
 import {
-  construct,
-  SyncProduct,
+    construct,
+    SyncProduct
 } from "@funk/commerce/sku/application/internal/behaviors/sync-product"
 import { MarshalledSku } from "@funk/commerce/sku/model/sku"
 import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
@@ -24,7 +24,7 @@ describe("skuSyncProduct", () => {
   let updateById: UpdateById
   let syncProduct: SyncProduct
 
-  it("should do nothing if there is no change in attribute values nor price", async function () {
+  it("should do nothing if there is no change in attribute values nor price", async () => {
     await syncProduct(
       {
         before: ({ data: () => CHANGED_SKU } as unknown) as DocumentSnapshot<
@@ -41,7 +41,7 @@ describe("skuSyncProduct", () => {
     expect(updateById).not.toHaveBeenCalled()
   })
 
-  it("should update the parent product whenever attribute values change", async function () {
+  it("should update the parent product whenever attribute values change", async () => {
     await syncProduct(
       {
         before: ({ data: () => undefined } as unknown) as DocumentSnapshot<

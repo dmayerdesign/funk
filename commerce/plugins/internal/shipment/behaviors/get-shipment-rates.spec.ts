@@ -1,6 +1,6 @@
 import {
-  Enterprise,
-  ShippingCostStrategy,
+    Enterprise,
+    ShippingCostStrategy
 } from "@funk/commerce/enterprise/model/enterprise"
 import { Order } from "@funk/commerce/order/model/order"
 import { construct } from "@funk/commerce/plugins/internal/shipment/behaviors/get-shipment-rates"
@@ -11,7 +11,7 @@ import { constructGetShipmentProviderStub } from "../stubs"
 
 describe("getShippingRates", () => {
   describe("for by-weight shipping cost strategy", () => {
-    it("should get a single shipping rate for an order", async function () {
+    it("should get a single shipping rate for an order", async () => {
       const {
         ORDER,
         ENTERPRISE,
@@ -56,7 +56,7 @@ describe("getShippingRates", () => {
     })
   })
   describe("for flat-rate shipping cost strategy", () => {
-    it("should get a single shipping rate for an order", async function () {
+    it("should get a single shipping rate for an order", async () => {
       const {
         ORDER,
         ENTERPRISE,

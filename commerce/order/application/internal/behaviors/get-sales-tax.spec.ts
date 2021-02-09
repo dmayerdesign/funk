@@ -8,9 +8,9 @@ import { ORGANIZATIONS } from "@funk/organization/model/organization"
 import { Address } from "@funk/places/model/address"
 
 // TODO: Tighten up this test using jest-when.
-describe("orderGetSalesTax", function () {
-  describe("should populate the order and get sales tax", function () {
-    it("should be ZERO if the primary Enterprise DOES NOT have nexus in the customer's location", async function () {
+describe("orderGetSalesTax", () => {
+  describe("should populate the order and get sales tax", () => {
+    it("should be ZERO if the primary Enterprise DOES NOT have nexus in the customer's location", async () => {
       const ORDER: Partial<Order> = {
         customer: {
           shippingAddress: {
@@ -44,7 +44,7 @@ describe("orderGetSalesTax", function () {
       expect(getTaxResult).toEqual({ currency: CurrencyCode.USD, amount: 0 })
     })
 
-    it("should be nonzero if the primary Enterprise has nexus in the customer's location", async function () {
+    it("should be nonzero if the primary Enterprise has nexus in the customer's location", async () => {
       const ORDER: Partial<Order> = {
         customer: {
           shippingAddress: {
@@ -79,8 +79,8 @@ describe("orderGetSalesTax", function () {
     })
   })
 
-  describe("should fail to get sales tax", function () {
-    it("if no zip code is provided", async function () {
+  describe("should fail to get sales tax", () => {
+    it("if no zip code is provided", async () => {
       let error!: Error | undefined
 
       const ORDER = {} as Order

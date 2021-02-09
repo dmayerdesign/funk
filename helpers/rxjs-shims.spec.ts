@@ -5,7 +5,7 @@ import { first, shareReplay } from "rxjs/operators"
 
 describe("rxjsShims", () => {
   describe("ignoreNullish", () => {
-    it("should ignore null", async function () {
+    it("should ignore null", async () => {
       const subject = of(true, null)
       const justTrue: Observable<boolean> = subject.pipe(
         ignoreNullish(),
@@ -16,7 +16,7 @@ describe("rxjsShims", () => {
         expect(onlyTrue).toBe(true)
       })
     })
-    it("should ignore undefined", async function () {
+    it("should ignore undefined", async () => {
       const subject = of(true, undefined)
       const justTrue: Observable<boolean> = subject.pipe(
         ignoreNullish(),
@@ -27,12 +27,12 @@ describe("rxjsShims", () => {
         expect(onlyTrue).toBe(true)
       })
     })
-    it("should allow false", async function () {
+    it("should allow false", async () => {
       const subject = new BehaviorSubject<boolean>(false)
       const justFalse = subject.pipe(ignoreNullish())
       expect(await asPromise(justFalse)).toBe(false)
     })
-    it("should allow ''", async function () {
+    it("should allow ''", async () => {
       const subject = new BehaviorSubject<string>("")
       const justEmptyString = subject.pipe(ignoreNullish())
       expect(await asPromise(justEmptyString)).toBe("")

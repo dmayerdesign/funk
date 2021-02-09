@@ -1,8 +1,8 @@
 import { construct } from "@funk/commerce/order/application/internal/behaviors/set-status-to-checkout"
 import {
-  MarshalledCart,
-  ORDERS,
-  Status,
+    MarshalledCart,
+    ORDERS,
+    Status
 } from "@funk/commerce/order/model/order"
 import { createFakeMarshalledCart } from "@funk/commerce/order/model/stubs"
 import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
@@ -58,7 +58,7 @@ describe("setStatusToCheckout", () => {
         .mockResolvedValue([fakeSku, fakeBucketSku])
     })
 
-    it("should set the order status to `Cart Checkout` if all SKUs still have enough inventory", async function () {
+    it("should set the order status to `Cart Checkout` if all SKUs still have enough inventory", async () => {
       const setStatusToCheckout = construct(getById, list, setMany)
 
       await setStatusToCheckout(fakeCart.id)
@@ -73,7 +73,7 @@ describe("setStatusToCheckout", () => {
       )
     })
 
-    it("should prevent the associated inventory from being added to other orders", async function () {
+    it("should prevent the associated inventory from being added to other orders", async () => {
       const setStatusToCheckout = construct(getById, list, setMany)
 
       await setStatusToCheckout(fakeCart.id)
@@ -117,7 +117,7 @@ describe("setStatusToCheckout", () => {
     it(
       "should NOT set the order status to `Cart Checkout` if one SKU does not have enough " +
         "inventory",
-      async function () {
+      async () => {
         when(list as jest.Mock)
           .calledWith(expect.objectContaining({ collection: SKUS }))
           .mockResolvedValue([
@@ -133,7 +133,7 @@ describe("setStatusToCheckout", () => {
       },
     )
 
-    it("should throw a helpful error if one SKU does not have enough inventory", async function () {
+    it("should throw a helpful error if one SKU does not have enough inventory", async () => {
       when(list as jest.Mock)
         .calledWith(expect.objectContaining({ collection: SKUS }))
         .mockResolvedValue([

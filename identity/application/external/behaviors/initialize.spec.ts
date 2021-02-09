@@ -10,7 +10,7 @@ describe("identityInitialize", () => {
   let userSession: UserSession
   let userIdToken: UserIdToken
 
-  it("should initialize for an anonymous user", async function () {
+  it("should initialize for an anonymous user", async () => {
     auth = ({
       idTokenResult: of(null),
       signInAnonymously: jest.fn().mockImplementation(() => Promise.resolve()),
@@ -25,7 +25,7 @@ describe("identityInitialize", () => {
     })
   })
 
-  it("should initialize for a logged-in user", async function () {
+  it("should initialize for a logged-in user", async () => {
     auth = ({
       idTokenResult: of({
         claims: {

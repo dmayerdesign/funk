@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "fs"
 import { resolve } from "path"
 
-export default function () {
+export default () => {
   const indexJsContents = readFileSync(
     resolve(__dirname, "../templates/functions-index.js"),
   )

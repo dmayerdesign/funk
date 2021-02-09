@@ -1,11 +1,11 @@
 import { GetPaymentProvider } from "@funk/money/plugins/internal/payment/behaviors/get-payment-provider"
 import {
-  construct,
-  CreateInput,
+    construct,
+    CreateInput
 } from "@funk/money/plugins/internal/payment/behaviors/upsert-customer"
 import {
-  createGetPaymentProviderStub,
-  PaymentProviderStub,
+    createGetPaymentProviderStub,
+    PaymentProviderStub
 } from "@funk/money/plugins/internal/payment/stubs"
 import { Stripe } from "stripe"
 
@@ -18,7 +18,7 @@ describe("upsertCustomer", () => {
     getPaymentProvider = createGetPaymentProviderStub(psp)
   })
 
-  it("should create a customer", async function () {
+  it("should create a customer", async () => {
     const customerData = { address: {} } as any
     const upsertCustomer = construct(getPaymentProvider)
 
@@ -33,7 +33,7 @@ describe("upsertCustomer", () => {
     expect(psp.customers.create).toHaveBeenCalledWith(customerData)
   })
 
-  it("should update a customer", async function () {
+  it("should update a customer", async () => {
     const id = "test-customer"
     const customerData = { id, address: {} } as any
     const upsertCustomer = construct(getPaymentProvider)

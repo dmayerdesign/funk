@@ -1,10 +1,10 @@
 import glob from "fast-glob"
 import {
-  existsSync,
-  mkdirpSync,
-  readFileSync,
-  unlinkSync,
-  writeFileSync,
+    existsSync,
+    mkdirpSync,
+    readFileSync,
+    unlinkSync,
+    writeFileSync
 } from "fs-extra"
 import { kebabCase } from "lodash"
 import md5 from "md5"
@@ -16,7 +16,7 @@ import warn from "../../../helpers/warn"
 const ROOT_DIR_ABSOLUTE_PATH = resolve(__dirname, "../../../")
 const CACHE_PATH = resolve(ROOT_DIR_ABSOLUTE_PATH, ".funk/.cache/validators")
 
-export default function () {
+export default () => {
   const filenames = glob
     .sync(ROOT_DIR_ABSOLUTE_PATH + "/!(node_modules)/**/model/**/*.ts")
     .filter((filename) => !filename.includes(".spec."))

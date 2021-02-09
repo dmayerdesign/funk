@@ -1,22 +1,22 @@
 import {
-  construct as constructCustomerHandleCreate,
-  HandleCreate,
+    construct as constructCustomerHandleCreate,
+    HandleCreate
 } from "@funk/commerce/customer/application/internal/behaviors/handle-create"
 import {
-  construct as constructOrderPopulate,
-  Populate,
+    construct as constructOrderPopulate,
+    Populate
 } from "@funk/commerce/order/application/internal/behaviors/populate"
 import {
-  construct as constructSetSkuQuantity,
-  SetSkuQuantity,
+    construct as constructSetSkuQuantity,
+    SetSkuQuantity
 } from "@funk/commerce/order/application/internal/behaviors/set-sku-quantity"
 import {
-  construct as constructSetStatusToCheckout,
-  SetStatusToCheckout,
+    construct as constructSetStatusToCheckout,
+    SetStatusToCheckout
 } from "@funk/commerce/order/application/internal/behaviors/set-status-to-checkout"
 import {
-  construct as constructOrderSubmit,
-  Submit,
+    construct as constructOrderSubmit,
+    Submit
 } from "@funk/commerce/order/application/internal/behaviors/submit"
 import { Cart, Status } from "@funk/commerce/order/model/order"
 import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
@@ -38,10 +38,10 @@ import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/ui/copy/error-messages"
 import { defineFeature, DefineStepFunction, loadFeature } from "jest-cucumber"
 import { resolve } from "path"
 import {
-  constructGivenACustomer,
-  givenASku,
-  givenThatTheCartContainsInStockSkus,
-  listOrdersForUser,
+    constructGivenACustomer,
+    givenASku,
+    givenThatTheCartContainsInStockSkus,
+    listOrdersForUser
 } from "./helpers"
 
 const feature = loadFeature(
@@ -63,7 +63,7 @@ defineFeature(feature, function (example) {
   let cart2: Cart
   let sku: MarshalledSku
 
-  background(async function () {
+  background(async () => {
     await initializeStore()
 
     confirmPaymentIntent = jest.fn()
@@ -81,7 +81,7 @@ defineFeature(feature, function (example) {
     setSkuQuantity = constructSetSkuQuantity(getById, updateById)
   })
 
-  rule("A user must always have a shopping cart.", function () {
+  rule("A user must always have a shopping cart.", () => {
     example("When Newt is created, a cart is created for Newt.", function ({
       given,
       when,
@@ -89,13 +89,13 @@ defineFeature(feature, function (example) {
     }) {
       defineGivenACustomer(given)
 
-      when(/(\w)+ visits the app for the first time$/, function () {})
+      when(/(\w)+ visits the app for the first time$/, () => {})
 
-      then(/the app creates an order associated with ([\w\s]+)$/, function () {
+      then(/the app creates an order associated with ([\w\s]+)$/, () => {
         expect(cart.customer.userId).toBe(person.id)
       })
 
-      then(/the order has a status of "Cart"$/, function () {
+      then(/the order has a status of "Cart"$/, () => {
         expect(cart.status).toBe(Status.CART)
       })
     })
@@ -106,11 +106,11 @@ defineFeature(feature, function (example) {
         defineGivenACustomer(given)
         defineGivenThatTheCartContainsInStockSkus(given)
 
-        when(/([\w\s]+) successfully submits their order$/, async function () {
+        when(/([\w\s]+) successfully submits their order$/, async () => {
           await orderSubmit(cart.id)
         })
 
-        then(/a new cart is created for ([\w\s]+)$/, async function () {
+        then(/a new cart is created for ([\w\s]+)$/, async () => {
           const carts = (await listOrdersForUser(person.id)).filter(
             (_order) => _order.status === Status.CART,
           )
@@ -121,13 +121,13 @@ defineFeature(feature, function (example) {
     )
   })
 
-  rule("A user may only add in-stock products to their cart.", function () {
+  rule("A user may only add in-stock products to their cart.", () => {
     example(
       "Sally can add the in-stock SKU Rollerblades to their cart.",
       function ({ given, when, then }) {
         defineGivenACustomer(given)
 
-        given(/an in-stock SKU named ([\w\s]+)$/, async function () {
+        given(/an in-stock SKU named ([\w\s]+)$/, async () => {
           sku = await givenASku({
             name: "Rollerblades",
             inventory: { type: "finite", quantity: 3, quantityReserved: 1 },
@@ -136,7 +136,7 @@ defineFeature(feature, function (example) {
 
         when(
           /([\w\s]+) tries to add ([\w\s]+) to their cart$/,
-          async function () {
+          async () => {
             await setSkuQuantity({
               orderId: cart.id,
               skuId: sku.id,
@@ -145,7 +145,7 @@ defineFeature(feature, function (example) {
           },
         )
 
-        then(/the ([\w\s]+) are successfully added$/, async function () {
+        then(/the ([\w\s]+) are successfully added$/, async () => {
           const [theUpdatedCart] = await listOrdersForUser(person.id)
           expect(theUpdatedCart.skus!.length).toBe(1)
           expect(theUpdatedCart.skuQuantityMap).toMatchObject({
@@ -158,7 +158,7 @@ defineFeature(feature, function (example) {
 
   rule(
     'A user must go through a "checkout" flow before submitting an order.',
-    function () {
+    () => {
       example('Chuck begins the "checkout" flow.', function ({
         given,
         when,
@@ -167,13 +167,13 @@ defineFeature(feature, function (example) {
         defineGivenACustomer(given)
         defineGivenThatTheCartContainsInStockSkus(given)
 
-        when(/([\w\s]+) begins the "checkout" flow$/, async function () {
+        when(/([\w\s]+) begins the "checkout" flow$/, async () => {
           await setStatusToCheckout(cart.id)
         })
 
         then(
           /the status of ([\w\s]+)'s cart changes to "Cart Checkout"$/,
-          async function () {
+          async () => {
             const [theUpdatedCart] = await listOrdersForUser(person.id)
             expect(theUpdatedCart.status).toBe(Status.CART_CHECKOUT)
           },
@@ -190,7 +190,7 @@ defineFeature(feature, function (example) {
 
         given(
           /that ([\w\s]+) has provided their payment information$/,
-          async function () {
+          async () => {
             cart.paymentIntentId = "fake payment intent id"
             confirmPaymentIntent = jest.fn().mockImplementation(async () => {
               // Doesn't matter whether `confirmPaymentIntent` succeeds.
@@ -201,13 +201,13 @@ defineFeature(feature, function (example) {
 
         given(
           /that ([\w\s]+) has provided their shipping address and chosen a shipping rate$/,
-          async function () {
+          async () => {
             cart.customer.shippingAddress = createFakeAddress()
             cart.shipmentCarrier = "fake carrier"
           },
         )
 
-        when(/([\w\s]+) submits their order/, async function () {
+        when(/([\w\s]+) submits their order/, async () => {
           orderSubmit = constructOrderSubmit(
             getById,
             updateById,
@@ -223,7 +223,7 @@ defineFeature(feature, function (example) {
 
         then(
           /the status of ([\w\s]+)'s order changes to "Payment Pending"/,
-          async function () {
+          async () => {
             const [theUpdatedCart] = await listOrdersForUser(person.id)
             expect(theUpdatedCart.status).toBe(Status.PAYMENT_PENDING)
           },
@@ -235,7 +235,7 @@ defineFeature(feature, function (example) {
   rule(
     'When an order enters "Cart Checkout" status, its SKUs are reserved with respect to ' +
       "inventory",
-    function () {
+    () => {
       example(
         "Sam and Cam each put one pair of shoes in their cart, and Sam begins checkout.",
         function ({ given, when, then }) {
@@ -259,7 +259,7 @@ defineFeature(feature, function (example) {
 
           given(
             /an in-stock SKU named ([\w\s]+) with 1 left in inventory$/,
-            async function () {
+            async () => {
               await setById(
                 SKUS,
                 "cool-shoes",
@@ -277,7 +277,7 @@ defineFeature(feature, function (example) {
 
           given(
             /that Sam and Cam each put ([\w\s]+) into their carts$/,
-            async function () {
+            async () => {
               await setSkuQuantity({
                 orderId: cart.id,
                 skuId: coolShoes!.id,
@@ -291,13 +291,13 @@ defineFeature(feature, function (example) {
             },
           )
 
-          when(/Sam begins the "checkout" flow$/, async function () {
+          when(/Sam begins the "checkout" flow$/, async () => {
             await setStatusToCheckout(cart.id)
           })
 
           then(
             /Cam is no longer able to purchase ([\w\s]+)$/,
-            async function () {
+            async () => {
               await expect(setStatusToCheckout(cart2.id)).rejects.toThrow(
                 new RegExp(SKUS_OUT_OF_STOCK_ERROR, "g"),
               )
@@ -306,7 +306,7 @@ defineFeature(feature, function (example) {
 
           then(
             /the SKU's stock quantity appears to Cam as zero$/,
-            async function () {
+            async () => {
               coolShoes = await getById<MarshalledSku>(SKUS, "cool-shoes")
               expect((coolShoes?.inventory as FiniteInventory).quantity).toBe(1)
               expect(
@@ -331,7 +331,7 @@ defineFeature(feature, function (example) {
   function defineGivenThatTheCartContainsInStockSkus(
     given: DefineStepFunction,
   ) {
-    given(/that ([\w\s]+)'s cart contains in-stock SKUs$/, async function () {
+    given(/that ([\w\s]+)'s cart contains in-stock SKUs$/, async () => {
       await givenThatTheCartContainsInStockSkus({ theCart: cart })
     })
   }

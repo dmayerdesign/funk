@@ -1,14 +1,14 @@
 import { Populate } from "@funk/commerce/order/application/internal/behaviors/populate"
 import { construct } from "@funk/commerce/order/application/internal/behaviors/submit"
 import {
-  MarshalledCart,
-  Order,
-  ORDERS,
-  Status,
+    MarshalledCart,
+    Order,
+    ORDERS,
+    Status
 } from "@funk/commerce/order/model/order"
 import {
-  createFakeMarshalledCart,
-  createFakeOrder,
+    createFakeMarshalledCart,
+    createFakeOrder
 } from "@funk/commerce/order/model/stubs"
 import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
 import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
@@ -19,7 +19,7 @@ import { UpdateById } from "@funk/persistence/application/internal/behaviors/upd
 import { when } from "jest-when"
 import { values } from "lodash"
 
-describe("orderSubmit", function () {
+describe("orderSubmit", () => {
   let fakeCartNoSkus: MarshalledCart
   let fakeMarshalledCart: MarshalledCart
   let fakePopulatedCart: Order
@@ -31,12 +31,12 @@ describe("orderSubmit", function () {
   let populate: Populate
   let confirmPaymentIntent: ConfirmPaymentIntent
 
-  describe("failure", function () {
-    beforeEach(function () {
+  describe("failure", () => {
+    beforeEach(() => {
       setUp()
     })
 
-    it("should throw an error if the Order has no Skus", async function () {
+    it("should throw an error if the Order has no Skus", async () => {
       const submit = construct(
         getById,
         updateById,
@@ -51,7 +51,7 @@ describe("orderSubmit", function () {
       expect(setMany).not.toHaveBeenCalled()
     })
 
-    it("should throw an error if confirmPaymentIntent fails", async function () {
+    it("should throw an error if confirmPaymentIntent fails", async () => {
       confirmPaymentIntent = jest.fn().mockImplementation(async () => {
         throw new Error()
       })
@@ -76,8 +76,8 @@ describe("orderSubmit", function () {
     })
   })
 
-  describe("success", function () {
-    beforeEach(async function () {
+  describe("success", () => {
+    beforeEach(async () => {
       setUp()
 
       const submit = construct(
@@ -91,7 +91,7 @@ describe("orderSubmit", function () {
       await submit(fakeMarshalledCart.id)
     })
 
-    it("should submit payment via the payment service provider", async function () {
+    it("should submit payment via the payment service provider", async () => {
       expect(updateById).toHaveBeenCalledWith(
         ORDERS,
         fakeMarshalledCart.id,
@@ -102,7 +102,7 @@ describe("orderSubmit", function () {
       expect(confirmPaymentIntent).toHaveBeenCalledTimes(1)
     })
 
-    it("should update the Order Status to PAID", async function () {
+    it("should update the Order Status to PAID", async () => {
       expect(setMany).toHaveBeenCalledWith(
         expect.objectContaining({
           [ORDERS]: expect.objectContaining({
@@ -114,7 +114,7 @@ describe("orderSubmit", function () {
       )
     })
 
-    it("should update the SKU inventory", async function () {
+    it("should update the SKU inventory", async () => {
       expect(setMany).toHaveBeenCalledWith(
         expect.objectContaining({
           [SKUS]: expect.objectContaining({
@@ -130,7 +130,7 @@ describe("orderSubmit", function () {
       )
     })
 
-    it("should create a new Cart for the customer", async function () {
+    it("should create a new Cart for the customer", async () => {
       const ordersBatchSet = (setMany as jest.Mock).mock.calls[0][0][ORDERS]
       const ordersBatchSetNewCart = values<Partial<Order>>(ordersBatchSet).find(
         (orderOrPartial) => orderOrPartial.status === Status.CART,

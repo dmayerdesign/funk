@@ -3,7 +3,7 @@ import { Address } from "@funk/places/model/address"
 import { constructGetShipmentProviderStub } from "../stubs"
 
 describe("getVerifiedAddress", () => {
-  it("should verify a deliverable address", async function () {
+  it("should verify a deliverable address", async () => {
     const {
       FAKE_ADDRESS,
       shipmentProviderSecret,
@@ -30,7 +30,7 @@ describe("getVerifiedAddress", () => {
     expect(saveAddress).toHaveBeenCalledTimes(1)
     expect(verifiedAddress).toEqual(expected)
   })
-  it("should verify a not-deliverable address", async function () {
+  it("should verify a not-deliverable address", async () => {
     const {
       FAKE_ADDRESS,
       shipmentProviderSecret,

@@ -2,14 +2,14 @@ import glob from "fast-glob"
 import { readFileSync } from "fs-extra"
 import { resolve } from "path"
 
-describe("Import rules", function () {
+describe("Import rules", () => {
   const pluginsCodeImportPattern = /.+\/plugins\/.+/g
   const appCodeImportPattern = /.+\/(?<!persistence\/)application\/.+/g
   const infraCodeImportPattern = /.+\/infrastructure\/.+/g
   const internalCodeImportPattern = /.+\/internal\/.+/g
   const externalCodeImportPattern = /.+\/external\/.+/g
 
-  test("model files should not import `plugins` nor `application` nor `infrastructure`", function () {
+  test("model files should not import `plugins` nor `application` nor `infrastructure`", () => {
     const modelFilenames = readFiles("**/model/**/*.ts")
     const modelFiles = modelFilenames.map((modelFilename) =>
       readFileSync(modelFilename, { encoding: "utf-8" }),
@@ -30,7 +30,7 @@ describe("Import rules", function () {
     expect(someFilesImportInfraCode).toBe(false)
   })
 
-  test("plugin files should not import `application` nor `infrastructure`, with the exception of `persistence`", function () {
+  test("plugin files should not import `application` nor `infrastructure`, with the exception of `persistence`", () => {
     const pluginFilenames = readFiles("**/plugins/**/*.ts")
     const pluginFiles = pluginFilenames.map((pluginFilename) =>
       readFileSync(pluginFilename, { encoding: "utf-8" }),
@@ -47,7 +47,7 @@ describe("Import rules", function () {
     expect(someFilesImportInfraCode).toBe(false)
   })
 
-  test("internal code should not import external code", function () {
+  test("internal code should not import external code", () => {
     const internalFilenames = readFiles("**/internal/**/*.ts")
     const internalFiles = internalFilenames
       .filter((filename) => !filename.includes(__dirname))
@@ -60,7 +60,7 @@ describe("Import rules", function () {
     expect(someFilesImportExternalFiles).toBe(false)
   })
 
-  test("external code should not import internal code", function () {
+  test("external code should not import internal code", () => {
     const externalFilenames = readFiles("**/external/**/*.ts")
     const externalFiles = externalFilenames.map((filename) =>
       readFileSync(filename, { encoding: "utf-8" }),
