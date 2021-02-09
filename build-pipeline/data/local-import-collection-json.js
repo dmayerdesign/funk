@@ -4,7 +4,6 @@ const program = require("commander")
 const { readFileSync } = require("fs-extra")
 const { firestoreImport } = require("node-firestore-import-export")
 const { resolve } = require("path")
-const { CLOUD_PROJECT_ID } = require("../../configuration/local")
 
 if (require.main === module) {
   program.option("-c, --configuration <configuration>",
@@ -24,7 +23,7 @@ if (require.main === module) {
     })
 }
 
-export default async function main(options)
+async function main(options)
 {
   const { collection: collections } = options
 
@@ -36,7 +35,7 @@ export default async function main(options)
         readFileSync(resolve(__dirname, `./development-data/${collection}.json`))
           .toString("utf8"))
 
-      const app = firebaseTesting.initializeAdminApp({ projectId: CLOUD_PROJECT_ID })
+      const app = firebaseTesting.initializeAdminApp({ projectId: process.env.PROJECT_ID })
       const collectionRef = app.firestore().collection(collection)
       await firestoreImport(
         importFileJson,
@@ -55,3 +54,5 @@ function collectCollectionNames(value, acc)
 {
   return acc.concat([value])
 }
+
+module.exports.default = main

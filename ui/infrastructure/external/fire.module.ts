@@ -22,7 +22,7 @@ import { FIREBASE_CONFIG, IS_LOCAL } from "@funk/configuration"
       provide: SETTINGS,
       useValue: IS_LOCAL
         ? {
-            host: "localhost:8100",
+            host: "localhost:8080",
             ssl: false,
           }
         : undefined,
