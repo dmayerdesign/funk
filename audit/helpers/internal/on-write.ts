@@ -4,12 +4,14 @@ import omitNullish from "@funk/helpers/omit-nullish"
 import { store } from "@funk/persistence/application/internal/server-store"
 import {
   DatabaseDocument,
-  DbDocumentInput,
+  DbDocumentInput
 } from "@funk/persistence/model/database-document"
 import {
   Change,
-  ChangeContext,
+  ChangeContext
 } from "@funk/persistence/plugins/internal/events/change"
+
+const TIMESTAMP_ID_SEP = "@"
 
 export default function <DocumentType extends DatabaseDocument>(
   dbPath: string,
@@ -20,9 +22,7 @@ export default function <DocumentType extends DatabaseDocument>(
   ): Promise<void> {
     const { id } = params
     const timestamp = Date.now()
-    const timestampId = `${timestamp}-${Math.random()
-      .toString(16)
-      .substring(2)}`
+    const timestampId = id + TIMESTAMP_ID_SEP + performance.now()
     const beforeData = change.before.data()
     const afterData = change.after.data()
     const changes = diff<DocumentType>(beforeData, afterData)

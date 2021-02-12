@@ -125,6 +125,3 @@ describe("diff", () => {
     ]))
   })
 })
-
-// {"kind": "E", "lhs": "joe", "path": ["name"], "rhs": "jane"}, {"kind": "D", "lhs": 55, "path": ["age"]}, {"index": 2, "item": {"kind": "N", "rhs": 1}, "kind": "A", "path": ["coins"]}, {"index": 2, "item": {"age": 3, "name": "kid3"}, "kind": "A", "path": ["children"]}, {"kind": "E", "lhs": 1, "path": ["children", 0, "age"], "rhs": 0}
-// {"kind": "E", "lhs": "joe", "path": ["name"], "rhs": "jane"}, {"kind": "D", "lhs": 55, "path": ["age"]}, {"index": 2, "item": {"kind": "N", "rhs": 1}, "kind": "A", "path": ["coins"]}, {"index": 2, "item": {"kind": "N", "rhs": {"age": 3, "name": "kid3"}}, "kind": "A", "path": ["children"]}, {"kind": "E", "lhs": 1, "path": ["children", 0, "age"], "rhs": 0}
