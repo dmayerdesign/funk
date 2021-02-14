@@ -2,11 +2,11 @@ import { CommonModule } from "@angular/common"
 import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
-import { ManagedContentModule } from "@funk/admin/infrastructure/external/managed-content/module"
+import { ContentModule } from "@funk/admin/content/infrastructure/external/module"
 import {
-  construct as constructGetToken,
-  GET_TOKEN,
-  INITIALIZE_TURING_TEST,
+    construct as constructGetToken,
+    GET_TOKEN,
+    INITIALIZE_TURING_TEST
 } from "@funk/auth/plugins/external/turing-test/behaviors/get-token"
 import { AboutContainer } from "@funk/professional-portfolio/infrastructure/external/about/container"
 import { ContactContainer } from "@funk/professional-portfolio/infrastructure/external/contact/container"
@@ -69,7 +69,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ManagedContentModule,
+    ContentModule,
   ],
   declarations: [
     ProfessionalPortfolioContainer,

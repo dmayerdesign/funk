@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common"
 import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
-import { ManagedContentModule } from "@funk/admin/infrastructure/external/managed-content/module"
+import { ContentModule } from "@funk/admin/content/infrastructure/external/module"
 import { AppCommonModule } from "@funk/ui/infrastructure/external/common.module"
 import { KitchenSinkContainer } from "@funk/ui/kitchen-sink/infrastructure/external/container"
 import { IonicModule } from "@ionic/angular"
@@ -22,7 +22,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     IonicModule,
     AppCommonModule,
-    ManagedContentModule,
+    ContentModule,
   ],
   declarations: [KitchenSinkContainer],
 })

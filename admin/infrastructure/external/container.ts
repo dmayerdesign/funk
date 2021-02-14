@@ -4,9 +4,9 @@ import { GetSecret } from "@funk/admin/infrastructure/external/cloud-functions/g
 import { GrantSuperRoleToMe } from "@funk/admin/infrastructure/external/cloud-functions/grant-super-role-to-me"
 import { SetSecret } from "@funk/admin/infrastructure/external/cloud-functions/set-secret"
 import {
-  GET_SECRET,
-  GRANT_SUPER_ROLE_TO_ME,
-  SET_SECRET,
+    GET_SECRET,
+    GRANT_SUPER_ROLE_TO_ME,
+    SET_SECRET
 } from "@funk/admin/infrastructure/external/tokens"
 import { SendEmailVerification } from "@funk/identity/application/external/behaviors/send-email-verification"
 import { SEND_EMAIL_VERIFICATION } from "@funk/identity/infrastructure/external/tokens"
@@ -18,7 +18,7 @@ import { Platform } from "@ionic/angular"
     <ion-header class="header">
       <ion-toolbar class="toolbar" color="primary">
         <ion-title class="title">
-          <managed-content contentId="app-title"></managed-content>
+          <content contentId="app-title"></content>
         </ion-title>
       </ion-toolbar>
     </ion-header>

@@ -1,4 +1,4 @@
-import { ContentPreview } from "@funk/admin/model/managed-content/content-preview"
+import { ContentPreview } from "@funk/admin/content/model/content-preview"
 
 export const USER_STATES = "identity.user-states"
 

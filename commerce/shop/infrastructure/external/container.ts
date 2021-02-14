@@ -14,7 +14,7 @@ import { map, shareReplay } from "rxjs/operators"
       <ion-header class="header">
         <ion-toolbar class="toolbar max-width-container">
           <ion-title class="title"
-            ><managed-content contentId="shop-title"></managed-content
+            ><content contentId="shop-title"></content
           ></ion-title>
           <ion-buttons class="buttons" slot="primary">
             <ion-button class="button" routerLink="/shop/home"

@@ -2,7 +2,7 @@ import { ErrorHandler, NgModule } from "@angular/core"
 import { BrowserModule } from "@angular/platform-browser"
 import { Router, RouteReuseStrategy, RouterModule } from "@angular/router"
 import { ServiceWorkerModule } from "@angular/service-worker"
-import { ManagedContentModule } from "@funk/admin/infrastructure/external/managed-content/module"
+import { ContentModule } from "@funk/admin/content/infrastructure/external/module"
 import { CONFIGURATION } from "@funk/configuration"
 import { Configuration } from "@funk/configuration/model/configuration"
 import { IdentityModule } from "@funk/identity/infrastructure/external/module"
@@ -18,7 +18,7 @@ import routes from "@funk/ui/infrastructure/external/routes"
 import {
   DEVICE_WIDTH,
   PAGE_TITLE,
-  WINDOW,
+  WINDOW
 } from "@funk/ui/infrastructure/external/tokens"
 import { NotFoundComponent } from "@funk/ui/not-found/infrastructure/external/component"
 import { construct as constructDeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
@@ -40,7 +40,7 @@ import { IonicStorageModule } from "@ionic/storage"
     }),
     AppFireModule,
     PersistenceModule,
-    ManagedContentModule.withProviders(),
+    ContentModule.withProviders(),
     IdentityModule,
     AtlasModule,
     FunctionsModule,

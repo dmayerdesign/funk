@@ -2,9 +2,9 @@ import { CommonModule } from "@angular/common"
 import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
+import { ContentModule } from "@funk/admin/content/infrastructure/external/module"
 import { AdminContainer } from "@funk/admin/infrastructure/external/container"
 import { ImportSkusContainer } from "@funk/admin/infrastructure/external/import-skus/container"
-import { ManagedContentModule } from "@funk/admin/infrastructure/external/managed-content/module"
 import atlas from "@funk/ui/atlas/configuration"
 import { IonicModule } from "@ionic/angular"
 
@@ -25,7 +25,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ManagedContentModule,
+    ContentModule,
   ],
   declarations: [AdminContainer, ImportSkusContainer],
 })

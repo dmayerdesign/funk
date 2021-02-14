@@ -6,9 +6,9 @@ import { SignInWithProvider } from "@funk/identity/application/external/behavior
 import { SignOut } from "@funk/identity/application/external/behaviors/sign-out"
 import { UserSession } from "@funk/identity/application/external/user-session"
 import {
-  SIGN_IN_WITH_PROVIDER,
-  SIGN_OUT,
-  USER_SESSION,
+    SIGN_IN_WITH_PROVIDER,
+    SIGN_OUT,
+    USER_SESSION
 } from "@funk/identity/infrastructure/external/tokens"
 import { HomeRelativeUrl } from "@funk/ui/atlas/application/external/home-relative-url"
 import { HOME_RELATIVE_URL } from "@funk/ui/atlas/infrastructure/external/tokens"
@@ -23,7 +23,7 @@ import { filter, first, pluck, switchMap } from "rxjs/operators"
   encapsulation: ViewEncapsulation.None,
   template: `
     <div class="sign-in-inner">
-      <p>Sign into <managed-content contentId="app-title"></managed-content></p>
+      <p>Sign into <content contentId="app-title"></content></p>
 
       <button
         class="

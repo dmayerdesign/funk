@@ -1,0 +1,160 @@
+@import "ui/visual/infrastructure/external/styles/themes/default/variables";
+
+$animation-duration: 500ms;
+$drawer-height: 60vh;
+$has-preview-notice-height: 32px;
+
+@mixin animate-in-out($height: $drawer-height) {
+  @keyframes animate-in {
+    from {
+      transform: translateY($height);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes animate-out {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY($height);
+    }
+  }
+
+  .animate-in,
+  .animate-out {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .animate-in {
+    animation: animate-in $animation-duration cubic-bezier(0, 0.6, 0.2, 1);
+  }
+  .animate-out {
+    animation: animate-out $animation-duration cubic-bezier(0.3, 0.8, 0.3, 1);
+    transform: translateY($height);
+  }
+}
+
+@include animate-in-out($drawer-height);
+
+#content-editor-wrapper {
+  &.has-preview {
+    #has-preview-notice {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      height: $has-preview-notice-height;
+      padding: 0 30px;
+      background: $color-dark;
+      color: $color-dark-contrast;
+
+      #has-preview-message {
+        margin: 0;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      #has-preview-actions {
+        display: flex;
+        align-items: center;
+
+        .has-preview-action {
+          display: flex;
+          min-width: 100px;
+        }
+      }
+    }
+    > .router-outlet {
+      top: $has-preview-notice-height;
+    }
+  }
+  &.admin-edit-mode-is-on {
+    content {
+      position: relative;
+      cursor: pointer;
+
+      // Beacon.
+      &::after {
+        position: absolute;
+        content: "";
+        height: 6px;
+        width: 6px;
+        left: 0;
+        top: 25%;
+        background-color: transparent;
+        border-radius: 50%;
+        transition: all 200ms;
+        background: rgba($color-warning, 0.2);
+        box-shadow: 0 0 0 3px rgba($color-warning, 0.6);
+        animation: beacon 2s infinite linear;
+      }
+      &:hover {
+        &::after {
+          background: rgba($color-warning, 1);
+          box-shadow: 0 0 0 3px rgba($color-warning, 1);
+        }
+      }
+
+      @keyframes beacon {
+        0% {
+          transform: scale(0.1);
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.5);
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+#content-editor-drawer {
+  $actions-height: 50px;
+
+  .card {
+    background: #fff;
+    margin: 0;
+    padding: 15px 30px;
+  }
+
+  #editor-container {
+    .ck-editor__main > .ck-content {
+      border: none !important;
+      height: calc(50vh - #{$actions-height});
+    }
+    .ck-focused {
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    .ck-toolbar {
+      background: transparent !important;
+      border: none !important;
+    }
+    .ck-toolbar__separator {
+      background: transparent !important;
+      margin: 0 10px;
+    }
+  }
+
+  #editor-actions {
+    display: flex;
+    background: #fff;
+    height: $actions-height;
+
+    .drawer-card-action {
+      min-width: 100px;
+      margin-right: 10px;
+      perspective: 200px;
+    }
+  }
+}

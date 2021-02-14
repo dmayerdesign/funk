@@ -1,4 +1,4 @@
-import { CONTENTS } from "@funk/admin/model/managed-content/managed-content"
+import { CONTENTS } from "@funk/admin/content/model/content"
 import { ORDERS } from "@funk/commerce/order/model/order"
 import { PRODUCTS } from "@funk/commerce/product/model/product"
 import { PERSONS } from "@funk/identity/model/person"

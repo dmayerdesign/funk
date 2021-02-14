@@ -34,9 +34,9 @@ import { IonMenu } from "@ionic/angular"
       </ion-menu>
 
       <div id="routes">
-        <managed-content-editor>
+        <content-editor>
           <ion-router-outlet class="router-outlet"></ion-router-outlet>
-        </managed-content-editor>
+        </content-editor>
       </div>
     </ion-app>
   `,

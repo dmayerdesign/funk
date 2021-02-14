@@ -39,14 +39,14 @@ import { BehaviorSubject, timer } from "rxjs"
           ></div>
           <ion-card-header class="card-header max-width-container">
             <ion-card-subtitle class="card-subtitle" color="light">
-              <managed-content
+              <content
                 [contentId]="'kitchen-sink-hero-1-subtitle'"
-              ></managed-content>
+              ></content>
             </ion-card-subtitle>
             <ion-card-title class="card-title" color="light">
-              <managed-content
+              <content
                 [contentId]="'kitchen-sink-hero-1-title'"
-              ></managed-content>
+              ></content>
             </ion-card-title>
           </ion-card-header>
           <ion-card-content class="card-content max-width-container">
@@ -140,7 +140,7 @@ import { BehaviorSubject, timer } from "rxjs"
                   <ion-card-title class="card-title">Card Title</ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="card-content">
-                  <managed-content contentId="sink-content-1"></managed-content>
+                  <content contentId="sink-content-1"></content>
                 </ion-card-content>
               </ion-card>
             </ion-col>
