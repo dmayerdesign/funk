@@ -6,7 +6,7 @@ Feature: Commerce administration
 
       Given an administrator named Adam
       When Adam uploads a spreadsheet of new Skus
-      Then the Skus are persisted
+      Then the Skus are saved
       And the Skus are not visible to the public
 
     Example: Adam uploads a spreadsheet of new Skus before uploading the associated Products.
@@ -14,7 +14,7 @@ Feature: Commerce administration
       Given an administrator named Adam
       And that Adam has not yet added any Products
       When Adam uploads a spreadsheet of new Skus
-      Then the Skus are persisted
+      Then the Skus are saved
       And the associated Products are created
 
     Example: Adam uploads a spreadsheet of existing Skus.
@@ -22,7 +22,7 @@ Feature: Commerce administration
       Given an administrator named Adam
       And that Adam has uploaded a spreadsheet of Skus
       When Adam uploads an updated spreadsheet of Skus
-      Then the updates to the Skus are persisted based on the "SKU" column
+      Then the updates to the Skus are saved based on the "SKU" column
       And the Skus are not visible to the public
 
     Example: Adam uploads a list of Images.

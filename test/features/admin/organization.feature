@@ -1,6 +1,6 @@
 Feature: Organization
 
-  Rule: Information about the Organization or Enterprise administering the app must be persisted.
+  Rule: Information about the Organization or Enterprise administering the app must be saved.
 
     Example: A list of shipping carriers defined by the Enterprise are displayed as options in the
       "checkout" flow.

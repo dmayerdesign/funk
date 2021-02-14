@@ -14,7 +14,7 @@ Feature: Handle a User's intent to pay for an Order
 
   Rule: Functions associated with a PaymentIntent must be idempotent.
 
-    Example: When an Order is created, an idempotency key is persisted for convenience.
+    Example: When an Order is created, an idempotency key is saved for convenience.
 
       Given a user named Annie
       And a payment service provider named Stripe

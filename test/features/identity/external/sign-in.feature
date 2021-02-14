@@ -27,7 +27,7 @@ Feature: Sign in
 
       Given a user named Paul
       And that Paul is on the homepage
-      And that Paul has opened a modal or dropdown containing the "sign in with Google" button
-      When Paul clicks the button
+      And that there is a way for Paul to sign in with Google
+      When Paul intends to sign in with Google
       Then Paul is directed through Google's OAuth flow and back to the UI
       And Paul is recognized by the application
