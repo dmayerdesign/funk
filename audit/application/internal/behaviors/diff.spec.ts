@@ -1,4 +1,4 @@
-import { construct } from "@funk/audit/helpers/internal/diff"
+import { construct } from "@funk/audit/application/internal/behaviors/diff"
 
 describe("diff", () => {
   it("should return an empty list when the objects are identical", () => {

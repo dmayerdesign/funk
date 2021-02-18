@@ -49,7 +49,7 @@ See [CONFIGURING](./CONFIGURING.md).
 
 ## The Development Experience
 
-**It all boils down to simplicity.**
+**Keep it simple.**
 
 A simple thing is easier to understand, change, extend, and debug. We want Funk to be simple.
 
@@ -68,9 +68,8 @@ What exactly those rules are is much less important than
 is that they be **simple enough** to be easily and consistently followed by anyone touching the
 code.
 
-Domain-driven design offers such a set of relatively simple rules. Partially due to the full-stack
-nature of Funk, it takes a different approach to hopefully achieve the same result: a project that
-is easy to change, test, and extend.
+Domain-driven design offers such a set of relatively simple rules. Funk uses many concepts from DDD
+to make sure your code is easy to change, test, and extend.
 
 Here's the small set of rules that Funk aims to follow:
 

@@ -38,15 +38,17 @@ Feature: Create/update/delete content as an administrator
       Then the content appears to Adam as "foo"
       And Adam enters the "preview" state
 
-  Rule: An administrator can easily undo a rollback, as long as they have not published a new change.
+  Rule: An administrator can easily undo a rollback, as long as they have not published a new change since the rollback.
 
-    Example: Adam undoes a rollback.
+    Example: Adam undoes a rollback (redoes the change).
 
       Given an admin named Adam
       And a content with value "foo"
       And that Adam has published a change setting it to "bar"
-      When Adam intends to undo the change
-      Then the content appears to Adam as "foo"
+      And that Adam has undone the change, setting it to "foo"
+      And that Adam has not published a change since undoing the change
+      When Adam intends to redo the change
+      Then the content appears to Adam as "bar"
       And Adam enters the "preview" state
 
   Rule: When 2 administrators simultaneously intend to edit the same content, they are both warned.
@@ -58,3 +60,4 @@ Feature: Create/update/delete content as an administrator
       And an admin named Amy who has edited content
       When Adam edits the same content
       Then Adam is warned that Amy is also editing content
+      And Amy is warned that Adam is also editing content

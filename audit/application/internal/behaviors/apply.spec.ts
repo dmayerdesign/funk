@@ -1,4 +1,4 @@
-import { construct } from "@funk/audit/helpers/internal/apply"
+import { construct } from "@funk/audit/application/internal/behaviors/apply"
 import { Diff } from "@funk/audit/model/diff"
 
 describe("apply", () => {

@@ -74,7 +74,7 @@ module.exports = {
       {
         markers: ["/"],
       },
-    ],
+    ]
     // For some reason, errors with `Definition for rule
     // '@typescript-eslint/class-name-casing' was not found`.
     // "@typescript-eslint/class-name-casing": "error",

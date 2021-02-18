@@ -87,12 +87,15 @@ export function construct(
         updateById,
         _removeFromPublishConflicts,
       ),
-      _publishOrReportConflict = constructPublishOrReportConflict(
-        getById,
+      _publishAndDeleteContentPreview = constructPublishAndDeleteContentPreview(
         setById,
         updateById,
-        getPublishConflicts,
         _getMaybeContentPreviews,
+      ),
+      _publishOrReportConflict = constructPublishOrReportConflict(
+        getById,
+        _publishAndDeleteContentPreview,
+        getPublishConflicts,
       ),
       public publishAll = constructPublishAll(_publishOrReportConflict),
       public publishAllOnConfirmation = constructPublishAllOnConfirmation(
@@ -100,11 +103,6 @@ export function construct(
         alert,
         _getMaybeContentPreviews,
         publishAll,
-      ),
-      _publishAndDeleteContentPreview = constructPublishAndDeleteContentPreview(
-        setById,
-        updateById,
-        _getMaybeContentPreviews,
       ),
       public publishOne = constructPublishOne(
         userSession,

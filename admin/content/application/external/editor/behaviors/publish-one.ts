@@ -16,6 +16,7 @@ export function construct(
   return async function (contentId: PrimaryKey): Promise<void> {
     const { person, auth } = await asPromise(userSession)
     // Do nothing if the user is not an admin.
+    // (Note: this check is optional. The rule is enforced by `firestore.rules`.)
     if (!roleHasAdminPrivilegeOrGreater(auth.claims.role)) return
 
     await publishAndDeleteContentPreview(person, contentId)
