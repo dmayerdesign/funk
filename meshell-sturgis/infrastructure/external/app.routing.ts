@@ -1,95 +1,77 @@
 import { Routes } from '@angular/router';
-import { devConfig } from '../config';
-import { prodConfig } from '../config.prod';
-import { stagingConfig } from '../config.staging';
-import { environment } from '../environments/environment';
-import { ArchiveInterceptComponent } from './components/archive-intercept/archive-intercept.component';
 import { PageComponent } from './components/page/page.component';
-import { PostComponent } from './components/post/post.component';
 import { CategoryComponent } from './containers/category/category.component';
 import { ContactComponent } from './containers/contact/contact.component';
 import { HomeComponent } from './containers/home/home.component';
 
-const CONFIG = environment.production ? prodConfig : environment.staging ? stagingConfig : devConfig;
-const rootPath = CONFIG.rootPath;
-const pathPrefix = !!rootPath ? rootPath + "/" : ""
-
 export const routes: Routes = [
   {
-    path: rootPath,
+    path: "",
     component: HomeComponent,
   },
   {
-    path: pathPrefix + 'about',
+    path: 'about',
     component: PageComponent,
     data: {
       page: 'about',
     },
   },
   {
-    path: pathPrefix + 'contact',
+    path: 'contact',
     component: ContactComponent,
   },
   {
-    path: pathPrefix + 'art',
+    path: 'art',
     component: PageComponent,
     data: {
       page: 'art',
     },
   },
   {
-    path: pathPrefix + 'teaching',
+    path: 'teaching',
     component: PageComponent,
     data: {
       page: 'teaching',
     },
   },
   {
-    path: pathPrefix + 'research',
+    path: 'research',
     component: PageComponent,
     data: {
       page: 'research',
     },
   },
   {
-    path: pathPrefix + 'c-v',
+    path: 'c-v',
     component: PageComponent,
     data: {
       page: 'c-v',
     },
   },
   {
-    path: pathPrefix + 'projects',
+    path: 'projects',
     component: CategoryComponent,
     data: {
       category: 'projects',
     },
   },
   {
-    path: pathPrefix + 'teaching',
+    path: 'teaching',
     component: CategoryComponent,
     data: {
       category: 'teaching',
     },
   },
   {
-    path: pathPrefix + 'art',
+    path: 'art',
     component: CategoryComponent,
     data: {
       category: 'art',
     },
   },
   {
-    path: pathPrefix + 'posts/:post',
-    component: PostComponent,
-  },
-  {
-    path: pathPrefix + 'archives/:postId',
-    component: ArchiveInterceptComponent,
-  },
-  {
     path: "**",
-    redirectTo: rootPath,
+    redirectTo: "",
     pathMatch: "full",
   },
 ];

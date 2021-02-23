@@ -10,27 +10,12 @@ const routes: Routes = [
     pathMatch: "full",
   },
   {
-    path: "sink",
-    loadChildren: () =>
-      import("@funk/ui/kitchen-sink/infrastructure/external/module").then(
-        (mod) => mod.KitchenSinkModule,
-      ),
-    canActivate: [AnonymousGuard],
-  },
-  {
     path: "admin",
     loadChildren: () =>
       import("@funk/admin/infrastructure/external/module").then(
         (mod) => mod.AdminModule,
       ),
     canActivate: [AnonymousGuard],
-  },
-  {
-    path: "shop",
-    loadChildren: () =>
-      import("@funk/commerce/shop/infrastructure/external/module").then(
-        (mod) => mod.ShopModule,
-      ),
   },
   {
     path: "account",
@@ -48,11 +33,11 @@ const routes: Routes = [
       ),
   },
   {
-    path: "professional-portfolio",
+    path: "meshell-sturgis",
     loadChildren: () =>
       import(
-        "@funk/professional-portfolio/infrastructure/external/module"
-      ).then((mod) => mod.ProfessionalPortfolioModule),
+        "@funk/meshell-sturgis/infrastructure/external/module"
+      ).then((mod) => mod.MeshellSturgisModule),
   },
   {
     path: "**",

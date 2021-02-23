@@ -37,4 +37,4 @@ import { HomeComponent } from './containers/home/home.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class MeshellSturgisModule { }
