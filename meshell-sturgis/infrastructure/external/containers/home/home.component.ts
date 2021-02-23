@@ -13,10 +13,10 @@ import { UiService } from "../../services/ui.service"
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  public bannerUrl: string
+  public bannerUrl!: string
   public post: any
-  private homeCategorySub: Subscription
-  private taglinePostSub: Subscription
+  private homeCategorySub?: Subscription
+  private taglinePostSub?: Subscription
   private rectangleTestSequence: number[] = []
 
   constructor(

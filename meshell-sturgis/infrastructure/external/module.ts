@@ -5,7 +5,6 @@ import { BrowserModule } from "@angular/platform-browser"
 import { RouterModule } from "@angular/router"
 import { AppComponent } from "./app.component"
 import { routes } from "./app.routing"
-import { ArchiveInterceptComponent } from "./components/archive-intercept/archive-intercept.component"
 import { FooterComponent } from "./components/footer/footer.component"
 import { MastheadComponent } from "./components/masthead/masthead.component"
 import { MsBackBtnComponent } from "./components/ms-back-btn/ms-back-btn.component"
@@ -26,7 +25,6 @@ import { HomeComponent } from "./containers/home/home.component"
     MastheadComponent,
     MsBackBtnComponent,
     FooterComponent,
-    ArchiveInterceptComponent,
   ],
   imports: [
     BrowserModule,

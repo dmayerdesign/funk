@@ -25,8 +25,8 @@ import { UiService } from "../../services/ui.service"
   `,
 })
 export class PageComponent implements OnInit, OnDestroy {
-  private pagesSub: Subscription
-  private routeDataSub: Subscription
+  private pagesSub?: Subscription
+  private routeDataSub?: Subscription
   public page: any
 
   constructor(

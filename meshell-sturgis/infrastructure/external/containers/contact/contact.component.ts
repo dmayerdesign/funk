@@ -13,9 +13,9 @@ import { UiService } from "../../services/ui.service"
   styleUrls: ["./contact.component.scss"],
 })
 export class ContactComponent implements OnInit, OnDestroy {
-  private pagesSub: Subscription
+  private pagesSub?: Subscription
   public page: any
-  public contactForm: FormGroup
+  public contactForm!: FormGroup
   public contactFormSubmitting = false
   public contactFormSubmitWasAttempted = false
 

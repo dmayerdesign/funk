@@ -10,8 +10,8 @@ import { UiService } from "./services/ui.service"
 })
 export class AppComponent implements OnInit {
   nullFlash = {
-    message: null,
-    type: null,
+    message: "",
+    type: "",
   }
   flash = { ...this.nullFlash }
 
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.ui.transition$.subscribe((isTransitioning) => {
+    this.ui.transition$.subscribe(() => {
       this.cdr.detectChanges()
     })
 
