@@ -1,9 +1,9 @@
 import {
-    Component,
-    Inject,
-    OnInit,
-    ViewChild,
-    ViewEncapsulation
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
 } from "@angular/core"
 import { ContentEditorService } from "@funk/admin/content/application/external/editor/service"
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/admin/content/infrastructure/external/tokens"

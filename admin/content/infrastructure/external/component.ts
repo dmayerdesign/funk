@@ -4,15 +4,11 @@ import {
   Inject,
   Input,
   OnDestroy,
-  OnInit
+  OnInit,
 } from "@angular/core"
 import { ContentEditorService } from "@funk/admin/content/application/external/editor/service"
 import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/admin/content/infrastructure/external/tokens"
-import {
-  Content,
-  ContentType
-} from "@funk/admin/content/model/content"
-import { asPromise } from "@funk/helpers/as-promise"
+import { Content, ContentType } from "@funk/admin/content/model/content"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { defer, Observable } from "rxjs"
 import { map, shareReplay } from "rxjs/operators"

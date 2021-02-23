@@ -1,191 +1,184 @@
-@import 'variables';
+@import "variables";
 
 #home-banner {
-    position: relative;
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.8rem;
+
+  img {
     width: 100%;
-    margin-bottom: 0.8rem;
+    height: 36.1rem;
+  }
 
-    img {
-        width: 100%;
-        height: 36.1rem;
+  #home-tagline {
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 10%;
+
+    .home-tagline-inner {
+      // background: transparent url($caption-rect-url) no-repeat 50% top;
+      // background-size: 100% 100%;
+      // max-width: 42.2rem;
+      // position: relative;
+      //     right: 0.3rem;
+      //     top: 0.2rem;
+      width: 100%;
+
+      h1 {
+        margin: 0;
+        padding: 3rem;
+        // color: $off-white;
+        color: $primary;
+        font-size: 4.4rem;
+        font-weight: normal;
+        text-align: center;
+      }
     }
-
-    #home-tagline {
-        position: absolute;
-            top: 0;
-            right: 0;
-        box-sizing: border-box;
-        width: 100%;
-        padding-left: 10%;
-
-        .home-tagline-inner {
-            // background: transparent url($caption-rect-url) no-repeat 50% top;
-            // background-size: 100% 100%;
-            // max-width: 42.2rem;
-            // position: relative;
-            //     right: 0.3rem;
-            //     top: 0.2rem;
-            width: 100%;
-            
-            h1 {
-                margin: 0;
-                padding: 3rem;
-                // color: $off-white;
-                color: $primary;
-                font-size: 4.4rem;
-                font-weight: normal;
-                text-align: center;
-            }
-        }
-    }
+  }
 }
-
 
 .category-in-grid {
+  .col-inner {
+    cursor: pointer;
+    position: relative;
+  }
+
+  &:nth-child(1),
+  &:nth-child(11),
+  &:nth-child(21) {
     .col-inner {
-        cursor: pointer;
-        position: relative;
+      background: $gold;
+
+      h2 {
+        font-family: "Fredericka the Great", Arial, Helvetica, sans-serif;
+        font-size: 6rem;
+        color: $white;
+        text-align: left;
+        vertical-align: bottom;
+      }
     }
+  }
 
-    &:nth-child(1),
-    &:nth-child(11),
-    &:nth-child(21) {
-        .col-inner {
-            background: $gold;
-
-            h2 {
-                font-family: "Fredericka the Great", Arial, Helvetica, sans-serif;
-                font-size: 6rem;
-                color: $white;
-                text-align: left;
-                vertical-align: bottom;
-            }
-        }
+  &:nth-child(2),
+  &:nth-child(12),
+  &:nth-child(22) {
+    .col-inner {
+      h2 {
+        font-family: "Cabin Sketch", Arial, Helvetica, sans-serif;
+        font-size: 3.5rem;
+      }
     }
+  }
 
-    &:nth-child(2),
-    &:nth-child(12),
-    &:nth-child(22) {
-        .col-inner {
-            h2 {
-                font-family: "Cabin Sketch", Arial, Helvetica, sans-serif;
-                font-size: 3.5rem;
-            }
-        }
+  &:nth-child(3),
+  &:nth-child(8),
+  &:nth-child(13),
+  &:nth-child(18),
+  &:nth-child(23) {
+    .col-inner {
+      h2 {
+        font-family: "Londrina Shadow", Arial, Helvetica, sans-serif;
+        font-size: 6rem;
+        text-align: left;
+        vertical-align: top;
+      }
     }
+  }
 
-    &:nth-child(3),
-    &:nth-child(8),
-    &:nth-child(13),
-    &:nth-child(18),
-    &:nth-child(23) {
-        .col-inner {
-            h2 {
-                font-family: "Londrina Shadow", Arial, Helvetica, sans-serif;
-                font-size: 6rem;
-                text-align: left;
-                vertical-align: top;
-            }
-        }
+  &:nth-child(4),
+  &:nth-child(9),
+  &:nth-child(14),
+  &:nth-child(19),
+  &:nth-child(24) {
+    .col-inner {
+      h2 {
+        font-family: "Just Another Hand", Arial, Helvetica, sans-serif;
+        font-size: 4.6rem;
+        color: $blue;
+      }
     }
+  }
 
-    &:nth-child(4),
-    &:nth-child(9),
-    &:nth-child(14),
-    &:nth-child(19),
-    &:nth-child(24) {
-        .col-inner {
-            h2 {
-                font-family: "Just Another Hand", Arial, Helvetica, sans-serif;
-                font-size: 4.6rem;
-                color: $blue;
-            }
-        }
+  &:nth-child(5),
+  &:nth-child(10),
+  &:nth-child(15),
+  &:nth-child(20),
+  &:nth-child(25) {
+    .col-inner {
+      background: $blue;
+
+      h2 {
+        font-family: "Cabin Sketch", Arial, Helvetica, sans-serif;
+        font-size: 3rem;
+        color: $white;
+        text-align: right;
+        vertical-align: bottom;
+      }
     }
-    
-    &:nth-child(5),
-    &:nth-child(10),
-    &:nth-child(15),
-    &:nth-child(20),
-    &:nth-child(25) {
-        .col-inner {
-            background: $blue;
+  }
 
-            h2 {
-                font-family: "Cabin Sketch", Arial, Helvetica, sans-serif;
-                font-size: 3rem;
-                color: $white;
-                text-align: right;
-                vertical-align: bottom;
-            }
-        }
+  &:nth-child(6),
+  &:nth-child(16),
+  &:nth-child(26) {
+    .col-inner {
+      background: $teal;
+
+      h2 {
+        font-family: "Yellowtail", Arial, Helvetica, sans-serif;
+        font-size: 5rem;
+        color: $off-white-2;
+      }
     }
-    
-    &:nth-child(6),
-    &:nth-child(16),
-    &:nth-child(26) {
-        .col-inner {
-            background: $teal;
+  }
 
-            h2 {
-                font-family: "Yellowtail", Arial, Helvetica, sans-serif;
-                font-size: 5rem;
-                color: $off-white-2;
-            }
-        }
+  &#contact {
+    height: 11rem;
+
+    .col-inner {
+      background: $dark-blue;
+      height: 11rem;
+
+      .category-title {
+        line-height: 11rem;
+      }
+
+      .line-drawn-border {
+        height: 11rem + 0.6rem;
+      }
     }
-    
-    &#contact {
-        height: 11rem;
+  }
 
-        .col-inner {
-            background: $dark-blue;
-            height: 11rem;
+  .category-title {
+    position: absolute;
+    width: 100%;
+    height: $col-3-height;
+    line-height: $col-3-height;
 
-            .category-title {
-                line-height: 11rem;
-            }
+    h2 {
+      display: inline-block;
+      vertical-align: middle;
+      width: 100%;
+      padding: 1.3rem 2rem;
+      margin: 0.4rem 0;
+      line-height: 1;
+      font-weight: normal;
+      word-wrap: break-word;
 
-            .line-drawn-border {
-                height: 11rem + 0.6rem;
-            }
-        }
+      &.display-heading-scholarship {
+        font-size: 2rem;
+      }
+      &.display-heading-c-v {
+        font-size: 3rem;
+      }
+
+      &.display-heading-contact {
+        font-family: "Permanent Marker", Arial, Helvetica, sans-serif;
+        font-size: 1.6rem;
+        color: $light-gray;
+      }
     }
-
-    .category-title {
-        position: absolute;
-        width: 100%;
-        height: $col-3-height;
-        line-height: $col-3-height;
-
-        h2 {
-            display: inline-block;
-            vertical-align: middle;
-            width: 100%;
-            padding: 1.3rem 2rem;
-            margin: 0.4rem 0;
-            line-height: 1;
-            font-weight: normal;
-            word-wrap: break-word;
-
-            &.display-heading-scholarship {
-                font-size: 2rem;
-            }
-            &.display-heading-c-v {
-                font-size: 3rem;
-            }
-
-            &.display-heading-contact {
-                font-family: "Permanent Marker", Arial, Helvetica, sans-serif;
-                font-size: 1.6rem;
-                color: $light-gray;
-            }
-        }
-    }
+  }
 }
-
-
-
-
-
-

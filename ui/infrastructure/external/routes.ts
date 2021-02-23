@@ -35,9 +35,9 @@ const routes: Routes = [
   {
     path: "meshell-sturgis",
     loadChildren: () =>
-      import(
-        "@funk/meshell-sturgis/infrastructure/external/module"
-      ).then((mod) => mod.MeshellSturgisModule),
+      import("@funk/meshell-sturgis/infrastructure/external/module").then(
+        (mod) => mod.MeshellSturgisModule,
+      ),
   },
   {
     path: "**",

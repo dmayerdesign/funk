@@ -4,11 +4,11 @@ import omitNullish from "@funk/helpers/omit-nullish"
 import { store } from "@funk/persistence/application/internal/server-store"
 import {
   DatabaseDocument,
-  DbDocumentInput
+  DbDocumentInput,
 } from "@funk/persistence/model/database-document"
 import {
   Change,
-  ChangeContext
+  ChangeContext,
 } from "@funk/persistence/plugins/internal/events/change"
 
 const TIMESTAMP_ID_SEP = "@"

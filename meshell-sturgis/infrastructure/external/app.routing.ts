@@ -1,8 +1,8 @@
-import { Routes } from '@angular/router';
-import { PageComponent } from './components/page/page.component';
-import { CategoryComponent } from './containers/category/category.component';
-import { ContactComponent } from './containers/contact/contact.component';
-import { HomeComponent } from './containers/home/home.component';
+import { Routes } from "@angular/router"
+import { PageComponent } from "./components/page/page.component"
+import { CategoryComponent } from "./containers/category/category.component"
+import { ContactComponent } from "./containers/contact/contact.component"
+import { HomeComponent } from "./containers/home/home.component"
 
 export const routes: Routes = [
   {
@@ -10,63 +10,63 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'about',
+    path: "about",
     component: PageComponent,
     data: {
-      page: 'about',
+      page: "about",
     },
   },
   {
-    path: 'contact',
+    path: "contact",
     component: ContactComponent,
   },
   {
-    path: 'art',
+    path: "art",
     component: PageComponent,
     data: {
-      page: 'art',
+      page: "art",
     },
   },
   {
-    path: 'teaching',
+    path: "teaching",
     component: PageComponent,
     data: {
-      page: 'teaching',
+      page: "teaching",
     },
   },
   {
-    path: 'research',
+    path: "research",
     component: PageComponent,
     data: {
-      page: 'research',
+      page: "research",
     },
   },
   {
-    path: 'c-v',
+    path: "c-v",
     component: PageComponent,
     data: {
-      page: 'c-v',
+      page: "c-v",
     },
   },
   {
-    path: 'projects',
+    path: "projects",
     component: CategoryComponent,
     data: {
-      category: 'projects',
+      category: "projects",
     },
   },
   {
-    path: 'teaching',
+    path: "teaching",
     component: CategoryComponent,
     data: {
-      category: 'teaching',
+      category: "teaching",
     },
   },
   {
-    path: 'art',
+    path: "art",
     component: CategoryComponent,
     data: {
-      category: 'art',
+      category: "art",
     },
   },
   {
@@ -74,4 +74,4 @@ export const routes: Routes = [
     redirectTo: "",
     pathMatch: "full",
   },
-];
+]

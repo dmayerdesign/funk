@@ -1,6 +1,4 @@
-import {
-    Content, CONTENTS
-} from "@funk/admin/content/model/content"
+import { Content, CONTENTS } from "@funk/admin/content/model/content"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { UserState, USER_STATES } from "@funk/identity/model/user-state"

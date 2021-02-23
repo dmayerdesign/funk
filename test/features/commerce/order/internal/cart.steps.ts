@@ -1,22 +1,22 @@
 import {
-    construct as constructCustomerHandleCreate,
-    HandleCreate
+  construct as constructCustomerHandleCreate,
+  HandleCreate,
 } from "@funk/commerce/customer/application/internal/behaviors/handle-create"
 import {
-    construct as constructOrderPopulate,
-    Populate
+  construct as constructOrderPopulate,
+  Populate,
 } from "@funk/commerce/order/application/internal/behaviors/populate"
 import {
-    construct as constructSetSkuQuantity,
-    SetSkuQuantity
+  construct as constructSetSkuQuantity,
+  SetSkuQuantity,
 } from "@funk/commerce/order/application/internal/behaviors/set-sku-quantity"
 import {
-    construct as constructSetStatusToCheckout,
-    SetStatusToCheckout
+  construct as constructSetStatusToCheckout,
+  SetStatusToCheckout,
 } from "@funk/commerce/order/application/internal/behaviors/set-status-to-checkout"
 import {
-    construct as constructOrderSubmit,
-    Submit
+  construct as constructOrderSubmit,
+  Submit,
 } from "@funk/commerce/order/application/internal/behaviors/submit"
 import { Cart, Status } from "@funk/commerce/order/model/order"
 import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
@@ -38,10 +38,10 @@ import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/ui/copy/error-messages"
 import { defineFeature, DefineStepFunction, loadFeature } from "jest-cucumber"
 import { resolve } from "path"
 import {
-    constructGivenACustomer,
-    givenASku,
-    givenThatTheCartContainsInStockSkus,
-    listOrdersForUser
+  constructGivenACustomer,
+  givenASku,
+  givenThatTheCartContainsInStockSkus,
+  listOrdersForUser,
 } from "./helpers"
 
 const feature = loadFeature(
@@ -134,16 +134,13 @@ defineFeature(feature, function (example) {
           })
         })
 
-        when(
-          /([\w\s]+) tries to add ([\w\s]+) to their cart$/,
-          async () => {
-            await setSkuQuantity({
-              orderId: cart.id,
-              skuId: sku.id,
-              quantity: 2,
-            })
-          },
-        )
+        when(/([\w\s]+) tries to add ([\w\s]+) to their cart$/, async () => {
+          await setSkuQuantity({
+            orderId: cart.id,
+            skuId: sku.id,
+            quantity: 2,
+          })
+        })
 
         then(/the ([\w\s]+) are successfully added$/, async () => {
           const [theUpdatedCart] = await listOrdersForUser(person.id)
@@ -295,25 +292,19 @@ defineFeature(feature, function (example) {
             await setStatusToCheckout(cart.id)
           })
 
-          then(
-            /Cam is no longer able to purchase ([\w\s]+)$/,
-            async () => {
-              await expect(setStatusToCheckout(cart2.id)).rejects.toThrow(
-                new RegExp(SKUS_OUT_OF_STOCK_ERROR, "g"),
-              )
-            },
-          )
+          then(/Cam is no longer able to purchase ([\w\s]+)$/, async () => {
+            await expect(setStatusToCheckout(cart2.id)).rejects.toThrow(
+              new RegExp(SKUS_OUT_OF_STOCK_ERROR, "g"),
+            )
+          })
 
-          then(
-            /the SKU's stock quantity appears to Cam as zero$/,
-            async () => {
-              coolShoes = await getById<MarshalledSku>(SKUS, "cool-shoes")
-              expect((coolShoes?.inventory as FiniteInventory).quantity).toBe(1)
-              expect(
-                (coolShoes?.inventory as FiniteInventory).quantityReserved,
-              ).toBe(1)
-            },
-          )
+          then(/the SKU's stock quantity appears to Cam as zero$/, async () => {
+            coolShoes = await getById<MarshalledSku>(SKUS, "cool-shoes")
+            expect((coolShoes?.inventory as FiniteInventory).quantity).toBe(1)
+            expect(
+              (coolShoes?.inventory as FiniteInventory).quantityReserved,
+            ).toBe(1)
+          })
         },
       )
     },

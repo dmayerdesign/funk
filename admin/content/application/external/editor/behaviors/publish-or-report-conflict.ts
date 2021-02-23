@@ -1,9 +1,7 @@
 import { GetMaybeContentPreviews } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-content-previews"
 import { GetPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/get-publish-conflicts"
 import { PublishConflict } from "@funk/admin/content/application/external/editor/publish-conflict"
-import {
-    Content, CONTENTS
-} from "@funk/admin/content/model/content"
+import { Content, CONTENTS } from "@funk/admin/content/model/content"
 import { ContentPreview } from "@funk/admin/content/model/content-preview"
 import { Person } from "@funk/identity/model/person"
 import { UserState, USER_STATES } from "@funk/identity/model/user-state"

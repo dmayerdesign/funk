@@ -4,10 +4,7 @@ import { GetMaybeActiveContent } from "@funk/admin/content/application/external/
 import { GetMaybeActiveContentId } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-id"
 import { GetMaybeActiveContentValue } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-value"
 import { GetMaybeActiveContentValueControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-value-control"
-import {
-    Content,
-    ContentType
-} from "@funk/admin/content/model/content"
+import { Content, ContentType } from "@funk/admin/content/model/content"
 import { asPromise } from "@funk/helpers/as-promise"
 import createDocPath from "@funk/helpers/create-doc-path"
 import { UserSession } from "@funk/identity/application/external/user-session"

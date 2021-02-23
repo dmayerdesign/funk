@@ -1,8 +1,8 @@
-@import 'variables';
+@import "variables";
 
 #wrapper {
-    transition: opacity 200ms ease-in-out;
+  transition: opacity 200ms ease-in-out;
 }
 .is-transitioning {
-    opacity: 0.3;
+  opacity: 0.3;
 }

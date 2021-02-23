@@ -1,11 +1,11 @@
 import { GetPaymentProvider } from "@funk/money/plugins/internal/payment/behaviors/get-payment-provider"
 import {
-    construct,
-    CreateInput
+  construct,
+  CreateInput,
 } from "@funk/money/plugins/internal/payment/behaviors/upsert-customer"
 import {
-    createGetPaymentProviderStub,
-    PaymentProviderStub
+  createGetPaymentProviderStub,
+  PaymentProviderStub,
 } from "@funk/money/plugins/internal/payment/stubs"
 import { Stripe } from "stripe"
 

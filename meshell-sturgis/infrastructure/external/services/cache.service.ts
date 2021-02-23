@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core"
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class CacheService {
-
-  public homeTagline: string;
-  public contact: any;
-  public about: any;
+  public homeTagline: string
+  public contact: any
+  public about: any
   public cV: any
   public pages = new Map<string, any>()
 
-  constructor() { }
-
+  constructor() {}
 }

@@ -1,7 +1,5 @@
 import { GetMaybeContentPreviews } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-content-previews"
-import {
-    Content, CONTENTS
-} from "@funk/admin/content/model/content"
+import { Content, CONTENTS } from "@funk/admin/content/model/content"
 import { Person } from "@funk/identity/model/person"
 import { UserState, USER_STATES } from "@funk/identity/model/user-state"
 import { SetById } from "@funk/persistence/application/external/behaviors/set-by-id"

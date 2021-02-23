@@ -1,48 +1,48 @@
-@import 'variables';
+@import "variables";
 
 nav {
-    font-size: 1rem;
-    height: 10rem;
-    line-height: 10rem;
+  font-size: 1rem;
+  height: 10rem;
+  line-height: 10rem;
 
-    .nav-inner {
-        display: inline-block;
-        width: 100%;
-        line-height: 1;
+  .nav-inner {
+    display: inline-block;
+    width: 100%;
+    line-height: 1;
 
-        #logo {
-            float: left;
-            img {
-                width: 17.5em;
-                height: 1.5em;
-            }
-        }
-        
-        ul {
-            float: right;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-
-            li {
-                display: inline-block;
-                font-size: 1.4em;
-                margin-left: 2.5em;
-
-                a {
-                    text-decoration: none;
-                    color: $dark-blue;
-                    font-weight: bold;
-                }
-            }
-        }
+    #logo {
+      float: left;
+      img {
+        width: 17.5em;
+        height: 1.5em;
+      }
     }
+
+    ul {
+      float: right;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        display: inline-block;
+        font-size: 1.4em;
+        margin-left: 2.5em;
+
+        a {
+          text-decoration: none;
+          color: $dark-blue;
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 414px) {
-    nav .nav-inner {
-        font-size: 1.8em;
-        position: relative;
-            top: 2.2rem;
-    }
+  nav .nav-inner {
+    font-size: 1.8em;
+    position: relative;
+    top: 2.2rem;
+  }
 }

@@ -151,7 +151,12 @@ export default function main() {
     )
     writeFileSync(
       resolve(__dirname, "../../", `configuration/${configuration}.ts`),
-      configTemplate({ configuration, firebaseConfig, cloudProjectId, displayName }),
+      configTemplate({
+        configuration,
+        firebaseConfig,
+        cloudProjectId,
+        displayName,
+      }),
     )
     writeFileSync(
       resolve(

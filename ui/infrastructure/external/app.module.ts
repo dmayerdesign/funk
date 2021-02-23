@@ -18,7 +18,7 @@ import routes from "@funk/ui/infrastructure/external/routes"
 import {
   DEVICE_WIDTH,
   PAGE_TITLE,
-  WINDOW
+  WINDOW,
 } from "@funk/ui/infrastructure/external/tokens"
 import { NotFoundComponent } from "@funk/ui/not-found/infrastructure/external/component"
 import { construct as constructDeviceWidth } from "@funk/ui/plugins/external/layout/device-width"

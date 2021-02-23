@@ -1,14 +1,15 @@
 <ms-masthead></ms-masthead>
 <main>
-    <div
-        id="wrapper"
-        class="container"
-        aria-live="polite"
-        [ngClass]="{'is-transitioning': ui.transition$ | async}">
-        <router-outlet></router-outlet>
-    </div>
+  <div
+    id="wrapper"
+    class="container"
+    aria-live="polite"
+    [ngClass]="{ 'is-transitioning': ui.transition$ | async }"
+  >
+    <router-outlet></router-outlet>
+  </div>
 </main>
 <ms-footer></ms-footer>
 <div *ngIf="flash.message" class="flash-message" [ngClass]="flash.type">
-    {{ flash.message }}
+  {{ flash.message }}
 </div>

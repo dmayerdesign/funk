@@ -7,9 +7,9 @@ export function construct() {
     beforeData: Partial<DocumentType> | undefined,
     diffs: Diff[],
   ): Partial<DocumentType> | undefined {
-    const _diffs = [ ...diffs ]
-    const keysUniqueToNetNewDiff = [ "kind", "rhs" ].sort()
-    const keysUniqueToRemoveAllDiff = [ "kind", "lhs" ].sort()
+    const _diffs = [...diffs]
+    const keysUniqueToNetNewDiff = ["kind", "rhs"].sort()
+    const keysUniqueToRemoveAllDiff = ["kind", "lhs"].sort()
 
     const isNilOrEmpty = isNil(beforeData) || isEmpty(beforeData)
     let afterData = cloneDeep(beforeData)
@@ -20,8 +20,10 @@ export function construct() {
 
     _diffs.forEach((diff) => {
       const diffKeys = !!diff ? Object.keys(diff).sort() : []
-      const isRemoveAll = diff?.kind === "D" && isEqual(diffKeys, keysUniqueToRemoveAllDiff)
-      const isNetNew = diff?.kind === "N" && isEqual(diffKeys, keysUniqueToNetNewDiff)
+      const isRemoveAll =
+        diff?.kind === "D" && isEqual(diffKeys, keysUniqueToRemoveAllDiff)
+      const isNetNew =
+        diff?.kind === "N" && isEqual(diffKeys, keysUniqueToNetNewDiff)
 
       if (isRemoveAll) {
         afterData = undefined

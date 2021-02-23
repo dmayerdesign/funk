@@ -27,8 +27,8 @@ describe("diff", () => {
     expect(diff(before, after)).toEqual([
       {
         kind: "N",
-        path: [ "bar" ],
-        rhs: 2
+        path: ["bar"],
+        rhs: 2,
       },
     ])
   })
@@ -42,7 +42,7 @@ describe("diff", () => {
         kind: "E",
         path: ["bar"],
         lhs: 1,
-        rhs: 2
+        rhs: 2,
       },
     ])
   })
@@ -64,12 +64,14 @@ describe("diff", () => {
     const diff = construct()
     const before = { foo: "hello foo", bar: 1 }
     const after = undefined
-    expect(diff(before, after)).toEqual(expect.arrayContaining([
-      {
-        kind: "D",
-        lhs: before
-      },
-    ]))
+    expect(diff(before, after)).toEqual(
+      expect.arrayContaining([
+        {
+          kind: "D",
+          lhs: before,
+        },
+      ]),
+    )
   })
 
   it("should return a correctly-formed compound diff", () => {
@@ -92,36 +94,38 @@ describe("diff", () => {
         { name: "kid3", age: 3 },
       ],
     }
-    expect(diff(before, after)).toEqual(expect.arrayContaining([
-      {
-        kind: "E",
-        path: ["name"],
-        lhs: "joe",
-        rhs: "jane",
-      },
-      {
-        kind: "D",
-        path: ["age"],
-        lhs: 55,
-      },
-      {
-        kind: "A",
-        path: ["coins"],
-        index: 2,
-        item: { kind: "N", rhs: 1 },
-      },
-      {
-        kind: "A",
-        path: ["children"],
-        index: 2,
-        item: { kind: "N", rhs: { name: "kid3", age: 3 } },
-      },
-      {
-        kind: "E",
-        path: ["children", 0, "age"],
-        lhs: 1,
-        rhs: 0,
-      },
-    ]))
+    expect(diff(before, after)).toEqual(
+      expect.arrayContaining([
+        {
+          kind: "E",
+          path: ["name"],
+          lhs: "joe",
+          rhs: "jane",
+        },
+        {
+          kind: "D",
+          path: ["age"],
+          lhs: 55,
+        },
+        {
+          kind: "A",
+          path: ["coins"],
+          index: 2,
+          item: { kind: "N", rhs: 1 },
+        },
+        {
+          kind: "A",
+          path: ["children"],
+          index: 2,
+          item: { kind: "N", rhs: { name: "kid3", age: 3 } },
+        },
+        {
+          kind: "E",
+          path: ["children", 0, "age"],
+          lhs: 1,
+          rhs: 0,
+        },
+      ]),
+    )
   })
 })

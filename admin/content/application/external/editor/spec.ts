@@ -1,12 +1,12 @@
 import {
   construct,
-  ContentEditorService
+  ContentEditorService,
 } from "@funk/admin/content/application/external/editor/service"
 import {
   Content,
   CONTENTS,
   ContentType,
-  Text
+  ManagedText,
 } from "@funk/admin/content/model/content"
 import { UserRole } from "@funk/auth/model/user-role"
 import { asPromise } from "@funk/helpers/as-promise"
