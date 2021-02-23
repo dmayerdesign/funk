@@ -47,6 +47,9 @@ const atlas = {
       teaching: {
         label: "Teaching",
       },
+      blog: {
+        label: "Blog",
+      },
     },
   },
 }

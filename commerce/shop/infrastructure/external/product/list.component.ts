@@ -1,17 +1,17 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChange,
-  SimpleChanges,
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChange,
+    SimpleChanges
 } from "@angular/core"
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
 import { Product } from "@funk/commerce/product/model/product"
 import { ListFilter } from "@funk/commerce/shop/application/external/products/list-filter/list-filter"
-import { Pagination } from "@funk/persistence/application/external/pagination"
+import { Pagination } from "@funk/persistence/model/pagination"
 import { of, ReplaySubject } from "rxjs"
 import { catchError, map, shareReplay } from "rxjs/operators"
 

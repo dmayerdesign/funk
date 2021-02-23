@@ -1,11 +1,11 @@
 import { Condition } from "@funk/persistence/application/internal/condition"
-import {
-  Pagination,
-  VirtualPagination,
-} from "@funk/persistence/application/internal/pagination"
 import { store } from "@funk/persistence/application/internal/server-store"
 import { AbstractWhere } from "@funk/persistence/application/internal/where"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
+import {
+  Pagination,
+  VirtualPagination
+} from "@funk/persistence/model/pagination"
 
 export default function list<DocumentType extends DatabaseDocument>(options: {
   collection: string
@@ -14,8 +14,8 @@ export default function list<DocumentType extends DatabaseDocument>(options: {
 }): Promise<DocumentType[]> {
   const { collection, pagination, conditions } = options
   const { orderBy, orderByDirection, skip, take } = pagination
-  let query = store()
-    .collection(collection)
+  const collectionRef = store().collection(collection)
+  let query = collectionRef
     .orderBy(orderBy as string, orderByDirection)
     .limit(take)
     .offset(skip)

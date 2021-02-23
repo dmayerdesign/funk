@@ -2,9 +2,9 @@ import listImpl from "@funk/commerce/product/application/internal/behaviors/list
 import { MarshalledProduct } from "@funk/commerce/product/model/product"
 import { Condition } from "@funk/persistence/application/internal/condition"
 import {
-  Pagination,
-  VirtualPagination,
-} from "@funk/persistence/application/internal/pagination"
+    Pagination,
+    VirtualPagination
+} from "@funk/persistence/model/pagination"
 
 export function construct(list: typeof listImpl) {
   interface Options {

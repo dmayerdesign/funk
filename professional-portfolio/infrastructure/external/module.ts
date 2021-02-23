@@ -4,11 +4,12 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
 import { ContentModule } from "@funk/admin/content/infrastructure/external/module"
 import {
-    construct as constructGetToken,
-    GET_TOKEN,
-    INITIALIZE_TURING_TEST
+  construct as constructGetToken,
+  GET_TOKEN,
+  INITIALIZE_TURING_TEST
 } from "@funk/auth/plugins/external/turing-test/behaviors/get-token"
 import { AboutContainer } from "@funk/professional-portfolio/infrastructure/external/about/container"
+import { BlogContainer } from "@funk/professional-portfolio/infrastructure/external/blog/container"
 import { ContactContainer } from "@funk/professional-portfolio/infrastructure/external/contact/container"
 import { ProfessionalPortfolioContainer } from "@funk/professional-portfolio/infrastructure/external/container"
 import { HonorsContainer } from "@funk/professional-portfolio/infrastructure/external/honors/container"
@@ -17,6 +18,7 @@ import { TeachingContainer } from "@funk/professional-portfolio/infrastructure/e
 import atlas from "@funk/ui/atlas/configuration"
 import { IonicModule } from "@ionic/angular"
 import { load as loadRecaptcha } from "recaptcha-v3"
+import { PageTitleHeading } from "./page/title-heading/component"
 
 const routes: Routes = [
   {
@@ -58,6 +60,13 @@ const routes: Routes = [
           title: atlas["professional-portfolio"].__atlas__.teaching.label,
         },
       },
+      {
+        path: "blog",
+        component: BlogContainer,
+        data: {
+          title: atlas["professional-portfolio"].__atlas__.blog.label,
+        },
+      },
     ],
   },
 ]
@@ -72,12 +81,14 @@ const routes: Routes = [
     ContentModule,
   ],
   declarations: [
+    PageTitleHeading,
     ProfessionalPortfolioContainer,
     AboutContainer,
     ContactContainer,
     HonorsContainer,
     PublicationsContainer,
     TeachingContainer,
+    BlogContainer,
   ],
   providers: [
     {

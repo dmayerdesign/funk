@@ -7,4 +7,4 @@ export interface Taxonomy extends DatabaseDocument {
   description?: string
 }
 
-export const TAXONOMIES = "commerce.taxonomies"
+export const TAXONOMIES = "taxonomies"

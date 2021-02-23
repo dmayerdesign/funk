@@ -1,0 +1,10 @@
+{
+  "blog-post-categories": {
+    "id": "blog-post-categories",
+    "slug": "blog-post-categories",
+    "singularName": "Category",
+    "pluralName": "Categories",
+    "description": "A general way of organizing things.",
+    "__collections__": {}
+  }
+}

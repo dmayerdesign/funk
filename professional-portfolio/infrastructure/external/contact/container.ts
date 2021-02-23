@@ -3,23 +3,19 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  Validators,
+  Validators
 } from "@angular/forms"
 import {
   GetToken,
-  GET_TOKEN,
+  GET_TOKEN
 } from "@funk/auth/plugins/external/turing-test/behaviors/get-token"
 import { ContactOwner } from "@funk/contact/infrastructure/external/cloud-functions/owner"
 import { ContactForm } from "@funk/contact/model/contact-form"
-import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { CONTACT_OWNER } from "@funk/professional-portfolio/infrastructure/external/tokens"
 import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
 import {
-  DEVICE_WIDTH,
-  PAGE_TITLE,
+  PAGE_TITLE
 } from "@funk/ui/infrastructure/external/tokens"
-import { DeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
-import { map } from "rxjs/operators"
 
 @Component({
   template: `
@@ -28,9 +24,7 @@ import { map } from "rxjs/operators"
       style="--background: transparent"
     >
       <div class="professional-portfolio-route-inner">
-        <h2 *ngIf="(pageTitle | async) && (isDesktopLayout | async)">
-          {{ pageTitle | async }}
-        </h2>
+        <page-title-heading></page-title-heading>
         <form [formGroup]="contactFormGroup" (ngSubmit)="handleSubmit()">
           <div class="control-group">
             <input
@@ -95,16 +89,11 @@ export class ContactContainer implements OnInit {
     message: new FormControl("", [Validators.required]),
     turingTestToken: new FormControl(""),
   } as { [key in keyof ContactForm]: AbstractControl })
-  public isDesktopLayout = this._deviceWidth.pipe(
-    map((deviceWidth) => deviceWidth > 960),
-    shareReplayOnce(),
-  )
 
   public constructor(
     @Inject(CONTACT_OWNER) private _sendEmailToOwner: ContactOwner,
     @Inject(GET_TOKEN) private _getTuringTestToken: GetToken,
     @Inject(PAGE_TITLE) public pageTitle: PageTitle,
-    @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth,
   ) {}
 
   public ngOnInit(): void {}

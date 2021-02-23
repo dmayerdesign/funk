@@ -11,4 +11,4 @@ export interface TaxonomyTerm extends DatabaseDocument {
   forInternalUseOnly: boolean
 }
 
-export const TAXONOMY_TERMS = "commerce.taxonomy-terms"
+export const TAXONOMY_TERMS = "taxonomy-terms"

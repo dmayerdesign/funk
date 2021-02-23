@@ -1,13 +1,13 @@
 import {
-  MarshalledSkuAttributeValues,
-  SkuAttributeValues,
+    MarshalledSkuAttributeValues,
+    SkuAttributeValues
 } from "@funk/commerce/attribute/model/attribute-value"
 import { Price } from "@funk/commerce/price/model/price"
 import { Inventory } from "@funk/commerce/sku/model/inventory"
-import { TaxonomyTerm } from "@funk/commerce/taxonomy/model/taxonomy-term"
 import { ImageGroup } from "@funk/image/model/image-group"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
+import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"
 import { Weight } from "@funk/things/model/weight/weight"
 import { Duration } from "@funk/time/model/duration"
 

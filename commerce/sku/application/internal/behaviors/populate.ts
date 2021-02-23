@@ -1,7 +1,7 @@
 import { REVIEWS } from "@funk/commerce/review/model/review"
 import { MarshalledSku, Sku } from "@funk/commerce/sku/model/sku"
-import { TAXONOMY_TERMS } from "@funk/commerce/taxonomy/model/taxonomy-term"
 import populateImpl from "@funk/persistence/application/internal/behaviors/populate"
+import { TAXONOMY_TERMS } from "@funk/taxonomy/model/taxonomy-term"
 
 export function construct(populate: typeof populateImpl) {
   return function (sku: MarshalledSku): Promise<Sku> {

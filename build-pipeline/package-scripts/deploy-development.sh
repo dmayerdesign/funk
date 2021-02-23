@@ -37,5 +37,19 @@ firestore-import \
   -b build-pipeline/data/development-data/organizations.json;
 else (exit 1); fi
 if [ $? -eq 0 ]; then
+firestore-import \
+  -y \
+  -a $PATH_TO_ADMIN_CREDENTIALS_JSON \
+  -n taxonomies \
+  -b build-pipeline/data/development-data/taxonomies.json;
+else (exit 1); fi
+if [ $? -eq 0 ]; then
+firestore-import \
+  -y \
+  -a $PATH_TO_ADMIN_CREDENTIALS_JSON \
+  -n taxonomy-terms \
+  -b build-pipeline/data/development-data/taxonomy-terms.json;
+else (exit 1); fi
+if [ $? -eq 0 ]; then
   firebase deploy;
 else (exit 1); fi

@@ -64,5 +64,21 @@
     "value": "<p>This is a subtitle</p>",
     "type": "HTML",
     "__collections__": {}
+  },
+  "test-blog-post-1": {
+    "id": "test-blog-post-1",
+    "value": "<p>This is my post 1!</p>",
+    "type": "HTML_BLOG_POST",
+    "taxonomies": {
+      "blog-post-categories": ["blog"]
+    },
+    "__collections__": {}
+  },
+  "test-blog-post-2": {
+    "id": "test-blog-post-2",
+    "value": "<p>This is my post 2!</p>",
+    "type": "HTML_BLOG_POST",
+    "taxonomies": {},
+    "__collections__": {}
   }
 }

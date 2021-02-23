@@ -1,13 +1,13 @@
 import {
-  MarshalledProduct,
-  PRODUCTS,
+    MarshalledProduct,
+    PRODUCTS
 } from "@funk/commerce/product/model/product"
 import listImpl from "@funk/persistence/application/internal/behaviors/list"
 import { Condition } from "@funk/persistence/application/internal/condition"
 import {
-  Pagination,
-  VirtualPagination,
-} from "@funk/persistence/application/internal/pagination"
+    Pagination,
+    VirtualPagination
+} from "@funk/persistence/model/pagination"
 
 export function construct(list: typeof listImpl) {
   return function (options: {

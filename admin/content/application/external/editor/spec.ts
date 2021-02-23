@@ -1,12 +1,12 @@
 import {
-    construct,
-    ContentEditorService
+  construct,
+  ContentEditorService
 } from "@funk/admin/content/application/external/editor/service"
 import {
-    Content, CONTENTS,
-
-    ContentType,
-    ManagedText
+  Content,
+  CONTENTS,
+  ContentType,
+  Text
 } from "@funk/admin/content/model/content"
 import { UserRole } from "@funk/auth/model/user-role"
 import { asPromise } from "@funk/helpers/as-promise"
@@ -309,7 +309,7 @@ const createFakeUserStates = (
         content: {
           ...FAKE_CONTENTS[contentIdPreviewing],
           value: FAKE_CONTENTS[contentIdPreviewing].value + " preview saved",
-        } as ManagedText,
+        } as Text,
       },
     },
   },

@@ -1,9 +1,9 @@
 import { Condition } from "@funk/persistence/application/internal/condition"
-import {
-  Pagination,
-  VirtualPagination,
-} from "@funk/persistence/application/internal/pagination"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
+import {
+    Pagination,
+    VirtualPagination
+} from "@funk/persistence/model/pagination"
 import { getStore } from "@funk/test/plugins/internal/persistence/in-memory-store"
 import { difference, get, isEqual, orderBy, values } from "lodash"
 

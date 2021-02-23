@@ -1,4 +1,4 @@
-import getSecret from "@funk/admin/plugins/internal/secrets/behaviors/get-secret"
+import getSecret from "@funk/admin/application/internal/behaviors/get-secret"
 import { UserRole } from "@funk/auth/model/user-role"
 import createRpcFunction from "@funk/http/plugins/internal/cloud-function/behaviors/create-rpc-function"
 import { RequestWithBody } from "@funk/http/plugins/internal/server/request-with-body"

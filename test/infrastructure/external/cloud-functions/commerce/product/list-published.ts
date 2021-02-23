@@ -1,9 +1,9 @@
 import { MarshalledProduct } from "@funk/commerce/product/model/product"
 import { Condition } from "@funk/persistence/application/external/condition"
 import {
-  Pagination,
-  VirtualPagination,
-} from "@funk/persistence/application/external/pagination"
+    Pagination,
+    VirtualPagination
+} from "@funk/persistence/model/pagination"
 import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functions-client"
 import products from "../../../../../../build-pipeline/data/development-data/commerce.products.json"
 

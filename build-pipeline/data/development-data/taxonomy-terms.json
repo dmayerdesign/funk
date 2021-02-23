@@ -1,0 +1,14 @@
+{
+  "blogs": {
+    "id": "blogs",
+    "slug": "blogs",
+    "taxonomyId": "blog-post-categories",
+    "singularName": "Blog",
+    "pluralName": "Blogs",
+    "description": "",
+    "parent": "",
+    "children": [],
+    "forInternalUseOnly": false,
+    "__collections__": {}
+  }
+}

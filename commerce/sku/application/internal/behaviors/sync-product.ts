@@ -1,14 +1,14 @@
 import { MarshalledProductAttributeValues } from "@funk/commerce/attribute/model/attribute-value"
 import subtract from "@funk/commerce/price/model/behaviors/subtract"
 import {
-  MarshalledProduct,
-  PRODUCTS,
+    MarshalledProduct,
+    PRODUCTS
 } from "@funk/commerce/product/model/product"
 import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
 import { ChangeHandler } from "@funk/http/plugins/internal/cloud-function/behaviors/listen/change-handler"
 import listImpl from "@funk/persistence/application/internal/behaviors/list"
 import updateByIdImpl from "@funk/persistence/application/internal/behaviors/update-by-id"
-import { TAKE_ALL } from "@funk/persistence/application/internal/pagination"
+import { TAKE_ALL } from "@funk/persistence/model/pagination"
 import { isEqual, uniq } from "lodash"
 
 export function construct(

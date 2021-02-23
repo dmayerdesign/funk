@@ -1,8 +1,8 @@
 import getSecretPluginImpl from "@funk/admin/plugins/internal/secrets/behaviors/get-secret"
 
 export function construct(getSecretPlugin: typeof getSecretPluginImpl) {
-  return ([options]: Parameters<typeof getSecretPlugin>) =>
-    getSecretPlugin(options)
+  return (...options: Parameters<typeof getSecretPlugin>) =>
+    getSecretPlugin(...options)
 }
 export default construct(getSecretPluginImpl)
 
