@@ -10,17 +10,18 @@ import {
 import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
 import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
 import { Person } from "@funk/identity/model/person"
+import { createFakePerson } from "@funk/identity/model/stubs"
 import list from "@funk/test/plugins/internal/persistence/behaviors/list"
 import setById from "@funk/test/plugins/internal/persistence/behaviors/set-by-id"
 import setMany from "@funk/test/plugins/internal/persistence/behaviors/set-many"
 import updateById from "@funk/test/plugins/internal/persistence/behaviors/update-by-id"
 import { kebabCase, sortBy } from "lodash"
 
-export function givenAUser(displayName?: string): Person {
-  return {
+export function createFakeCustomerPerson(displayName?: string): Person {
+  return createFakePerson({
     id: displayName ? kebabCase(displayName) : "test-user-basic",
     displayName,
-  }
+  })
 }
 
 export type GivenACustomer = { person: Person; cart: Cart }
@@ -30,7 +31,7 @@ export function constructGivenACustomer(
   return async function givenACustomer(
     displayName?: string,
   ): Promise<GivenACustomer> {
-    const person = givenAUser(displayName)
+    const person = createFakeCustomerPerson(displayName)
     await customerHandleCreate({
       uid: person.id,
       displayName,

@@ -8,12 +8,8 @@ import {
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { AnonymousGuard } from "@funk/identity/infrastructure/external/anonymous-guard"
 import { PublicGuard } from "@funk/identity/infrastructure/external/public-guard"
-import { Person } from "@funk/identity/model/person"
-import { PrimaryKey } from "@funk/persistence/model/primary-key"
+import { FAKE_ID_TOKEN, FAKE_USER_UID } from "@funk/identity/model/stubs"
 import { BehaviorSubject, Observable, of } from "rxjs"
-
-export const FAKE_USER_UID: PrimaryKey = "test-user-basic"
-export const FAKE_ID_TOKEN: PrimaryKey = "test-token"
 
 const createIdTokenResultStub = (role = UserRole.ANONYMOUS) => ({
   claims: { role } as CustomClaims,
@@ -21,12 +17,6 @@ const createIdTokenResultStub = (role = UserRole.ANONYMOUS) => ({
 
 export const createUserSession = (role: UserRole) =>
   of({ auth: { claims: { role } } }) as UserSession
-
-export const createFakePerson = ({
-  id = FAKE_USER_UID,
-  displayName = "Test",
-  email = "test@test.com",
-} = {}) => ({ id, displayName, email } as Person)
 
 export const createAuthUserStub = (
   role = UserRole.ANONYMOUS,

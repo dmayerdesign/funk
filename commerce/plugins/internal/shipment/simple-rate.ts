@@ -1,10 +1,10 @@
 import { Price } from "@funk/commerce/price/model/price"
-import { Timestamp } from "@funk/persistence/model/timestamp"
+import { Instant } from "@funk/time/model/instant"
 
 export interface SimpleRate {
   name: string
   carrier: string
   price: Price
-  deliveryDateEstimate: Timestamp
+  deliveryDateEstimate: Instant
   deliveryDateEstimateIsGuaranteed: boolean
 }

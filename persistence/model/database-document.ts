@@ -1,10 +1,11 @@
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
-import { Timestamp } from "@funk/persistence/model/timestamp"
+import { Instant } from "@funk/time/model/instant"
 
 export interface DatabaseDocument {
   id: PrimaryKey
   slug?: string
-  updatedAt?: Timestamp
+  createdAt?: Instant
+  updatedAt?: Instant
 }
 
 export interface DocumentData {
@@ -19,4 +20,20 @@ export type DbDocumentInput<DocumentType extends DatabaseDocument> = Omit<
 export interface DbDocumentMetadata {
   collectionPath: string
   documentPath: string
+}
+
+export interface CreatedAt {
+  createdAt: Instant
+}
+
+export interface UpdatedAt {
+  updatedAt: Instant
+}
+
+export interface RemovedAt {
+  removedAt?: Instant
+}
+
+export interface RemovableDatabaseDocument extends DatabaseDocument {
+  removedAt?: Instant
 }

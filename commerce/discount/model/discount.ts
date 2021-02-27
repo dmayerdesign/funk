@@ -1,7 +1,7 @@
 import { Price } from "@funk/commerce/price/model/price"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
-import { Timestamp } from "@funk/persistence/model/timestamp"
+import { Instant } from "@funk/time/model/instant"
 
 export const DISCOUNTS = "commerce.discounts"
 
@@ -20,8 +20,8 @@ interface BaseDiscount extends DatabaseDocument {
    */
   percentage?: number
   isCompoundable?: boolean
-  startAt: Timestamp
-  endAt?: Timestamp
+  startAt: Instant
+  endAt?: Instant
   /** The discount will not apply to products priced below this amount. */
   preDiscountProductPriceThreshold?: Price
 }

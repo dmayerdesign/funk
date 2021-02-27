@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from "@angular/core"
+import { Component, OnInit } from "@angular/core"
 import { Content } from "@funk/admin/content/model/content"
-import { LIST_POSTS_BY_TAXONOMY } from "@funk/professional-portfolio/infrastructure/external/tokens"
+// import { LIST_POSTS_BY_TAXONOMY } from "@funk/professional-portfolio/infrastructure/external/tokens"
 
 @Component({
   template: `
@@ -43,10 +43,10 @@ export class BlogContainer implements OnInit {
   public posts!: Promise<Content[]>
 
   public constructor(
-    @Inject(LIST_POSTS_BY_TAXONOMY) public listPostsByTaxonomy: ListPostsByTaxonomy
+    // @Inject(LIST_POSTS_BY_TAXONOMY) public listPostsByTaxonomy: ListPostsByTaxonomy
   ) {}
 
   public ngOnInit(): void {
-    this.posts = this.listPostsByTaxonomy("blog")
+    // this.posts = this.listPostsByTaxonomy("blog")
   }
 }

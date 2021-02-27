@@ -1,14 +1,14 @@
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
-import { Timestamp } from "@funk/persistence/model/timestamp"
+import { Instant } from "@funk/time/model/instant"
 
 export interface RpcRequest<InputType> extends DatabaseDocument {
   payload?: Partial<InputType>
-  createdAt: Timestamp
+  createdAt: Instant
   requestProtocolData: any
 }
 
 export interface RpcResponse<OutputType> extends DatabaseDocument {
   payload?: Partial<OutputType>
   responseProtocolData: any
-  createdAt: Timestamp
+  createdAt: Instant
 }

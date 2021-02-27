@@ -1,27 +1,28 @@
 import {
-    construct as constructCustomerHandleCreate,
-    HandleCreate
+  construct as constructCustomerHandleCreate,
+  HandleCreate,
 } from "@funk/commerce/customer/application/internal/behaviors/handle-create"
 import {
-    construct as constructOrderPopulate,
-    Populate
+  construct as constructOrderPopulate,
+  Populate,
 } from "@funk/commerce/order/application/internal/behaviors/populate"
 import {
-    construct as constructSetSkuQuantity,
-    SetSkuQuantity
+  construct as constructSetSkuQuantity,
+  SetSkuQuantity,
 } from "@funk/commerce/order/application/internal/behaviors/set-sku-quantity"
 import {
-    construct as constructSetStatusToCheckout,
-    SetStatusToCheckout
+  construct as constructSetStatusToCheckout,
+  SetStatusToCheckout,
 } from "@funk/commerce/order/application/internal/behaviors/set-status-to-checkout"
 import {
-    construct as constructOrderSubmit,
-    Submit
+  construct as constructOrderSubmit,
+  Submit,
 } from "@funk/commerce/order/application/internal/behaviors/submit"
 import { Cart, Status } from "@funk/commerce/order/model/order"
 import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
 import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
 import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import namePattern from "@funk/helpers/name-pattern"
 import { Person } from "@funk/identity/model/person"
 import { ConfirmPaymentIntent } from "@funk/money/plugins/internal/payment/behaviors/confirm-payment-intent"
 import { createFakeAddress } from "@funk/places/model/stubs"
@@ -38,14 +39,14 @@ import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/ui/copy/error-messages"
 import { defineFeature, DefineStepFunction, loadFeature } from "jest-cucumber"
 import { resolve } from "path"
 import {
-    constructGivenACustomer,
-    givenASku,
-    givenThatTheCartContainsInStockSkus,
-    listOrdersForUser
+  constructGivenACustomer,
+  givenASku,
+  givenThatTheCartContainsInStockSkus,
+  listOrdersForUser,
 } from "./helpers"
 
 const feature = loadFeature(
-  resolve(__dirname, "cart.feature"),
+  resolve(__dirname, "../cart.feature"),
   loadFeatureOptions,
 )
 
@@ -91,9 +92,12 @@ defineFeature(feature, function (example) {
 
       when(/(\w)+ visits the app for the first time$/, () => {})
 
-      then(/the app creates an order associated with ([\w\s]+)$/, () => {
-        expect(cart.customer.userId).toBe(person.id)
-      })
+      then(
+        new RegExp(`the app creates an order associated with ${namePattern}$`),
+        () => {
+          expect(cart.customer.userId).toBe(person.id)
+        },
+      )
 
       then(/the order has a status of "Cart"$/, () => {
         expect(cart.status).toBe(Status.CART)
@@ -106,17 +110,23 @@ defineFeature(feature, function (example) {
         defineGivenACustomer(given)
         defineGivenThatTheCartContainsInStockSkus(given)
 
-        when(/([\w\s]+) successfully submits their order$/, async () => {
-          await orderSubmit(cart.id)
-        })
+        when(
+          new RegExp(`${namePattern} successfully submits their order$`),
+          async () => {
+            await orderSubmit(cart.id)
+          },
+        )
 
-        then(/a new cart is created for ([\w\s]+)$/, async () => {
-          const carts = (await listOrdersForUser(person.id)).filter(
-            (_order) => _order.status === Status.CART,
-          )
-          expect(carts.length).toBe(1)
-          expect(carts[0].id).not.toEqual(cart.id)
-        })
+        then(
+          new RegExp(`a new cart is created for ${namePattern}$`),
+          async () => {
+            const carts = (await listOrdersForUser(person.id)).filter(
+              (_order) => _order.status === Status.CART,
+            )
+            expect(carts.length).toBe(1)
+            expect(carts[0].id).not.toEqual(cart.id)
+          },
+        )
       },
     )
   })
@@ -127,7 +137,7 @@ defineFeature(feature, function (example) {
       function ({ given, when, then }) {
         defineGivenACustomer(given)
 
-        given(/an in-stock SKU named ([\w\s]+)$/, async () => {
+        given(new RegExp(`an in-stock SKU named ${namePattern}$`), async () => {
           sku = await givenASku({
             name: "Rollerblades",
             inventory: { type: "finite", quantity: 3, quantityReserved: 1 },
@@ -135,7 +145,9 @@ defineFeature(feature, function (example) {
         })
 
         when(
-          /([\w\s]+) tries to add ([\w\s]+) to their cart$/,
+          new RegExp(
+            `${namePattern} tries to add ${namePattern} to their cart$`,
+          ),
           async () => {
             await setSkuQuantity({
               orderId: cart.id,
@@ -145,13 +157,16 @@ defineFeature(feature, function (example) {
           },
         )
 
-        then(/the ([\w\s]+) are successfully added$/, async () => {
-          const [theUpdatedCart] = await listOrdersForUser(person.id)
-          expect(theUpdatedCart.skus!.length).toBe(1)
-          expect(theUpdatedCart.skuQuantityMap).toMatchObject({
-            [sku.id]: 2,
-          })
-        })
+        then(
+          new RegExp(`the ${namePattern} are successfully added$`),
+          async () => {
+            const [theUpdatedCart] = await listOrdersForUser(person.id)
+            expect(theUpdatedCart.skus!.length).toBe(1)
+            expect(theUpdatedCart.skuQuantityMap).toMatchObject({
+              [sku.id]: 2,
+            })
+          },
+        )
       },
     )
   })
@@ -167,12 +182,17 @@ defineFeature(feature, function (example) {
         defineGivenACustomer(given)
         defineGivenThatTheCartContainsInStockSkus(given)
 
-        when(/([\w\s]+) begins the "checkout" flow$/, async () => {
-          await setStatusToCheckout(cart.id)
-        })
+        when(
+          new RegExp(`${namePattern} begins the "checkout" flow$`),
+          async () => {
+            await setStatusToCheckout(cart.id)
+          },
+        )
 
         then(
-          /the status of ([\w\s]+)'s cart changes to "Cart Checkout"$/,
+          new RegExp(
+            `the status of ${namePattern}\'s cart changes to "Cart Checkout"$`,
+          ),
           async () => {
             const [theUpdatedCart] = await listOrdersForUser(person.id)
             expect(theUpdatedCart.status).toBe(Status.CART_CHECKOUT)
@@ -189,7 +209,9 @@ defineFeature(feature, function (example) {
         defineGivenThatTheCartContainsInStockSkus(given)
 
         given(
-          /that ([\w\s]+) has provided their payment information$/,
+          new RegExp(
+            `that ${namePattern} has provided their payment information$`,
+          ),
           async () => {
             cart.paymentIntentId = "fake payment intent id"
             confirmPaymentIntent = jest.fn().mockImplementation(async () => {
@@ -200,14 +222,16 @@ defineFeature(feature, function (example) {
         )
 
         given(
-          /that ([\w\s]+) has provided their shipping address and chosen a shipping rate$/,
+          new RegExp(
+            `that ${namePattern} has provided their shipping address and chosen a shipping rate$`,
+          ),
           async () => {
             cart.customer.shippingAddress = createFakeAddress()
             cart.shipmentCarrier = "fake carrier"
           },
         )
 
-        when(/([\w\s]+) submits their order/, async () => {
+        when(new RegExp(`${namePattern} submits their order`), async () => {
           orderSubmit = constructOrderSubmit(
             getById,
             updateById,
@@ -222,7 +246,9 @@ defineFeature(feature, function (example) {
         })
 
         then(
-          /the status of ([\w\s]+)'s order changes to "Payment Pending"/,
+          new RegExp(
+            `the status of ${namePattern}'s order changes to \"Payment Pending\"`,
+          ),
           async () => {
             const [theUpdatedCart] = await listOrdersForUser(person.id)
             expect(theUpdatedCart.status).toBe(Status.PAYMENT_PENDING)
@@ -258,7 +284,9 @@ defineFeature(feature, function (example) {
           })
 
           given(
-            /an in-stock SKU named ([\w\s]+) with 1 left in inventory$/,
+            new RegExp(
+              `an in-stock SKU named ${namePattern} with 1 left in inventory$`,
+            ),
             async () => {
               await setById(
                 SKUS,
@@ -276,7 +304,9 @@ defineFeature(feature, function (example) {
           )
 
           given(
-            /that Sam and Cam each put ([\w\s]+) into their carts$/,
+            new RegExp(
+              `that Sam and Cam each put ${namePattern} into their carts$`,
+            ),
             async () => {
               await setSkuQuantity({
                 orderId: cart.id,
@@ -296,7 +326,7 @@ defineFeature(feature, function (example) {
           })
 
           then(
-            /Cam is no longer able to purchase ([\w\s]+)$/,
+            new RegExp(`Cam is no longer able to purchase ${namePattern}$`),
             async () => {
               await expect(setStatusToCheckout(cart2.id)).rejects.toThrow(
                 new RegExp(SKUS_OUT_OF_STOCK_ERROR, "g"),
@@ -304,23 +334,22 @@ defineFeature(feature, function (example) {
             },
           )
 
-          then(
-            /the SKU's stock quantity appears to Cam as zero$/,
-            async () => {
-              coolShoes = await getById<MarshalledSku>(SKUS, "cool-shoes")
-              expect((coolShoes?.inventory as FiniteInventory).quantity).toBe(1)
-              expect(
-                (coolShoes?.inventory as FiniteInventory).quantityReserved,
-              ).toBe(1)
-            },
-          )
+          then(/the SKU's stock quantity appears to Cam as zero$/, async () => {
+            coolShoes = await getById<MarshalledSku>(SKUS, "cool-shoes")
+            expect((coolShoes?.inventory as FiniteInventory).quantity).toBe(1)
+            expect(
+              (coolShoes?.inventory as FiniteInventory).quantityReserved,
+            ).toBe(1)
+          })
         },
       )
     },
   )
 
   function defineGivenACustomer(given: DefineStepFunction) {
-    given(/a customer named ([\w\s]+)/, async function (customerName: string) {
+    given(new RegExp(`a customer named ${namePattern}`), async function (
+      customerName: string,
+    ) {
       const customerData = await constructGivenACustomer(customerHandleCreate)(
         customerName,
       )
@@ -331,8 +360,11 @@ defineFeature(feature, function (example) {
   function defineGivenThatTheCartContainsInStockSkus(
     given: DefineStepFunction,
   ) {
-    given(/that ([\w\s]+)'s cart contains in-stock SKUs$/, async () => {
-      await givenThatTheCartContainsInStockSkus({ theCart: cart })
-    })
+    given(
+      new RegExp(`that ${namePattern}'s cart contains in-stock SKUs$`),
+      async () => {
+        await givenThatTheCartContainsInStockSkus({ theCart: cart })
+      },
+    )
   }
 })

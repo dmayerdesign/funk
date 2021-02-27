@@ -1,7 +1,7 @@
 import { Cart, MarshalledCart } from "@funk/commerce/order/model/order"
 import { construct } from "@funk/commerce/shop/application/external/orders/cart/cart"
-import { createFakePerson } from "@funk/identity/application/external/stubs"
 import { UserSession } from "@funk/identity/application/external/user-session"
+import { createFakePerson } from "@funk/identity/model/stubs"
 import { ListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
 import { Populate } from "@funk/persistence/application/external/behaviors/populate"
 import { QueryCollectionForMetadata } from "@funk/persistence/application/external/behaviors/query-collection-for-metadata"

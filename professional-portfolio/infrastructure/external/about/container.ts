@@ -1,10 +1,6 @@
 import { Component, Inject } from "@angular/core"
 import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
-import {
-  DEVICE_WIDTH,
-  PAGE_TITLE
-} from "@funk/ui/infrastructure/external/tokens"
-import { DeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
+import { PAGE_TITLE } from "@funk/ui/infrastructure/external/tokens"
 
 @Component({
   template: `
@@ -25,6 +21,5 @@ export class AboutContainer {
 
   public constructor(
     @Inject(PAGE_TITLE) public pageTitle: PageTitle,
-    @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth,
   ) {}
 }

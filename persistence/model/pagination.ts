@@ -25,3 +25,10 @@ export const RANDOM_ORDER: Pick<Pagination, "orderBy" | "orderByDirection"> = {
   orderBy: "id",
   orderByDirection: "asc",
 }
+
+export const DEFAULT_PAGINATION: Pagination = {
+  orderBy: "createdAt",
+  orderByDirection: "desc",
+  skip: 0,
+  take: 25,
+}

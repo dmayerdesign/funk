@@ -1,12 +1,12 @@
 import {
-    Component,
-    Inject,
-    OnInit,
-    ViewChild,
-    ViewEncapsulation
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
 } from "@angular/core"
 import { ContentEditorService } from "@funk/admin/content/application/external/editor/service"
-import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/admin/content/infrastructure/external/tokens"
+import { CONTENT_EDITOR_SERVICE } from "@funk/admin/content/infrastructure/external/tokens"
 import { ContentType } from "@funk/admin/content/model/content"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { IonTextarea } from "@ionic/angular"
@@ -168,7 +168,7 @@ export class ContentEditorContainer implements OnInit {
   }
 
   public constructor(
-    @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
+    @Inject(CONTENT_EDITOR_SERVICE)
     private _editorService: ContentEditorService,
   ) {}
 

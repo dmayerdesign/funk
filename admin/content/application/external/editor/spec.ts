@@ -1,17 +1,17 @@
 import {
   construct,
-  ContentEditorService
+  ContentEditorService,
 } from "@funk/admin/content/application/external/editor/service"
 import {
   Content,
   CONTENTS,
+  ContentText,
   ContentType,
-  Text
 } from "@funk/admin/content/model/content"
 import { UserRole } from "@funk/auth/model/user-role"
 import { asPromise } from "@funk/helpers/as-promise"
-import { FAKE_USER_UID } from "@funk/identity/application/external/stubs"
 import { UserSession } from "@funk/identity/application/external/user-session"
+import { FAKE_USER_UID } from "@funk/identity/model/stubs"
 import { UserState, USER_STATES } from "@funk/identity/model/user-state"
 import { GetById } from "@funk/persistence/application/external/behaviors/get-by-id"
 import { construct as constructListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
@@ -309,7 +309,7 @@ const createFakeUserStates = (
         content: {
           ...FAKE_CONTENTS[contentIdPreviewing],
           value: FAKE_CONTENTS[contentIdPreviewing].value + " preview saved",
-        } as Text,
+        } as ContentText,
       },
     },
   },

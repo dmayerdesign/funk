@@ -4,14 +4,11 @@ import {
   Inject,
   Input,
   OnDestroy,
-  OnInit
+  OnInit,
 } from "@angular/core"
 import { ContentEditorService } from "@funk/admin/content/application/external/editor/service"
-import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/admin/content/infrastructure/external/tokens"
-import {
-  Content,
-  ContentType
-} from "@funk/admin/content/model/content"
+import { CONTENT_EDITOR_SERVICE } from "@funk/admin/content/infrastructure/external/tokens"
+import { Content, ContentType } from "@funk/admin/content/model/content"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { defer, Observable } from "rxjs"
@@ -57,7 +54,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   public readonly ContentType = ContentType
 
   public constructor(
-    @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
+    @Inject(CONTENT_EDITOR_SERVICE)
     private _editorService: ContentEditorService,
   ) {}
 

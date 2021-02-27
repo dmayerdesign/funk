@@ -1,9 +1,13 @@
 import { ImageGroup } from "@funk/image/model/image-group"
-import { DatabaseDocument } from "@funk/persistence/model/database-document"
+import {
+  DatabaseDocument,
+  RemovedAt,
+} from "@funk/persistence/model/database-document"
 
-export interface BaseContent extends DatabaseDocument {}
+// TODO: Rename to `Text`, `Image`, etc. once
+// https://github.com/vega/ts-json-schema-generator/pull/667 is released.
 
-export interface Text extends BaseContent {
+export interface ContentText extends DatabaseDocument, RemovedAt {
   type: ContentType.TEXT
   value: string
   i18n?: {
@@ -15,7 +19,7 @@ export interface Text extends BaseContent {
   }
 }
 
-export interface Html extends BaseContent {
+export interface ContentHtml extends DatabaseDocument, RemovedAt {
   type: ContentType.HTML
   value: string
   i18n?: {
@@ -27,7 +31,7 @@ export interface Html extends BaseContent {
   }
 }
 
-export interface Image extends BaseContent {
+export interface ContentImage extends DatabaseDocument, RemovedAt {
   type: ContentType.IMAGE
   value: ImageGroup
   i18n?: {
@@ -39,7 +43,7 @@ export interface Image extends BaseContent {
   }
 }
 
-export interface HtmlBlogPost extends BaseContent {
+export interface ContentHtmlBlogPost extends DatabaseDocument, RemovedAt {
   type: ContentType.HTML_BLOG_POST
   title: string
   subtitle?: string
@@ -60,16 +64,13 @@ export enum ContentType {
   TEXT = "TEXT",
   HTML = "HTML",
   IMAGE = "IMAGE",
-  HTML_BLOG_POST = "HTML_BLOG_POST"
+  HTML_BLOG_POST = "HTML_BLOG_POST",
 }
 
-export type Content = Text | Html | Image | HtmlBlogPost
+export type Content =
+  | ContentText
+  | ContentHtml
+  | ContentImage
+  | ContentHtmlBlogPost
 
 export const CONTENTS = "contents"
-
-/*
-CRUD a blog post
-Editor UI (beacon, etc)
-
-<managed-
-*/
