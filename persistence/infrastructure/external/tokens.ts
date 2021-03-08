@@ -2,6 +2,7 @@ import { InjectionToken } from "@angular/core"
 import { GetById } from "@funk/persistence/application/external/behaviors/get-by-id"
 import { ListByIds } from "@funk/persistence/application/external/behaviors/list-by-ids"
 import { ListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
+import { Marshall } from "@funk/persistence/application/external/behaviors/marshall"
 import { Populate } from "@funk/persistence/application/external/behaviors/populate"
 import { QueryCollectionForMetadata } from "@funk/persistence/application/external/behaviors/query-collection-for-metadata"
 import { SetById } from "@funk/persistence/application/external/behaviors/set-by-id"
@@ -13,6 +14,7 @@ export const GET_BY_ID = new InjectionToken<GetById>("GET_BY_ID")
 export const SET_BY_ID = new InjectionToken<SetById>("SET_BY_ID")
 export const UPDATE_BY_ID = new InjectionToken<UpdateById>("UPDATE_BY_ID")
 export const POPULATE = new InjectionToken<Populate<unknown, any>>("POPULATE")
+export const MARSHALL = new InjectionToken<Marshall>("MARSHALL")
 export const QUERY_COLLECTION_FOR_METADATA = new InjectionToken<
   QueryCollectionForMetadata
 >("QUERY_COLLECTION_FOR_METADATA")

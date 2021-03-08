@@ -40,7 +40,7 @@ Feature: Blog posts
       And there are blog posts in the trash
       When Amy requests all blog posts in the category "blog"
       Then Amy gets all blog posts in the category "blog"
-      And none of the blog posts are from the trash
+      And none of the blog posts are in the trash
       And each blog post is represented by its title and its cover image
 
   Rule: An anonymous user can view the contents of a blog post.

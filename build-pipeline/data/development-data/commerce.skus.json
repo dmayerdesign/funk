@@ -17,9 +17,7 @@
       "unit": "oz"
     },
     "productId": "product-1",
-    "attributeValues": {
-      "brand": "magnanni-neiman-marcus"
-    },
+    "attributeValues": ["magnanni-neiman-marcus"],
     "updatedAt": 1611292907000,
     "inventory": {
       "type": "finite",
@@ -51,17 +49,13 @@
       "quantityReserved": 0
     },
     "description": "Wow have we got some shoes for you. These shoes are the greatest shoes ever to grace a human foot. They let you walk, they let you jump, they let you fly. People better watch out if you're wearing these shoes, because they are going to give you superpowers.",
-    "attributeValues": {
-      "brand": "magnanni-neiman-marcus"
-    },
+    "attributeValues": ["magnanni-neiman-marcus"],
     "shippingLabel": "",
     "__collections__": {}
   },
   "sku-2-1": {
     "description": "Wow have we got some shoes for you. These shoes are the greatest shoes ever to grace a human foot. They let you walk, they let you jump, they let you fly. People better watch out if you're wearing these shoes, because they are going to give you superpowers.",
-    "attributeValues": {
-      "brand": "magnanni-neiman-marcus"
-    },
+    "attributeValues": ["magnanni-neiman-marcus"],
     "price": {
       "amount": 8000,
       "currency": "USD"

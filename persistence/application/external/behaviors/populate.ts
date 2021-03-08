@@ -1,22 +1,19 @@
 import { GetById } from "@funk/persistence/application/external/behaviors/get-by-id"
 import { ListByIds } from "@funk/persistence/application/external/behaviors/list-by-ids"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
-
-export interface PopulateFieldOptions<DocumentType> {
-  collectionPath: string
-  key: keyof DocumentType
-  /** Defaults to `one-to-many`. */
-  relationship?: "one-to-many" | "one-to-one"
-}
+import { ReferenceOptions } from "@funk/persistence/model/reference-options"
 
 export function construct(getById: GetById, listByIds: ListByIds) {
   return async function <
     PopulatedType extends DatabaseDocument = any,
     MarshalledType extends DatabaseDocument = any
   >(
-    marshalledDoc: MarshalledType,
-    options: PopulateFieldOptions<MarshalledType | PopulatedType>[],
+    marshalledDoc: MarshalledType | undefined,
+    options: ReferenceOptions<MarshalledType | PopulatedType>[],
   ): Promise<PopulatedType> {
+    if (typeof marshalledDoc === "undefined") {
+      return {} as PopulatedType
+    }
     const _populatedDoc = ({ ...marshalledDoc } as unknown) as PopulatedType
     for (const { collectionPath, key, relationship } of options) {
       if (
@@ -53,5 +50,5 @@ export type Populate<
   MarshalledType extends DatabaseDocument = any
 > = (
   marshalledDoc: MarshalledType,
-  options: PopulateFieldOptions<MarshalledType | PopulatedType>[],
+  options: ReferenceOptions<MarshalledType | PopulatedType>[],
 ) => Promise<PopulatedType>

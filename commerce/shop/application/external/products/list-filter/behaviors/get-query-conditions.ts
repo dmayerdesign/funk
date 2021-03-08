@@ -1,4 +1,4 @@
-import { MarshalledProduct } from "@funk/commerce/product/model/product"
+import { Product } from "@funk/commerce/product/model/product"
 import {
   ListFilter,
   ListFilterType,
@@ -6,9 +6,7 @@ import {
 import createDocPath from "@funk/helpers/create-doc-path"
 import { Condition } from "@funk/persistence/application/external/condition"
 
-export default function (
-  listFilter: ListFilter,
-): Condition<MarshalledProduct>[] {
+export default function (listFilter: ListFilter): Condition<Product>[] {
   switch (listFilter.type) {
     case ListFilterType.ATTRIBUTE_VALUE:
       return [["attributeValues", "in", listFilter.attributeValueIds]]
@@ -17,7 +15,7 @@ export default function (
     case ListFilterType.SCALAR_PROPERTY:
       return [[listFilter.key, "in", listFilter.values]]
     case ListFilterType.SCALAR_ATTRIBUTE:
-      let documentPath = createDocPath<MarshalledProduct>(
+      let documentPath = createDocPath<Product>(
         "attributeValues",
         listFilter.attributeId,
       )
@@ -28,7 +26,7 @@ export default function (
         [listFilter.key, "<", listFilter.range.max],
       ]
     case ListFilterType.RANGE_ATTRIBUTE:
-      documentPath = createDocPath<MarshalledProduct>(
+      documentPath = createDocPath<Product>(
         "attributeValues",
         listFilter.attributeId,
       )

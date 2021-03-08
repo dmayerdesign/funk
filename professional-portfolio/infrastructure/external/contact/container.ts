@@ -3,19 +3,17 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  Validators
+  Validators,
 } from "@angular/forms"
 import {
   GetToken,
-  GET_TOKEN
+  GET_TOKEN,
 } from "@funk/auth/plugins/external/turing-test/behaviors/get-token"
 import { ContactOwner } from "@funk/contact/infrastructure/external/cloud-functions/owner"
 import { ContactForm } from "@funk/contact/model/contact-form"
 import { CONTACT_OWNER } from "@funk/professional-portfolio/infrastructure/external/tokens"
 import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
-import {
-  PAGE_TITLE
-} from "@funk/ui/infrastructure/external/tokens"
+import { PAGE_TITLE } from "@funk/ui/infrastructure/external/tokens"
 
 @Component({
   template: `

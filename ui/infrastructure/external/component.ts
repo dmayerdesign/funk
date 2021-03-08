@@ -16,7 +16,7 @@ import { IonMenu } from "@ionic/angular"
   ],
   template: `
     <ion-app class="app">
-      <ion-menu class="menu" side="start" content-id="main">
+      <ion-menu class="menu" side="start" content-id="routes">
         <ion-header class="header">
           <ion-toolbar class="toolbar" translucent>
             <ion-title class="title">Menu</ion-title>
@@ -56,6 +56,7 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this._router.events.subscribe((event) => {
+      console.log(event)
       if (event instanceof NavigationEnd) {
         this.menu.close()
       }

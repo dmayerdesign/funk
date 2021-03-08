@@ -15,13 +15,13 @@ export default async function <
   await Promise.all(
     flatten(
       Object.keys(documentsByCollectionPath).map((collectionPath) => {
-        const collection = documentsByCollectionPath[collectionPath]
+        const collectionUpdates = documentsByCollectionPath[collectionPath]
 
-        return Object.keys(collection).map((documentPath) =>
+        return Object.keys(collectionUpdates).map((documentPath) =>
           setById(
             collectionPath,
             documentPath,
-            collection[documentPath],
+            collectionUpdates[documentPath],
             options,
           ),
         )

@@ -1,6 +1,6 @@
 import namePattern from "@funk/helpers/name-pattern"
-import { Person } from "@funk/identity/model/person"
 import { createFakePerson } from "@funk/identity/model/stubs"
+import { Person } from "@funk/identity/person/model/person"
 import { DefineStepFunction } from "jest-cucumber"
 
 export async function createTestUser(

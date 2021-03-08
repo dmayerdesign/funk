@@ -1,27 +1,20 @@
-import {
-    Content, CONTENTS
-} from "@funk/admin/content/model/content"
-import { ignoreNullish } from "@funk/helpers/rxjs-shims"
-import { UserSession } from "@funk/identity/application/external/user-session"
-import { UserState, USER_STATES } from "@funk/identity/model/user-state"
-import { ListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
+import { ListenById as ContentListenById } from "@funk/admin/content/application/external/behaviors/persistence/listen-by-id"
+import { Content } from "@funk/admin/content/model/content"
+import { ListenById as ContentPreviewListenById } from "@funk/admin/content/preview/application/external/behaviors/persistence/listen-by-id"
 import { combineLatest, from, Observable } from "rxjs"
-import { map, pluck, switchMap } from "rxjs/operators"
+import { map } from "rxjs/operators"
 
-export function construct(userSession: UserSession, listenById: ListenById) {
+export function construct(
+  contentPreviewListenById: ContentPreviewListenById,
+  contentListenById: ContentListenById,
+) {
   return function (contentId: string): Observable<Content | undefined> {
-    return userSession
-      .pipe(ignoreNullish(), pluck("auth", "id"))
-      .pipe(
-        switchMap((userId) =>
-          combineLatest([
-            from(listenById<UserState>(USER_STATES, userId)).pipe(
-              map((user) => user?.contentPreviews?.[contentId]?.content),
-            ),
-            from(listenById<Content>(CONTENTS, contentId)),
-          ]).pipe(map(([preview, content]) => preview || content)),
-        ),
-      )
+    return combineLatest([
+      from(contentPreviewListenById(contentId)).pipe(
+        map((contentPreview) => contentPreview?.content),
+      ),
+      from(contentListenById(contentId)),
+    ]).pipe(map(([preview, content]) => preview ?? content))
   }
 }
 

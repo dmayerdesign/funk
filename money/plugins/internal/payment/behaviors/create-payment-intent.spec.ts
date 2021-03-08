@@ -2,8 +2,8 @@ import { CurrencyCode } from "@funk/money/model/currency-code"
 import { construct } from "@funk/money/plugins/internal/payment/behaviors/create-payment-intent"
 import { GetPaymentProvider } from "@funk/money/plugins/internal/payment/behaviors/get-payment-provider"
 import {
-    createGetPaymentProviderStub,
-    PaymentProviderStub
+  createGetPaymentProviderStub,
+  PaymentProviderStub,
 } from "@funk/money/plugins/internal/payment/stubs"
 import Stripe from "stripe"
 

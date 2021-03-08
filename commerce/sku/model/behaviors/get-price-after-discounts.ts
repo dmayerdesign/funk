@@ -2,8 +2,8 @@ import getApplicableDiscountsForSkuImpl from "@funk/commerce/discount/model/beha
 import { SkuDiscount } from "@funk/commerce/discount/model/discount"
 import subtract from "@funk/commerce/price/model/behaviors/subtract"
 import { Price } from "@funk/commerce/price/model/price"
-import { MarshalledProduct } from "@funk/commerce/product/model/product"
-import { MarshalledSku } from "@funk/commerce/sku/model/sku"
+import { Product } from "@funk/commerce/product/model/product"
+import { Sku } from "@funk/commerce/sku/model/sku"
 
 /**
  * Computes a `Sku`'s actual price given all active discounts. Will only apply discounts
@@ -17,8 +17,8 @@ export function construct(
   getApplicableDiscountsForSku: typeof getApplicableDiscountsForSkuImpl,
 ) {
   return function (options: {
-    sku: MarshalledSku
-    product: MarshalledProduct
+    sku: Sku
+    product: Product
     activeDiscounts?: SkuDiscount[]
   }): Price {
     const { sku, product, activeDiscounts = [] } = options
@@ -30,10 +30,7 @@ export function construct(
   }
 }
 
-function getSkuPriceAfterDiscounts(
-  sku: MarshalledSku,
-  discounts: SkuDiscount[],
-): Price {
+function getSkuPriceAfterDiscounts(sku: Sku, discounts: SkuDiscount[]): Price {
   return discounts.reduce<Price>((calculatedPrice, discount) => {
     if (!!discount.total) {
       return subtract(calculatedPrice, discount.total)

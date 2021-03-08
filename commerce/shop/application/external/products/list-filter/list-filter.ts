@@ -1,4 +1,4 @@
-import { MarshalledProduct } from "@funk/commerce/product/model/product"
+import { Product } from "@funk/commerce/product/model/product"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 export enum ListFilterType {
@@ -10,22 +10,18 @@ export enum ListFilterType {
   TAXONOMY_TERM = "TAXONOMY_TERM",
 }
 
-interface ScalarPropertyListFilter<
-  Key extends keyof MarshalledProduct = keyof MarshalledProduct
-> {
+interface ScalarPropertyListFilter<Key extends keyof Product = keyof Product> {
   type: ListFilterType.SCALAR_PROPERTY
   key: Key
-  values: MarshalledProduct[Key][]
+  values: Product[Key][]
 }
 
-interface RangePropertyListFilter<
-  Key extends keyof MarshalledProduct = keyof MarshalledProduct
-> {
+interface RangePropertyListFilter<Key extends keyof Product = keyof Product> {
   type: ListFilterType.RANGE_PROPERTY
   key: Key
   range: {
-    min: MarshalledProduct[Key]
-    max: MarshalledProduct[Key]
+    min: Product[Key]
+    max: Product[Key]
   }
 }
 

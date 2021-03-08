@@ -4,7 +4,7 @@ import { AngularFireAuth, AngularFireAuthModule } from "@angular/fire/auth"
 import {
   AngularFirestore,
   AngularFirestoreModule,
-  SETTINGS
+  SETTINGS,
 } from "@angular/fire/firestore"
 import { CONFIGURATION, FIREBASE_CONFIG } from "@funk/configuration"
 import { Configuration } from "@funk/configuration/model/configuration"
@@ -21,12 +21,13 @@ import { Configuration } from "@funk/configuration/model/configuration"
     AngularFireAuth,
     {
       provide: SETTINGS,
-      useValue: CONFIGURATION === Configuration.LOCAL
-        ? {
-            host: "localhost:8080",
-            ssl: false,
-          }
-        : undefined,
+      useValue:
+        CONFIGURATION === Configuration.LOCAL
+          ? {
+              host: "localhost:8080",
+              ssl: false,
+            }
+          : undefined,
     },
   ],
 })

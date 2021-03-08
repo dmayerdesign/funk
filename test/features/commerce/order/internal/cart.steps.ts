@@ -3,9 +3,29 @@ import {
   HandleCreate,
 } from "@funk/commerce/customer/application/internal/behaviors/handle-create"
 import {
+  construct as constructGetOrderById,
+  GetById as GetOrderById,
+} from "@funk/commerce/order/application/internal/behaviors/persistence/get-by-id"
+import {
+  construct as constructOrderMarshall,
+  Marshall,
+} from "@funk/commerce/order/application/internal/behaviors/persistence/marshall"
+import {
   construct as constructOrderPopulate,
   Populate,
-} from "@funk/commerce/order/application/internal/behaviors/populate"
+} from "@funk/commerce/order/application/internal/behaviors/persistence/populate"
+import {
+  construct as constructSetOrderById,
+  SetById as SetOrderById,
+} from "@funk/commerce/order/application/internal/behaviors/persistence/set-by-id"
+import {
+  construct as constructSetManyOrders,
+  SetMany as SetManyOrders,
+} from "@funk/commerce/order/application/internal/behaviors/persistence/set-many"
+import {
+  construct as constructUpdateOrderById,
+  UpdateById as UpdateOrderById,
+} from "@funk/commerce/order/application/internal/behaviors/persistence/update-by-id"
 import {
   construct as constructSetSkuQuantity,
   SetSkuQuantity,
@@ -19,14 +39,45 @@ import {
   Submit,
 } from "@funk/commerce/order/application/internal/behaviors/submit"
 import { Cart, Status } from "@funk/commerce/order/model/order"
+import {
+  construct as constructGetSkuById,
+  GetById as GetSkuById,
+} from "@funk/commerce/sku/application/internal/behaviors/persistence/get-by-id"
+import {
+  construct as constructListSkus,
+  List as ListSkus,
+} from "@funk/commerce/sku/application/internal/behaviors/persistence/list"
+import {
+  construct as constructSkuMarshall,
+  Marshall as SkuMarshall,
+} from "@funk/commerce/sku/application/internal/behaviors/persistence/marshall"
+import {
+  construct as constructSkuPopulate,
+  Populate as SkuPopulate,
+} from "@funk/commerce/sku/application/internal/behaviors/persistence/populate"
+import {
+  construct as constructSetSkuById,
+  SetById as SetSkuById,
+} from "@funk/commerce/sku/application/internal/behaviors/persistence/set-by-id"
+import {
+  construct as constructSetManySkus,
+  SetMany as SetManySkus,
+} from "@funk/commerce/sku/application/internal/behaviors/persistence/set-many"
 import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import { Sku } from "@funk/commerce/sku/model/sku"
+import { createFakeSku } from "@funk/commerce/sku/model/stubs"
 import namePattern from "@funk/helpers/name-pattern"
-import { Person } from "@funk/identity/model/person"
+import { Person } from "@funk/identity/person/model/person"
 import { ConfirmPaymentIntent } from "@funk/money/plugins/internal/payment/behaviors/confirm-payment-intent"
+import marshallImpl from "@funk/persistence/application/internal/behaviors/marshall"
 import { createFakeAddress } from "@funk/places/model/stubs"
 import loadFeatureOptions from "@funk/test/configuration/load-feature-options"
+import {
+  constructGivenACustomer,
+  givenASku,
+  givenThatTheCartContainsInStockSkus,
+  listOrdersForUser,
+} from "@funk/test/features/commerce/order/internal/helpers"
 import { background, rule } from "@funk/test/helpers/internal/helpers"
 import getById from "@funk/test/plugins/internal/persistence/behaviors/get-by-id"
 import list from "@funk/test/plugins/internal/persistence/behaviors/list"
@@ -38,12 +89,6 @@ import { initializeStore } from "@funk/test/plugins/internal/persistence/in-memo
 import { SKUS_OUT_OF_STOCK_ERROR } from "@funk/ui/copy/error-messages"
 import { defineFeature, DefineStepFunction, loadFeature } from "jest-cucumber"
 import { resolve } from "path"
-import {
-  constructGivenACustomer,
-  givenASku,
-  givenThatTheCartContainsInStockSkus,
-  listOrdersForUser,
-} from "./helpers"
 
 const feature = loadFeature(
   resolve(__dirname, "../cart.feature"),
@@ -53,8 +98,19 @@ const feature = loadFeature(
 defineFeature(feature, function (example) {
   let confirmPaymentIntent: ConfirmPaymentIntent
 
-  let customerHandleCreate: HandleCreate
   let orderPopulate: Populate
+  let orderMarshall: Marshall
+  let skuPopulate: SkuPopulate
+  let skuMarshall: SkuMarshall
+  let getOrderById: GetOrderById
+  let setOrderById: SetOrderById
+  let updateOrderById: UpdateOrderById
+  let setManyOrders: SetManyOrders
+  let setManySkus: SetManySkus
+  let getSkuById: GetSkuById
+  let setSkuById: SetSkuById
+  let listSkus: ListSkus
+  let customerHandleCreate: HandleCreate
   let orderSubmit: Submit
   let setStatusToCheckout: SetStatusToCheckout
   let setSkuQuantity: SetSkuQuantity
@@ -62,24 +118,45 @@ defineFeature(feature, function (example) {
   let person: Person
   let cart: Cart
   let cart2: Cart
-  let sku: MarshalledSku
+  let sku: Sku
 
   background(async () => {
     await initializeStore()
 
     confirmPaymentIntent = jest.fn()
 
-    customerHandleCreate = constructCustomerHandleCreate(setById)
     orderPopulate = constructOrderPopulate(populate)
+    orderMarshall = constructOrderMarshall(marshallImpl)
+    skuPopulate = constructSkuPopulate(populate)
+    skuMarshall = constructSkuMarshall(marshallImpl)
+    getOrderById = constructGetOrderById(getById, orderPopulate)
+    updateOrderById = constructUpdateOrderById(updateById, orderMarshall)
+    setOrderById = constructSetOrderById(setById, orderMarshall)
+    setManyOrders = constructSetManyOrders(setMany, orderMarshall)
+    setManySkus = constructSetManySkus(setMany, skuMarshall)
+    getSkuById = constructGetSkuById(getById, skuPopulate)
+    setSkuById = constructSetSkuById(setById, skuMarshall)
+    listSkus = constructListSkus(list, skuPopulate)
+    customerHandleCreate = constructCustomerHandleCreate(setOrderById)
     orderSubmit = constructOrderSubmit(
-      getById,
-      updateById,
-      setMany,
+      getOrderById,
+      updateOrderById,
+      setManyOrders,
+      setManySkus,
       orderPopulate,
       confirmPaymentIntent,
     )
-    setStatusToCheckout = constructSetStatusToCheckout(getById, list, setMany)
-    setSkuQuantity = constructSetSkuQuantity(getById, updateById)
+    setStatusToCheckout = constructSetStatusToCheckout(
+      getOrderById,
+      listSkus,
+      updateOrderById,
+      setManySkus,
+    )
+    setSkuQuantity = constructSetSkuQuantity(
+      getOrderById,
+      updateOrderById,
+      getSkuById,
+    )
   })
 
   rule("A user must always have a shopping cart.", () => {
@@ -144,18 +221,13 @@ defineFeature(feature, function (example) {
           })
         })
 
-        when(
-          new RegExp(
-            `${namePattern} tries to add ${namePattern} to their cart$`,
-          ),
-          async () => {
-            await setSkuQuantity({
-              orderId: cart.id,
-              skuId: sku.id,
-              quantity: 2,
-            })
-          },
-        )
+        when(/([\w\s]+) tries to add ([\w\s]+) to their cart$/, async () => {
+          await setSkuQuantity({
+            orderId: cart.id,
+            skuId: sku.id,
+            quantity: 2,
+          })
+        })
 
         then(
           new RegExp(`the ${namePattern} are successfully added$`),
@@ -233,9 +305,10 @@ defineFeature(feature, function (example) {
 
         when(new RegExp(`${namePattern} submits their order`), async () => {
           orderSubmit = constructOrderSubmit(
-            getById,
-            updateById,
-            setMany,
+            getOrderById,
+            updateOrderById,
+            setManyOrders,
+            setManySkus,
             orderPopulate,
             confirmPaymentIntent,
           )
@@ -265,7 +338,7 @@ defineFeature(feature, function (example) {
       example(
         "Sam and Cam each put one pair of shoes in their cart, and Sam begins checkout.",
         function ({ given, when, then }) {
-          let coolShoes: MarshalledSku | undefined
+          let coolShoes: Sku | undefined
 
           given(/2 customers named (\w+) and (\w+)$/, async function (
             customer1Name: string,
@@ -288,10 +361,9 @@ defineFeature(feature, function (example) {
               `an in-stock SKU named ${namePattern} with 1 left in inventory$`,
             ),
             async () => {
-              await setById(
-                SKUS,
+              await setSkuById(
                 "cool-shoes",
-                createFakeMarshalledSku("cool-shoes", {
+                createFakeSku("cool-shoes", {
                   inventory: {
                     type: "finite",
                     quantity: 1,
@@ -299,7 +371,7 @@ defineFeature(feature, function (example) {
                   },
                 }),
               )
-              coolShoes = await getById<MarshalledSku>(SKUS, "cool-shoes")
+              coolShoes = await getSkuById("cool-shoes")
             },
           )
 
@@ -325,17 +397,14 @@ defineFeature(feature, function (example) {
             await setStatusToCheckout(cart.id)
           })
 
-          then(
-            new RegExp(`Cam is no longer able to purchase ${namePattern}$`),
-            async () => {
-              await expect(setStatusToCheckout(cart2.id)).rejects.toThrow(
-                new RegExp(SKUS_OUT_OF_STOCK_ERROR, "g"),
-              )
-            },
-          )
+          then(/Cam is no longer able to purchase ([\w\s]+)$/, async () => {
+            await expect(setStatusToCheckout(cart2.id)).rejects.toThrow(
+              new RegExp(SKUS_OUT_OF_STOCK_ERROR, "g"),
+            )
+          })
 
           then(/the SKU's stock quantity appears to Cam as zero$/, async () => {
-            coolShoes = await getById<MarshalledSku>(SKUS, "cool-shoes")
+            coolShoes = await getSkuById("cool-shoes")
             expect((coolShoes?.inventory as FiniteInventory).quantity).toBe(1)
             expect(
               (coolShoes?.inventory as FiniteInventory).quantityReserved,

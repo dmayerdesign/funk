@@ -6,8 +6,7 @@ export function construct() {
     beforeData: any,
     afterData: any,
   ): Diff<DocumentType>[] {
-    return diff(beforeData, afterData) as Diff<DocumentType>[]
-      ?? []
+    return (diff(beforeData, afterData) as Diff<DocumentType>[]) ?? []
   }
 }
 

@@ -10,7 +10,6 @@ export interface Organization extends DatabaseDocument {
   branding: OrganizationBranding
   publicWebsiteUrl: string
   dbaNames?: string[]
-  enterprises?: PrimaryKey[]
 }
 
 export const ORGANIZATIONS = "organizations"

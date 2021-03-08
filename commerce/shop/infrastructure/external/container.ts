@@ -29,7 +29,7 @@ import { map, shareReplay } from "rxjs/operators"
         </ion-toolbar>
       </ion-header>
 
-      <ng-container *ngIf="!(enterprise | async)">
+      <ng-container *ngIf="!(enterprise$ | async)">
         <ion-progress-bar
           class="progress-bar"
           type="indeterminate"
@@ -62,7 +62,7 @@ export class ShopContainer implements OnDestroy {
   )
 
   public constructor(
-    @Inject(ENTERPRISE) public enterprise: Enterprise$,
+    @Inject(ENTERPRISE) public enterprise$: Enterprise$,
     @Inject(CART) public cart$: Cart$,
   ) {
     this.cartCount$.subscribe()

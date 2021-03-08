@@ -6,7 +6,7 @@ import { ContentModule } from "@funk/admin/content/infrastructure/external/modul
 import {
   construct as constructGetToken,
   GET_TOKEN,
-  INITIALIZE_TURING_TEST
+  INITIALIZE_TURING_TEST,
 } from "@funk/auth/plugins/external/turing-test/behaviors/get-token"
 import { AboutContainer } from "@funk/professional-portfolio/infrastructure/external/about/container"
 import { BlogContainer } from "@funk/professional-portfolio/infrastructure/external/blog/container"

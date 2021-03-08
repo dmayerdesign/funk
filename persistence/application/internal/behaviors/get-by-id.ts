@@ -1,5 +1,6 @@
 import { store as storeImpl } from "@funk/persistence/application/internal/server-store"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
+import { Marshalled } from "./marshall"
 
 export function construct(store: typeof storeImpl) {
   return async function <
@@ -7,7 +8,7 @@ export function construct(store: typeof storeImpl) {
   >(
     collectionPath: string,
     documentPath: string,
-  ): Promise<DocumentType | undefined> {
+  ): Promise<Marshalled<DocumentType> | undefined> {
     return store()
       .collection(collectionPath)
       .doc(documentPath)

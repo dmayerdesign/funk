@@ -1,10 +1,7 @@
 import { Enterprise } from "@funk/commerce/enterprise/model/enterprise"
 import { construct } from "@funk/commerce/shop/application/external/enterprise/enterprise"
-import {
-    ORGANIZATIONS,
-    PRIMARY_ORGANIZATION
-} from "@funk/organization/model/organization"
-import { construct as constructListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
+import { construct as constructListenById } from "@funk/organization/application/external/behaviors/persistence/listen-by-id"
+import { PRIMARY_ORGANIZATION } from "@funk/organization/model/organization"
 import { when } from "jest-when"
 import { of } from "rxjs"
 
@@ -15,7 +12,7 @@ describe("Enterprise$", () => {
   beforeEach(() => {
     listenById = jest.fn()
     when(listenById as jest.Mock)
-      .calledWith(ORGANIZATIONS, PRIMARY_ORGANIZATION)
+      .calledWith(PRIMARY_ORGANIZATION)
       .mockReturnValue(of(ENTERPRISE))
   })
 

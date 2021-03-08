@@ -10,16 +10,11 @@ import { PAGE_TITLE } from "@funk/ui/infrastructure/external/tokens"
     >
       <article class="professional-portfolio-route-inner">
         <page-title-heading></page-title-heading>
-        <content
-          contentId="professional-portfolio-about-article"
-        ></content>
+        <content contentId="professional-portfolio-about-article"></content>
       </article>
     </ion-content>
   `,
 })
 export class AboutContainer {
-
-  public constructor(
-    @Inject(PAGE_TITLE) public pageTitle: PageTitle,
-  ) {}
+  public constructor(@Inject(PAGE_TITLE) public pageTitle: PageTitle) {}
 }

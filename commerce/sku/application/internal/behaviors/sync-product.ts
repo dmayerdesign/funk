@@ -1,20 +1,17 @@
-import { MarshalledProductAttributeValues } from "@funk/commerce/attribute/model/attribute-value"
 import subtract from "@funk/commerce/price/model/behaviors/subtract"
-import {
-    MarshalledProduct,
-    PRODUCTS
-} from "@funk/commerce/product/model/product"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
+import updateProductByIdImpl, {
+  UpdateById as UpdateProductById,
+} from "@funk/commerce/product/application/internal/behaviors/persistence/update-by-id"
+import { Product } from "@funk/commerce/product/model/product"
+import listImpl, {
+  List,
+} from "@funk/commerce/sku/application/internal/behaviors/persistence/list"
+import { Sku } from "@funk/commerce/sku/model/sku"
 import { ChangeHandler } from "@funk/http/plugins/internal/cloud-function/behaviors/listen/change-handler"
-import listImpl from "@funk/persistence/application/internal/behaviors/list"
-import updateByIdImpl from "@funk/persistence/application/internal/behaviors/update-by-id"
 import { TAKE_ALL } from "@funk/persistence/model/pagination"
-import { isEqual, uniq } from "lodash"
+import { flatMap, isEqual, uniqBy } from "lodash"
 
-export function construct(
-  list: typeof listImpl,
-  updateById: typeof updateByIdImpl,
-) {
+export function construct(list: List, updateProductById: UpdateProductById) {
   return async function ({ before, after }): Promise<void> {
     const skuBefore = before.data()
     const sku = after.data()!
@@ -26,8 +23,7 @@ export function construct(
       return
     }
 
-    const skus = await list<MarshalledSku>({
-      collection: SKUS,
+    const skus = await list({
       conditions: [["productId", "==", sku.productId]],
       pagination: {
         take: TAKE_ALL,
@@ -42,25 +38,19 @@ export function construct(
     const minSkuPrice = skuPricesLowToHigh[0]
     const maxSkuPrice = skuPricesLowToHigh[skuPricesLowToHigh.length - 1]
 
-    await updateById(PRODUCTS, sku.productId!, {
-      attributeValues: skus.reduce((attributeValues, _sku) => {
-        Object.keys(_sku.attributeValues ?? {}).forEach((attributeId) => {
-          const attributeValue = _sku.attributeValues![attributeId]
-          attributeValues[attributeId] = uniq([
-            ...(attributeValues[attributeId] ?? []),
-            attributeValue,
-          ]) as string[] | number[]
-        })
-        return attributeValues
-      }, {} as MarshalledProductAttributeValues),
+    await updateProductById(sku.productId!, {
+      attributeValues: uniqBy(
+        flatMap(skus.map((_sku) => _sku.attributeValues)),
+        "id",
+      ),
       priceRange: {
         min: minSkuPrice,
         max: maxSkuPrice,
       },
-    } as Partial<MarshalledProduct>)
-  } as ChangeHandler<MarshalledSku>
+    } as Partial<Product>)
+  } as ChangeHandler<Sku>
 }
 
-export default construct(listImpl, updateByIdImpl)
+export default construct(listImpl, updateProductByIdImpl)
 
 export type SyncProduct = ReturnType<typeof construct>
