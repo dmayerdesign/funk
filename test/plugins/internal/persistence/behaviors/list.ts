@@ -48,6 +48,9 @@ const meetsCondition = <DocumentType extends DatabaseDocument>(
     case ">=":
       return (value as number) >= queryValue
     case "in":
+      if (!queryValue?.length) {
+        throw new Error("[funk] 'IN' requires an non-empty ArrayValue.")
+      }
       return !!(queryValue as any[]).find((element) => isEqual(element, value))
     case "array-contains":
       return !!(value as any[]).find((element) => isEqual(element, queryValue))

@@ -3,15 +3,14 @@ import { UserRole } from "@funk/auth/model/user-role"
 import { AuthClient } from "@funk/auth/plugins/external/auth-client"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
 import { Auth } from "@funk/identity/model/auth"
-import { Person, PERSONS } from "@funk/identity/model/person"
 import { UserSession as IUserSession } from "@funk/identity/model/user-session"
-import { construct as constructListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
+import { ListenById as ListenForPersonById } from "@funk/identity/person/application/external/behaviors/persistence/listen-by-id"
 import { of } from "rxjs"
 import { map, shareReplay, switchMap } from "rxjs/operators"
 
 export function construct(
   auth: AuthClient,
-  listenById: ReturnType<typeof constructListenById>,
+  listenForPersonById: ListenForPersonById,
 ) {
   return auth.user.pipe(
     ignoreNullish(),
@@ -44,7 +43,7 @@ export function construct(
           },
         })
       }
-      return listenById<Person>(PERSONS, _auth.id).pipe(
+      return listenForPersonById(_auth.id).pipe(
         map((person) => ({
           auth: _auth,
           person: person!,

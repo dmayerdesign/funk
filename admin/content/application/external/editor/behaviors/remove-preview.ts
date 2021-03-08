@@ -1,30 +1,18 @@
-import { GetMaybeContentPreviews } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-content-previews"
 import { RemoveFromPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/remove-from-publish-conflicts"
-import { asPromise } from "@funk/helpers/as-promise"
-import { UserSession } from "@funk/identity/application/external/user-session"
-import { UserState, USER_STATES } from "@funk/identity/model/user-state"
-import { UpdateById } from "@funk/persistence/application/external/behaviors/update-by-id"
+import { DeleteById } from "@funk/admin/content/preview/application/external/behaviors/persistence/delete-by-id"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 /**
  * "Discard mine"
  */
 export function construct(
-  getMaybeContentPreviews: GetMaybeContentPreviews,
-  userSession: UserSession,
-  updateById: UpdateById,
+  deleteById: DeleteById,
   removeFromPublishConflicts: RemoveFromPublishConflicts,
 ) {
   return async function (contentId: PrimaryKey): Promise<void> {
-    const { person } = await asPromise(userSession)
-
-    const maybeContentPreviews = await getMaybeContentPreviews(person)
-    const newContentPreviews = { ...maybeContentPreviews }
-    delete newContentPreviews[contentId]
-    await updateById<UserState>(USER_STATES, person.id, {
-      contentPreviews: newContentPreviews,
-    })
-
+    await deleteById(contentId)
     removeFromPublishConflicts(contentId)
   }
 }
+
+export type RemovePreview = ReturnType<typeof construct>

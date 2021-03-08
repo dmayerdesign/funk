@@ -1,7 +1,4 @@
-import {
-  MarshalledSkuAttributeValues,
-  SkuAttributeValues,
-} from "@funk/commerce/attribute/model/attribute-value"
+import { AttributeValue } from "@funk/commerce/attribute/model/attribute-value"
 import { Price } from "@funk/commerce/price/model/price"
 import { Inventory } from "@funk/commerce/sku/model/inventory"
 import { TaxonomyTerm } from "@funk/commerce/taxonomy/model/taxonomy-term"
@@ -17,7 +14,7 @@ export const SKUS = "commerce.skus"
  * This schema is largely based on Google's product data spec.
  * @see https://support.google.com/merchants/answer/7052112?hl=en&ref_topic=6324338
  */
-interface BaseSku extends DatabaseDocument {
+export interface Sku extends DatabaseDocument {
   name: string
   description?: string
   /** `id` of the parent `Product`. */
@@ -57,30 +54,14 @@ interface BaseSku extends DatabaseDocument {
   // /** e.g. `A++` */
   // energyEfficiencyClass?: 'A++'|'A+'|'A'|'A-'|'B+'...
   // condition?: 'new'|'refurbished'|'used'
-}
 
-export interface MarshalledSku extends BaseSku {
   /** A `Sku` may have exactly one `AttributeValue` per `Attribute`. */
-  attributeValues?: MarshalledSkuAttributeValues
+  attributeValues: AttributeValue[]
   /**
    * A `Sku` may have multiple `TaxonomyTerms` per `Taxonomy`.
    * This field should only store terms which are not present in the associated `Product`
    * and which do not apply to all sibling `Skus`.
-   * @required
    */
-  taxonomyTerms?: PrimaryKey[]
-  imageGroups?: PrimaryKey[]
-}
-
-export interface Sku extends BaseSku {
-  /** A `Sku` may have exactly one `AttributeValue` per `Attribute`. */
-  attributeValues?: SkuAttributeValues
-  /**
-   * A `Sku` may have multiple `TaxonomyTerms` per `Taxonomy`.
-   * This field should only store terms which are not present in the associated `Product`
-   * and which do not apply to all sibling `Skus`.
-   * @required
-   */
-  taxonomyTerms?: TaxonomyTerm[]
-  imageGroups?: ImageGroup[]
+  taxonomyTerms: TaxonomyTerm[]
+  imageGroups: ImageGroup[]
 }

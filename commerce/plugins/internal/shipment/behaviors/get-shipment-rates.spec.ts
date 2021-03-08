@@ -1,11 +1,11 @@
 import {
-    Enterprise,
-    ShippingCostStrategy
+  Enterprise,
+  ShippingCostStrategy,
 } from "@funk/commerce/enterprise/model/enterprise"
 import { Order } from "@funk/commerce/order/model/order"
 import { construct } from "@funk/commerce/plugins/internal/shipment/behaviors/get-shipment-rates"
 import { SimpleRate } from "@funk/commerce/plugins/internal/shipment/simple-rate"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import { createFakeSku } from "@funk/commerce/sku/model/stubs"
 import { CurrencyCode } from "@funk/money/model/currency-code"
 import { constructGetShipmentProviderStub } from "../stubs"
 
@@ -109,7 +109,7 @@ const setUp = (shippingCostStrategy: ShippingCostStrategy) => {
     },
     skus: [
       {
-        ...createFakeMarshalledSku(),
+        ...createFakeSku(),
         price: { amount: 1000, currency: CurrencyCode.USD },
       },
     ],

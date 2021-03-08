@@ -1,32 +1,40 @@
+import { SetMany as SetManySkus } from "@funk/commerce/sku/application/internal/behaviors/persistence/set-many"
 import {
-    construct,
-    SetCollectionFromCsv
+  construct,
+  SetCollectionFromCsv,
 } from "@funk/commerce/sku/application/internal/behaviors/set-collection-from-csv"
 import { FiniteInventory } from "@funk/commerce/sku/model/inventory"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import { Sku } from "@funk/commerce/sku/model/sku"
+import { createFakeSku } from "@funk/commerce/sku/model/stubs"
 import { InvalidInputError } from "@funk/error/model/invalid-input-error"
-import { SetMany } from "@funk/persistence/application/internal/behaviors/set-many"
-import { keys, startCase, values } from "lodash"
+import { keys, values } from "lodash"
+import marshall from "./persistence/marshall"
 
 describe("setCollectionFromCsv", () => {
-  const FAKE_SKU = createFakeMarshalledSku()
+  const FAKE_MARSHALLED_SKU = ({
+    ...marshall(createFakeSku()),
+    attributeValues: ["attribute-value-for-sku-id"],
+    taxonomyTerms: ["taxonomy-term-for-sku-id"],
+  } as unknown) as Sku
+
   const FAKE_IMPORTED_SKU = {
-    SKU: FAKE_SKU.id,
-    Name: FAKE_SKU.name,
-    "Group SKU": FAKE_SKU.productId,
-    Price: `$${(FAKE_SKU.price.amount / 100).toFixed(2)}`,
-    Inventory: (FAKE_SKU.inventory as FiniteInventory).quantity,
+    SKU: FAKE_MARSHALLED_SKU.id,
+    Name: FAKE_MARSHALLED_SKU.name,
+    "Group SKU": FAKE_MARSHALLED_SKU.productId,
+    Price: `$${(FAKE_MARSHALLED_SKU.price.amount / 100).toFixed(2)}`,
+    Inventory: (FAKE_MARSHALLED_SKU.inventory as FiniteInventory).quantity,
     "Net weight":
-      FAKE_SKU.netWeight.amount.toString() + FAKE_SKU.netWeight.unit,
-    Taxonomy: FAKE_SKU.taxonomyTerms?.map(startCase).join(","),
-    ["Attribute: attribute for " + FAKE_SKU.id]:
-      "attribute value for " + FAKE_SKU.id,
+      FAKE_MARSHALLED_SKU.netWeight.amount.toString() +
+      FAKE_MARSHALLED_SKU.netWeight.unit,
+    ["Taxonomy: taxonomy for " + FAKE_MARSHALLED_SKU.id]:
+      "taxonomy term for " + FAKE_MARSHALLED_SKU.id,
+    ["Attribute: attribute for " + FAKE_MARSHALLED_SKU.id]:
+      "attribute value for " + FAKE_MARSHALLED_SKU.id,
   }
   const FAKE_IMPORTED_SKU_INVALID = {
-    ...createFakeMarshalledSku(),
+    ...FAKE_IMPORTED_SKU,
     Price: "",
-  } as Partial<MarshalledSku>
+  }
   const CSV_EMPTY = [keys(FAKE_IMPORTED_SKU).join(",")].join("\n") + "\n"
   const CSV_WITH_1_FAKE_SKU =
     [
@@ -44,22 +52,25 @@ describe("setCollectionFromCsv", () => {
       values(FAKE_IMPORTED_SKU_INVALID).join(","),
     ].join("\n") + "\n"
 
-  let setMany: SetMany
+  let setManySkus: SetManySkus
   let setCollectionFromCsv: SetCollectionFromCsv
+
+  beforeEach(() => {
+    setManySkus = jest.fn()
+    setCollectionFromCsv = construct(setManySkus)
+  })
 
   it("should do nothing with an empty csv", async () => {
     await setCollectionFromCsv(CSV_EMPTY)
 
-    expect(setMany).not.toHaveBeenCalled()
+    expect(setManySkus).not.toHaveBeenCalled()
   })
 
   it("should process a valid csv", async () => {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU)
 
-    expect(setMany).toHaveBeenCalledWith({
-      [SKUS]: {
-        [FAKE_SKU.id]: FAKE_SKU,
-      },
+    expect(setManySkus).toHaveBeenCalledWith({
+      [FAKE_MARSHALLED_SKU.id]: FAKE_MARSHALLED_SKU,
     })
   })
 
@@ -72,21 +83,14 @@ describe("setCollectionFromCsv", () => {
     }
     expect(error).toBeTruthy()
     expect(error instanceof InvalidInputError)
-    expect(setMany).not.toHaveBeenCalled()
+    expect(setManySkus).not.toHaveBeenCalled()
   })
 
   it("should ignore unknown fields", async () => {
     await setCollectionFromCsv(CSV_WITH_1_FAKE_SKU_EXTRA_FIELDS)
 
-    expect(setMany).toHaveBeenCalledWith({
-      [SKUS]: {
-        [FAKE_SKU.id]: FAKE_SKU,
-      },
+    expect(setManySkus).toHaveBeenCalledWith({
+      [FAKE_MARSHALLED_SKU.id]: FAKE_MARSHALLED_SKU,
     })
-  })
-
-  beforeEach(() => {
-    setMany = jest.fn()
-    setCollectionFromCsv = construct(setMany)
   })
 })

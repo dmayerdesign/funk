@@ -1,8 +1,9 @@
 import { GetTax } from "@funk/commerce/order/application/internal/behaviors/get-sales-tax"
 import { GetTotalBeforeTaxAndShipping } from "@funk/commerce/order/application/internal/behaviors/get-total-before-tax-and-shipping"
-import { Populate } from "@funk/commerce/order/application/internal/behaviors/populate"
+import { Populate } from "@funk/commerce/order/application/internal/behaviors/persistence/populate"
+import { UpdateById as UpdateOrderById } from "@funk/commerce/order/application/internal/behaviors/persistence/update-by-id"
 import { construct } from "@funk/commerce/order/application/internal/behaviors/upsert-payment-intent"
-import { MarshalledOrder, ORDERS } from "@funk/commerce/order/model/order"
+import { Order } from "@funk/commerce/order/model/order"
 import { Price } from "@funk/commerce/price/model/price"
 import { ChangeHandler } from "@funk/http/plugins/internal/cloud-function/behaviors/listen/change-handler"
 import { OnlyKeys } from "@funk/http/plugins/internal/cloud-function/behaviors/listen/only-keys"
@@ -11,19 +12,18 @@ import { CreatePaymentIntent } from "@funk/money/plugins/internal/payment/behavi
 import { UpdatePaymentIntent } from "@funk/money/plugins/internal/payment/behaviors/update-payment-intent"
 import { MIN_TRANSACTION_CENTS } from "@funk/money/plugins/internal/payment/configuration"
 import { PaymentIntent } from "@funk/money/plugins/internal/payment/intent"
-import { UpdateById } from "@funk/persistence/application/internal/behaviors/update-by-id"
 import {
-    Change,
-    ChangeContext
+  Change,
+  ChangeContext,
 } from "@funk/persistence/plugins/internal/events/change"
 
 const PAYMENT_INTENT_ID = "payment intent id"
 const ORDER_ID = "order id"
 
 describe("upsertPaymentIntent", () => {
-  let before: MarshalledOrder | undefined
-  let after: MarshalledOrder | undefined
-  let change: Change<MarshalledOrder>
+  let before: Order | undefined
+  let after: Order | undefined
+  let change: Change<Order>
   let changeContext: ChangeContext
 
   let createPaymentIntent: CreatePaymentIntent
@@ -32,11 +32,11 @@ describe("upsertPaymentIntent", () => {
   let getTax: GetTax
   let populate: Populate
   let onlyKeys: OnlyKeys
-  let updateById: UpdateById
+  let updateOrderById: UpdateOrderById
 
   it("should not create a payment intent if the customer has no billing zip code", async () => {
     before = undefined
-    after = {} as MarshalledOrder
+    after = {} as Order
     getTax = jest.fn().mockImplementation(() => {
       throw new Error("fake missing zip code error")
     })
@@ -56,7 +56,7 @@ describe("upsertPaymentIntent", () => {
       "transaction amount",
     async () => {
       before = undefined
-      after = {} as MarshalledOrder
+      after = {} as Order
       getTotalBeforeTaxAndShipping = jest.fn().mockReturnValue({
         amount: MIN_TRANSACTION_CENTS - 1,
         currency: CurrencyCode.USD,
@@ -79,7 +79,7 @@ describe("upsertPaymentIntent", () => {
 
   it("should create a payment intent", async () => {
     before = undefined
-    after = { id: ORDER_ID } as MarshalledOrder
+    after = { id: ORDER_ID } as Order
     const upsertPaymentIntent = newUpsertPaymentIntent()
 
     await upsertPaymentIntent(change, changeContext)
@@ -91,7 +91,7 @@ describe("upsertPaymentIntent", () => {
     )
     expect(createPaymentIntent).toHaveBeenCalled()
     expect(updatePaymentIntent).not.toHaveBeenCalled()
-    expect(updateById).toHaveBeenCalledWith(ORDERS, ORDER_ID, {
+    expect(updateOrderById).toHaveBeenCalledWith(ORDER_ID, {
       paymentIntentId: PAYMENT_INTENT_ID,
     })
   })
@@ -101,7 +101,7 @@ describe("upsertPaymentIntent", () => {
     after = {
       id: ORDER_ID,
       paymentIntentId: PAYMENT_INTENT_ID,
-    } as MarshalledOrder
+    } as Order
     const upsertPaymentIntent = newUpsertPaymentIntent()
 
     await upsertPaymentIntent(change, changeContext)
@@ -109,7 +109,7 @@ describe("upsertPaymentIntent", () => {
     expect(populate).toHaveBeenCalled()
     expect(createPaymentIntent).not.toHaveBeenCalled()
     expect(updatePaymentIntent).toHaveBeenCalled()
-    expect(updateById).not.toHaveBeenCalled()
+    expect(updateOrderById).not.toHaveBeenCalled()
   })
 
   function newUpsertPaymentIntent() {
@@ -120,7 +120,7 @@ describe("upsertPaymentIntent", () => {
       getTax,
       populate,
       onlyKeys,
-      updateById,
+      updateOrderById,
     )
   }
 
@@ -128,7 +128,7 @@ describe("upsertPaymentIntent", () => {
     change = ({
       before: { data: () => before },
       after: { data: () => after },
-    } as unknown) as Change<MarshalledOrder>
+    } as unknown) as Change<Order>
     changeContext = ({} as unknown) as ChangeContext
 
     const PAYMENT_INTENT = { id: PAYMENT_INTENT_ID } as PaymentIntent
@@ -142,6 +142,6 @@ describe("upsertPaymentIntent", () => {
       .mockResolvedValue({ amount: 60, currency: CurrencyCode.USD })
     populate = jest.fn().mockImplementation(async (order) => order)
     onlyKeys = jest.fn().mockImplementation((_: any, fn: ChangeHandler) => fn)
-    updateById = jest.fn()
+    updateOrderById = jest.fn()
   })
 })

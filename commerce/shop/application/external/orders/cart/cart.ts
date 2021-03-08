@@ -1,11 +1,6 @@
 import { Customer } from "@funk/commerce/customer/model/customer"
 import { DISCOUNTS } from "@funk/commerce/discount/model/discount"
-import {
-  Cart,
-  MarshalledCart,
-  ORDERS,
-  Status,
-} from "@funk/commerce/order/model/order"
+import { Cart, ORDERS, Status } from "@funk/commerce/order/model/order"
 import { SKUS } from "@funk/commerce/sku/model/sku"
 import createDocPath from "@funk/helpers/create-doc-path"
 import { ignoreNullish } from "@funk/helpers/rxjs-shims"
@@ -20,7 +15,7 @@ export function construct(
   userSession: UserSession,
   queryCollectionForMetadata: QueryCollectionForMetadata,
   listenById: ListenById,
-  populate: Populate<Cart, MarshalledCart>,
+  populate: Populate<Cart>,
 ) {
   const cart$ = userSession.pipe(
     ignoreNullish(),
@@ -42,7 +37,7 @@ export function construct(
       ).pipe(
         map(([metadata]) => metadata),
         switchMap(({ collectionPath, documentPath }) =>
-          listenById<MarshalledCart>(collectionPath, documentPath),
+          listenById<Cart>(collectionPath, documentPath),
         ),
         switchMap((cart) =>
           populate(cart!, [

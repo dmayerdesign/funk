@@ -1,53 +1,38 @@
-import { DISCOUNTS } from "@funk/commerce/discount/model/discount"
 import { Enterprise } from "@funk/commerce/enterprise/model/enterprise"
 import getTotalBeforeTaxAndShippingImpl from "@funk/commerce/order/application/internal/behaviors/get-total-before-tax-and-shipping"
 import getShipmentAddress from "@funk/commerce/order/model/behaviors/get-shipment-address"
-import { MarshalledOrder, Order } from "@funk/commerce/order/model/order"
+import { Order } from "@funk/commerce/order/model/order"
 import getSalesTaxRateForAddressImpl from "@funk/commerce/plugins/internal/tax/behaviors/get-sales-tax-rate-for-address"
 import { NULL_PRICE, Price } from "@funk/commerce/price/model/price"
-import { SKUS } from "@funk/commerce/sku/model/sku"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
 import add from "@funk/money/model/behaviors/add"
-import { ORGANIZATIONS } from "@funk/organization/model/organization"
-import getByIdImpl from "@funk/persistence/application/internal/behaviors/get-by-id"
-import populateImpl from "@funk/persistence/application/internal/behaviors/populate"
+import getPrimaryOrganizationImpl from "@funk/organization/application/internal/behaviors/persistence/get-primary-organization"
 import { Address } from "@funk/places/model/address"
 import { ORDER_GET_TAX_MISSING_POSTAL_CODE } from "@funk/ui/copy/error-messages"
 
 export function construct(
   getTotalBeforeTaxAndShipping: typeof getTotalBeforeTaxAndShippingImpl,
-  populate: typeof populateImpl,
   getSalesTaxRateForAddress: typeof getSalesTaxRateForAddressImpl,
-  getById: typeof getByIdImpl,
+  getPrimaryOrganization: typeof getPrimaryOrganizationImpl,
 ) {
-  return async function (order: Order | MarshalledOrder): Promise<Price> {
-    const populatedOrder = await populate<Order, MarshalledOrder>(
-      order as MarshalledOrder,
-      [
-        { key: "skus", collectionPath: SKUS },
-        { key: "discounts", collectionPath: DISCOUNTS },
-      ],
-    )
-
-    const primaryEnterprise = await getById<Enterprise>(
-      ORGANIZATIONS,
-      "primary",
-    )
+  return async function (order: Order): Promise<Price> {
+    const primaryEnterprise = await getPrimaryOrganization()
     const shipmentAddress = throwInvalidInputIfNilOrEmpty(
-      getShipmentAddress(populatedOrder),
+      getShipmentAddress(order),
       ORDER_GET_TAX_MISSING_POSTAL_CODE,
     )
-    const orderTotalBeforeTax = await getTotalBeforeTaxAndShipping(
-      populatedOrder,
+    const orderTotalBeforeTax = await getTotalBeforeTaxAndShipping(order)
+    const taxRate = await getTaxRate(
+      primaryEnterprise! as Enterprise,
+      shipmentAddress,
     )
-    const taxRate = await getTaxRate(primaryEnterprise!, shipmentAddress)
 
     return add(
       {
         amount: Math.ceil(orderTotalBeforeTax.amount * taxRate),
         currency: orderTotalBeforeTax.currency,
       },
-      populatedOrder.additionalTaxAmount ?? {
+      order.additionalTaxAmount ?? {
         ...NULL_PRICE,
         currency: orderTotalBeforeTax.currency,
       },
@@ -68,9 +53,8 @@ export function construct(
 
 export default construct(
   getTotalBeforeTaxAndShippingImpl,
-  populateImpl,
   getSalesTaxRateForAddressImpl,
-  getByIdImpl,
+  getPrimaryOrganizationImpl,
 )
 
 export type GetTax = ReturnType<typeof construct>

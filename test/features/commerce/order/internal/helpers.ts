@@ -1,15 +1,9 @@
 import { UserRecord } from "@funk/auth/plugins/internal/user-record"
 import { HandleCreate } from "@funk/commerce/customer/application/internal/behaviors/handle-create"
-import {
-  Cart,
-  MarshalledOrder,
-  Order,
-  ORDERS,
-  Status,
-} from "@funk/commerce/order/model/order"
-import { MarshalledSku, SKUS } from "@funk/commerce/sku/model/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
-import { Person } from "@funk/identity/model/person"
+import { Cart, Order, ORDERS, Status } from "@funk/commerce/order/model/order"
+import { Sku, SKUS } from "@funk/commerce/sku/model/sku"
+import { createFakeSku } from "@funk/commerce/sku/model/stubs"
+import { Person } from "@funk/identity/person/model/person"
 import list from "@funk/test/plugins/internal/persistence/behaviors/list"
 import setById from "@funk/test/plugins/internal/persistence/behaviors/set-by-id"
 import setMany from "@funk/test/plugins/internal/persistence/behaviors/set-many"
@@ -45,10 +39,8 @@ export function constructGivenACustomer(
   }
 }
 
-export async function givenASku(
-  partialSku: Partial<MarshalledSku>,
-): Promise<MarshalledSku> {
-  const sku = createFakeMarshalledSku(partialSku?.id, partialSku)
+export async function givenASku(partialSku: Partial<Sku>): Promise<Sku> {
+  const sku = createFakeSku(partialSku?.id, partialSku)
   await setById(SKUS, sku.id, sku)
   return sku
 }
@@ -63,16 +55,14 @@ export async function listOrdersForUser(userId: string) {
 
 export async function givenThatTheCartContainsInStockSkus(options: {
   theCart: Cart
-  skus?: MarshalledSku[]
+  skus?: Sku[]
 }) {
-  const skus = options?.skus ?? [createFakeMarshalledSku("fake sku 1")]
+  const skus = options?.skus ?? [createFakeSku("fake sku 1")]
   await setMany({
     [SKUS]: skus.reduce(
       (collection, sku) => ({ ...collection, [sku.id]: sku }),
-      {} as Record<string, MarshalledSku>,
+      {} as Record<string, Sku>,
     ),
   })
-  await updateById<MarshalledOrder>(ORDERS, options.theCart.id, {
-    skus: skus.map(({ id }) => id),
-  })
+  await updateById<Order>(ORDERS, options.theCart.id, { skus })
 }

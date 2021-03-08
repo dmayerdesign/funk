@@ -1,8 +1,7 @@
 import { GetPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/get-publish-conflicts"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { UserState, USER_STATES } from "@funk/identity/model/user-state"
-import { UpdateById } from "@funk/persistence/application/external/behaviors/update-by-id"
+import { UpdateById } from "@funk/identity/user-state/application/external/behaviors/persistence/update-by-id"
 
 export function construct(
   updateById: UpdateById,
@@ -12,7 +11,7 @@ export function construct(
   return async function (): Promise<void> {
     const { person } = await asPromise(userSession)
     const newContentPreviews = {}
-    await updateById<UserState>(USER_STATES, person.id, {
+    await updateById(person.id, {
       contentPreviews: newContentPreviews,
     })
     getPublishConflicts().next([])

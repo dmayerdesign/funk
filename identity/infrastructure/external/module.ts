@@ -23,12 +23,19 @@ import {
   USER_SESSION,
   USER_STATE,
 } from "@funk/identity/infrastructure/external/tokens"
-import { LISTEN_BY_ID } from "@funk/persistence/infrastructure/external/tokens"
+import { PersonPersistenceModule } from "@funk/identity/person/infrastructure/external/persistence/module"
+import { LISTEN_FOR_PERSON_BY_ID } from "@funk/identity/person/infrastructure/external/persistence/tokens"
+import { UserStatePersistenceModule } from "@funk/identity/user-state/infrastructure/external/persistence/module"
+import { LISTEN_FOR_USER_STATE_BY_ID } from "@funk/identity/user-state/infrastructure/external/persistence/tokens"
 
 /**
  * This module should only be imported in the root app module.
  */
 @NgModule({
+  imports: [
+    UserStatePersistenceModule.withProviders(),
+    PersonPersistenceModule.withProviders(),
+  ],
   providers: [
     {
       provide: AUTH_CLIENT,
@@ -67,12 +74,12 @@ import { LISTEN_BY_ID } from "@funk/persistence/infrastructure/external/tokens"
     {
       provide: USER_SESSION,
       useFactory: constructUserSession,
-      deps: [AUTH_CLIENT, LISTEN_BY_ID],
+      deps: [AUTH_CLIENT, LISTEN_FOR_PERSON_BY_ID],
     },
     {
       provide: USER_STATE,
       useFactory: constructUserState,
-      deps: [AUTH_CLIENT, LISTEN_BY_ID],
+      deps: [AUTH_CLIENT, LISTEN_FOR_USER_STATE_BY_ID],
     },
     {
       provide: INITIALIZE,

@@ -1,21 +1,19 @@
 import { Order } from "@funk/commerce/order/model/order"
-import { MarshalledSku } from "@funk/commerce/sku/model/sku"
+import { Sku } from "@funk/commerce/sku/model/sku"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 import { uniqBy } from "lodash"
 
 export default function (
   populatedOrder: Order,
   options: {
-    sku: MarshalledSku
+    sku: Sku
     quantity: number
   },
 ): Order {
   const { sku, quantity } = options
   const _populatedOrder = { ...populatedOrder }
   let _skuQuantityMap = { ..._populatedOrder.skuQuantityMap }
-  let _skus = (!!_populatedOrder.skus
-    ? [..._populatedOrder.skus]
-    : []) as MarshalledSku[]
+  let _skus = (!!_populatedOrder.skus ? [..._populatedOrder.skus] : []) as Sku[]
   if (quantity === 0) {
     const indexOfSku = _skus.findIndex(({ id }) => id === sku.id)
     _skus = removeSku(_skus, indexOfSku)
@@ -42,7 +40,7 @@ function setQuantityToZero(
   return _quantities
 }
 
-function removeSku(skus: MarshalledSku[], indexOfSku: number): MarshalledSku[] {
+function removeSku(skus: Sku[], indexOfSku: number): Sku[] {
   const _skus = [...skus]
   if (indexOfSku > -1) {
     _skus.splice(indexOfSku, 1)

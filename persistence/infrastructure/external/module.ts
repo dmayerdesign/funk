@@ -5,6 +5,7 @@ import { INTEGRATION_TEST } from "@funk/configuration"
 import { construct as constructGetById } from "@funk/persistence/application/external/behaviors/get-by-id"
 import { construct as constructListByIds } from "@funk/persistence/application/external/behaviors/list-by-ids"
 import { construct as constructListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
+import marshall from "@funk/persistence/application/external/behaviors/marshall"
 import { construct as constructPopulate } from "@funk/persistence/application/external/behaviors/populate"
 import { construct as constructQueryCollectionForMeta } from "@funk/persistence/application/external/behaviors/query-collection-for-metadata"
 import { construct as constructSetById } from "@funk/persistence/application/external/behaviors/set-by-id"
@@ -13,6 +14,7 @@ import {
   GET_BY_ID,
   LISTEN_BY_ID,
   LIST_BY_IDS,
+  MARSHALL,
   POPULATE,
   QUERY_COLLECTION_FOR_METADATA,
   SET_BY_ID,
@@ -52,6 +54,10 @@ import { construct as constructTestUpdateById } from "@funk/test/plugins/externa
       provide: POPULATE,
       useFactory: INTEGRATION_TEST ? constructTestPopulate : constructPopulate,
       deps: [GET_BY_ID, LIST_BY_IDS],
+    },
+    {
+      provide: MARSHALL,
+      useValue: marshall,
     },
     {
       provide: QUERY_COLLECTION_FOR_METADATA,

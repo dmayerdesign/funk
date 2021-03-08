@@ -1,6 +1,6 @@
 import { PublishOrReportConflict } from "@funk/admin/content/application/external/editor/behaviors/publish-or-report-conflict"
 import { ContentPreview } from "@funk/admin/content/model/content-preview"
-import { Person } from "@funk/identity/model/person"
+import { Person } from "@funk/identity/person/model/person"
 
 export function construct(publishOrReportConflict: PublishOrReportConflict) {
   return async function (

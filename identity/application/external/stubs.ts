@@ -8,7 +8,7 @@ import {
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { AnonymousGuard } from "@funk/identity/infrastructure/external/anonymous-guard"
 import { PublicGuard } from "@funk/identity/infrastructure/external/public-guard"
-import { Person } from "@funk/identity/model/person"
+import { Person } from "@funk/identity/person/model/person"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 import { BehaviorSubject, Observable, of } from "rxjs"
 

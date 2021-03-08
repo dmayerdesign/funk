@@ -2,26 +2,17 @@ import { ImageGroup } from "@funk/image/model/image-group"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
-export interface AttributeValue extends DatabaseDocument {
+export interface SimpleAttributeValue {
   attributeId: PrimaryKey
   displayValue: string
   displayDescription?: string
   displayImage?: ImageGroup
   displayColorRgb?: [number, number, number]
+  value: string | number | boolean
 }
 
-export interface MarshalledSkuAttributeValues {
-  [attributeId: string]: PrimaryKey | string | number
-}
+export interface AttributeValue
+  extends DatabaseDocument,
+    Omit<SimpleAttributeValue, "value"> {}
 
-export interface SkuAttributeValues {
-  [attributeId: string]: AttributeValue | string | number
-}
-
-export interface MarshalledProductAttributeValues {
-  [attributeId: string]: PrimaryKey[] | string[] | number[]
-}
-
-export interface ProductAttributeValues {
-  [attributeId: string]: AttributeValue[] | string[] | number[]
-}
+export const ATTRIBUTE_VALUES = "commerce.attribute-values"

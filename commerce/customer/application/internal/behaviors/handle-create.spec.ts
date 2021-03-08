@@ -1,6 +1,5 @@
 import { UserRecord } from "@funk/auth/plugins/internal/user-record"
 import { construct } from "@funk/commerce/customer/application/internal/behaviors/handle-create"
-import { ORDERS } from "@funk/commerce/order/model/order"
 
 describe("customerHandleCreate", () => {
   it("should create a cart when any user is created", async () => {
@@ -11,7 +10,6 @@ describe("customerHandleCreate", () => {
     await handleCreate(USER)
 
     expect(setById).toHaveBeenCalledWith(
-      ORDERS,
       expect.any(String),
       expect.objectContaining({
         customer: expect.objectContaining({

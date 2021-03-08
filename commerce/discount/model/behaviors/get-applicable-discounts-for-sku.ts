@@ -1,7 +1,7 @@
 import ApplicableDiscountsBuilder from "@funk/commerce/discount/model/applicable-discounts-builder"
 import { Discount, SkuDiscount } from "@funk/commerce/discount/model/discount"
-import { MarshalledProduct } from "@funk/commerce/product/model/product"
-import { MarshalledSku } from "@funk/commerce/sku/model/sku"
+import { Product } from "@funk/commerce/product/model/product"
+import { Sku } from "@funk/commerce/sku/model/sku"
 import { sortBy } from "lodash"
 
 /**
@@ -12,7 +12,7 @@ import { sortBy } from "lodash"
  */
 export default function (
   discounts: SkuDiscount[],
-  { sku, product }: { sku: MarshalledSku; product: MarshalledProduct },
+  { sku, product }: { sku: Sku; product: Product },
 ): SkuDiscount[] {
   return new ApplicableDiscountsForSkuBuilder(sku, product, discounts)
     .onlyAllowSkuDiscounts()
@@ -28,8 +28,8 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
   SkuDiscount
 > {
   public constructor(
-    private _sku: MarshalledSku,
-    private _product: MarshalledProduct,
+    private _sku: Sku,
+    private _product: Product,
     discounts: SkuDiscount[],
   ) {
     super(discounts)
@@ -57,7 +57,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
               !!discount.excludes.taxonomyTerms.find(
                 (excludedTerm) =>
                   !!this._sku.taxonomyTerms?.find(
-                    (term) => term === excludedTerm,
+                    (term) => term.id === excludedTerm,
                   ),
               )
             ) {
@@ -67,7 +67,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
               !!discount.excludes.taxonomyTerms.find(
                 (excludedTerm) =>
                   !!this._product.taxonomyTerms?.find(
-                    (term) => term === excludedTerm,
+                    (term) => term.id === excludedTerm,
                   ),
               )
             ) {
@@ -93,7 +93,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
             !!discount.includes.taxonomyTerms.find(
               (includedTerm) =>
                 !!this._sku.taxonomyTerms?.find(
-                  (term) => term === includedTerm,
+                  (term) => term.id === includedTerm,
                 ),
             )
           ) {
@@ -103,7 +103,7 @@ class ApplicableDiscountsForSkuBuilder extends ApplicableDiscountsBuilder<
             !!discount.includes.taxonomyTerms.find(
               (includedTerm) =>
                 !!this._product.taxonomyTerms?.find(
-                  (term) => term === includedTerm,
+                  (term) => term.id === includedTerm,
                 ),
             )
           ) {

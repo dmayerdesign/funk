@@ -1,20 +1,18 @@
 import {
-    Component,
-    HostListener,
-    Inject,
-    Input,
-    OnDestroy,
-    OnInit
+  Component,
+  HostListener,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
 } from "@angular/core"
-import { ContentEditorService } from "@funk/admin/content/application/external/editor/service"
-import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/admin/content/infrastructure/external/tokens"
-import {
-    Content,
-    ContentType
-} from "@funk/admin/content/model/content"
+import { GetMaybePreviewOrLiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-preview-or-live-content"
+import { OpenEditor } from "@funk/admin/content/application/external/editor/behaviors/open-editor"
+import { Content, ContentType } from "@funk/admin/content/model/content"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { defer, Observable } from "rxjs"
 import { map, shareReplay } from "rxjs/operators"
+import { GET_MAYBE_PREVIEW_OR_LIVE_CONTENT, OPEN_EDITOR } from "./editor/tokens"
 
 @UntilDestroy()
 @Component({
@@ -39,7 +37,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   @Input() public contentId!: string
 
   public content: Observable<Content | undefined> = defer(() =>
-    this._editorService.getMaybePreviewOrLiveContent(this.contentId),
+    this._getMaybePreviewOrLiveContent(this.contentId),
   ).pipe(untilDestroyed(this), shareReplay(1))
   public contentType = this.content.pipe(map((content) => content?.type))
   public contentValue = this.content.pipe(map((content) => content?.value))
@@ -47,8 +45,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   public readonly ContentType = ContentType
 
   public constructor(
-    @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
-    private _editorService: ContentEditorService,
+    @Inject(OPEN_EDITOR) private _openEditor: OpenEditor,
+    @Inject(GET_MAYBE_PREVIEW_OR_LIVE_CONTENT)
+    private _getMaybePreviewOrLiveContent: GetMaybePreviewOrLiveContent,
   ) {}
 
   public async ngOnInit(): Promise<void> {
@@ -60,6 +59,6 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   @HostListener("click")
   public async handleEditClick(): Promise<void> {
-    this._editorService.openEditor(this.contentId)
+    this._openEditor(this.contentId)
   }
 }

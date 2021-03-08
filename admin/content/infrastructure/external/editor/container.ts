@@ -1,21 +1,39 @@
 import {
-    Component,
-    Inject,
-    OnInit,
-    ViewChild,
-    ViewEncapsulation
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
 } from "@angular/core"
-import { ContentEditorService } from "@funk/admin/content/application/external/editor/service"
-import { MANAGED_CONTENT_EDITOR_SERVICE } from "@funk/admin/content/infrastructure/external/tokens"
+import { FormControl } from "@angular/forms"
+import { CancelEdit } from "@funk/admin/content/application/external/editor/behaviors/cancel-edit"
+import { GetHasPreview } from "@funk/admin/content/application/external/editor/behaviors/get-has-preview"
+import { GetIsAuthorized } from "@funk/admin/content/application/external/editor/behaviors/get-is-authorized"
+import { GetMaybeActiveContentType } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-type"
+import { GetMaybeActiveContentValueControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-value-control"
+import { PublishAllOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-all-on-confirmation"
+import { RemoveAllPreviewsOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/remove-all-previews-on-confirmation"
+import { SaveAndClearIfEditing } from "@funk/admin/content/application/external/editor/behaviors/save-and-clear-if-editing"
 import { ContentType } from "@funk/admin/content/model/content"
-import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
+import { ignoreNullish, shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { IonTextarea } from "@ionic/angular"
 import { of } from "rxjs"
 import { delay, map, switchMap } from "rxjs/operators"
 import * as ClassicEditor from "ui/plugins/external/lib/rich-text/build/ckeditor"
+import {
+  CANCEL_EDIT,
+  GET_HAS_PREVIEW,
+  GET_IS_AUTHORIZED,
+  GET_MAYBE_ACTIVE_CONTENT_TYPE,
+  GET_MAYBE_ACTIVE_CONTENT_VALUE_CONTROL,
+  PUBLISH_ALL_ON_CONFIRMATION,
+  REMOVE_ALL_PREVIEWS_ON_CONFIRMATION,
+  SAVE_AND_CLEAR_IF_EDITING,
+} from "./tokens"
 
 const ANIMATION_DURATION_MS = 500
 
+// TODO: Add UntilDestroyed decorator.
 @Component({
   selector: "content-editor",
   template: `
@@ -69,11 +87,11 @@ const ANIMATION_DURATION_MS = 500
         [excludeBeforeClick]="true"
       >
         <ion-card class="card flat flat-with-shadow">
-          <div id="editor-container">
+          <div id="editor-container" *ngIf="formControl">
             <ckeditor
               [config]="{ toolbar: editorToolbarConfig | async }"
               [editor]="editor"
-              [formControl]="maybeFormControl | async"
+              [formControl]="formControl"
             >
             </ckeditor>
           </div>
@@ -110,8 +128,9 @@ const ANIMATION_DURATION_MS = 500
 })
 export class ContentEditorContainer implements OnInit {
   @ViewChild("contentValueInput") public contentValueInput!: IonTextarea
-  public maybeFormControl = this._editorService.getMaybeActiveContentValueControl()
-  public hasPreview = this._editorService.getHasPreview()
+  public maybeFormControl = this._getMaybeActiveContentValueControl()
+  public formControl!: FormControl
+  public hasPreview = this._getHasPreview()
   public formControlIsVisible = this.maybeFormControl.pipe(
     switchMap((formControl) =>
       !formControl
@@ -120,19 +139,17 @@ export class ContentEditorContainer implements OnInit {
     ),
     shareReplayOnce(),
   )
-  public isActivated = this._editorService.getIsAuthorized()
-  public editorToolbarConfig = this._editorService
-    .getMaybeActiveContentType()
-    .pipe(
-      map((type) => {
-        switch (type) {
-          case ContentType.TEXT:
-            return this.editorToolbarConfigForPlaintext
-          default:
-            return this.editorToolbarConfigForHtml
-        }
-      }),
-    )
+  public isActivated = this._getIsAuthorized()
+  public editorToolbarConfig = this._getMaybeActiveContentType().pipe(
+    map((type) => {
+      switch (type) {
+        case ContentType.TEXT:
+          return this.editorToolbarConfigForPlaintext
+        default:
+          return this.editorToolbarConfigForHtml
+      }
+    }),
+  )
 
   public readonly editor = ClassicEditor
   public readonly editorToolbarConfigForPlaintext: { items: string[] } = {
@@ -168,26 +185,51 @@ export class ContentEditorContainer implements OnInit {
   }
 
   public constructor(
-    @Inject(MANAGED_CONTENT_EDITOR_SERVICE)
-    private _editorService: ContentEditorService,
+    @Inject(SAVE_AND_CLEAR_IF_EDITING)
+    private _saveAndClearIfEditing: SaveAndClearIfEditing,
+
+    @Inject(CANCEL_EDIT)
+    private _cancelEdit: CancelEdit,
+
+    @Inject(PUBLISH_ALL_ON_CONFIRMATION)
+    private _publishAllOnConfirmation: PublishAllOnConfirmation,
+
+    @Inject(REMOVE_ALL_PREVIEWS_ON_CONFIRMATION)
+    private _removeAllPreviewsOnConfirmation: RemoveAllPreviewsOnConfirmation,
+
+    @Inject(GET_MAYBE_ACTIVE_CONTENT_VALUE_CONTROL)
+    private _getMaybeActiveContentValueControl: GetMaybeActiveContentValueControl,
+
+    @Inject(GET_HAS_PREVIEW)
+    private _getHasPreview: GetHasPreview,
+
+    @Inject(GET_IS_AUTHORIZED)
+    private _getIsAuthorized: GetIsAuthorized,
+
+    @Inject(GET_MAYBE_ACTIVE_CONTENT_TYPE)
+    private _getMaybeActiveContentType: GetMaybeActiveContentType,
   ) {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.maybeFormControl
+      .pipe(ignoreNullish())
+      .subscribe((formControl) => (this.formControl = formControl))
+  }
 
   public async saveEdit(): Promise<void> {
-    await this._editorService.saveAndClearIfEditing()
+    await this._saveAndClearIfEditing()
   }
 
   public async cancelEdit(): Promise<void> {
-    this._editorService.cancelEdit()
+    this._cancelEdit()
   }
 
   public async maybeSaveAndPublish(): Promise<void> {
     await this.saveEdit()
-    await this._editorService.publishAllOnConfirmation()
+    await this._publishAllOnConfirmation()
   }
 
   public async discardChanges(): Promise<void> {
-    await this._editorService.removeAllPreviewsOnConfirmation()
+    await this._removeAllPreviewsOnConfirmation()
   }
 }

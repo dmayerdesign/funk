@@ -1,9 +1,8 @@
 import { Customer } from "@funk/commerce/customer/model/customer"
 import { Discount } from "@funk/commerce/discount/model/discount"
 import { Price } from "@funk/commerce/price/model/price"
-import { MarshalledSku } from "@funk/commerce/sku/model/sku"
+import { Sku } from "@funk/commerce/sku/model/sku"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
-import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 export const ORDERS = "commerce.orders"
 
@@ -42,18 +41,18 @@ interface BaseOrder extends DatabaseDocument {
 
 export interface Order extends BaseOrder {
   /** @required */
-  skus?: MarshalledSku[]
+  skus?: Sku[]
   discounts?: Discount[]
 }
 export type Cart = Order & {
   status: Status.CART | Status.CART_CHECKOUT
 }
 
-export interface MarshalledOrder extends BaseOrder {
-  /** @required */
-  skus?: PrimaryKey[]
-  discounts?: PrimaryKey[]
-}
-export type MarshalledCart = MarshalledOrder & {
-  status: Status.CART | Status.CART_CHECKOUT
-}
+// export interface MarshalledOrder extends BaseOrder {
+//   /** @required */
+//   skus?: PrimaryKey[]
+//   discounts?: PrimaryKey[]
+// }
+// export type MarshalledCart = MarshalledOrder & {
+//   status: Status.CART | Status.CART_CHECKOUT
+// }

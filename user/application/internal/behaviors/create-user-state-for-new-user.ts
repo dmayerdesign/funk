@@ -1,14 +1,16 @@
 import { UserRecord } from "@funk/auth/plugins/internal/user-record"
-import { UserState, USER_STATES } from "@funk/identity/model/user-state"
-import setByIdImpl from "@funk/persistence/application/internal/behaviors/set-by-id"
+import { UserState } from "@funk/identity/model/user-state"
+import setByIdImpl, {
+  SetById,
+} from "@funk/identity/user-state/application/internal/behaviors/persistence/set-by-id"
 
-export function construct(setById: typeof setByIdImpl) {
+export function construct(setById: SetById) {
   return async function (user: UserRecord): Promise<any> {
     if (user.email) {
       const newUserState: UserState = {
         id: user.uid,
       }
-      await setById(USER_STATES, newUserState.id, newUserState)
+      await setById(newUserState.id, newUserState)
     }
   }
 }

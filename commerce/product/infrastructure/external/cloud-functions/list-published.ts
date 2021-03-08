@@ -1,4 +1,4 @@
-import { MarshalledProduct } from "@funk/commerce/product/model/product"
+import { Product } from "@funk/commerce/product/model/product"
 import { Condition } from "@funk/persistence/application/external/condition"
 import {
   Pagination,
@@ -8,10 +8,10 @@ import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functi
 
 const functionName = "commerceProductListPublished"
 interface PayloadType {
-  pagination: Pagination<MarshalledProduct> | VirtualPagination
-  conditions: Condition<MarshalledProduct>[]
+  pagination: Pagination<Product> | VirtualPagination
+  conditions: Condition<Product>[]
 }
-type ResolvedValueType = MarshalledProduct[]
+type ResolvedValueType = Product[]
 
 export function construct(client: FunctionsClient) {
   return async function (payload: PayloadType): Promise<ResolvedValueType> {

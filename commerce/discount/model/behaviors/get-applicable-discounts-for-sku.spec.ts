@@ -1,8 +1,9 @@
 import getApplicableDiscountsForSku from "@funk/commerce/discount/model/behaviors/get-applicable-discounts-for-sku"
 import { SkuDiscount } from "@funk/commerce/discount/model/discount"
-import { MarshalledProduct } from "@funk/commerce/product/model/product"
-import { MarshalledSku } from "@funk/commerce/sku/model/sku"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import { Product } from "@funk/commerce/product/model/product"
+import { Sku } from "@funk/commerce/sku/model/sku"
+import { createFakeSku } from "@funk/commerce/sku/model/stubs"
+import { createFakeTaxonomyTerm } from "@funk/commerce/taxonomy/model/stubs"
 import { CurrencyCode } from "@funk/money/model/currency-code"
 import { createFakeSkuDiscount } from "../stubs"
 
@@ -13,8 +14,8 @@ describe("getApplicableDiscountsForSku", () => {
         isCompoundable: true,
       },
     )
-    const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
-    const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
+    const FAKE_SKU = createFakeSku()
+    const FAKE_MARSHALLED_PRODUCT = createProduct()
     const originalDiscounts = [
       ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
       ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
@@ -22,7 +23,7 @@ describe("getApplicableDiscountsForSku", () => {
 
     const applicableDiscounts = getApplicableDiscountsForSku(
       originalDiscounts,
-      { sku: FAKE_MARSHALLED_SKU, product: FAKE_MARSHALLED_PRODUCT },
+      { sku: FAKE_SKU, product: FAKE_MARSHALLED_PRODUCT },
     )
 
     expect(applicableDiscounts).toEqual(originalDiscounts)
@@ -33,8 +34,8 @@ describe("getApplicableDiscountsForSku", () => {
         isCompoundable: false,
       },
     )
-    const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
-    const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
+    const FAKE_SKU = createFakeSku()
+    const FAKE_MARSHALLED_PRODUCT = createProduct()
 
     const originalDiscounts = [
       ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
@@ -42,7 +43,7 @@ describe("getApplicableDiscountsForSku", () => {
     ]
     expect(
       getApplicableDiscountsForSku(originalDiscounts, {
-        sku: FAKE_MARSHALLED_SKU,
+        sku: FAKE_SKU,
         product: FAKE_MARSHALLED_PRODUCT,
       }),
     ).toEqual([ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT])
@@ -57,7 +58,7 @@ describe("getApplicableDiscountsForSku", () => {
       isCompoundable: true,
     })
     const SKU_EXCLUDED_BY_ID = createSkuExcludedById()
-    const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
+    const FAKE_MARSHALLED_PRODUCT = createProduct()
 
     const originalDiscounts = [
       ALL_INCLUSIVE_TEN_PERCENT_DISCOUNT,
@@ -72,20 +73,20 @@ describe("getApplicableDiscountsForSku", () => {
   })
   it("should filter out discounts which exclude the product by id", () => {
     const EXCLUSIVE_AMOUNT_DISCOUNT = createExclusiveAmountDiscount({})
-    const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
+    const FAKE_SKU = createFakeSku()
     const PRODUCT_EXCLUDED_BY_ID = createProductExcludedById()
 
     const originalDiscounts = [EXCLUSIVE_AMOUNT_DISCOUNT]
     expect(
       getApplicableDiscountsForSku(originalDiscounts, {
-        sku: FAKE_MARSHALLED_SKU,
+        sku: FAKE_SKU,
         product: PRODUCT_EXCLUDED_BY_ID,
       }),
     ).toEqual([])
   })
   it("should filter out discounts which exclude the SKU by taxonomy term", () => {
     const EXCLUSIVE_AMOUNT_DISCOUNT = createExclusiveAmountDiscount({})
-    const FAKE_MARSHALLED_PRODUCT = createMarshalledProduct()
+    const FAKE_MARSHALLED_PRODUCT = createProduct()
     const SKU_EXCLUDED_BY_TAX_TERM = createSkuExcludedByTaxTerm()
 
     const originalDiscounts = [EXCLUSIVE_AMOUNT_DISCOUNT]
@@ -98,12 +99,12 @@ describe("getApplicableDiscountsForSku", () => {
   })
   it("should filter out discounts which exclude the product by taxonomy term", () => {
     const EXCLUSIVE_AMOUNT_DISCOUNT = createExclusiveAmountDiscount({})
-    const FAKE_MARSHALLED_SKU = createFakeMarshalledSku()
+    const FAKE_SKU = createFakeSku()
     const PRODUCT_EXCLUDED_BY_TAX_TERM = createProductExcludedByTaxTerm()
     const originalDiscounts = [EXCLUSIVE_AMOUNT_DISCOUNT]
     expect(
       getApplicableDiscountsForSku(originalDiscounts, {
-        sku: FAKE_MARSHALLED_SKU,
+        sku: FAKE_SKU,
         product: PRODUCT_EXCLUDED_BY_TAX_TERM,
       }),
     ).toEqual([])
@@ -115,30 +116,32 @@ export const createSkuExcludedById = (idSuffix = "0") =>
     id: "test sku id EXCLUDE_FROM_DISCOUNT",
     productId: `test product id ${idSuffix}`,
     price: { amount: 1000, currency: "USD" },
-    taxonomyTerms: [`tax term id ${idSuffix}`],
-  } as MarshalledSku)
+    taxonomyTerms: [createFakeTaxonomyTerm({ id: `tax term id ${idSuffix}` })],
+  } as Sku)
 export const createSkuExcludedByTaxTerm = (idSuffix = "0") =>
   ({
     id: `test sku id ${idSuffix}`,
     productId: `test product id ${idSuffix}`,
     price: { amount: 1000, currency: "USD" },
-    taxonomyTerms: ["tax term id EXCLUDE_FROM_DISCOUNT"],
-  } as MarshalledSku)
-export const createMarshalledProduct = (idSuffix = "0") =>
+    // taxonomyTerms: ["tax term id EXCLUDE_FROM_DISCOUNT"],
+  } as Sku)
+export const createProduct = (idSuffix = "0") =>
   ({
     id: `test product id ${idSuffix}`,
-    taxonomyTerms: [`tax term id ${idSuffix}`],
-  } as MarshalledProduct)
+    taxonomyTerms: [createFakeTaxonomyTerm({ id: `tax term id ${idSuffix}` })],
+  } as Product)
 export const createProductExcludedById = (idSuffix = "0") =>
   ({
     id: "test product id EXCLUDE_FROM_DISCOUNT",
-    taxonomyTerms: [`tax term id ${idSuffix}`],
-  } as MarshalledProduct)
+    taxonomyTerms: [createFakeTaxonomyTerm({ id: `tax term id ${idSuffix}` })],
+  } as Product)
 export const createProductExcludedByTaxTerm = (idSuffix = "0") =>
   ({
     id: `test product id ${idSuffix}`,
-    taxonomyTerms: ["tax term id EXCLUDE_FROM_DISCOUNT"],
-  } as MarshalledProduct)
+    taxonomyTerms: [
+      createFakeTaxonomyTerm({ id: "tax term id EXCLUDE_FROM_DISCOUNT" }),
+    ],
+  } as Product)
 export function createAllInclusiveTenPercentDiscount({
   isCompoundable = false,
 }: {

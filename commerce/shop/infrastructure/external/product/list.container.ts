@@ -1,6 +1,6 @@
 import { Component, Inject } from "@angular/core"
 import { ListPublished } from "@funk/commerce/product/infrastructure/external/cloud-functions/list-published"
-import { MarshalledProduct } from "@funk/commerce/product/model/product"
+import { Product } from "@funk/commerce/product/model/product"
 import getQueryConditions from "@funk/commerce/shop/application/external/products/list-filter/behaviors/get-query-conditions"
 import { ListFilter } from "@funk/commerce/shop/application/external/products/list-filter/list-filter"
 import { LIST_PUBLISHED } from "@funk/commerce/shop/infrastructure/external/product/tokens"
@@ -30,7 +30,7 @@ import { map, switchMap } from "rxjs/operators"
 })
 export class ProductListContainer {
   private _pagination = new BehaviorSubject<
-    Pagination<MarshalledProduct> | VirtualPagination
+    Pagination<Product> | VirtualPagination
   >({
     skip: 0,
     take: TAKE_ALL,
@@ -44,10 +44,10 @@ export class ProductListContainer {
     map((filters) => flatten(filters.map(getQueryConditions))),
     shareReplayOnce(),
   )
-  public products: Observable<MarshalledProduct[]> = combineLatest(
+  public products: Observable<Product[]> = combineLatest([
     this.queryConditions,
     this.pagination,
-  ).pipe(
+  ]).pipe(
     switchMap(async ([conditions, pagination]) => {
       const loading = await this._loadingController.create({
         id: "PRODUCTS_LOADING",
@@ -70,7 +70,7 @@ export class ProductListContainer {
   }
 
   public handlePaginationChange(
-    pagination: Pagination<MarshalledProduct> | VirtualPagination,
+    pagination: Pagination<Product> | VirtualPagination,
   ): void {
     this._pagination.next(pagination)
   }

@@ -1,9 +1,12 @@
 import { store as storeImpl } from "@funk/persistence/application/internal/server-store"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
+import { Marshalled } from "./marshall"
 
 export function construct(store: typeof storeImpl) {
   return async function <
-    DocumentType extends Record<string, any> = DatabaseDocument
+    DocumentType extends Marshalled<DatabaseDocument> = Marshalled<
+      DatabaseDocument
+    >
   >(
     collectionPath: string,
     documentPath: string,
@@ -14,7 +17,10 @@ export function construct(store: typeof storeImpl) {
       .collection(collectionPath)
       .doc(documentPath)
       .set(
-        { ...documentData, updatedAt: Date.now() },
+        {
+          ...documentData,
+          updatedAt: Date.now(),
+        },
         { merge: !options?.overwrite },
       )
   }

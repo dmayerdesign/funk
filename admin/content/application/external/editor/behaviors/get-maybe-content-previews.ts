@@ -1,13 +1,12 @@
 import { ContentPreview } from "@funk/admin/content/model/content-preview"
-import { Person } from "@funk/identity/model/person"
-import { UserState, USER_STATES } from "@funk/identity/model/user-state"
-import { GetById } from "@funk/persistence/application/external/behaviors/get-by-id"
+import { Person } from "@funk/identity/person/model/person"
+import { GetById } from "@funk/identity/user-state/application/external/behaviors/persistence/get-by-id"
 
 export function construct(getById: GetById) {
   return async function (
     person: Person,
   ): Promise<{ [contentId: string]: ContentPreview } | undefined> {
-    const userState = await getById<UserState>(USER_STATES, person.id)
+    const userState = await getById(person.id)
     return userState?.contentPreviews
   }
 }

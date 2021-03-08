@@ -11,21 +11,22 @@ import { construct as constructResolveEnterprise } from "@funk/commerce/shop/inf
 import { HomeContainer } from "@funk/commerce/shop/infrastructure/external/home/container"
 import { CheckoutComponent } from "@funk/commerce/shop/infrastructure/external/orders/checkout/component"
 import {
-    CART,
-    CART_SET_SKU_QUANTITY,
-    SET_SKU_QUANTITY
+  CART,
+  CART_SET_SKU_QUANTITY,
+  SET_SKU_QUANTITY,
 } from "@funk/commerce/shop/infrastructure/external/orders/tokens"
 import { ProductModule } from "@funk/commerce/shop/infrastructure/external/product/module"
 import {
-    ENTERPRISE,
-    RESOLVE_ENTERPRISE
+  ENTERPRISE,
+  RESOLVE_ENTERPRISE,
 } from "@funk/commerce/shop/infrastructure/external/tokens"
 import { USER_SESSION } from "@funk/identity/infrastructure/external/tokens"
+import { LISTEN_FOR_ORGANIZATION_BY_ID } from "@funk/organization/infrastructure/external/persistence/tokens"
 import { PersistenceModule } from "@funk/persistence/infrastructure/external/module"
 import {
-    LISTEN_BY_ID,
-    POPULATE,
-    QUERY_COLLECTION_FOR_METADATA
+  LISTEN_BY_ID,
+  POPULATE,
+  QUERY_COLLECTION_FOR_METADATA,
 } from "@funk/persistence/infrastructure/external/tokens"
 import atlas from "@funk/ui/atlas/configuration"
 import { AppCommonModule } from "@funk/ui/infrastructure/external/common.module"
@@ -82,7 +83,7 @@ const routes: Routes = [
     {
       provide: ENTERPRISE,
       useFactory: constructEnterprise,
-      deps: [LISTEN_BY_ID],
+      deps: [LISTEN_FOR_ORGANIZATION_BY_ID],
     },
     {
       provide: RESOLVE_ENTERPRISE,
