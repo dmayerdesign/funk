@@ -1,18 +1,13 @@
-import {
-  MarshalledCart,
-  MarshalledOrder,
-  Order,
-  Status,
-} from "@funk/commerce/order/model/order"
+import { Cart, Order, Status } from "@funk/commerce/order/model/order"
 import { NULL_PRICE } from "@funk/commerce/price/model/price"
 import { createFakeAddress } from "@funk/places/model/stubs"
 import { merge } from "lodash"
 
-export function createFakeMarshalledOrder(
+export function createFakeOrder(
   id = "order-id",
-  customProps: Partial<MarshalledOrder> = {},
-): MarshalledOrder {
-  return merge<MarshalledOrder, Partial<MarshalledOrder>>(
+  customProps: Partial<Order> = {},
+): Order {
+  return merge<Order, Partial<Order>>(
     {
       id,
       status: Status.PAYMENT_PENDING,
@@ -48,22 +43,12 @@ export function createFakeMarshalledOrder(
   )
 }
 
-export function createFakeMarshalledCart(
+export function createFakeCart(
   id = "order-id",
-  customProps: Partial<MarshalledCart> = {},
-): MarshalledCart {
-  return createFakeMarshalledOrder(id, {
+  customProps: Partial<Cart> = {},
+): Cart {
+  return createFakeOrder(id, {
     status: Status.PAYMENT_PENDING,
     ...customProps,
-  }) as MarshalledCart
-}
-
-export function createFakeOrder(
-  id = "order-id",
-  customProps: Partial<Order> = {},
-): Order {
-  return merge<Order, Partial<Order>>(
-    createFakeMarshalledOrder(id) as Order,
-    customProps,
-  )
+  }) as Cart
 }

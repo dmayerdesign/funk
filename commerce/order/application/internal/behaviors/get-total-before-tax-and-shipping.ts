@@ -4,14 +4,10 @@ import getPriceBeforeDiscounts from "@funk/commerce/order/model/behaviors/get-pr
 import { Order } from "@funk/commerce/order/model/order"
 import subtract from "@funk/commerce/price/model/behaviors/subtract"
 import { NULL_PRICE, Price } from "@funk/commerce/price/model/price"
-import {
-  MarshalledProduct,
-  PRODUCTS,
-} from "@funk/commerce/product/model/product"
+import getByIdImpl from "@funk/commerce/product/application/internal/behaviors/persistence/get-by-id"
 import getPriceAfterSkuDiscounts from "@funk/commerce/sku/model/behaviors/get-price-after-discounts"
 import { asPromise } from "@funk/helpers/as-promise"
 import add from "@funk/money/model/behaviors/add"
-import getByIdImpl from "@funk/persistence/application/internal/behaviors/get-by-id"
 import { DbDocumentInput } from "@funk/persistence/model/database-document"
 import { of, zip } from "rxjs"
 import { first, map, switchMap } from "rxjs/operators"
@@ -31,10 +27,7 @@ export function construct(getById: typeof getByIdImpl) {
             switchMap(async (sku) =>
               getPriceAfterSkuDiscounts({
                 sku,
-                product: (await getById<MarshalledProduct>(
-                  PRODUCTS,
-                  sku.productId,
-                ))!,
+                product: (await getById(sku.productId))!,
                 activeDiscounts: activeDiscounts.filter(
                   ({ type }) => type === "sku",
                 ) as SkuDiscount[],

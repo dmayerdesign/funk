@@ -1,8 +1,8 @@
 import { Condition } from "@funk/persistence/application/internal/condition"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import {
-    Pagination,
-    VirtualPagination
+  Pagination,
+  VirtualPagination,
 } from "@funk/persistence/model/pagination"
 import { getStore } from "@funk/test/plugins/internal/persistence/in-memory-store"
 import { difference, get, isEqual, orderBy, values } from "lodash"
@@ -48,11 +48,19 @@ const meetsCondition = <DocumentType extends DatabaseDocument>(
     case ">=":
       return (value as number) >= queryValue
     case "in":
+      if (!queryValue?.length) {
+        throw new Error("[funk] 'IN' requires an non-empty ArrayValue.")
+      }
       return !!(queryValue as any[]).find((element) => isEqual(element, value))
     case "array-contains":
-      return !!(value as any[]).find((element) => isEqual(element, queryValue))
+      return !!((value ?? []) as any[]).find((element) =>
+        isEqual(element, queryValue),
+      )
     case "array-contains-any":
-      return difference(queryValue, value as any[]).length < queryValue.length
+      return (
+        difference(queryValue, (value ?? []) as any[]).length <
+        queryValue.length
+      )
     default:
       return true
   }

@@ -1,4 +1,7 @@
-export interface Diff<DocumentType = Record<string, unknown>, NewType = DocumentType> {
+export interface Diff<
+  DocumentType = Record<string, unknown>,
+  NewType = DocumentType
+> {
   /** "New", "Deleted", "Edited", "Array" */
   kind: "N" | "D" | "E" | "A"
   path?: [keyof DocumentType, ...(string | number)[]]

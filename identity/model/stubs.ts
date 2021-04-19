@@ -1,4 +1,4 @@
-import { Person } from "@funk/identity/model/person"
+import { Person } from "@funk/identity/person/model/person"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 export const FAKE_USER_UID: PrimaryKey = "test-user-basic"

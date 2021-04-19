@@ -2,9 +2,9 @@ import { RouterStateSnapshot, UrlTree } from "@angular/router"
 import { UserRole } from "@funk/auth/model/user-role"
 import { asPromise } from "@funk/helpers/as-promise"
 import {
-    createRouterStub,
-    createStubbedPublicGuard,
-    createUserSession
+  createRouterStub,
+  createStubbedPublicGuard,
+  createUserSession,
 } from "@funk/identity/application/external/stubs"
 import { AnonymousGuard } from "@funk/identity/infrastructure/external/anonymous-guard"
 import { PublicGuard } from "@funk/identity/infrastructure/external/public-guard"

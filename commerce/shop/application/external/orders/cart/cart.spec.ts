@@ -1,4 +1,4 @@
-import { Cart, MarshalledCart } from "@funk/commerce/order/model/order"
+import { Cart } from "@funk/commerce/order/model/order"
 import { construct } from "@funk/commerce/shop/application/external/orders/cart/cart"
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { createFakePerson } from "@funk/identity/model/stubs"
@@ -11,7 +11,7 @@ describe("Cart$", () => {
   let userSession: UserSession
   let queryCollectionForMetadata: QueryCollectionForMetadata
   let listenById: ListenById
-  let populate: Populate<Cart, MarshalledCart>
+  let populate: Populate<Cart>
   const COLLECTION_PATH = "collection path"
   const DOCUMENT_PATH = "doc path"
   const CART = ({} as unknown) as Cart

@@ -6,6 +6,7 @@ import { ContentModule } from "@funk/admin/content/infrastructure/external/modul
 import { CONFIGURATION } from "@funk/configuration"
 import { Configuration } from "@funk/configuration/model/configuration"
 import { IdentityModule } from "@funk/identity/infrastructure/external/module"
+import { OrganizationPersistenceModule } from "@funk/organization/infrastructure/external/persistence/module"
 import { PersistenceModule } from "@funk/persistence/infrastructure/external/module"
 import { construct as constructPageTitle } from "@funk/ui/atlas/application/external/page-title"
 import { AtlasModule } from "@funk/ui/atlas/infrastructure/external/module"
@@ -18,7 +19,7 @@ import routes from "@funk/ui/infrastructure/external/routes"
 import {
   DEVICE_WIDTH,
   PAGE_TITLE,
-  WINDOW
+  WINDOW,
 } from "@funk/ui/infrastructure/external/tokens"
 import { NotFoundComponent } from "@funk/ui/not-found/infrastructure/external/component"
 import { construct as constructDeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
@@ -41,6 +42,7 @@ import { IonicStorageModule } from "@ionic/storage"
     AppFireModule,
     PersistenceModule,
     ContentModule.withProviders(),
+    OrganizationPersistenceModule.withProviders(),
     IdentityModule,
     AtlasModule,
     FunctionsModule,

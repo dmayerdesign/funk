@@ -1,13 +1,20 @@
 import { CollectionReference, Query } from "@angular/fire/firestore"
 import { AngularFirestore } from "@angular/fire/firestore/firestore"
-import { DbDocumentMetadata } from "@funk/persistence/model/database-document"
+import {
+  DatabaseDocument,
+  DbDocumentMetadata,
+} from "@funk/persistence/model/database-document"
 
 export function construct(store: AngularFirestore) {
   return async function (
     collectionPath: string,
     selector: (collectionReference: CollectionReference) => Query,
   ): Promise<DbDocumentMetadata[]> {
-    return await selector(store.collection(collectionPath).ref)
+    return await selector(
+      store.collection(collectionPath).ref as CollectionReference<
+        DatabaseDocument
+      >,
+    )
       .get()
       .then((snapshot) =>
         snapshot.docs.map((doc) => {

@@ -1,37 +1,36 @@
+import getOrderByIdImpl, {
+  GetById as GetOrderById,
+} from "@funk/commerce/order/application/internal/behaviors/persistence/get-by-id"
 import populateImpl, {
   Populate,
-} from "@funk/commerce/order/application/internal/behaviors/populate"
+} from "@funk/commerce/order/application/internal/behaviors/persistence/populate"
+import setManyOrdersImpl, {
+  SetMany as SetManyOrders,
+} from "@funk/commerce/order/application/internal/behaviors/persistence/set-many"
+import updateOrderByIdImpl, {
+  UpdateById as UpdateOrderById,
+} from "@funk/commerce/order/application/internal/behaviors/persistence/update-by-id"
 import createOrderForCustomer from "@funk/commerce/order/model/behaviors/create-order-for-customer"
-import {
-  MarshalledOrder,
-  ORDERS,
-  Status,
-} from "@funk/commerce/order/model/order"
-import { SKUS } from "@funk/commerce/sku/model/sku"
+import { Status } from "@funk/commerce/order/model/order"
+import setManySkusImpl, {
+  SetMany as SetManySkus,
+} from "@funk/commerce/sku/application/internal/behaviors/persistence/set-many"
 import createUid from "@funk/helpers/create-uid"
 import throwInvalidInputIfNilOrEmpty from "@funk/helpers/throw-invalid-input-if-nil-or-empty"
 import confirmPaymentIntentImpl, {
   ConfirmPaymentIntent,
 } from "@funk/money/plugins/internal/payment/behaviors/confirm-payment-intent"
-import getByIdImpl, {
-  GetById,
-} from "@funk/persistence/application/internal/behaviors/get-by-id"
-import setManyImpl, {
-  SetMany,
-} from "@funk/persistence/application/internal/behaviors/set-many"
-import updateByIdImpl, {
-  UpdateById,
-} from "@funk/persistence/application/internal/behaviors/update-by-id"
 
 export function construct(
-  getById: GetById,
-  updateById: UpdateById,
-  setMany: SetMany,
+  getOrderById: GetOrderById,
+  updateOrderById: UpdateOrderById,
+  setManyOrders: SetManyOrders,
+  setManySkus: SetManySkus,
   populate: Populate,
   confirmPaymentIntent: ConfirmPaymentIntent,
 ) {
   return async function (orderId: string) {
-    const marshalledOrder = await getById<MarshalledOrder>(ORDERS, orderId)
+    const marshalledOrder = await getOrderById(orderId)
 
     throwInvalidInputIfNilOrEmpty(
       marshalledOrder?.skus?.[0],
@@ -40,17 +39,10 @@ export function construct(
 
     const order = await populate(marshalledOrder!)
 
-    await updateById(ORDERS, orderId, { status: Status.PAYMENT_PENDING })
-    await confirmPaymentIntent(order.paymentIntentId!)
-
-    await setMany({
-      [ORDERS]: {
-        [orderId]: {
-          status: Status.PAID,
-        },
-        [createUid()]: createOrderForCustomer(order.customer),
-      },
-      [SKUS]: order.skus!.reduce(
+    await updateOrderById(orderId, { status: Status.PAYMENT_PENDING })
+    await confirmPaymentIntent(order!.paymentIntentId!)
+    await setManySkus(
+      order.skus!.reduce(
         (skusBatchUpdate, sku) => ({
           ...skusBatchUpdate,
           [sku.id]: {
@@ -69,6 +61,12 @@ export function construct(
         }),
         {},
       ),
+    )
+    await setManyOrders({
+      [orderId]: {
+        status: Status.PAID,
+      },
+      [createUid()]: createOrderForCustomer(order.customer),
     })
   }
 }
@@ -76,9 +74,10 @@ export function construct(
 export type Submit = ReturnType<typeof construct>
 
 export default construct(
-  getByIdImpl,
-  updateByIdImpl,
-  setManyImpl,
+  getOrderByIdImpl,
+  updateOrderByIdImpl,
+  setManyOrdersImpl,
+  setManySkusImpl,
   populateImpl,
   confirmPaymentIntentImpl,
 )

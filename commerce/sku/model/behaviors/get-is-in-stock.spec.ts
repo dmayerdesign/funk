@@ -1,20 +1,20 @@
 import getIsInStock from "@funk/commerce/sku/model/behaviors/get-is-in-stock"
 import { Inventory } from "@funk/commerce/sku/model/inventory"
-import { createFakeMarshalledSku } from "@funk/commerce/sku/model/stubs"
+import { createFakeSku } from "@funk/commerce/sku/model/stubs"
 
 describe("getIsInStock", () => {
   it("is in stock", () => {
     const inStockSkus = [
-      createFakeMarshalledSku("test 1", {
+      createFakeSku("test 1", {
         inventory: { type: "finite", quantity: 1, quantityReserved: 0 },
       }),
-      createFakeMarshalledSku("test 2", {
+      createFakeSku("test 2", {
         inventory: { type: "finite", quantity: 6, quantityReserved: 5 },
       }),
-      createFakeMarshalledSku("test 3", {
+      createFakeSku("test 3", {
         inventory: { type: "bucket", bucket: "in_stock" },
       }),
-      createFakeMarshalledSku("test 4", {
+      createFakeSku("test 4", {
         inventory: { type: "bucket", bucket: "limited" },
       }),
     ]
@@ -26,17 +26,17 @@ describe("getIsInStock", () => {
 
   it("is out of stock", () => {
     const outOfStockSkus = [
-      createFakeMarshalledSku("test 1", {
+      createFakeSku("test 1", {
         inventory: { type: "finite", quantity: 0 } as Inventory,
       }),
-      createFakeMarshalledSku("test 2", {
+      createFakeSku("test 2", {
         inventory: {
           type: "finite",
           quantity: 5,
           quantityReserved: 5,
         } as Inventory,
       }),
-      createFakeMarshalledSku("test 3", {
+      createFakeSku("test 3", {
         inventory: { type: "bucket", bucket: "out_of_stock" } as Inventory,
       }),
     ]

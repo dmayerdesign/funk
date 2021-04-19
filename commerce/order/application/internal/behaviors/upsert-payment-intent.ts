@@ -1,35 +1,42 @@
-import getTaxImpl from "@funk/commerce/order/application/internal/behaviors/get-sales-tax"
-import getTotalBeforeTaxAndShippingImpl from "@funk/commerce/order/application/internal/behaviors/get-total-before-tax-and-shipping"
-import populateImpl from "@funk/commerce/order/application/internal/behaviors/populate"
-import {
-  MarshalledOrder,
-  Order,
-  ORDERS,
-  Status,
-} from "@funk/commerce/order/model/order"
+import getTaxImpl, {
+  GetTax,
+} from "@funk/commerce/order/application/internal/behaviors/get-sales-tax"
+import getTotalBeforeTaxAndShippingImpl, {
+  GetTotalBeforeTaxAndShipping,
+} from "@funk/commerce/order/application/internal/behaviors/get-total-before-tax-and-shipping"
+import populateImpl, {
+  Populate,
+} from "@funk/commerce/order/application/internal/behaviors/persistence/populate"
+import { Order } from "@funk/commerce/order/model/order"
 import { Price } from "@funk/commerce/price/model/price"
 import { InvalidInputError } from "@funk/error/model/invalid-input-error"
-import onlyKeysImpl from "@funk/http/plugins/internal/cloud-function/behaviors/listen/only-keys"
+import onlyKeysImpl, {
+  OnlyKeys,
+} from "@funk/http/plugins/internal/cloud-function/behaviors/listen/only-keys"
 import add from "@funk/money/model/behaviors/add"
 import createPaymentIntentImpl, {
+  CreatePaymentIntent,
   Options as CreatePaymentIntentOptions,
 } from "@funk/money/plugins/internal/payment/behaviors/create-payment-intent"
 import updatePaymentIntentImpl, {
   Options as UpdatePaymentIntentOptions,
+  UpdatePaymentIntent,
 } from "@funk/money/plugins/internal/payment/behaviors/update-payment-intent"
 import { MIN_TRANSACTION_CENTS } from "@funk/money/plugins/internal/payment/configuration"
-import updateByIdImpl from "@funk/persistence/application/internal/behaviors/update-by-id"
+import updateOrderByIdImpl, {
+  UpdateById as UpdateOrderById,
+} from "./persistence/update-by-id"
 
 export function construct(
-  createPaymentIntent: typeof createPaymentIntentImpl,
-  updatePaymentIntent: typeof updatePaymentIntentImpl,
-  getTotalBeforeTaxAndShipping: typeof getTotalBeforeTaxAndShippingImpl,
-  getTax: typeof getTaxImpl,
-  populate: typeof populateImpl,
-  onlyKeys: typeof onlyKeysImpl,
-  updateById: typeof updateByIdImpl,
+  createPaymentIntent: CreatePaymentIntent,
+  updatePaymentIntent: UpdatePaymentIntent,
+  getTotalBeforeTaxAndShipping: GetTotalBeforeTaxAndShipping,
+  getTax: GetTax,
+  populate: Populate,
+  onlyKeys: OnlyKeys,
+  updateOrderById: UpdateOrderById,
 ) {
-  const keysToListenTo: (keyof MarshalledOrder)[] = [
+  const keysToListenTo: (keyof Order)[] = [
     "skuQuantityMap",
     "taxPercent",
     "shipmentPrice",
@@ -38,36 +45,24 @@ export function construct(
     "status",
   ]
 
-  return onlyKeys<MarshalledOrder>(keysToListenTo, async ({ after }) => {
-    const order = after.data() as MarshalledOrder
+  return onlyKeys<Order>(keysToListenTo, async ({ after }) => {
+    const order = await populate(after.data() as Order)
 
-    try {
-      const priceAfterTax = await getTransactionPriceAfterTaxOrThrow(
-        await populate(order),
-      )
-      const paymentIntentData = {
-        price: priceAfterTax,
-        customerId: order.customer?.idForPayment,
-        savePaymentMethod: !!order.customer?.savePaymentInfo,
-      } as CreatePaymentIntentOptions & UpdatePaymentIntentOptions
+    const priceAfterTax = await getTransactionPriceAfterTaxOrThrow(
+      await populate(order),
+    )
 
-      if (!order.paymentIntentId) {
-        const paymentIntent = await createPaymentIntent(paymentIntentData)
-        await setPaymentIntentId(order.id, paymentIntent.id)
-      } else {
-        await updatePaymentIntent(order.paymentIntentId, paymentIntentData)
-      }
-    } catch (error) {
-      if (error instanceof OrderPriceLessThanMinimumError) {
-        if (
-          order.status === Status.CART_CHECKOUT ||
-          order.status === Status.PAYMENT_PENDING
-        ) {
-          throw error
-        }
-      } else {
-        throw error
-      }
+    const paymentIntentData = {
+      price: priceAfterTax,
+      customerId: order.customer?.idForPayment,
+      savePaymentMethod: !!order.customer?.savePaymentInfo,
+    } as CreatePaymentIntentOptions & UpdatePaymentIntentOptions
+
+    if (!order.paymentIntentId) {
+      const paymentIntent = await createPaymentIntent(paymentIntentData)
+      await setPaymentIntentId(order.id, paymentIntent.id)
+    } else {
+      await updatePaymentIntent(order.paymentIntentId, paymentIntentData)
     }
   })
 
@@ -75,8 +70,7 @@ export function construct(
     orderId: string,
     paymentIntentId: string,
   ): Promise<void> {
-    if (!orderId || !paymentIntentId) return
-    await updateById<MarshalledOrder>(ORDERS, orderId, { paymentIntentId })
+    await updateOrderById(orderId, { paymentIntentId })
   }
 
   async function getTransactionPriceAfterTaxOrThrow(
@@ -102,7 +96,7 @@ export default construct(
   getTaxImpl,
   populateImpl,
   onlyKeysImpl,
-  updateByIdImpl,
+  updateOrderByIdImpl,
 )
 
 export type HandleWrite = ReturnType<typeof construct>

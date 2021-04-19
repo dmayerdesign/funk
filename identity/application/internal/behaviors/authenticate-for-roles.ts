@@ -9,13 +9,13 @@ import authenticate from "@funk/identity/application/internal/behaviors/authenti
 import { NextFunction, RequestHandler, Response } from "express"
 
 /**
- * Creates a `RequestHandler` which either calls `next` if the user has AT LEAST ONE of the
- * `roles`, or sends a `403 Forbidden` response if not.
+ * If the user has AT LEAST ONE of the `roles`, the created `RequestHandler` calls `next`.
+ * If not, it sends a `403 Forbidden` response.
  */
 export default function (roles: UserRole[]): RequestHandler {
-  // TODO: `request` is really an `AuthenticatedRequest`, and should be typed as such.
-  // Currently using `AuthenticationRequest` here, and a type assertion below, to appease
-  // the compiler.
+  // TODO: `request` is really an `AuthenticatedRequest`, and should be treated as a subtype of
+  // `express.Request`. Currently using `AuthenticationRequest` here, and a type assertion below,
+  // to appease the compiler.
   return function (
     request: AuthenticationRequest,
     response: Response,

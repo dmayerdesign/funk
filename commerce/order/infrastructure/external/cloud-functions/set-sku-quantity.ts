@@ -1,4 +1,4 @@
-import { MarshalledProduct } from "@funk/commerce/product/model/product"
+import { Product } from "@funk/commerce/product/model/product"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functions-client"
 
@@ -8,7 +8,7 @@ interface PayloadType {
   skuId: PrimaryKey
   quantity: number
 }
-type ResolvedValueType = MarshalledProduct[]
+type ResolvedValueType = Product[]
 
 export function construct(client: FunctionsClient) {
   return async function (payload: PayloadType): Promise<ResolvedValueType> {

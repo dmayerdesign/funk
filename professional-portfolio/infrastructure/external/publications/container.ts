@@ -1,8 +1,6 @@
 import { Component, Inject } from "@angular/core"
 import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
-import {
-  PAGE_TITLE
-} from "@funk/ui/infrastructure/external/tokens"
+import { PAGE_TITLE } from "@funk/ui/infrastructure/external/tokens"
 
 @Component({
   template: `
@@ -20,8 +18,5 @@ import {
   `,
 })
 export class PublicationsContainer {
-
-  public constructor(
-    @Inject(PAGE_TITLE) public pageTitle: PageTitle,
-  ) {}
+  public constructor(@Inject(PAGE_TITLE) public pageTitle: PageTitle) {}
 }

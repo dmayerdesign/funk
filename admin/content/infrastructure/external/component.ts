@@ -6,10 +6,15 @@ import {
   OnDestroy,
   OnInit,
 } from "@angular/core"
-import { ContentEditorService } from "@funk/admin/content/application/external/editor/service"
-import { CONTENT_EDITOR_SERVICE } from "@funk/admin/content/infrastructure/external/tokens"
+import { GetIsAuthorized } from "@funk/admin/content/application/external/editor/behaviors/get-is-authorized"
+import { GetMaybePreviewOrLiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-preview-or-live-content"
+import { OpenEditor } from "@funk/admin/content/application/external/editor/behaviors/open-editor"
+import {
+  GET_IS_AUTHORIZED,
+  GET_MAYBE_PREVIEW_OR_LIVE_CONTENT,
+  OPEN_EDITOR,
+} from "@funk/admin/content/infrastructure/external/editor/tokens"
 import { Content, ContentType } from "@funk/admin/content/model/content"
-import { asPromise } from "@funk/helpers/as-promise"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { defer, Observable } from "rxjs"
 import { map, shareReplay } from "rxjs/operators"
@@ -45,17 +50,19 @@ export class ContentComponent implements OnInit, OnDestroy {
   @Input() public contentId!: string
 
   public content: Observable<Content | undefined> = defer(() =>
-    this._editorService.getMaybePreviewOrLiveContent(this.contentId),
+    this._getMaybePreviewOrLiveContent(this.contentId),
   ).pipe(untilDestroyed(this), shareReplay(1))
   public contentType = this.content.pipe(map((content) => content?.type))
   public contentValue = this.content.pipe(map((content) => content?.value))
-  public isAuthorized = this._editorService.getIsAuthorized()
+  public isAuthorized = this._getIsAuthorized()
 
   public readonly ContentType = ContentType
 
   public constructor(
-    @Inject(CONTENT_EDITOR_SERVICE)
-    private _editorService: ContentEditorService,
+    @Inject(OPEN_EDITOR) private _openEditor: OpenEditor,
+    @Inject(GET_MAYBE_PREVIEW_OR_LIVE_CONTENT)
+    private _getMaybePreviewOrLiveContent: GetMaybePreviewOrLiveContent,
+    @Inject(GET_IS_AUTHORIZED) private _getIsAuthorized: GetIsAuthorized,
   ) {}
 
   public async ngOnInit(): Promise<void> {
@@ -67,8 +74,6 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   @HostListener("click")
   public async handleEditClick(): Promise<void> {
-    if ((await asPromise(this.contentType)) !== ContentType.HTML_BLOG_POST) {
-      this._editorService.openEditor(this.contentId)
-    }
+    this._openEditor(this.contentId)
   }
 }

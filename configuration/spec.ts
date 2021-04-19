@@ -12,7 +12,7 @@ import {
   testOwnerUid,
   testUserUid,
 } from "@funk/helpers/test-helpers"
-import { PERSONS } from "@funk/identity/model/person"
+import { PERSONS } from "@funk/identity/person/model/person"
 import firebase from "firebase"
 import { readFileSync } from "fs"
 import { resolve } from "path"

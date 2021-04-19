@@ -15,7 +15,6 @@ import { Content } from "@funk/admin/content/model/content"
           <ion-row>
             <ng-container *ngFor="let post of posts | async">
               <ion-col sizeXs="12" sizeSm="6" sizeMd="6" sizeLg="4" sizeXl="4">
-
                 <ion-card class="card" ripple-container>
                   <div
                     class="card-media card-media-background-image"
@@ -23,7 +22,9 @@ import { Content } from "@funk/admin/content/model/content"
                   ></div>
 
                   <ion-card-header class="card-header">
-                    <ion-card-title class="card-title">{{ post.title }}</ion-card-title>
+                    <ion-card-title class="card-title">{{
+                      post.title
+                    }}</ion-card-title>
                   </ion-card-header>
 
                   <!-- <ion-card-content class="card-content"></ion-card-content> -->
@@ -34,7 +35,6 @@ import { Content } from "@funk/admin/content/model/content"
             </ng-container>
           </ion-row>
         </ion-grid>
-
       </article>
     </ion-content>
   `,
@@ -42,9 +42,8 @@ import { Content } from "@funk/admin/content/model/content"
 export class BlogContainer implements OnInit {
   public posts!: Promise<Content[]>
 
-  public constructor(
-    // @Inject(LIST_POSTS_BY_TAXONOMY) public listPostsByTaxonomy: ListPostsByTaxonomy
-  ) {}
+  public constructor() // @Inject(LIST_POSTS_BY_TAXONOMY) public listPostsByTaxonomy: ListPostsByTaxonomy
+  {}
 
   public ngOnInit(): void {
     // this.posts = this.listPostsByTaxonomy("blog")

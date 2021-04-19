@@ -1,10 +1,9 @@
 import { Enterprise } from "@funk/commerce/enterprise/model/enterprise"
 import { construct } from "@funk/commerce/order/application/internal/behaviors/get-sales-tax"
-import { MarshalledOrder, Order } from "@funk/commerce/order/model/order"
-import { MarshalledSku } from "@funk/commerce/sku/model/sku"
+import { Order } from "@funk/commerce/order/model/order"
+import { Sku } from "@funk/commerce/sku/model/sku"
 import { InvalidInputError } from "@funk/error/model/invalid-input-error"
 import { CurrencyCode } from "@funk/money/model/currency-code"
-import { ORGANIZATIONS } from "@funk/organization/model/organization"
 import { Address } from "@funk/places/model/address"
 
 // TODO: Tighten up this test using jest-when.
@@ -21,26 +20,23 @@ describe("orderGetSalesTax", () => {
         skus: [
           { id: "sku 1", productId: "product 1" },
           { id: "sku 2", productId: "product 2" },
-        ] as MarshalledSku[],
+        ] as Sku[],
       }
       const {
         marshalledOrder,
         getTotalBeforeTaxAndShipping,
-        populate,
         getSalesTaxRateForAddress,
-        getById,
+        getPrimaryOrganization,
       } = setUp(ORDER, 10000, 0.06)
       const getTaxUnderTest = construct(
         getTotalBeforeTaxAndShipping,
-        populate,
         getSalesTaxRateForAddress,
-        getById,
+        getPrimaryOrganization,
       )
 
       const getTaxResult = await getTaxUnderTest(marshalledOrder)
 
-      expect(getById).toHaveBeenCalledWith(ORGANIZATIONS, "primary")
-      expect(populate).toHaveBeenCalledWith(marshalledOrder, expect.anything())
+      expect(getPrimaryOrganization).toHaveBeenCalled()
       expect(getTaxResult).toEqual({ currency: CurrencyCode.USD, amount: 0 })
     })
 
@@ -55,27 +51,24 @@ describe("orderGetSalesTax", () => {
         skus: [
           { id: "sku 1", productId: "product 1" },
           { id: "sku 2", productId: "product 2" },
-        ] as MarshalledSku[],
+        ] as Sku[],
       }
       const {
         marshalledOrder,
         getTotalBeforeTaxAndShipping,
-        populate,
         getSalesTaxRateForAddress,
-        getById,
+        getPrimaryOrganization,
       } = setUp(ORDER, 10000, 0.06)
       const getTaxUnderTest = construct(
         getTotalBeforeTaxAndShipping,
-        populate,
         getSalesTaxRateForAddress,
-        getById,
+        getPrimaryOrganization,
       )
 
       const getTaxResult = await getTaxUnderTest(marshalledOrder)
 
-      expect(getById).toHaveBeenCalledWith(ORGANIZATIONS, "primary")
+      expect(getPrimaryOrganization).toHaveBeenCalled()
       expect(getTaxResult).toEqual({ currency: CurrencyCode.USD, amount: 600 })
-      expect(populate).toHaveBeenCalledWith(marshalledOrder, expect.anything())
     })
   })
 
@@ -87,15 +80,13 @@ describe("orderGetSalesTax", () => {
       const {
         marshalledOrder,
         getTotalBeforeTaxAndShipping,
-        populate,
         getSalesTaxRateForAddress,
-        getById,
+        getPrimaryOrganization,
       } = setUp(ORDER, 10000, 0.06)
       const getTaxUnderTest = construct(
         getTotalBeforeTaxAndShipping,
-        populate,
         getSalesTaxRateForAddress,
-        getById,
+        getPrimaryOrganization,
       )
 
       try {
@@ -116,20 +107,18 @@ const setUp = (
 ) => {
   const ENTERPRISE = { salesTaxNexusStates: ["FL"] } as Enterprise
   const populatedOrder = { ...order }
-  const marshalledOrder = ({ ...order } as unknown) as MarshalledOrder
+  const marshalledOrder = { ...order } as Order
   const getTotalBeforeTaxAndShipping = jest
     .fn()
     .mockResolvedValue({ currency: CurrencyCode.USD, amount: orderTotalCents })
-  const populate = jest.fn().mockReturnValue({ ...order })
   const getSalesTaxRateForAddress = jest.fn().mockReturnValue(taxRate)
-  const getById = jest.fn().mockReturnValue(ENTERPRISE)
+  const getPrimaryOrganization = jest.fn().mockReturnValue(ENTERPRISE)
 
   return {
     populatedOrder,
     marshalledOrder,
     getTotalBeforeTaxAndShipping,
-    populate,
     getSalesTaxRateForAddress,
-    getById,
+    getPrimaryOrganization,
   }
 }

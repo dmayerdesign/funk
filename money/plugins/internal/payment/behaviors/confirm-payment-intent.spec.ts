@@ -2,8 +2,8 @@ import { construct } from "@funk/money/plugins/internal/payment/behaviors/confir
 import { GetPaymentProvider } from "@funk/money/plugins/internal/payment/behaviors/get-payment-provider"
 import { MIN_TRANSACTION_CENTS } from "@funk/money/plugins/internal/payment/configuration"
 import {
-    createGetPaymentProviderStub,
-    PaymentProviderStub
+  createGetPaymentProviderStub,
+  PaymentProviderStub,
 } from "@funk/money/plugins/internal/payment/stubs"
 import Stripe from "stripe"
 

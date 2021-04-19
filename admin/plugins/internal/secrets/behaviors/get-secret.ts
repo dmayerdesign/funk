@@ -28,7 +28,10 @@ export function construct(
       "main",
       "main",
     )
-    const encryptedSecret = await getById<EncryptedSecret>("vault", secretKey)
+    const encryptedSecret = (await getById<EncryptedSecret>(
+      "vault",
+      secretKey,
+    )) as EncryptedSecret
 
     if (encryptedSecret) {
       const encryptedSecretBuffer = Buffer.from(encryptedSecret.value, "base64")

@@ -14,7 +14,7 @@ import csvMimeTypes from "@funk/helpers/csv/csv-mime-types"
         #importSkusInput
         id="import-skus-input"
         type="file"
-        (change)="upload($event.target.files)"
+        (change)="upload($event.target)"
         [accept]="acceptContentTypes"
         [style.visibility]="'hidden'"
         [style.width]="0"
@@ -30,7 +30,8 @@ export class ImportSkusContainer implements OnInit {
 
   public ngOnInit(): void {}
 
-  public async upload(fileList: FileList): Promise<void> {
+  public async upload(eventTarget: EventTarget | null): Promise<void> {
+    const fileList = (eventTarget as any)?.files as FileList
     const file = fileList.item(0)
     const fileReader = new FileReader()
     fileReader.readAsText(file!)

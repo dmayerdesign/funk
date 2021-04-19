@@ -23,3 +23,5 @@ export function construct(
     removeFromPublishConflicts(contentId)
   }
 }
+
+export type PublishOne = ReturnType<typeof construct>

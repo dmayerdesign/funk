@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core"
-import { GetById } from "@funk/persistence/application/external/behaviors/get-by-id"
-import { GET_BY_ID } from "@funk/persistence/infrastructure/external/tokens"
+import { GetById as GetContentById } from "@funk/admin/content/application/external/behaviors/persistence/get-by-id"
+import { GET_CONTENT_BY_ID } from "@funk/admin/content/infrastructure/external/persistence/tokens"
 import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
 import atlas from "@funk/ui/atlas/configuration"
 import { Atlas } from "@funk/ui/atlas/model/atlas"
 import {
   DEVICE_WIDTH,
-  PAGE_TITLE
+  PAGE_TITLE,
 } from "@funk/ui/infrastructure/external/tokens"
 import { DeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
 import { LoadingController } from "@ionic/angular"
@@ -21,14 +21,10 @@ const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
         <div id="banner-and-navigation">
           <div role="banner">
             <h1>
-              <content
-                contentId="professional-portfolio-title"
-              ></content>
+              <content contentId="professional-portfolio-title"></content>
             </h1>
             <p>
-              <content
-                contentId="professional-portfolio-subtitle"
-              ></content>
+              <content contentId="professional-portfolio-subtitle"></content>
             </p>
           </div>
 
@@ -84,14 +80,10 @@ const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
           <div id="banner">
             <div role="banner">
               <h1>
-                <content
-                  contentId="professional-portfolio-title"
-                ></content>
+                <content contentId="professional-portfolio-title"></content>
               </h1>
               <p>
-                <content
-                  contentId="professional-portfolio-subtitle"
-                ></content>
+                <content contentId="professional-portfolio-subtitle"></content>
               </p>
             </div>
             <page-title-heading layout="portrait"></page-title-heading>
@@ -117,13 +109,13 @@ export class ProfessionalPortfolioContainer implements OnInit {
 
   public constructor(
     @Inject(DEVICE_WIDTH) private _deviceWidth: DeviceWidth,
-    @Inject(GET_BY_ID) private _getById: GetById,
+    @Inject(GET_CONTENT_BY_ID) private _getContentById: GetContentById,
     private _loadingController: LoadingController,
     @Inject(PAGE_TITLE) public pageTitle: PageTitle,
   ) {}
 
   public async ngOnInit(): Promise<void> {
-    const canary = this._getById("contents", "page-title")
+    const canary = this._getContentById("page-title")
     const loading = await this._loadingController.create({
       id: "POETRY_LOADING",
     })

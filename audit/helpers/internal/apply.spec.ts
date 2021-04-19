@@ -43,7 +43,7 @@ describe("apply", () => {
     const diffs: Diff[] = [
       {
         kind: "N",
-        path: [ "bar" ],
+        path: ["bar"],
         rhs: 2,
       },
     ]
