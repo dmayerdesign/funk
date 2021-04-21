@@ -32,6 +32,7 @@
     "internal::develop::local": "sh ./build-pipeline/package-scripts/internal-develop-local.sh",
     "postinstall": "sh ./build-pipeline/package-scripts/postinstall.sh",
     "clean": "rm -rf ./.funk",
+    "setup-wizard": "sh ./build-pipeline/package-scripts/setup-wizard.sh",
     "ng": "./node_modules/.bin/ng",
     "firebase": "./node_modules/.bin/firebase",
     "tsc": "./node_modules/.bin/tsc",
@@ -40,8 +41,7 @@
     "eslint": "./node_modules/.bin/eslint",
     "prettier": "./node_modules/.bin/prettier",
     "jest": "./node_modules/.bin/jest",
-    "ionic": "./node_modules/.bin/ionic",
-    "setup-wizard": "sh ./build-pipeline/package-scripts/setup-wizard.sh"
+    "ionic": "./node_modules/.bin/ionic"
   },
   "private": true,
   "dependencies": {
@@ -80,6 +80,7 @@
     "core-js": "~3.6.5",
     "csvtojson": "2.0.10",
     "date-fns": "2.16.1",
+    "deep-diff": "^1.0.2",
     "diff2html": "3.1.13",
     "express": "^4.17.1",
     "fast-glob": "^3.2.5",
@@ -144,7 +145,6 @@
     "commander": "~6.1.0",
     "concurrently": "^5.3.0",
     "cypress": "^6.2.1",
-    "deep-diff": "^1.0.2",
     "del": "~6.0.0",
     "eslint": "7.11.0",
     "eslint-config-prettier": "6.12.0",

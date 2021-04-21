@@ -1,4 +1,4 @@
-import { createFakeAttributeValue } from "@funk/commerce/attribute/model/stubs"
+import { createFakeAttributeValue } from "@funk/attribute/model/stubs"
 import { Product } from "@funk/commerce/product/model/product"
 import { CurrencyCode } from "@funk/money/model/currency-code"
 import { createFakeTaxonomyTerm } from "@funk/taxonomy/model/stubs"

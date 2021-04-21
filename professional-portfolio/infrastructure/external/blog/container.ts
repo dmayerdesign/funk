@@ -42,8 +42,7 @@ import { Content } from "@funk/admin/content/model/content"
 export class BlogContainer implements OnInit {
   public posts!: Promise<Content[]>
 
-  public constructor() // @Inject(LIST_POSTS_BY_TAXONOMY) public listPostsByTaxonomy: ListPostsByTaxonomy
-  {}
+  public constructor() {} // @Inject(LIST_POSTS_BY_TAXONOMY) public listPostsByTaxonomy: ListPostsByTaxonomy
 
   public ngOnInit(): void {
     // this.posts = this.listPostsByTaxonomy("blog")

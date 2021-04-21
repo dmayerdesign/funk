@@ -1,4 +1,4 @@
-import { AttributeValue } from "@funk/commerce/attribute/model/attribute-value"
+import { AttributeValue } from "@funk/attribute/model/attribute-value"
 import { Price } from "@funk/commerce/price/model/price"
 import { Inventory } from "@funk/commerce/sku/model/inventory"
 import { ImageGroup } from "@funk/image/model/image-group"

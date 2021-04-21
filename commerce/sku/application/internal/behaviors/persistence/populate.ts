@@ -1,4 +1,4 @@
-import { ATTRIBUTE_VALUES } from "@funk/commerce/attribute/model/attribute-value"
+import { ATTRIBUTE_VALUES } from "@funk/attribute/model/attribute-value"
 import { REVIEWS } from "@funk/commerce/review/model/review"
 import { Sku } from "@funk/commerce/sku/model/sku"
 import { Marshalled } from "@funk/persistence/application/internal/behaviors/marshall"

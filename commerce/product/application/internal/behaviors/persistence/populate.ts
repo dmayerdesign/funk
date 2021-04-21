@@ -1,4 +1,4 @@
-import { ATTRIBUTE_VALUES } from "@funk/commerce/attribute/model/attribute-value"
+import { ATTRIBUTE_VALUES } from "@funk/attribute/model/attribute-value"
 import { Product } from "@funk/commerce/product/model/product"
 import { REVIEWS } from "@funk/commerce/review/model/review"
 import { ORGANIZATIONS } from "@funk/organization/model/organization"
