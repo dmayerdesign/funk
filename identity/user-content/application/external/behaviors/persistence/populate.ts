@@ -1,12 +1,12 @@
-import { UserState } from "@funk/identity/model/user-state"
+import { UserContent } from "@funk/identity/model/user-content"
 import { Marshalled } from "@funk/persistence/application/external/behaviors/marshall"
 import { Populate as GenericPopulate } from "@funk/persistence/application/external/behaviors/populate"
 
-export function construct(_populate: GenericPopulate<UserState>) {
+export function construct(_populate: GenericPopulate<UserContent>) {
   return async function (
-    userState: Marshalled<UserState> | undefined,
-  ): Promise<UserState> {
-    return userState as UserState
+    userContent: Marshalled<UserContent> | undefined,
+  ): Promise<UserContent> {
+    return userContent as UserContent
   }
 }
 

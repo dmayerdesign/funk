@@ -9,12 +9,16 @@ export function construct(
   contentListenById: ContentListenById,
 ) {
   return function (contentId: string): Observable<Content | undefined> {
-    return combineLatest([
+    const maybeContent = combineLatest([
       from(contentPreviewListenById(contentId)).pipe(
         map((contentPreview) => contentPreview?.content),
       ),
       from(contentListenById(contentId)),
     ]).pipe(map(([preview, content]) => preview ?? content))
+
+    maybeContent.subscribe()
+
+    return maybeContent
   }
 }
 

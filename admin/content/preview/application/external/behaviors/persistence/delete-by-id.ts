@@ -1,30 +1,30 @@
 import { asPromise } from "@funk/helpers/as-promise"
-import { UserState$ as UserStateChanges } from "@funk/identity/application/external/user-state"
-import { UserState, USER_STATES } from "@funk/identity/model/user-state"
-import { Marshall } from "@funk/identity/user-state/application/external/behaviors/persistence/marshall"
+import { UserContent$ as UserContentChanges } from "@funk/identity/application/external/user-content"
+import { UserContent, USER_CONTENTS } from "@funk/identity/model/user-content"
+import { Marshall } from "@funk/identity/user-content/application/external/behaviors/persistence/marshall"
 import { UpdateById as GenericUpdateById } from "@funk/persistence/application/external/behaviors/update-by-id"
 
 export function construct(
   updateById: GenericUpdateById,
-  marshallUserState: Marshall,
-  userStateChanges: UserStateChanges,
+  marshallUserContent: Marshall,
+  userContentChanges: UserContentChanges,
 ) {
   return async function (documentPath: string): Promise<void> {
-    const userState = await asPromise(userStateChanges)
-    const userStateId = userState?.id
-    const contentPreviews = userState?.contentPreviews
+    const userContent = await asPromise(userContentChanges)
+    const userContentId = userContent?.id
+    const contentPreviews = userContent?.contentPreviews
 
     if (contentPreviews) {
       delete contentPreviews[documentPath]
 
-      const newUserState: UserState = {
-        ...userState!,
+      const newUserContent: UserContent = {
+        ...userContent!,
         contentPreviews,
       }
       await updateById(
-        USER_STATES,
-        userStateId!,
-        marshallUserState(newUserState),
+        USER_CONTENTS,
+        userContentId!,
+        marshallUserContent(newUserContent),
       )
     }
   }

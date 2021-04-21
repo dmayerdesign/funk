@@ -1,7 +1,7 @@
 import { GetPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/get-publish-conflicts"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { UpdateById } from "@funk/identity/user-state/application/external/behaviors/persistence/update-by-id"
+import { UpdateById } from "@funk/identity/user-content/application/external/behaviors/persistence/update-by-id"
 
 export function construct(
   updateById: UpdateById,

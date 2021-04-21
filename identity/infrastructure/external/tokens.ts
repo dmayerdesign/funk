@@ -6,9 +6,9 @@ import { SendEmailVerification } from "@funk/identity/application/external/behav
 import { SignInWithEmailAndPassword } from "@funk/identity/application/external/behaviors/sign-in-with-email-and-password"
 import { SignInWithProvider } from "@funk/identity/application/external/behaviors/sign-in-with-provider"
 import { SignOut } from "@funk/identity/application/external/behaviors/sign-out"
+import { UserContent$ } from "@funk/identity/application/external/user-content"
 import { UserIdToken } from "@funk/identity/application/external/user-id-token"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { UserState$ } from "@funk/identity/application/external/user-state"
 
 export const CREATE_USER_WITH_EMAIL_AND_PASSWORD = new InjectionToken<
   CreateUserWithEmailAndPassword
@@ -26,5 +26,5 @@ export const SIGN_IN_WITH_PROVIDER = new InjectionToken<SignInWithProvider>(
 export const SIGN_OUT = new InjectionToken<SignOut>("SIGN_OUT")
 export const USER_SESSION = new InjectionToken<UserSession>("USER_SESSION")
 export const USER_ID_TOKEN = new InjectionToken<UserIdToken>("USER_ID_TOKEN")
-export const USER_STATE = new InjectionToken<UserState$>("USER_STATE")
+export const USER_CONTENT = new InjectionToken<UserContent$>("USER_CONTENT")
 export const AUTH_CLIENT = new InjectionToken<AuthClient>("AUTH_CLIENT")

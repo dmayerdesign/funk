@@ -1,5 +1,5 @@
-import { UserState, USER_STATES } from "@funk/identity/model/user-state"
-import marshallImpl from "@funk/identity/user-state/application/internal/behaviors/persistence/marshall"
+import { UserContent, USER_CONTENTS } from "@funk/identity/model/user-content"
+import marshallImpl from "@funk/identity/user-content/application/internal/behaviors/persistence/marshall"
 import genericSetById from "@funk/persistence/application/internal/behaviors/set-by-id"
 
 export function construct(
@@ -8,10 +8,10 @@ export function construct(
 ) {
   return async function (
     documentPath: string,
-    documentData: UserState,
+    documentData: UserContent,
     options?: { overwrite?: boolean },
   ): Promise<void> {
-    await setById(USER_STATES, documentPath, marshall(documentData), options)
+    await setById(USER_CONTENTS, documentPath, marshall(documentData), options)
   }
 }
 

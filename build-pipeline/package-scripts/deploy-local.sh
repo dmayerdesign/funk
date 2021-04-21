@@ -10,7 +10,7 @@ node build-pipeline/data/local-import-collection-json.js \
   --collection "commerce.products" \
   --collection "contents" \
   --collection "identity.persons" \
-  --collection "identity.user-states" \
+  --collection "identity.user-contents" \
   --collection "organizations"
 if [ $? -ne 0 ]; then
 (exit 1);

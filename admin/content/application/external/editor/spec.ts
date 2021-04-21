@@ -25,10 +25,10 @@ describe("ContentEditorService", () => {
 // import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 // import { FAKE_USER_UID } from "@funk/identity/application/external/stubs"
 // import { UserSession } from "@funk/identity/application/external/user-session"
-// import { UserState, USER_STATES } from "@funk/identity/model/user-state"
-// import { GetById as GetUserStateById } from "@funk/identity/user-state/application/external/behaviors/persistence/get-by-id"
-// import { ListenById as ListenForUserStateById } from "@funk/identity/user-state/application/external/behaviors/persistence/listen-by-id"
-// import { UpdateById as UpdateUserStateById } from "@funk/identity/user-state/application/external/behaviors/persistence/update-by-id"
+// import { UserContent, USER_CONTENTS } from "@funk/identity/model/user-content"
+// import { GetById as GetUserContentById } from "@funk/identity/user-content/application/external/behaviors/persistence/get-by-id"
+// import { ListenById as ListenForUserContentById } from "@funk/identity/user-content/application/external/behaviors/persistence/listen-by-id"
+// import { UpdateById as UpdateUserContentById } from "@funk/identity/user-content/application/external/behaviors/persistence/update-by-id"
 // import { PrimaryKey } from "@funk/persistence/model/primary-key"
 // import { DomGetInnerText } from "@funk/ui/infrastructure/external/helpers/dom/get-inner-text"
 // import { DeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
@@ -51,9 +51,9 @@ describe("ContentEditorService", () => {
 //   let listenForContentPreviewById: ListenForContentPreviewById
 //   let setContentById: SetContentById
 //   let updateContentPreviewById: UpdateContentPreviewById
-//   let getUserStateById: GetUserStateById
-//   let listenForUserStateById: ListenForUserStateById
-//   let updateUserStateById: UpdateUserStateById
+//   let getUserContentById: GetUserContentById
+//   let listenForUserContentById: ListenForUserContentById
+//   let updateUserContentById: UpdateUserContentById
 //   let getMaybeActiveContent: GetMaybeActiveContent
 //   let getMaybeActiveContentValue: GetMaybeActiveContentValue
 //   let getMaybeActiveContentValueControl: GetMaybeActiveContentValueControl
@@ -62,7 +62,7 @@ describe("ContentEditorService", () => {
 //   let openEditor: OpenEditor
 
 //   beforeEach(() => {
-//     const FAKE_USER_STATES = createFakeUserStates()
+//     const FAKE_USER_CONTENTS = createFakeUserContents()
 //     alertController = ({
 //       create: jest.fn().mockReturnValue({ present: jest.fn() }),
 //       dismiss: jest.fn(),
@@ -82,29 +82,29 @@ describe("ContentEditorService", () => {
 //       )
 //     listenByIdForContent = jest
 //       .fn()
-//       .mockImplementation((userStateId: PrimaryKey) =>
-//         of(FAKE_CONTENTS[userStateId]),
+//       .mockImplementation((userContentId: PrimaryKey) =>
+//         of(FAKE_CONTENTS[userContentId]),
 //       )
 //     listenForContentPreviewById = jest
 //       .fn()
 //       .mockImplementation((contentPreviewId: PrimaryKey) =>
 //         of(
-//           FAKE_USER_STATES[FAKE_USER_UID]?.contentPreviews?.[contentPreviewId],
+//           FAKE_USER_CONTENTS[FAKE_USER_UID]?.contentPreviews?.[contentPreviewId],
 //         ),
 //       )
 //     setContentById = jest.fn().mockImplementation(async () => {})
 //     updateContentPreviewById = jest.fn().mockImplementation(async () => {})
-//     getUserStateById = jest
+//     getUserContentById = jest
 //       .fn()
 //       .mockImplementation(
-//         async (userStateId: PrimaryKey) => FAKE_USER_STATES[userStateId],
+//         async (userContentId: PrimaryKey) => FAKE_USER_CONTENTS[userContentId],
 //       )
-//     listenForUserStateById = jest
+//     listenForUserContentById = jest
 //       .fn()
-//       .mockImplementation((userStateId: PrimaryKey) =>
-//         of(FAKE_USER_STATES[userStateId]),
+//       .mockImplementation((userContentId: PrimaryKey) =>
+//         of(FAKE_USER_CONTENTS[userContentId]),
 //       )
-//     updateUserStateById = jest.fn().mockImplementation(async () => {})
+//     updateUserContentById = jest.fn().mockImplementation(async () => {})
 //     getMaybeActiveContentId = jest.fn()
 
 //     when(listenByIdForContent as jest.Mock)
@@ -155,7 +155,7 @@ describe("ContentEditorService", () => {
 //     expect(clearedActiveContentValueControl).toBe(undefined)
 //     expect(updateById).toHaveBeenCalledTimes(1)
 //     expect(updateById).toHaveBeenCalledWith(
-//       USER_STATES,
+//       USER_CONTENTS,
 //       FAKE_USER_UID,
 //       expect.objectContaining({
 //         "contentPreviews.content-1.content": {
@@ -176,10 +176,10 @@ describe("ContentEditorService", () => {
 //   })
 
 //   it("should publish all previews", async () => {
-//     const FAKE_USER_STATES = createFakeUserStates("content-1")
+//     const FAKE_USER_CONTENTS = createFakeUserContents("content-1")
 //     const service = newService()
 
-//     await service.publishAll(FAKE_USER_STATES[FAKE_USER_UID].contentPreviews!, {
+//     await service.publishAll(FAKE_USER_CONTENTS[FAKE_USER_UID].contentPreviews!, {
 //       id: FAKE_USER_UID,
 //     })
 
@@ -187,12 +187,12 @@ describe("ContentEditorService", () => {
 //     expect(setById).toHaveBeenCalledWith(
 //       CONTENTS,
 //       "content-1",
-//       createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.[
+//       createFakeUserContents("content-1")[FAKE_USER_UID].contentPreviews?.[
 //         "content-1"
 //       ].content,
 //     )
 //     expect(updateById).toHaveBeenCalledTimes(1)
-//     expect(updateById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID, {
+//     expect(updateById).toHaveBeenCalledWith(USER_CONTENTS, FAKE_USER_UID, {
 //       contentPreviews: {},
 //     })
 //   })
@@ -209,18 +209,18 @@ describe("ContentEditorService", () => {
 //   })
 
 //   it("should not publish if the content has been edited since the preview was created", async () => {
-//     const FAKE_USER_STATES = createFakeUserStates(
+//     const FAKE_USER_CONTENTS = createFakeUserContents(
 //       "content-with-publish-conflict",
 //     )
 //     when(listenById as jest.Mock)
-//       .calledWith(USER_STATES)
-//       .mockReturnValueOnce(of(FAKE_USER_STATES[FAKE_USER_UID]))
+//       .calledWith(USER_CONTENTS)
+//       .mockReturnValueOnce(of(FAKE_USER_CONTENTS[FAKE_USER_UID]))
 //     when(getById as jest.Mock)
-//       .calledWith(USER_STATES)
-//       .mockReturnValueOnce(Promise.resolve(FAKE_USER_STATES[FAKE_USER_UID]))
+//       .calledWith(USER_CONTENTS)
+//       .mockReturnValueOnce(Promise.resolve(FAKE_USER_CONTENTS[FAKE_USER_UID]))
 //     const service = newService()
 
-//     await service.publishAll(FAKE_USER_STATES[FAKE_USER_UID].contentPreviews!, {
+//     await service.publishAll(FAKE_USER_CONTENTS[FAKE_USER_UID].contentPreviews!, {
 //       id: FAKE_USER_UID,
 //     })
 //     const publishConflicts = await asPromise(service.getPublishConflicts())
@@ -240,12 +240,12 @@ describe("ContentEditorService", () => {
 //     expect(setById).toHaveBeenCalledWith(
 //       CONTENTS,
 //       "content-1",
-//       createFakeUserStates("content-1")[FAKE_USER_UID].contentPreviews?.[
+//       createFakeUserContents("content-1")[FAKE_USER_UID].contentPreviews?.[
 //         "content-1"
 //       ].content,
 //     )
 //     expect(updateById).toHaveBeenCalledTimes(1)
-//     expect(updateById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID, {
+//     expect(updateById).toHaveBeenCalledWith(USER_CONTENTS, FAKE_USER_UID, {
 //       contentPreviews: {},
 //     })
 //   })
@@ -267,8 +267,8 @@ describe("ContentEditorService", () => {
 
 //     await service.removePreview("content-1")
 
-//     expect(getById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID)
-//     expect(updateById).toHaveBeenCalledWith(USER_STATES, FAKE_USER_UID, {
+//     expect(getById).toHaveBeenCalledWith(USER_CONTENTS, FAKE_USER_UID)
+//     expect(updateById).toHaveBeenCalledWith(USER_CONTENTS, FAKE_USER_UID, {
 //       contentPreviews: {},
 //     })
 //   })
@@ -286,7 +286,7 @@ describe("ContentEditorService", () => {
 
 //     await service.removeAllPreviews()
 
-//     expect(updateUserStateById).toHaveBeenCalledWith(FAKE_USER_UID, {
+//     expect(updateUserContentById).toHaveBeenCalledWith(FAKE_USER_UID, {
 //       contentPreviews: {},
 //     })
 //     expect(service.getPublishConflicts().getValue()).toEqual([])
@@ -320,10 +320,10 @@ describe("ContentEditorService", () => {
 //   },
 // }
 
-// const createFakeUserStates = (
+// const createFakeUserContents = (
 //   contentIdPreviewing = "content-1",
 // ): {
-//   [id: string]: UserState
+//   [id: string]: UserContent
 // } => ({
 //   [FAKE_USER_UID]: {
 //     id: FAKE_USER_UID,

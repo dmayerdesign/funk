@@ -1,11 +1,11 @@
-import { UserState } from "@funk/identity/model/user-state"
+import { UserContent } from "@funk/identity/model/user-content"
 import genericMarshall, {
   Marshalled,
 } from "@funk/persistence/application/internal/behaviors/marshall"
 
 export function construct(marshall: typeof genericMarshall) {
-  return function (userState: UserState): Marshalled<UserState> {
-    return marshall(userState, [])
+  return function (userContent: UserContent): Marshalled<UserContent> {
+    return marshall(userContent, [])
   }
 }
 

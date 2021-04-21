@@ -1,7 +1,7 @@
 import { CONTENTS } from "@funk/admin/content/model/content"
 import { ORDERS } from "@funk/commerce/order/model/order"
 import { PRODUCTS } from "@funk/commerce/product/model/product"
-import { USER_STATES } from "@funk/identity/model/user-state"
+import { USER_CONTENTS } from "@funk/identity/model/user-content"
 import { PERSONS } from "@funk/identity/person/model/person"
 import { ORGANIZATIONS } from "@funk/organization/model/organization"
 import { BehaviorSubject } from "rxjs"
@@ -9,7 +9,7 @@ import commerceOrders from "../../../../build-pipeline/data/development-data/com
 import commerceProducts from "../../../../build-pipeline/data/development-data/commerce.products.json"
 import contents from "../../../../build-pipeline/data/development-data/contents.json"
 import identityPersons from "../../../../build-pipeline/data/development-data/identity.persons.json"
-import identityUserStates from "../../../../build-pipeline/data/development-data/identity.user-states.json"
+import identityUserContents from "../../../../build-pipeline/data/development-data/identity.user-contents.json"
 import organizations from "../../../../build-pipeline/data/development-data/organizations.json"
 
 let store: Record<string, Record<string, any>>
@@ -22,7 +22,7 @@ export async function initializeStore(): Promise<void> {
     [PRODUCTS]: commerceProducts,
     [CONTENTS]: contents,
     [PERSONS]: identityPersons,
-    [USER_STATES]: identityUserStates,
+    [USER_CONTENTS]: identityUserContents,
   }
   store$ = new BehaviorSubject(store)
   store$.subscribe()

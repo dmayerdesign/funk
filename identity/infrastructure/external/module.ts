@@ -8,9 +8,9 @@ import { construct as constructSendEmailVerification } from "@funk/identity/appl
 import { construct as constructSignInWithEmailAndPassword } from "@funk/identity/application/external/behaviors/sign-in-with-email-and-password"
 import { construct as constructSignInWithProvider } from "@funk/identity/application/external/behaviors/sign-in-with-provider"
 import { construct as constructSignOut } from "@funk/identity/application/external/behaviors/sign-out"
+import { construct as constructUserContent } from "@funk/identity/application/external/user-content"
 import { construct as constructUserIdToken } from "@funk/identity/application/external/user-id-token"
 import { construct as constructUserSession } from "@funk/identity/application/external/user-session"
-import { construct as constructUserState } from "@funk/identity/application/external/user-state"
 import {
   AUTH_CLIENT,
   CREATE_USER_WITH_EMAIL_AND_PASSWORD,
@@ -19,21 +19,21 @@ import {
   SIGN_IN_WITH_EMAIL_AND_PASSWORD,
   SIGN_IN_WITH_PROVIDER,
   SIGN_OUT,
+  USER_CONTENT,
   USER_ID_TOKEN,
   USER_SESSION,
-  USER_STATE,
 } from "@funk/identity/infrastructure/external/tokens"
 import { PersonPersistenceModule } from "@funk/identity/person/infrastructure/external/persistence/module"
 import { LISTEN_FOR_PERSON_BY_ID } from "@funk/identity/person/infrastructure/external/persistence/tokens"
-import { UserStatePersistenceModule } from "@funk/identity/user-state/infrastructure/external/persistence/module"
-import { LISTEN_FOR_USER_STATE_BY_ID } from "@funk/identity/user-state/infrastructure/external/persistence/tokens"
+import { UserContentPersistenceModule } from "@funk/identity/user-content/infrastructure/external/persistence/module"
+import { LISTEN_FOR_USER_CONTENT_BY_ID } from "@funk/identity/user-content/infrastructure/external/persistence/tokens"
 
 /**
  * This module should only be imported in the root app module.
  */
 @NgModule({
   imports: [
-    UserStatePersistenceModule.withProviders(),
+    UserContentPersistenceModule.withProviders(),
     PersonPersistenceModule.withProviders(),
   ],
   providers: [
@@ -77,9 +77,9 @@ import { LISTEN_FOR_USER_STATE_BY_ID } from "@funk/identity/user-state/infrastru
       deps: [AUTH_CLIENT, LISTEN_FOR_PERSON_BY_ID],
     },
     {
-      provide: USER_STATE,
-      useFactory: constructUserState,
-      deps: [AUTH_CLIENT, LISTEN_FOR_USER_STATE_BY_ID],
+      provide: USER_CONTENT,
+      useFactory: constructUserContent,
+      deps: [AUTH_CLIENT, LISTEN_FOR_USER_CONTENT_BY_ID],
     },
     {
       provide: INITIALIZE,

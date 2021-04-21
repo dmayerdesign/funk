@@ -5,6 +5,26 @@
     "name": "Rollerblades",
     "isPublished": true,
     "updatedAt": 1592885299437,
+    "priceRange": {
+      "min": {
+        "amount": 5000,
+        "currency": "USD"
+      },
+      "max": {
+        "amount": 6500,
+        "currency": "USD"
+      }
+    },
+    "discountedPriceRange": {
+      "min": {
+        "amount": 2500,
+        "currency": "USD"
+      },
+      "max": {
+        "amount": 3250,
+        "currency": "USD"
+      }
+    },
     "__collections__": {}
   },
   "product-2": {

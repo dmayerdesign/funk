@@ -1,15 +1,15 @@
 import { ContentPreview } from "@funk/admin/content/model/content-preview"
 import { maybePluck, shareReplayOnce } from "@funk/helpers/rxjs-shims"
-import { UserState$ as UserStateChanges } from "@funk/identity/application/external/user-state"
-import { Populate as PopulateUserState } from "@funk/identity/user-state/application/external/behaviors/persistence/populate"
+import { UserContent$ as UserContentChanges } from "@funk/identity/application/external/user-content"
+import { Populate as PopulateUserContent } from "@funk/identity/user-content/application/external/behaviors/persistence/populate"
 import { Observable } from "rxjs"
 import { map, switchMap } from "rxjs/operators"
 
 export function construct(
-  populate: PopulateUserState,
-  userStateChanges: UserStateChanges,
+  populate: PopulateUserContent,
+  userContentChanges: UserContentChanges,
 ) {
-  const contentPreviewsChanges = userStateChanges.pipe(
+  const contentPreviewsChanges = userContentChanges.pipe(
     switchMap(populate),
     maybePluck("contentPreviews"),
     shareReplayOnce(),

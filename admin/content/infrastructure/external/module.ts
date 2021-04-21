@@ -67,10 +67,10 @@ import {
 } from "@funk/admin/content/preview/infrastructure/external/persistence/tokens"
 import { USER_SESSION } from "@funk/identity/infrastructure/external/tokens"
 import {
-  GET_USER_STATE_BY_ID,
-  LISTEN_FOR_USER_STATE_BY_ID,
-  UPDATE_USER_STATE_BY_ID,
-} from "@funk/identity/user-state/infrastructure/external/persistence/tokens"
+  GET_USER_CONTENT_BY_ID,
+  LISTEN_FOR_USER_CONTENT_BY_ID,
+  UPDATE_USER_CONTENT_BY_ID,
+} from "@funk/identity/user-content/infrastructure/external/persistence/tokens"
 import { DEVICE_WIDTH } from "@funk/ui/infrastructure/external/tokens"
 import { AlertController, IonicModule } from "@ionic/angular"
 import { ClickOutsideModule } from "ng-click-outside"
@@ -102,7 +102,7 @@ export class ContentModule {
         {
           provide: GET_HAS_PREVIEW,
           useFactory: constructGetHasPreview,
-          deps: [USER_SESSION, LISTEN_FOR_USER_STATE_BY_ID],
+          deps: [USER_SESSION, LISTEN_FOR_USER_CONTENT_BY_ID],
         },
         {
           provide: GET_IS_AUTHORIZED,
@@ -145,7 +145,7 @@ export class ContentModule {
         {
           provide: GET_MAYBE_CONTENT_PREVIEWS,
           useFactory: constructGetMaybeContentPreviews,
-          deps: [GET_USER_STATE_BY_ID],
+          deps: [GET_USER_CONTENT_BY_ID],
         },
         {
           provide: GET_MAYBE_PREVIEW_OR_LIVE_CONTENT,
@@ -212,7 +212,11 @@ export class ContentModule {
         {
           provide: REMOVE_ALL_PREVIEWS,
           useFactory: constructRemoveAllPreviews,
-          deps: [UPDATE_USER_STATE_BY_ID, USER_SESSION, GET_PUBLISH_CONFLICTS],
+          deps: [
+            UPDATE_USER_CONTENT_BY_ID,
+            USER_SESSION,
+            GET_PUBLISH_CONFLICTS,
+          ],
         },
         {
           provide: REMOVE_FROM_PUBLISH_CONFLICTS,

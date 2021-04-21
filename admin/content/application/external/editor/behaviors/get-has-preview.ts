@@ -1,17 +1,19 @@
 import { ignoreNullish, shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { UserSession } from "@funk/identity/application/external/user-session"
-import { ListenById } from "@funk/identity/user-state/application/external/behaviors/persistence/listen-by-id"
-import { from } from "rxjs"
+import { ListenById } from "@funk/identity/user-content/application/external/behaviors/persistence/listen-by-id"
 import { map, pluck, switchMap } from "rxjs/operators"
 
-export function construct(userSession: UserSession, listenById: ListenById) {
+export function construct(
+  userSession: UserSession,
+  listenForUserContentById: ListenById,
+) {
   const hasPreview = userSession.pipe(
     ignoreNullish(),
     pluck("person", "id"),
-    switchMap((userId) => from(listenById(userId))),
+    switchMap((userId) => listenForUserContentById(userId)),
     map(
-      (maybeContentPreviews) =>
-        !!Object.keys(maybeContentPreviews ?? {}).length,
+      (maybeUserContent) =>
+        !!Object.keys(maybeUserContent?.contentPreviews ?? {}).length,
     ),
     shareReplayOnce(),
   )

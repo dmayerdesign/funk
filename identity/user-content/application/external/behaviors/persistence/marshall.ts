@@ -1,12 +1,12 @@
-import { UserState } from "@funk/identity/model/user-state"
+import { UserContent } from "@funk/identity/model/user-content"
 import {
   Marshall as GenericMarshall,
   Marshalled,
 } from "@funk/persistence/application/external/behaviors/marshall"
 
 export function construct(_marshall: GenericMarshall) {
-  return function (userState: Partial<UserState>): Marshalled<UserState> {
-    return userState as UserState
+  return function (userContent: Partial<UserContent>): Marshalled<UserContent> {
+    return userContent as UserContent
   }
 }
 

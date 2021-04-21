@@ -1,13 +1,13 @@
-import { UserState, USER_STATES } from "@funk/identity/model/user-state"
-import { Marshall } from "@funk/identity/user-state/application/external/behaviors/persistence/marshall"
+import { UserContent, USER_CONTENTS } from "@funk/identity/model/user-content"
+import { Marshall } from "@funk/identity/user-content/application/external/behaviors/persistence/marshall"
 import { UpdateById as GenericUpdateById } from "@funk/persistence/application/external/behaviors/update-by-id"
 
 export function construct(updateById: GenericUpdateById, marshall: Marshall) {
   return async function (
     documentPath: string,
-    documentData: Partial<UserState>,
+    documentData: Partial<UserContent>,
   ): Promise<void> {
-    await updateById(USER_STATES, documentPath, marshall(documentData))
+    await updateById(USER_CONTENTS, documentPath, marshall(documentData))
   }
 }
 

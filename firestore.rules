@@ -58,7 +58,7 @@ service cloud.firestore {
       allow update, delete: if isIdAllowed(uid);
     }
 
-    match /identity.user-states/{uid}/{document=**} {
+    match /identity.user-contents/{uid}/{document=**} {
       function isIdAllowed(id) {
         return id == request.auth.uid
           || isSuperOrOwner()

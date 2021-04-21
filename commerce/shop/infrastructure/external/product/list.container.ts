@@ -54,6 +54,7 @@ export class ProductListContainer {
       })
       loading.present()
       const products = await this._listPublished({ pagination, conditions })
+      console.log("[funk] PRODUCTS:", products)
       await this._loadingController.dismiss("PRODUCTS_LOADING")
       return products
     }),
