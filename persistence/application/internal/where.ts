@@ -4,10 +4,12 @@ type WhereOperator =
   | "<"
   | "<="
   | "=="
+  | "!="
   | ">"
   | ">="
   | "array-contains"
   | "in"
+  | "not-in"
   | "array-contains-any"
 export type Where<
   DocumentType extends DatabaseDocument = any,

@@ -19,7 +19,7 @@ export default async function <
     getStore()[collectionPath],
     documentPath,
     options?.overwrite
-      ? { ...documentData, updatedAt: Date.now() }
-      : { ...doc, ...documentData, updatedAt: Date.now() },
+      ? { id: documentPath, ...documentData, updatedAt: Date.now() }
+      : { id: documentPath, ...doc, ...documentData, updatedAt: Date.now() },
   )
 }

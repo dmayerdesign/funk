@@ -33,13 +33,13 @@ Feature: Blog posts
 
   Rule: An anonymous user can view published posts by category.
 
-    Example: Amy visits the default category page ("blog").
+    Example: Amy visits the default category page ("blogs").
 
       Given a user named Amy
-      And that there are blog posts in the category "blog"
-      And there are blog posts in the trash
-      When Amy requests all blog posts in the category "blog"
-      Then Amy gets all blog posts in the category "blog"
+      And that there are blog posts in the category "blogs"
+      And there are blog posts in the category "blogs" in the trash
+      When Amy requests all blog posts in the category "blogs"
+      Then Amy gets all blog posts in the category "blogs"
       And none of the blog posts are in the trash
       And each blog post is represented by its title and its cover image
 

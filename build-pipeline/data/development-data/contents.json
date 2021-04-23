@@ -70,7 +70,7 @@
     "value": "<p>This is my post 1!</p>",
     "type": "HTML_BLOG_POST",
     "taxonomies": {
-      "blog-post-categories": ["blog"]
+      "blog-post-categories": ["blogs"]
     },
     "__collections__": {}
   },
@@ -79,7 +79,7 @@
     "value": "<p>This is my post 2!</p>",
     "type": "HTML_BLOG_POST",
     "taxonomies": {
-      "blog-post-categories": ["blog"]
+      "blog-post-categories": ["blogs"]
     },
     "__collections__": {}
   }

@@ -8,7 +8,6 @@ import {
 } from "@funk/admin/content/model/content"
 import { createFakeHtmlBlogPost } from "@funk/admin/content/model/stubs"
 import { List } from "@funk/persistence/application/internal/behaviors/list"
-import { Condition } from "@funk/persistence/application/internal/condition"
 
 describe("listHtmlBlogPosts", () => {
   let list: List
@@ -36,14 +35,17 @@ describe("listHtmlBlogPosts", () => {
   it("should list blog posts", async () => {
     const posts = await listHtmlBlogPosts(...FAKE_PARAMS)
 
-    expect(list).toHaveBeenCalledWith({
-      ...FAKE_PARAMS[0],
-      collection: CONTENTS,
-      conditions: [
-        ...FAKE_PARAMS[0].conditions,
-        ["taxonomies.blog-post-categories", "array-contains", "blogs"],
-      ] as Condition<ContentHtmlBlogPost>[],
-    })
+    expect(list).toHaveBeenCalledWith(
+      expect.objectContaining({
+        collection: CONTENTS,
+        conditions: expect.arrayContaining([
+          expect.arrayContaining([
+            "removedAt",
+            expect.arrayContaining([undefined]),
+          ]),
+        ]),
+      }),
+    )
     expect(posts).toEqual(FAKE_POSTS)
   })
 })

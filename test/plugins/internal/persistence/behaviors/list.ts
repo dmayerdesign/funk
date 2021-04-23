@@ -34,7 +34,7 @@ export default async function list<
 
 const meetsCondition = <DocumentType extends DatabaseDocument>(
   doc: DocumentType,
-) => ([path, operator, queryValue]: Condition<DocumentType>) => {
+) => ([path, operator, queryValue]: Condition<DocumentType>): boolean => {
   const value = get(doc, path) as unknown
   switch (operator) {
     case "<":
@@ -42,16 +42,24 @@ const meetsCondition = <DocumentType extends DatabaseDocument>(
     case "<=":
       return (value as number) <= queryValue
     case "==":
-      return value === queryValue
+      return isEqual(value, queryValue)
+    case "!=":
+      return !isEqual(value, queryValue)
     case ">":
       return (value as number) > queryValue
     case ">=":
       return (value as number) >= queryValue
     case "in":
       if (!queryValue?.length) {
-        throw new Error("[funk] 'IN' requires an non-empty ArrayValue.")
+        throw new Error('[funk] "in" requires an non-empty ArrayValue.')
       }
-      return !!(queryValue as any[]).find((element) => isEqual(element, value))
+      return (queryValue as any[]).some((element) => isEqual(element, value))
+    case "not-in":
+      return (
+        typeof value !== "undefined" &&
+        value !== null &&
+        !(queryValue as any[]).some((element) => isEqual(element, value))
+      )
     case "array-contains":
       return !!((value ?? []) as any[]).find((element) =>
         isEqual(element, queryValue),

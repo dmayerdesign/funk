@@ -100,16 +100,23 @@
       padding-bottom: 70px;
     }
     .card-title {
-      p {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      p,
+      a,
+      blockquote {
         margin: 0;
         padding: 0;
-      }
 
-      @media screen and (min-width: 768px) {
-        font-size: #{$hero-title-font-size-above-md-px}px;
-      }
-      @media screen and (max-width: 767px) {
-        font-size: #{$hero-title-font-size-below-md-px}px;
+        @media screen and (min-width: 768px) {
+          font-size: #{$hero-title-font-size-above-md-px}px;
+        }
+        @media screen and (max-width: 767px) {
+          font-size: #{$hero-title-font-size-below-md-px}px;
+        }
       }
     }
     .card-title[color="light"] {

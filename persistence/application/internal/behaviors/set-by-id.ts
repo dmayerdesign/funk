@@ -18,6 +18,7 @@ export function construct(store: typeof storeImpl) {
       .doc(documentPath)
       .set(
         {
+          id: documentPath,
           ...documentData,
           updatedAt: Date.now(),
         },
