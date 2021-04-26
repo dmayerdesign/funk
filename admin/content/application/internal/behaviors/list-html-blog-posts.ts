@@ -18,9 +18,7 @@ export function construct(list = listImpl) {
   }: PayloadType): Promise<ContentHtmlBlogPost[]> {
     const fullConditions = [
       ...conditions,
-      ["removedAt", "in", [null, undefined, ""]] as Condition<
-        ContentHtmlBlogPost
-      >,
+      ["removedAt", "==", null] as Condition<ContentHtmlBlogPost>,
     ]
     return await list({
       collection: CONTENTS,

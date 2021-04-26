@@ -11,7 +11,9 @@ node build-pipeline/data/local-import-collection-json.js \
   --collection "contents" \
   --collection "identity.persons" \
   --collection "identity.user-contents" \
-  --collection "organizations"
+  --collection "organizations" \
+  --collection "taxonomies" \
+  --collection "taxonomy-terms"
 if [ $? -ne 0 ]; then
 (exit 1);
 fi

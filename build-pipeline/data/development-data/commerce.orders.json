@@ -13,7 +13,8 @@
       "savePaymentInfo": false
     },
     "skus": [],
-    "skuQuantityMap": {}
+    "skuQuantityMap": {},
+    "createdAt": 1619487129216
   },
   "test-cart-full": {
     "id": "test-cart-full",
@@ -31,6 +32,7 @@
     "skus": ["sku-1-1"],
     "skuQuantityMap": {
       "sku-1-1": 1
-    }
+    },
+    "createdAt": 1619487129216
   }
 }

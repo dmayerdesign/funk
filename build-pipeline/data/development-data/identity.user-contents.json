@@ -1,10 +1,17 @@
 {
   "test-user-basic": {
     "contentPreviews": {},
+    "createdAt": 1619487129216,
     "__collections__": {}
   },
   "test-user-with-cart": {
     "contentPreviews": {},
+    "createdAt": 1619487129216,
+    "__collections__": {}
+  },
+  "test-user-admin": {
+    "contentPreviews": {},
+    "createdAt": 1619487129216,
     "__collections__": {}
   }
 }

@@ -4,5 +4,5 @@ import createWriteHandler from "@funk/http/plugins/internal/cloud-function/behav
 
 export default createWriteHandler(
   CONTENTS,
-  auditOnWrite<Content>(`admin.audit.${CONTENTS}`),
+  auditOnWrite<Content>(`audit.admin.${CONTENTS}`),
 )

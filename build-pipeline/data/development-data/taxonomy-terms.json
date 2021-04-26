@@ -1,14 +1,15 @@
 {
-  "blogs": {
-    "id": "blogs",
-    "slug": "blogs",
+  "blog-posts": {
+    "id": "blog-posts",
+    "slug": "blog-posts",
     "taxonomyId": "blog-post-categories",
-    "singularName": "Blog",
-    "pluralName": "Blogs",
+    "singularName": "Blog post",
+    "pluralName": "Blog posts",
     "description": "",
     "parent": "",
     "children": [],
     "forInternalUseOnly": false,
+    "createdAt": 1619487129216,
     "__collections__": {}
   }
 }

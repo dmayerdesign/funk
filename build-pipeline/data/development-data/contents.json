@@ -3,84 +3,106 @@
     "id": "app-title",
     "value": "Danny's App",
     "type": "TEXT",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "shop-title": {
     "id": "shop-title",
     "value": "Shop",
     "type": "TEXT",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "sink-content-1": {
     "id": "sink-content-1",
     "value": "<h2>Keep close to Nature's heart...</h2><p>and break clear away, once in awhile, and climb a mountain or spend a week in the woods.</p><p>Wash your spirit clean.</p>",
     "type": "HTML",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "professional-portfolio-title": {
     "id": "professional-portfolio-title",
     "value": "Professional Portfolio",
     "type": "TEXT",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "professional-portfolio-subtitle": {
     "id": "professional-portfolio-subtitle",
     "value": "poet and teacher",
     "type": "TEXT",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "professional-portfolio-about-article": {
     "id": "professional-portfolio-about-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "professional-portfolio-publications-article": {
     "id": "professional-portfolio-publications-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "professional-portfolio-honors-article": {
     "id": "professional-portfolio-honors-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "professional-portfolio-teaching-article": {
     "id": "professional-portfolio-teaching-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "kitchen-sink-hero-1-title": {
     "id": "kitchen-sink-hero-1-title",
     "value": "<p>Card Title</p>",
     "type": "HTML",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "kitchen-sink-hero-1-subtitle": {
     "id": "kitchen-sink-hero-1-subtitle",
     "value": "<p>This is a subtitle</p>",
     "type": "HTML",
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "test-blog-post-1": {
     "id": "test-blog-post-1",
     "value": "<p>This is my post 1!</p>",
     "type": "HTML_BLOG_POST",
-    "taxonomies": {
-      "blog-post-categories": ["blogs"]
-    },
+    "taxonomyTerms": ["blog-posts"],
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   },
   "test-blog-post-2": {
     "id": "test-blog-post-2",
     "value": "<p>This is my post 2!</p>",
     "type": "HTML_BLOG_POST",
-    "taxonomies": {
-      "blog-post-categories": ["blogs"]
-    },
+    "taxonomyTerms": ["blog-posts"],
+    "createdAt": 1619487129216,
+    "removedAt": null,
     "__collections__": {}
   }
 }

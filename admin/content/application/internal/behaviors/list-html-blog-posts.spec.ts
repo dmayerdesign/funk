@@ -39,10 +39,7 @@ describe("listHtmlBlogPosts", () => {
       expect.objectContaining({
         collection: CONTENTS,
         conditions: expect.arrayContaining([
-          expect.arrayContaining([
-            "removedAt",
-            expect.arrayContaining([undefined]),
-          ]),
+          expect.arrayContaining(["removedAt", null]),
         ]),
       }),
     )

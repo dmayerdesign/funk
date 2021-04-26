@@ -3,6 +3,7 @@ import {
   DatabaseDocument,
   RemovedAt,
 } from "@funk/persistence/model/database-document"
+import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 // TODO: Rename to `Text`, `Image`, etc. once
 // https://github.com/vega/ts-json-schema-generator/pull/667 is released.
@@ -50,7 +51,7 @@ export interface ContentHtmlBlogPost extends DatabaseDocument, RemovedAt {
   /** The HTML post body. */
   value: string
   coverImageUrl: string
-  taxonomies: Record<string, string[]>
+  taxonomyTerms: PrimaryKey[]
   i18n?: {
     meaning: string
     defaultLocale: string

@@ -25,6 +25,7 @@
         "currency": "USD"
       }
     },
+    "createdAt": 1619487129216,
     "__collections__": {}
   },
   "product-2": {
@@ -53,6 +54,7 @@
         "currency": "USD"
       }
     },
+    "createdAt": 1619487129216,
     "__collections__": {}
   }
 }

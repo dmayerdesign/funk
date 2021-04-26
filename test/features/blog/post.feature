@@ -1,14 +1,29 @@
 Feature: Blog posts
 
-  Rule: An admin can add a blog post.
+  Rule: An admin can add a post category.
 
-    Example: Paul adds a blog post.
+    @future
+    Example: Paul adds a post category.
 
       Given an admin named Paul
+      When Paul visits any page
+      Then Paul is able to add a post category
+
+  Rule: An admin can add a blog post.
+
+    Example: Paul intends to add a blog post.
+
+      Given an admin named Paul
+      When Paul visits the post category page "blog-posts"
+      Then Paul is able to add a post
+
+    Example: Paul starts writing a blog post.
+
+      Given an admin named Paul
+      And Paul visits the post category page "blog-posts"
       When Paul begins to write a blog post
       Then the blog post is saved
-
-  Rule: An admin can publish a blog post.
+      And the blog post has the taxonomy term "blog-posts"
 
     Example: Paul publishes a blog post.
 
@@ -33,13 +48,13 @@ Feature: Blog posts
 
   Rule: An anonymous user can view published posts by category.
 
-    Example: Amy visits the default category page ("blogs").
+    Example: Amy visits the default category page ("blog-posts").
 
       Given a user named Amy
-      And that there are blog posts in the category "blogs"
-      And there are blog posts in the category "blogs" in the trash
-      When Amy requests all blog posts in the category "blogs"
-      Then Amy gets all blog posts in the category "blogs"
+      And that there are blog posts in the category "blog-posts"
+      And there are blog posts in the category "blog-posts" in the trash
+      When Amy requests all blog posts in the category "blog-posts"
+      Then Amy gets all blog posts in the category "blog-posts"
       And none of the blog posts are in the trash
       And each blog post is represented by its title and its cover image
 

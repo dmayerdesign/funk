@@ -3,12 +3,21 @@
     "id": "test-user-basic",
     "email": "test-user-basic@test.test",
     "displayName": "Tester",
+    "createdAt": 1619487129216,
     "__collections__": {}
   },
   "test-user-with-cart": {
     "id": "test-user-with-cart",
     "email": "test-user-with-cart@test.test",
     "displayName": "Tester",
+    "createdAt": 1619487129216,
+    "__collections__": {}
+  },
+  "test-user-admin": {
+    "id": "test-user-admin",
+    "email": "test-user-admin@test.test",
+    "displayName": "Admin Tester",
+    "createdAt": 1619487129216,
     "__collections__": {}
   }
 }

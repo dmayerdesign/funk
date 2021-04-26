@@ -6,9 +6,10 @@ export interface TaxonomyTerm extends DatabaseDocument {
   singularName: string
   pluralName: string
   description: string
-  parent?: PrimaryKey[]
+  parent?: PrimaryKey
   children?: PrimaryKey[]
   forInternalUseOnly: boolean
 }
 
 export const TAXONOMY_TERMS = "taxonomy-terms"
+export const TAXONOMY_TERM = "taxonomy-term"

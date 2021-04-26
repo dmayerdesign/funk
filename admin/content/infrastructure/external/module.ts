@@ -1,6 +1,4 @@
-import { CommonModule } from "@angular/common"
 import { ModuleWithProviders, NgModule } from "@angular/core"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular"
 import { construct as constructCancelEdit } from "@funk/admin/content/application/external/editor/behaviors/cancel-edit"
 import { construct as constructGetHasPreview } from "@funk/admin/content/application/external/editor/behaviors/get-has-preview"
@@ -71,16 +69,14 @@ import {
   LISTEN_FOR_USER_CONTENT_BY_ID,
   UPDATE_USER_CONTENT_BY_ID,
 } from "@funk/identity/user-content/infrastructure/external/persistence/tokens"
+import { AppCommonModule } from "@funk/ui/infrastructure/external/common.module"
 import { DEVICE_WIDTH } from "@funk/ui/infrastructure/external/tokens"
-import { AlertController, IonicModule } from "@ionic/angular"
+import { AlertController } from "@ionic/angular"
 import { ClickOutsideModule } from "ng-click-outside"
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
+    AppCommonModule,
     ClickOutsideModule,
     CKEditorModule,
     ContentPreviewPersistenceModule.withProviders(),

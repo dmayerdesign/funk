@@ -31,7 +31,7 @@ export interface UpdatedAt {
 }
 
 export interface RemovedAt {
-  removedAt?: Instant
+  removedAt: Instant
 }
 
 export interface RemovableDatabaseDocument extends DatabaseDocument {

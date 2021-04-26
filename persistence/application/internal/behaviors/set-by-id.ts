@@ -19,6 +19,7 @@ export function construct(store: typeof storeImpl) {
       .set(
         {
           id: documentPath,
+          removedAt: null,
           ...documentData,
           updatedAt: Date.now(),
         },

@@ -1,6 +1,4 @@
-import { CommonModule } from "@angular/common"
 import { NgModule } from "@angular/core"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
 import { ContentModule } from "@funk/admin/content/infrastructure/external/module"
 import {
@@ -8,17 +6,20 @@ import {
   GET_TOKEN,
   INITIALIZE_TURING_TEST,
 } from "@funk/auth/plugins/external/turing-test/behaviors/get-token"
+import { BlogModule } from "@funk/blog/infrastructure/external/module"
+import { TAXONOMY_TERM_SLUG_ROUTE_PARAM_RESOLVER } from "@funk/blog/infrastructure/external/tokens"
 import { AboutContainer } from "@funk/professional-portfolio/infrastructure/external/about/container"
-import { BlogContainer } from "@funk/professional-portfolio/infrastructure/external/blog/container"
 import { ContactContainer } from "@funk/professional-portfolio/infrastructure/external/contact/container"
 import { ProfessionalPortfolioContainer } from "@funk/professional-portfolio/infrastructure/external/container"
 import { HonorsContainer } from "@funk/professional-portfolio/infrastructure/external/honors/container"
+import { PageTitleHeading } from "@funk/professional-portfolio/infrastructure/external/page/title-heading/component"
+import { PostCategoryContainer } from "@funk/professional-portfolio/infrastructure/external/post/category/container"
 import { PublicationsContainer } from "@funk/professional-portfolio/infrastructure/external/publications/container"
 import { TeachingContainer } from "@funk/professional-portfolio/infrastructure/external/teaching/container"
+import { TAXONOMY_TERM } from "@funk/taxonomy/model/taxonomy-term"
 import atlas from "@funk/ui/atlas/configuration"
-import { IonicModule } from "@ionic/angular"
+import { AppCommonModule } from "@funk/ui/infrastructure/external/common.module"
 import { load as loadRecaptcha } from "recaptcha-v3"
-import { PageTitleHeading } from "./page/title-heading/component"
 
 const routes: Routes = [
   {
@@ -61,8 +62,11 @@ const routes: Routes = [
         },
       },
       {
-        path: "blog",
-        component: BlogContainer,
+        path: `:${TAXONOMY_TERM}`,
+        component: PostCategoryContainer,
+        resolve: {
+          taxonomyTerm: TAXONOMY_TERM_SLUG_ROUTE_PARAM_RESOLVER,
+        },
         data: {
           title: atlas["professional-portfolio"].__atlas__.blog.label,
         },
@@ -73,12 +77,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
+    AppCommonModule,
     RouterModule.forChild(routes),
     ContentModule,
+    BlogModule,
   ],
   declarations: [
     PageTitleHeading,
@@ -88,7 +90,7 @@ const routes: Routes = [
     HonorsContainer,
     PublicationsContainer,
     TeachingContainer,
-    BlogContainer,
+    PostCategoryContainer,
   ],
   providers: [
     {

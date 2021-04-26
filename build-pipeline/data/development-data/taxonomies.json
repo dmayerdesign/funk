@@ -5,6 +5,7 @@
     "singularName": "Category",
     "pluralName": "Categories",
     "description": "A general way of organizing things.",
+    "createdAt": 1619487129216,
     "__collections__": {}
   }
 }

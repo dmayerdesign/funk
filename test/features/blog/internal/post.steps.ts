@@ -25,7 +25,7 @@ const feature = loadFeature(
   loadFeatureOptions,
 )
 
-defineFeature(feature, function (example) {
+defineFeature(feature, (example) => {
   let listHtmlBlogPosts: ListHtmlBlogPosts
 
   background(async () => {
@@ -34,117 +34,110 @@ defineFeature(feature, function (example) {
   })
 
   rule("An anonymous user can view published posts by category.", () => {
-    example('Amy visits the default category page ("blogs").', function ({
-      given,
-      when,
-      then,
-    }) {
-      let blogPosts: ContentHtmlBlogPost[]
+    example(
+      'Amy visits the default category page ("blog-posts").',
+      ({ given, when, then }) => {
+        let blogPosts: ContentHtmlBlogPost[]
 
-      givenAUser(given)
+        givenAUser(given)
 
-      given(
-        /that there are blog posts in the category "(.+)"/,
-        async (categoryId: PrimaryKey) => {
-          const blogPostsInBlogCategory = await list({
-            collection: CONTENTS,
-            pagination: DEFAULT_PAGINATION,
-            conditions: [
-              ["taxonomies.blog-post-categories", "array-contains", categoryId],
-            ] as Condition<ContentHtmlBlogPost>[],
-          })
-          expect(blogPostsInBlogCategory.length).toBeGreaterThan(1)
-        },
-      )
+        given(
+          /that there are blog posts in the category "(.+)"/,
+          async (categoryId: PrimaryKey) => {
+            const blogPostsInBlogCategory = await list({
+              collection: CONTENTS,
+              pagination: DEFAULT_PAGINATION,
+              conditions: [
+                ["taxonomyTerms", "array-contains", categoryId],
+              ] as Condition<ContentHtmlBlogPost>[],
+            })
+            expect(blogPostsInBlogCategory.length).toBeGreaterThan(1)
+          },
+        )
 
-      given(
-        /there are blog posts in the category "(.+)" in the trash/,
-        async (categoryId: PrimaryKey) => {
-          await setById<DbDocumentInput<ContentHtmlBlogPost>>(
-            CONTENTS,
-            "fake-trash-post-1",
-            {
-              type: ContentType.HTML_BLOG_POST,
-              title: "Fake Trash Post 1",
-              value: "Content of fake trash post 1.",
-              coverImageUrl: "",
-              taxonomies: {
-                "blog-post-categories": [categoryId],
+        given(
+          /there are blog posts in the category "(.+)" in the trash/,
+          async (categoryId: PrimaryKey) => {
+            await setById<DbDocumentInput<ContentHtmlBlogPost>>(
+              CONTENTS,
+              "fake-trash-post-1",
+              {
+                type: ContentType.HTML_BLOG_POST,
+                title: "Fake Trash Post 1",
+                value: "Content of fake trash post 1.",
+                coverImageUrl: "",
+                taxonomyTerms: [categoryId],
+                removedAt: Date.now(),
               },
-              removedAt: Date.now(),
-            },
-          )
-          await setById<DbDocumentInput<ContentHtmlBlogPost>>(
-            CONTENTS,
-            "fake-trash-post-2",
-            {
-              type: ContentType.HTML_BLOG_POST,
-              title: "Fake Trash Post 2",
-              value: "Content of fake trash post 2.",
-              coverImageUrl: "",
-              taxonomies: {
-                "blog-post-categories": [categoryId],
+            )
+            await setById<DbDocumentInput<ContentHtmlBlogPost>>(
+              CONTENTS,
+              "fake-trash-post-2",
+              {
+                type: ContentType.HTML_BLOG_POST,
+                title: "Fake Trash Post 2",
+                value: "Content of fake trash post 2.",
+                coverImageUrl: "",
+                taxonomyTerms: [categoryId],
+                removedAt: Date.now(),
               },
-              removedAt: Date.now(),
-            },
-          )
-          await setById<DbDocumentInput<ContentHtmlBlogPost>>(
-            CONTENTS,
-            "fake-trash-post-3",
-            {
-              type: ContentType.HTML_BLOG_POST,
-              title: "Fake Trash Post 3",
-              value: "Content of fake trash post 3.",
-              coverImageUrl: "",
-              taxonomies: {},
-              removedAt: Date.now(),
-            },
-          )
-        },
-      )
+            )
+            await setById<DbDocumentInput<ContentHtmlBlogPost>>(
+              CONTENTS,
+              "fake-trash-post-3",
+              {
+                type: ContentType.HTML_BLOG_POST,
+                title: "Fake Trash Post 3",
+                value: "Content of fake trash post 3.",
+                coverImageUrl: "",
+                taxonomyTerms: [],
+                removedAt: Date.now(),
+              },
+            )
+          },
+        )
 
-      when(
-        /Amy requests all blog posts in the category "(.+)"/,
-        async (categoryId: PrimaryKey) => {
-          blogPosts = await listHtmlBlogPosts({
-            pagination: DEFAULT_PAGINATION,
-            conditions: [
-              ["taxonomies.blog-post-categories", "array-contains", categoryId],
-            ],
-          })
-        },
-      )
+        when(
+          /Amy requests all blog posts in the category "(.+)"/,
+          async (categoryId: PrimaryKey) => {
+            blogPosts = await listHtmlBlogPosts({
+              pagination: DEFAULT_PAGINATION,
+              conditions: [["taxonomyTerms", "array-contains", categoryId]],
+            })
+          },
+        )
 
-      then(
-        /Amy gets all blog posts in the category "(.+)"/,
-        async (categoryId: PrimaryKey) => {
-          expect(blogPosts.length).toBeGreaterThan(1)
+        then(
+          /Amy gets all blog posts in the category "(.+)"/,
+          async (categoryId: PrimaryKey) => {
+            expect(blogPosts.length).toBeGreaterThan(1)
+            expect(
+              blogPosts.every((post) =>
+                post.taxonomyTerms?.includes(categoryId),
+              ),
+            ).toBe(true)
+          },
+        )
+
+        then("none of the blog posts are in the trash", async () => {
           expect(
-            blogPosts.every((post) =>
-              post.taxonomies?.["blog-post-categories"]?.includes(categoryId),
-            ),
-          ).toBe(true)
-        },
-      )
+            blogPosts.some((post) => typeof post.removedAt === "number"),
+          ).toBe(false)
+        })
 
-      then("none of the blog posts are in the trash", async () => {
-        expect(
-          blogPosts.some((post) => typeof post.removedAt === "number"),
-        ).toBe(false)
-      })
-
-      then(
-        "each blog post is represented by its title and its cover image",
-        async () => {
-          expect(
-            blogPosts.every(
-              (post) =>
-                typeof post.title === "string" &&
-                typeof post.coverImageUrl === "string",
-            ),
-          )
-        },
-      )
-    })
+        then(
+          "each blog post is represented by its title and its cover image",
+          async () => {
+            expect(
+              blogPosts.every(
+                (post) =>
+                  typeof post.title === "string" &&
+                  typeof post.coverImageUrl === "string",
+              ),
+            )
+          },
+        )
+      },
+    )
   })
 })

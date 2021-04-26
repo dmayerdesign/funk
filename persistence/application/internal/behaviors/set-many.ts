@@ -37,7 +37,12 @@ export function construct(store: typeof storeImpl) {
         const docRef = store().collection(collectionPath).doc(documentPath)
         batch.set(
           docRef,
-          { ...documentData, updatedAt: Date.now() },
+          {
+            id: documentPath,
+            removedAt: null,
+            ...documentData,
+            updatedAt: Date.now(),
+          },
           { merge: !options?.overwrite },
         )
       }

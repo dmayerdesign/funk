@@ -8,7 +8,7 @@ import {
 } from "@funk/persistence/model/pagination"
 
 export function construct(store: typeof storeImpl) {
-  return function list<DocumentType extends DatabaseDocument>(options: {
+  return async function list<DocumentType extends DatabaseDocument>(options: {
     collection: string
     pagination: Pagination<DocumentType> | VirtualPagination
     conditions: Condition<DocumentType>[]
@@ -21,15 +21,12 @@ export function construct(store: typeof storeImpl) {
       .limit(take)
       .offset(skip)
 
-    conditions.forEach((where) => {
+    for (const where of conditions) {
       query = query.where(...(where as AbstractWhere))
-    })
+    }
 
-    return query
-      .get()
-      .then((snapshot) => snapshot.docs.map((doc) => doc.data())) as Promise<
-      DocumentType[]
-    >
+    const querySnapshot = await query.get()
+    return querySnapshot.docs.map((doc) => doc.data()) as DocumentType[]
   }
 }
 

@@ -4,12 +4,12 @@ import { construct } from "@funk/commerce/customer/application/internal/behavior
 describe("customerHandleCreate", () => {
   it("should create a cart when any user is created", async () => {
     const USER = { uid: "test-user-basic" } as UserRecord
-    const setById = jest.fn()
-    const handleCreate = construct(setById)
+    const setOrderById = jest.fn()
+    const handleCreate = construct(setOrderById)
 
     await handleCreate(USER)
 
-    expect(setById).toHaveBeenCalledWith(
+    expect(setOrderById).toHaveBeenCalledWith(
       expect.any(String),
       expect.objectContaining({
         customer: expect.objectContaining({
