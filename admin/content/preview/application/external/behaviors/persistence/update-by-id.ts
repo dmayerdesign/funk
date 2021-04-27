@@ -16,20 +16,18 @@ export function construct(
   ): Promise<void> {
     const userContent = await asPromise(userContentChanges)
     const userContentId = userContent?.id
-    const contentPreviews = userContent?.contentPreviews
+    const contentPreviews = userContent?.contentPreviews ?? {}
 
-    if (contentPreviews) {
-      contentPreviews[documentPath] = {
-        ...contentPreviews[documentPath],
-        ...documentData,
-      }
-
-      const newUserContent: UserContent = {
-        ...userContent!,
-        contentPreviews,
-      }
-      await updateById(USER_CONTENTS, userContentId!, marshall(newUserContent))
+    contentPreviews[documentPath] = {
+      ...contentPreviews[documentPath],
+      ...documentData,
     }
+
+    const newUserContent: UserContent = {
+      ...userContent!,
+      contentPreviews,
+    }
+    await updateById(USER_CONTENTS, userContentId!, marshall(newUserContent))
   }
 }
 

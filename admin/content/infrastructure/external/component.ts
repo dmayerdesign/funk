@@ -23,6 +23,15 @@ import { map, shareReplay } from "rxjs/operators"
 @Component({
   selector: "content",
   template: `
+    <ion-button class="button edit-button">
+      <ion-icon
+        class="icon"
+        lazy="true"
+        slot="icon-only"
+        name="pencil-sharp"
+      ></ion-icon>
+    </ion-button>
+
     <ng-container *ngIf="(contentType | async) === ContentType.TEXT">
       {{ contentValue | async }}
     </ng-container>
