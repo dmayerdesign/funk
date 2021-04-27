@@ -23,48 +23,48 @@
     "removedAt": null,
     "__collections__": {}
   },
-  "professional-portfolio-title": {
-    "id": "professional-portfolio-title",
+  "portfolio-title": {
+    "id": "portfolio-title",
     "value": "Professional Portfolio",
     "type": "TEXT",
     "createdAt": 1619487129216,
     "removedAt": null,
     "__collections__": {}
   },
-  "professional-portfolio-subtitle": {
-    "id": "professional-portfolio-subtitle",
+  "portfolio-subtitle": {
+    "id": "portfolio-subtitle",
     "value": "poet and teacher",
     "type": "TEXT",
     "createdAt": 1619487129216,
     "removedAt": null,
     "__collections__": {}
   },
-  "professional-portfolio-about-article": {
-    "id": "professional-portfolio-about-article",
+  "portfolio-about-article": {
+    "id": "portfolio-about-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
     "createdAt": 1619487129216,
     "removedAt": null,
     "__collections__": {}
   },
-  "professional-portfolio-publications-article": {
-    "id": "professional-portfolio-publications-article",
+  "portfolio-publications-article": {
+    "id": "portfolio-publications-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
     "createdAt": 1619487129216,
     "removedAt": null,
     "__collections__": {}
   },
-  "professional-portfolio-honors-article": {
-    "id": "professional-portfolio-honors-article",
+  "portfolio-honors-article": {
+    "id": "portfolio-honors-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
     "createdAt": 1619487129216,
     "removedAt": null,
     "__collections__": {}
   },
-  "professional-portfolio-teaching-article": {
-    "id": "professional-portfolio-teaching-article",
+  "portfolio-teaching-article": {
+    "id": "portfolio-teaching-article",
     "value": "<p>Something goes here</p>",
     "type": "HTML",
     "createdAt": 1619487129216,

@@ -12,19 +12,19 @@ import { DeviceWidth } from "@funk/ui/plugins/external/layout/device-width"
 import { LoadingController } from "@ionic/angular"
 import { map } from "rxjs/operators"
 
-const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
+const portfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
 
 @Component({
   template: `
-    <div id="professional-portfolio-container">
+    <div id="portfolio-container">
       <ng-container *ngIf="!(isMobileLayout | async)">
         <div id="banner-and-navigation">
           <div role="banner">
             <h1>
-              <content contentId="professional-portfolio-title"></content>
+              <content contentId="portfolio-title"></content>
             </h1>
             <p>
-              <content contentId="professional-portfolio-subtitle"></content>
+              <content contentId="portfolio-subtitle"></content>
             </p>
           </div>
 
@@ -45,7 +45,7 @@ const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
           </nav>
         </div>
 
-        <div id="professional-portfolio-routes">
+        <div id="portfolio-routes">
           <ion-router-outlet class="router-outlet"></ion-router-outlet>
         </div>
       </ng-container>
@@ -80,15 +80,15 @@ const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
           <div id="banner">
             <div role="banner">
               <h1>
-                <content contentId="professional-portfolio-title"></content>
+                <content contentId="portfolio-title"></content>
               </h1>
               <p>
-                <content contentId="professional-portfolio-subtitle"></content>
+                <content contentId="portfolio-subtitle"></content>
               </p>
             </div>
             <page-title-heading layout="portrait"></page-title-heading>
           </div>
-          <div id="professional-portfolio-routes">
+          <div id="portfolio-routes">
             <ion-router-outlet class="router-outlet"></ion-router-outlet>
           </div>
         </div>
@@ -98,8 +98,8 @@ const professionalPortfolioPaths = Object.keys(atlas) as (keyof typeof atlas)[]
   styleUrls: ["./container.scss"],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProfessionalPortfolioContainer implements OnInit {
-  public readonly navigationItems = professionalPortfolioPaths
+export class PortfolioContainer implements OnInit {
+  public readonly navigationItems = portfolioPaths
     .filter((path) => ((atlas[path] as unknown) as Atlas).public)
     .map((path) => ({
       text: atlas[path].label,

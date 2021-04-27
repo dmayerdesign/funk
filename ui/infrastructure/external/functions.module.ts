@@ -21,7 +21,7 @@ import { LIST_PUBLISHED } from "@funk/commerce/shop/infrastructure/external/prod
 import { SKU_IMPORT } from "@funk/commerce/shop/infrastructure/external/sku/tokens"
 import { construct as constructCommerceSkuImport } from "@funk/commerce/sku/infrastructure/external/cloud-functions/import"
 import { construct as constructContactOwner } from "@funk/contact/infrastructure/external/cloud-functions/owner"
-import { CONTACT_OWNER } from "@funk/professional-portfolio/infrastructure/external/tokens"
+import { CONTACT_OWNER } from "@funk/portfolio/infrastructure/external/tokens"
 import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functions-client"
 
 @NgModule({

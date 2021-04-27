@@ -48,11 +48,11 @@ const routes: Routes = [
       ),
   },
   {
-    path: "professional-portfolio",
+    path: "portfolio",
     loadChildren: () =>
-      import(
-        "@funk/professional-portfolio/infrastructure/external/module"
-      ).then((mod) => mod.ProfessionalPortfolioModule),
+      import("@funk/portfolio/infrastructure/external/module").then(
+        (mod) => mod.PortfolioModule,
+      ),
   },
   {
     path: "**",

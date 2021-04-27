@@ -6,10 +6,10 @@ import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"
   selector: "post-category",
   template: `
     <ion-content
-      class="content professional-portfolio-route"
+      class="content portfolio-route"
       style="--background: transparent"
     >
-      <article class="professional-portfolio-route-inner">
+      <article class="portfolio-route-inner">
         <page-title-heading></page-title-heading>
 
         <blog-posts-by-taxonomy-term

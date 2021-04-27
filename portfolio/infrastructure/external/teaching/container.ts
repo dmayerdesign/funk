@@ -5,16 +5,16 @@ import { PAGE_TITLE } from "@funk/ui/infrastructure/external/tokens"
 @Component({
   template: `
     <ion-content
-      class="content professional-portfolio-route"
+      class="content portfolio-route"
       style="--background: transparent"
     >
-      <article class="professional-portfolio-route-inner">
+      <article class="portfolio-route-inner">
         <page-title-heading></page-title-heading>
-        <content contentId="professional-portfolio-honors-article"></content>
+        <content contentId="portfolio-teaching-article"></content>
       </article>
     </ion-content>
   `,
 })
-export class HonorsContainer {
+export class TeachingContainer {
   public constructor(@Inject(PAGE_TITLE) public pageTitle: PageTitle) {}
 }

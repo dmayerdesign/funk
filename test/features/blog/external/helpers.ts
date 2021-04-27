@@ -18,7 +18,6 @@ export function givenAnAdmin(_name: string): void {
 
 export function visitPostCategoryPage(taxonomyTermSlug: string): void {
   cy.visit(
-    CLIENT_APP_URL +
-      buildUrl<typeof atlas>("professional-portfolio", taxonomyTermSlug),
+    CLIENT_APP_URL + buildUrl<typeof atlas>("portfolio", taxonomyTermSlug),
   )
 }

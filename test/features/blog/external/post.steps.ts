@@ -9,7 +9,7 @@ rule("An admin can add a blog post.", () => {
     givenAnAdmin("Paul")
     // When Paul visits the post category page "blog-posts"
     // const blogPostsRoutePath = buildUrl<typeof atlas>(
-    //   "professional-portfolio",
+    //   "portfolio",
     //   "blog-posts",
     // )
     // cy.visit(blogPostsRoutePath)

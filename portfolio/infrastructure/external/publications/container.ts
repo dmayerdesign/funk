@@ -5,14 +5,12 @@ import { PAGE_TITLE } from "@funk/ui/infrastructure/external/tokens"
 @Component({
   template: `
     <ion-content
-      class="content professional-portfolio-route"
+      class="content portfolio-route"
       style="--background: transparent"
     >
-      <article class="professional-portfolio-route-inner">
+      <article class="portfolio-route-inner">
         <page-title-heading></page-title-heading>
-        <content
-          contentId="professional-portfolio-publications-article"
-        ></content>
+        <content contentId="portfolio-publications-article"></content>
       </article>
     </ion-content>
   `,
