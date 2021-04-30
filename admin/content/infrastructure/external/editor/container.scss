@@ -78,32 +78,24 @@ $has-preview-notice-height: 32px;
       position: relative;
       cursor: pointer;
 
-      // Beacon.
-      // &::after {
       .edit-button {
+        $edit-color-background: $color-tertiary-shade;
+        $edit-color-foreground: #fff;
+        $edit-button-z-index: 1000;
         position: absolute;
-        left: -35px;
-        top: -14px;
-        z-index: 1000;
-        opacity: 0.6;
-        font-size: 12px;
-        height: 50px;
-        width: 50px;
-        font-size: 11px !important;
-        border-radius: 28px;
-        --border-radius: 28px;
-        --background: #{$color-light};
+        left: 0;
+        top: 0;
+        z-index: $edit-button-z-index;
+        font-size: 8px;
+        height: 22px;
+        width: 22px;
+        margin: 0;
+        --background: #{$edit-color-background};
+        --border-radius: 50%;
         --box-shadow: none;
         --ripple-color: transparent;
         --padding-start: 0;
         --padding-end: 0;
-        // height: 16px;
-        // width: 16px;
-        // border-radius: 50%;
-        // transition: all 200ms;
-        // background: rgba($color-success, 0.2);
-        // box-shadow: 0 0 0 3px rgba($color-success, 0.6);
-        // animation: beacon 2s infinite linear;
 
         button,
         button span {
@@ -112,33 +104,13 @@ $has-preview-notice-height: 32px;
         }
 
         .icon {
-          color: #{$color-dark};
+          color: $edit-color-foreground;
         }
 
         &:hover,
         &:focus,
         &:active {
           opacity: 1;
-        }
-      }
-      // &:hover {
-      // &::after {
-      //   background: rgba($color-success, 1);
-      //   box-shadow: 0 0 0 3px rgba($color-success, 1);
-      // }
-      // }
-
-      @keyframes beacon {
-        0% {
-          transform: scale(0.1);
-          opacity: 1;
-        }
-        80% {
-          opacity: 1;
-        }
-        100% {
-          transform: scale(1.5);
-          opacity: 0;
         }
       }
     }

@@ -27,6 +27,7 @@ import { PersonPersistenceModule } from "@funk/identity/person/infrastructure/ex
 import { LISTEN_FOR_PERSON_BY_ID } from "@funk/identity/person/infrastructure/external/persistence/tokens"
 import { UserContentPersistenceModule } from "@funk/identity/user-content/infrastructure/external/persistence/module"
 import { LISTEN_FOR_USER_CONTENT_BY_ID } from "@funk/identity/user-content/infrastructure/external/persistence/tokens"
+import { WINDOW } from "@funk/ui/infrastructure/external/tokens"
 
 /**
  * This module should only be imported in the root app module.
@@ -59,7 +60,7 @@ import { LISTEN_FOR_USER_CONTENT_BY_ID } from "@funk/identity/user-content/infra
     {
       provide: SIGN_OUT,
       useFactory: constructSignOut,
-      deps: [AUTH_CLIENT],
+      deps: [AUTH_CLIENT, WINDOW],
     },
     {
       provide: USER_ID_TOKEN,
