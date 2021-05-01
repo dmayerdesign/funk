@@ -4,6 +4,7 @@ import { UserContent$ as UserContentChanges } from "@funk/identity/application/e
 import { UserContent, USER_CONTENTS } from "@funk/identity/model/user-content"
 import { Marshall as MarshallUserContent } from "@funk/identity/user-content/application/external/behaviors/persistence/marshall"
 import { UpdateById as GenericUpdateById } from "@funk/persistence/application/external/behaviors/update-by-id"
+import { DbDocumentInput } from "@funk/persistence/model/database-document"
 
 export function construct(
   updateById: GenericUpdateById,
@@ -12,29 +13,31 @@ export function construct(
 ) {
   return async function (
     documentPath: string,
-    documentData: ContentPreview,
+    documentData: DbDocumentInput<ContentPreview>,
     options?: { overwrite?: boolean },
   ): Promise<void> {
     const userContent = await asPromise(userContentChanges)
     const userContentId = userContent?.id
-    const contentPreviews = userContent?.contentPreviews
+    const contentPreviews = userContent?.contentPreviews ?? {}
 
-    if (contentPreviews) {
-      if (options?.overwrite) {
-        contentPreviews[documentPath] = documentData
-      } else {
-        contentPreviews[documentPath] = {
-          ...contentPreviews[documentPath],
-          ...documentData,
-        }
+    if (!contentPreviews[documentPath] || options?.overwrite) {
+      contentPreviews[documentPath] = {
+        ...documentData,
+        createdAt: Date.now(),
       }
-
-      const newUserContent: UserContent = {
-        ...userContent!,
-        contentPreviews,
+    } else {
+      contentPreviews[documentPath] = {
+        ...contentPreviews[documentPath],
+        ...documentData,
+        createdAt: Date.now(),
       }
-      await updateById(USER_CONTENTS, userContentId!, marshall(newUserContent))
     }
+
+    const newUserContent: UserContent = {
+      ...userContent!,
+      contentPreviews,
+    }
+    await updateById(USER_CONTENTS, userContentId!, marshall(newUserContent))
   }
 }
 

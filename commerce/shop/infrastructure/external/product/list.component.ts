@@ -11,14 +11,18 @@ import {
 import { FormArray, FormControl, FormGroup } from "@angular/forms"
 import { Product } from "@funk/commerce/product/model/product"
 import { ListFilter } from "@funk/commerce/shop/application/external/products/list-filter/list-filter"
-import { Pagination } from "@funk/persistence/model/pagination"
-import { of, ReplaySubject } from "rxjs"
-import { catchError, map, shareReplay } from "rxjs/operators"
+import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
+import {
+  Pagination,
+  VirtualPagination,
+} from "@funk/persistence/model/pagination"
+import { Observable, of, ReplaySubject } from "rxjs"
+import { catchError, map } from "rxjs/operators"
 
 interface ProductListOptions {
   products: Product[]
   filters: ListFilter[]
-  pagination: Pagination
+  pagination: Pagination<Product> | VirtualPagination
 }
 
 @Component({
@@ -33,7 +37,7 @@ interface ProductListOptions {
         </ion-row>
       </ng-container>
 
-      <div *ngFor="let filter of (filtersForm | async)?.controls">
+      <div *ngFor="let filter of filterFormGroups | async">
         <strong>Filter {{ filter?.value | json }}</strong>
         <ng-container [formGroup]="filter">
           <ion-input class="input" formControlName="type"></ion-input>
@@ -47,12 +51,12 @@ interface ProductListOptions {
 export class ProductListComponent implements OnChanges, ProductListOptions {
   @Input() public products!: Product[]
   @Input() public filters!: ListFilter[]
-  @Input() public pagination!: Pagination
+  @Input() public pagination!: Pagination<Product> | VirtualPagination
   @Output() public filtersChange = new EventEmitter<ListFilter[]>()
   @Output() public paginationChange = new EventEmitter<Pagination>()
 
   private _filters = new ReplaySubject<ListFilter[]>(1)
-  public filtersForm = this._filters.pipe(
+  public maybeFiltersForm = this._filters.pipe(
     map(
       (filters) =>
         new FormArray(
@@ -71,7 +75,13 @@ export class ProductListComponent implements OnChanges, ProductListOptions {
         ),
     ),
     catchError(() => of(undefined)),
-    shareReplay(1),
+    shareReplayOnce(),
+  )
+  public filterFormGroups: Observable<FormGroup[]> = this.maybeFiltersForm.pipe(
+    map(
+      (maybeFiltersForm) => (maybeFiltersForm?.controls as FormGroup[]) ?? [],
+    ),
+    shareReplayOnce(),
   )
 
   public ngOnChanges(changes: SimpleChanges): void {

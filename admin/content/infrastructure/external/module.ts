@@ -13,6 +13,7 @@ import { construct as constructGetMaybeContentPreviews } from "@funk/admin/conte
 import { construct as constructGetMaybePreviewOrLiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-preview-or-live-content"
 import { construct as constructGetPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/get-publish-conflicts"
 import { construct as constructOpenEditor } from "@funk/admin/content/application/external/editor/behaviors/open-editor"
+import { construct as constructOpenHtmlBlogPostAdder } from "@funk/admin/content/application/external/editor/behaviors/open-html-blog-post-adder"
 import { construct as constructPublishAll } from "@funk/admin/content/application/external/editor/behaviors/publish-all"
 import { construct as constructPublishAllOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-all-on-confirmation"
 import { construct as constructPublishAndDeleteContentPreview } from "@funk/admin/content/application/external/editor/behaviors/publish-and-delete-content-preview"
@@ -39,6 +40,7 @@ import {
   GET_MAYBE_PREVIEW_OR_LIVE_CONTENT,
   GET_PUBLISH_CONFLICTS,
   OPEN_EDITOR,
+  OPEN_HTML_BLOG_POST_ADDER,
   PUBLISH_ALL,
   PUBLISH_ALL_ON_CONFIRMATION,
   PUBLISH_AND_DELETE_CONTENT_PREVIEW,
@@ -61,6 +63,7 @@ import { ContentPreviewPersistenceModule } from "@funk/admin/content/preview/inf
 import {
   DELETE_CONTENT_PREVIEW_BY_ID,
   LISTEN_FOR_CONTENT_PREVIEW_BY_ID,
+  SET_CONTENT_PREVIEW_BY_ID,
   UPDATE_CONTENT_PREVIEW_BY_ID,
 } from "@funk/admin/content/preview/infrastructure/external/persistence/tokens"
 import { USER_SESSION } from "@funk/identity/infrastructure/external/tokens"
@@ -157,6 +160,15 @@ export class ContentModule {
           provide: OPEN_EDITOR,
           useFactory: constructOpenEditor,
           deps: [GET_MAYBE_ACTIVE_CONTENT_ID, GET_IS_AUTHORIZED],
+        },
+        {
+          provide: OPEN_HTML_BLOG_POST_ADDER,
+          useFactory: constructOpenHtmlBlogPostAdder,
+          deps: [
+            GET_MAYBE_ACTIVE_CONTENT_ID,
+            GET_IS_AUTHORIZED,
+            SET_CONTENT_PREVIEW_BY_ID,
+          ],
         },
         {
           provide: PUBLISH_ALL,

@@ -2,7 +2,8 @@
   "compileOnSave": false,
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "strictTemplates": true
   },
   "compilerOptions": {
     "esModuleInterop": true,

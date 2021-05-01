@@ -12,6 +12,7 @@ import { GetMaybeContentPreviews } from "@funk/admin/content/application/externa
 import { GetMaybePreviewOrLiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-preview-or-live-content"
 import { GetPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/get-publish-conflicts"
 import { OpenEditor } from "@funk/admin/content/application/external/editor/behaviors/open-editor"
+import { OpenHtmlBlogPostAdder } from "@funk/admin/content/application/external/editor/behaviors/open-html-blog-post-adder"
 import { PublishAll } from "@funk/admin/content/application/external/editor/behaviors/publish-all"
 import { PublishAllOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-all-on-confirmation"
 import { PublishAndDeleteContentPreview } from "@funk/admin/content/application/external/editor/behaviors/publish-and-delete-content-preview"
@@ -56,6 +57,9 @@ export const GET_PUBLISH_CONFLICTS = new InjectionToken<GetPublishConflicts>(
   "GET_PUBLISH_CONFLICTS",
 )
 export const OPEN_EDITOR = new InjectionToken<OpenEditor>("OPEN_EDITOR")
+export const OPEN_HTML_BLOG_POST_ADDER = new InjectionToken<
+  OpenHtmlBlogPostAdder
+>("OPEN_HTML_BLOG_POST_ADDER")
 export const PUBLISH_ALL = new InjectionToken<PublishAll>("PUBLISH_ALL")
 export const PUBLISH_ALL_ON_CONFIRMATION = new InjectionToken<
   PublishAllOnConfirmation

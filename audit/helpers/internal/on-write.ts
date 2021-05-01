@@ -30,10 +30,15 @@ export default function <DocumentType extends DatabaseDocument>(
     if (changes.length) {
       const mutation: DbDocumentInput<Mutation<DocumentType>> = {
         existingDocumentId: id,
-        createdAt: timestamp,
         changes: changes.map(omitNullish),
       }
-      await store().collection(dbPath).doc(timestampId).set(mutation)
+      await store()
+        .collection(dbPath)
+        .doc(timestampId)
+        .set({
+          ...mutation,
+          createdAt: timestamp,
+        } as Mutation<DocumentType>)
     }
   }
 }

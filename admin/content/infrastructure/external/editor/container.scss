@@ -130,6 +130,7 @@ $has-preview-notice-height: 32px;
     .ck-editor__main > .ck-content {
       border: none !important;
       height: calc(50vh - #{$actions-height});
+      padding: 0;
     }
     .ck-focused {
       border: none !important;

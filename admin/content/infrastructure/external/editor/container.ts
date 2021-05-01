@@ -17,6 +17,7 @@ import { SaveAndClearIfEditing } from "@funk/admin/content/application/external/
 import { ContentType } from "@funk/admin/content/model/content"
 import { ignoreNullish, shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { IonTextarea } from "@ionic/angular"
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { of } from "rxjs"
 import { delay, map, switchMap } from "rxjs/operators"
 import * as ClassicEditor from "ui/plugins/external/lib/rich-text/build/ckeditor"
@@ -33,7 +34,7 @@ import {
 
 const ANIMATION_DURATION_MS = 500
 
-// TODO: Add UntilDestroyed decorator.
+@UntilDestroy()
 @Component({
   selector: "content-editor",
   template: `
@@ -102,7 +103,7 @@ const ANIMATION_DURATION_MS = 500
                 buttonType="button"
                 color="dark"
                 expand="full"
-                (click)="saveEdit()"
+                (click)="saveAndClearIfEditing()"
               >
                 Save
               </ion-button>
@@ -128,9 +129,11 @@ const ANIMATION_DURATION_MS = 500
 })
 export class ContentEditorContainer implements OnInit {
   @ViewChild("contentValueInput") public contentValueInput!: IonTextarea
-  public maybeFormControl = this._getMaybeActiveContentValueControl()
+  public maybeFormControl = this._getMaybeActiveContentValueControl().pipe(
+    untilDestroyed(this),
+  )
   public formControl!: FormControl
-  public hasPreview = this._getHasPreview()
+  public hasPreview = this._getHasPreview().pipe(untilDestroyed(this))
   public formControlIsVisible = this.maybeFormControl.pipe(
     switchMap((formControl) =>
       !formControl
@@ -138,8 +141,9 @@ export class ContentEditorContainer implements OnInit {
         : of(!!formControl),
     ),
     shareReplayOnce(),
+    untilDestroyed(this),
   )
-  public isActivated = this._getIsAuthorized()
+  public isActivated = this._getIsAuthorized().pipe(untilDestroyed(this))
   public editorToolbarConfig = this._getMaybeActiveContentType().pipe(
     map((type) => {
       switch (type) {
@@ -149,6 +153,8 @@ export class ContentEditorContainer implements OnInit {
           return this.editorToolbarConfigForHtml
       }
     }),
+    shareReplayOnce(),
+    untilDestroyed(this),
   )
 
   public readonly editor = ClassicEditor
@@ -186,7 +192,7 @@ export class ContentEditorContainer implements OnInit {
 
   public constructor(
     @Inject(SAVE_AND_CLEAR_IF_EDITING)
-    private _saveAndClearIfEditing: SaveAndClearIfEditing,
+    public saveAndClearIfEditing: SaveAndClearIfEditing,
 
     @Inject(CANCEL_EDIT)
     private _cancelEdit: CancelEdit,
@@ -211,13 +217,9 @@ export class ContentEditorContainer implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.maybeFormControl
-      .pipe(ignoreNullish())
-      .subscribe((formControl) => (this.formControl = formControl))
-  }
-
-  public async saveEdit(): Promise<void> {
-    await this._saveAndClearIfEditing()
+    this.maybeFormControl.pipe(ignoreNullish()).subscribe((formControl) => {
+      this.formControl = formControl
+    })
   }
 
   public async cancelEdit(): Promise<void> {
@@ -225,7 +227,7 @@ export class ContentEditorContainer implements OnInit {
   }
 
   public async maybeSaveAndPublish(): Promise<void> {
-    await this.saveEdit()
+    await this.saveAndClearIfEditing()
     await this._publishAllOnConfirmation()
   }
 

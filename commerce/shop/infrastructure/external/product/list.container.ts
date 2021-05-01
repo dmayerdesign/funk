@@ -19,9 +19,9 @@ import { map, switchMap } from "rxjs/operators"
   selector: "product-list-container",
   template: `
     <product-list
-      [products]="products | async"
-      [filters]="filters | async"
-      [pagination]="pagination | async"
+      [products]="products | asyncNotNull"
+      [filters]="filters | asyncNotNull"
+      [pagination]="pagination | asyncNotNull"
       (filtersChange)="handleFiltersChange($event)"
       (paginationChange)="handlePaginationChange($event)"
     >
