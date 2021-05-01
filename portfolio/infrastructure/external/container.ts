@@ -115,12 +115,12 @@ export class PortfolioContainer implements OnInit {
   ) {}
 
   public async ngOnInit(): Promise<void> {
-    const canary = this._getContentById("page-title")
+    const canary = this._getContentById("portfolio-title")
     const loading = await this._loadingController.create({
-      id: "POETRY_LOADING",
+      id: "portfolio-loading",
     })
     loading.present()
     await canary
-    await this._loadingController.dismiss("POETRY_LOADING")
+    await this._loadingController.dismiss("portfolio-loading")
   }
 }

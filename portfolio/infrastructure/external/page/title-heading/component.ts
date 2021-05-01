@@ -1,4 +1,10 @@
-import { Component, Inject, Input } from "@angular/core"
+import {
+  Component,
+  ContentChild,
+  Inject,
+  Input,
+  TemplateRef,
+} from "@angular/core"
 import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
 import {
@@ -18,13 +24,25 @@ import { map } from "rxjs/operators"
       "
     >
       <h2 *ngIf="pageTitle | async">
+        <ng-container *ngIf="before">
+          <ng-container *ngTemplateOutlet="before"></ng-container>
+        </ng-container>
+
         {{ pageTitle | async }}
+
+        <ng-container *ngIf="after">
+          <ng-container *ngTemplateOutlet="after"></ng-container>
+        </ng-container>
       </h2>
     </ng-container>
   `,
 })
 export class PageTitleHeading {
   @Input() public layout: "landscape" | "portrait" = "landscape"
+  @ContentChild("before", { read: TemplateRef }) public before?: TemplateRef<
+    any
+  >
+  @ContentChild("after", { read: TemplateRef }) public after?: TemplateRef<any>
 
   public isLandscapeLayout = this._deviceWidth.pipe(
     map((deviceWidth) => deviceWidth > 960),

@@ -18,6 +18,7 @@ export function construct(store: AngularFirestore) {
           id: documentPath,
           removedAt: null,
           ...documentData,
+          createdAt: Date.now(),
           updatedAt: Date.now(),
         },
         { merge: !options?.overwrite },

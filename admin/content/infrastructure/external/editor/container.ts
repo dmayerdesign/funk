@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   Inject,
   OnInit,
   ViewChild,
@@ -9,31 +10,46 @@ import { FormControl } from "@angular/forms"
 import { CancelEdit } from "@funk/admin/content/application/external/editor/behaviors/cancel-edit"
 import { GetHasPreview } from "@funk/admin/content/application/external/editor/behaviors/get-has-preview"
 import { GetIsAuthorized } from "@funk/admin/content/application/external/editor/behaviors/get-is-authorized"
+import { GetMaybeActiveContentTitleControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title-control"
 import { GetMaybeActiveContentType } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-type"
 import { GetMaybeActiveContentValueControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-value-control"
 import { PublishAllOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-all-on-confirmation"
+import { PublishOneOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-one-on-confirmation"
 import { RemoveAllPreviewsOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/remove-all-previews-on-confirmation"
 import { SaveAndClearIfEditing } from "@funk/admin/content/application/external/editor/behaviors/save-and-clear-if-editing"
-import { ContentType } from "@funk/admin/content/model/content"
-import { ignoreNullish, shareReplayOnce } from "@funk/helpers/rxjs-shims"
-import { IonTextarea } from "@ionic/angular"
-import { of } from "rxjs"
-import { delay, map, switchMap } from "rxjs/operators"
-import * as ClassicEditor from "ui/plugins/external/lib/rich-text/build/ckeditor"
+import { SaveIfEditing } from "@funk/admin/content/application/external/editor/behaviors/save-if-editing"
 import {
   CANCEL_EDIT,
   GET_HAS_PREVIEW,
   GET_IS_AUTHORIZED,
+  GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL,
   GET_MAYBE_ACTIVE_CONTENT_TYPE,
   GET_MAYBE_ACTIVE_CONTENT_VALUE_CONTROL,
   PUBLISH_ALL_ON_CONFIRMATION,
+  PUBLISH_ONE_ON_CONFIRMATION,
   REMOVE_ALL_PREVIEWS_ON_CONFIRMATION,
   SAVE_AND_CLEAR_IF_EDITING,
-} from "./tokens"
+  SAVE_IF_EDITING,
+} from "@funk/admin/content/infrastructure/external/editor/tokens"
+import { ContentType } from "@funk/admin/content/model/content"
+import { ignoreNullish, shareReplayOnce } from "@funk/helpers/rxjs-shims"
+import { WINDOW } from "@funk/ui/infrastructure/external/tokens"
+import { IonInput } from "@ionic/angular"
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
+import { combineLatest, of } from "rxjs"
+import {
+  debounceTime,
+  delay,
+  filter,
+  map,
+  startWith,
+  switchMap,
+} from "rxjs/operators"
+import * as ClassicEditor from "ui/plugins/external/lib/rich-text/build/ckeditor"
 
 const ANIMATION_DURATION_MS = 500
 
-// TODO: Add UntilDestroyed decorator.
+@UntilDestroy()
 @Component({
   selector: "content-editor",
   template: `
@@ -42,7 +58,8 @@ const ANIMATION_DURATION_MS = 500
       [ngClass]="{
         'has-preview': hasPreview | async,
         'admin-edit-mode-is-on': isActivated | async,
-        'content-drawer-is-open': formControlIsVisible | async
+        'simple-content-drawer-is-open': simpleContentDrawerIsVisible | async,
+        'blog-post-drawer-is-open': blogPostDrawerIsVisible | async
       }"
     >
       <div *ngIf="hasPreview | async" id="has-preview-notice">
@@ -75,34 +92,38 @@ const ANIMATION_DURATION_MS = 500
       </div>
       <ng-content></ng-content>
     </div>
-    <ng-container *ngIf="formControlIsVisible | async">
+    <ng-container *ngIf="simpleContentDrawerIsVisible | async">
       <div
-        id="content-editor-drawer"
+        id="simple-editor-drawer"
+        class="editor-drawer half-height"
         [ngClass]="{
-          'animate-out': !(maybeFormControl | async),
-          'animate-in': maybeFormControl | async
+          'animate-out': !(maybeValueFormControl | async),
+          'animate-in': maybeValueFormControl | async
         }"
         (clickOutside)="cancelEdit()"
-        [exclude]="'.ck-body-wrapper *'"
+        [exclude]="'.ck-body-wrapper *, [role=dialog]'"
         [excludeBeforeClick]="true"
       >
         <ion-card class="card flat flat-with-shadow">
-          <div id="editor-container" *ngIf="formControl">
+          <div id="editor-container" *ngIf="valueFormControl">
             <ckeditor
-              [config]="{ toolbar: editorToolbarConfig | async }"
+              [config]="{
+                toolbar: editorToolbarConfig | async,
+                placeholder: 'Start typing...'
+              }"
               [editor]="editor"
-              [formControl]="formControl"
+              [formControl]="valueFormControl"
             >
             </ckeditor>
           </div>
-          <div id="editor-actions" class="drawer-card-actions">
+          <div id="simple-editor-actions" class="drawer-card-actions">
             <div class="drawer-card-action">
               <ion-button
                 class="button"
                 buttonType="button"
                 color="dark"
                 expand="full"
-                (click)="saveEdit()"
+                (click)="saveAndClearIfEditing()"
               >
                 Save
               </ion-button>
@@ -122,24 +143,126 @@ const ANIMATION_DURATION_MS = 500
         </ion-card>
       </div>
     </ng-container>
+    <ng-container *ngIf="blogPostDrawerIsVisible | async">
+      <div
+        id="blog-post-editor-drawer"
+        class="editor-drawer full-height"
+        [ngClass]="{
+          'animate-out': !(maybeValueFormControl | async),
+          'animate-in': maybeValueFormControl | async
+        }"
+        (clickOutside)="cancelEdit()"
+        [exclude]="'.ck-body-wrapper *, [role=dialog]'"
+        [excludeBeforeClick]="true"
+      >
+        <ion-card class="card flat flat-with-shadow">
+          <div id="blog-post-editor-drawer-inner">
+            <div id="blog-post-editor-top">
+              <div
+                id="blog-post-editor-title-container"
+                *ngIf="titleFormControl"
+              >
+                <ion-input
+                  #blogPostEditorTitleInput
+                  id="blog-post-editor-title-input"
+                  placeholder="Untitled Blog Post"
+                  [formControl]="titleFormControl"
+                ></ion-input>
+              </div>
+            </div>
+            <div id="blog-post-editor-value-container" *ngIf="valueFormControl">
+              <ckeditor
+                [config]="{
+                  toolbar: editorToolbarConfig | async,
+                  placeholder: 'Start typing...'
+                }"
+                [editor]="editor"
+                [formControl]="valueFormControl"
+              >
+              </ckeditor>
+            </div>
+            <div id="blog-post-editor-actions" class="drawer-card-actions">
+              <div class="drawer-card-action">
+                <ion-button
+                  class="publish-button button"
+                  buttonType="button"
+                  size="default"
+                  expand="block"
+                  (click)="publishBlogPost()"
+                >
+                  Publish
+                </ion-button>
+              </div>
+              <div class="drawer-card-action">
+                <ion-button
+                  class="save-and-cancel-button transparent button"
+                  buttonType="button"
+                  size="small"
+                  (click)="saveAndClearIfEditing()"
+                >
+                  Save and Cancel
+                </ion-button>
+              </div>
+            </div>
+          </div>
+          <ion-button
+            id="blog-post-editor-close-button"
+            class="button close-button"
+            (click)="cancelEdit()"
+          >
+            <ion-icon
+              class="icon"
+              lazy="true"
+              slot="icon-only"
+              name="close-outline"
+            ></ion-icon>
+          </ion-button>
+        </ion-card>
+      </div>
+    </ng-container>
   `,
   styleUrls: ["./container.scss"],
   encapsulation: ViewEncapsulation.None,
 })
 export class ContentEditorContainer implements OnInit {
-  @ViewChild("contentValueInput") public contentValueInput!: IonTextarea
-  public maybeFormControl = this._getMaybeActiveContentValueControl()
-  public formControl!: FormControl
-  public hasPreview = this._getHasPreview()
-  public formControlIsVisible = this.maybeFormControl.pipe(
-    switchMap((formControl) =>
-      !formControl
-        ? of(!!formControl).pipe(delay(ANIMATION_DURATION_MS))
-        : of(!!formControl),
+  @ViewChild("blogPostEditorTitleInput")
+  public blogPostEditorTitleInput!: IonInput
+  public maybeValueFormControl = this._getMaybeActiveContentValueControl().pipe(
+    untilDestroyed(this),
+  )
+  public valueFormControl!: FormControl
+  public maybeTitleFormControl = this._getMaybeActiveContentTitleControl().pipe(
+    untilDestroyed(this),
+  )
+  public titleFormControl!: FormControl
+  public hasPreview = this._getHasPreview().pipe(untilDestroyed(this))
+  public simpleContentDrawerIsVisible = this._getMaybeActiveContentType().pipe(
+    // Adding a delay so that `clickOutside` doesn't get confused.
+    delay(10),
+    switchMap((contentType) =>
+      !contentType
+        ? of(false).pipe(delay(ANIMATION_DURATION_MS))
+        : contentType === ContentType.TEXT || contentType === ContentType.HTML
+        ? of(true)
+        : of(false),
     ),
     shareReplayOnce(),
+    untilDestroyed(this),
   )
-  public isActivated = this._getIsAuthorized()
+  public blogPostDrawerIsVisible = this._getMaybeActiveContentType().pipe(
+    // Adding a delay so that `clickOutside` doesn't get confused.
+    delay(10),
+    switchMap((contentType) =>
+      !contentType
+        ? of(false).pipe(delay(ANIMATION_DURATION_MS))
+        : contentType === ContentType.HTML_BLOG_POST
+        ? of(true)
+        : of(false),
+    ),
+    shareReplayOnce(),
+    untilDestroyed(this),
+  )
+  public isActivated = this._getIsAuthorized().pipe(untilDestroyed(this))
   public editorToolbarConfig = this._getMaybeActiveContentType().pipe(
     map((type) => {
       switch (type) {
@@ -149,6 +272,8 @@ export class ContentEditorContainer implements OnInit {
           return this.editorToolbarConfigForHtml
       }
     }),
+    shareReplayOnce(),
+    untilDestroyed(this),
   )
 
   public readonly editor = ClassicEditor
@@ -185,8 +310,11 @@ export class ContentEditorContainer implements OnInit {
   }
 
   public constructor(
+    @Inject(SAVE_IF_EDITING)
+    public saveIfEditing: SaveIfEditing,
+
     @Inject(SAVE_AND_CLEAR_IF_EDITING)
-    private _saveAndClearIfEditing: SaveAndClearIfEditing,
+    public saveAndClearIfEditing: SaveAndClearIfEditing,
 
     @Inject(CANCEL_EDIT)
     private _cancelEdit: CancelEdit,
@@ -208,16 +336,32 @@ export class ContentEditorContainer implements OnInit {
 
     @Inject(GET_MAYBE_ACTIVE_CONTENT_TYPE)
     private _getMaybeActiveContentType: GetMaybeActiveContentType,
+
+    @Inject(GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL)
+    private _getMaybeActiveContentTitleControl: GetMaybeActiveContentTitleControl,
+
+    @Inject(PUBLISH_ONE_ON_CONFIRMATION)
+    private _publishOneOnConfirmation: PublishOneOnConfirmation,
+
+    @Inject(WINDOW)
+    private _window: Window,
+
+    private _elementRef: ElementRef,
   ) {}
 
   public ngOnInit(): void {
-    this.maybeFormControl
+    this.maybeValueFormControl
       .pipe(ignoreNullish())
-      .subscribe((formControl) => (this.formControl = formControl))
-  }
-
-  public async saveEdit(): Promise<void> {
-    await this._saveAndClearIfEditing()
+      .subscribe((formControl) => {
+        this.valueFormControl = formControl
+      })
+    this.maybeTitleFormControl
+      .pipe(ignoreNullish())
+      .subscribe((formControl) => {
+        this.titleFormControl = formControl
+      })
+    this._setUpAutoSave()
+    this._setUpFocusTitleOnOpen()
   }
 
   public async cancelEdit(): Promise<void> {
@@ -225,11 +369,72 @@ export class ContentEditorContainer implements OnInit {
   }
 
   public async maybeSaveAndPublish(): Promise<void> {
-    await this.saveEdit()
+    await this.saveAndClearIfEditing()
     await this._publishAllOnConfirmation()
   }
 
   public async discardChanges(): Promise<void> {
     await this._removeAllPreviewsOnConfirmation()
+  }
+
+  public async publishBlogPost(): Promise<void> {
+    const published = await this._publishOneOnConfirmation()
+    if (published) {
+      this._window.location.reload()
+    } else {
+      this._cancelEdit()
+    }
+  }
+
+  private _setUpAutoSave(): void {
+    combineLatest([
+      this.maybeTitleFormControl.pipe(
+        ignoreNullish(),
+        switchMap((formControl) => formControl.valueChanges),
+        startWith(undefined),
+      ),
+      this.maybeValueFormControl.pipe(
+        ignoreNullish(),
+        switchMap((formControl) => formControl.valueChanges),
+        startWith(undefined),
+      ),
+    ])
+      .pipe(
+        untilDestroyed(this),
+        filter(
+          ([contentTitle, contentValue]) =>
+            contentTitle !== undefined || contentValue !== undefined,
+        ),
+        debounceTime(1000),
+        switchMap(() => this.saveIfEditing()),
+      )
+      .subscribe()
+  }
+
+  private _setUpFocusTitleOnOpen(): void {
+    combineLatest([this.maybeTitleFormControl, this.maybeValueFormControl])
+      .pipe(
+        filter(
+          ([maybeTitleFormControl, maybeValueFormControl]) =>
+            !!maybeTitleFormControl && !!maybeValueFormControl,
+        ),
+        delay(ANIMATION_DURATION_MS),
+        untilDestroyed(this),
+      )
+      .subscribe(([maybeTitleFormControl, maybeValueFormControl]) => {
+        console.log(maybeTitleFormControl?.value, maybeValueFormControl?.value)
+        try {
+          if (!!maybeTitleFormControl?.value?.length) {
+            const editorInput = this._elementRef.nativeElement.querySelector(
+              "[contenteditable]",
+            ) as HTMLInputElement
+            editorInput.focus()
+          } else if (!!maybeValueFormControl) {
+            this.blogPostEditorTitleInput.setFocus()
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      })
   }
 }

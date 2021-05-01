@@ -6,7 +6,7 @@ import { map } from "rxjs/operators"
 export function construct(getMaybeActiveContent: GetMaybeActiveContent) {
   const maybeActiveContentValueControl = getMaybeActiveContent().pipe(
     maybePluck("value"),
-    map((value) => (value ? new FormControl(value) : undefined)),
+    map((value) => (value != null ? new FormControl(value) : undefined)),
     shareReplayOnce(),
   )
   maybeActiveContentValueControl.subscribe()

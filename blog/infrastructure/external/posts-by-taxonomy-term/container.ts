@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from "@angular/core"
-import { Content } from "@funk/admin/content/model/content"
+import { ContentHtmlBlogPost } from "@funk/admin/content/model/content"
 import { ListHtmlBlogPosts } from "@funk/blog/infrastructure/external/cloud-functions/list-html-blog-posts"
 import { LIST_HTML_BLOG_POSTS } from "@funk/blog/infrastructure/external/tokens"
 import { DEFAULT_PAGINATION } from "@funk/persistence/model/pagination"
@@ -40,17 +40,21 @@ import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"
 })
 export class BlogPostsByTaxonomyTermContainer implements OnInit {
   @Input() public taxonomyTerm!: TaxonomyTerm
-  public posts!: Promise<Content[]>
+  public posts!: Promise<ContentHtmlBlogPost[]>
 
   public constructor(
     @Inject(LIST_HTML_BLOG_POSTS)
     private _listHtmlBlogPosts: ListHtmlBlogPosts,
   ) {}
 
-  public ngOnInit(): void {
+  public loadPosts(): void {
     this.posts = this._listHtmlBlogPosts({
       pagination: DEFAULT_PAGINATION,
       conditions: [["taxonomyTerms", "array-contains", this.taxonomyTerm.id]],
     })
+  }
+
+  public ngOnInit(): void {
+    this.loadPosts()
   }
 }

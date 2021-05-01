@@ -5,6 +5,8 @@ import { GetIsAuthorized } from "@funk/admin/content/application/external/editor
 import { GetIsSaving } from "@funk/admin/content/application/external/editor/behaviors/get-is-saving"
 import { GetMaybeActiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content"
 import { GetMaybeActiveContentId } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-id"
+import { GetMaybeActiveContentTitle } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title"
+import { GetMaybeActiveContentTitleControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title-control"
 import { GetMaybeActiveContentType } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-type"
 import { GetMaybeActiveContentValue } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-value"
 import { GetMaybeActiveContentValueControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-value-control"
@@ -12,16 +14,19 @@ import { GetMaybeContentPreviews } from "@funk/admin/content/application/externa
 import { GetMaybePreviewOrLiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-preview-or-live-content"
 import { GetPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/get-publish-conflicts"
 import { OpenEditor } from "@funk/admin/content/application/external/editor/behaviors/open-editor"
-import { PublishAll } from "@funk/admin/content/application/external/editor/behaviors/publish-all"
+import { OpenHtmlBlogPostEditor } from "@funk/admin/content/application/external/editor/behaviors/open-html-blog-post-editor"
 import { PublishAllOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-all-on-confirmation"
+import { PublishAllOrReportConflicts } from "@funk/admin/content/application/external/editor/behaviors/publish-all-or-report-conflicts"
 import { PublishAndDeleteContentPreview } from "@funk/admin/content/application/external/editor/behaviors/publish-and-delete-content-preview"
-import { PublishOne } from "@funk/admin/content/application/external/editor/behaviors/publish-one"
-import { PublishOrReportConflict } from "@funk/admin/content/application/external/editor/behaviors/publish-or-report-conflict"
+import { PublishOneOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-one-on-confirmation"
+import { PublishOneOrReportConflict } from "@funk/admin/content/application/external/editor/behaviors/publish-one-or-report-conflict"
+import { PublishOneOverride } from "@funk/admin/content/application/external/editor/behaviors/publish-one-override"
 import { RemoveAllPreviews } from "@funk/admin/content/application/external/editor/behaviors/remove-all-previews"
 import { RemoveAllPreviewsOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/remove-all-previews-on-confirmation"
 import { RemoveFromPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/remove-from-publish-conflicts"
 import { RemovePreview } from "@funk/admin/content/application/external/editor/behaviors/remove-preview"
 import { SaveAndClearIfEditing } from "@funk/admin/content/application/external/editor/behaviors/save-and-clear-if-editing"
+import { SaveIfEditing } from "@funk/admin/content/application/external/editor/behaviors/save-if-editing"
 
 export const CANCEL_EDIT = new InjectionToken<CancelEdit>("CANCEL_EDIT")
 export const GET_HAS_PREVIEW = new InjectionToken<GetHasPreview>(
@@ -43,6 +48,12 @@ export const GET_MAYBE_ACTIVE_CONTENT_VALUE_CONTROL = new InjectionToken<
 export const GET_MAYBE_ACTIVE_CONTENT_VALUE = new InjectionToken<
   GetMaybeActiveContentValue
 >("GET_MAYBE_ACTIVE_CONTENT_VALUE")
+export const GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL = new InjectionToken<
+  GetMaybeActiveContentTitleControl
+>("GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL")
+export const GET_MAYBE_ACTIVE_CONTENT_TITLE = new InjectionToken<
+  GetMaybeActiveContentTitle
+>("GET_MAYBE_ACTIVE_CONTENT_TITLE")
 export const GET_MAYBE_ACTIVE_CONTENT = new InjectionToken<
   GetMaybeActiveContent
 >("GET_MAYBE_ACTIVE_CONTENT")
@@ -56,17 +67,27 @@ export const GET_PUBLISH_CONFLICTS = new InjectionToken<GetPublishConflicts>(
   "GET_PUBLISH_CONFLICTS",
 )
 export const OPEN_EDITOR = new InjectionToken<OpenEditor>("OPEN_EDITOR")
-export const PUBLISH_ALL = new InjectionToken<PublishAll>("PUBLISH_ALL")
+export const OPEN_HTML_BLOG_POST_EDITOR = new InjectionToken<
+  OpenHtmlBlogPostEditor
+>("OPEN_HTML_BLOG_POST_EDITOR")
+export const PUBLISH_ALL_OR_REPORT_CONFLICTS = new InjectionToken<
+  PublishAllOrReportConflicts
+>("PUBLISH_ALL_OR_REPORT_CONFLICTS")
 export const PUBLISH_ALL_ON_CONFIRMATION = new InjectionToken<
   PublishAllOnConfirmation
 >("PUBLISH_ALL_ON_CONFIRMATION")
+export const PUBLISH_ONE_ON_CONFIRMATION = new InjectionToken<
+  PublishOneOnConfirmation
+>("PUBLISH_ONE_ON_CONFIRMATION")
 export const PUBLISH_AND_DELETE_CONTENT_PREVIEW = new InjectionToken<
   PublishAndDeleteContentPreview
 >("PUBLISH_AND_DELETE_CONTENT_PREVIEW")
-export const PUBLISH_ONE = new InjectionToken<PublishOne>("PUBLISH_ONE")
-export const PUBLISH_OR_REPORT_CONFLICT = new InjectionToken<
-  PublishOrReportConflict
->("PUBLISH_OR_REPORT_CONFLICT")
+export const PUBLISH_ONE_OVERRIDE = new InjectionToken<PublishOneOverride>(
+  "PUBLISH_ONE",
+)
+export const PUBLISH_ONE_OR_REPORT_CONFLICT = new InjectionToken<
+  PublishOneOrReportConflict
+>("PUBLISH_ONE_OR_REPORT_CONFLICT")
 export const REMOVE_ALL_PREVIEWS_ON_CONFIRMATION = new InjectionToken<
   RemoveAllPreviewsOnConfirmation
 >("REMOVE_ALL_PREVIEWS_ON_CONFIRMATION")
@@ -78,6 +99,9 @@ export const REMOVE_FROM_PUBLISH_CONFLICTS = new InjectionToken<
 >("REMOVE_FROM_PUBLISH_CONFLICTS")
 export const REMOVE_PREVIEW = new InjectionToken<RemovePreview>(
   "REMOVE_PREVIEW",
+)
+export const SAVE_IF_EDITING = new InjectionToken<SaveIfEditing>(
+  "SAVE_IF_EDITING",
 )
 export const SAVE_AND_CLEAR_IF_EDITING = new InjectionToken<
   SaveAndClearIfEditing

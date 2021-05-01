@@ -21,6 +21,7 @@ export function construct(store: typeof storeImpl) {
           id: documentPath,
           removedAt: null,
           ...documentData,
+          createdAt: Date.now(),
           updatedAt: Date.now(),
         },
         { merge: !options?.overwrite },

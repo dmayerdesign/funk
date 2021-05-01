@@ -3,7 +3,7 @@ import { maybePluck, shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { UserContent$ as UserContentChanges } from "@funk/identity/application/external/user-content"
 import { Populate as PopulateUserContent } from "@funk/identity/user-content/application/external/behaviors/persistence/populate"
 import { Observable } from "rxjs"
-import { map, switchMap } from "rxjs/operators"
+import { switchMap } from "rxjs/operators"
 
 export function construct(
   populate: PopulateUserContent,
@@ -15,11 +15,12 @@ export function construct(
     shareReplayOnce(),
   )
   contentPreviewsChanges.subscribe()
+
   return function (
     documentPath: string,
   ): Observable<ContentPreview | undefined> {
     const contentPreviewChanges = contentPreviewsChanges.pipe(
-      map((contentPreviews) => contentPreviews?.[documentPath]),
+      maybePluck(documentPath),
       shareReplayOnce(),
     )
     contentPreviewChanges.subscribe()

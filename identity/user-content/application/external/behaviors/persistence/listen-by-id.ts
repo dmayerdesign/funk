@@ -1,3 +1,4 @@
+import { shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { UserContent, USER_CONTENTS } from "@funk/identity/model/user-content"
 import { Populate } from "@funk/identity/user-content/application/external/behaviors/persistence/populate"
 import { ListenById as GenericListenById } from "@funk/persistence/application/external/behaviors/listen-by-id"
@@ -9,7 +10,7 @@ export function construct(listenById: GenericListenById, populate: Populate) {
     const userContentChanges = listenById<UserContent>(
       USER_CONTENTS,
       documentPath,
-    ).pipe(switchMap(populate))
+    ).pipe(switchMap(populate), shareReplayOnce())
     userContentChanges.subscribe()
     return userContentChanges
   }

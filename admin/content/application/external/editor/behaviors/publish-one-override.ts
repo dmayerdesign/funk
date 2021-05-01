@@ -24,4 +24,4 @@ export function construct(
   }
 }
 
-export type PublishOne = ReturnType<typeof construct>
+export type PublishOneOverride = ReturnType<typeof construct>

@@ -19,9 +19,9 @@ import { map, switchMap } from "rxjs/operators"
   selector: "product-list-container",
   template: `
     <product-list
-      [products]="products | async"
-      [filters]="filters | async"
-      [pagination]="pagination | async"
+      [products]="products | asyncNotNull"
+      [filters]="filters | asyncNotNull"
+      [pagination]="pagination | asyncNotNull"
       (filtersChange)="handleFiltersChange($event)"
       (paginationChange)="handlePaginationChange($event)"
     >
@@ -50,12 +50,12 @@ export class ProductListContainer {
   ]).pipe(
     switchMap(async ([conditions, pagination]) => {
       const loading = await this._loadingController.create({
-        id: "PRODUCTS_LOADING",
+        id: "products-loading",
       })
       loading.present()
       const products = await this._listPublished({ pagination, conditions })
       console.log("[funk] PRODUCTS:", products)
-      await this._loadingController.dismiss("PRODUCTS_LOADING")
+      await this._loadingController.dismiss("products-loading")
       return products
     }),
     shareReplayOnce(),

@@ -3,7 +3,7 @@ import { TaxonomyTerm } from "./taxonomy-term"
 export function createFakeTaxonomyTerm({
   id = "fake taxonomy term id",
   taxonomyId = "fake taxonomy id",
-}): TaxonomyTerm {
+} = {}): TaxonomyTerm {
   return {
     id,
     slug: id,

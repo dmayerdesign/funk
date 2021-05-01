@@ -1,45 +1,40 @@
 @import "ui/visual/infrastructure/external/styles/themes/default/variables";
 
 $animation-duration: 500ms;
-$drawer-height: 60vh;
 $has-preview-notice-height: 32px;
 
-@mixin animate-in-out($height: $drawer-height) {
-  @keyframes animate-in {
+@mixin animate-in-out($height-vh) {
+  @keyframes animate-in-#{$height-vh} {
     from {
-      transform: translateY($height);
+      transform: translateY(#{$height-vh}vh);
     }
     to {
       transform: translateY(0);
     }
   }
-  @keyframes animate-out {
+  @keyframes animate-out-#{$height-vh} {
     from {
       transform: translateY(0);
     }
     to {
-      transform: translateY($height);
+      transform: translateY(#{$height-vh}vh);
     }
   }
-
-  .animate-in,
-  .animate-out {
+  &.animate-in,
+  &.animate-out {
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
   }
-
-  .animate-in {
-    animation: animate-in $animation-duration cubic-bezier(0, 0.6, 0.2, 1);
+  &.animate-in {
+    animation: animate-in-#{$height-vh} $animation-duration cubic-bezier(0, 0.6, 0.2, 1);
   }
-  .animate-out {
-    animation: animate-out $animation-duration cubic-bezier(0.3, 0.8, 0.3, 1);
-    transform: translateY($height);
+  &.animate-out {
+    animation: animate-out-#{$height-vh} $animation-duration cubic-bezier(0.3, 0.8, 0.3, 1);
+    transform: translateY(#{$height-vh}vh);
   }
 }
-
-@include animate-in-out($drawer-height);
 
 #content-editor-wrapper {
   &.has-preview {
@@ -117,19 +112,27 @@ $has-preview-notice-height: 32px;
   }
 }
 
-#content-editor-drawer {
+.editor-drawer {
   $actions-height: 50px;
+  $simple-drawer-input-height-offset: $actions-height + 30px;
+  $blog-post-editor-title-input-font-size: 34px;
+  $blog-post-editor-title-input-height: 50px;
+  $blog-post-title-padding-top: 10px;
+  $blog-post-title-padding-bottom: 15px;
+  $blog-post-drawer-input-height-offset: $actions-height + 167px;
 
   .card {
+    position: relative;
     background: #fff;
     margin: 0;
     padding: 15px 30px;
   }
 
-  #editor-container {
+  #editor-container,
+  #blog-post-editor-value-container {
     .ck-editor__main > .ck-content {
       border: none !important;
-      height: calc(50vh - #{$actions-height});
+      padding: 0;
     }
     .ck-focused {
       border: none !important;
@@ -146,15 +149,93 @@ $has-preview-notice-height: 32px;
     }
   }
 
-  #editor-actions {
+  #blog-post-editor-value-container {
+    .ck-toolbar {
+      padding: 0;
+    }
+    .ck-editor__top {
+      padding-top: 15px;
+    }
+    .ck-editor__main {
+      padding-top: 10px;
+    }
+  }
+
+  &#blog-post-editor-drawer.full-height {
+    @include animate-in-out(100);
+    .ck-editor__main > .ck-content {
+      height: calc(100vh - #{$blog-post-drawer-input-height-offset});
+    }
+  }
+  &#simple-editor-drawer.half-height {
+    @include animate-in-out(50);
+    .ck-editor__main > .ck-content {
+      height: calc(50vh - #{$simple-drawer-input-height-offset});
+    }
+  }
+
+  &#blog-post-editor-drawer {
+    .card {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  #blog-post-editor-drawer-inner {
+    max-width: 600px;
+  }
+
+  #blog-post-editor-top {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #blog-post-editor-title-container {
+    flex-grow: 1;
+    height: $blog-post-editor-title-input-height + $blog-post-title-padding-top +
+      $blog-post-title-padding-bottom;
+    padding-top: $blog-post-title-padding-top;
+    padding-bottom: $blog-post-title-padding-bottom;
+    padding-right: 30px;
+    font-size: $blog-post-editor-title-input-font-size;
+  }
+  #blog-post-editor-close-button {
+    --background: transparent;
+    --box-shadow: none;
+    --ripple-color: transparent;
+    --color: $color-dark;
+    --padding-start: 5px;
+    --padding-end: 5px;
+    font-size: 24px;
+
+    position: absolute;
+    top: 30px;
+    right: 30px;
+  }
+
+  #blog-post-editor-value-container {
+    padding-left: 10px;
+  }
+
+  #simple-editor-actions,
+  #blog-post-editor-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     background: #fff;
     height: $actions-height;
 
     .drawer-card-action {
-      min-width: 100px;
       margin-right: 10px;
-      perspective: 200px;
+    }
+  }
+
+  #blog-post-editor-actions {
+    .publish-button {
+      --background: #{$color-tertiary};
+      --color: #fff;
+    }
+    .save-and-cancel-button {
+      --color: #{$color-dark};
     }
   }
 }

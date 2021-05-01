@@ -9,7 +9,7 @@ Feature: Blog posts
       When Paul visits any page
       Then Paul is able to add a post category
 
-  Rule: An admin can add a blog post.
+  Rule: An admin can write a blog post.
 
     Example: Paul intends to add a blog post.
 
@@ -24,6 +24,8 @@ Feature: Blog posts
       When Paul begins to write a blog post
       Then the blog post is saved
       And the blog post has the taxonomy term "blog-posts"
+
+  Rule: An admin can publish a blog post.
 
     Example: Paul publishes a blog post.
 

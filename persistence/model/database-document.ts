@@ -12,9 +12,9 @@ export interface DocumentData {
   [field: string]: any
 }
 
-export type DbDocumentInput<DocumentType extends DatabaseDocument> = Omit<
+export type DbDocumentInput<DocumentType = DatabaseDocument> = Omit<
   DocumentType,
-  "id"
+  "id" | "createdAt" | "updatedAt" | "removedAt"
 >
 
 export interface DbDocumentMetadata {
@@ -31,9 +31,9 @@ export interface UpdatedAt {
 }
 
 export interface RemovedAt {
-  removedAt: Instant
+  removedAt: Instant | null
 }
 
 export interface RemovableDatabaseDocument extends DatabaseDocument {
-  removedAt?: Instant
+  removedAt?: Instant | null
 }

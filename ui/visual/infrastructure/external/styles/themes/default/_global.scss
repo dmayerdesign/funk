@@ -168,3 +168,17 @@
 ion-toolbar.max-width-container {
   max-width: #{$content-max-width-px + 32}px;
 }
+
+// Portfolio Blog.
+post-category page-title-heading h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Buttons.
+.button.transparent {
+  --background: transparent !important;
+  --box-shadow: none !important;
+  --ripple-color: transparent !important;
+}
