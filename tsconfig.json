@@ -27,6 +27,7 @@
       "es2020.symbol.wellknown"
     ],
     "strict": true,
+    "allowJs": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "baseUrl": ".",
@@ -37,6 +38,6 @@
       "@funk/*": ["./*"]
     }
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts", "./*.js", ".*.js", "./build-pipeline/package-scripts/*.js"],
   "exclude": ["./node_modules/**/*"]
 }
