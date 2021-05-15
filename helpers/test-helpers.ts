@@ -19,4 +19,4 @@ export const createDefaultApp = () =>
   }) as firebase.app.App
 export const createAdminApp = () =>
   // Cast to `unknown` due to mismatch in type version of `ThenableReference` in `firebase`.
-  initializeAdminApp({ projectId: projectId }) as firebase.app.App
+  (initializeAdminApp({ projectId: projectId }) as unknown) as firebase.app.App
