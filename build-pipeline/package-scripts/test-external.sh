@@ -2,7 +2,7 @@ if [ $? -eq 0 ]; then sh ts-node.sh ./build-pipeline/package-scripts/prebuild.ts
 if [ $? -eq 0 ]; then sh ts-node.sh ./build-pipeline/package-scripts/external-prebuild.ts -c "development"; else (exit 1); fi
 
 TEST_FILENAME_OR_ALL_REGEX="${@:-'.'}"
-TEST_FILENAME_OR_ALL_GLOB="${@:-'**/*'}"
+TEST_FILENAME_OR_ALL_GLOB="${@:-}"
 
 if [ $? -eq 0 ]; then
   jest \
@@ -14,7 +14,7 @@ if [ $? -eq 0 ]; then
     "$TEST_FILENAME_OR_ALL_REGEX"
 
   node_modules/.bin/concurrently \
-    "node_modules/.bin/wait-on http://localhost:8100; node_modules/.bin/cypress run --headless --spec \"**/$TEST_FILENAME_OR_ALL_GLOB\"" \
+    "node_modules/.bin/wait-on http://localhost:8100; node_modules/.bin/cypress run --headless --spec \"**/\"$TEST_FILENAME_OR_ALL_GLOB\"\"" \
     "npm run external::develop::integration-test" \
     --success first \
     --kill-others

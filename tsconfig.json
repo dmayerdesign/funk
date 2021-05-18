@@ -38,6 +38,11 @@
       "@funk/*": ["./*"]
     }
   },
-  "include": ["./**/*.ts", "./*.js", ".*.js", "./build-pipeline/package-scripts/*.js"],
+  "include": [
+    "./**/*.ts",
+    "./*.js",
+    ".*.js",
+    "./build-pipeline/package-scripts/*.js"
+  ],
   "exclude": ["./node_modules/**/*"]
 }

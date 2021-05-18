@@ -122,9 +122,9 @@ export default function (data: ${interfaceName}): string[] | false
             validator2Filename,
             `/* eslint-disable max-len */
 import { InvalidInputError } from "@funk/error/model/invalid-input-error"
-import { ${interfaceName} } from "@funk${
-              filename.split(ROOT_DIR_ABSOLUTE_PATH)[1]
-            }"
+import { ${interfaceName} } from "@funk${filename
+              .split(ROOT_DIR_ABSOLUTE_PATH)[1]
+              .replace(/\.ts$/, "")}"
 import isInvalid from "@funk${modelDirname.split(ROOT_DIR_ABSOLUTE_PATH)[1]}` +
               `/validators/${kebabCase(interfaceName)}-is-invalid"
 

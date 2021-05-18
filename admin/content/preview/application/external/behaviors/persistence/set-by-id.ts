@@ -1,4 +1,5 @@
 import { ContentPreview } from "@funk/admin/content/model/content-preview"
+import { InvalidStateError } from "@funk/error/model/invalid-state-error"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserContent$ as UserContentChanges } from "@funk/identity/application/external/user-content"
 import { UserContent, USER_CONTENTS } from "@funk/identity/model/user-content"
@@ -19,6 +20,12 @@ export function construct(
     const userContent = await asPromise(userContentChanges)
     const userContentId = userContent?.id
     const contentPreviews = userContent?.contentPreviews ?? {}
+
+    if (userContent === undefined) {
+      throw new InvalidStateError(
+        "Cannot set a content preview if no user contents exist.",
+      )
+    }
 
     if (!contentPreviews[documentPath] || options?.overwrite) {
       contentPreviews[documentPath] = {

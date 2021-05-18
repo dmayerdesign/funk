@@ -237,5 +237,8 @@ $has-preview-notice-height: 32px;
     .save-and-cancel-button {
       --color: #{$color-dark};
     }
+    .discard-button {
+      --color: #{$color-danger};
+    }
   }
 }

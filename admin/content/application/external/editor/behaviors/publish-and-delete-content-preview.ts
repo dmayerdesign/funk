@@ -10,7 +10,9 @@ export function construct(
 ) {
   return async function (person: Person, contentId: string): Promise<void> {
     const contentPreviews = await getMaybeContentPreviews(person)
-    await setById(contentId, contentPreviews![contentId].content)
+    const contentPreviewToPublish = contentPreviews![contentId].content
+
+    await setById(contentId, contentPreviewToPublish)
     await deleteById(contentId)
   }
 }

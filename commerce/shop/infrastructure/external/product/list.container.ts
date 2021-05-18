@@ -53,10 +53,14 @@ export class ProductListContainer {
         id: "products-loading",
       })
       loading.present()
-      const products = await this._listPublished({ pagination, conditions })
-      console.log("[funk] PRODUCTS:", products)
-      await this._loadingController.dismiss("products-loading")
-      return products
+      try {
+        const products = await this._listPublished({ pagination, conditions })
+        await this._loadingController.dismiss("products-loading")
+        return products
+      } catch {
+        await this._loadingController.dismiss("products-loading")
+      }
+      return []
     }),
     shareReplayOnce(),
   )

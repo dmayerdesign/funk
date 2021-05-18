@@ -40,6 +40,7 @@ import { combineLatest, of } from "rxjs"
 import {
   debounceTime,
   delay,
+  distinctUntilChanged,
   filter,
   map,
   startWith,
@@ -151,9 +152,6 @@ const ANIMATION_DURATION_MS = 500
           'animate-out': !(maybeValueFormControl | async),
           'animate-in': maybeValueFormControl | async
         }"
-        (clickOutside)="cancelEdit()"
-        [exclude]="'.ck-body-wrapper *, [role=dialog]'"
-        [excludeBeforeClick]="true"
       >
         <ion-card class="card flat flat-with-shadow">
           <div id="blog-post-editor-drawer-inner">
@@ -184,10 +182,12 @@ const ANIMATION_DURATION_MS = 500
             <div id="blog-post-editor-actions" class="drawer-card-actions">
               <div class="drawer-card-action">
                 <ion-button
+                  id="blog-post-editor-publish"
                   class="publish-button button"
                   buttonType="button"
                   size="default"
                   expand="block"
+                  [disabled]="!valueFormControl.value"
                   (click)="publishBlogPost()"
                 >
                   Publish
@@ -195,12 +195,13 @@ const ANIMATION_DURATION_MS = 500
               </div>
               <div class="drawer-card-action">
                 <ion-button
+                  id="blog-post-editor-save-and-close"
                   class="save-and-cancel-button transparent button"
                   buttonType="button"
                   size="small"
                   (click)="saveAndClearIfEditing()"
                 >
-                  Save and Cancel
+                  Save and Close
                 </ion-button>
               </div>
             </div>
@@ -208,7 +209,7 @@ const ANIMATION_DURATION_MS = 500
           <ion-button
             id="blog-post-editor-close-button"
             class="button close-button"
-            (click)="cancelEdit()"
+            (click)="saveAndClearIfEditing()"
           >
             <ion-icon
               class="icon"
@@ -263,7 +264,8 @@ export class ContentEditorContainer implements OnInit {
     untilDestroyed(this),
   )
   public isActivated = this._getIsAuthorized().pipe(untilDestroyed(this))
-  public editorToolbarConfig = this._getMaybeActiveContentType().pipe(
+
+  public readonly editorToolbarConfig = this._getMaybeActiveContentType().pipe(
     map((type) => {
       switch (type) {
         case ContentType.TEXT:
@@ -275,7 +277,6 @@ export class ContentEditorContainer implements OnInit {
     shareReplayOnce(),
     untilDestroyed(this),
   )
-
   public readonly editor = ClassicEditor
   public readonly editorToolbarConfigForPlaintext: { items: string[] } = {
     items: [],
@@ -360,12 +361,14 @@ export class ContentEditorContainer implements OnInit {
       .subscribe((formControl) => {
         this.titleFormControl = formControl
       })
-    this._setUpAutoSave()
+    this._setUpAutoSaveForBlogPosts()
     this._setUpFocusTitleOnOpen()
   }
 
-  public async cancelEdit(): Promise<void> {
-    this._cancelEdit()
+  public cancelEdit(): void {
+    this.saveIfEditing().then(() => {
+      this._cancelEdit()
+    })
   }
 
   public async maybeSaveAndPublish(): Promise<void> {
@@ -386,24 +389,28 @@ export class ContentEditorContainer implements OnInit {
     }
   }
 
-  private _setUpAutoSave(): void {
+  private _setUpAutoSaveForBlogPosts(): void {
     combineLatest([
+      this._getMaybeActiveContentType().pipe(startWith(undefined)),
       this.maybeTitleFormControl.pipe(
         ignoreNullish(),
         switchMap((formControl) => formControl.valueChanges),
         startWith(undefined),
+        distinctUntilChanged(),
       ),
       this.maybeValueFormControl.pipe(
         ignoreNullish(),
         switchMap((formControl) => formControl.valueChanges),
         startWith(undefined),
+        distinctUntilChanged(),
       ),
     ])
       .pipe(
         untilDestroyed(this),
         filter(
-          ([contentTitle, contentValue]) =>
-            contentTitle !== undefined || contentValue !== undefined,
+          ([contentType, contentTitle, contentValue]) =>
+            contentType === ContentType.HTML_BLOG_POST &&
+            (contentTitle !== undefined || contentValue !== undefined),
         ),
         debounceTime(1000),
         switchMap(() => this.saveIfEditing()),
@@ -422,13 +429,9 @@ export class ContentEditorContainer implements OnInit {
         untilDestroyed(this),
       )
       .subscribe(([maybeTitleFormControl, maybeValueFormControl]) => {
-        console.log(maybeTitleFormControl?.value, maybeValueFormControl?.value)
         try {
           if (!!maybeTitleFormControl?.value?.length) {
-            const editorInput = this._elementRef.nativeElement.querySelector(
-              "[contenteditable]",
-            ) as HTMLInputElement
-            editorInput.focus()
+            this._getMaybeEditorInputElement()?.focus()
           } else if (!!maybeValueFormControl) {
             this.blogPostEditorTitleInput.setFocus()
           }
@@ -436,5 +439,11 @@ export class ContentEditorContainer implements OnInit {
           console.error(error)
         }
       })
+  }
+
+  private _getMaybeEditorInputElement(): HTMLInputElement | undefined {
+    const getElement = (): HTMLInputElement | null =>
+      this._elementRef.nativeElement.querySelector("[contenteditable]")
+    return getElement() ?? undefined
   }
 }

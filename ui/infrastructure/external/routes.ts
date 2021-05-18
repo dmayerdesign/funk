@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router"
 import { HOMEPAGE } from "@funk/configuration"
 import { AnonymousGuard } from "@funk/identity/infrastructure/external/anonymous-guard"
+import { CAN_LOAD_INTEGRATION_TEST } from "@funk/ui/infrastructure/external/tokens"
 import { NotFoundComponent } from "@funk/ui/not-found/infrastructure/external/component"
 
 const routes: Routes = [
@@ -53,6 +54,14 @@ const routes: Routes = [
       import("@funk/portfolio/infrastructure/external/module").then(
         (mod) => mod.PortfolioModule,
       ),
+  },
+  {
+    path: "test-data-visualizer",
+    loadChildren: () =>
+      import("@funk/test/infrastructure/external/data-visualizer/module").then(
+        (mod) => mod.TestDataVisualizerModule,
+      ),
+    canLoad: [CAN_LOAD_INTEGRATION_TEST],
   },
   {
     path: "**",

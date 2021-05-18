@@ -8,6 +8,7 @@ import { Configuration } from "@funk/configuration/model/configuration"
 import { IdentityModule } from "@funk/identity/infrastructure/external/module"
 import { OrganizationPersistenceModule } from "@funk/organization/infrastructure/external/persistence/module"
 import { PersistenceModule } from "@funk/persistence/infrastructure/external/module"
+import { CanLoadIntegrationTest } from "@funk/test/infrastructure/external/can-load-integration-test"
 import { construct as constructPageTitle } from "@funk/ui/atlas/application/external/page-title"
 import { AtlasModule } from "@funk/ui/atlas/infrastructure/external/module"
 import { AppCommonModule } from "@funk/ui/infrastructure/external/common.module"
@@ -17,6 +18,7 @@ import { AppFireModule } from "@funk/ui/infrastructure/external/fire.module"
 import { FunctionsModule } from "@funk/ui/infrastructure/external/functions.module"
 import routes from "@funk/ui/infrastructure/external/routes"
 import {
+  CAN_LOAD_INTEGRATION_TEST,
   DEVICE_WIDTH,
   PAGE_TITLE,
   WINDOW,
@@ -31,7 +33,7 @@ import { IonicStorageModule } from "@ionic/storage"
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: "serverApp" }),
-    RouterModule.forRoot(routes, { relativeLinkResolution: "legacy" }),
+    RouterModule.forRoot(routes),
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register("ngsw-worker.js", {
@@ -70,6 +72,10 @@ import { IonicStorageModule } from "@ionic/storage"
       provide: PAGE_TITLE,
       useFactory: constructPageTitle,
       deps: [Router],
+    },
+    {
+      provide: CAN_LOAD_INTEGRATION_TEST,
+      useClass: CanLoadIntegrationTest,
     },
   ],
   bootstrap: [AppComponent],

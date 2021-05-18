@@ -5,6 +5,7 @@ import { ForbiddenError } from "@funk/error/model/forbidden-error"
 import { asPromise } from "@funk/helpers/as-promise"
 import { UserSession } from "@funk/identity/application/external/user-session"
 import { AlertController } from "@ionic/angular"
+import { timer } from "rxjs"
 
 export function construct(
   userSession: UserSession,
@@ -24,8 +25,7 @@ export function construct(
     return await new Promise((resolve) => {
       // Do nothing if the user does not confirm.
       const CONFIRM_MESSAGE =
-        "You're about to publish (make visible to the public) this blog post. " +
-        "This can't be undone."
+        "You're about to publish this blog post, meaning it will be visible to the public."
       alert
         .create({
           header: "Are you sure?",
@@ -33,8 +33,11 @@ export function construct(
           buttons: [
             {
               text: "Keep working",
+              role: "cancel",
               handler: async () => {
                 await alert.dismiss()
+                // Wait for the dialog to close.
+                await asPromise(timer(200))
                 resolve(false)
               },
             },

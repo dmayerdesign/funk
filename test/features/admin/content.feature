@@ -2,6 +2,7 @@ Feature: Create/update/delete content as an administrator
 
   Rule: An administrator can edit content in the production environment.
 
+    @wip
     Example: An administrator with no previews is shown the same contents as the public.
 
       Given an admin named Adam
@@ -9,6 +10,7 @@ Feature: Create/update/delete content as an administrator
       When Adam visits a view with contents
       Then Adam is shown the published values of each content
 
+    @wip
     Example: An administrator can edit contents in place.
 
       Given an admin named Adam
@@ -17,6 +19,7 @@ Feature: Create/update/delete content as an administrator
       Then the UI is updated to match the content preview
       And Adam enters the "preview" state
 
+    @wip
     Example: An administrator publishes their previewed changes.
 
       Given an admin named Adam
@@ -27,8 +30,11 @@ Feature: Create/update/delete content as an administrator
       Then the corresponding production data is updated to match the preview
       And Adam exits the "preview" state
 
+  Rule: Published content must not be empty.
+
   Rule: An administrator can easily roll back a change to a single content.
 
+    @wip
     Example: Adam rolls back a change.
 
       Given an admin named Adam
@@ -40,6 +46,7 @@ Feature: Create/update/delete content as an administrator
 
   Rule: An administrator can easily undo a rollback, as long as they have not published a new change.
 
+    @wip
     Example: Adam undoes a rollback.
 
       Given an admin named Adam
@@ -51,6 +58,7 @@ Feature: Create/update/delete content as an administrator
 
   Rule: When 2 administrators simultaneously intend to edit the same content, they are both warned.
 
+    @wip
     Example: 2 administrators simultaneously enter "preview" mode on the home page.
 
       Given an admin named Adam

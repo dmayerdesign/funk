@@ -37,13 +37,11 @@ export class Animation {
     this._tween = gsap.to(element, {
       ease: easingFunction,
       duration: durationMs / 1000,
-      ...(toCss as CSSStyleDeclaration | any),
+      ...toCss,
     })
   }
 
   public stop(): void {
-    if (this._tween) {
-      this._tween.kill()
-    }
+    this._tween?.kill()
   }
 }

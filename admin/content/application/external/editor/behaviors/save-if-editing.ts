@@ -6,7 +6,10 @@ import { GetMaybeActiveContentValue } from "@funk/admin/content/application/exte
 import createContentHtml from "@funk/admin/content/model/behaviors/create-content-html"
 import createContentHtmlBlogPost from "@funk/admin/content/model/behaviors/create-content-html-blog-post"
 import createContentText from "@funk/admin/content/model/behaviors/create-content-text"
-import { ContentType } from "@funk/admin/content/model/content"
+import {
+  ContentHtmlBlogPost,
+  ContentType,
+} from "@funk/admin/content/model/content"
 import { ContentPreview } from "@funk/admin/content/model/content-preview"
 import { UpdateById } from "@funk/admin/content/preview/application/external/behaviors/persistence/update-by-id"
 import { asPromise } from "@funk/helpers/as-promise"
@@ -26,11 +29,18 @@ export function construct(
     const content = await asPromise(getMaybeActiveContent())
 
     if (content) {
-      getIsSaving().next(true)
-
       const contentId = (await asPromise(getMaybeActiveContentId())) ?? uuid()
       const newTitle = (await asPromise(getMaybeActiveContentTitle())) ?? ""
       const newValueHtml = (await asPromise(getMaybeActiveContentValue())) ?? ""
+
+      if (
+        newTitle !== ((content as ContentHtmlBlogPost)?.title ?? "") ||
+        newValueHtml !== (content.value ?? "")
+      ) {
+        getIsSaving().next(true)
+      } else {
+        return
+      }
 
       try {
         const contentType = content?.type

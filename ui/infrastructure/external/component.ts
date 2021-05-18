@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, ViewChild } from "@angular/core"
 import { NavigationEnd, Router } from "@angular/router"
+import { INTEGRATION_TEST } from "@funk/configuration"
 import { AppAtlas } from "@funk/ui/atlas/configuration"
 import { BUILD_MENU_ITEM } from "@funk/ui/atlas/infrastructure/external/tokens"
 import { BuildMenuItem } from "@funk/ui/atlas/model/behaviors/build-menu-item"
@@ -38,11 +39,18 @@ import { IonMenu } from "@ionic/angular"
           <ion-router-outlet class="router-outlet"></ion-router-outlet>
         </content-editor>
       </div>
+
+      <ng-container *ngIf="isIntegrationTest">
+        <a id="go-to-test-data-visualizer" routerLink="/test-data-visualizer"
+          >go to data visualizer</a
+        >
+      </ng-container>
     </ion-app>
   `,
 })
 export class AppComponent implements OnInit {
   @ViewChild(IonMenu) public menu!: IonMenu
+  public readonly isIntegrationTest = INTEGRATION_TEST
   public menuItems = [
     this._buildMenuItem("shop", "home"),
     this._buildMenuItem("shop", "checkout"),
