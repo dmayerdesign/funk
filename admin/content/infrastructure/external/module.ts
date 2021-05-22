@@ -14,6 +14,7 @@ import { construct as constructGetMaybeActiveContentValueControl } from "@funk/a
 import { construct as constructGetMaybeContentPreviews } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-content-previews"
 import { construct as constructGetMaybePreviewOrLiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-preview-or-live-content"
 import { construct as constructGetPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/get-publish-conflicts"
+import { construct as constructMoveContentToTrash } from "@funk/admin/content/application/external/editor/behaviors/move-content-to-trash"
 import { construct as constructOpenEditor } from "@funk/admin/content/application/external/editor/behaviors/open-editor"
 import { construct as constructOpenHtmlBlogPostEditor } from "@funk/admin/content/application/external/editor/behaviors/open-html-blog-post-editor"
 import { construct as constructPublishAllOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-all-on-confirmation"
@@ -45,6 +46,7 @@ import {
   GET_MAYBE_CONTENT_PREVIEWS,
   GET_MAYBE_PREVIEW_OR_LIVE_CONTENT,
   GET_PUBLISH_CONFLICTS,
+  MOVE_CONTENT_TO_TRASH,
   OPEN_EDITOR,
   OPEN_HTML_BLOG_POST_EDITOR,
   PUBLISH_ALL_ON_CONFIRMATION,
@@ -65,6 +67,7 @@ import {
   GET_CONTENT_BY_ID,
   LISTEN_FOR_CONTENT_BY_ID,
   SET_CONTENT_BY_ID,
+  UPDATE_CONTENT_BY_ID,
 } from "@funk/admin/content/infrastructure/external/persistence/tokens"
 import { DOM_GET_INNER_TEXT } from "@funk/admin/content/infrastructure/external/tokens"
 import { ContentPreviewPersistenceModule } from "@funk/admin/content/preview/infrastructure/external/persistence/module"
@@ -288,6 +291,11 @@ export class ContentModule {
           provide: SAVE_AND_CLEAR_IF_EDITING,
           useFactory: constructSaveAndClearIfEditing,
           deps: [SAVE_IF_EDITING, CANCEL_EDIT],
+        },
+        {
+          provide: MOVE_CONTENT_TO_TRASH,
+          useFactory: constructMoveContentToTrash,
+          deps: [UPDATE_CONTENT_BY_ID],
         },
       ],
     }

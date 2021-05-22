@@ -89,6 +89,7 @@
   },
   "test-blog-post-1": {
     "id": "test-blog-post-1",
+    "title": "Test Blog Post 1",
     "value": "<p>This is my post 1!</p>",
     "type": "HTML_BLOG_POST",
     "taxonomyTerms": ["blog-posts"],
@@ -98,6 +99,7 @@
   },
   "test-blog-post-2": {
     "id": "test-blog-post-2",
+    "title": "Test Blog Post 2",
     "value": "<p>This is my post 2!</p>",
     "type": "HTML_BLOG_POST",
     "taxonomyTerms": ["blog-posts"],

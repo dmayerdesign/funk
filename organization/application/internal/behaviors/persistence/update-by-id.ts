@@ -11,7 +11,7 @@ export function construct(
 ) {
   return async function (
     documentPath: string,
-    documentData: Organization,
+    documentData: Partial<Organization>,
   ): Promise<void> {
     await updateById(ORGANIZATIONS, documentPath, marshall(documentData))
   }

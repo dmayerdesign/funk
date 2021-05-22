@@ -27,11 +27,10 @@ if (
   enableProdMode()
 }
 
-if (INTEGRATION_TEST) {
-  initializeStore()
-}
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  if (INTEGRATION_TEST) {
+    await initializeStore()
+  }
   platformBrowserDynamic()
     .bootstrapModule(BrowserModule)
     .then(() => {

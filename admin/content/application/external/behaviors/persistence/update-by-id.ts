@@ -5,7 +5,7 @@ import { UpdateById as GenericUpdateById } from "@funk/persistence/application/e
 export function construct(updateById: GenericUpdateById, marshall: Marshall) {
   return async function (
     documentPath: string,
-    documentData: Content,
+    documentData: Partial<Content>,
   ): Promise<void> {
     await updateById(CONTENTS, documentPath, marshall(documentData))
   }

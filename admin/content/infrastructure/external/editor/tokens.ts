@@ -13,6 +13,7 @@ import { GetMaybeActiveContentValueControl } from "@funk/admin/content/applicati
 import { GetMaybeContentPreviews } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-content-previews"
 import { GetMaybePreviewOrLiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-preview-or-live-content"
 import { GetPublishConflicts } from "@funk/admin/content/application/external/editor/behaviors/get-publish-conflicts"
+import { MoveContentToTrash } from "@funk/admin/content/application/external/editor/behaviors/move-content-to-trash"
 import { OpenEditor } from "@funk/admin/content/application/external/editor/behaviors/open-editor"
 import { OpenHtmlBlogPostEditor } from "@funk/admin/content/application/external/editor/behaviors/open-html-blog-post-editor"
 import { PublishAllOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-all-on-confirmation"
@@ -106,3 +107,6 @@ export const SAVE_IF_EDITING = new InjectionToken<SaveIfEditing>(
 export const SAVE_AND_CLEAR_IF_EDITING = new InjectionToken<
   SaveAndClearIfEditing
 >("SAVE_AND_CLEAR_IF_EDITING")
+export const MOVE_CONTENT_TO_TRASH = new InjectionToken<MoveContentToTrash>(
+  "MOVE_CONTENT_TO_TRASH",
+)

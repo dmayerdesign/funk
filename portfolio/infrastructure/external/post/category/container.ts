@@ -15,10 +15,7 @@ import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"
       <article class="portfolio-route-inner">
         <page-title-heading>
           <ng-template #after>
-            <ion-button
-              class="button add-post-button"
-              (click)="openBlogPostEditor()"
-            >
+            <ion-button class="button add-post-button" (click)="addAPost()">
               Add a post
             </ion-button>
           </ng-template>
@@ -57,7 +54,7 @@ export class PostCategoryContainer implements OnInit {
     }
   }
 
-  public async openBlogPostEditor(): Promise<void> {
+  public async addAPost(): Promise<void> {
     await this.openHtmlBlogPostEditor({
       contentData: {
         taxonomyTerms: [this.taxonomyTerm.id],

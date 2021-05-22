@@ -4,8 +4,13 @@ import { GetById as GenericGetById } from "@funk/persistence/application/externa
 
 export function construct(getById: GenericGetById, populate: Populate) {
   return async function (documentPath: string): Promise<Content | undefined> {
-    const marshalledContent = await getById<Content>(CONTENTS, documentPath)
-    return await populate(marshalledContent)
+    try {
+      const marshalledContent = await getById<Content>(CONTENTS, documentPath)
+      return await populate(marshalledContent)
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
   }
 }
 

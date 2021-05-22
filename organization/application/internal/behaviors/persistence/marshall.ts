@@ -4,7 +4,9 @@ import genericMarshall, {
 } from "@funk/persistence/application/internal/behaviors/marshall"
 
 export function construct(marshall: typeof genericMarshall) {
-  return function (organization: Organization): Marshalled<Organization> {
+  return function (
+    organization: Partial<Organization>,
+  ): Marshalled<Organization> {
     return marshall(organization, [])
   }
 }

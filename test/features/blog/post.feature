@@ -37,32 +37,38 @@ Feature: Blog posts
 
   Rule: An admin can edit a blog post.
 
-    Example: Paul edits a blog post.
+    Example: Paul intends to edit a blog post.
 
       Given an admin named Paul
-      And Paul has published a blog post named "Hello!"
-      When Paul intends to edit "Hello!"
-      Then Paul is able to edit "Hello!"
+      And there is a blog post for the post category page "blog-posts"
+      When Paul visits the post category page "blog-posts"
+      Then Paul is able to edit a post
+
+    Example: Paul starts editing a blog post.
+
+      Given an admin named Paul
+      And there is a blog post for the post category page "blog-posts"
+      And Paul visits the post category page "blog-posts"
+      When Paul begins to edit a blog post
+      Then the edited blog post is saved
 
   Rule: An admin can remove a blog post.
 
-    @wip
     Example: Paul removes a published blog post.
 
       Given an admin named Paul
-      And Paul has published a blog post named "Hello!"
-      When Paul intends to remove "Hello!"
-      Then "Hello!" is removed from all users' view
-      And "Hello!" is moved to the trash
+      And there is a blog post for the post category page "blog-posts"
+      When Paul intends to remove the post
+      Then the post is removed from all users' view
+      And the post is moved to the trash
 
   Rule: An anonymous user can view published posts by category.
 
-    @wip
     Example: Amy visits the default category page ("blog-posts").
 
       Given a user named Amy
       And that there are blog posts in the category "blog-posts"
-      And there are blog posts in the category "blog-posts" in the trash
+      And some blog posts in the category "blog-posts" are in the trash
       When Amy requests all blog posts in the category "blog-posts"
       Then Amy gets all blog posts in the category "blog-posts"
       And none of the blog posts are in the trash

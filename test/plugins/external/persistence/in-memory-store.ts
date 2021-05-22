@@ -1,31 +1,16 @@
-import { CONTENTS } from "@funk/admin/content/model/content"
-import { ORDERS } from "@funk/commerce/order/model/order"
-import { PRODUCTS } from "@funk/commerce/product/model/product"
-import { USER_CONTENTS } from "@funk/identity/model/user-content"
-import { PERSONS } from "@funk/identity/person/model/person"
-import { ORGANIZATIONS } from "@funk/organization/model/organization"
+import http from "axios"
 import { BehaviorSubject } from "rxjs"
-import commerceOrders from "../../../../build-pipeline/data/development-data/commerce.orders.json"
-import commerceProducts from "../../../../build-pipeline/data/development-data/commerce.products.json"
-import contents from "../../../../build-pipeline/data/development-data/contents.json"
-import identityPersons from "../../../../build-pipeline/data/development-data/identity.persons.json"
-import identityUserContents from "../../../../build-pipeline/data/development-data/identity.user-contents.json"
-import organizations from "../../../../build-pipeline/data/development-data/organizations.json"
+import { STORE_SERVER_PORT } from "./configuration"
 
 let store: Record<string, Record<string, any>>
 let store$: BehaviorSubject<Record<string, Record<string, any>>>
 
 export async function initializeStore(): Promise<void> {
-  store = {
-    [ORGANIZATIONS]: organizations,
-    [ORDERS]: commerceOrders,
-    [PRODUCTS]: commerceProducts,
-    [CONTENTS]: contents,
-    [PERSONS]: identityPersons,
-    [USER_CONTENTS]: identityUserContents,
-  }
+  console.log("invoking initializeStore...")
+  store = await getRemoteStore()
   store$ = new BehaviorSubject(store)
   store$.subscribe()
+  console.log("initialized store", store)
 }
 
 export function getStore() {
@@ -34,4 +19,24 @@ export function getStore() {
 
 export function getStore$() {
   return store$
+}
+
+export async function reInitializeStore(
+  newStore: Record<string, Record<string, any>>,
+) {
+  console.log("invoked reInitializeStore")
+  await setRemoteStore(newStore)
+  store = newStore
+  store$.next(store)
+  store$.subscribe()
+}
+
+async function getRemoteStore(): Promise<Record<string, Record<string, any>>> {
+  return (await http.get(`http://localhost:${STORE_SERVER_PORT}`)).data
+}
+
+async function setRemoteStore(
+  newStore: Record<string, Record<string, any>>,
+): Promise<void> {
+  await http.post(`http://localhost:${STORE_SERVER_PORT}`, newStore)
 }

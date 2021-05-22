@@ -4,7 +4,7 @@ import genericMarshall, {
 } from "@funk/persistence/application/internal/behaviors/marshall"
 
 export function construct(marshall: typeof genericMarshall) {
-  return function (sku: Sku): Marshalled<Sku> {
+  return function (sku: Partial<Sku>): Marshalled<Sku> {
     return marshall(sku, ["attributeValues", "taxonomyTerms", "imageGroups"])
   }
 }

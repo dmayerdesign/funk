@@ -227,6 +227,11 @@ $has-preview-notice-height: 32px;
     .drawer-card-action {
       margin-right: 10px;
     }
+
+    .remove-action {
+      margin-right: 0px;
+      justify-self: flex-end;
+    }
   }
 
   #blog-post-editor-actions {

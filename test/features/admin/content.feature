@@ -6,7 +6,7 @@ Feature: Create/update/delete content as an administrator
     Example: An administrator with no previews is shown the same contents as the public.
 
       Given an admin named Adam
-      And that Adam is not in the "preview" state
+      And that Adam is not in the preview state
       When Adam visits a view with contents
       Then Adam is shown the published values of each content
 
@@ -17,7 +17,7 @@ Feature: Create/update/delete content as an administrator
       And that Adam has not edited content
       When Adam edits a content value and submits it
       Then the UI is updated to match the content preview
-      And Adam enters the "preview" state
+      And Adam enters the preview state
 
     @wip
     Example: An administrator publishes their previewed changes.
@@ -28,7 +28,7 @@ Feature: Create/update/delete content as an administrator
       When Adam intends to publish
       And confirms that he intends to publish
       Then the corresponding production data is updated to match the preview
-      And Adam exits the "preview" state
+      And Adam exits the preview state
 
   Rule: Published content must not be empty.
 
@@ -42,7 +42,7 @@ Feature: Create/update/delete content as an administrator
       And that Adam has published a change setting it to "bar"
       When Adam intends to undo the change
       Then the content appears to Adam as "foo"
-      And Adam enters the "preview" state
+      And Adam enters the preview state
 
   Rule: An administrator can easily undo a rollback, as long as they have not published a new change.
 
@@ -54,7 +54,7 @@ Feature: Create/update/delete content as an administrator
       And that Adam has published a change setting it to "bar"
       When Adam intends to undo the change
       Then the content appears to Adam as "foo"
-      And Adam enters the "preview" state
+      And Adam enters the preview state
 
   Rule: When 2 administrators simultaneously intend to edit the same content, they are both warned.
 

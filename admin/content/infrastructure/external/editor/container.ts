@@ -1,18 +1,13 @@
-import {
-  Component,
-  ElementRef,
-  Inject,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from "@angular/core"
+import { Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core"
 import { FormControl } from "@angular/forms"
 import { CancelEdit } from "@funk/admin/content/application/external/editor/behaviors/cancel-edit"
 import { GetHasPreview } from "@funk/admin/content/application/external/editor/behaviors/get-has-preview"
 import { GetIsAuthorized } from "@funk/admin/content/application/external/editor/behaviors/get-is-authorized"
+import { GetMaybeActiveContentId } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-id"
 import { GetMaybeActiveContentTitleControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title-control"
 import { GetMaybeActiveContentType } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-type"
 import { GetMaybeActiveContentValueControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-value-control"
+import { MoveContentToTrash } from "@funk/admin/content/application/external/editor/behaviors/move-content-to-trash"
 import { PublishAllOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-all-on-confirmation"
 import { PublishOneOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/publish-one-on-confirmation"
 import { RemoveAllPreviewsOnConfirmation } from "@funk/admin/content/application/external/editor/behaviors/remove-all-previews-on-confirmation"
@@ -22,9 +17,11 @@ import {
   CANCEL_EDIT,
   GET_HAS_PREVIEW,
   GET_IS_AUTHORIZED,
+  GET_MAYBE_ACTIVE_CONTENT_ID,
   GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL,
   GET_MAYBE_ACTIVE_CONTENT_TYPE,
   GET_MAYBE_ACTIVE_CONTENT_VALUE_CONTROL,
+  MOVE_CONTENT_TO_TRASH,
   PUBLISH_ALL_ON_CONFIRMATION,
   PUBLISH_ONE_ON_CONFIRMATION,
   REMOVE_ALL_PREVIEWS_ON_CONFIRMATION,
@@ -32,9 +29,10 @@ import {
   SAVE_IF_EDITING,
 } from "@funk/admin/content/infrastructure/external/editor/tokens"
 import { ContentType } from "@funk/admin/content/model/content"
+import { asPromise } from "@funk/helpers/as-promise"
 import { ignoreNullish, shareReplayOnce } from "@funk/helpers/rxjs-shims"
 import { WINDOW } from "@funk/ui/infrastructure/external/tokens"
-import { IonInput } from "@ionic/angular"
+import { AlertController, IonInput } from "@ionic/angular"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { combineLatest, of } from "rxjs"
 import {
@@ -204,6 +202,17 @@ const ANIMATION_DURATION_MS = 500
                   Save and Close
                 </ion-button>
               </div>
+              <div class="remove-action drawer-card-action">
+                <ion-button
+                  id="blog-post-editor-remove"
+                  class="remove-button transparent button"
+                  buttonType="button"
+                  size="small"
+                  (click)="removeActiveContentOnConfirmation()"
+                >
+                  Move to Trash
+                </ion-button>
+              </div>
             </div>
           </div>
           <ion-button
@@ -222,8 +231,6 @@ const ANIMATION_DURATION_MS = 500
       </div>
     </ng-container>
   `,
-  styleUrls: ["./container.scss"],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ContentEditorContainer implements OnInit {
   @ViewChild("blogPostEditorTitleInput")
@@ -344,10 +351,18 @@ export class ContentEditorContainer implements OnInit {
     @Inject(PUBLISH_ONE_ON_CONFIRMATION)
     private _publishOneOnConfirmation: PublishOneOnConfirmation,
 
+    @Inject(MOVE_CONTENT_TO_TRASH)
+    private _moveContentToTrash: MoveContentToTrash,
+
+    @Inject(GET_MAYBE_ACTIVE_CONTENT_ID)
+    private _getMaybeActiveContentId: GetMaybeActiveContentId,
+
     @Inject(WINDOW)
     private _window: Window,
 
     private _elementRef: ElementRef,
+
+    private _alertController: AlertController,
   ) {}
 
   public ngOnInit(): void {
@@ -381,12 +396,50 @@ export class ContentEditorContainer implements OnInit {
   }
 
   public async publishBlogPost(): Promise<void> {
+    await this.saveIfEditing()
     const published = await this._publishOneOnConfirmation()
     if (published) {
       this._window.location.reload()
     } else {
       this._cancelEdit()
     }
+  }
+
+  public async removeActiveContentOnConfirmation(): Promise<boolean> {
+    const activeContentId = await asPromise(this._getMaybeActiveContentId())
+    return new Promise((resolve) => {
+      // Do nothing if the user does not confirm.
+      const CONFIRM_MESSAGE =
+        "You're about to publish (make visible to the public) all your " +
+        "changes since the last time you published. This can't be undone."
+      this._alertController
+        .create({
+          header: "Are you sure?",
+          message: CONFIRM_MESSAGE,
+          buttons: [
+            {
+              text: "No, Cancel",
+              role: "cancel",
+              cssClass: "secondary",
+              handler: async () => {
+                await this._alertController.dismiss()
+                resolve(false)
+              },
+            },
+            {
+              text: "Yes, Move To Trash",
+              cssClass: "",
+              handler: async () => {
+                await this._moveContentToTrash(activeContentId!)
+                resolve(true)
+              },
+            },
+          ],
+        })
+        .then((confirmRemoveAll) => {
+          confirmRemoveAll.present()
+        })
+    })
   }
 
   private _setUpAutoSaveForBlogPosts(): void {

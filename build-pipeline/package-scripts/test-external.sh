@@ -14,8 +14,9 @@ if [ $? -eq 0 ]; then
     "$TEST_FILENAME_OR_ALL_REGEX"
 
   node_modules/.bin/concurrently \
-    "node_modules/.bin/wait-on http://localhost:8100; node_modules/.bin/cypress run --headless --spec \"**/\"$TEST_FILENAME_OR_ALL_GLOB\"\"" \
+    "node_modules/.bin/wait-on http://localhost:8100; node_modules/.bin/wait-on http://localhost:8101; node_modules/.bin/cypress run --headless --spec \"**/\"$TEST_FILENAME_OR_ALL_GLOB\"\"" \
     "npm run external::develop::integration-test" \
+    "npm run test::external::start-remote-store-server" \
     --success first \
     --kill-others
 else (exit 1); fi

@@ -1,5 +1,8 @@
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
-import { getStore } from "@funk/test/plugins/external/persistence/in-memory-store"
+import {
+  getStore,
+  reInitializeStore,
+} from "@funk/test/plugins/external/persistence/in-memory-store"
 import { get, set } from "lodash"
 
 export function construct() {
@@ -19,6 +22,7 @@ export function construct() {
       ...documentData,
       updatedAt: Date.now(),
     })
+    reInitializeStore(getStore())
   }
 }
 

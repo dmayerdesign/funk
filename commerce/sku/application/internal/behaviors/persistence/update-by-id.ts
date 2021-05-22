@@ -8,7 +8,7 @@ export function construct(
 ) {
   return async function (
     documentPath: string,
-    documentData: Sku,
+    documentData: Partial<Sku>,
   ): Promise<void> {
     await updateById(SKUS, documentPath, marshall(documentData))
   }

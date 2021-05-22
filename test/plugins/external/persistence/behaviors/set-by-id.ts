@@ -1,5 +1,8 @@
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
-import { getStore } from "@funk/test/plugins/external/persistence/in-memory-store"
+import {
+  getStore,
+  reInitializeStore,
+} from "@funk/test/plugins/external/persistence/in-memory-store"
 import { get, set } from "lodash"
 
 export function construct() {
@@ -16,24 +19,22 @@ export function construct() {
     }
     const doc =
       get(getStore()[collectionPath], documentPath.replace(/\//g, ".")) ?? {}
-    set(
-      getStore()[collectionPath],
-      documentPath,
-      options?.overwrite
-        ? {
-            id: documentPath,
-            ...documentData,
-            createdAt: Date.now(),
-            updatedAt: Date.now(),
-          }
-        : {
-            id: documentPath,
-            ...doc,
-            ...documentData,
-            createdAt: Date.now(),
-            updatedAt: Date.now(),
-          },
-    )
+    const data = options?.overwrite
+      ? {
+          id: documentPath,
+          ...documentData,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+        }
+      : {
+          id: documentPath,
+          ...doc,
+          ...documentData,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+        }
+    set(getStore()[collectionPath], documentPath, data)
+    reInitializeStore(getStore())
   }
 }
 
