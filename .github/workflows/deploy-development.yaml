@@ -1,0 +1,24 @@
+name: Build And Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Build
+        run: npm run build::development
+        env:
+          PROJECT_ID: test-rbs503e-development
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          PROJECT_ID: test-rbs503e-development
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
