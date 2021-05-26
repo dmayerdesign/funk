@@ -1,14 +1,11 @@
 import { store as storeImpl } from "@funk/persistence/application/internal/server-store"
-import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { chunk } from "lodash"
 
 export function construct(store: typeof storeImpl) {
-  return async function <
-    DocumentType extends Record<string, any> = DatabaseDocument
-  >(
+  return async function (
     documentsByCollectionPath: {
       [collectionPath: string]: {
-        [documentPath: string]: DocumentType
+        [documentPath: string]: any
       }
     },
     options?: { overwrite?: boolean },

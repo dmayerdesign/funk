@@ -1,5 +1,4 @@
 import { Content, CONTENTS } from "@funk/admin/content/model/content"
-import { createFakeHtmlBlogPost } from "@funk/admin/content/model/stubs"
 import { UserRole } from "@funk/auth/model/user-role"
 import { functionName as GET_TAXONOMY_TERM_BY_SLUG } from "@funk/blog/infrastructure/external/cloud-functions/get-taxonomy-term-by-slug"
 import { functionName as LIST_HTML_BLOG_POSTS } from "@funk/blog/infrastructure/external/cloud-functions/list-html-blog-posts"
@@ -9,7 +8,6 @@ import atlas from "@funk/ui/atlas/configuration"
 import buildUrl from "@funk/ui/atlas/model/behaviors/build-url"
 import http from "axios"
 import { pickBy, values } from "lodash"
-import { v4 as uuid } from "uuid"
 
 export const TEST_USER_BASIC_ID = "test-user-basic"
 export const TEST_USER_ADMIN_ID = "test-user-admin"
@@ -34,12 +32,17 @@ export function givenAnAdmin(_name: string): void {
   )
 }
 
+export function tearDownBlogPostsPage(): void {
+  cy.task("tearDown")
+}
+
 export function configureBlogPostsPage(): void {
+  cy.task("setUp")
   cy.intercept(
     `${FUNCTIONS_BASE_URL}/${GET_TAXONOMY_TERM_BY_SLUG}`,
     async (req) => {
       const { data: store } = await http.get(
-        `http://localhost:${STORE_SERVER_PORT}`,
+        `http://localhost:${STORE_SERVER_PORT}/store`,
       )
       const taxonomyTerm = store["taxonomy-terms"]["blog-posts"]
       req.reply(taxonomyTerm)
@@ -47,62 +50,19 @@ export function configureBlogPostsPage(): void {
   )
   cy.intercept(`${FUNCTIONS_BASE_URL}/${LIST_HTML_BLOG_POSTS}`, async (req) => {
     const store: Record<string, any> = (
-      await http.get(`http://localhost:${STORE_SERVER_PORT}`)
+      await http.get(`http://localhost:${STORE_SERVER_PORT}/store`)
     ).data
-    let blogPostsContents = values(
+    const blogPostsContents = values(
       pickBy(store["contents"], ({ taxonomyTerms }) =>
         taxonomyTerms?.includes("blog-posts"),
       ),
     )
-
-    // Given there is a blog post for the post category page "blog-posts"
-    if (!blogPostsContents.length) {
-      await setBlogPostContents({
-        "fake-blog-post": createFakeHtmlBlogPost({
-          title: "fake blog post title",
-          value: "fake blog post value",
-          taxonomyTerms: ["blog-posts"],
-        }),
-      })
-    }
-
-    // And some blog posts in the category "blog-posts" are in the trash
-    const someBlogPostsAreAlreadyInTheTrash = blogPostsContents.some(
-      ({ removedAt }) => removedAt != null,
-    )
-    if (!someBlogPostsAreAlreadyInTheTrash) {
-      await setBlogPostContents({
-        [uuid()]: createFakeHtmlBlogPost({
-          taxonomyTerms: ["blog-posts"],
-          removedAt: Date.now(),
-        }),
-      })
-    }
-
     req.reply(
       blogPostsContents.filter(
         ({ taxonomyTerms, removedAt }) =>
           removedAt == null && taxonomyTerms?.includes("blog-posts"),
       ),
     )
-
-    async function setBlogPostContents(
-      contentUpdates: Record<string, Content>,
-    ): Promise<void> {
-      const newContents = {
-        ...store.contents,
-        ...contentUpdates,
-      }
-      await http.post(`http://localhost:${STORE_SERVER_PORT}`, {
-        ...store,
-        [CONTENTS]: newContents,
-      })
-      blogPostsContents = values(
-        pickBy(newContents, ({ taxonomyTerms }) =>
-          taxonomyTerms?.includes("blog-posts"),
-        ),
-      )
-    }
   })
 }
 

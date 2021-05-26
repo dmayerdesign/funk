@@ -1,7 +1,7 @@
+import { ImageGroup } from "@funk/admin/image-group/model/image-group"
 import { AttributeValue } from "@funk/attribute/model/attribute-value"
 import { Price } from "@funk/commerce/price/model/price"
 import { Inventory } from "@funk/commerce/sku/model/inventory"
-import { ImageGroup } from "@funk/image/model/image-group"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"

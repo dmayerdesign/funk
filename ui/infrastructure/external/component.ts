@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from "@angular/core"
-import { NavigationEnd, Router } from "@angular/router"
+import { NavigationEnd, NavigationError, Router } from "@angular/router"
 import { INTEGRATION_TEST } from "@funk/configuration"
 import { AppAtlas } from "@funk/ui/atlas/configuration"
 import { BUILD_MENU_ITEM } from "@funk/ui/atlas/infrastructure/external/tokens"
@@ -41,7 +41,13 @@ import { IonMenu } from "@ionic/angular"
       </div>
 
       <ng-container *ngIf="isIntegrationTest">
-        <a id="go-to-test-data-visualizer" routerLink="/test-data-visualizer"
+        <a
+          id="go-to-test-data-visualizer"
+          routerLink="/test-data-visualizer"
+          [style]="{
+            position: 'absolute',
+            zIndex: '9999'
+          }"
           >go to data visualizer</a
         >
       </ng-container>
@@ -64,7 +70,9 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this._router.events.subscribe((event) => {
-      // console.log(event)
+      if (event instanceof NavigationError) {
+        console.error(event)
+      }
       if (event instanceof NavigationEnd) {
         this.menu.close()
       }

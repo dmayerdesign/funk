@@ -7,19 +7,20 @@ import organizations from "../../../../../build-pipeline/data/development-data/o
 import taxonomies from "../../../../../build-pipeline/data/development-data/taxonomies.json"
 import taxonomyTerms from "../../../../../build-pipeline/data/development-data/taxonomy-terms.json"
 
-let store
+const initialStore = {
+  "organizations": { ...organizations },
+  "commerce.orders": { ...commerceOrders },
+  "commerce.products": { ...commerceProducts },
+  "contents": { ...contents },
+  "identity.persons": { ...identityPersons },
+  "identity.user-contents": { ...identityUserContents },
+  "taxonomies": { ...taxonomies },
+  "taxonomy-terms": { ...taxonomyTerms },
+}
+let store = initialStore
 
 export async function initializeStore() {
-  store = {
-    "organizations": { ...organizations },
-    "commerce.orders": { ...commerceOrders },
-    "commerce.products": { ...commerceProducts },
-    "contents": { ...contents },
-    "identity.persons": { ...identityPersons },
-    "identity.user-contents": { ...identityUserContents },
-    "taxonomies": { ...taxonomies },
-    "taxonomy-terms": { ...taxonomyTerms },
-  }
+  store = initialStore
 }
 
 export function getStore() {

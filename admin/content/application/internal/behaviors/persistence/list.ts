@@ -12,14 +12,14 @@ import {
 } from "@funk/persistence/model/pagination"
 
 export function construct(list: GenericList, populate: Populate) {
-  return async function ({
+  return async function <ContentType extends Content = Content>({
     pagination,
     conditions,
   }: {
-    pagination: Pagination<Content> | VirtualPagination
-    conditions: Condition<Content>[]
-  }): Promise<Content[]> {
-    const marshalledContents = await list<Content>({
+    pagination: Pagination<ContentType> | VirtualPagination
+    conditions: Condition<ContentType>[]
+  }): Promise<ContentType[]> {
+    const marshalledContents = await list<ContentType>({
       collection: CONTENTS,
       pagination,
       conditions,
@@ -27,7 +27,8 @@ export function construct(list: GenericList, populate: Populate) {
 
     return await Promise.all(
       marshalledContents.map(
-        (marshalledContent) => populate(marshalledContent) as Promise<Content>,
+        (marshalledContent) =>
+          populate(marshalledContent) as Promise<ContentType>,
       ),
     )
   }

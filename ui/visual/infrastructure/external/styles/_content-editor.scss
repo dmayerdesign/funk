@@ -68,46 +68,51 @@ $has-preview-notice-height: 32px;
       top: $has-preview-notice-height;
     }
   }
-  &.admin-edit-mode-is-on {
-    content {
-      position: relative;
-      cursor: pointer;
+}
 
-      .edit-button {
-        $edit-color-background: $color-tertiary-shade;
-        $edit-color-foreground: #fff;
-        $edit-button-z-index: 1000;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: $edit-button-z-index;
-        font-size: 8px;
-        height: 22px;
-        width: 22px;
-        margin: 0;
-        --background: #{$edit-color-background};
-        --border-radius: 50%;
-        --box-shadow: none;
-        --ripple-color: transparent;
-        --padding-start: 0;
-        --padding-end: 0;
+#content-editor-wrapper.admin-edit-mode-is-on,
+.editor-drawer {
+  content,
+  .content {
+    position: relative;
 
-        button,
-        button span {
-          background-color: transparent !important;
-          box-shadow: none;
-        }
+    .edit-button {
+      $edit-button-z-index: 1000;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: $edit-button-z-index;
+    }
+  }
+  .edit-button {
+    $edit-color-background: $color-tertiary-shade;
+    $edit-color-foreground: #fff;
+    font-size: 8px;
+    height: 22px;
+    width: 22px;
+    margin: 0;
+    cursor: pointer;
+    --background: #{$edit-color-background};
+    --border-radius: 50%;
+    --box-shadow: none;
+    --ripple-color: transparent;
+    --padding-start: 0;
+    --padding-end: 0;
 
-        .icon {
-          color: $edit-color-foreground;
-        }
+    button,
+    button span {
+      background-color: transparent !important;
+      box-shadow: none;
+    }
 
-        &:hover,
-        &:focus,
-        &:active {
-          opacity: 1;
-        }
-      }
+    .icon {
+      color: $edit-color-foreground;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
     }
   }
 }
@@ -119,7 +124,7 @@ $has-preview-notice-height: 32px;
   $blog-post-editor-title-input-height: 50px;
   $blog-post-title-padding-top: 10px;
   $blog-post-title-padding-bottom: 15px;
-  $blog-post-drawer-input-height-offset: $actions-height + 167px;
+  $blog-post-drawer-input-height-offset: $actions-height + 288px;
 
   .card {
     position: relative;
@@ -178,16 +183,66 @@ $has-preview-notice-height: 32px;
     .card {
       display: flex;
       justify-content: center;
+      padding-top: 0;
     }
   }
   #blog-post-editor-drawer-inner {
     max-width: 600px;
   }
-
   #blog-post-editor-top {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-items: center;
+  }
+  #blog-post-editor-cover-image {
+    position: relative;
+    background-image: linear-gradient(
+      45deg,
+      #ffffff 25%,
+      #fbfbfb 25%,
+      #fbfbfb 50%,
+      #ffffff 50%,
+      #ffffff 75%,
+      #fbfbfb 75%,
+      #fbfbfb 100%
+    );
+    background-size: 50px 50px;
+
+    &-preview {
+      width: 100%;
+      height: 137px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-color: transparent;
+    }
+    &-input-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      .uploader-drop-zone-text {
+        text-decoration: underline;
+      }
+    }
+    &-input {
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      z-index: -1000;
+      display: block;
+      height: 0;
+      width: 0;
+      overflow: hidden;
+    }
   }
   #blog-post-editor-title-container {
     flex-grow: 1;
@@ -244,6 +299,15 @@ $has-preview-notice-height: 32px;
     }
     .discard-button {
       --color: #{$color-danger};
+    }
+  }
+
+  #blog-post-editor-remove {
+    --color: #{$color-medium};
+
+    &:hover {
+      --color: #{$color-danger};
+      font-weight: bold;
     }
   }
 }

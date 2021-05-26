@@ -14,7 +14,7 @@ import writeFunctionsAssets from "../code-gen/behaviors/write-functions-assets"
 import writeFunctionsIndex from "../code-gen/behaviors/write-functions-index"
 import writeFunctionsPackage from "../code-gen/behaviors/write-functions-package"
 
-export default function main() {
+export default function main(args: typeof process.argv) {
   // Linux needs the `internal-build` dir to exist before copying to it.
   mkdirpSync(
     resolve(__dirname, "../../", ".funk/build-pipeline-output/internal-build"),
@@ -73,5 +73,5 @@ export default function main() {
 }
 
 if (require.main === module) {
-  main()
+  main(process.argv)
 }

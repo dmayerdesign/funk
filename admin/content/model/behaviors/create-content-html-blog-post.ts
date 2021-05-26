@@ -2,6 +2,7 @@ import {
   ContentHtmlBlogPost,
   ContentType,
 } from "@funk/admin/content/model/content"
+import { createFakeImageGroup } from "@funk/image/model/stubs"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 
 export default function (
@@ -12,7 +13,7 @@ export default function (
     type: ContentType.HTML_BLOG_POST,
     title: "",
     value: "",
-    coverImageUrl: "",
+    coverImageGroup: createFakeImageGroup(),
     taxonomyTerms: [],
     removedAt: null,
     ...contentData,

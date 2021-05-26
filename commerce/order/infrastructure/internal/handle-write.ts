@@ -2,4 +2,10 @@ import upsertPaymentIntent from "@funk/commerce/order/application/internal/behav
 import { ORDERS } from "@funk/commerce/order/model/order"
 import createWriteHandler from "@funk/http/plugins/internal/cloud-function/behaviors/listen/create-write-handler"
 
-export default createWriteHandler(ORDERS, upsertPaymentIntent)
+export default createWriteHandler(ORDERS, async (change, context) => {
+  try {
+    return await upsertPaymentIntent(change, context)
+  } catch (error) {
+    console.warn(error)
+  }
+})

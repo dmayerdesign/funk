@@ -1,8 +1,8 @@
+import listContents from "@funk/admin/content/application/internal/behaviors/persistence/list"
 import {
   ContentHtmlBlogPost,
-  CONTENTS,
+  ContentType,
 } from "@funk/admin/content/model/content"
-import listImpl from "@funk/persistence/application/internal/behaviors/list"
 import { Condition } from "@funk/persistence/application/internal/condition"
 import { Pagination } from "@funk/persistence/model/pagination"
 
@@ -11,17 +11,19 @@ interface PayloadType {
   conditions: Condition<ContentHtmlBlogPost>[]
 }
 
-export function construct(list = listImpl) {
+export function construct(list = listContents) {
   return async function ({
     pagination,
     conditions = [],
   }: PayloadType): Promise<ContentHtmlBlogPost[]> {
     const fullConditions = [
       ...conditions,
+      ["type", "==", ContentType.HTML_BLOG_POST] as Condition<
+        ContentHtmlBlogPost
+      >,
       ["removedAt", "==", null] as Condition<ContentHtmlBlogPost>,
     ]
-    return await list({
-      collection: CONTENTS,
+    return await list<ContentHtmlBlogPost>({
       pagination,
       conditions: fullConditions,
     })

@@ -1,12 +1,18 @@
-import { Content } from "@funk/admin/content/model/content"
+import { Content, ContentType } from "@funk/admin/content/model/content"
 import {
   Marshall as GenericMarshall,
   Marshalled,
 } from "@funk/persistence/application/external/behaviors/marshall"
 
-export function construct(_marshall: GenericMarshall) {
+export function construct(marshall: GenericMarshall) {
   return function (content: Partial<Content>): Marshalled<Content> {
-    return content as Content
+    if (content.type === ContentType.IMAGE) {
+      return marshall(content, ["value"])
+    }
+    if (content.type === ContentType.HTML_BLOG_POST) {
+      return marshall(content, ["coverImageGroup"])
+    }
+    return marshall(content, [])
   }
 }
 

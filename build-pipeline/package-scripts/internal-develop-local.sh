@@ -5,7 +5,7 @@ if [ $? -eq 0 ]; then
     sh ts-node.sh \
       build-pipeline/package-scripts/functions-authorize-service-account.ts;
 else (exit 1); fi
-if [ $? -eq 0 ]; then npm run internal::build::local; else (exit 1); fi
+if [ $? -eq 0 ]; then npm run internal::build::local -- --skipCodeGen; else (exit 1); fi
 if [ $? -eq 0 ]; then
   concurrently "firebase emulators:start --only functions,firestore" "(wait-on http://localhost:4000 && npm run deploy::local)";
 else (exit 1); fi

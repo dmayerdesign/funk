@@ -8,6 +8,7 @@ import publishThePost from "@funk/test/features/blog/external/behaviors/publish-
 import visitPostCategoryPage from "@funk/test/features/blog/external/behaviors/visit-post-category-page"
 import {
   configureBlogPostsPage,
+  tearDownBlogPostsPage,
   TEST_USER_ADMIN_ID,
 } from "@funk/test/features/blog/external/helpers"
 import { example, rule } from "@funk/test/helpers/external/helpers"
@@ -31,6 +32,8 @@ rule("An admin can write a blog post.", () => {
     // Then Paul is able to add a post
     openPostAdderDrawer()
   })
+
+  after(() => tearDownBlogPostsPage())
 
   example("Paul starts writing a blog post.", () => {
     // When Paul begins to write a blog post
@@ -63,6 +66,8 @@ rule("An admin can publish a blog post.", () => {
     beginToWriteAPost({ body: paulsPostBody, title: paulsPostTitle })
   })
 
+  after(() => tearDownBlogPostsPage())
+
   example("Paul publishes a blog post.", () => {
     // When Paul intends to publish the blog post
     publishThePost()
@@ -88,6 +93,8 @@ rule("An admin can edit a blog post.", () => {
     theUserCanEditAPost()
   })
 
+  after(() => tearDownBlogPostsPage())
+
   example("Paul starts editing a blog post.", () => {
     // When Paul begins to edit a blog post
     editAPost({ bodyAddition })
@@ -111,6 +118,8 @@ rule("An admin can remove a blog post.", () => {
     )
   })
 
+  after(() => tearDownBlogPostsPage())
+
   example("Paul removes a published blog post.", () => {
     // When Paul intends to remove the post
     removeAPost("Test Blog Post 1")
@@ -120,7 +129,7 @@ rule("An admin can remove a blog post.", () => {
   })
 })
 
-rule.only("An anonymous user can view published posts by category.", () => {
+rule.skip("An anonymous user can view published posts by category.", () => {
   before(() => {
     // Given a user named Amy
     // And that there are blog posts in the category "blog-posts"
@@ -129,6 +138,8 @@ rule.only("An anonymous user can view published posts by category.", () => {
     // When Amy requests all blog posts in the category "blog-posts"
     visitPostCategoryPage("blog-posts", TEST_USER_ADMIN_ID, UserRole.ANONYMOUS)
   })
+
+  after(() => tearDownBlogPostsPage())
 
   example(`Amy visits the default category page ("blog-posts").`, () => {
     // Then Amy gets all blog posts in the category "blog-posts"

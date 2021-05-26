@@ -1,7 +1,7 @@
 import { ContentHtmlBlogPost } from "@funk/admin/content/model/content"
 
 export const createFakeHtmlBlogPost = (
-  partialBlogPost: Partial<ContentHtmlBlogPost>,
+  partialBlogPost: Partial<ContentHtmlBlogPost> = {},
 ) =>
   ({
     id: "fake post",

@@ -1,8 +1,11 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core"
-import { FormControl } from "@angular/forms"
+import { DomSanitizer } from "@angular/platform-browser"
 import { CancelEdit } from "@funk/admin/content/application/external/editor/behaviors/cancel-edit"
+import { CreateCoverImagePreviewUrl } from "@funk/admin/content/application/external/editor/behaviors/create-cover-image-preview-url"
 import { GetHasPreview } from "@funk/admin/content/application/external/editor/behaviors/get-has-preview"
 import { GetIsAuthorized } from "@funk/admin/content/application/external/editor/behaviors/get-is-authorized"
+import { GetMaybeActiveContentCoverImageGroup } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-cover-image-url"
+import { GetMaybeActiveContentCoverImageGroupControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-cover-image-url-control"
 import { GetMaybeActiveContentId } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-id"
 import { GetMaybeActiveContentTitleControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title-control"
 import { GetMaybeActiveContentType } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-type"
@@ -15,8 +18,11 @@ import { SaveAndClearIfEditing } from "@funk/admin/content/application/external/
 import { SaveIfEditing } from "@funk/admin/content/application/external/editor/behaviors/save-if-editing"
 import {
   CANCEL_EDIT,
+  CREATE_COVER_IMAGE_PREVIEW_URL,
   GET_HAS_PREVIEW,
   GET_IS_AUTHORIZED,
+  GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP,
+  GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP_CONTROL,
   GET_MAYBE_ACTIVE_CONTENT_ID,
   GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL,
   GET_MAYBE_ACTIVE_CONTENT_TYPE,
@@ -29,8 +35,13 @@ import {
   SAVE_IF_EDITING,
 } from "@funk/admin/content/infrastructure/external/editor/tokens"
 import { ContentType } from "@funk/admin/content/model/content"
+import { ImageGroup } from "@funk/admin/image-group/model/image-group"
 import { asPromise } from "@funk/helpers/as-promise"
 import { ignoreNullish, shareReplayOnce } from "@funk/helpers/rxjs-shims"
+import { ImageResolution } from "@funk/image/model/image-resolution"
+import { DbDocumentInput } from "@funk/persistence/model/database-document"
+import { UploadImage } from "@funk/storage/plugins/external/image-storage/behaviors/upload-image"
+import { UPLOAD_IMAGE } from "@funk/storage/plugins/external/image-storage/tokens"
 import { WINDOW } from "@funk/ui/infrastructure/external/tokens"
 import { AlertController, IonInput } from "@ionic/angular"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
@@ -104,14 +115,14 @@ const ANIMATION_DURATION_MS = 500
         [excludeBeforeClick]="true"
       >
         <ion-card class="card flat flat-with-shadow">
-          <div id="editor-container" *ngIf="valueFormControl">
+          <div id="editor-container" *ngIf="maybeValueFormControl | async">
             <ckeditor
               [config]="{
                 toolbar: editorToolbarConfig | async,
                 placeholder: 'Start typing...'
               }"
               [editor]="editor"
-              [formControl]="valueFormControl"
+              [formControl]="valueFormControl | asyncNotNull"
             >
             </ckeditor>
           </div>
@@ -154,26 +165,67 @@ const ANIMATION_DURATION_MS = 500
         <ion-card class="card flat flat-with-shadow">
           <div id="blog-post-editor-drawer-inner">
             <div id="blog-post-editor-top">
+              <div id="blog-post-editor-cover-image">
+                <div
+                  id="blog-post-editor-cover-image-preview"
+                  [style.background-image]="
+                    coverImagePreviewBackgroundImage | asyncNotNull
+                  "
+                ></div>
+                <div
+                  id="blog-post-editor-cover-image-input-container"
+                  (click)="coverImageInput.click()"
+                >
+                  <input
+                    #coverImageInput
+                    id="blog-post-editor-cover-image-input"
+                    type="file"
+                    accept="image/jpeg,.jpg,.jpeg,image/png,.png,image/gif,.gif"
+                    (change)="uploadNewCoverImage($event)"
+                  />
+                  <span
+                    *ngIf="!(coverImagePreviewBackgroundImage | asyncNotNull)"
+                    class="uploader-drop-zone-text"
+                  >
+                    Add a cover image
+                  </span>
+                  <ng-container
+                    *ngIf="coverImagePreviewBackgroundImage | asyncNotNull"
+                  >
+                    <ion-button class="edit-button button">
+                      <ion-icon
+                        class="icon"
+                        lazy="true"
+                        slot="icon-only"
+                        name="create-sharp"
+                      ></ion-icon>
+                    </ion-button>
+                  </ng-container>
+                </div>
+              </div>
               <div
                 id="blog-post-editor-title-container"
-                *ngIf="titleFormControl"
+                *ngIf="blogPostDrawerIsVisible | async"
               >
                 <ion-input
                   #blogPostEditorTitleInput
                   id="blog-post-editor-title-input"
                   placeholder="Untitled Blog Post"
-                  [formControl]="titleFormControl"
+                  [formControl]="titleFormControl | asyncNotNull"
                 ></ion-input>
               </div>
             </div>
-            <div id="blog-post-editor-value-container" *ngIf="valueFormControl">
+            <div
+              id="blog-post-editor-value-container"
+              *ngIf="blogPostDrawerIsVisible | async"
+            >
               <ckeditor
                 [config]="{
                   toolbar: editorToolbarConfig | async,
                   placeholder: 'Start typing...'
                 }"
                 [editor]="editor"
-                [formControl]="valueFormControl"
+                [formControl]="valueFormControl | asyncNotNull"
               >
               </ckeditor>
             </div>
@@ -185,7 +237,7 @@ const ANIMATION_DURATION_MS = 500
                   buttonType="button"
                   size="default"
                   expand="block"
-                  [disabled]="!valueFormControl.value"
+                  [disabled]="!(maybeValueFormControl | async)?.value"
                   (click)="publishBlogPost()"
                 >
                   Publish
@@ -235,14 +287,34 @@ const ANIMATION_DURATION_MS = 500
 export class ContentEditorContainer implements OnInit {
   @ViewChild("blogPostEditorTitleInput")
   public blogPostEditorTitleInput!: IonInput
+
   public maybeValueFormControl = this._getMaybeActiveContentValueControl().pipe(
     untilDestroyed(this),
   )
-  public valueFormControl!: FormControl
+  public valueFormControl = this.maybeValueFormControl.pipe(ignoreNullish())
   public maybeTitleFormControl = this._getMaybeActiveContentTitleControl().pipe(
     untilDestroyed(this),
   )
-  public titleFormControl!: FormControl
+  public titleFormControl = this.maybeTitleFormControl.pipe(ignoreNullish())
+  public maybeCoverImageGroupFormControl = this._getMaybeActiveContentCoverImageGroupControl().pipe(
+    untilDestroyed(this),
+  )
+  public coverImageGroupFormControl = this.maybeCoverImageGroupFormControl.pipe(
+    ignoreNullish(),
+    shareReplayOnce(),
+  )
+  private _coverImageGroup = this._getMaybeActiveContentCoverImageGroup().pipe(
+    untilDestroyed(this),
+  )
+  public coverImagePreviewBackgroundImage = this._coverImageGroup.pipe(
+    map((coverImageGroup) =>
+      this.domSanitizer.bypassSecurityTrustStyle(
+        !!coverImageGroup
+          ? `url(${coverImageGroup.images[coverImageGroup.largeSize].url})`
+          : "none",
+      ),
+    ),
+  )
   public hasPreview = this._getHasPreview().pipe(untilDestroyed(this))
   public simpleContentDrawerIsVisible = this._getMaybeActiveContentType().pipe(
     // Adding a delay so that `clickOutside` doesn't get confused.
@@ -336,6 +408,15 @@ export class ContentEditorContainer implements OnInit {
     @Inject(GET_MAYBE_ACTIVE_CONTENT_VALUE_CONTROL)
     private _getMaybeActiveContentValueControl: GetMaybeActiveContentValueControl,
 
+    @Inject(GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL)
+    private _getMaybeActiveContentTitleControl: GetMaybeActiveContentTitleControl,
+
+    @Inject(GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP_CONTROL)
+    private _getMaybeActiveContentCoverImageGroupControl: GetMaybeActiveContentCoverImageGroupControl,
+
+    @Inject(GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP)
+    private _getMaybeActiveContentCoverImageGroup: GetMaybeActiveContentCoverImageGroup,
+
     @Inject(GET_HAS_PREVIEW)
     private _getHasPreview: GetHasPreview,
 
@@ -344,9 +425,6 @@ export class ContentEditorContainer implements OnInit {
 
     @Inject(GET_MAYBE_ACTIVE_CONTENT_TYPE)
     private _getMaybeActiveContentType: GetMaybeActiveContentType,
-
-    @Inject(GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL)
-    private _getMaybeActiveContentTitleControl: GetMaybeActiveContentTitleControl,
 
     @Inject(PUBLISH_ONE_ON_CONFIRMATION)
     private _publishOneOnConfirmation: PublishOneOnConfirmation,
@@ -357,27 +435,29 @@ export class ContentEditorContainer implements OnInit {
     @Inject(GET_MAYBE_ACTIVE_CONTENT_ID)
     private _getMaybeActiveContentId: GetMaybeActiveContentId,
 
+    @Inject(CREATE_COVER_IMAGE_PREVIEW_URL)
+    private _createCoverImagePreviewUrl: CreateCoverImagePreviewUrl,
+
     @Inject(WINDOW)
     private _window: Window,
+
+    @Inject(UPLOAD_IMAGE)
+    private _uploadImage: UploadImage,
 
     private _elementRef: ElementRef,
 
     private _alertController: AlertController,
+
+    public domSanitizer: DomSanitizer,
   ) {}
 
   public ngOnInit(): void {
-    this.maybeValueFormControl
-      .pipe(ignoreNullish())
-      .subscribe((formControl) => {
-        this.valueFormControl = formControl
-      })
-    this.maybeTitleFormControl
-      .pipe(ignoreNullish())
-      .subscribe((formControl) => {
-        this.titleFormControl = formControl
-      })
     this._setUpAutoSaveForBlogPosts()
     this._setUpFocusTitleOnOpen()
+
+    this.coverImageGroupFormControl.subscribe((x) => {
+      console.log("got here in sub", x)
+    })
   }
 
   public cancelEdit(): void {
@@ -409,9 +489,7 @@ export class ContentEditorContainer implements OnInit {
     const activeContentId = await asPromise(this._getMaybeActiveContentId())
     return new Promise((resolve) => {
       // Do nothing if the user does not confirm.
-      const CONFIRM_MESSAGE =
-        "You're about to publish (make visible to the public) all your " +
-        "changes since the last time you published. This can't be undone."
+      const CONFIRM_MESSAGE = "You're about to move this post to the trash."
       this._alertController
         .create({
           header: "Are you sure?",
@@ -431,6 +509,7 @@ export class ContentEditorContainer implements OnInit {
               cssClass: "",
               handler: async () => {
                 await this._moveContentToTrash(activeContentId!)
+                this._window.location.reload()
                 resolve(true)
               },
             },
@@ -440,6 +519,40 @@ export class ContentEditorContainer implements OnInit {
           confirmRemoveAll.present()
         })
     })
+  }
+
+  public async uploadNewCoverImage(event: Event): Promise<void> {
+    const coverImageFileSystemUrl = await this._createCoverImagePreviewUrl(
+      event,
+    )
+    const coverImageGroupFormControl = await asPromise(
+      this.coverImageGroupFormControl,
+    )
+    const originalImage = await this._uploadImage(coverImageFileSystemUrl)
+    const newCoverImageResolution: ImageResolution = await new Promise(
+      (resolve) => {
+        const image = new Image()
+        image.src = originalImage.url
+        image.onload = function () {
+          resolve({ width: image.width, height: image.height })
+        }
+      },
+    )
+    const originalSize = Math.max(
+      newCoverImageResolution.width,
+      newCoverImageResolution.height,
+    )
+    const initialCoverImageGroup: DbDocumentInput<ImageGroup> = {
+      thumbnailSize: originalSize,
+      largeSize: originalSize,
+      originalSize,
+      images: {
+        [originalSize]: {
+          url: originalImage.url,
+        },
+      },
+    }
+    coverImageGroupFormControl.setValue(initialCoverImageGroup)
   }
 
   private _setUpAutoSaveForBlogPosts(): void {

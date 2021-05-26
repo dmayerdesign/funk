@@ -8,9 +8,11 @@ import {
   GRANT_SUPER_ROLE_TO_ME,
   SET_SECRET,
 } from "@funk/admin/infrastructure/external/tokens"
+import { construct as constructAddHtmlBlogPostCoverImage } from "@funk/blog/infrastructure/external/cloud-functions/add-html-blog-post-cover-image"
 import { construct as constructGetTaxonomyTermBySlug } from "@funk/blog/infrastructure/external/cloud-functions/get-taxonomy-term-by-slug"
 import { construct as constructListHtmlBlogPosts } from "@funk/blog/infrastructure/external/cloud-functions/list-html-blog-posts"
 import {
+  ADD_HTML_BLOG_POST_COVER_IMAGE,
   GET_TAXONOMY_TERM_BY_SLUG,
   LIST_HTML_BLOG_POSTS,
 } from "@funk/blog/infrastructure/external/tokens"
@@ -70,6 +72,11 @@ import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functi
     {
       provide: LIST_HTML_BLOG_POSTS,
       useFactory: constructListHtmlBlogPosts,
+      deps: [FunctionsClient],
+    },
+    {
+      provide: ADD_HTML_BLOG_POST_COVER_IMAGE,
+      useFactory: constructAddHtmlBlogPostCoverImage,
       deps: [FunctionsClient],
     },
   ],

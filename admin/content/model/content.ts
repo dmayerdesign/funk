@@ -1,4 +1,4 @@
-import { ImageGroup } from "@funk/image/model/image-group"
+import { ImageGroup } from "@funk/admin/image-group/model/image-group"
 import {
   DatabaseDocument,
   RemovedAt,
@@ -15,7 +15,7 @@ export interface ContentText extends DatabaseDocument, RemovedAt {
     meaning: string
     defaultLocale: string
     translations: {
-      [localeId: string]: string
+      [localeId: string]: any /* ContentText["value"] */
     }
   }
 }
@@ -27,7 +27,7 @@ export interface ContentHtml extends DatabaseDocument, RemovedAt {
     meaning: string
     defaultLocale: string
     translations: {
-      [localeId: string]: string
+      [localeId: string]: any /* ContentHtml["value"] */
     }
   }
 }
@@ -35,11 +35,12 @@ export interface ContentHtml extends DatabaseDocument, RemovedAt {
 export interface ContentImage extends DatabaseDocument, RemovedAt {
   type: ContentType.IMAGE
   value: ImageGroup
+  caption?: string
   i18n?: {
     meaning: string
     defaultLocale: string
     translations: {
-      [localeId: string]: string
+      [localeId: string]: any /* ContentImage["value"] */
     }
   }
 }
@@ -50,13 +51,13 @@ export interface ContentHtmlBlogPost extends DatabaseDocument, RemovedAt {
   subtitle?: string
   /** The HTML post body. */
   value: string
-  coverImageUrl: string
+  coverImageGroup: ImageGroup
   taxonomyTerms: PrimaryKey[]
   i18n?: {
     meaning: string
     defaultLocale: string
     translations: {
-      [localeId: string]: string
+      [localeId: string]: any /* ContentHtmlBlogPost["value"]*/
     }
   }
 }
