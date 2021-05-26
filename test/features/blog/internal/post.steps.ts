@@ -2,11 +2,14 @@ import {
   construct as constructListHtmlBlogPosts,
   ListHtmlBlogPosts,
 } from "@funk/admin/content/application/internal/behaviors/list-html-blog-posts"
+import { construct as constructListContents } from "@funk/admin/content/application/internal/behaviors/persistence/list"
+import populateContents from "@funk/admin/content/application/internal/behaviors/persistence/populate"
 import {
   ContentHtmlBlogPost,
   CONTENTS,
   ContentType,
 } from "@funk/admin/content/model/content"
+import { createFakeImageGroup } from "@funk/image/model/stubs"
 import { Condition } from "@funk/persistence/application/internal/condition"
 import { DbDocumentInput } from "@funk/persistence/model/database-document"
 import { DEFAULT_PAGINATION } from "@funk/persistence/model/pagination"
@@ -27,10 +30,11 @@ const feature = loadFeature(
 
 defineFeature(feature, (example) => {
   let listHtmlBlogPosts: ListHtmlBlogPosts
+  const listContents = constructListContents(list, populateContents)
 
   background(async () => {
     await initializeStore()
-    listHtmlBlogPosts = constructListHtmlBlogPosts(list)
+    listHtmlBlogPosts = constructListHtmlBlogPosts(listContents)
   })
 
   rule("An anonymous user can view published posts by category.", () => {
@@ -56,8 +60,9 @@ defineFeature(feature, (example) => {
         )
 
         given(
-          /there are blog posts in the category "(.+)" in the trash/,
+          /some blog posts in the category "(.+)" are in the trash/,
           async (categoryId: PrimaryKey) => {
+            const sharedFakeImageGroup = createFakeImageGroup()
             await setById<DbDocumentInput<ContentHtmlBlogPost>>(
               CONTENTS,
               "fake-trash-post-1",
@@ -65,10 +70,10 @@ defineFeature(feature, (example) => {
                 type: ContentType.HTML_BLOG_POST,
                 title: "Fake Trash Post 1",
                 value: "Content of fake trash post 1.",
-                coverImageUrl: "",
+                coverImageGroup: sharedFakeImageGroup,
                 taxonomyTerms: [categoryId],
                 removedAt: Date.now(),
-              },
+              } as DbDocumentInput<ContentHtmlBlogPost>,
             )
             await setById<DbDocumentInput<ContentHtmlBlogPost>>(
               CONTENTS,
@@ -77,10 +82,10 @@ defineFeature(feature, (example) => {
                 type: ContentType.HTML_BLOG_POST,
                 title: "Fake Trash Post 2",
                 value: "Content of fake trash post 2.",
-                coverImageUrl: "",
+                coverImageGroup: sharedFakeImageGroup,
                 taxonomyTerms: [categoryId],
                 removedAt: Date.now(),
-              },
+              } as DbDocumentInput<ContentHtmlBlogPost>,
             )
             await setById<DbDocumentInput<ContentHtmlBlogPost>>(
               CONTENTS,
@@ -89,10 +94,10 @@ defineFeature(feature, (example) => {
                 type: ContentType.HTML_BLOG_POST,
                 title: "Fake Trash Post 3",
                 value: "Content of fake trash post 3.",
-                coverImageUrl: "",
+                coverImageGroup: sharedFakeImageGroup,
                 taxonomyTerms: [],
                 removedAt: Date.now(),
-              },
+              } as DbDocumentInput<ContentHtmlBlogPost>,
             )
           },
         )
@@ -131,8 +136,7 @@ defineFeature(feature, (example) => {
             expect(
               blogPosts.every(
                 (post) =>
-                  typeof post.title === "string" &&
-                  typeof post.coverImageUrl === "string",
+                  typeof post.title === "string" && !!post.coverImageGroup,
               ),
             )
           },

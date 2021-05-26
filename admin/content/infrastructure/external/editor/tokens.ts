@@ -1,9 +1,12 @@
 import { InjectionToken } from "@angular/core"
 import { CancelEdit } from "@funk/admin/content/application/external/editor/behaviors/cancel-edit"
+import { CreateCoverImagePreviewUrl } from "@funk/admin/content/application/external/editor/behaviors/create-cover-image-preview-url"
 import { GetHasPreview } from "@funk/admin/content/application/external/editor/behaviors/get-has-preview"
 import { GetIsAuthorized } from "@funk/admin/content/application/external/editor/behaviors/get-is-authorized"
 import { GetIsSaving } from "@funk/admin/content/application/external/editor/behaviors/get-is-saving"
 import { GetMaybeActiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content"
+import { GetMaybeActiveContentCoverImageGroup } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-cover-image-group"
+import { GetMaybeActiveContentCoverImageGroupControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-cover-image-group-control"
 import { GetMaybeActiveContentId } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-id"
 import { GetMaybeActiveContentTitle } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title"
 import { GetMaybeActiveContentTitleControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title-control"
@@ -55,6 +58,12 @@ export const GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL = new InjectionToken<
 export const GET_MAYBE_ACTIVE_CONTENT_TITLE = new InjectionToken<
   GetMaybeActiveContentTitle
 >("GET_MAYBE_ACTIVE_CONTENT_TITLE")
+export const GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP_CONTROL = new InjectionToken<
+  GetMaybeActiveContentCoverImageGroupControl
+>("GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP_CONTROL")
+export const GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP = new InjectionToken<
+  GetMaybeActiveContentCoverImageGroup
+>("GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP")
 export const GET_MAYBE_ACTIVE_CONTENT = new InjectionToken<
   GetMaybeActiveContent
 >("GET_MAYBE_ACTIVE_CONTENT")
@@ -110,3 +119,6 @@ export const SAVE_AND_CLEAR_IF_EDITING = new InjectionToken<
 export const MOVE_CONTENT_TO_TRASH = new InjectionToken<MoveContentToTrash>(
   "MOVE_CONTENT_TO_TRASH",
 )
+export const CREATE_COVER_IMAGE_PREVIEW_URL = new InjectionToken<
+  CreateCoverImagePreviewUrl
+>("CREATE_COVER_IMAGE_PREVIEW_URL")

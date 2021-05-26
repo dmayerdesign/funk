@@ -1,5 +1,6 @@
 import { GetIsSaving } from "@funk/admin/content/application/external/editor/behaviors/get-is-saving"
 import { GetMaybeActiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content"
+import { GetMaybeActiveContentCoverImageGroup } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-cover-image-group"
 import { GetMaybeActiveContentId } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-id"
 import { GetMaybeActiveContentTitle } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title"
 import { GetMaybeActiveContentValue } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-value"
@@ -10,10 +11,13 @@ import {
   ContentHtmlBlogPost,
   ContentType,
 } from "@funk/admin/content/model/content"
-import { ContentPreview } from "@funk/admin/content/model/content-preview"
 import { UpdateById } from "@funk/admin/content/preview/application/external/behaviors/persistence/update-by-id"
+import { ImageGroup } from "@funk/admin/image-group/model/image-group"
+import { AddHtmlBlogPostCoverImage } from "@funk/blog/infrastructure/external/cloud-functions/add-html-blog-post-cover-image"
+import throwNotImplementedError from "@funk/error/helpers/throw-not-implemented-error"
 import { asPromise } from "@funk/helpers/as-promise"
 import { DomGetInnerText } from "@funk/ui/infrastructure/external/helpers/dom/get-inner-text"
+import { isEqual } from "lodash"
 import { v4 as uuid } from "uuid"
 
 export function construct(
@@ -22,20 +26,32 @@ export function construct(
   getMaybeActiveContentId: GetMaybeActiveContentId,
   getMaybeActiveContentValue: GetMaybeActiveContentValue,
   getMaybeActiveContentTitle: GetMaybeActiveContentTitle,
+  getMaybeActiveContentCoverImageGroup: GetMaybeActiveContentCoverImageGroup,
   domGetInnerText: DomGetInnerText,
   updateById: UpdateById,
+  addHtmlBlogPostCoverImage: AddHtmlBlogPostCoverImage,
 ) {
   return async function (): Promise<void> {
     const content = await asPromise(getMaybeActiveContent())
+    const contentId = (await asPromise(getMaybeActiveContentId())) ?? uuid()
+    const newTitle = (await asPromise(getMaybeActiveContentTitle())) ?? ""
+    const newValueHtml = (await asPromise(getMaybeActiveContentValue())) ?? ""
+    const maybeActiveCoverImageGroup = await asPromise(
+      getMaybeActiveContentCoverImageGroup(),
+    )
 
     if (content) {
-      const contentId = (await asPromise(getMaybeActiveContentId())) ?? uuid()
-      const newTitle = (await asPromise(getMaybeActiveContentTitle())) ?? ""
-      const newValueHtml = (await asPromise(getMaybeActiveContentValue())) ?? ""
+      const coverImageIsNew =
+        !!(content as ContentHtmlBlogPost)?.coverImageGroup &&
+        !isEqual(
+          maybeActiveCoverImageGroup,
+          (content as ContentHtmlBlogPost)?.coverImageGroup,
+        )
 
       if (
         newTitle !== ((content as ContentHtmlBlogPost)?.title ?? "") ||
-        newValueHtml !== (content.value ?? "")
+        newValueHtml !== (content.value ?? "") ||
+        coverImageIsNew
       ) {
         getIsSaving().next(true)
       } else {
@@ -43,30 +59,39 @@ export function construct(
       }
 
       try {
-        const contentType = content?.type
+        const newCoverImageGroup = coverImageIsNew
+          ? await addHtmlBlogPostCoverImage({
+              contentId: content.id,
+              images: maybeActiveCoverImageGroup?.images ?? {},
+            })
+          : maybeActiveCoverImageGroup ?? ({} as ImageGroup)
+
         const updatedContent =
-          contentType === ContentType.HTML_BLOG_POST
+          content?.type === ContentType.HTML_BLOG_POST
             ? createContentHtmlBlogPost(contentId, {
                 ...content,
                 title: newTitle,
                 value: newValueHtml,
+                coverImageGroup: newCoverImageGroup,
               })
-            : contentType === ContentType.HTML
+            : content?.type === ContentType.HTML
             ? createContentHtml(contentId, {
                 ...content,
                 value: newValueHtml,
               })
+            : content?.type === ContentType.IMAGE
+            ? throwNotImplementedError(
+                "Image-only content is not yet supported. To add an image, create a blog post.",
+              )
             : createContentText(contentId, {
                 ...content,
                 value: domGetInnerText(newValueHtml),
               })
 
-        const contentPreviewUpdate: Partial<ContentPreview> = {
+        await updateById(contentId, {
           updatedAt: Date.now(),
           content: updatedContent,
-        }
-
-        await updateById(contentId, contentPreviewUpdate)
+        })
       } catch (error) {
         console.error("There was an error updating the preview. Details:")
         console.error(error)

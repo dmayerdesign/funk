@@ -72,8 +72,8 @@ ${filenames
         )
 
         if (!schemaDefs[interfaceName]) return
-        // TODO: Un-comment.
-        // if (schemaDefHasNotChangedSinceLastBuild()) return
+
+        if (schemaDefHasNotChangedSinceLastBuild()) return
 
         // Delete existing validator files.
         if (existsSync(schemaDefFilename)) unlinkSync(schemaDefFilename)
@@ -163,29 +163,43 @@ export type Validate = ReturnType<typeof construct>
           mkdirpSync(CACHE_PATH)
           writeFileSync(cachedHashedSchemaDefPath, hashedSchemaDef)
         }
-        // function schemaDefHasNotChangedSinceLastBuild() {
-        //   const hashedSchemaDef = md5(JSON.stringify(schemaDefs[interfaceName]))
-        //   const cachedHashedSchemaDefPath = resolve(
-        //     CACHE_PATH,
-        //     `${filename
-        //       .split(ROOT_DIR_ABSOLUTE_PATH)[1]
-        //       .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`,
-        //   )
-        //   let cachedHashedSchemaDef: string | undefined
-        //   try {
-        //     cachedHashedSchemaDef = readFileSync(
-        //       cachedHashedSchemaDefPath,
-        //     ).toString("utf-8")
-        //   } catch {}
-        //   return hashedSchemaDef === cachedHashedSchemaDef
-        // }
+        function schemaDefHasNotChangedSinceLastBuild() {
+          const hashedSchemaDef = md5(JSON.stringify(schemaDefs[interfaceName]))
+          const cachedHashedSchemaDefPath = resolve(
+            CACHE_PATH,
+            `${filename
+              .split(ROOT_DIR_ABSOLUTE_PATH)[1]
+              .replace(new RegExp(sep, "g"), "_")}_${interfaceName}`,
+          )
+          let cachedHashedSchemaDef: string | undefined
+          try {
+            cachedHashedSchemaDef = readFileSync(
+              cachedHashedSchemaDefPath,
+            ).toString("utf-8")
+          } catch {}
+          return hashedSchemaDef === cachedHashedSchemaDef
+        }
       } catch (error) {
         if (error instanceof schemaGenerator.NoRootTypeError) {
           warn(error.message)
           warn(
             "This is likely due to a bug that causes generic interfaces to be skipped.",
           )
-        } else throw error
+        } else if (error instanceof schemaGenerator.BaseError) {
+          warn(
+            "Failed trying to generate the JSON schema for " +
+              interfaceName +
+              ". Details:",
+          )
+          throw error
+        } else {
+          warn(
+            "Failed trying to write validators for " +
+              interfaceName +
+              ". Details:",
+          )
+          throw error
+        }
       }
     })
   }

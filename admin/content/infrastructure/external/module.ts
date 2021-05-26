@@ -1,10 +1,13 @@
 import { ModuleWithProviders, NgModule } from "@angular/core"
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular"
 import { construct as constructCancelEdit } from "@funk/admin/content/application/external/editor/behaviors/cancel-edit"
+import { construct as constructCreateCoverImagePreviewUrl } from "@funk/admin/content/application/external/editor/behaviors/create-cover-image-preview-url"
 import { construct as constructGetHasPreview } from "@funk/admin/content/application/external/editor/behaviors/get-has-preview"
 import { construct as constructGetIsAuthorized } from "@funk/admin/content/application/external/editor/behaviors/get-is-authorized"
 import { construct as constructGetIsSaving } from "@funk/admin/content/application/external/editor/behaviors/get-is-saving"
 import { construct as constructGetMaybeActiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content"
+import { construct as constructGetMaybeActiveContentCoverImageGroup } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-cover-image-group"
+import { construct as constructGetMaybeActiveContentCoverImageGroupControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-cover-image-group-control"
 import { construct as constructGetMaybeActiveContentId } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-id"
 import { construct as constructGetMaybeActiveContentTitle } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title"
 import { construct as constructGetMaybeActiveContentTitleControl } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-title-control"
@@ -33,10 +36,13 @@ import { ContentComponent } from "@funk/admin/content/infrastructure/external/co
 import { ContentEditorContainer } from "@funk/admin/content/infrastructure/external/editor/container"
 import {
   CANCEL_EDIT,
+  CREATE_COVER_IMAGE_PREVIEW_URL,
   GET_HAS_PREVIEW,
   GET_IS_AUTHORIZED,
   GET_IS_SAVING,
   GET_MAYBE_ACTIVE_CONTENT,
+  GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP,
+  GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP_CONTROL,
   GET_MAYBE_ACTIVE_CONTENT_ID,
   GET_MAYBE_ACTIVE_CONTENT_TITLE,
   GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL,
@@ -78,6 +84,7 @@ import {
   SET_CONTENT_PREVIEW_BY_ID,
   UPDATE_CONTENT_PREVIEW_BY_ID,
 } from "@funk/admin/content/preview/infrastructure/external/persistence/tokens"
+import { ADD_HTML_BLOG_POST_COVER_IMAGE } from "@funk/blog/infrastructure/external/tokens"
 import {
   USER_CONTENT,
   USER_SESSION,
@@ -87,6 +94,7 @@ import {
   LISTEN_FOR_USER_CONTENT_BY_ID,
   UPDATE_USER_CONTENT_BY_ID,
 } from "@funk/identity/user-content/infrastructure/external/persistence/tokens"
+import { ImageStorageModule } from "@funk/storage/plugins/external/image-storage/module"
 import { AppCommonModule } from "@funk/ui/infrastructure/external/common.module"
 import { DEVICE_WIDTH } from "@funk/ui/infrastructure/external/tokens"
 import { AlertController } from "@ionic/angular"
@@ -99,6 +107,7 @@ import { ClickOutsideModule } from "ng-click-outside"
     CKEditorModule,
     ContentPreviewPersistenceModule.withProviders(),
     ContentPersistenceModule.withProviders(),
+    ImageStorageModule,
   ],
   declarations: [ContentEditorContainer, ContentComponent],
   exports: [ContentEditorContainer, ContentComponent],
@@ -165,6 +174,16 @@ export class ContentModule {
           provide: GET_MAYBE_ACTIVE_CONTENT_TITLE,
           useFactory: constructGetMaybeActiveContentTitle,
           deps: [GET_MAYBE_ACTIVE_CONTENT_TITLE_CONTROL],
+        },
+        {
+          provide: GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP_CONTROL,
+          useFactory: constructGetMaybeActiveContentCoverImageGroupControl,
+          deps: [GET_MAYBE_ACTIVE_CONTENT],
+        },
+        {
+          provide: GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP,
+          useFactory: constructGetMaybeActiveContentCoverImageGroup,
+          deps: [GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP_CONTROL],
         },
         {
           provide: GET_MAYBE_CONTENT_PREVIEWS,
@@ -283,8 +302,10 @@ export class ContentModule {
             GET_MAYBE_ACTIVE_CONTENT_ID,
             GET_MAYBE_ACTIVE_CONTENT_VALUE,
             GET_MAYBE_ACTIVE_CONTENT_TITLE,
+            GET_MAYBE_ACTIVE_CONTENT_COVER_IMAGE_GROUP,
             DOM_GET_INNER_TEXT,
             UPDATE_CONTENT_PREVIEW_BY_ID,
+            ADD_HTML_BLOG_POST_COVER_IMAGE,
           ],
         },
         {
@@ -296,6 +317,11 @@ export class ContentModule {
           provide: MOVE_CONTENT_TO_TRASH,
           useFactory: constructMoveContentToTrash,
           deps: [UPDATE_CONTENT_BY_ID],
+        },
+        {
+          provide: CREATE_COVER_IMAGE_PREVIEW_URL,
+          useFactory: constructCreateCoverImagePreviewUrl,
+          deps: [],
         },
       ],
     }

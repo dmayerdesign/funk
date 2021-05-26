@@ -2,15 +2,15 @@ import {
   construct,
   ListHtmlBlogPosts,
 } from "@funk/admin/content/application/internal/behaviors/list-html-blog-posts"
+import { List as ListContents } from "@funk/admin/content/application/internal/behaviors/persistence/list"
 import {
   ContentHtmlBlogPost,
-  CONTENTS,
+  ContentType,
 } from "@funk/admin/content/model/content"
 import { createFakeHtmlBlogPost } from "@funk/admin/content/model/stubs"
-import { List } from "@funk/persistence/application/internal/behaviors/list"
 
 describe("listHtmlBlogPosts", () => {
-  let list: List
+  let list: ListContents
   let listHtmlBlogPosts: ListHtmlBlogPosts
 
   const FAKE_PARAMS: Parameters<ListHtmlBlogPosts> = [
@@ -37,9 +37,9 @@ describe("listHtmlBlogPosts", () => {
 
     expect(list).toHaveBeenCalledWith(
       expect.objectContaining({
-        collection: CONTENTS,
         conditions: expect.arrayContaining([
           expect.arrayContaining(["removedAt", null]),
+          expect.arrayContaining(["type", ContentType.HTML_BLOG_POST]),
         ]),
       }),
     )

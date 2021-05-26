@@ -15,3 +15,5 @@ export async function givenAUser(given: DefineStepFunction) {
     createTestUser(displayName)
   })
 }
+
+export const TEST_USER_ADMIN_ID = "test-user-admin"

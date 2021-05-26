@@ -2,11 +2,10 @@ import { Configuration } from "../../../configuration/model/configuration"
 
 type ContentSecurityPolicy = string
 
-function getCsp(projectId: string): ContentSecurityPolicy {
+function getCsp(_projectId: string): ContentSecurityPolicy {
   const csp: Record<string, string[]> = {
     "default-src": [
       "'self'",
-      `https://${projectId}.firebaseapp.com`,
       "https://*.googleapis.com",
       "https://*.cloudfunctions.net",
       "https://*.google.com",
@@ -24,7 +23,21 @@ function getCsp(projectId: string): ContentSecurityPolicy {
       "https://images.pexels.com",
       "data:",
     ],
-    "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+    "connect-src": [
+      "'self'",
+      "https://*.googleapis.com",
+      "https://*.cloudfunctions.net",
+      "https://*.google.com",
+      "https://*.gstatic.com",
+      "https://images.pexels.com",
+      "data:",
+    ],
+    "style-src": [
+      "'self'",
+      "'unsafe-inline'",
+      "https://fonts.googleapis.com",
+      "data:",
+    ],
   }
 
   return Object.keys(csp)

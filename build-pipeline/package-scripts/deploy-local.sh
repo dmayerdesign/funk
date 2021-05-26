@@ -8,7 +8,7 @@ firebase use $PROJECT_ID
 node build-pipeline/data/local-import-collection-json.js \
   --collection "commerce.orders" \
   --collection "commerce.products" \
-  --collection "contents" \
+  --collection "admin.contents" \
   --collection "identity.persons" \
   --collection "identity.user-contents" \
   --collection "organizations" \

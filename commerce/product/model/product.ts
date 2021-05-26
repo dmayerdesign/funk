@@ -1,7 +1,7 @@
+import { ImageGroup } from "@funk/admin/image-group/model/image-group"
 import { AttributeValue } from "@funk/attribute/model/attribute-value"
 import { Price } from "@funk/commerce/price/model/price"
 import { Review } from "@funk/commerce/review/model/review"
-import { ImageGroup } from "@funk/image/model/image-group"
 import { InclusiveRange } from "@funk/math/model/range"
 import { Organization } from "@funk/organization/model/organization"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"

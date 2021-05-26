@@ -15,6 +15,7 @@ const handler: express.ErrorRequestHandler = (
   if (response.headersSent) {
     return next(error)
   }
+  console.error("[funk] Handled error:", error)
   response.status(getStatusCodeForError(error)).send({ error })
 }
 export default handler

@@ -4,7 +4,9 @@ export const USER_CONTENTS = "identity.user-contents"
 
 export interface UserContent {
   id: string
-  contentPreviews?: {
-    [contentId: string]: ContentPreview
-  }
+  contentPreviews?: ContentPreviews
+}
+
+export interface ContentPreviews {
+  [contentId: string]: ContentPreview
 }

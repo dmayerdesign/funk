@@ -27,7 +27,7 @@
         "headers": [
           {
             "key": "Content-Security-Policy",
-            "value": "default-src 'self' https://test-rbs503e.firebaseapp.com https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://recaptcha.net https://player.vimeo.com https://vod-progressive.akamaized.net; img-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://images.pexels.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com"
+            "value": "default-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://recaptcha.net https://player.vimeo.com https://vod-progressive.akamaized.net; img-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://images.pexels.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com data:; connect-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.google.com https://*.gstatic.com https://images.pexels.com data:"
           }
         ]
       }

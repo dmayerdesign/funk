@@ -14,11 +14,11 @@ import { IonRippleEffect } from "@ionic/angular"
 export class RippleContainerDirective implements OnInit {
   @ContentChild(IonRippleEffect) public rippleEffect!: IonRippleEffect
   @ContentChild(IonRippleEffect, { read: ElementRef })
-  private rippleEffectRef!: ElementRef
+  private rippleEffectRef!: ElementRef<HTMLElement>
 
   public constructor(
     private _renderer: Renderer2,
-    private _elementRef: ElementRef,
+    private _elementRef: ElementRef<HTMLElement>,
   ) {}
 
   public ngOnInit(): void {
@@ -30,15 +30,15 @@ export class RippleContainerDirective implements OnInit {
   public ripple = ({ x, y }: MouseEvent): void => {
     this.rippleEffect.addRipple(x, y).then(() => {
       this._removeRipple(
-        this.rippleEffectRef.nativeElement.shadowRoot.querySelector(
+        this.rippleEffectRef.nativeElement.shadowRoot?.querySelector(
           ".ripple-effect",
         ),
       )
     })
   }
 
-  private _removeRipple(ripple: HTMLElement): void {
-    ripple.classList.add("fade-out")
-    setTimeout(() => ripple.remove(), 200)
+  private _removeRipple(ripple: HTMLElement | null | undefined): void {
+    ripple?.classList.add("fade-out")
+    setTimeout(() => ripple?.remove(), 200)
   }
 }

@@ -37,9 +37,9 @@ describe("ContentEditorService", () => {
 // import { when } from "jest-when"
 // import { Dictionary } from "lodash"
 // import { of } from "rxjs"
-// import { GetMaybeActiveContent } from "./behaviors/get-maybe-active-content"
-// import { GetMaybeActiveContentId } from "./behaviors/get-maybe-active-content-id"
-// import { GetMaybeActiveContentValue } from "./behaviors/get-maybe-active-content-value"
+// import { GetMaybeActiveContent } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content"
+// import { GetMaybeActiveContentId } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-id"
+// import { GetMaybeActiveContentValue } from "@funk/admin/content/application/external/editor/behaviors/get-maybe-active-content-value"
 
 // describe("ContentEditorService", () => {
 //   let alertController: AlertController

@@ -18,36 +18,18 @@ import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"
       <ion-row class="row">
         <ng-container *ngFor="let post of posts | async">
           <ion-col
-            class="post post-col col"
+            class="post post-col content col"
             sizeXs="12"
             sizeSm="12"
             sizeMd="12"
             sizeLg="12"
-            sizeXl="6"
+            sizeXl="12"
           >
-            <ion-card class="post-card card" ripple-container>
-              <div class="post-card-media card-media">
-                <img class="post-cover-image" [src]="post.coverImageUrl" />
-              </div>
-
-              <ion-card-header class="card-header">
-                <ion-card-title class="post-title card-title">{{
-                  post.title
-                }}</ion-card-title>
-              </ion-card-header>
-
-              <ion-card-content
-                class="post-value card-content"
-                [innerHTML]="post.value || ''"
-              >
-              </ion-card-content>
-
-              <ion-ripple-effect class="ripple-effect"></ion-ripple-effect>
-            </ion-card>
+            <blog-post-card [post]="post"></blog-post-card>
 
             <ng-container *ngIf="getIsAuthorized() | async">
               <ion-button
-                class="edit-post-button button"
+                class="edit-post-button edit-button button"
                 (click)="editAPost(post)"
               >
                 <ion-icon

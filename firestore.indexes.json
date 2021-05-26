@@ -17,11 +17,12 @@
       ]
     },
     {
-      "collectionGroup": "contents",
+      "collectionGroup": "admin.contents",
       "queryScope": "COLLECTION",
       "fields": [
         { "fieldPath": "taxonomyTerms", "arrayConfig": "CONTAINS" },
         { "fieldPath": "removedAt", "order": "ASCENDING" },
+        { "fieldPath": "type", "order": "ASCENDING" },
         { "fieldPath": "createdAt", "order": "DESCENDING" }
       ]
     }
