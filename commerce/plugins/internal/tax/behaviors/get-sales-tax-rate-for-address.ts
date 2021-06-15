@@ -1,11 +1,11 @@
-import getSecretImpl from "@funk/admin/plugins/internal/secrets/behaviors/get-secret"
-import { TAX_SERVICE_PROVIDER_SECRET_KEY } from "@funk/admin/plugins/internal/secrets/keys"
 import { AvataxResponse } from "@funk/commerce/plugins/internal/tax/avatax-response"
 import { TAX_PUBLISHABLE_KEY } from "@funk/configuration"
 import httpClientImpl, {
   Response,
 } from "@funk/http/plugins/internal/client/client"
 import { Address } from "@funk/places/model/address"
+import getSecretImpl from "@funk/secrets/plugins/internal/encrypted-storage/behaviors/get-secret"
+import { TAX_SERVICE_PROVIDER_SECRET_KEY } from "@funk/secrets/plugins/internal/encrypted-storage/keys"
 
 const SALES_TAX_RATE_CALCULATOR_URL =
   "https://rest.avatax.com/api/v2/taxrates/bypostalcode"

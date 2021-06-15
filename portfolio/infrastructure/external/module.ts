@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
-import { ContentModule } from "@funk/admin/content/infrastructure/external/module"
 import {
   construct as constructGetToken,
   GET_TOKEN,
@@ -8,6 +7,7 @@ import {
 } from "@funk/auth/plugins/external/turing-test/behaviors/get-token"
 import { BlogModule } from "@funk/blog/infrastructure/external/module"
 import { TAXONOMY_TERM_SLUG_ROUTE_PARAM_RESOLVER } from "@funk/blog/infrastructure/external/tokens"
+import { ContentModule } from "@funk/content/infrastructure/external/module"
 import { AboutContainer } from "@funk/portfolio/infrastructure/external/about/container"
 import { ContactContainer } from "@funk/portfolio/infrastructure/external/contact/container"
 import { PortfolioContainer } from "@funk/portfolio/infrastructure/external/container"

@@ -1,13 +1,10 @@
 import {
   AddHtmlBlogPostCoverImage,
   construct as constructAddHtmlBlogPostCoverImage,
-} from "@funk/admin/content/application/internal/behaviors/add-html-blog-post-cover-image"
-import {
-  ContentHtmlBlogPost,
-  CONTENTS,
-} from "@funk/admin/content/model/content"
-import { createFakeHtmlBlogPost } from "@funk/admin/content/model/stubs"
-import { IMAGE_GROUPS } from "@funk/admin/image-group/model/image-group"
+} from "@funk/content/application/internal/behaviors/add-html-blog-post-cover-image"
+import { IMAGE_GROUPS } from "@funk/content/image-group/model/image-group"
+import { ContentHtmlBlogPost, CONTENTS } from "@funk/content/model/content"
+import { createFakeHtmlBlogPost } from "@funk/content/model/stubs"
 import { createFakeImageGroup } from "@funk/image/model/stubs"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 import loadFeatureOptions from "@funk/test/configuration/load-feature-options"

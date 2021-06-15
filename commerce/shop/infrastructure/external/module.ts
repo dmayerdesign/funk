@@ -2,7 +2,6 @@ import { CommonModule } from "@angular/common"
 import { NgModule } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router"
-import { ContentModule } from "@funk/admin/content/infrastructure/external/module"
 import { construct as constructEnterprise } from "@funk/commerce/shop/application/external/enterprise/enterprise"
 import { construct as constructCartSetSkuQuantity } from "@funk/commerce/shop/application/external/orders/cart/behaviors/set-sku-quantity"
 import { construct as constructCart } from "@funk/commerce/shop/application/external/orders/cart/cart"
@@ -20,6 +19,7 @@ import {
   ENTERPRISE,
   RESOLVE_ENTERPRISE,
 } from "@funk/commerce/shop/infrastructure/external/tokens"
+import { ContentModule } from "@funk/content/infrastructure/external/module"
 import { USER_SESSION } from "@funk/identity/infrastructure/external/tokens"
 import { LISTEN_FOR_ORGANIZATION_BY_ID } from "@funk/organization/infrastructure/external/persistence/tokens"
 import { PersistenceModule } from "@funk/persistence/infrastructure/external/module"

@@ -1,3 +1,4 @@
+# This script must be run from the project's root folder.
 if [ $? -eq 0 ]; then source development.env; else (exit 1); fi
 if [ $? -eq 0 ]; then firebase use $PROJECT_ID; else (exit 1); fi
 if [ $? -eq 0 ]; then

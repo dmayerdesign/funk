@@ -21,7 +21,7 @@ const routes: Routes = [
   {
     path: "admin",
     loadChildren: () =>
-      import("@funk/admin/infrastructure/external/module").then(
+      import("@funk/secrets/infrastructure/external/module").then(
         (mod) => mod.AdminModule,
       ),
     canActivate: [AnonymousGuard],
@@ -37,7 +37,7 @@ const routes: Routes = [
     path: "account",
     loadChildren: () =>
       import(
-        "@funk/admin/infrastructure/external/account-management/module"
+        "@funk/secrets/infrastructure/external/account-management/module"
       ).then((mod) => mod.AccountManagementModule),
     canActivate: [AnonymousGuard],
   },

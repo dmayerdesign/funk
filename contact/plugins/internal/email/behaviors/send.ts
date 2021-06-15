@@ -1,6 +1,6 @@
-import getSecretImpl from "@funk/admin/plugins/internal/secrets/behaviors/get-secret"
-import { EMAIL_SERVICE_PROVIDER_SECRET_KEY } from "@funk/admin/plugins/internal/secrets/keys"
 import { EmailData } from "@funk/contact/model/email"
+import getSecretImpl from "@funk/secrets/plugins/internal/encrypted-storage/behaviors/get-secret"
+import { EMAIL_SERVICE_PROVIDER_SECRET_KEY } from "@funk/secrets/plugins/internal/encrypted-storage/keys"
 import emailClientImpl from "@sendgrid/mail"
 
 export function construct(

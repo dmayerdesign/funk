@@ -101,13 +101,13 @@ import schema from "@funk${schemaDefFilename
               .split(ROOT_DIR_ABSOLUTE_PATH)[1]
               .replace(/\.ts$/, "")}"
 
-export default function (data: ${interfaceName}): string[] | false
+export default function (data?: ${interfaceName}): string[] | false
 {
   const _schema = schema as any
   const requiredProps = (_schema.required ?? []) as (keyof ${interfaceName})[]
   const errors = requiredProps.reduce((_errors, requiredPropName) =>
   {
-    if (typeof data[requiredPropName] === "undefined")
+    if (typeof data?.[requiredPropName] === "undefined")
     {
       _errors.push(\`Required property \${requiredPropName} is undefined.\`)
     }
@@ -130,7 +130,7 @@ import isInvalid from "@funk${modelDirname.split(ROOT_DIR_ABSOLUTE_PATH)[1]}` +
 
 export function construct()
 {
-  return function (data: ${interfaceName}): void
+  return function (data?: ${interfaceName}): void
   {
     const falseOrErrors = isInvalid(data)
     if (falseOrErrors)

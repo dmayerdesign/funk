@@ -1,3 +1,4 @@
+# This script must be run from the project's root folder.
 source development.env
 # npm i
 # npm run test
@@ -8,7 +9,7 @@ firebase use $PROJECT_ID
 node build-pipeline/data/local-import-collection-json.js \
   --collection "commerce.orders" \
   --collection "commerce.products" \
-  --collection "admin.contents" \
+  --collection "contents" \
   --collection "identity.persons" \
   --collection "identity.user-contents" \
   --collection "organizations" \

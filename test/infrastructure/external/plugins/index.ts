@@ -1,5 +1,5 @@
-import { Content, CONTENTS } from "@funk/admin/content/model/content"
-import { createFakeHtmlBlogPost } from "@funk/admin/content/model/stubs"
+import { Content, CONTENTS } from "@funk/content/model/content"
+import { createFakeHtmlBlogPost } from "@funk/content/model/stubs"
 import { STORE_SERVER_PORT } from "@funk/test/plugins/external/persistence/configuration"
 import http from "axios"
 import { pickBy, values } from "lodash"

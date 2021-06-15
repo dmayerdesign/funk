@@ -1,13 +1,13 @@
 import { Component, Inject, Input, OnInit } from "@angular/core"
-import { GetIsAuthorized } from "@funk/admin/content/application/external/editor/behaviors/get-is-authorized"
-import { OpenHtmlBlogPostEditor } from "@funk/admin/content/application/external/editor/behaviors/open-html-blog-post-editor"
+import { ListHtmlBlogPosts } from "@funk/blog/infrastructure/external/cloud-functions/list-html-blog-posts"
+import { LIST_HTML_BLOG_POSTS } from "@funk/blog/infrastructure/external/tokens"
+import { GetIsAuthorized } from "@funk/content/application/external/editor/behaviors/get-is-authorized"
+import { OpenHtmlBlogPostEditor } from "@funk/content/application/external/editor/behaviors/open-html-blog-post-editor"
 import {
   GET_IS_AUTHORIZED,
   OPEN_HTML_BLOG_POST_EDITOR,
-} from "@funk/admin/content/infrastructure/external/editor/tokens"
-import { ContentHtmlBlogPost } from "@funk/admin/content/model/content"
-import { ListHtmlBlogPosts } from "@funk/blog/infrastructure/external/cloud-functions/list-html-blog-posts"
-import { LIST_HTML_BLOG_POSTS } from "@funk/blog/infrastructure/external/tokens"
+} from "@funk/content/infrastructure/external/editor/tokens"
+import { ContentHtmlBlogPost } from "@funk/content/model/content"
 import { DEFAULT_PAGINATION } from "@funk/persistence/model/pagination"
 import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"
 

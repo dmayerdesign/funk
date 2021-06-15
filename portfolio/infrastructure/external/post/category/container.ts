@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit, ViewChild } from "@angular/core"
 import { ActivatedRoute, Router } from "@angular/router"
-import { OpenHtmlBlogPostEditor } from "@funk/admin/content/application/external/editor/behaviors/open-html-blog-post-editor"
-import { OPEN_HTML_BLOG_POST_EDITOR } from "@funk/admin/content/infrastructure/external/editor/tokens"
 import { BlogPostsByTaxonomyTermContainer } from "@funk/blog/infrastructure/external/posts-by-taxonomy-term/container"
+import { OpenHtmlBlogPostEditor } from "@funk/content/application/external/editor/behaviors/open-html-blog-post-editor"
+import { OPEN_HTML_BLOG_POST_EDITOR } from "@funk/content/infrastructure/external/editor/tokens"
 import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"
 
 @Component({

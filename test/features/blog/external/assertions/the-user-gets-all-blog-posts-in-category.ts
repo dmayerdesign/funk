@@ -1,6 +1,6 @@
-import { Content, ContentHtmlBlogPost } from "@funk/admin/content/model/content"
 import contents from "@funk/build-pipeline/data/development-data/contents.json"
 import taxonomyTerms from "@funk/build-pipeline/data/development-data/taxonomy-terms.json"
+import { Content, ContentHtmlBlogPost } from "@funk/content/model/content"
 import { reverse, sortBy, values } from "lodash"
 
 export default function (categorySlug: string) {

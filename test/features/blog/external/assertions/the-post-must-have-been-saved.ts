@@ -1,4 +1,4 @@
-import { ContentHtmlBlogPost } from "@funk/admin/content/model/content"
+import { ContentHtmlBlogPost } from "@funk/content/model/content"
 import { InvalidInputError } from "@funk/error/model/invalid-input-error"
 import { values } from "lodash"
 import { theSavedContentsShouldMatch } from "../helpers"

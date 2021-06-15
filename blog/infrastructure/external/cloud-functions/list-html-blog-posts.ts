@@ -1,9 +1,9 @@
-import { ContentHtmlBlogPost } from "@funk/admin/content/model/content"
+import { ContentHtmlBlogPost } from "@funk/content/model/content"
 import { Condition } from "@funk/persistence/application/external/condition"
 import { Pagination } from "@funk/persistence/model/pagination"
 import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functions-client"
 
-export const functionName = "adminContentListHtmlBlogPosts"
+export const functionName = "contentListHtmlBlogPosts"
 export interface PayloadType {
   pagination: Pagination<ContentHtmlBlogPost>
   conditions: Condition<ContentHtmlBlogPost>[]

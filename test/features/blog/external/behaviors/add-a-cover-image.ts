@@ -1,6 +1,6 @@
-import { ImageGroup } from "@funk/admin/image-group/model/image-group"
 import { ADD_HTML_BLOG_POST_COVER_IMAGE } from "@funk/blog/infrastructure/external/tokens"
 import { FUNCTIONS_BASE_URL } from "@funk/configuration"
+import { ImageGroup } from "@funk/content/image-group/model/image-group"
 import { createFakeImageGroup } from "@funk/image/model/stubs"
 import editAPost from "@funk/test/features/blog/external/behaviors/edit-a-post"
 import publishThePost from "@funk/test/features/blog/external/behaviors/publish-the-post"

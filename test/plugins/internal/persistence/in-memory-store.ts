@@ -1,4 +1,3 @@
-import { CONTENTS } from "@funk/admin/content/model/content"
 import commerceOrders from "@funk/build-pipeline/data/development-data/commerce.orders.json"
 import commerceProducts from "@funk/build-pipeline/data/development-data/commerce.products.json"
 import contents from "@funk/build-pipeline/data/development-data/contents.json"
@@ -9,6 +8,7 @@ import taxonomies from "@funk/build-pipeline/data/development-data/taxonomies.js
 import taxonomyTerms from "@funk/build-pipeline/data/development-data/taxonomy-terms.json"
 import { ORDERS } from "@funk/commerce/order/model/order"
 import { PRODUCTS } from "@funk/commerce/product/model/product"
+import { CONTENTS } from "@funk/content/model/content"
 import { USER_CONTENTS } from "@funk/identity/model/user-content"
 import { PERSONS } from "@funk/identity/person/model/person"
 import { ORGANIZATIONS } from "@funk/organization/model/organization"

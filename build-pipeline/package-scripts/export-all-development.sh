@@ -1,3 +1,4 @@
+# This script must be run from the project's root folder.
 source development.env
 
 mkdir -p .funk/build-pipeline-output/export

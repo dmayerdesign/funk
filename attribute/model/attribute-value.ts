@@ -1,4 +1,4 @@
-import { ImageGroup } from "@funk/admin/image-group/model/image-group"
+import { ImageGroup } from "@funk/content/image-group/model/image-group"
 import { DatabaseDocument } from "@funk/persistence/model/database-document"
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
 

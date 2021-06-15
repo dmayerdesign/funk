@@ -1,14 +1,14 @@
 import {
   construct as constructListHtmlBlogPosts,
   ListHtmlBlogPosts,
-} from "@funk/admin/content/application/internal/behaviors/list-html-blog-posts"
-import { construct as constructListContents } from "@funk/admin/content/application/internal/behaviors/persistence/list"
-import populateContents from "@funk/admin/content/application/internal/behaviors/persistence/populate"
+} from "@funk/content/application/internal/behaviors/list-html-blog-posts"
+import { construct as constructListContents } from "@funk/content/application/internal/behaviors/persistence/list"
+import populateContents from "@funk/content/application/internal/behaviors/persistence/populate"
 import {
   ContentHtmlBlogPost,
   CONTENTS,
   ContentType,
-} from "@funk/admin/content/model/content"
+} from "@funk/content/model/content"
 import { createFakeImageGroup } from "@funk/image/model/stubs"
 import { Condition } from "@funk/persistence/application/internal/condition"
 import { DbDocumentInput } from "@funk/persistence/model/database-document"

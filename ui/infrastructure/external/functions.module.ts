@@ -1,13 +1,6 @@
 import { HttpClientModule } from "@angular/common/http"
 import { NgModule } from "@angular/core"
-import { construct as constructAdminGetSecret } from "@funk/admin/infrastructure/external/cloud-functions/get-secret"
 import { construct as constructAdminGrantSuperRoleToMe } from "@funk/admin/infrastructure/external/cloud-functions/grant-super-role-to-me"
-import { construct as constructAdminSetSecret } from "@funk/admin/infrastructure/external/cloud-functions/set-secret"
-import {
-  GET_SECRET,
-  GRANT_SUPER_ROLE_TO_ME,
-  SET_SECRET,
-} from "@funk/admin/infrastructure/external/tokens"
 import { construct as constructAddHtmlBlogPostCoverImage } from "@funk/blog/infrastructure/external/cloud-functions/add-html-blog-post-cover-image"
 import { construct as constructGetTaxonomyTermBySlug } from "@funk/blog/infrastructure/external/cloud-functions/get-taxonomy-term-by-slug"
 import { construct as constructListHtmlBlogPosts } from "@funk/blog/infrastructure/external/cloud-functions/list-html-blog-posts"
@@ -24,6 +17,13 @@ import { SKU_IMPORT } from "@funk/commerce/shop/infrastructure/external/sku/toke
 import { construct as constructCommerceSkuImport } from "@funk/commerce/sku/infrastructure/external/cloud-functions/import"
 import { construct as constructContactOwner } from "@funk/contact/infrastructure/external/cloud-functions/owner"
 import { CONTACT_OWNER } from "@funk/portfolio/infrastructure/external/tokens"
+import { construct as constructAdminGetSecret } from "@funk/secrets/infrastructure/external/cloud-functions/get-secret"
+import { construct as constructAdminSetSecret } from "@funk/secrets/infrastructure/external/cloud-functions/set-secret"
+import {
+  GET_SECRET,
+  GRANT_SUPER_ROLE_TO_ME,
+  SET_SECRET,
+} from "@funk/secrets/infrastructure/external/tokens"
 import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functions-client"
 
 @NgModule({

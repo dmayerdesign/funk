@@ -1,4 +1,4 @@
-import { ImageGroup } from "@funk/admin/image-group/model/image-group"
+import { ImageGroup } from "@funk/content/image-group/model/image-group"
 import { merge } from "lodash"
 
 export function createFakeImageGroup(

@@ -1,8 +1,8 @@
-import getSecretImpl from "@funk/admin/plugins/internal/secrets/behaviors/get-secret"
-import { TURING_TEST_SERVICE_PROVIDER_SECRET_KEY } from "@funk/admin/plugins/internal/secrets/keys"
 import httpClientImpl, {
   Response,
 } from "@funk/http/plugins/internal/client/client"
+import getSecretImpl from "@funk/secrets/plugins/internal/encrypted-storage/behaviors/get-secret"
+import { TURING_TEST_SERVICE_PROVIDER_SECRET_KEY } from "@funk/secrets/plugins/internal/encrypted-storage/keys"
 
 interface TuringTestRequest {
   /** The reCaptcha token */

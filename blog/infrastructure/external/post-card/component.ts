@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core"
 import { DomSanitizer } from "@angular/platform-browser"
-import { ContentHtmlBlogPost } from "@funk/admin/content/model/content"
+import { ContentHtmlBlogPost } from "@funk/content/model/content"
 
 @Component({
   selector: "blog-post-card",

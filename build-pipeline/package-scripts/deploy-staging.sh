@@ -1,3 +1,4 @@
+# This script must be run from the project's root folder.
 source staging.env
 npm i
 

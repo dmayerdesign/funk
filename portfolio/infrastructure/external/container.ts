@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core"
-import { GetById as GetContentById } from "@funk/admin/content/application/external/behaviors/persistence/get-by-id"
-import { GET_CONTENT_BY_ID } from "@funk/admin/content/infrastructure/external/persistence/tokens"
+import { GetById as GetContentById } from "@funk/content/application/external/behaviors/persistence/get-by-id"
+import { GET_CONTENT_BY_ID } from "@funk/content/infrastructure/external/persistence/tokens"
 import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
 import atlas from "@funk/ui/atlas/configuration"
 import { Atlas } from "@funk/ui/atlas/model/atlas"

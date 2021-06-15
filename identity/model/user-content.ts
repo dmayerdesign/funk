@@ -1,4 +1,4 @@
-import { ContentPreview } from "@funk/admin/content/model/content-preview"
+import { ContentPreview } from "@funk/content/model/content-preview"
 
 export const USER_CONTENTS = "identity.user-contents"
 

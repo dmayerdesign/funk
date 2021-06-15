@@ -1,5 +1,5 @@
-import getSecretImpl from "@funk/admin/plugins/internal/secrets/behaviors/get-secret"
-import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/admin/plugins/internal/secrets/keys"
+import getSecretImpl from "@funk/secrets/plugins/internal/encrypted-storage/behaviors/get-secret"
+import { PAYMENT_SERVICE_PROVIDER_SECRET_KEY } from "@funk/secrets/plugins/internal/encrypted-storage/keys"
 import Stripe from "stripe"
 
 let provider: Stripe

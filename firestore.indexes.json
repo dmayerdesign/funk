@@ -17,7 +17,7 @@
       ]
     },
     {
-      "collectionGroup": "admin.contents",
+      "collectionGroup": "contents",
       "queryScope": "COLLECTION",
       "fields": [
         { "fieldPath": "taxonomyTerms", "arrayConfig": "CONTAINS" },
