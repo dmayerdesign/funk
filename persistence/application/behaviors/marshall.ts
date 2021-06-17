@@ -1,5 +1,4 @@
 import { PrimaryKey } from "@funk/persistence/model/primary-key"
-import { values } from "lodash"
 
 export type Marshalled<PopulatedType extends Record<string, any>> = Partial<
   Record<keyof PopulatedType, unknown>
@@ -23,12 +22,6 @@ export default function marshall<PopulatedType extends Record<string, any>>(
 
     if (typeof value?.id === "string") {
       _marshalledDoc[key] = value.id
-    } else {
-      _marshalledDoc[key] = values(
-        (marshall(value, Object.keys(value)) as unknown) as ArrayLike<
-          PrimaryKey
-        >,
-      )
     }
   }
   return _marshalledDoc as Marshalled<PopulatedType>

@@ -248,6 +248,7 @@ export class ContentModule {
             SET_CONTENT_BY_ID,
             DELETE_CONTENT_PREVIEW_BY_ID,
             GET_MAYBE_CONTENT_PREVIEWS,
+            SAVE_IF_EDITING,
           ],
         },
         {

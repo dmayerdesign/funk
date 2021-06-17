@@ -1,4 +1,9 @@
-import { Component, Input } from "@angular/core"
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+} from "@angular/core"
 import { DomSanitizer } from "@angular/platform-browser"
 import { ContentHtmlBlogPost } from "@funk/content/model/content"
 
@@ -26,22 +31,29 @@ import { ContentHtmlBlogPost } from "@funk/content/model/content"
       <ion-ripple-effect class="ripple-effect"></ion-ripple-effect>
     </ion-card>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BlogPostCardComponent {
+export class BlogPostCardComponent implements OnChanges {
   @Input() public post!: ContentHtmlBlogPost
   public sanitizedCoverImageStyle!: Pick<CSSStyleDeclaration, "backgroundImage">
 
   public constructor(public domSanitizer: DomSanitizer) {}
 
   public ngOnChanges(): void {
-    this.sanitizedCoverImageStyle = {
-      backgroundImage: this.domSanitizer.bypassSecurityTrustStyle(
-        `url(${
-          this.post.coverImageGroup.images[
-            this.post.coverImageGroup.largeSize
-          ] ?? ""
-        })`,
-      ) as string,
+    try {
+      if (this.post?.coverImageGroup?.images) {
+        this.sanitizedCoverImageStyle = {
+          backgroundImage: this.domSanitizer.bypassSecurityTrustStyle(
+            `url(${
+              this.post.coverImageGroup.images[
+                this.post.coverImageGroup.largeSize
+              ].url ?? ""
+            })`,
+          ) as string,
+        }
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 }

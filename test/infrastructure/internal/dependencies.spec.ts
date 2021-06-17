@@ -8,8 +8,9 @@ describe("Import rules", () => {
   const infraCodeImportPattern = /.+\/infrastructure\/.+/g
   const internalCodeImportPattern = /.+\/internal\/.+/g
   const externalCodeImportPattern = /.+\/external\/.+/g
+  const testCodeImportPattern = /.+(\/test\/|\/spec\/|\.spec|\/spec|\.stubs|\/stubs).+/g
 
-  test("model files should not import `plugins` nor `application` nor `infrastructure`", () => {
+  test("model files must not import `plugins` nor `application` nor `infrastructure`", () => {
     const modelFilenames = readFiles("**/model/**/*.ts")
     const modelFiles = modelFilenames.map((modelFilename) =>
       readFileSync(modelFilename, { encoding: "utf-8" }),
@@ -30,7 +31,7 @@ describe("Import rules", () => {
     expect(someFilesImportInfraCode).toBe(false)
   })
 
-  test("plugin files should not import `application` nor `infrastructure`, with the exception of `persistence`", () => {
+  test("plugin files must not import `application` nor `infrastructure`, with the exception of `persistence`", () => {
     const pluginFilenames = readFiles("**/plugins/**/*.ts")
     const pluginFiles = pluginFilenames.map((pluginFilename) =>
       readFileSync(pluginFilename, { encoding: "utf-8" }),
@@ -47,7 +48,7 @@ describe("Import rules", () => {
     expect(someFilesImportInfraCode).toBe(false)
   })
 
-  test("internal code should not import external code", () => {
+  test("internal code must not import external code", () => {
     const internalFilenames = readFiles("**/internal/**/*.ts")
     const internalFiles = internalFilenames
       .filter((filename) => !filename.includes(__dirname))
@@ -60,7 +61,7 @@ describe("Import rules", () => {
     expect(someFilesImportExternalFiles).toBe(false)
   })
 
-  test("external code should not import internal code", () => {
+  test("external code must not import internal code", () => {
     const externalFilenames = readFiles("**/external/**/*.ts")
     const externalFiles = externalFilenames.map((filename) =>
       readFileSync(filename, { encoding: "utf-8" }),
@@ -71,6 +72,43 @@ describe("Import rules", () => {
     )
 
     expect(someFilesImportInternalFiles).toBe(false)
+  })
+
+  test("production code must not import test code", () => {
+    const allTsFilenames = readFiles("**/*.ts")
+    const allTsFiles = allTsFilenames.map((filename) => [
+      filename,
+      readFileSync(filename, { encoding: "utf-8" }),
+    ])
+
+    const allowedFilePatterns = [
+      "\\/validators\\/main.ts",
+      "\\/persistence\\/infrastructure\\/external\\/module.ts",
+      "\\/ui\\/infrastructure\\/external\\/app.module.ts",
+      "\\/ui\\/infrastructure\\/external\\/main.ts",
+      "\\/ui\\/infrastructure\\/external\\/routes.ts",
+      "\\/build-pipeline\\/",
+      "for-testing.ts",
+    ]
+    const someProdFilesImportTestFiles = allTsFiles
+      .filter(([filename]) =>
+        allowedFilePatterns.every(
+          (pattern) => !filename.match(new RegExp(pattern, "gi")),
+        ),
+      )
+      .some(
+        ([filename, file]) =>
+          !filename.includes(".spec.") &&
+          !filename.includes("/spec.") &&
+          !filename.includes("/spec/") &&
+          !filename.includes("/test/") &&
+          !filename.includes(".stubs.") &&
+          !filename.includes("/stubs.") &&
+          !filename.includes("/stubs/") &&
+          !!file.match(testCodeImportPattern),
+      )
+
+    expect(someProdFilesImportTestFiles).toBe(false)
   })
 })
 

@@ -3,6 +3,7 @@ import listImpl from "@funk/persistence/application/internal/behaviors/list"
 import { Marshalled } from "@funk/persistence/application/internal/behaviors/marshall"
 import { TAKE_ALL } from "@funk/persistence/model/pagination"
 import { ReferenceOptions } from "@funk/persistence/model/reference-options"
+import { get, set } from "lodash"
 
 export function construct(getById: typeof getByIdImpl, list: typeof listImpl) {
   return async function <PopulatedType>(
@@ -14,38 +15,46 @@ export function construct(getById: typeof getByIdImpl, list: typeof listImpl) {
     }
     const _populatedDoc = ({ ...marshalledDoc } as unknown) as PopulatedType
     for (const { collectionPath, key, relationship } of options) {
-      if (!marshalledDoc[key]) {
+      if (!get(marshalledDoc, key)) {
         continue
       } else if (
         relationship === "one-to-one" &&
-        typeof marshalledDoc[key] === "string"
+        typeof get(marshalledDoc, key) === "string"
       ) {
-        _populatedDoc[key] = (await getById(
-          collectionPath,
-          (marshalledDoc[key] as unknown) as string,
-        )) as any
+        set(
+          _populatedDoc as any,
+          key,
+          await getById(
+            collectionPath,
+            (get(marshalledDoc, key) as unknown) as string,
+          ),
+        )
       } else {
         if (
-          Array.isArray(marshalledDoc[key]) &&
-          ((marshalledDoc[key] as unknown) as any[]).some(
+          Array.isArray(get(marshalledDoc, key)) &&
+          ((get(marshalledDoc, key) as unknown) as any[]).some(
             (x) => typeof x !== "string",
           )
         ) {
           continue
         }
-        const searchListForInCondition = marshalledDoc[key] as any[]
+        const searchListForInCondition = get(marshalledDoc, key) as any[]
         // Empty "in" arrays are not allowed.
         if (searchListForInCondition?.length) {
-          _populatedDoc[key] = ((await list({
-            collection: collectionPath,
-            pagination: {
-              take: TAKE_ALL,
-              skip: 0,
-              orderBy: "id",
-              orderByDirection: "desc",
-            },
-            conditions: [["id", "in", searchListForInCondition]],
-          })) as unknown) as PopulatedType[typeof key]
+          set(
+            _populatedDoc as any,
+            key,
+            ((await list({
+              collection: collectionPath,
+              pagination: {
+                take: TAKE_ALL,
+                skip: 0,
+                orderBy: "id",
+                orderByDirection: "desc",
+              },
+              conditions: [["id", "in", searchListForInCondition]],
+            })) as unknown) as PopulatedType[typeof key],
+          )
         }
       }
     }

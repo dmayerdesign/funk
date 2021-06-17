@@ -32,6 +32,11 @@ service cloud.firestore {
       allow write: if isSuperOrOwnerOrAdmin();
     }
 
+    match /content.image-groups/{document=**} {
+      allow read;
+      allow write: if isSuperOrOwnerOrAdmin();
+    }
+
     match /commerce.products/{document=**} {
       allow read;
       allow write: if isSuperOrOwnerOrAdmin();

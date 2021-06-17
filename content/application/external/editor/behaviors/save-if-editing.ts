@@ -11,7 +11,7 @@ import createContentHtml from "@funk/content/model/behaviors/create-content-html
 import createContentHtmlBlogPost from "@funk/content/model/behaviors/create-content-html-blog-post"
 import createContentText from "@funk/content/model/behaviors/create-content-text"
 import { ContentHtmlBlogPost, ContentType } from "@funk/content/model/content"
-import { UpdateById } from "@funk/content/preview/application/external/behaviors/persistence/update-by-id"
+import { UpdateById as UpdateContentPreviewById } from "@funk/content/preview/application/external/behaviors/persistence/update-by-id"
 import throwNotImplementedError from "@funk/error/helpers/throw-not-implemented-error"
 import { asPromise } from "@funk/helpers/as-promise"
 import { DomGetInnerText } from "@funk/ui/infrastructure/external/helpers/dom/get-inner-text"
@@ -26,7 +26,7 @@ export function construct(
   getMaybeActiveContentTitle: GetMaybeActiveContentTitle,
   getMaybeActiveContentCoverImageGroup: GetMaybeActiveContentCoverImageGroup,
   domGetInnerText: DomGetInnerText,
-  updateById: UpdateById,
+  updateContentPreviewById: UpdateContentPreviewById,
   addHtmlBlogPostCoverImage: AddHtmlBlogPostCoverImage,
 ) {
   return async function (): Promise<void> {
@@ -39,12 +39,10 @@ export function construct(
     )
 
     if (content) {
-      const coverImageIsNew =
-        !!(content as ContentHtmlBlogPost)?.coverImageGroup &&
-        !isEqual(
-          maybeActiveCoverImageGroup,
-          (content as ContentHtmlBlogPost)?.coverImageGroup,
-        )
+      const coverImageIsNew = !isEqual(
+        maybeActiveCoverImageGroup || undefined,
+        (content as ContentHtmlBlogPost)?.coverImageGroup || undefined,
+      )
 
       if (
         newTitle !== ((content as ContentHtmlBlogPost)?.title ?? "") ||
@@ -58,7 +56,11 @@ export function construct(
 
       try {
         const newCoverImageGroup =
-          coverImageIsNew && !imageGroupIsInvalid(maybeActiveCoverImageGroup)
+          coverImageIsNew &&
+          !imageGroupIsInvalid({
+            ...maybeActiveCoverImageGroup,
+            id: "appease the validator",
+          } as ImageGroup)
             ? await addHtmlBlogPostCoverImage({
                 contentId: content.id,
                 images: maybeActiveCoverImageGroup?.images ?? {},
@@ -87,7 +89,7 @@ export function construct(
                 value: domGetInnerText(newValueHtml),
               })
 
-        await updateById(contentId, {
+        await updateContentPreviewById(contentId, {
           updatedAt: Date.now(),
           content: updatedContent,
         })

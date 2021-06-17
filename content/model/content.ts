@@ -51,7 +51,7 @@ export interface ContentHtmlBlogPost extends DatabaseDocument, RemovedAt {
   subtitle?: string
   /** The HTML post body. */
   value: string
-  coverImageGroup: ImageGroup
+  coverImageGroup?: ImageGroup
   taxonomyTerms: PrimaryKey[]
   i18n?: {
     meaning: string

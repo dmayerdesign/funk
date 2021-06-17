@@ -1,4 +1,5 @@
 import { ModuleWithProviders, NgModule } from "@angular/core"
+import { POPULATE_CONTENT } from "@funk/content/infrastructure/external/persistence/tokens"
 import { construct as constructDeleteContentPreviewById } from "@funk/content/preview/application/external/behaviors/persistence/delete-by-id"
 import { construct as constructGetById } from "@funk/content/preview/application/external/behaviors/persistence/get-by-id"
 import { construct as constructList } from "@funk/content/preview/application/external/behaviors/persistence/list"
@@ -22,7 +23,6 @@ import { MARSHALL_USER_CONTENT } from "@funk/identity/user-content/infrastructur
 import { PersistenceModule } from "@funk/persistence/infrastructure/external/module"
 import {
   MARSHALL,
-  POPULATE,
   UPDATE_BY_ID,
 } from "@funk/persistence/infrastructure/external/tokens"
 
@@ -61,12 +61,17 @@ export class ContentPreviewPersistenceModule {
         {
           provide: UPDATE_CONTENT_PREVIEW_BY_ID,
           useFactory: constructUpdateById,
-          deps: [UPDATE_BY_ID, MARSHALL_USER_CONTENT, USER_CONTENT],
+          deps: [
+            UPDATE_BY_ID,
+            MARSHALL_USER_CONTENT,
+            USER_CONTENT,
+            MARSHALL_CONTENT_PREVIEW,
+          ],
         },
         {
           provide: POPULATE_CONTENT_PREVIEW,
           useFactory: constructPopulate,
-          deps: [POPULATE],
+          deps: [POPULATE_CONTENT],
         },
         {
           provide: MARSHALL_CONTENT_PREVIEW,

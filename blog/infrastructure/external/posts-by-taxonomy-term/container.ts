@@ -81,6 +81,26 @@ export class BlogPostsByTaxonomyTermContainer implements OnInit {
 
   public ngOnInit(): void {
     this.loadPosts()
+    this.posts.then(async () => {
+      // FIXME: for some reason, Ionic doesn't want to render everything in the list.
+      // Firing a bunch of resize events is a hack to make sure everything renders for now.
+      let allPostsHaveRendered = false
+      let retries = 20
+      while (allPostsHaveRendered === false && retries > 0) {
+        await new Promise((resolve) =>
+          setTimeout(() => {
+            window.dispatchEvent(new Event("resize"))
+            allPostsHaveRendered = Array.from(
+              document.querySelectorAll(".card-title"),
+            ).every(
+              (cardTitleElement) => !!cardTitleElement.textContent?.length,
+            )
+            --retries
+            resolve(undefined)
+          }),
+        )
+      }
+    })
   }
 
   public async editAPost(post: ContentHtmlBlogPost): Promise<void> {

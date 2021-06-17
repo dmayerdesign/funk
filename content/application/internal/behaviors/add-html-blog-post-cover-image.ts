@@ -26,8 +26,8 @@ export function construct(setMany = setManyImpl) {
     const imageGroup: ImageGroup = {
       id: imageGroupId,
       thumbnailSize: sizesAscending[0],
-      largeSize: sizesAscending[1],
-      originalSize: sizesAscending[2],
+      largeSize: sizesAscending[1] ?? sizesAscending[0],
+      originalSize: sizesAscending[2] ?? sizesAscending[1] ?? sizesAscending[0],
       images,
     }
     const contentUpdate: Partial<ContentHtmlBlogPost> = {

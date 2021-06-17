@@ -41,6 +41,8 @@ import {
 import { ContentType } from "@funk/content/model/content"
 import { asPromise } from "@funk/helpers/as-promise"
 import { ignoreNullish, shareReplayOnce } from "@funk/helpers/rxjs-shims"
+import { UserContent$ } from "@funk/identity/application/external/user-content"
+import { USER_CONTENT } from "@funk/identity/infrastructure/external/tokens"
 import { ImageResolution } from "@funk/image/model/image-resolution"
 import { DbDocumentInput } from "@funk/persistence/model/database-document"
 import { UploadImage } from "@funk/storage/plugins/external/image-storage/behaviors/upload-image"
@@ -58,6 +60,7 @@ import {
   map,
   startWith,
   switchMap,
+  withLatestFrom,
 } from "rxjs/operators"
 import * as ClassicEditor from "ui/plugins/external/lib/rich-text/build/ckeditor"
 
@@ -188,13 +191,17 @@ const ANIMATION_DURATION_MS = 500
                     (change)="uploadNewCoverImage($event)"
                   />
                   <span
-                    *ngIf="!(coverImagePreviewBackgroundImage | asyncNotNull)"
+                    *ngIf="
+                      coverImagePreviewBackgroundImageIsNone | asyncNotNull
+                    "
                     class="uploader-drop-zone-text"
                   >
                     Add a cover image
                   </span>
                   <ng-container
-                    *ngIf="coverImagePreviewBackgroundImage | asyncNotNull"
+                    *ngIf="
+                      !(coverImagePreviewBackgroundImageIsNone | asyncNotNull)
+                    "
                   >
                     <ion-button class="edit-button button">
                       <ion-icon
@@ -258,17 +265,19 @@ const ANIMATION_DURATION_MS = 500
                   Save and Close
                 </ion-button>
               </div>
-              <div class="remove-action drawer-card-action">
-                <ion-button
-                  id="blog-post-editor-remove"
-                  class="remove-button transparent button"
-                  buttonType="button"
-                  size="small"
-                  (click)="removeActiveContentOnConfirmation()"
-                >
-                  Move to Trash
-                </ion-button>
-              </div>
+              <ng-container *ngIf="contentHasBeenPublished | async">
+                <div class="remove-action drawer-card-action">
+                  <ion-button
+                    id="blog-post-editor-remove"
+                    class="remove-button transparent button"
+                    buttonType="button"
+                    size="small"
+                    (click)="removeActiveContentOnConfirmation()"
+                  >
+                    Move to Trash
+                  </ion-button>
+                </div>
+              </ng-container>
             </div>
           </div>
           <ion-button
@@ -318,6 +327,10 @@ export class ContentEditorContainer implements OnInit {
           : "none",
       ),
     ),
+    untilDestroyed(this),
+  )
+  public coverImagePreviewBackgroundImageIsNone = this._maybeCoverImageGroup.pipe(
+    map((coverImageGroup) => !coverImageGroup),
   )
   public hasPreview = this._getHasPreview().pipe(untilDestroyed(this))
   public simpleContentDrawerIsVisible = this._getMaybeActiveContentType().pipe(
@@ -347,6 +360,16 @@ export class ContentEditorContainer implements OnInit {
     untilDestroyed(this),
   )
   public isActivated = this._getIsAuthorized().pipe(untilDestroyed(this))
+  public contentHasBeenPublished = this._userContent.pipe(
+    ignoreNullish(),
+    withLatestFrom(this._getMaybeActiveContentId()),
+    map(
+      ([{ contentPreviews }, contentId]) =>
+        !contentPreviews?.[contentId!]?.isUnpublished,
+    ),
+    shareReplayOnce(),
+    untilDestroyed(this),
+  )
 
   public readonly editorToolbarConfig = this._getMaybeActiveContentType().pipe(
     map((type) => {
@@ -408,6 +431,9 @@ export class ContentEditorContainer implements OnInit {
 
     @Inject(REMOVE_ALL_PREVIEWS_ON_CONFIRMATION)
     private _removeAllPreviewsOnConfirmation: RemoveAllPreviewsOnConfirmation,
+
+    @Inject(USER_CONTENT)
+    private _userContent: UserContent$,
 
     @Inject(GET_MAYBE_ACTIVE_CONTENT_VALUE_CONTROL)
     private _getMaybeActiveContentValueControl: GetMaybeActiveContentValueControl,
@@ -562,14 +588,17 @@ export class ContentEditorContainer implements OnInit {
   private _setUpAutoSaveForBlogPosts(): void {
     combineLatest([
       this._getMaybeActiveContentType().pipe(startWith(undefined)),
-      this.maybeTitleFormControl.pipe(
-        ignoreNullish(),
+      this.titleFormControl.pipe(
         switchMap((formControl) => formControl.valueChanges),
         startWith(undefined),
         distinctUntilChanged(),
       ),
-      this.maybeValueFormControl.pipe(
-        ignoreNullish(),
+      this.valueFormControl.pipe(
+        switchMap((formControl) => formControl.valueChanges),
+        startWith(undefined),
+        distinctUntilChanged(),
+      ),
+      this.coverImageGroupFormControl.pipe(
         switchMap((formControl) => formControl.valueChanges),
         startWith(undefined),
         distinctUntilChanged(),
@@ -578,9 +607,11 @@ export class ContentEditorContainer implements OnInit {
       .pipe(
         untilDestroyed(this),
         filter(
-          ([contentType, contentTitle, contentValue]) =>
-            contentType === ContentType.HTML_BLOG_POST &&
-            (contentTitle !== undefined || contentValue !== undefined),
+          ([type, title, value, coverImageGroup]) =>
+            type === ContentType.HTML_BLOG_POST &&
+            (title !== undefined ||
+              value !== undefined ||
+              coverImageGroup !== undefined),
         ),
         debounceTime(1000),
         switchMap(() => this.saveIfEditing()),
