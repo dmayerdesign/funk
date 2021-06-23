@@ -1,0 +1,9 @@
+@import "https://fonts.googleapis.com/css?family=Cabin+Sketch|Fredericka+the+Great|Just+Another+Hand|Londrina+Shadow|Permanent+Marker|Yellowtail&display=block";
+@import "./styles/styles.scss";
+
+#wrapper {
+  transition: opacity 200ms ease-in-out;
+}
+.is-transitioning {
+  opacity: 0.3;
+}

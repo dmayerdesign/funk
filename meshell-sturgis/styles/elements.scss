@@ -1,0 +1,121 @@
+@import "./variables.scss";
+@import "./typography.scss";
+@import "./mixins.scss";
+
+.sr-only {
+  position: absolute;
+  display: block;
+  height: 0;
+  width: 0;
+  top: -9999rem;
+  left: -9999rem;
+}
+
+.banner {
+  background: url($bg-rect-url);
+}
+
+img {
+  &.aligncenter {
+    display: block;
+    margin: 0 auto;
+  }
+  &.alignright {
+    display: block;
+    float: right;
+    clear: both;
+  }
+}
+
+.page-title {
+  position: relative;
+  margin-bottom: 2rem;
+  margin-top: 0;
+  width: 100%;
+  background: url($bg-rect-url) no-repeat 50% top;
+  background-size: contain;
+  height: 10.7rem;
+  text-align: center;
+  line-height: 10.5rem;
+
+  h1 {
+    display: inline-block;
+    vertical-align: middle;
+    width: 80%;
+    margin: 0;
+    text-align: center;
+    color: $off-white;
+    line-height: 1;
+    font-size: 4rem;
+    font-weight: normal;
+    font-family: "Fredericka the Great", Helvetica, Arial, sans-serif;
+  }
+
+  ms-back-btn {
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    height: 10.7rem;
+    line-height: 10.7rem;
+  }
+}
+
+.line-drawn-border {
+  @include border-image($line-drawn-border-url);
+}
+.line-drawn-border-rect {
+  @include border-image($line-drawn-border-rect-url);
+}
+
+.line-drawn-button {
+  @include border-image($button-border-url);
+  font-family: "Permanent Marker", Helvetica, Arial, sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.05rem;
+  color: $blue;
+  background: transparent;
+  padding: 1rem 2rem;
+  width: 20rem;
+
+  &:hover {
+    color: #fff;
+    background: $blue;
+  }
+}
+
+.post-in-grid {
+  .col-inner {
+    background-color: $primary;
+  }
+}
+
+article {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.flash-message {
+  display: block;
+  position: absolute;
+  top: 1.6rem;
+  left: 50%;
+  z-index: 10;
+  margin-left: -20rem;
+  width: 40rem;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 0.2rem;
+  line-height: 1.4;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+
+  &.success {
+    background: $success-green;
+  }
+  &.error {
+    background: $error-red;
+  }
+}

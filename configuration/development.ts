@@ -2,7 +2,7 @@
 export const DISPLAY_NAME = "Test"
 export const CLOUD_PROJECT_ID = "test-rbs503e-development"
 export const CLIENT_APP_URL = `https://${CLOUD_PROJECT_ID}.web.app`
-export const HOMEPAGE = "shop/home"
+export const HOMEPAGE = ""
 export const OWNER_EMAIL = "d.a.mayer92@gmail.com"
 export const CONFIGURATION = "development" as string
 export const INTEGRATION_TEST = false

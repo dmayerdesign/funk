@@ -1,0 +1,31 @@
+@import "./variables.scss";
+
+form {
+  transition: opacity 0.3s;
+  opacity: 1;
+  &.submitting {
+    opacity: 0.6;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.4rem;
+
+  .form-error {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: $error-red;
+  }
+}
+
+.form-control {
+  width: 100%;
+  padding: 1.4rem 1rem;
+  margin: 0;
+  border: 0 none;
+  box-shadow: 0rem 0.1rem 0.2rem rgba(0, 0, 0, 0.3) inset;
+}

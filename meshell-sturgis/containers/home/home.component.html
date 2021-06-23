@@ -1,0 +1,135 @@
+<div id="home-banner">
+    <img [attr.src]="bannerUrl" />
+    <div id="home-tagline">
+        <div class="home-tagline-inner">
+            <h1 [innerHTML]="cache?.homeTagline || post?.content?.rendered"></h1>
+        </div>
+    </div>
+</div>
+
+<div class="home-menu grid">
+
+    <div [id]="'art'"
+         class="col category-in-grid"
+         [ngClass]="{
+             'col-2-3': isRectangle(0)
+         }">
+        <div (click)="handleTileClick('art')"
+            (keyup)="handleTileKeyup($event, 'art')"
+            class="col-inner"
+            tabindex="0">
+            <div class="category-title">
+                <h2 [ngClass]="'display-heading-' + 'art'">Art.</h2>
+            </div>
+            <div [ngClass]="{
+                'line-drawn-border': !isRectangle(0),
+                'line-drawn-border-rect': isRectangle(0)
+            }"></div>
+        </div>
+    </div>
+
+    <div [id]="'teaching'"
+         class="col category-in-grid"
+         [ngClass]="{
+             'col-2-3': isRectangle(1)
+         }">
+        <div (click)="handleTileClick('teaching')"
+            (keyup)="handleTileKeyup($event, 'teaching')"
+            class="col-inner"
+            tabindex="0">
+            <div class="category-title">
+                <h2 [ngClass]="'display-heading-' + 'teaching'">Teaching.</h2>
+            </div>
+            <div [ngClass]="{
+                'line-drawn-border': !isRectangle(1),
+                'line-drawn-border-rect': isRectangle(1)
+            }"></div>
+        </div>
+    </div>
+
+    <div [id]="'projects'"
+         class="col category-in-grid"
+         [ngClass]="{
+             'col-2-3': isRectangle(2)
+         }">
+        <div (click)="handleTileClick('projects')"
+            (keyup)="handleTileKeyup($event, 'projects')"
+            class="col-inner"
+            tabindex="0">
+            <div class="category-title">
+                <h2 [ngClass]="'display-heading-' + 'projects'">Projects.</h2>
+            </div>
+            <div [ngClass]="{
+                'line-drawn-border': !isRectangle(2),
+                'line-drawn-border-rect': isRectangle(2)
+            }"></div>
+        </div>
+    </div>
+
+    <div [id]="'research'"
+         class="col category-in-grid"
+         [ngClass]="{
+             'col-2-3': isRectangle(3)
+         }">
+        <div (click)="handleTileClick('research')"
+            (keyup)="handleTileKeyup($event, 'research')"
+            class="col-inner"
+            tabindex="0">
+            <div class="category-title">
+                <h2 [ngClass]="'display-heading-' + 'research'">Research.</h2>
+            </div>
+            <div [ngClass]="{
+                'line-drawn-border': !isRectangle(3),
+                'line-drawn-border-rect': isRectangle(3)
+            }"></div>
+        </div>
+    </div>
+
+    <div [id]="'c-v'"
+         class="col category-in-grid"
+         [ngClass]="{
+             'col-2-3': isRectangle(4)
+         }">
+        <div (click)="handleTileClick('c-v')"
+            (keyup)="handleTileKeyup($event, 'c-v')"
+            class="col-inner"
+            tabindex="0">
+            <div class="category-title">
+                <h2 [ngClass]="'display-heading-' + 'c-v'">C.V.</h2>
+            </div>
+            <div [ngClass]="{
+                'line-drawn-border': !isRectangle(4),
+                'line-drawn-border-rect': isRectangle(4)
+            }"></div>
+        </div>
+    </div>
+
+    <div [id]="'about'"
+         class="col category-in-grid"
+         [ngClass]="{
+             'col-2-3': isRectangle(5)
+         }">
+        <div (click)="handleTileClick('about')"
+            (keyup)="handleTileKeyup($event, 'about')"
+            class="col-inner"
+            tabindex="0">
+            <div class="category-title">
+                <h2 [ngClass]="'display-heading-' + 'about'">About.</h2>
+            </div>
+            <div [ngClass]="{
+                'line-drawn-border': !isRectangle(5),
+                'line-drawn-border-rect': isRectangle(5)
+            }"></div>
+        </div>
+    </div>
+
+    <div id="contact" class="col category-in-grid">
+        <div (click)="handleTileClick('contact')" (keyup)="handleTileKeyup($event, 'contact')" class="col-inner" tabindex="0">
+            <div class="category-title">
+                <h2 class="display-heading-contact">Contact.</h2>
+            </div>
+            <div class="line-drawn-border"></div>
+        </div>
+    </div>
+
+</div>
