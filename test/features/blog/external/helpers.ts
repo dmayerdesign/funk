@@ -15,7 +15,10 @@ export const TEST_USER_ADMIN_ID = "test-user-admin"
 export function givenAUser(_name: string): void {
   cy.visit(
     CLIENT_APP_URL +
-      buildUrl<typeof atlas>("shop", "home?test_user_id=" + TEST_USER_BASIC_ID),
+      buildUrl<typeof atlas>(
+        "portfolio",
+        "blog-posts?test_user_id=" + TEST_USER_BASIC_ID,
+      ),
   )
 }
 
@@ -23,8 +26,8 @@ export function givenAnAdmin(_name: string): void {
   cy.visit(
     CLIENT_APP_URL +
       buildUrl<typeof atlas>(
-        "shop",
-        "home?test_user_id=" +
+        "portfolio",
+        "blog-poststest_user_id=" +
           TEST_USER_ADMIN_ID +
           "&test_user_role=" +
           UserRole.ADMINISTRATOR,
