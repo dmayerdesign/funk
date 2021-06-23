@@ -32,3 +32,10 @@ export const DEFAULT_PAGINATION: Pagination = {
   skip: 0,
   take: 25,
 }
+
+export const DEFAULT_PAGINATION_TAKE_ALL: Pagination = {
+  orderBy: "createdAt",
+  orderByDirection: "desc",
+  skip: 0,
+  take: TAKE_ALL,
+}
