@@ -1,0 +1,36 @@
+@import "./variables.scss";
+
+body,
+input,
+textarea,
+button {
+  font-family: "Raleway", Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: $text-color;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Permanent Marker", Helvetica, Arial, sans-serif;
+}
+
+.aligncenter {
+  text-align: center;
+}
+
+$categoryFonts: (
+  "art": "Fredericka the Great",
+  "scholarship": "Cabin Sketch",
+  "collaborations": "Londrina Shadow",
+  "essays": "Just Another Hand",
+  "c-v": "Cabin Sketch",
+  "about": "Yellowtail",
+);
+// @each $category, $family in $categoryFonts {
+//     .display-heading-#{$category} {
+//         font-family: $family, Arial, Helvetica, sans-serif !important;
+//     }
+// }

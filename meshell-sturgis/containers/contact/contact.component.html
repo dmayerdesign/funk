@@ -1,0 +1,108 @@
+<header class="page-title">
+  <h1 class="display-heading-contact">Get in touch.</h1>
+</header>
+
+<article _ngcontent-eqh-c37="" class="main-content">
+  <p>
+    <a href="https://www.linkedin.com/in/meshell-sturgis-23956b6a/"
+      >Connect with me on LinkedIn.</a
+    >
+  </p>
+  <p>Or send me a message using the form below.</p>
+  <h2><strong>Affiliations:</strong></h2>
+  <p>
+    <a href="https://www.blackembodiments.org/">Black Embodiment Studio</a
+    ><br /><a href="http://ccde.com.washington.edu/"
+      >The Center for Communication, Difference, and Equity</a
+    ><br /><a href="http://www.com.washington.edu/cdrg/"
+      >Communication and Difference Research Group</a
+    ><br />UW
+    <a href="http://depts.washington.edu/gpss/"
+      >Graduate and Professional Student Senator</a
+    >
+    for Department of Communication<br /><a
+      href="https://grad.uw.edu/equity-inclusion-and-diversity/go-map/go-map-fellows/meshell-sturgis/"
+      >GO-MAP Presidential Dissertation Fellow</a
+    >
+    and Outreaching Grad (OG)<br /><a
+      href="https://www.seattle.gov/arts/programs/ethnic-artist-roster#/"
+      >Seattle City Ethnic Artist Roster</a
+    ><br /><a
+      href="https://www.uwb.edu/cultural-studies/people/alumni-ambassadors"
+      >School of IAS as Alumni Ambassador</a
+    ><br /><a href="https://tnxalpha97.wixsite.com/home"
+      >The ALMIGHTY Alpha Chapter of Theta Nu Xi Multicultural Sorority, Inc.</a
+    >&nbsp;<br /><a href="http://sealevelhotyoga.com/">Sealevel Hot Yoga</a>
+  </p>
+</article>
+
+<form
+  *ngIf="contactFormGroup"
+  [ngClass]="{ submitting: submitting }"
+  [formGroup]="contactFormGroup"
+  (submit)="handleSubmit()"
+>
+  <div class="form-group">
+    <label for="name" class="sr-only">Name</label>
+    <input
+      id="name"
+      class="form-control aligncenter"
+      placeholder="Your name"
+      formControlName="name"
+      maxlength="140"
+    />
+    <span
+      class="form-error"
+      *ngIf="
+        (messageSent || messageSendDidError) &&
+        contactFormGroup.get('name')?.errors?.required
+      "
+      >Please enter your name</span
+    >
+  </div>
+  <div class="form-group">
+    <label for="email" class="sr-only">Email</label>
+    <input
+      id="email"
+      class="form-control aligncenter"
+      placeholder="Your email"
+      formControlName="emailAddress"
+    />
+    <span
+      class="form-error"
+      *ngIf="
+        contactFormGroup.get('emailAddress')?.value?.length &&
+        contactFormGroup.get('emailAddress')?.errors?.email
+      "
+      >Invalid email</span
+    >
+    <span
+      class="form-error"
+      *ngIf="
+        (messageSent || messageSendDidError) &&
+        contactFormGroup.get('emailAddress')?.errors?.required
+      "
+      >Please enter your email</span
+    >
+  </div>
+  <div class="form-group">
+    <label for="message" class="sr-only">Message</label>
+    <textarea
+      id="message"
+      class="form-control aligncenter"
+      placeholder="Your message"
+      formControlName="message"
+    >
+    </textarea>
+    <span
+      class="form-error"
+      *ngIf="
+        (messageSent || messageSendDidError) &&
+        contactFormGroup.get('message')?.errors?.required
+      "
+      >Please write a message</span
+    >
+  </div>
+
+  <button class="line-drawn-button">Send</button>
+</form>

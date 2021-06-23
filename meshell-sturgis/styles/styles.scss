@@ -1,0 +1,116 @@
+@import "./typography.scss";
+@import "./layout.scss";
+@import "./elements.scss";
+@import "./forms.scss";
+@import "./variables.scss";
+
+html {
+  font-size: 62.5%;
+}
+
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+button {
+  box-sizing: border-box;
+}
+
+a {
+  color: $blue;
+}
+
+a,
+button,
+div[tabindex="0"] {
+  cursor: pointer;
+}
+
+body {
+  background: #fff;
+  font-size: 16px;
+  background: transparent url($bg-url) no-repeat 50% 8.25rem;
+  background-size: 135.2rem auto;
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 9px;
+  }
+}
+@media screen and (max-width: 414px) {
+  html {
+    font-size: 5px;
+  }
+  body {
+    background: transparent;
+  }
+}
+@media screen and (max-width: 375px) {
+  html {
+    font-size: 4.6px;
+  }
+}
+@media screen and (max-width: 360px) {
+  html {
+    font-size: 4.4px;
+  }
+}
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 4px;
+  }
+}
+
+// Wordpress styles.
+.has-text-align-center {
+  text-align: center;
+}
+
+.wp-block-gallery,
+.wp-block-image {
+  margin: 30px 0 0 0;
+}
+
+.wp-block-image {
+  img {
+    width: 100%;
+  }
+}
+
+.blocks-gallery {
+  &-grid {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+
+  &-item {
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+
+    figure {
+      margin: 0;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.full-width-gallery {
+  .blocks-gallery-grid {
+    flex-direction: column;
+  }
+  .blocks-gallery-item {
+    padding: 0;
+  }
+}

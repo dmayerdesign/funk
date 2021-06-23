@@ -1,0 +1,166 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+ms-masthead {
+  float: left;
+  width: 100%;
+}
+
+main {
+  float: left;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: $container-width;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+footer {
+  float: left;
+  clear: both;
+  width: 100%;
+}
+
+#wrapper,
+.footer-inner {
+  width: $main-width;
+  padding-top: 2rem;
+  padding-bottom: 10rem;
+}
+
+// Offset to make the notebook design work.
+#wrapper,
+.footer-inner,
+.flash-message {
+  transform: translateX(-7rem);
+}
+
+@media screen and (max-width: 940px) {
+  #wrapper,
+  .footer-inner,
+  .flash-message {
+    transform: translateX(0);
+  }
+}
+
+// Flex grid
+
+.flex-grid {
+  display: flex;
+  margin: -1.6rem 0 1.6rem -1.6rem;
+
+  .col {
+    display: block;
+    padding: 1.6rem 0 0 1.6rem;
+    flex: 1;
+  }
+}
+
+.grid {
+  &::after {
+    content: " ";
+    display: block;
+    clear: both;
+    visibility: hidden;
+  }
+  text-align: center;
+  margin: -#{$col-3-margin} 0 0 -1.2rem;
+
+  .col {
+    display: block;
+    position: relative;
+    float: left;
+    margin: $col-3-margin 0 0 $col-3-margin;
+    width: $col-3-width;
+    height: $col-3-height;
+
+    .col-inner {
+      position: relative;
+      width: $col-3-width;
+      height: $col-3-height;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+
+      .line-drawn-border {
+        float: left;
+        position: relative;
+        top: -0.3rem;
+        left: -0.3rem;
+        width: $col-3-width + 0.6rem;
+        height: $col-3-height + 0.6rem;
+      }
+    }
+
+    &.col-2-3 {
+      width: $col-2-3-width;
+
+      .col-inner {
+        width: $col-2-3-width;
+
+        .line-drawn-border-rect {
+          float: left;
+          position: relative;
+          top: -0.3rem;
+          left: -0.3rem;
+          width: $col-2-3-width + 0.6rem;
+          height: $col-3-height + 0.6rem;
+        }
+      }
+    }
+
+    .frame-title {
+      background: $gold;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5.8rem;
+      line-height: 5.7rem;
+
+      h2 {
+        display: inline-block;
+        margin: 0;
+        line-height: 1;
+        color: #fff;
+        font-size: 1.8rem;
+        font-weight: normal;
+      }
+
+      .line-drawn-border {
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        position: absolute;
+        top: -0.4rem;
+        left: 0;
+        width: 100%;
+      }
+    }
+
+    @for $i from 1 through 100 {
+      &:nth-child(#{$i}) {
+        @if $i % 2 < 1 {
+          .frame-title {
+            background: $dark-blue;
+          }
+        }
+        @if $i % 3 < 1 {
+          .frame-title {
+            background: $teal;
+          }
+        }
+        @if $i % 4 < 1 {
+          .frame-title {
+            background: $blue;
+          }
+        }
+      }
+    }
+  }
+}
