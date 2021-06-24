@@ -11,9 +11,10 @@ import {
 } from "@funk/auth/plugins/external/turing-test/behaviors/get-token"
 import { ContactOwner } from "@funk/contact/infrastructure/external/cloud-functions/owner"
 import { ContactForm } from "@funk/contact/model/contact-form"
+import { GetById as GetContentById } from "@funk/content/application/external/behaviors/persistence/get-by-id"
+import { GET_CONTENT_BY_ID } from "@funk/content/infrastructure/external/persistence/tokens"
+import { UiService } from "@funk/meshell-sturgis/services/ui.service"
 import { CONTACT_OWNER } from "@funk/portfolio/infrastructure/external/tokens"
-import { PageTitle } from "@funk/ui/atlas/application/external/page-title"
-import { PAGE_TITLE } from "@funk/ui/infrastructure/external/tokens"
 
 @Component({
   templateUrl: "./contact.component.html",
@@ -33,10 +34,15 @@ export class ContactComponent implements OnInit {
   public constructor(
     @Inject(CONTACT_OWNER) private _sendEmailToOwner: ContactOwner,
     @Inject(GET_TOKEN) private _getTuringTestToken: GetToken,
-    @Inject(PAGE_TITLE) public pageTitle: PageTitle,
+    @Inject(GET_CONTENT_BY_ID) private _getContentById: GetContentById,
+    private _ui: UiService,
   ) {}
 
-  public ngOnInit(): void {}
+  public async ngOnInit(): Promise<void> {
+    const canary = this._getContentById("contact-title")
+    await canary
+    this._ui.transition$.next(false)
+  }
 
   public async handleSubmit(): Promise<void> {
     try {

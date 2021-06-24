@@ -12,7 +12,7 @@
 }
 
 .banner {
-  background: url($bg-rect-url);
+  background: url("../../assets/external/meshell-sturgis/images/banner-rectangle-darkblue.png");
 }
 
 img {
@@ -32,7 +32,8 @@ img {
   margin-bottom: 2rem;
   margin-top: 0;
   width: 100%;
-  background: url($bg-rect-url) no-repeat 50% top;
+  background: url("../../assets/external/meshell-sturgis/images/banner-rectangle-darkblue.png")
+    no-repeat 50% top;
   background-size: contain;
   height: 10.7rem;
   text-align: center;
@@ -61,14 +62,20 @@ img {
 }
 
 .line-drawn-border {
-  @include border-image($line-drawn-border-url);
+  @include border-image(
+    "../../assets/external/meshell-sturgis/images/line-drawn-border.png"
+  );
 }
 .line-drawn-border-rect {
-  @include border-image($line-drawn-border-rect-url);
+  @include border-image(
+    "../../assets/external/meshell-sturgis/images/line-drawn-border-rect.png"
+  );
 }
 
 .line-drawn-button {
-  @include border-image($button-border-url);
+  @include border-image(
+    "../../assets/external/meshell-sturgis/images/button-border.png"
+  );
   font-family: "Permanent Marker", Helvetica, Arial, sans-serif;
   font-size: 1.8rem;
   letter-spacing: 0.05rem;

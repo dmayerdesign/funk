@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core"
+import { ContentHtmlBlogPost } from "@funk/content/model/content"
 
 @Injectable({ providedIn: "root" })
 export class CacheService {
   public homeTagline?: string
-  public contact: any
-  public about: any
-  public cV: any
-  public pages = new Map<string, any>()
+  public contact?: ContentHtmlBlogPost
+  public about?: ContentHtmlBlogPost
+  public cV?: ContentHtmlBlogPost
+  public pages = new Map<string, ContentHtmlBlogPost>()
 
   public constructor() {}
 }

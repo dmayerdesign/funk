@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { Router } from "@angular/router"
 import { Subscription } from "rxjs"
-import { first } from "rxjs/operators"
 import { CacheService } from "../../services/cache.service"
 import { PostsService } from "../../services/posts.service"
 import { UiService } from "../../services/ui.service"
@@ -27,21 +26,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.bannerUrl = "/assets/meshell-sturgis/images/home-banner.png"
-    this.getRectangleTestSequence()
+    this.setRectangleTestSequence()
 
     if (!this.cache.homeTagline) {
+      const canary = this.posts.getOne$
+      this.taglinePostSub = canary.subscribe((x) => {
+        console.log("cacaw!", x)
+        this.ui.transition$.next(false)
+      })
       this.posts.getOneBySlug("home-tagline")
-      this.taglinePostSub = this.posts.getOne$
-        .pipe(first())
-        .subscribe((taglinePost) => {
-          this.post = taglinePost
-          if (!this.post || !this.post.content) {
-            setTimeout(() => this.ui.transition$.next(false))
-            return
-          }
-          this.cache.homeTagline = this.post.content.rendered
-          setTimeout(() => this.ui.transition$.next(false))
-        })
     } else {
       setTimeout(() => this.ui.transition$.next(false))
     }
@@ -62,7 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  public getRectangleTestSequence() {
+  public setRectangleTestSequence() {
     for (let n = 1; n < 100; n++) {
       this.rectangleTestSequence.push(0.5 * (10 * n + Math.pow(-1, n + 1) - 7))
     }

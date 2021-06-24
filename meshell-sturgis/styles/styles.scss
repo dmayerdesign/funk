@@ -32,11 +32,19 @@ div[tabindex="0"] {
   cursor: pointer;
 }
 
-body {
-  background: #fff;
+#meshell-sturgis-container {
   font-size: 16px;
-  background: transparent url($bg-url) no-repeat 50% 8.25rem;
+  background: #fff
+    url("../../assets/external/meshell-sturgis/images/sketchbook-bg.jpg")
+    no-repeat 50% 8.25rem;
   background-size: 135.2rem auto;
+}
+
+#meshell-sturgis-routes {
+  transition: opacity 200ms ease-in-out;
+}
+.is-transitioning {
+  opacity: 0.3;
 }
 
 @media screen and (max-width: 768px) {
