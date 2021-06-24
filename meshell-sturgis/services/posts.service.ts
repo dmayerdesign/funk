@@ -60,6 +60,7 @@ export class PostsService {
   }
 
   public getOneBySlug(slug?: string): void {
+    console.log("get one by slug...")
     this._listHtmlBlogPosts({
       pagination: DEFAULT_PAGINATION_TAKE_ALL,
       conditions: [
@@ -68,9 +69,11 @@ export class PostsService {
       ],
     })
       .then(([page]) => {
+        console.log("listed some blog posts", page)
         this.getOneSubject.next(page)
       })
       .catch((error) => {
+        console.log("error!!", error)
         this.getOneErrorSubject.next(error)
       })
   }

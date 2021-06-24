@@ -1,12 +1,13 @@
 import { Inject, Injectable } from "@angular/core"
 import { GetTaxonomyTermBySlug } from "@funk/blog/infrastructure/external/cloud-functions/get-taxonomy-term-by-slug"
-import { GET_TAXONOMY_TERM_BY_SLUG } from "@funk/blog/infrastructure/external/tokens"
+import { ListTaxonomyTerms } from "@funk/blog/infrastructure/external/cloud-functions/list-taxonomy-terms"
+import {
+  GET_TAXONOMY_TERM_BY_SLUG,
+  LIST_TAXONOMY_TERMS,
+} from "@funk/blog/infrastructure/external/tokens"
 import { DEFAULT_PAGINATION_TAKE_ALL } from "@funk/persistence/model/pagination"
 import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"
 import { from, Observable } from "rxjs"
-
-const LIST_TAXONOMY_TERMS = "LIST_TAXONOMY_TERMS"
-type ListTaxonomyTerms = (options: any) => Promise<TaxonomyTerm[]>
 
 @Injectable({ providedIn: "root" })
 export class CategoriesService {
@@ -25,7 +26,7 @@ export class CategoriesService {
     return from(
       this._listTaxonomyTerms({
         pagination: DEFAULT_PAGINATION_TAKE_ALL,
-        conditions: ["id", "==", categoryId],
+        conditions: [["id", "==", categoryId]],
       }).then(([taxonomyTerm]) => taxonomyTerm),
     )
   }
@@ -34,7 +35,7 @@ export class CategoriesService {
     return from(
       this._listTaxonomyTerms({
         pagination: DEFAULT_PAGINATION_TAKE_ALL,
-        conditions: ["slug", "==", categorySlug],
+        conditions: [["slug", "==", categorySlug]],
       }).then(([taxonomyTerm]) => taxonomyTerm.id),
     )
   }
@@ -43,7 +44,7 @@ export class CategoriesService {
     return from(
       this._listTaxonomyTerms({
         pagination: DEFAULT_PAGINATION_TAKE_ALL,
-        conditions: ["slug", "in", categorySlugs],
+        conditions: [["slug", "in", categorySlugs]],
       }).then((taxonomyTerms) => taxonomyTerms.map(({ id }) => id)),
     )
   }

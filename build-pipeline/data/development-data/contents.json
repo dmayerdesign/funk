@@ -106,5 +106,32 @@
     "createdAt": 1619487129216,
     "removedAt": null,
     "__collections__": {}
+  },
+  "contact-title": {
+    "id": "contact-title",
+    "slug": "contact-title",
+    "value": "Get in touch.",
+    "type": "TEXT",
+    "createdAt": 1624501177708,
+    "removedAt": null,
+    "__collections__": {}
+  },
+  "contact-body": {
+    "id": "contact-body",
+    "slug": "contact-body",
+    "value": "<p> <a href=\"https://www.linkedin.com/in/meshell-sturgis-23956b6a/\" >Connect with me on LinkedIn.</a ></p><p>Or send me a message using the form below.</p><h2><strong>Affiliations:</strong></h2><p> <a href=\"https://www.blackembodiments.org/\">Black Embodiment Studio</a ><br/><a href=\"http://ccde.com.washington.edu/\" >The Center for Communication, Difference, and Equity</a ><br/><a href=\"http://www.com.washington.edu/cdrg/\" >Communication and Difference Research Group</a ><br/>UW <a href=\"http://depts.washington.edu/gpss/\" >Graduate and Professional Student Senator</a > for Department of Communication<br/><a href=\"https://grad.uw.edu/equity-inclusion-and-diversity/go-map/go-map-fellows/meshell-sturgis/\" >GO-MAP Presidential Dissertation Fellow</a > and Outreaching Grad (OG)<br/><a href=\"https://www.seattle.gov/arts/programs/ethnic-artist-roster#/\" >Seattle City Ethnic Artist Roster</a ><br/><a href=\"https://www.uwb.edu/cultural-studies/people/alumni-ambassadors\" >School of IAS as Alumni Ambassador</a ><br/><a href=\"https://tnxalpha97.wixsite.com/home\" >The ALMIGHTY Alpha Chapter of Theta Nu Xi Multicultural Sorority, Inc.</a >&nbsp;<br/><a href=\"http://sealevelhotyoga.com/\">Sealevel Hot Yoga</a></p>",
+    "type": "HTML",
+    "createdAt": 1624501177708,
+    "removedAt": null,
+    "__collections__": {}
+  },
+  "home-tagline": {
+    "id": "home-tagline",
+    "slug": "home-tagline",
+    "value": "<p><span>Welcome.<br></span><span>Willkommen.<br></span><span>Bienvenido.<br></span><span>Karibu.</span></p>",
+    "type": "HTML",
+    "createdAt": 1624501177708,
+    "removedAt": null,
+    "__collections__": {}
   }
 }
