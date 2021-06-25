@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   HostListener,
   Inject,
   Input,
@@ -17,7 +18,7 @@ import {
 import { Content, ContentType } from "@funk/content/model/content"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { defer, Observable } from "rxjs"
-import { map, shareReplay } from "rxjs/operators"
+import { delay, map, shareReplay } from "rxjs/operators"
 
 @UntilDestroy()
 @Component({
@@ -74,11 +75,27 @@ export class ContentComponent implements OnInit, OnDestroy {
     @Inject(GET_MAYBE_PREVIEW_OR_LIVE_CONTENT)
     private _getMaybePreviewOrLiveContent: GetMaybePreviewOrLiveContent,
     @Inject(GET_IS_AUTHORIZED) private _getIsAuthorized: GetIsAuthorized,
+    private _elementRef: ElementRef<HTMLElement>,
   ) {}
 
   public async ngOnInit(): Promise<void> {
     this.content.subscribe()
     this.contentValue.subscribe()
+
+    this.contentType.pipe(delay(0)).subscribe((type) => {
+      if (type === ContentType.HTML) {
+        this._elementRef.nativeElement
+          .querySelectorAll("img")
+          .forEach((imgNode) => {
+            imgNode.style.cursor = "pointer"
+            imgNode.addEventListener("click", () => {
+              const newWindow = window.open("", "_blank")
+              newWindow?.document.write(`<img src="${imgNode.src}" />`)
+              newWindow?.document.close()
+            })
+          })
+      }
+    })
   }
 
   public ngOnDestroy(): void {}
