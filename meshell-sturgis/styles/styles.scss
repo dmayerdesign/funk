@@ -43,9 +43,9 @@ div[tabindex="0"] {
 #meshell-sturgis-routes {
   transition: opacity 200ms ease-in-out;
 }
-.is-transitioning {
-  opacity: 0.3;
-}
+// .is-transitioning {
+//   opacity: 0.3;
+// }
 
 @media screen and (max-width: 768px) {
   html {

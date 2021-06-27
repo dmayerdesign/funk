@@ -1,13 +1,13 @@
 <nav id="masthead" class="container" role="banner">
   <div class="nav-inner">
-      <a [routerLink]="rootPath" id="logo">
-        <img [attr.src]="logoUrl" alt="Meshell Sturgis" />
-      </a>
-    
-      <ul>
-        <li><a [routerLink]="rootPath">home</a></li>
-        <li><a [routerLink]="[ rootPath, 'about' ]">about</a></li>
-        <li><a [routerLink]="[ rootPath, 'contact' ]">contact</a></li>
-      </ul>
+    <a [routerLink]="rootPath" id="logo">
+      <img [attr.src]="logoUrl" alt="Meshell Sturgis" />
+    </a>
+
+    <ul>
+      <li><a [routerLink]="rootPath">home</a></li>
+      <li><a [routerLink]="[rootPath, 'about']">about</a></li>
+      <li><a [routerLink]="[rootPath, 'contact']">contact</a></li>
+    </ul>
   </div>
 </nav>

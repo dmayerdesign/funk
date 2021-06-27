@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from "@angular/core"
+import { Component, Inject, OnInit } from "@angular/core"
 import { Router } from "@angular/router"
-import { Subscription } from "rxjs"
+import { GetById } from "@funk/content/application/external/behaviors/persistence/get-by-id"
+import { GET_CONTENT_BY_ID } from "@funk/content/infrastructure/external/persistence/tokens"
 import { CacheService } from "../../services/cache.service"
-import { PostsService } from "../../services/posts.service"
 import { UiService } from "../../services/ui.service"
 
 @Component({
@@ -10,18 +10,15 @@ import { UiService } from "../../services/ui.service"
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   public bannerUrl!: string
-  public post: any
-  private homeCategorySub!: Subscription
-  private taglinePostSub!: Subscription
   private rectangleTestSequence: number[] = []
 
   public constructor(
     public ui: UiService,
-    public posts: PostsService,
     public cache: CacheService,
     private router: Router,
+    @Inject(GET_CONTENT_BY_ID) private getContentById: GetById,
   ) {}
 
   public ngOnInit() {
@@ -29,20 +26,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.setRectangleTestSequence()
 
     if (!this.cache.homeTagline) {
-      const canary = this.posts.getOne$
-      this.taglinePostSub = canary.subscribe((x) => {
-        console.log("cacaw!", x)
+      const canary = this.getContentById("home-tagline")
+      canary.then((x) => {
         this.ui.transition$.next(false)
       })
-      this.posts.getOneBySlug("home-tagline")
     } else {
       setTimeout(() => this.ui.transition$.next(false))
     }
-  }
-
-  public ngOnDestroy() {
-    if (this.homeCategorySub) this.homeCategorySub.unsubscribe()
-    if (this.taglinePostSub) this.taglinePostSub.unsubscribe()
   }
 
   public handleTileClick(slug: string) {

@@ -20,6 +20,8 @@ export const routes: Routes = [
         component: PageComponent,
         data: {
           page: "about",
+          titleId: "about-title",
+          bodyId: "about-body",
         },
       },
       {
@@ -31,6 +33,8 @@ export const routes: Routes = [
         component: PageComponent,
         data: {
           page: "art",
+          titleId: "art-title",
+          bodyId: "art-body",
         },
       },
       {
@@ -38,6 +42,8 @@ export const routes: Routes = [
         component: PageComponent,
         data: {
           page: "teaching",
+          titleId: "teaching-title",
+          bodyId: "teaching-body",
         },
       },
       {
@@ -45,6 +51,8 @@ export const routes: Routes = [
         component: PageComponent,
         data: {
           page: "research",
+          titleId: "research-title",
+          bodyId: "research-body",
         },
       },
       {
@@ -52,6 +60,8 @@ export const routes: Routes = [
         component: PageComponent,
         data: {
           page: "c-v",
+          titleId: "c-v-title",
+          bodyId: "c-v-body",
         },
       },
       {
@@ -59,20 +69,6 @@ export const routes: Routes = [
         component: CategoryComponent,
         data: {
           category: "projects",
-        },
-      },
-      {
-        path: "teaching",
-        component: CategoryComponent,
-        data: {
-          category: "teaching",
-        },
-      },
-      {
-        path: "art",
-        component: CategoryComponent,
-        data: {
-          category: "art",
         },
       },
       {

@@ -1,7 +1,7 @@
 @mixin border-image($url, $width: 0.6rem) {
-    border-width: $width;
-    border-style: solid;
-    -webkit-border-image: url($url) 12.5 stretch; /* Safari 3.1-5 */
-    -o-border-image: url($url) 12.5 stretch; /* Opera 11-12.1 */
-    border-image: url($url) 12.5 stretch;
+  border-width: $width;
+  border-style: solid;
+  -webkit-border-image: url($url) 12.5 stretch; /* Safari 3.1-5 */
+  -o-border-image: url($url) 12.5 stretch; /* Opera 11-12.1 */
+  border-image: url($url) 12.5 stretch;
 }

@@ -1,69 +1,58 @@
-import { Component, OnDestroy, OnInit } from "@angular/core"
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core"
 import { ActivatedRoute, Router } from "@angular/router"
+import { GetIsAuthorized } from "@funk/content/application/external/editor/behaviors/get-is-authorized"
+import { OpenHtmlBlogPostEditor } from "@funk/content/application/external/editor/behaviors/open-html-blog-post-editor"
+import {
+  GET_IS_AUTHORIZED,
+  OPEN_HTML_BLOG_POST_EDITOR,
+} from "@funk/content/infrastructure/external/editor/tokens"
 import { Subscription } from "rxjs"
 import { first } from "rxjs/operators"
-import { CacheService } from "../../services/cache.service"
-import { PagesService } from "../../services/pages.service"
-import { UiService } from "../../services/ui.service"
 
 @Component({
   selector: "ms-page",
   template: `
     <header class="page-title">
-      <h1
-        *ngIf="page?.title"
-        class="display-heading-{{ page?.slug }}"
-        [innerHTML]="page.title.rendered + '.'"
-      ></h1>
+      <h1 *ngIf="titleId" class="display-heading-{{ page }}">
+        <content [contentId]="titleId"></content>
+      </h1>
     </header>
 
-    <article
-      class="main-content"
-      [innerHTML]="page?.content?.rendered"
-    ></article>
+    <article class="main-content">
+      <content [contentId]="bodyId"></content>
+    </article>
   `,
 })
 export class PageComponent implements OnInit, OnDestroy {
-  private pagesSub!: Subscription
   private routeDataSub!: Subscription
-  public page: any
+  public page!: string
+  public titleId!: string
+  public bodyId!: string
+  public isAuthorizedToEdit = this._getIsAuthorizedToEdit()
 
   public constructor(
-    private ui: UiService,
-    private pages: PagesService,
-    private cache: CacheService,
     private route: ActivatedRoute,
     private router: Router,
+    @Inject(OPEN_HTML_BLOG_POST_EDITOR)
+    public openHtmlBlogPostEditor: OpenHtmlBlogPostEditor,
+    @Inject(GET_IS_AUTHORIZED) private _getIsAuthorizedToEdit: GetIsAuthorized,
   ) {}
 
   public ngOnInit() {
     this.routeDataSub = this.route.data.pipe(first()).subscribe((data) => {
-      if (data && data.page) {
-        this.getPage(data.page)
-      } else {
+      this.page = data.page
+      this.titleId = data.titleId
+      this.bodyId = data.bodyId
+      if (!this.titleId || !this.bodyId) {
+        console.log(
+          "Page route configuration requires both data.titleId and data.bodyId.",
+        )
         this.router.navigateByUrl("/")
       }
     })
   }
 
   public ngOnDestroy() {
-    if (this.pagesSub) this.pagesSub.unsubscribe()
     if (this.routeDataSub) this.routeDataSub.unsubscribe()
-  }
-
-  public getPage(slug: string) {
-    if (this.cache.pages.has(slug)) {
-      this.page = this.cache.pages.get(slug)
-      setTimeout(() => this.ui.transition$.next(false))
-      return
-    }
-
-    this.pages.getOneBySlug(slug)
-    this.pagesSub = this.pages.getOne$.subscribe((page) => {
-      this.page = page
-      setTimeout(() => this.ui.transition$.next(false))
-      if (!this.page || !this.page.content) return
-      this.cache.pages.set(slug, this.page)
-    })
   }
 }
