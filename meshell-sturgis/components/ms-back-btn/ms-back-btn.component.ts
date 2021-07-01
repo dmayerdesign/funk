@@ -1,3 +1,4 @@
+import { Location } from "@angular/common"
 import { Component, Input } from "@angular/core"
 import { Router } from "@angular/router"
 
@@ -12,13 +13,16 @@ import { Router } from "@angular/router"
   styleUrls: ["./ms-back-btn.component.scss"],
 })
 export class MsBackBtnComponent {
-  @Input() public routeUrl!: string
+  @Input() public routeUrl?: string | undefined
   @Input() public text = "Back"
 
-  public constructor(private router: Router) {}
+  public constructor(private router: Router, private location: Location) {}
 
   public onClick() {
-    console.log("navigate to", this.routeUrl)
-    this.router.navigateByUrl(this.routeUrl)
+    if (this.routeUrl) {
+      this.router.navigateByUrl(this.routeUrl)
+    } else {
+      this.location.back()
+    }
   }
 }

@@ -173,9 +173,9 @@ $has-preview-notice-height: 32px;
     }
   }
   &#simple-editor-drawer.half-height {
-    @include animate-in-out(50);
+    @include animate-in-out(75);
     .ck-editor__main > .ck-content {
-      height: calc(50vh - #{$simple-drawer-input-height-offset});
+      height: calc(75vh - #{$simple-drawer-input-height-offset});
     }
   }
 

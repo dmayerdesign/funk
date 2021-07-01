@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
 import { ActivatedRoute, Router } from "@angular/router"
+import { TaxonomyTerm } from "@funk/taxonomy/model/taxonomy-term"
 import { Observable, Subscription } from "rxjs"
 import { first, tap } from "rxjs/operators"
 import { CategoriesService } from "../../services/categories.service"
@@ -12,7 +13,7 @@ import { UiService } from "../../services/ui.service"
   styleUrls: ["./category.component.scss"],
 })
 export class CategoryComponent implements OnInit, OnDestroy {
-  public category: any
+  public category?: TaxonomyTerm
   public posts$?: Observable<any[]>
   public routeDataSub!: Subscription
   public categorySub?: Subscription

@@ -90,9 +90,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   ) {}
 
   public async ngOnInit(): Promise<void> {
-    this.content.subscribe((content) => {
-      console.log("got some content!", content)
-    })
+    this.content.subscribe()
     this.contentValue.subscribe()
 
     if (this.useCache) {

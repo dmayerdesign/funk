@@ -1,6 +1,6 @@
 <header class="page-title">
-  <h1 *ngIf="category?.name" class="display-heading-{{ category.slug }}">
-    {{ category.name }}.
+  <h1 *ngIf="category?.pluralName" class="display-heading-{{ category?.slug }}">
+    {{ category?.pluralName }}.
   </h1>
   <ms-back-btn routeUrl="/"></ms-back-btn>
 </header>

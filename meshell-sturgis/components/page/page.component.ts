@@ -14,12 +14,20 @@ import { first } from "rxjs/operators"
   template: `
     <header class="page-title">
       <h1 *ngIf="titleId" class="display-heading-{{ page }}">
-        <content [contentId]="titleId"></content>
+        <content [cache]="true" [contentId]="titleId"></content>
       </h1>
+      <ms-back-btn></ms-back-btn>
     </header>
 
     <article class="main-content">
-      <content [contentId]="bodyId"></content>
+      <div *ngIf="coverImageId" [style]="{ paddingBottom: '20px' }">
+        <content [cache]="true" [contentId]="coverImageId"></content>
+      </div>
+      <content
+        [cache]="true"
+        [contentId]="bodyId"
+        [clickToOpenImages]="true"
+      ></content>
     </article>
   `,
 })
@@ -28,6 +36,7 @@ export class PageComponent implements OnInit, OnDestroy {
   public page!: string
   public titleId!: string
   public bodyId!: string
+  public coverImageId?: string
   public isAuthorizedToEdit = this._getIsAuthorizedToEdit()
 
   public constructor(
@@ -43,6 +52,7 @@ export class PageComponent implements OnInit, OnDestroy {
       this.page = data.page
       this.titleId = data.titleId
       this.bodyId = data.bodyId
+      this.coverImageId = data.coverImageId
       if (!this.titleId || !this.bodyId) {
         console.log(
           "Page route configuration requires both data.titleId and data.bodyId.",

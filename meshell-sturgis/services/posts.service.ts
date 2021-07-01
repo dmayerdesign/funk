@@ -31,7 +31,7 @@ export class PostsService {
     this._listHtmlBlogPosts({
       pagination: DEFAULT_PAGINATION_TAKE_ALL,
       conditions: [
-        ["taxonomyTerms", "array-contains", "blog-posts"],
+        // ["taxonomyTerms", "array-contains", "blog-posts"],
         ["taxonomyTerms", "array-contains", taxonomyTermId],
       ],
     })

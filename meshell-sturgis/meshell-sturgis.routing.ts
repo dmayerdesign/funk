@@ -22,6 +22,7 @@ export const routes: Routes = [
           page: "about",
           titleId: "about-title",
           bodyId: "about-body",
+          coverImageId: "about-cover-image",
         },
       },
       {
@@ -62,6 +63,33 @@ export const routes: Routes = [
           page: "c-v",
           titleId: "c-v-title",
           bodyId: "c-v-body",
+        },
+      },
+      {
+        path: "writing",
+        component: PageComponent,
+        data: {
+          page: "writing",
+          titleId: "writing-title",
+          bodyId: "writing-body",
+        },
+      },
+      {
+        path: "blog",
+        component: PageComponent,
+        data: {
+          page: "blog",
+          titleId: "blog-title",
+          bodyId: "blog-body",
+        },
+      },
+      {
+        path: "publicity",
+        component: PageComponent,
+        data: {
+          page: "publicity",
+          titleId: "publicity-title",
+          bodyId: "publicity-body",
         },
       },
       {
