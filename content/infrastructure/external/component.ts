@@ -18,7 +18,7 @@ import {
 import { Content, ContentType } from "@funk/content/model/content"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { defer, Observable } from "rxjs"
-import { delay, map, shareReplay } from "rxjs/operators"
+import { delay, first, map, shareReplay } from "rxjs/operators"
 
 @UntilDestroy()
 @Component({
@@ -82,7 +82,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.content.subscribe()
     this.contentValue.subscribe()
 
-    this.contentType.pipe(delay(0)).subscribe((type) => {
+    this.contentType.pipe(first(), delay(0)).subscribe((type) => {
       if (type === ContentType.HTML) {
         this._elementRef.nativeElement
           .querySelectorAll("img")
