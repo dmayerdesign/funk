@@ -21,5 +21,10 @@ service firebase.storage {
       allow read;
       allow write: if isSuperOrOwnerOrAdmin();
     }
+
+    match /meshell-sturgis.cover-images/{imageGroupId} {
+      allow read;
+      allow write: if isSuperOrOwnerOrAdmin();
+    }
   }
 }
