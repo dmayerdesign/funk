@@ -1,5 +1,6 @@
 import { InjectionToken } from "@angular/core"
 import { CancelEdit } from "@funk/content/application/external/editor/behaviors/cancel-edit"
+import { ContentCache } from "@funk/content/application/external/editor/behaviors/content-cache"
 import { CreateCoverImagePreviewUrl } from "@funk/content/application/external/editor/behaviors/create-cover-image-preview-url"
 import { GetHasPreview } from "@funk/content/application/external/editor/behaviors/get-has-preview"
 import { GetIsAuthorized } from "@funk/content/application/external/editor/behaviors/get-is-authorized"
@@ -122,3 +123,4 @@ export const MOVE_CONTENT_TO_TRASH = new InjectionToken<MoveContentToTrash>(
 export const CREATE_COVER_IMAGE_PREVIEW_URL = new InjectionToken<
   CreateCoverImagePreviewUrl
 >("CREATE_COVER_IMAGE_PREVIEW_URL")
+export const CONTENT_CACHE = new InjectionToken<ContentCache>("CONTENT_CACHE")

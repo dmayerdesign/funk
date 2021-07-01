@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from "@angular/core"
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular"
 import { ADD_HTML_BLOG_POST_COVER_IMAGE } from "@funk/blog/infrastructure/external/tokens"
 import { construct as constructCancelEdit } from "@funk/content/application/external/editor/behaviors/cancel-edit"
+import { contentCache } from "@funk/content/application/external/editor/behaviors/content-cache"
 import { construct as constructCreateCoverImagePreviewUrl } from "@funk/content/application/external/editor/behaviors/create-cover-image-preview-url"
 import { construct as constructGetHasPreview } from "@funk/content/application/external/editor/behaviors/get-has-preview"
 import { construct as constructGetIsAuthorized } from "@funk/content/application/external/editor/behaviors/get-is-authorized"
@@ -37,6 +38,7 @@ import { ContentComponent } from "@funk/content/infrastructure/external/componen
 import { ContentEditorContainer } from "@funk/content/infrastructure/external/editor/container"
 import {
   CANCEL_EDIT,
+  CONTENT_CACHE,
   CREATE_COVER_IMAGE_PREVIEW_URL,
   GET_HAS_PREVIEW,
   GET_IS_AUTHORIZED,
@@ -323,6 +325,10 @@ export class ContentModule {
           provide: CREATE_COVER_IMAGE_PREVIEW_URL,
           useFactory: constructCreateCoverImagePreviewUrl,
           deps: [],
+        },
+        {
+          provide: CONTENT_CACHE,
+          useValue: contentCache,
         },
       ],
     }
