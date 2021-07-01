@@ -4,10 +4,12 @@ import { construct as constructAdminGrantSuperRoleToMe } from "@funk/admin/infra
 import { construct as constructAddHtmlBlogPostCoverImage } from "@funk/blog/infrastructure/external/cloud-functions/add-html-blog-post-cover-image"
 import { construct as constructGetTaxonomyTermBySlug } from "@funk/blog/infrastructure/external/cloud-functions/get-taxonomy-term-by-slug"
 import { construct as constructListHtmlBlogPosts } from "@funk/blog/infrastructure/external/cloud-functions/list-html-blog-posts"
+import { construct as constructListTaxonomyTerms } from "@funk/blog/infrastructure/external/cloud-functions/list-taxonomy-terms"
 import {
   ADD_HTML_BLOG_POST_COVER_IMAGE,
   GET_TAXONOMY_TERM_BY_SLUG,
   LIST_HTML_BLOG_POSTS,
+  LIST_TAXONOMY_TERMS,
 } from "@funk/blog/infrastructure/external/tokens"
 import { construct as constructCommerceOrderSetSkuQuantity } from "@funk/commerce/order/infrastructure/external/cloud-functions/set-sku-quantity"
 import { construct as constructCommerceProductListPublished } from "@funk/commerce/product/infrastructure/external/cloud-functions/list-published"
@@ -67,6 +69,11 @@ import { FunctionsClient } from "@funk/ui/infrastructure/external/helpers/functi
     {
       provide: GET_TAXONOMY_TERM_BY_SLUG,
       useFactory: constructGetTaxonomyTermBySlug,
+      deps: [FunctionsClient],
+    },
+    {
+      provide: LIST_TAXONOMY_TERMS,
+      useFactory: constructListTaxonomyTerms,
       deps: [FunctionsClient],
     },
     {
